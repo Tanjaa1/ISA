@@ -40,6 +40,10 @@ public abstract class User {
 	private String PhoneNumber;
 	@Column(name="Description", unique=false, nullable=false)
 	private String Description;
+	@Column(name="EmailComfirmed", unique=false, nullable=false)
+	private Boolean EmailComfirmed;
+	@Column(name="FirstTimeLogin", unique=false, nullable=false)
+	private Boolean FirstTimeLogin;
 	
 	public long getId() {
 		return Id;
