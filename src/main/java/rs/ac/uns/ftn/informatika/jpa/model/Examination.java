@@ -2,12 +2,37 @@ package rs.ac.uns.ftn.informatika.jpa.model;
 
 import java.time.LocalDateTime;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="Examination")
 public class Examination {
-	private long id;
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	
+	@Column(name="Report", unique=false, nullable=true)
 	private String Report;
+	
+	@Column(name="StartTime", unique=false, nullable=true)
 	private LocalDateTime StartTime;
+	
+	@Column(name="isDone", unique=false, nullable=true)
 	private Boolean isDone;
+	
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Patient Patient;
+	
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Dermatologist Dermatologist;
 	
 	public Examination(long id, String report, LocalDateTime startTime, Boolean isDone,

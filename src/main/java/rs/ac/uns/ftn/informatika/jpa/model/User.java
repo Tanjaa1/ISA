@@ -1,19 +1,44 @@
 package rs.ac.uns.ftn.informatika.jpa.model;
 
+import static javax.persistence.InheritanceType.TABLE_PER_CLASS;
+
 import java.util.ArrayList;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.SequenceGenerator;
 
 import rs.ac.uns.ftn.informatika.jpa.enums.UserRole;
 
-public class User {
-	private long Id;
+@Entity
+@Inheritance(strategy=TABLE_PER_CLASS)
+public abstract class User {
+	
+	@Id
+	@SequenceGenerator(name = "Id", sequenceName = "Id1", initialValue = 1, allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "Id")
+	private Long Id;
+	@Column(name="Email", unique=false, nullable=false)
 	private String Email;
+	@Column(name="Password", unique=false, nullable=false)
 	private String Password;
+	@Column(name="Name", unique=false, nullable=false)
 	private String Name;
+	@Column(name="Surname", unique=false, nullable=false)
 	private String Surname;
+	@Column(name="Address", unique=false, nullable=false)
 	private String Address;
+	@Column(name="City", unique=false, nullable=false)
 	private String City;
+	@Column(name="Country", unique=false, nullable=false)
 	private String Country;
+	@Column(name="PhoneNumber", unique=false, nullable=false)
 	private String PhoneNumber;
+	@Column(name="Description", unique=false, nullable=false)
 	private String Description;
 	
 	public long getId() {

@@ -1,20 +1,43 @@
 package rs.ac.uns.ftn.informatika.jpa.model;
 
-import java.util.ArrayList;
-import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import rs.ac.uns.ftn.informatika.jpa.util.VacationInterval;
 import rs.ac.uns.ftn.informatika.jpa.util.WorkingTime;
 
+@Entity
+@Table(name="Pharmacist")
 public class Pharmacist extends User {
-	private ArrayList<VacationInterval> VacationSchedule;
-	private ArrayList<WorkingTime> WorkingSchedule;
+	
+	@OneToMany(mappedBy = "Pharmacist", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private Set<VacationInterval> VacationSchedule = new HashSet<VacationInterval>();
+	
+	@OneToMany(mappedBy = "Pharmacist", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private Set<WorkingTime> WorkingSchedule = new HashSet<WorkingTime>();
+	
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Pharmacy Pharmacy;
-	private ArrayList<Integer> Marks;
+	
+	@Column(name="Marks", unique=false, nullable=true)
+	@ElementCollection
+	private Set<Integer> Marks = new HashSet<Integer>();
+	
+	@OneToMany(mappedBy = "Pharmacist", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private Set<Counseling> Counselings = new HashSet<Counseling>();
 	
 	public Pharmacist(long id, String email, String password, String name, String surname, String address, String city,
-			String country, String phoneNumber,String description, ArrayList<VacationInterval> vacationSchedule,
-			ArrayList<WorkingTime> workingSchedule, Pharmacy pharmacy,ArrayList<Integer> marks) {
+			String country, String phoneNumber,String description, Set<VacationInterval> vacationSchedule,
+			Set<WorkingTime> workingSchedule, Pharmacy pharmacy,Set<Integer> marks) {
 		super(id, email, password, name, surname, address, city, country, phoneNumber,description);
 		VacationSchedule = vacationSchedule;
 		WorkingSchedule = workingSchedule;
@@ -22,19 +45,19 @@ public class Pharmacist extends User {
 		Marks=marks;
 	}
 
-	public ArrayList<VacationInterval> getVacationSchedule() {
+	public Set<VacationInterval> getVacationSchedule() {
 		return VacationSchedule;
 	}
 
-	public void setVacationSchedule(ArrayList<VacationInterval> vacationSchedule) {
+	public void setVacationSchedule(Set<VacationInterval> vacationSchedule) {
 		VacationSchedule = vacationSchedule;
 	}
 
-	public ArrayList<WorkingTime> getWorkingSchedule() {
+	public Set<WorkingTime> getWorkingSchedule() {
 		return WorkingSchedule;
 	}
 
-	public void setWorkingSchedule(ArrayList<WorkingTime> workingSchedule) {
+	public void setWorkingSchedule(Set<WorkingTime> workingSchedule) {
 		WorkingSchedule = workingSchedule;
 	}
 
@@ -46,11 +69,11 @@ public class Pharmacist extends User {
 		Pharmacy = pharmacy;
 	}
 
-	public ArrayList<Integer> getMarks() {
+	public Set<Integer> getMarks() {
 		return Marks;
 	}
 
-	public void setMarks(ArrayList<Integer> marks) {
+	public void setMarks(Set<Integer> marks) {
 		Marks = marks;
 	}
 }

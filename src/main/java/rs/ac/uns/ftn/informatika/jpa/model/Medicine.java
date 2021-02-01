@@ -1,22 +1,57 @@
 package rs.ac.uns.ftn.informatika.jpa.model;
 
-import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 import rs.ac.uns.ftn.informatika.jpa.enums.MedicineForm;
 
+@Entity
+@Table(name="Medicine")
 public class Medicine {
-	private long Code;
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long Code;
+	
+	@Column(name="Name", unique=false, nullable=true)
 	private String Name;
+	
+	@Column(name="Type", unique=false, nullable=true)
 	private String Type;
+	
+	@Column(name="Form", unique=false, nullable=true)
 	private MedicineForm Form;
+	
+	@Column(name="Composition", unique=false, nullable=true)
 	private String Composition;
+	
+	@Column(name="Manufacturer", unique=false, nullable=true)
 	private String Manufacturer;
+	
+	@Column(name="OnPrescription", unique=false, nullable=true)
 	private Boolean OnPrescription;
-	private ArrayList<Medicine> Replacement;
+	
+	@Column(name="Replacement", unique=false, nullable=true)
+	@ElementCollection
+	private Set<String> Replacement = new HashSet<String>();
+	
+	@Column(name="Note", unique=false, nullable=true)
 	private String Note;
 	
+	//@OneToOne(mappedBy = "Medicine")
+    //private MedicinePriceAndQuantity MedicinePriceAndQuantity;
+	
 	public Medicine(long code, String name, String type, MedicineForm form, String composition, String manufacturer,
-			Boolean onPrescription, ArrayList<Medicine> replacement, String note) {
+			Boolean onPrescription, Set<String> replacement, String note) {
 		super();
 		Code = code;
 		Name = name;
@@ -85,11 +120,11 @@ public class Medicine {
 		OnPrescription = onPrescription;
 	}
 
-	public ArrayList<Medicine> getReplacement() {
+	public Set<String> getReplacement() {
 		return Replacement;
 	}
 
-	public void setReplacement(ArrayList<Medicine> replacement) {
+	public void setReplacement(Set<String> replacement) {
 		Replacement = replacement;
 	}
 

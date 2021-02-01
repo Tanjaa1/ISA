@@ -2,32 +2,58 @@ package rs.ac.uns.ftn.informatika.jpa.model;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="OrderMedicine")
 public class Order {
-	private long id;
-	private ArrayList<MedicineQuantity> orders;
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long Id;
+	
+	@OneToMany(mappedBy = "OrderMedicine", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private Set<MedicineQuantity> Orders = new HashSet<MedicineQuantity>();
+	
+	@Column(name="DueDate", unique=false, nullable=true)
 	private Date DueDate;
+	
+	@OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "PharmacyAdmin_id", referencedColumnName = "id")
 	private PharmacyAdmin PharmacyAdmin;
-	public Order(long id, ArrayList<MedicineQuantity> orders, Date dueDate,
-			rs.ac.uns.ftn.informatika.jpa.model.PharmacyAdmin pharmacyAdmin) {
+	
+	public Order(long id, Set<MedicineQuantity> orders, Date dueDate,PharmacyAdmin pharmacyAdmin) {
 		super();
-		this.id = id;
-		this.orders = orders;
+		this.Id = id;
+		//this.Orders = orders;
 		DueDate = dueDate;
 		PharmacyAdmin = pharmacyAdmin;
 	}
 	public long getId() {
-		return id;
+		return Id;
 	}
 	public void setId(long id) {
-		this.id = id;
+		this.Id = id;
 	}
-	public ArrayList<MedicineQuantity> getOrders() {
-		return orders;
-	}
-	public void setOrders(ArrayList<MedicineQuantity> orders) {
-		this.orders = orders;
-	}
+	/*public Set<MedicineQuantity> getOrders() {
+		return Orders;
+	}*/
+	/*public void setOrders(Set<MedicineQuantity> orders) {
+		this.Orders = orders;
+	}*/
 	public Date getDueDate() {
 		return DueDate;
 	}

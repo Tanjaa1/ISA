@@ -1,14 +1,50 @@
 package rs.ac.uns.ftn.informatika.jpa.model;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="MedicineQuantity")
 public class MedicineQuantity {
-	private long id;
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long Id;
+	
+	@OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "Medicine_code", referencedColumnName = "Code")
 	private Medicine Medicine;
-	private int Quantity;
-	public long getId() {
-		return id;
+	
+	@Column(name="Quantity", unique=false, nullable=true)
+	private Integer Quantity;
+	
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private Order OrderMedicine;
+	
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private Supplier Supplier;
+	
+	public MedicineQuantity(long id, rs.ac.uns.ftn.informatika.jpa.model.Medicine medicine, int quantity) {
+		super();
+		this.Id = id;
+		Medicine = medicine;
+		Quantity = quantity;
+	}
+	
+	public Long getId() {
+		return Id;
 	}
 	public void setId(long id) {
-		this.id = id;
+		this.Id = id;
 	}
 	public Medicine getMedicine() {
 		return Medicine;
@@ -20,12 +56,6 @@ public class MedicineQuantity {
 		return Quantity;
 	}
 	public void setQuantity(int quantity) {
-		Quantity = quantity;
-	}
-	public MedicineQuantity(long id, rs.ac.uns.ftn.informatika.jpa.model.Medicine medicine, int quantity) {
-		super();
-		this.id = id;
-		Medicine = medicine;
 		Quantity = quantity;
 	}
 }
