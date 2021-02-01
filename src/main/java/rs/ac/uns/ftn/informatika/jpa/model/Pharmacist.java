@@ -10,14 +10,16 @@ public class Pharmacist extends User {
 	private ArrayList<VacationInterval> VacationSchedule;
 	private ArrayList<WorkingTime> WorkingSchedule;
 	private Pharmacy Pharmacy;
+	private ArrayList<Integer> Marks;
 	
 	public Pharmacist(long id, String email, String password, String name, String surname, String address, String city,
 			String country, String phoneNumber,String description, ArrayList<VacationInterval> vacationSchedule,
-			ArrayList<WorkingTime> workingSchedule, rs.ac.uns.ftn.informatika.jpa.model.Pharmacy pharmacy) {
+			ArrayList<WorkingTime> workingSchedule, Pharmacy pharmacy,ArrayList<Integer> marks) {
 		super(id, email, password, name, surname, address, city, country, phoneNumber,description);
 		VacationSchedule = vacationSchedule;
 		WorkingSchedule = workingSchedule;
 		Pharmacy = pharmacy;
+		Marks=marks;
 	}
 
 	public ArrayList<VacationInterval> getVacationSchedule() {
@@ -43,7 +45,12 @@ public class Pharmacist extends User {
 	public void setPharmacy(Pharmacy pharmacy) {
 		Pharmacy = pharmacy;
 	}
-	
-	
-	
+
+	public ArrayList<Integer> getMarks() {
+		return Marks;
+	}
+
+	public void setMarks(ArrayList<Integer> marks) {
+		Marks = marks;
+	}
 }

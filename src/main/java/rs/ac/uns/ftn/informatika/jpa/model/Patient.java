@@ -8,7 +8,7 @@ public class Patient extends User {
 	private ArrayList<String> DrugAllargies;
 	private int Points;
 	private int Penalty;
-	private LoyaltyCategories Category;
+	private LoyaltyCategories Category; 
 	
 	public Patient(long id, String email, String password, String name, String surname, String address, String city,
 			String country, String phoneNumber,String description, ArrayList<String> drugAllargies, int points, int penalty,

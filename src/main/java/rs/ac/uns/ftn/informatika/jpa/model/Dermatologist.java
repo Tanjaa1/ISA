@@ -9,14 +9,16 @@ public class Dermatologist extends User{
 	private ArrayList<VacationInterval> VacationSchedule;
 	private ArrayList<WorkingTime> WorkingSchedule;
 	private ArrayList<Pharmacy> Pharmacies;
+	private ArrayList<Integer> Marks;
 	
 	public Dermatologist(long id, String email, String password, String name, String surname, String address,
 			String city, String country, String phoneNumber,String description, ArrayList<VacationInterval> vacationSchedule,
-			ArrayList<WorkingTime> workingSchedule, ArrayList<Pharmacy> pharmacies) {
+			ArrayList<WorkingTime> workingSchedule, ArrayList<Pharmacy> pharmacies,ArrayList<Integer> marks) {
 		super(id, email, password, name, surname, address, city, country, phoneNumber,description);
 		VacationSchedule = vacationSchedule;
 		WorkingSchedule = workingSchedule;
 		Pharmacies = pharmacies;
+		Marks=marks;
 	}
 
 	public ArrayList<VacationInterval> getVacationSchedule() {
@@ -42,4 +44,13 @@ public class Dermatologist extends User{
 	public void setPharmacies(ArrayList<Pharmacy> pharmacies) {
 		Pharmacies = pharmacies;
 	}
+
+	public ArrayList<Integer> getMarks() {
+		return Marks;
+	}
+
+	public void setMarks(ArrayList<Integer> marks) {
+		Marks = marks;
+	}
+	
 }
