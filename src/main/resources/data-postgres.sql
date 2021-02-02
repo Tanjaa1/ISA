@@ -103,11 +103,100 @@ INSERT INTO public.medicine(
 	VALUES (222, 'sastav 1', 3, 'galenika', 'brufen', 'napomena 1', true, 'analgetik');
 INSERT INTO public.medicine(
 	code, composition, form, manufacturer, name, note, on_prescription, type)
-	VALUES (333, 'sastav 2', 4, 'hemofarm', 'amoksicilin','napomena 2', false, 'amoksicilin');
+	VALUES (223, 'sastav 2', 4, 'hemofarm', 'amoksicilin','napomena 2', false, 'amoksicilin');
     
 INSERT INTO public.medicine_price_and_quantity(
 	id, price, quantity, medicine_code, pharmacy_id)
 	VALUES (1, 250.0, 20, 222, 1);
 INSERT INTO public.medicine_price_and_quantity(
 	id, price, quantity, medicine_code, pharmacy_id)
-	VALUES (2, 200.0, 30, 333, 2);
+	VALUES (2, 200.0, 30, 223, 2);
+
+INSERT INTO public.dermatologist_marks(dermatologist_id, marks) VALUES (6, 0);
+INSERT INTO public.dermatologist_marks(dermatologist_id, marks) VALUES (7, 1);
+
+INSERT INTO public.order_medicine(id, due_date, pharmacy_admin_id) VALUES (1, '2021-06-22', 8);
+INSERT INTO public.order_medicine(id, due_date, pharmacy_admin_id) VALUES (2, '2021-02-22', 9);
+
+INSERT INTO public.medicine_quantity(
+	id, quantity, medicine_code, order_medicine_id, supplier_id)
+	VALUES (1, 5, 222, 1, 10);
+INSERT INTO public.medicine_quantity(
+	id, quantity, medicine_code, order_medicine_id, supplier_id)
+	VALUES (2, 10, 223, 2, 11);
+    
+INSERT INTO public.patient_drug_allargies(patient_id, drug_allargies) VALUES (1, 'penicilin');
+INSERT INTO public.patient_drug_allargies(patient_id, drug_allargies) VALUES (1, 'cefalosporini');
+INSERT INTO public.patient_drug_allargies(patient_id, drug_allargies) VALUES (2, 'tetraciklini');
+    
+INSERT INTO public.pharmacist_marks(
+	pharmacist_id, marks)
+	VALUES (4, 4);
+INSERT INTO public.pharmacist_marks(
+	pharmacist_id, marks)
+	VALUES (4, 2);
+INSERT INTO public.pharmacist_marks(
+	pharmacist_id, marks)
+	VALUES (4, 1);
+INSERT INTO public.pharmacist_marks(
+	pharmacist_id, marks)
+	VALUES (5, 2);
+INSERT INTO public.pharmacist_marks(
+	pharmacist_id, marks)
+	VALUES (5, 4);
+INSERT INTO public.pharmacist_marks(
+	pharmacist_id, marks)
+	VALUES (5, 2);
+    
+INSERT INTO public.pharmacy_marks(
+	pharmacy_id, marks)
+	VALUES (1, 4);
+INSERT INTO public.pharmacy_marks(
+	pharmacy_id, marks)
+	VALUES (1, 2);
+INSERT INTO public.pharmacy_marks(
+	pharmacy_id, marks)
+	VALUES (1, 1);
+INSERT INTO public.pharmacy_marks(
+	pharmacy_id, marks)
+	VALUES (2, 4);
+INSERT INTO public.pharmacy_marks(
+	pharmacy_id, marks)
+	VALUES (2, 2);
+INSERT INTO public.pharmacy_marks(
+	pharmacy_id, marks)
+	VALUES (2, 1);
+    
+INSERT INTO public.reservation(
+	id, expiration_date, is_received, medicine_id, patient_id)
+	VALUES (1, '2021-03-22', false, 1, 1);
+INSERT INTO public.reservation(
+	id, expiration_date, is_received, medicine_id, patient_id)
+	VALUES (2, '2021-05-12', false, 2, 2);
+    
+INSERT INTO public.supplier_offer(
+	id, offer_price, is_accepted, order_medicine_id, supplier_id)
+	VALUES (1, 250.0, false, 1, 10);
+INSERT INTO public.supplier_offer(
+	id, offer_price, is_accepted, order_medicine_id, supplier_id)
+	VALUES (2, 400.0, false, 2, 11);
+    
+INSERT INTO public.therapy(
+	id, amount, therapy_duration, eprescription_code, medicine_code)
+	VALUES (1, 2, 5, 111, 222);
+INSERT INTO public.therapy(
+	id, amount, therapy_duration, eprescription_code, medicine_code)
+	VALUES (2, 3, 12, 112, 223);
+    
+INSERT INTO public.pharmacy_subscribed_users(
+	pharmacy_id, patient_id)
+	VALUES (1, 1);
+INSERT INTO public.pharmacy_subscribed_users(
+	pharmacy_id, patient_id)
+	VALUES (2, 2);
+INSERT INTO public.pharmacy_subscribed_users(
+	pharmacy_id, patient_id)
+	VALUES (1, 3);
+INSERT INTO public.pharmacy_subscribed_users(
+	pharmacy_id, patient_id)
+	VALUES (2, 1);
