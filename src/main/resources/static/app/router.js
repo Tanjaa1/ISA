@@ -1,6 +1,7 @@
 const Browse = { template: '<browse></browse>' }
 const Registration = { template: '<registration></registration>' }
 const Login = { template: '<login></login>' }
+const PatientHomePage = { template: '<patientHomePage></patientHomePage>' }
 
 
 
@@ -21,6 +22,11 @@ const router = new VueRouter({
 	    	path: '/login', 
 	    	name : 'login', 
 	    	component: Login
+	    },
+	    { 
+	    	path: '/patientHomePage', 
+	    	name : 'patientHomePage', 
+	    	component: PatientHomePage
 	    }
 	  ]
 });

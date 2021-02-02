@@ -1,4 +1,4 @@
-package rs.ac.uns.ftn.informatika.jpa.service;
+package rs.ac.uns.ftn.informatika.jpa.service.Interface;
 
 import java.util.Collection;
 
