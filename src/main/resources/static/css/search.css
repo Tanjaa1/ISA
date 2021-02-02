@@ -1,0 +1,25 @@
+#Search {
+    background-image: url("../pictures/search.jpg");
+    background-repeat: no-repeat;
+    overflow-y: hidden;
+    overflow-x: hidden;
+    background-size: cover;
+    height: auto !important;
+    min-height: 1000px;
+    color: white;
+    font-family: impact;
+}
+.search{
+  margin: 35px 25% 0px 25%;
+  width: 50%;
+}
+
+.table {
+    background-color: white;
+    opacity: 0.92;
+}
+.col {
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+    outline: none;
+}
