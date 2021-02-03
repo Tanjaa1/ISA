@@ -11,6 +11,9 @@ const PatientInfo = { template: '<patientInfo></patientInfo>' }
 const PatientHeader = { template: '<patientHeader></patientHeader>' }
 const PageHeader = { template: '<pageHeader></pageHeader>' }
 const ChangePatientInfo = { template: '<changePatientInfo></changePatientInfo>' }
+const PatientInfo = { template: '<patientInfo></patientInfo>' }
+const PatientHeader = { template: '<patientHeader></patientHeader>' }
+const PageHeader = { template: '<pageHeader></pageHeader>' }
 
 
 const router = new VueRouter({
