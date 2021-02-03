@@ -7,6 +7,9 @@ const DermatologistHomePage = { template: '<dermatologistHomePage></dermatologis
 const PharmacistHomePage = { template: '<pharmacistHomePage></pharmacistHomePage>' }
 const Reservation = { template: '<reservation></reservation>' }
 
+const PatientInfo = { template: '<patientInfo></patientInfo>' }
+const PatientHeader = { template: '<patientHeader></patientHeader>' }
+const PageHeader = { template: '<pageHeader></pageHeader>' }
 
 
 const router = new VueRouter({
@@ -30,7 +33,10 @@ const router = new VueRouter({
 	    { 
 	    	path: '/patientHomePage', 
 	    	name : 'patientHomePage', 
-	    	component: PatientHomePage
+	    	components: {
+				pageHeader: PatientHeader,
+				content: PatientHomePage
+			}
 	    },
 	    { 
 	    	path: '/search', 
@@ -50,8 +56,20 @@ const router = new VueRouter({
 	    { 
 	    	path: '/reservation', 
 	    	name : 'reservation', 
-	    	component: Reservation
+	    	components: {
+				pageHeader: PatientHeader,
+				content: PatientHomePage
+			}
+	    },
+	        { 
+	    	path: '/patientInfo', 
+	    	name : 'patientInfo', 
+	    	components: {
+				pageHeader: PatientHeader,
+				content: PatientInfo
+			}
 	    }
+	    
 	  ]
 });
 

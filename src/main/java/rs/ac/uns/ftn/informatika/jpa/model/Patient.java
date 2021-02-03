@@ -49,6 +49,8 @@ public class Patient extends User {
 	@OneToMany(mappedBy = "Patient", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<Reservation> Reservations = new HashSet<Reservation>();
 	
+	public Patient() {}
+	
 	public Patient(long id, String email, String password, String name, String surname, String address, String city,
 			String country, String phoneNumber,String description, Set<String> drugAllargies, int points, int penalty,
 			LoyaltyCategories category) {

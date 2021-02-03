@@ -106,6 +106,21 @@ public abstract class User {
 	public void setDescription(String description) {
 		Description = description;
 	}
+	public Boolean getEmailComfirmed() {
+		return EmailComfirmed;
+	}
+	public void setEmailComfirmed(Boolean emailComfirmed) {
+		EmailComfirmed = emailComfirmed;
+	}
+	public Boolean getFirstTimeLogin() {
+		return FirstTimeLogin;
+	}
+	public void setFirstTimeLogin(Boolean firstTimeLogin) {
+		FirstTimeLogin = firstTimeLogin;
+	}
+	public void setId(Long id) {
+		Id = id;
+	}
 	public User(long id, String email, String password, String name, String surname, String address, String city,
 			String country, String phoneNumber,String description) {
 		super();

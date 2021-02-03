@@ -1,5 +1,45 @@
 package rs.ac.uns.ftn.informatika.jpa.controller;
 
+import java.awt.PageAttributes.MediaType;
+import java.util.Collection;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.rabbitmq.client.RpcClient.Response;
+
+import rs.ac.uns.ftn.informatika.jpa.dto.PatientDTO;
+import rs.ac.uns.ftn.informatika.jpa.model.Patient;
+import rs.ac.uns.ftn.informatika.jpa.service.PatientService;
+
+@RestController
+// @CrossOrigin(origins = "http://localhost:8080")
+//@CrossOrigin(origins = "*", allowedHeaders = "*")
+@RequestMapping(value = "/patient")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class PatientController {
+	
+	@Autowired
+	private PatientService patientService;
+	
+	//@CrossOrigin(origins = "*")
+	@GetMapping(value = "/getPatientById/{id}")
+	public ResponseEntity<PatientDTO> getPatientById(@PathVariable Long id) {
+		PatientDTO patient = new PatientDTO(patientService.findOne(id));
+		//return ResponseEntity.ok(patient);
+		return patient == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(patient);
+		//return new ModelAndView("patientInfo", "patient", patient);
+		//model.addAttribute("patient", patientService.findOne(id));
+		//return "patientInfo";
+	}
 
 }
