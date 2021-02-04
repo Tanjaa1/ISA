@@ -20,6 +20,7 @@ import rs.ac.uns.ftn.informatika.jpa.model.Reservation;
 
 public class PatientDTO {
 
+	private Long Id;
 	private String Email;
 	private String Password;
 	private String Name;
@@ -44,12 +45,13 @@ public class PatientDTO {
 	
 	public PatientDTO() {}
 	
-	public PatientDTO(String email, String password, String name, String surname, String address, String city,
+	public PatientDTO(Long id, String email, String password, String name, String surname, String address, String city,
 			String country, String phoneNumber, String description, Boolean emailComfirmed, Boolean firstTimeLogin,
 			Set<String> drugAllargies, Integer points, Integer penalty, LoyaltyCategories category,
 			Set<Pharmacy> prepaidPharmacies, Set<Complaint> complaints, Set<Counseling> counselings,
 			Set<EPrescription> ePrescriptions, Set<Examination> examinations, Set<Reservation> reservations) {
 		super();
+		Id = id;
 		Email = email;
 		Password = password;
 		Name = name;
@@ -75,6 +77,7 @@ public class PatientDTO {
 	
 	public PatientDTO(Patient patient) {
 		super();
+		Id = patient.getId();
 		Email = patient.getEmail();
 		Password = patient.getPassword();
 		Name = patient.getName();
@@ -86,7 +89,9 @@ public class PatientDTO {
 		Description = patient.getDescription();
 		EmailComfirmed = patient.getEmailComfirmed();
 		FirstTimeLogin = patient.getFirstTimeLogin();
-		DrugAllargies = patient.getDrugAllargies();
+		for (String da : patient.getDrugAllargies()) {
+			DrugAllargies.add(da);
+		}
 		Points = patient.getPoints();
 		Penalty = patient.getPenalty();
 		Category = patient.getCategory();
@@ -98,6 +103,14 @@ public class PatientDTO {
 		//Reservations = reservations;
 	}
 	
+	public Long getId(){
+		return Id;
+	}
+
+	public void setId(Long id){
+		Id = id;
+	}
+
 	public String getEmail() {
 		return Email;
 	}
@@ -168,7 +181,9 @@ public class PatientDTO {
 		return DrugAllargies;
 	}
 	public void setDrugAllargies(Set<String> drugAllargies) {
-		DrugAllargies = drugAllargies;
+		for (String patientAllergie : drugAllargies) {
+			DrugAllargies.add(patientAllergie);
+		}
 	}
 	public Integer getPoints() {
 		return Points;

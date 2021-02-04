@@ -10,6 +10,7 @@ const Reservation = { template: '<reservation></reservation>' }
 const PatientInfo = { template: '<patientInfo></patientInfo>' }
 const PatientHeader = { template: '<patientHeader></patientHeader>' }
 const PageHeader = { template: '<pageHeader></pageHeader>' }
+const ChangePatientInfo = { template: '<changePatientInfo></changePatientInfo>' }
 
 
 const router = new VueRouter({
@@ -39,6 +40,7 @@ const router = new VueRouter({
 			}
 	    },
 	    { 
+<<<<<<< HEAD
 	    	path: '/search', 
 	    	name : 'search', 
 	    	component: Search
@@ -62,11 +64,21 @@ const router = new VueRouter({
 			}
 	    },
 	        { 
+=======
+>>>>>>> 772aa2e... update patient
 	    	path: '/patientInfo', 
 	    	name : 'patientInfo', 
 	    	components: {
 				pageHeader: PatientHeader,
 				content: PatientInfo
+			}
+		},
+		{ 
+	    	path: '/changePatientInfo', 
+	    	name : 'changePatientInfo', 
+	    	components: {
+				pageHeader: PatientHeader,
+				content: ChangePatientInfo
 			}
 	    }
 	    

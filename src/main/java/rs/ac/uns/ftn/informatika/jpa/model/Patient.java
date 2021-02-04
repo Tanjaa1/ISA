@@ -19,6 +19,7 @@ import rs.ac.uns.ftn.informatika.jpa.enums.LoyaltyCategories;
 public class Patient extends User {
 	
 	@Column(name="DrugAllargies", unique=false, nullable=true)
+	//@OneToMany(mappedBy = "Patient", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@ElementCollection
 	private Set<String> DrugAllargies = new HashSet<String>();
 	

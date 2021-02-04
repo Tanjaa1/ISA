@@ -1,7 +1,8 @@
-package rs.ac.uns.ftn.informatika.jpa.repository;
+/*package rs.ac.uns.ftn.informatika.jpa.repository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
@@ -9,6 +10,7 @@ import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.repository.Query;
 
 import rs.ac.uns.ftn.informatika.jpa.model.Patient;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IPatientRepository;
@@ -71,6 +73,8 @@ public class PatientRepository implements IPatientRepository {
 	public Patient getOne(Long id) {
 		return this.patients.get(id);
 	}
+	
+
 
 	@Override
 	public <S extends Patient> List<S> findAll(Example<S> example) {
@@ -92,8 +96,14 @@ public class PatientRepository implements IPatientRepository {
 
 	@Override
 	public <S extends Patient> S save(S entity) {
-		// TODO Auto-generated method stub
-		return null;
+		Long id = entity.getId();
+		if (id == null) {
+			id = counter.incrementAndGet();
+			entity.setId(id);
+		}
+		this.patients.put(id, entity);
+		return entity;
+		return patients.put(entity.getId(), entity);
 	}
 
 	@Override
@@ -161,5 +171,4 @@ public class PatientRepository implements IPatientRepository {
 		// TODO Auto-generated method stub
 		return false;
 	}
-
-}
+}*/
