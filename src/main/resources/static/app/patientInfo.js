@@ -29,7 +29,7 @@ Vue.component("patientInfo", {
 	}
 		,
 	template: `
-	<div id="Account"></br>
+	<div id=""></br>
 
 <!-- Registration Info -->
 							<h3 class="pi">Personal information</h3>
@@ -205,7 +205,7 @@ Vue.component("changePatientInfo", {
 	}
 		,
 	template: `
-	<div id="Account"></br>
+	<div id=""></br>
 
 <!-- Registration Info -->
 							<h3 class="pi">Personal information</h3>

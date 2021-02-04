@@ -29,7 +29,10 @@ const router = new VueRouter({
 	    { 
 	    	path: '/login', 
 	    	name : 'login', 
-	    	component: Login
+			components: {
+				pageHeader: PatientHeader,
+				content: Login
+			}
 	    },
 	    { 
 	    	path: '/patientHomePage', 
@@ -40,10 +43,12 @@ const router = new VueRouter({
 			}
 	    },
 	    { 
-<<<<<<< HEAD
 	    	path: '/search', 
 	    	name : 'search', 
-	    	component: Search
+			components: {
+				pageHeader: PatientHeader,
+				content: Search
+			}
 	    },
 	    { 
 	    	path: '/dermatologistHomePage', 
@@ -56,16 +61,11 @@ const router = new VueRouter({
 	    	component: PharmacistHomePage
 	    },
 	    { 
-	    	path: '/reservation', 
-	    	name : 'reservation', 
-	    	components: {
-				pageHeader: PatientHeader,
-				content: PatientHomePage
-			}
+			path: '/reservation', 
+            name : 'reservation', 
+            component: Reservation
 	    },
 	        { 
-=======
->>>>>>> 772aa2e... update patient
 	    	path: '/patientInfo', 
 	    	name : 'patientInfo', 
 	    	components: {
