@@ -2,7 +2,6 @@ package rs.ac.uns.ftn.informatika.jpa.model;
 
 import static javax.persistence.InheritanceType.TABLE_PER_CLASS;
 
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

@@ -41,7 +41,6 @@ public class Pharmacist extends User {
 	// private Set<Counseling> Counselings = new HashSet<Counseling>();
 	
 	public Pharmacist(){}
-
 	public Pharmacist(long id, String email, String password, String name, String surname, String address, String city,
 			String country, String phoneNumber,String description, Set<VacationInterval> vacationSchedule,
 			Set<WorkingTime> workingSchedule, Pharmacy pharmacy,Set<Integer> marks) {
