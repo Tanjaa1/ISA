@@ -35,6 +35,7 @@ public class Examination {
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Dermatologist Dermatologist;
 	
+	public Examination(){}
 	public Examination(long id, String report, LocalDateTime startTime, Boolean isDone,
 			rs.ac.uns.ftn.informatika.jpa.model.Patient patient,
 			rs.ac.uns.ftn.informatika.jpa.model.Dermatologist dermatologist) {

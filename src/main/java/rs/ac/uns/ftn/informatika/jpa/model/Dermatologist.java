@@ -37,6 +37,8 @@ public class Dermatologist extends User{
 	
 	@OneToMany(mappedBy = "Dermatologist", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<Examination> Examinations = new HashSet<Examination>();
+
+	public Dermatologist(){}
 	
 	public Dermatologist(long id, String email, String password, String name, String surname, String address,
 			String city, String country, String phoneNumber,String description, Set<VacationInterval> vacationSchedule,

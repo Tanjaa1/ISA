@@ -1,9 +1,15 @@
 package rs.ac.uns.ftn.informatika.jpa.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import rs.ac.uns.ftn.informatika.jpa.dto.PatientDTO;
+import rs.ac.uns.ftn.informatika.jpa.model.Examination;
 import rs.ac.uns.ftn.informatika.jpa.model.Patient;
+import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IExaminationRpository;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IPatientRepository;
 import rs.ac.uns.ftn.informatika.jpa.service.Interface.IPatientService;
 
@@ -13,6 +19,9 @@ public class PatientService implements IPatientService {
 	@Autowired
 	private IPatientRepository patientRepository;
 	
+	@Autowired
+	private IExaminationRpository examinationRepository;
+
 	public Patient findOne(Long id) {
 		 Patient patient = patientRepository.getOne(id);
 	        return patient;
@@ -43,4 +52,12 @@ public class PatientService implements IPatientService {
         Patient patient2 = patientRepository.save(patient1);
         return patient2;
     }
+	public List<PatientDTO> findPatients(Long id) {
+		List<Examination> examinations = examinationRepository.findAll();
+		List<PatientDTO> patients=new ArrayList<PatientDTO>();
+		for (Examination examination : examinations)
+			if(examination.getDermatologist().getId()==id)
+			   patients.add(new PatientDTO(examination.getPatient()));
+		return patients;
+   }
 }

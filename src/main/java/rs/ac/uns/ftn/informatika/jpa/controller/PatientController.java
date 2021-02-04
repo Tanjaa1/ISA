@@ -2,6 +2,7 @@ package rs.ac.uns.ftn.informatika.jpa.controller;
 
 import java.awt.PageAttributes.MediaType;
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -45,4 +46,9 @@ public class PatientController {
 	}
 
 
+	@GetMapping(value = "/getPatientByDermatologistExamination/{id}")
+	public ResponseEntity<List<PatientDTO>> getPatientByExamination(@PathVariable Long id) {
+		List<PatientDTO> patients=patientService.findPatients(id);
+		return patients == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(patients);
+	}
 }
