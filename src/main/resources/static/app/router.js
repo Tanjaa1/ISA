@@ -63,7 +63,7 @@ const router = new VueRouter({
 	    	path: '/dermatologistHomePage', 
 			name : 'dermatologistHomePage', 
 			components: {
-				pageHeader: DermatologistHomePage,
+				pageHeader: DermatologistHeader,
 				content: DermatologistHomePage
 			}
 	    },
