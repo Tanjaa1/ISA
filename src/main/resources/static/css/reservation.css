@@ -1,0 +1,20 @@
+#Reservation {
+    background-image: url("../pictures/search.jpg");
+    background-repeat: no-repeat;
+    overflow-y: hidden;
+    overflow-x: hidden;
+    background-size: cover;
+    height: auto !important;
+    min-height: 1000px;
+    color: white;
+    font-family: impact;
+}
+
+.reservation{	
+  margin: 35px 35%;
+  width: 50%;
+}
+
+.issue{	
+  margin: 35px 35%;
+}

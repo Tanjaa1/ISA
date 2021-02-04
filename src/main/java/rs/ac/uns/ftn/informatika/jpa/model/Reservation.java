@@ -1,0 +1,81 @@
+package rs.ac.uns.ftn.informatika.jpa.model;
+
+import java.util.Date;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="Reservation")
+public class Reservation {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long Id;
+	
+	@Column(name="ExpirationDate", unique=false, nullable=true)
+	private Date ExpirationDate;
+	
+	@Column(name="IsReceived", unique=false, nullable=true)
+	private Boolean IsReceived;
+	
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private Patient Patient;
+	
+	@OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "Medicine_id", referencedColumnName = "id")
+	private MedicinePriceAndQuantity Medicine;
+	
+	
+	public Reservation(long id, Date expirationDate, Boolean isReceived,
+			rs.ac.uns.ftn.informatika.jpa.model.Patient patient, MedicinePriceAndQuantity medicine) {
+		super();
+		this.Id = id;
+		ExpirationDate = expirationDate;
+		IsReceived = isReceived;
+		Patient = patient;
+		Medicine = medicine;
+	}
+	public long getId() {
+		return Id;
+	}
+	public void setId(long id) {
+		this.Id = id;
+	}
+	public Date getExpirationDate() {
+		return ExpirationDate;
+	}
+	public void setExpirationDate(Date expirationDate) {
+		ExpirationDate = expirationDate;
+	}
+	public Boolean getIsReceived() {
+		return IsReceived;
+	}
+	public void setIsReceived(Boolean isReceived) {
+		IsReceived = isReceived;
+	}
+	public Patient getPatient() {
+		return Patient;
+	}
+	public void setPatient(Patient patient) {
+		Patient = patient;
+	}
+	public MedicinePriceAndQuantity getMedicine() {
+		return Medicine;
+	}
+	public void setMedicine(MedicinePriceAndQuantity medicine) {
+		Medicine = medicine;
+	}
+	
+	
+
+}
