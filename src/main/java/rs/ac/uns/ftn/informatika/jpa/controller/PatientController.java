@@ -1,7 +1,5 @@
 package rs.ac.uns.ftn.informatika.jpa.controller;
 
-import java.awt.PageAttributes.MediaType;
-import java.util.Collection;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +18,6 @@ import rs.ac.uns.ftn.informatika.jpa.model.Patient;
 import rs.ac.uns.ftn.informatika.jpa.service.PatientService;
 
 @RestController
-// @CrossOrigin(origins = "http://localhost:8080")
-//@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequestMapping(value = "/patient")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class PatientController {
