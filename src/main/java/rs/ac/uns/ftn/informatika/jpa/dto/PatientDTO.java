@@ -20,6 +20,7 @@ import rs.ac.uns.ftn.informatika.jpa.model.Reservation;
 
 public class PatientDTO {
 
+	private Long Id;
 	private String Email;
 	private String Password;
 	private String Name;
