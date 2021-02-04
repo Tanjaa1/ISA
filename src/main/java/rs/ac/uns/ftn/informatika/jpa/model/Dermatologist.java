@@ -37,15 +37,8 @@ public class Dermatologist extends User{
 	@ElementCollection
 	private Set<Integer> Marks = new HashSet<Integer>();
 	
-<<<<<<< HEAD
-	@OneToMany(mappedBy = "Dermatologist", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private Set<Examination> Examinations = new HashSet<Examination>();
-
-	public Dermatologist(){}
-=======
 	// @OneToMany(mappedBy = "Dermatologist", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	// private Set<Examination> Examinations = new HashSet<Examination>();
->>>>>>> a7ecf86... baza
 	
 	public Dermatologist(){}
 

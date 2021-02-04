@@ -1,12 +1,9 @@
 package rs.ac.uns.ftn.informatika.jpa.controller;
 
-<<<<<<< HEAD
 import java.awt.PageAttributes.MediaType;
 import java.util.Collection;
 import java.util.List;
 
-=======
->>>>>>> a7ecf86... baza
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
