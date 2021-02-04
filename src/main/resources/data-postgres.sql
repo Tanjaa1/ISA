@@ -57,11 +57,11 @@ INSERT INTO public.system_admin(
 	VALUES (13, 'Cirpanova 9', 'Novi Sad', 'Srbija', '', 'gordana1@gmail.com', true, false, 'Gordana', 'Grbic', '068789654', 'Grbic');
     
 INSERT INTO public.action_or_promotion(
-	id, text, pharmacy_id)
-	VALUES (11, 'akcija 50%', 1);
+	id, text)
+	VALUES (11, 'akcija 50%');
 INSERT INTO public.action_or_promotion(
-	id, text, pharmacy_id)
-	VALUES (12, 'akcija 30%', 2);
+	id, text)
+	VALUES (12, 'akcija 30%');
     
 INSERT INTO public.complaint(
 	id, subject, text, patient_id)
@@ -85,11 +85,11 @@ INSERT INTO public.counseling(
 	VALUES (2, 'izvjestaj 2', '2016-06-22 19:10:25-07', true, 3, 5);
     
 INSERT INTO public.eprescription(
-	code, issuing_date, patient_id)
-	VALUES (111,'2016-06-22',2);
+	code, issuing_date)
+	VALUES (111,'2016-06-22');
 INSERT INTO public.eprescription(
-	code, issuing_date, patient_id)
-	VALUES (112,'2017-06-22',3);
+	code, issuing_date)
+	VALUES (112,'2017-06-22');
     
 INSERT INTO public.examination(
 	id, report, start_time, is_done, dermatologist_id, patient_id)
@@ -106,11 +106,11 @@ INSERT INTO public.medicine(
 	VALUES (223, 'sastav 2', 4, 'hemofarm', 'amoksicilin','napomena 2', false, 'amoksicilin');
     
 INSERT INTO public.medicine_price_and_quantity(
-	id, price, quantity, medicine_code, pharmacy_id)
-	VALUES (1, 250.0, 20, 222, 1);
+	id, price, quantity, medicine_code)
+	VALUES (1, 250.0, 20, 222);
 INSERT INTO public.medicine_price_and_quantity(
-	id, price, quantity, medicine_code, pharmacy_id)
-	VALUES (2, 200.0, 30, 223, 2);
+	id, price, quantity, medicine_code)
+	VALUES (2, 200.0, 30, 223);
 
 INSERT INTO public.dermatologist_marks(dermatologist_id, marks) VALUES (6, 0);
 INSERT INTO public.dermatologist_marks(dermatologist_id, marks) VALUES (7, 1);
@@ -119,11 +119,11 @@ INSERT INTO public.order_medicine(id, due_date, pharmacy_admin_id) VALUES (1, '2
 INSERT INTO public.order_medicine(id, due_date, pharmacy_admin_id) VALUES (2, '2021-02-22', 9);
 
 INSERT INTO public.medicine_quantity(
-	id, quantity, medicine_code, order_medicine_id, supplier_id)
-	VALUES (1, 5, 222, 1, 10);
+	id, quantity, medicine_code, supplier_id)
+	VALUES (1, 5, 222, 10);
 INSERT INTO public.medicine_quantity(
-	id, quantity, medicine_code, order_medicine_id, supplier_id)
-	VALUES (2, 10, 223, 2, 11);
+	id, quantity, medicine_code, supplier_id)
+	VALUES (2, 10, 223, 11);
     
 INSERT INTO public.patient_drug_allargies(patient_id, drug_allargies) VALUES (1, 'penicilin');
 INSERT INTO public.patient_drug_allargies(patient_id, drug_allargies) VALUES (1, 'cefalosporini');
@@ -182,21 +182,110 @@ INSERT INTO public.supplier_offer(
 	VALUES (2, 400.0, false, 2, 11);
     
 INSERT INTO public.therapy(
-	id, amount, therapy_duration, eprescription_code, medicine_code)
-	VALUES (1, 2, 5, 111, 222);
+	id, amount, therapy_duration, medicine_code)
+	VALUES (1, 2, 5, 222);
 INSERT INTO public.therapy(
-	id, amount, therapy_duration, eprescription_code, medicine_code)
-	VALUES (2, 3, 12, 112, 223);
+	id, amount, therapy_duration, medicine_code)
+	VALUES (2, 3, 12, 223);
     
-INSERT INTO public.pharmacy_subscribed_users(
-	pharmacy_id, patient_id)
-	VALUES (1, 1);
-INSERT INTO public.pharmacy_subscribed_users(
-	pharmacy_id, patient_id)
-	VALUES (2, 2);
-INSERT INTO public.pharmacy_subscribed_users(
-	pharmacy_id, patient_id)
-	VALUES (1, 3);
-INSERT INTO public.pharmacy_subscribed_users(
-	pharmacy_id, patient_id)
+INSERT INTO public.pharmacy_subscribed_users(patient_id, pharmacy_id) VALUES (1, 1);
+INSERT INTO public.pharmacy_subscribed_users(patient_id, pharmacy_id) VALUES (2, 2);
+INSERT INTO public.pharmacy_subscribed_users(patient_id, pharmacy_id) VALUES (3, 1);
+INSERT INTO public.pharmacy_subscribed_users(patient_id, pharmacy_id) VALUES (1, 2);
+
+
+INSERT INTO public.vacation_interval(
+	id, approved, date_end, date_start)
+	VALUES (1, false, '2021-03-12', '2021-03-22');
+INSERT INTO public.vacation_interval(
+	id, approved, date_end, date_start)
+	VALUES (2, false, '2021-04-12', '2021-04-22');
+INSERT INTO public.vacation_interval(
+	id, approved, date_end, date_start)
+	VALUES (3, false, '2021-05-12', '2021-05-22');
+
+
+INSERT INTO public.dermatologist_vacation_schedule(
+	dermatologist_id, vacation_interval_id)
+	VALUES (6, 1);
+INSERT INTO public.dermatologist_vacation_schedule(
+	dermatologist_id, vacation_interval_id)
+	VALUES (6, 2);
+INSERT INTO public.dermatologist_vacation_schedule(
+	dermatologist_id, vacation_interval_id)
+	VALUES (7, 3);
+
+INSERT INTO public.pharmacist_vacation_schedule(
+	pharmacist_id, vacation_interval_id)
+	VALUES (4, 1);
+INSERT INTO public.pharmacist_vacation_schedule(
+	pharmacist_id, vacation_interval_id)
+	VALUES (5, 2);
+
+INSERT INTO public.working_time(
+	id, time_end, time_start)
+	VALUES (1, '2021-06-22 08:00:00-07', '2021-06-22 14:00:00-07');
+INSERT INTO public.working_time(
+	id, time_end, time_start)
+	VALUES (2, '2021-06-24 14:00:00-07', '2021-06-24 20:00:00-07');
+INSERT INTO public.working_time(
+	id, time_end, time_start)
+	VALUES (3, '2021-06-23 14:00:00-07', '2021-06-23 20:00:00-07');
+
+INSERT INTO public.dermatologist_working_schedule(
+	dermatologist_id, working_time_id)
+	VALUES (6, 1);
+INSERT INTO public.dermatologist_working_schedule(
+	dermatologist_id, working_time_id)
+	VALUES (6, 2);
+INSERT INTO public.dermatologist_working_schedule(
+	dermatologist_id, working_time_id)
+	VALUES (7, 2);
+INSERT INTO public.pharmacist_working_schedule(
+	pharmacist_id, working_time_id)
+	VALUES (4, 2);
+INSERT INTO public.pharmacist_working_schedule(
+	pharmacist_id, working_time_id)
+	VALUES (5, 1);
+
+INSERT INTO public.order_medicine_orders(
+	order_id, orders_id)
+	VALUES (1, 2);
+INSERT INTO public.order_medicine_orders(
+	order_id, orders_id)
 	VALUES (2, 1);
+
+INSERT INTO public.eprescription_therapies(
+	eprescription_code, therapies_id)
+	VALUES (111, 1);
+INSERT INTO public.eprescription_therapies(
+	eprescription_code, therapies_id)
+	VALUES (112, 2);
+
+INSERT INTO public.patient_eprescriptions(
+	patient_id, eprescriptions_code)
+	VALUES (1, 111);
+INSERT INTO public.patient_eprescriptions(
+	patient_id, eprescriptions_code)
+	VALUES (1, 112);
+
+INSERT INTO public.pharmacy_list_actions_or_promotions(
+	pharmacy_id, list_actions_or_promotions_id)
+	VALUES (1, 11);
+INSERT INTO public.pharmacy_list_actions_or_promotions(
+	pharmacy_id, list_actions_or_promotions_id)
+	VALUES (2, 12);
+
+INSERT INTO public.pharmacy_pricelist(
+	pharmacy_id, pricelist_id)
+	VALUES (1, 1);
+INSERT INTO public.pharmacy_pricelist(
+	pharmacy_id, pricelist_id)
+	VALUES (2, 2);
+
+INSERT INTO public.medicine_replacement(
+	medicine_code, replacement)
+	VALUES (222, 'sinacilin');
+INSERT INTO public.medicine_replacement(
+	medicine_code, replacement)
+	VALUES (223, 'panadol');

@@ -14,6 +14,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @Table(name="Reservation")
 public class Reservation {
@@ -28,6 +30,7 @@ public class Reservation {
 	@Column(name="IsReceived", unique=false, nullable=true)
 	private Boolean IsReceived;
 	
+	//@JsonManagedReference(value = "reservation_pat")
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Patient Patient;
 	
@@ -35,6 +38,7 @@ public class Reservation {
     @JoinColumn(name = "Medicine_id", referencedColumnName = "id")
 	private MedicinePriceAndQuantity Medicine;
 	
+	public Reservation(){}
 	
 	public Reservation(long id, Date expirationDate, Boolean isReceived,
 			rs.ac.uns.ftn.informatika.jpa.model.Patient patient, MedicinePriceAndQuantity medicine) {

@@ -21,15 +21,17 @@ public class ActionOrPromotion {
 	@Column(name="Text", unique=false, nullable=true)
 	private String Text;
 	
-	@OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "Pharmacy_id", referencedColumnName = "id")
-	private Pharmacy Pharmacy;
+	// @OneToOne(cascade = CascadeType.ALL)
+    // @JoinColumn(name = "Pharmacy_id", referencedColumnName = "id")
+	// private Pharmacy Pharmacy;
 	
-	public ActionOrPromotion(long id, String text, rs.ac.uns.ftn.informatika.jpa.model.Pharmacy pharmacy) {
+	public ActionOrPromotion(){}
+
+	public ActionOrPromotion(long id, String text/*, rs.ac.uns.ftn.informatika.jpa.model.Pharmacy pharmacy*/) {
 		super();
 		Id = id;
 		Text = text;
-		Pharmacy = pharmacy;
+		//Pharmacy = pharmacy;
 	}
 	
 	public long getId() {
@@ -44,10 +46,10 @@ public class ActionOrPromotion {
 	public void setText(String text) {
 		Text = text;
 	}
-	public Pharmacy getPharmacy() {
-		return Pharmacy;
-	}
-	public void setPharmacy(Pharmacy pharmacy) {
-		Pharmacy = pharmacy;
-	}
+	// public Pharmacy getPharmacy() {
+	// 	return Pharmacy;
+	// }
+	// public void setPharmacy(Pharmacy pharmacy) {
+	// 	Pharmacy = pharmacy;
+	// }
 }

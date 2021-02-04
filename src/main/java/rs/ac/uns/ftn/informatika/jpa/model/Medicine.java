@@ -9,7 +9,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import rs.ac.uns.ftn.informatika.jpa.enums.MedicineForm;
@@ -50,6 +49,8 @@ public class Medicine {
 	//@OneToOne(mappedBy = "Medicine")
     //private MedicinePriceAndQuantity MedicinePriceAndQuantity;
 	
+	public Medicine(){}
+
 	public Medicine(long code, String name, String type, MedicineForm form, String composition, String manufacturer,
 			Boolean onPrescription, Set<String> replacement, String note) {
 		super();

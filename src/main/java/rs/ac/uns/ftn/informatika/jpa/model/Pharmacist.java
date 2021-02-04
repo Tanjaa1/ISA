@@ -8,6 +8,9 @@ import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -19,10 +22,12 @@ import rs.ac.uns.ftn.informatika.jpa.util.WorkingTime;
 @Table(name="Pharmacist")
 public class Pharmacist extends User {
 	
-	@OneToMany(mappedBy = "Pharmacist", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToMany
+	@JoinTable(name = "PharmacistVacationSchedule", joinColumns = @JoinColumn(name = "Pharmacist_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "VacationInterval_id", referencedColumnName = "id"))
 	private Set<VacationInterval> VacationSchedule = new HashSet<VacationInterval>();
 	
-	@OneToMany(mappedBy = "Pharmacist", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToMany
+	@JoinTable(name = "PharmacistWorkingSchedule", joinColumns = @JoinColumn(name = "Pharmacist_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "WorkingTime_id", referencedColumnName = "id"))
 	private Set<WorkingTime> WorkingSchedule = new HashSet<WorkingTime>();
 	
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
@@ -32,9 +37,11 @@ public class Pharmacist extends User {
 	@ElementCollection
 	private Set<Integer> Marks = new HashSet<Integer>();
 	
-	@OneToMany(mappedBy = "Pharmacist", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private Set<Counseling> Counselings = new HashSet<Counseling>();
+	// @OneToMany(mappedBy = "Pharmacist", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	// private Set<Counseling> Counselings = new HashSet<Counseling>();
 	
+	public Pharmacist(){}
+
 	public Pharmacist(long id, String email, String password, String name, String surname, String address, String city,
 			String country, String phoneNumber,String description, Set<VacationInterval> vacationSchedule,
 			Set<WorkingTime> workingSchedule, Pharmacy pharmacy,Set<Integer> marks) {

@@ -11,7 +11,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -26,18 +25,20 @@ public class EPrescription {
 	@Column(name="IssuingDate", unique=false, nullable=true)
 	private Date IssuingDate;
 	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	private Patient Patient;
+	// @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	// private Patient Patient;
 	
-	@OneToMany(mappedBy = "EPrescription", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private Set<Therapy> Therapies = new HashSet<>();
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private Set<Therapy> Therapies = new HashSet<Therapy>();
 	
-	public EPrescription(Long code, Date issuingDate, rs.ac.uns.ftn.informatika.jpa.model.Patient patient,
+	public EPrescription(){}
+
+	public EPrescription(Long code, Date issuingDate/*, rs.ac.uns.ftn.informatika.jpa.model.Patient patient*/,
 			Set<Therapy> therapies) {
 		super();
 		Code = code;
 		IssuingDate = issuingDate;
-		Patient = patient;
+		//Patient = patient;
 		Therapies = therapies;
 	}
 
@@ -57,13 +58,13 @@ public class EPrescription {
 		IssuingDate = issuingDate;
 	}
 
-	public Patient getPatient() {
-		return Patient;
-	}
+	// public Patient getPatient() {
+	// 	return Patient;
+	// }
 
-	public void setPatient(Patient patient) {
-		Patient = patient;
-	}
+	// public void setPatient(Patient patient) {
+	// 	Patient = patient;
+	// }
 
 	public Set<Therapy> getTherapies() {
 		return Therapies;

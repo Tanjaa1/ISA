@@ -8,9 +8,13 @@ import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.JoinTable;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import rs.ac.uns.ftn.informatika.jpa.enums.LoyaltyCategories;
 
@@ -32,23 +36,26 @@ public class Patient extends User {
 	@Column(name="Category", unique=false, nullable=true)
 	private LoyaltyCategories Category; 
 	
-	@ManyToMany(mappedBy = "SubscribedUsers")
+	//@ManyToMany(mappedBy = "SubscribedUsers")
+	@ManyToMany
+	@JoinTable(name = "PharmacySubscribedUsers", joinColumns = @JoinColumn(name = "Patient_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "Pharmacy_id", referencedColumnName = "id"))
 	private Set<Pharmacy> PrepaidPharmacies = new HashSet<Pharmacy>();
 	
-	@OneToMany(mappedBy = "Patient", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private Set<Complaint> Complaints = new HashSet<Complaint>();
+	// @OneToMany(mappedBy = "Patient", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	// private Set<Complaint> Complaints = new HashSet<Complaint>();
 	
-	@OneToMany(mappedBy = "Patient", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private Set<Counseling> Counselings = new HashSet<Counseling>();
+	// @OneToMany(mappedBy = "Patient", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	// private Set<Counseling> Counselings = new HashSet<Counseling>();
 	
-	@OneToMany(mappedBy = "Patient", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private Set<EPrescription> EPrescriptions = new HashSet<EPrescription>();
+	 @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	 private Set<EPrescription> EPrescriptions = new HashSet<EPrescription>();
 	
-	@OneToMany(mappedBy = "Patient", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private Set<Examination> Examinations = new HashSet<Examination>();
+	// @OneToMany(mappedBy = "Patient", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	// private Set<Examination> Examinations = new HashSet<Examination>();
 	
-	@OneToMany(mappedBy = "Patient", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private Set<Reservation> Reservations = new HashSet<Reservation>();
+	// @JsonManagedReference(value = "reservation_pat")
+	// @OneToMany(mappedBy = "Patient", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	// private Set<Reservation> Reservations = new HashSet<Reservation>();
 	
 	public Patient() {}
 	
@@ -94,6 +101,51 @@ public class Patient extends User {
 		Category = category;
 	}
 	
+	public Set<Pharmacy> getPrepaidPharmacies() {
+		return PrepaidPharmacies;
+	}
+
+	public void setPrepaidPharmacies(Set<Pharmacy> prepaidPharmacies) {
+		PrepaidPharmacies = prepaidPharmacies;
+	}
 	
-	
+	// public Set<Examination> getExaminations() {
+	// 	return Examinations;
+	// }
+
+	// public void setExaminations(Set<Examination> examinations) {
+	// 	Examinations = examinations;
+	// }
+
+	// public Set<Complaint> getComplaints() {
+	// 	return Complaints;
+	// }
+
+	// public void setComplaints(Set<Complaint> complaints) {
+	// 	Complaints = complaints;
+	// }
+
+	// public Set<Counseling> getCounselings() {
+	// 	return Counselings;
+	// }
+
+	// public void setCounselings(Set<Counseling> counselings) {
+	// 	Counselings = counselings;
+	// }
+
+	// public Set<EPrescription> getEPrescriptions() {
+	// 	return EPrescriptions;
+	// }
+
+	// public void setEPrescriptions(Set<EPrescription> ePrescriptions) {
+	// 	EPrescriptions = ePrescriptions;
+	// }
+
+	// public Set<Reservation> getReservations() {
+	// 	return Reservations;
+	// }
+
+	// public void setReservations(Set<Reservation> reservations) {
+	// 	Reservations = reservations;
+	// }
 }
