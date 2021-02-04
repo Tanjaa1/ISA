@@ -14,12 +14,14 @@ Vue.component("dermatologistHeader", {
                     <li class="nav-item dropdown">
                         <button type="button" class="btn btn-info btn-lg nav-link navbar-brand dropdown-toggle" href="#" id="navbarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >Dermatologist menu</button>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" v-on:click="PatientShow()">Home</a>
+                            <a class="dropdown-item" v-on:click="DermatologistShow()">Home</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" v-on:click="AccountShow()">My account</a>
-                            <a class="dropdown-item" v-on:click="FeedbackPatientShow()">Feedbacks</a>
-                            <a class="dropdown-item" v-on:click="AppointmentsShow()">Appointments</a>
-                            <a class="dropdown-item" v-on:click="SearchShow()">Search</a>
+                            <a class="dropdown-item" v-on:click="PatientsShow()">My patients</a>
+                            <a class="dropdown-item" v-on:click="CalendarShow()">My working schedule</a>
+                            <a class="dropdown-item" v-on:click="VacationShow()">Request for vacation</a>
+                            <a class="dropdown-item" v-on:click="CurrentExaminationShow()">Current examination</a>
+                            <a class="dropdown-item" v-on:click="MakingExaminationShow()">Making an appointment</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" v-on:click="Logout()">Log out</a>
                         </div>     
@@ -39,29 +41,21 @@ Vue.component("dermatologistHeader", {
         AccountShow: function () {
             this.$router.push('dermatologistInfo');
         },
-        FeedbackPatientShow: function () {
+        PatientsShow: function () {
+            this.$router.push('search');
         },
-        FeedbacksAdminShow: function () {
+        CalendarShow: function () {
         },
-        AppointmentsShow: function () {
+        VacationShow: function () {
         },
-        SearchShow: function () {
-            
+        CurrentExaminationShow: function () {         
         },
-        StatisticsShow: function () {
-            
+        MakingExaminationShow: function () {           
         },
-        AdminShow: function () {
-            
+        DermatologistShow: function () {
+            this.$router.push('dermatologistHomePage');
         },
-        PatientShow: function () {
-            
-        },
-        RegistrationShow: function () {
-           
-        },
-        Logout: function () {
-            
+        Logout: function () {           
         }
     }
 

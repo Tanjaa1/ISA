@@ -14,14 +14,17 @@ Vue.component("pharmacistHeader", {
                     <li class="nav-item dropdown">
                         <button type="button" class="btn btn-info btn-lg nav-link navbar-brand dropdown-toggle" href="#" id="navbarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >Pharmacist menu</button>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" v-on:click="PatientShow()">Home</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" v-on:click="AccountShow()">My account</a>
-                            <a class="dropdown-item" v-on:click="FeedbackPatientShow()">Feedbacks</a>
-                            <a class="dropdown-item" v-on:click="AppointmentsShow()">Appointments</a>
-                            <a class="dropdown-item" v-on:click="SearchShow()">Search</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" v-on:click="Logout()">Log out</a>
+                        <a class="dropdown-item" v-on:click="PharmacistShow()">Home</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" v-on:click="AccountShow()">My account</a>
+                        <a class="dropdown-item" v-on:click="PatientsShow()">My patients</a>
+                        <a class="dropdown-item" v-on:click="CalendarShow()">My working schedule</a>
+                        <a class="dropdown-item" v-on:click="VacationShow()">Request for vacation</a>
+                        <a class="dropdown-item" v-on:click="CurrentExaminationShow()">Current counseling</a>
+                        <a class="dropdown-item" v-on:click="MakingExaminationShow()">Making an counseling</a>
+                        <a class="dropdown-item" v-on:click="ReservationShow()">EPrescription</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" v-on:click="Logout()">Log out</a>
                         </div>     
                     </li>
                     <!--<li class="nav-item">
@@ -39,29 +42,24 @@ Vue.component("pharmacistHeader", {
         AccountShow: function () {
             this.$router.push('pharmacistInfo');
         },
-        FeedbackPatientShow: function () {
+        PatientsShow: function () {
+            this.$router.push('search');
         },
-        FeedbacksAdminShow: function () {
+        CalendarShow: function () {
         },
-        AppointmentsShow: function () {
+        VacationShow: function () {
         },
-        SearchShow: function () {
-            
+        CurrentExaminationShow: function () {         
         },
-        StatisticsShow: function () {
-            
+        MakingExaminationShow: function () {           
         },
-        AdminShow: function () {
-            
+        ReservationShow:function(){    
+            this.$router.push('reservation');         
         },
-        PatientShow: function () {
-            
+        PharmacistShow: function () {
+            this.$router.push('pharmacistHomePage');
         },
-        RegistrationShow: function () {
-           
-        },
-        Logout: function () {
-            
+        Logout: function () {           
         }
     }
 
