@@ -37,24 +37,18 @@ Vue.component("patientHeader", {
 	`,
     methods: {
         AccountShow: function () {
-            
+            this.$router.push('patientInfo');
         },
         FeedbackPatientShow: function () {
-            
         },
         FeedbacksAdminShow: function () {
-            
         },
         AppointmentsShow: function () {
-            
         },
         SearchShow: function () {
             
         },
         StatisticsShow: function () {
-            
-        },
-        AccountShow: function () {
             
         },
         AdminShow: function () {

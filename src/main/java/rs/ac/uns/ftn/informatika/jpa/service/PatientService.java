@@ -19,7 +19,7 @@ public class PatientService implements IPatientService {
 	}
 
 	@Override
-    public void update(Patient patient) throws Exception {
+    public Patient update(Patient patient) throws Exception {
         Patient patient1 = findOne(patient.getId());
         if (patient1 == null) {
             throw new Exception("Trazeni entitet nije pronadjen.");
@@ -41,6 +41,6 @@ public class PatientService implements IPatientService {
 		patient1.setDescription(patient.getDescription());
 		patient1.setDrugAllargies(patient.getDrugAllargies());
         Patient patient2 = patientRepository.save(patient1);
-        //return patient2;
+        return patient2;
     }
 }

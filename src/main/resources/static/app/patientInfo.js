@@ -33,7 +33,7 @@ Vue.component("patientInfo", {
 
 <!-- Registration Info -->
 							<h3 class="pi">Personal information</h3>
-							<button id="MyInformations" type="button" class="btn btn-info btn-lg margin form-control" data-toggle="modal" v-on:click="ChangeAccountInfoShow()">Update informations</button>
+							<button id="MyInformations" type="button" class="btn1 btn-info btn-lg margin form-control" data-toggle="modal" v-on:click="ChangeAccountInfoShow()">Update informations</button>
 							<div class="input-group mb-3">
 							  <div class="input-group-prepend">
 								<span class="input-group-text width" id="basic-addon3">Name</span>
@@ -209,8 +209,8 @@ Vue.component("changePatientInfo", {
 
 <!-- Registration Info -->
 							<h3 class="pi">Personal information</h3>
-							<button id="MyInformations" type="button" class="btn btn-info btn-lg margin form-control" data-toggle="modal" v-on:click="AccountInfoShow()">Back</button>
-							<button id="MyInformations" type="button" class="btn btn-info btn-lg margin form-control" data-toggle="modal" v-on:click="AccountInfoChange()">Save changes</button>
+							<button id="MyInformations" type="button" class="btn1 btn-info btn-lg margin form-control" data-toggle="modal" v-on:click="AccountInfoShow()">Back</button>
+							<button id="MyInformations" type="button" class="btn1 btn-info btn-lg margin form-control" data-toggle="modal" v-on:click="AccountInfoChange()">Save changes</button>
 							
 							<div class="input-group mb-3">
 							  <div class="input-group-prepend">

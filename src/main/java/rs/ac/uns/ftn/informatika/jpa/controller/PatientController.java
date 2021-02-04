@@ -38,10 +38,10 @@ public class PatientController {
 	}
 
 	@PostMapping(value = "/update")
-	public void updateGreeting(@RequestBody Patient patient) throws Exception {	
-		patientService.update(patient);
-		//PatientDTO p = new PatientDTO(patientService.update(patient));
-		//return p == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(p);
+	public ResponseEntity<PatientDTO> updateGreeting(@RequestBody Patient patient) throws Exception {	
+		//patientService.update(patient);
+		PatientDTO p = new PatientDTO(patientService.update(patient));
+		return p == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(p);
 	}
 
 
