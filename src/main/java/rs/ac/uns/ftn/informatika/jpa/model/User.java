@@ -2,7 +2,6 @@ package rs.ac.uns.ftn.informatika.jpa.model;
 
 import static javax.persistence.InheritanceType.TABLE_PER_CLASS;
 
-import java.util.ArrayList;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,8 +10,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.SequenceGenerator;
-
-import rs.ac.uns.ftn.informatika.jpa.enums.UserRole;
 
 @Entity
 @Inheritance(strategy=TABLE_PER_CLASS)
@@ -121,6 +118,7 @@ public abstract class User {
 	public void setId(Long id) {
 		Id = id;
 	}
+	
 	public User(long id, String email, String password, String name, String surname, String address, String city,
 			String country, String phoneNumber,String description) {
 		super();

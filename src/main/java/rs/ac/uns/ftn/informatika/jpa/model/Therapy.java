@@ -30,9 +30,11 @@ public class Therapy {
 	@Column(name="TherapyDuration", unique=false, nullable=true)
 	private Integer TherapyDuration;
 	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	private EPrescription EPrescription;
+	// @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	// private EPrescription EPrescription;
 	
+	public Therapy(){}
+
 	public Therapy(long id, rs.ac.uns.ftn.informatika.jpa.model.Medicine medicine, int amount, int therapyDuration) {
 		super();
 		this.id = id;

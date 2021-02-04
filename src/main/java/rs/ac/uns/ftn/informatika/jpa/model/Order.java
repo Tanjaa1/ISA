@@ -1,6 +1,5 @@
 package rs.ac.uns.ftn.informatika.jpa.model;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -25,7 +24,7 @@ public class Order {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long Id;
 	
-	@OneToMany(mappedBy = "OrderMedicine", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<MedicineQuantity> Orders = new HashSet<MedicineQuantity>();
 	
 	@Column(name="DueDate", unique=false, nullable=true)
@@ -35,10 +34,12 @@ public class Order {
     @JoinColumn(name = "PharmacyAdmin_id", referencedColumnName = "id")
 	private PharmacyAdmin PharmacyAdmin;
 	
+	public Order(){}
+
 	public Order(long id, Set<MedicineQuantity> orders, Date dueDate,PharmacyAdmin pharmacyAdmin) {
 		super();
 		this.Id = id;
-		//this.Orders = orders;
+		this.Orders = orders;
 		DueDate = dueDate;
 		PharmacyAdmin = pharmacyAdmin;
 	}
@@ -48,12 +49,12 @@ public class Order {
 	public void setId(long id) {
 		this.Id = id;
 	}
-	/*public Set<MedicineQuantity> getOrders() {
+	public Set<MedicineQuantity> getOrders() {
 		return Orders;
-	}*/
-	/*public void setOrders(Set<MedicineQuantity> orders) {
+	}
+	public void setOrders(Set<MedicineQuantity> orders) {
 		this.Orders = orders;
-	}*/
+	}
 	public Date getDueDate() {
 		return DueDate;
 	}

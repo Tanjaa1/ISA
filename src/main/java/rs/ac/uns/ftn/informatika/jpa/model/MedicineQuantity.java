@@ -27,12 +27,14 @@ public class MedicineQuantity {
 	@Column(name="Quantity", unique=false, nullable=true)
 	private Integer Quantity;
 	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	private Order OrderMedicine;
+	// @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	// private Order OrderMedicine;
 	
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Supplier Supplier;
 	
+	public MedicineQuantity(){}
+
 	public MedicineQuantity(long id, rs.ac.uns.ftn.informatika.jpa.model.Medicine medicine, int quantity) {
 		super();
 		this.Id = id;

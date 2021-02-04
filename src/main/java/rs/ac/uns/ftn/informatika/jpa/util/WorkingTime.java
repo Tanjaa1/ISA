@@ -31,12 +31,14 @@ public class WorkingTime {
 	@Column(name="TimeEnd", unique=false, nullable=true)
 	private LocalDateTime TimeEnd;
 	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	private Dermatologist Dermatologist;
+	// @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	// private Dermatologist Dermatologist;
 	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	private Pharmacist Pharmacist;
+	// @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	// private Pharmacist Pharmacist;
 	
+	public WorkingTime(){}
+
 	public WorkingTime(long id, LocalDateTime timeStart, LocalDateTime timeEnd) {
 		super();
 		this.id = id;
