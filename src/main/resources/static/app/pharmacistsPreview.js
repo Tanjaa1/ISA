@@ -1,7 +1,7 @@
-Vue.component("dermatologistsPreview", {
+Vue.component("pharmacistsPreview", {
 	data: function () {
 		return {
-            dermatologists:[],
+            pharmacists:[],
             pharmacies:{},
             filterInfo:{
                 pharmacy : null,
@@ -10,26 +10,26 @@ Vue.component("dermatologistsPreview", {
                 name : null,
                 surname : null
             },
-            displayedDermatologists : {}
+            displayedPharmacists : {}
 		}
 	},
 	beforeMount() {
-        axios.get('/dermatologist/getAllDermatologists', {
+        axios.get('/pharmacist/getAll', {
             headers: {
                 'Authorization': 'Bearer' + " " + localStorage.getItem('token')
             }
         })
             .then(response => {
-                this.dermatologists = response.data
-                this.displayedDermatologists = response.data
-                for (var i = 0; i < (Object.keys(this.dermatologists)).length; i++) {
+                this.pharmacists = response.data
+                this.displayedPharmacists = response.data
+                for (var i = 0; i < (Object.keys(this.pharmacists)).length; i++) {
                     var rating = 0
-                    var d = this.dermatologists[i]
+                    var d = this.pharmacists[i]
                     for (var r of d.marks) {   
                         rating = rating + r;
                     }
                     rating = rating / d.marks.length
-                    this.dermatologists[i].rating = rating.toFixed(2);
+                    this.pharmacists[i].rating = rating.toFixed(2);
                 }
             })
      axios.get('/pharmacy/getAll', {
@@ -49,7 +49,7 @@ Vue.component("dermatologistsPreview", {
 			<br></br><br></br>
             <br></br><br></br>
 
-            <div class = "sameLineDermatologistsPreview"  style ="margin-left : 35%;">
+            <div class = "sameLinePharmacistsPreview"  style ="margin-left : 35%;">
                 <div class="input-group mb-3" style = "width : 20%;">
                     <div class="input-group-prepend">
                         <span class="input-group-text " id="basic-addon3">Filter by pharmacy</span>
@@ -60,10 +60,10 @@ Vue.component("dermatologistsPreview", {
                     </select>
                 </div>
                 &nbsp&nbsp
-                <button  class = "form-control" style = "width:10%; background-color : lightgray;"  v-on:click = "filterDermatologists(dermatologists)" >Apply filters</button>
+                <button  class = "form-control" style = "width:10%; background-color : lightgray;"  v-on:click = "filterpharmacists(pharmacists)" >Apply filters</button>
             </div>
 
-            <div class = "sameLineDermatologistsPreview"  style ="margin-left : 35%;">
+            <div class = "sameLinePharmacistsPreview"  style ="margin-left : 35%;">
                 <div class="input-group mb-3" style = "width : 20%;">
                     <div class="input-group-prepend">
                         <span class="input-group-text " id="basic-addon3">Filter by rating (from-to)</span>
@@ -75,7 +75,7 @@ Vue.component("dermatologistsPreview", {
                 <button class = "form-control" style = "width:10%; background-color : lightgray;" v-on:click = "resetFilter()">Reset filters</button>
             </div>
 
-            <div class = "sameLineDermatologistsPreview"  style ="margin-left : 35%;">
+            <div class = "sameLinePharmacistsPreview"  style ="margin-left : 35%;">
                 <div class="input-group mb-3" style = "width : 15%;">
                     <div class="input-group-prepend">
                         <span class="input-group-text " id="basic-addon3">Filter by name</span>
@@ -102,12 +102,12 @@ Vue.component("dermatologistsPreview", {
                 </tr>
                 </thead>
                 <tbody>
-                <tr v-for = "(value, index) in displayedDermatologists">
+                <tr v-for = "(value, index) in displayedPharmacists">
                     <th scope="row">{{index + 1}}</th>
                     <td>{{value.name}}</td>
                     <td>{{value.surname}}</td>
                     <td>{{value.rating}}</td>
-                    <td><div  v-for = "p in value.pharmacies">{{p.name}}</div></td>
+                    <td>{{value.pharmacy.name}}</td>
                 </tr>
                 </tbody>
           </table>       
@@ -116,92 +116,84 @@ Vue.component("dermatologistsPreview", {
 				
 	`,
 	methods: {
-        filterDermatologists: function (dermathologists) {
+        filterpharmacists: function (pharmacistsParam) {
             if(this.filterInfo.name != null && this.filterInfo.surname != null){
-                this.displayedDermatologists = [];
-                for (var d of dermathologists) {                  
+                this.displayedPharmacists = [];
+                for (var d of pharmacistsParam) {                  
                         if(d.name == this.filterInfo.name && this.filterInfo.surname == d.surname)     
-                            this.displayedDermatologists.push(d);
+                            this.displayedPharmacists.push(d);
                 }
-                dermathologists = this.displayedDermatologists
+                pharmacistsParam = this.displayedPharmacists
             }
             else if(this.filterInfo.name == null && this.filterInfo.surname != null){
-                this.displayedDermatologists = [];
-                for (var d of dermathologists) {                  
+                this.displayedPharmacists = [];
+                for (var d of pharmacistsParam) {                  
                         if( this.filterInfo.surname == d.surname)     
-                            this.displayedDermatologists.push(d);
+                            this.displayedPharmacists.push(d);
                 }
-                dermathologists = this.displayedDermatologists
+                pharmacistsParam = this.displayedPharmacists
             }
             else if(this.filterInfo.name != null && this.filterInfo.surname == null){
-                this.displayedDermatologists = [];
-                for (var d of dermathologists) {                  
+                this.displayedPharmacists = [];
+                for (var d of pharmacistsParam) {                  
                         if(d.name == this.filterInfo.name)     
-                            this.displayedDermatologists.push(d);
+                            this.displayedPharmacists.push(d);
                 }
-                dermathologists = this.displayedDermatologists
+                pharmacistsParam = this.displayedPharmacists
             }
 
             if(this.filterInfo.minRating == null && this.filterInfo.maxRating == null && this.filterInfo.pharmacy != null){
-                this.displayedDermatologists = [];
-                for (var d of dermathologists) {                  
-                    for(var p of d.pharmacies){
-                        if(p.name == this.filterInfo.pharmacy)     
-                            this.displayedDermatologists.push(d);
-                    }
+                this.displayedPharmacists = [];
+                for (var d of pharmacistsParam) {                  
+                        if(d.pharmacy.name == this.filterInfo.pharmacy)     
+                            this.displayedPharmacists.push(d);
                 }
             }
             else if(this.filterInfo.minRating == null && this.filterInfo.maxRating != null && this.filterInfo.pharmacy == null){
-                this.displayedDermatologists = [];
-                for (var d of dermathologists) {                  
+                this.displayedPharmacists = [];
+                for (var d of pharmacistsParam) {                  
                         if(d.rating <= this.filterInfo.maxRating)     
-                            this.displayedDermatologists.push(d)
+                            this.displayedPharmacists.push(d)
                     }
             }
             else if(this.filterInfo.minRating != null && this.filterInfo.maxRating == null && this.filterInfo.pharmacy == null){
-                this.displayedDermatologists = [];
-                for (var d of dermathologists) {                  
+                this.displayedPharmacists = [];
+                for (var d of pharmacistsParam) {                  
                         if(d.rating >= this.filterInfo.minRating)     
-                            this.displayedDermatologists.push(d);
+                            this.displayedPharmacists.push(d);
                     }
             }
             else if(this.filterInfo.minRating != null && this.filterInfo.maxRating != null && this.filterInfo.pharmacy == null){
-                this.displayedDermatologists = [];
-                for (var d of dermathologists) {                  
+                this.displayedPharmacists = [];
+                for (var d of pharmacistsParam) {                  
                         if(d.rating >= this.filterInfo.minRating && d.rating <= this.filterInfo.maxRating )     
-                            this.displayedDermatologists.push(d);
+                            this.displayedPharmacists.push(d);
                     }
             }
             else if(this.filterInfo.minRating != null && this.filterInfo.maxRating != null && this.filterInfo.pharmacy != null){
-                this.displayedDermatologists = [];
-                for (var d of dermathologists) {      
-                    for(var p of d.pharmacies){            
-                        if(d.rating >= this.filterInfo.minRating && d.rating <= this.filterInfo.maxRating && p.name == this.filterInfo.pharmacy)     
-                            this.displayedDermatologists.push(d);
-                    }
+                this.displayedPharmacists = [];
+                for (var d of pharmacistsParam) {                 
+                        if(d.rating >= this.filterInfo.minRating && d.rating <= this.filterInfo.maxRating && d.pharmacy.name == this.filterInfo.pharmacy)     
+                            this.displayedPharmacists.push(d);                   
                 }
             }
             else if(this.filterInfo.minRating != null && this.filterInfo.maxRating == null && this.filterInfo.pharmacy != null){
-                this.displayedDermatologists = [];
-                for (var d of dermathologists) {      
-                    for(var p of d.pharmacies){            
-                        if(d.rating >= this.filterInfo.minRating  && p.name == this.filterInfo.pharmacy)     
-                            this.displayedDermatologists.push(d);
-                    }
+                this.displayedPharmacists = [];
+                for (var d of pharmacistsParam) {               
+                        if(d.rating >= this.filterInfo.minRating  && d.pharmacy.name == this.filterInfo.pharmacy)     
+                            this.displayedPharmacists.push(d);
                 }
             }
             else if(this.filterInfo.minRating == null && this.filterInfo.maxRating != null && this.filterInfo.pharmacy != null){
-                this.displayedDermatologists = [];
-                for (var d of dermathologists) {      
-                    for(var p of d.pharmacies){            
-                        if(d.rating <= this.filterInfo.maxRating  && p.name == this.filterInfo.pharmacy)     
-                            this.displayedDermatologists.push(d);
-                    }
+                this.displayedPharmacists = [];
+                for (var d of pharmacistsParam) {                 
+                        if(d.rating <= this.filterInfo.maxRating  && d.pharmacy.name == this.filterInfo.pharmacy)     
+                            this.displayedPharmacists.push(d);
                 }
             }
         },
         resetFilter: function () {
-            this.displayedDermatologists = this.dermatologists
+            this.displayedPharmacists = this.pharmacists
             this.filterInfo.pharmacy = null;
             this.filterInfo.minRating = null;
             this.filterInfo.maxRating = null;

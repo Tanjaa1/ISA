@@ -1,6 +1,12 @@
 package rs.ac.uns.ftn.informatika.jpa.service;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import rs.ac.uns.ftn.informatika.jpa.dto.PharmacistDTO;
 import rs.ac.uns.ftn.informatika.jpa.model.Pharmacist;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IPharmacistRepository;
 import rs.ac.uns.ftn.informatika.jpa.service.Interface.IPharmacistService;
@@ -34,5 +40,15 @@ public class PharmacistService implements IPharmacistService {
 		pharmacist1.setFirstTimeLogin(pharmacist.getFirstTimeLogin());
 		pharmacist1.setDescription(pharmacist.getDescription());
         return pharmacistRepository.save(pharmacist1);
-    }
+	}
+	
+	@Override
+	public List<PharmacistDTO> findAll() {
+        ArrayList<Pharmacist> pharmacists = pharmacistRepository.findAll();
+        ArrayList<PharmacistDTO> returnValue = new ArrayList<PharmacistDTO>();
+        for (Pharmacist dermatologist : pharmacists) {
+            returnValue.add(new PharmacistDTO(dermatologist));
+        }
+        return returnValue;
+	}
 }

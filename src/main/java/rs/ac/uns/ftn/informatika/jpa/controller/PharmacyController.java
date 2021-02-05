@@ -37,4 +37,5 @@ public class PharmacyController {
 		}
 		return pharmaciesDTO == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(pharmaciesDTO);
 	}
+	
 }

@@ -17,5 +17,5 @@ public interface IDermatologistRepository extends JpaRepository<Dermatologist, L
 	@Override
 	public <S extends Dermatologist> S save(S entity);
   
-  ArrayList<Dermatologist> findAll();
+  	ArrayList<Dermatologist> findAll();
 }

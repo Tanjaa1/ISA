@@ -1,5 +1,7 @@
 package rs.ac.uns.ftn.informatika.jpa.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,5 +35,11 @@ public class PharmaciestController {
 		PharmacistDTO p = new PharmacistDTO(pharmacistService.update(pharmacist));
 		return p == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(p);
 	}
+
+	@GetMapping(value = "/getAll")
+	public ResponseEntity<List<PharmacistDTO>> getAll() {
+    List<PharmacistDTO> retVal = pharmacistService.findAll();
+		return retVal == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(retVal);
+  }
 
 }
