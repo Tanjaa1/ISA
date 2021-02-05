@@ -57,9 +57,11 @@ public class Pharmacy {
 	// @OneToMany(mappedBy = "Pharmacy", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	// private Set<PharmacyAdmin> PharmacyAdmins = new HashSet<PharmacyAdmin>();
 	
+
 	public Pharmacy(){}
 
 	public Pharmacy(long id,String name, String address, Set<Integer> marks,Set<MedicinePriceAndQuantity> pricelist/*,Set<Patient> subscribedUsers*/) {
+
 		super();
 		Id=id;
 		Name = name;

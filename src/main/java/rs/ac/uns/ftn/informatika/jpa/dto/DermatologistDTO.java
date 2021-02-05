@@ -1,12 +1,17 @@
 package rs.ac.uns.ftn.informatika.jpa.dto;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import rs.ac.uns.ftn.informatika.jpa.model.Dermatologist;
+import rs.ac.uns.ftn.informatika.jpa.model.Examination;
 import rs.ac.uns.ftn.informatika.jpa.model.Pharmacy;
+import rs.ac.uns.ftn.informatika.jpa.util.VacationInterval;
+import rs.ac.uns.ftn.informatika.jpa.util.WorkingTime;
 
-public class DermatologistDTO {
+public class DermatologistDTO{
+
 
 	private Long Id;
 	private String Email;
@@ -20,52 +25,67 @@ public class DermatologistDTO {
 	private String Description;
 	private Boolean EmailComfirmed;
 	private Boolean FirstTimeLogin;
-	private List<String> Pharmacies = new ArrayList<String>();
+	private Set<VacationInterval> VacationSchedule = new HashSet<VacationInterval>();
+	private Set<WorkingTime> WorkingSchedule = new HashSet<WorkingTime>();
+	private Set<Pharmacy> Pharmacies = new HashSet<Pharmacy>();
+	private Set<Integer> Marks = new HashSet<Integer>();
+    private Set<Examination> Examinations = new HashSet<Examination>();
+    
+    public DermatologistDTO() {
+    }
 
-	public DermatologistDTO() {
-	}
+    public DermatologistDTO(Long Id,String Email,String Password,String Name,String Surname,String Address,String City, String Country,String PhoneNumber,String Description,
+    Boolean EmailComfirmed, Boolean FirstTimeLogin ,Set<VacationInterval> VacationSchedule,Set<WorkingTime> WorkingSchedule,Set<Pharmacy> Pharmacies,
+    Set<Integer> Marks,Set<Examination> Examinations){
+      super();
+      this.Address = Address;
+      this.City = City;
+      this.Country = Country;
+      this.Description = Description;
+      this.Email = Email;
+      this.EmailComfirmed = EmailComfirmed;
+      this.Examinations = Examinations;
+      this.FirstTimeLogin = FirstTimeLogin;
+      this.Id = Id;
+      this.Marks = Marks; 
+      this.Name = Name;
+      this.Password = Password;
+      this.Pharmacies = Pharmacies;
+      this.PhoneNumber = PhoneNumber;
+      this.Surname = Surname;
+      this.VacationSchedule = VacationSchedule;
+      this.WorkingSchedule = WorkingSchedule;
+    }
 
-	public DermatologistDTO(Long id, String email, String password, String name, String surname, String address,
-			String city, String country, String phoneNumber, String description, Boolean emailComfirmed,
-			Boolean firstTimeLogin) {
-		super();
-		Id = id;
-		Email = email;
-		Password = password;
-		Name = name;
-		Surname = surname;
-		Address = address;
-		City = city;
-		Country = country;
-		PhoneNumber = phoneNumber;
-		Description = description;
-		EmailComfirmed = emailComfirmed;
-		FirstTimeLogin = firstTimeLogin;
-	}
+    public DermatologistDTO(Dermatologist dermatologist){
+      super();
+      this.Address = dermatologist.getAddress();
+      this.City = dermatologist.getCity();
+      this.Country = dermatologist.getCountry();
+      this.Description = dermatologist.getDescription();
+      this.Email = dermatologist.getEmail();
+      this.EmailComfirmed = dermatologist.getEmailComfirmed();
+      this.Examinations = dermatologist.getExaminations();
+      this.FirstTimeLogin = dermatologist.getFirstTimeLogin();
+      this.Id = dermatologist.getId();
+      this.Marks = dermatologist.getMarks(); 
+      this.Name = dermatologist.getName();
+      this.Password = dermatologist.getPassword();
+      this.Pharmacies = dermatologist.getPharmacies();
+      this.PhoneNumber = dermatologist.getPhoneNumber();
+      this.Surname = dermatologist.getSurname();
+      this.VacationSchedule = dermatologist.getVacationSchedule();
+      this.WorkingSchedule = dermatologist.getWorkingSchedule();
+    }
 
-	public DermatologistDTO(Dermatologist dermatologist) {
-		super();
-		Id = dermatologist.getId();
-		Email = dermatologist.getEmail();
-		Password = dermatologist.getPassword();
-		Name = dermatologist.getName();
-		Surname = dermatologist.getSurname();
-		Address = dermatologist.getAddress();
-		City = dermatologist.getCity();
-		Country = dermatologist.getCountry();
-		PhoneNumber = dermatologist.getPhoneNumber();
-		Description = dermatologist.getDescription();
-		EmailComfirmed = dermatologist.getEmailComfirmed();
-		FirstTimeLogin = dermatologist.getFirstTimeLogin();
-		for ( Pharmacy pharmacy:dermatologist.getPharmacies())
-			Pharmacies.add(pharmacy.getName());
-	}
-	
-	public Long getId(){
+    public DermatologistDTO toDTO(Dermatologist dermatologist){
+        return new DermatologistDTO(dermatologist);
+    }
+
+    public long getId() {
 		return Id;
 	}
-
-	public void setId(Long id){
+	public void setId(long id) {
 		Id = id;
 	}
 
@@ -117,28 +137,48 @@ public class DermatologistDTO {
 	public void setPhoneNumber(String phoneNumber) {
 		PhoneNumber = phoneNumber;
 	}
+
 	public String getDescription() {
 		return Description;
 	}
 	public void setDescription(String description) {
 		Description = description;
 	}
-	public Boolean getEmailComfirmed() {
-		return EmailComfirmed;
+
+
+    public Set<VacationInterval> getVacationSchedule() {
+		return VacationSchedule;
 	}
-	public void setEmailComfirmed(Boolean emailComfirmed) {
-		EmailComfirmed = emailComfirmed;
+
+	public void setVacationSchedule(Set<VacationInterval> vacationSchedule) {
+		VacationSchedule = vacationSchedule;
 	}
-	public Boolean getFirstTimeLogin() {
-		return FirstTimeLogin;
+
+	public Set<WorkingTime> getWorkingSchedule() {
+		return WorkingSchedule;
 	}
-	public void setFirstTimeLogin(Boolean firstTimeLogin) {
-		FirstTimeLogin = firstTimeLogin;
+
+	public void setWorkingSchedule(Set<WorkingTime> workingSchedule) {
+		WorkingSchedule = workingSchedule;
 	}
-	public List<String> getPharmacies() {
+
+	public Set<Pharmacy> getPharmacies() {
 		return Pharmacies;
 	}
-	public void setPharmacies(List<String> pharmacies) {
+
+	public void setPharmacies(Set<Pharmacy> pharmacies) {
 		Pharmacies = pharmacies;
 	}
+
+	public Set<Integer> getMarks() {
+		return Marks;
+	}
+
+	public void setMarks(Set<Integer> marks) {
+		Marks = marks;
+    }
+    
+
+
 }
+

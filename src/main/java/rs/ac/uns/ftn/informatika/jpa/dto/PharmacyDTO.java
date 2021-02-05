@@ -3,6 +3,7 @@ package rs.ac.uns.ftn.informatika.jpa.dto;
 import java.util.HashSet;
 import java.util.Set;
 
+
 import rs.ac.uns.ftn.informatika.jpa.model.ActionOrPromotion;
 import rs.ac.uns.ftn.informatika.jpa.model.MedicinePriceAndQuantity;
 import rs.ac.uns.ftn.informatika.jpa.model.Pharmacy;
@@ -80,4 +81,5 @@ public class PharmacyDTO {
 	 public void setPricelist(Set<MedicinePriceAndQuantity> pricelist) {
 	 	Pricelist = pricelist;
 	 }
+
 }
