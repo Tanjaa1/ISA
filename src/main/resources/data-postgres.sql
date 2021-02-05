@@ -105,6 +105,7 @@ INSERT INTO public.action_or_promotion(
 	id, text, medicine_code, pharmacy_id)
 	VALUES (12, 'akcija 30%', 223, 1);
 
+
 INSERT INTO public.medicine_price_and_quantity(
 	id, price, quantity, medicine_code)
 	VALUES (1, 250.0, 20, 222);
