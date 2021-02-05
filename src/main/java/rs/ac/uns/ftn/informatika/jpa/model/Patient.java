@@ -15,6 +15,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.core.sym.Name;
 
 import rs.ac.uns.ftn.informatika.jpa.enums.LoyaltyCategories;
 
@@ -49,6 +50,9 @@ public class Patient extends User {
 	
 	 @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	 private Set<EPrescription> EPrescriptions = new HashSet<EPrescription>();
+
+	 @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	 private Set<ActionOrPromotion> ActionOrPromotion = new HashSet<ActionOrPromotion>();
 	
 	// @OneToMany(mappedBy = "Patient", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	// private Set<Examination> Examinations = new HashSet<Examination>();
@@ -107,6 +111,10 @@ public class Patient extends User {
 
 	public void setPrepaidPharmacies(Set<Pharmacy> prepaidPharmacies) {
 		PrepaidPharmacies = prepaidPharmacies;
+	}
+
+	public String getFullName() {
+		return getName()+" "+ getSurname();
 	}
 	
 	// public Set<Examination> getExaminations() {

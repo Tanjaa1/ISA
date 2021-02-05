@@ -18,8 +18,8 @@ Vue.component("patientHeader", {
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" v-on:click="AccountShow()">My account</a>
                             <a class="dropdown-item" v-on:click="PharmaciesShow()">Pharmacies</a>
-                            <a class="dropdown-item" v-on:click="AppointmentsShow()">Appointments</a>
-                            <a class="dropdown-item" v-on:click="SearchShow()">Search</a>
+                            <a class="dropdown-item" v-on:click="ExaminationsByDermatologist()">Examinations by dermatologist</a>
+                            <a class="dropdown-item" v-on:click="ConsultationWithPharmacist()">Consultation with pharmacist</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" v-on:click="Logout()">Log out</a>
                         </div>     
@@ -42,9 +42,11 @@ Vue.component("patientHeader", {
         PharmaciesShow: function () {
             this.$router.push('pharmaciesShow');
         },
-        FeedbacksAdminShow: function () {
+        ExaminationsByDermatologist: function () {
+            this.$router.push('patientExamination');
         },
-        AppointmentsShow: function () {
+        ConsultationWithPharmacist: function () {
+            this.$router.push('patientCounceling');
         },
         SearchShow: function () {
             

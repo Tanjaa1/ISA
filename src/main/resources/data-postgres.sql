@@ -56,13 +56,6 @@ INSERT INTO public.system_admin(
 	id, address, city, country, description, email, email_comfirmed, first_time_login, name, password, phone_number, surname)
 	VALUES (13, 'Cirpanova 9', 'Novi Sad', 'Srbija', '', 'gordana1@gmail.com', true, false, 'Gordana', 'Grbic', '068789654', 'Grbic');
     
-INSERT INTO public.action_or_promotion(
-	id, text)
-	VALUES (11, 'akcija 50%');
-INSERT INTO public.action_or_promotion(
-	id, text)
-	VALUES (12, 'akcija 30%');
-    
 INSERT INTO public.complaint(
 	id, subject, text, patient_id)
 	VALUES (1, 'Jovan Jovic', 'neljubazan', 2);
@@ -78,11 +71,14 @@ INSERT INTO public.complaint_answer(
 	VALUES(2, 'odgovor na zalbu dva', 2, 13);
 
 INSERT INTO public.counseling(
-	id, report, start_time, is_done, patient_id, pharmacist_id)
-	VALUES (1, 'izvjestaj 1', '2016-06-22 19:10:25-07', true, 2, 5);
+	id, report, start_time, is_done, patient_id, pharmacist_id, pharmacy_id)
+	VALUES (1, 'izvjestaj 1', '2016-06-22 19:10:25-07', true, 1, 5, 2);
 INSERT INTO public.counseling(
-	id, report, start_time, is_done, patient_id, pharmacist_id)
-	VALUES (2, 'izvjestaj 2', '2016-06-22 19:10:25-07', true, 3, 5);
+	id, report, start_time, is_done, patient_id, pharmacist_id, pharmacy_id)
+	VALUES (2, 'izvjestaj 1', '2021-06-22 19:10:25-07', true, 1, 5, 2);
+INSERT INTO public.counseling(
+	id, report, start_time, is_done, patient_id, pharmacist_id, pharmacy_id)
+	VALUES (3, 'izvjestaj 2', '2016-06-22 19:10:25-07', true, 3, 5, 2);
     
 INSERT INTO public.eprescription(
 	code, issuing_date)
@@ -92,11 +88,14 @@ INSERT INTO public.eprescription(
 	VALUES (112,'2017-06-22');
     
 INSERT INTO public.examination(
-	id, report, start_time, is_done, dermatologist_id, patient_id)
-	VALUES (1, 'izvjestaj 1', '2016-06-22 19:10:25-07', true, 6, 2);
+	id, report, start_time, is_done, dermatologist_id, patient_id, pharmacy_id)
+	VALUES (1, 'izvjestaj 1', '2016-06-22 19:10:25-07', true, 6, 1, 1);
 INSERT INTO public.examination(
-	id, report, start_time, is_done, dermatologist_id, patient_id)
-	VALUES (2, 'izvjestaj 2', '2016-07-22 19:10:25-07', true, 6, 3);
+	id, report, start_time, is_done, dermatologist_id, patient_id, pharmacy_id)
+	VALUES (2, 'izvjestaj 1', '2021-06-22 19:10:25-07', true, 6, 1, 1);
+INSERT INTO public.examination(
+	id, report, start_time, is_done, dermatologist_id, patient_id, pharmacy_id)
+	VALUES (3, 'izvjestaj 2', '2016-07-22 19:10:25-07', true, 6, 3, 1);
     
 INSERT INTO public.medicine(
 	code, composition, form, manufacturer, name, note, on_prescription, type)
@@ -105,6 +104,14 @@ INSERT INTO public.medicine(
 	code, composition, form, manufacturer, name, note, on_prescription, type)
 	VALUES (223, 'sastav 2', 4, 'hemofarm', 'amoksicilin','napomena 2', false, 'amoksicilin');
     
+INSERT INTO public.action_or_promotion(
+	id, text, medicine_code, pharmacy_id)
+	VALUES (11, 'akcija 50%', 222,  1);
+INSERT INTO public.action_or_promotion(
+	id, text, medicine_code, pharmacy_id)
+	VALUES (12, 'akcija 30%', 223, 1);
+
+
 INSERT INTO public.medicine_price_and_quantity(
 	id, price, quantity, medicine_code)
 	VALUES (1, 250.0, 20, 222);
@@ -168,11 +175,11 @@ INSERT INTO public.pharmacy_marks(
 	VALUES (2, 1);
     
 INSERT INTO public.reservation(
-	id, expiration_date, is_received, medicine_id, patient_id)
-	VALUES (1, '2021-03-22', false, 1, 1);
+	id, expiration_date, is_received, medicine_id, patient_id,pharmacy_id)
+	VALUES (1, '2021-03-22', false, 1, 1, 1);
 INSERT INTO public.reservation(
-	id, expiration_date, is_received, medicine_id, patient_id)
-	VALUES (2, '2021-05-12', false, 2, 2);
+	id, expiration_date, is_received, medicine_id, patient_id,pharmacy_id)
+	VALUES (2, '2021-05-12', false, 2, 2, 1);
     
 INSERT INTO public.supplier_offer(
 	id, offer_price, is_accepted, order_medicine_id, supplier_id)
@@ -269,12 +276,12 @@ INSERT INTO public.patient_eprescriptions(
 	patient_id, eprescriptions_code)
 	VALUES (1, 112);
 
-INSERT INTO public.pharmacy_list_actions_or_promotions(
-	pharmacy_id, list_actions_or_promotions_id)
-	VALUES (1, 11);
-INSERT INTO public.pharmacy_list_actions_or_promotions(
-	pharmacy_id, list_actions_or_promotions_id)
-	VALUES (2, 12);
+-- INSERT INTO public.pharmacy_list_actions_or_promotions(
+-- 	pharmacy_id, list_actions_or_promotions_id)
+-- 	VALUES (1, 11);
+-- INSERT INTO public.pharmacy_list_actions_or_promotions(
+-- 	pharmacy_id, list_actions_or_promotions_id)
+-- 	VALUES (2, 12);
 
 INSERT INTO public.pharmacy_pricelist(
 	pharmacy_id, pricelist_id)

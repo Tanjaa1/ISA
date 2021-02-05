@@ -29,7 +29,7 @@ public class Reservation {
 	
 	@Column(name="IsReceived", unique=false, nullable=true)
 	private Boolean IsReceived;
-	
+
 	//@JsonManagedReference(value = "reservation_pat")
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Patient Patient;
@@ -38,6 +38,9 @@ public class Reservation {
     @JoinColumn(name = "Medicine_id", referencedColumnName = "id")
 	private MedicinePriceAndQuantity Medicine;
 	
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private Pharmacy Pharmacy;
+
 	public Reservation(){}
 	
 	public Reservation(long id, Date expirationDate, Boolean isReceived,
@@ -80,6 +83,13 @@ public class Reservation {
 		Medicine = medicine;
 	}
 	
-	
+	public Pharmacy getPharmacy() {
+		return Pharmacy;
+	}
+
+	public void setPharmacy(Pharmacy pharmacy) {
+		Pharmacy = pharmacy;
+	}
+
 
 }

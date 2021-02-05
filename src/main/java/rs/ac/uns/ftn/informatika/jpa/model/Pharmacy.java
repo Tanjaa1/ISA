@@ -38,8 +38,8 @@ public class Pharmacy {
 	@ElementCollection
 	private Set<Integer> Marks = new HashSet<Integer>();
 
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	public Set<ActionOrPromotion> ListActionsOrPromotions = new HashSet<ActionOrPromotion>();
+	// @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	// public Set<ActionOrPromotion> ListActionsOrPromotions = new HashSet<ActionOrPromotion>();
 
 	 @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	 private Set<MedicinePriceAndQuantity> Pricelist = new HashSet<MedicinePriceAndQuantity>();
