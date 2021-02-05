@@ -153,7 +153,7 @@ INSERT INTO public.pharmacy_marks(
 	VALUES (1, 4);
 INSERT INTO public.pharmacy_marks(
 	pharmacy_id, marks)
-	VALUES (1, 2);
+	VALUES (1, 5);
 INSERT INTO public.pharmacy_marks(
 	pharmacy_id, marks)
 	VALUES (1, 1);

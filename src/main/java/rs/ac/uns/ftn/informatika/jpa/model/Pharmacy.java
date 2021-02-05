@@ -59,13 +59,13 @@ public class Pharmacy {
 	
 	public Pharmacy(){}
 
-	public Pharmacy(long id,String name, String address, Set<Integer> marks/*,Set<MedicinePriceAndQuantity> pricelist,Set<Patient> subscribedUsers*/) {
+	public Pharmacy(long id,String name, String address, Set<Integer> marks,Set<MedicinePriceAndQuantity> pricelist/*,Set<Patient> subscribedUsers*/) {
 		super();
 		Id=id;
 		Name = name;
 		Address = address;
 		Marks = marks;
-		//Pricelist=pricelist;
+		Pricelist=pricelist;
 		//SubscribedUsers=subscribedUsers;
 	}
 
@@ -101,13 +101,13 @@ public class Pharmacy {
 		Marks = marks;
 	}
 
-	// public Set<MedicinePriceAndQuantity> getPricelist() {
-	// 	return Pricelist;
-	// }
+	 public Set<MedicinePriceAndQuantity> getPricelist() {
+	 	return Pricelist;
+	 }
 
-	// public void setPricelist(Set<MedicinePriceAndQuantity> pricelist) {
-	// 	Pricelist = pricelist;
-	// }
+	 public void setPricelist(Set<MedicinePriceAndQuantity> pricelist) {
+	 	Pricelist = pricelist;
+	 }
 
 	// public Set<Patient> getSubscribedUsers() {
 	// 	return SubscribedUsers;
