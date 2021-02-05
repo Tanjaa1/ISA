@@ -8,7 +8,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -28,6 +27,8 @@ public class Complaint {
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Patient Patient;
 	
+	public Complaint(){}
+
 	public Complaint(long id, String text, String subject, rs.ac.uns.ftn.informatika.jpa.model.Patient patient) {
 		super();
 		this.id = id;

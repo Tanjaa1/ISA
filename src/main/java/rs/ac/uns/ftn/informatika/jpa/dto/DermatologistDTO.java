@@ -12,6 +12,7 @@ import rs.ac.uns.ftn.informatika.jpa.util.WorkingTime;
 
 public class DermatologistDTO{
 
+
 	private Long Id;
 	private String Email;
 	private String Password;
@@ -87,6 +88,7 @@ public class DermatologistDTO{
 	public void setId(long id) {
 		Id = id;
 	}
+
 	public String getEmail() {
 		return Email;
 	}
@@ -135,13 +137,14 @@ public class DermatologistDTO{
 	public void setPhoneNumber(String phoneNumber) {
 		PhoneNumber = phoneNumber;
 	}
-	
+
 	public String getDescription() {
 		return Description;
 	}
 	public void setDescription(String description) {
 		Description = description;
 	}
+
 
     public Set<VacationInterval> getVacationSchedule() {
 		return VacationSchedule;
@@ -178,3 +181,4 @@ public class DermatologistDTO{
 
 
 }
+

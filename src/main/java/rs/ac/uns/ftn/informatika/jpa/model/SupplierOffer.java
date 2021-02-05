@@ -1,7 +1,5 @@
 package rs.ac.uns.ftn.informatika.jpa.model;
 
-import java.util.ArrayList;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -34,11 +32,13 @@ public class SupplierOffer {
 	@Column(name="OfferPrice", unique=false, nullable=true)
 	private Double OfferPrice;
 	
+	public SupplierOffer(){}
+
 	public SupplierOffer(long id, Order order, Supplier supplier,
 			Boolean isAccepted, double offerPrice) {
 		super();
 		this.id = id;
-		//this.Order = order;
+		this.Order = order;
 		Supplier = supplier;
 		this.isAccepted = isAccepted;
 		OfferPrice = offerPrice;
@@ -50,12 +50,12 @@ public class SupplierOffer {
 	public void setId(long id) {
 		this.id = id;
 	}
-	/*public Order getOrder() {
+	public Order getOrder() {
 		return Order;
 	}
 	public void setOrder(Order order) {
 		this.Order = order;
-	}*/
+	}
 	public Supplier getSupplier() {
 		return Supplier;
 	}

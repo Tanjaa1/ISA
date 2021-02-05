@@ -8,8 +8,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -31,9 +29,11 @@ public class MedicinePriceAndQuantity {
 	@Column(name="Quantity", unique=false, nullable=true)
 	private Integer Quantity;
 	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	private Pharmacy Pharmacy;
+	// @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	// private Pharmacy Pharmacy;
 	
+	public MedicinePriceAndQuantity(){}
+
 	public MedicinePriceAndQuantity(long id,Medicine medicine, double price,int quantity) {
 		super();
 		this.Id = id;

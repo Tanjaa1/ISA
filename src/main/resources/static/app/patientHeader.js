@@ -17,7 +17,7 @@ Vue.component("patientHeader", {
                             <a class="dropdown-item" v-on:click="PatientShow()">Home</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" v-on:click="AccountShow()">My account</a>
-                            <a class="dropdown-item" v-on:click="FeedbackPatientShow()">Feedbacks</a>
+                            <a class="dropdown-item" v-on:click="PharmaciesShow()">Pharmacies</a>
                             <a class="dropdown-item" v-on:click="AppointmentsShow()">Appointments</a>
                             <a class="dropdown-item" v-on:click="SearchShow()">Search</a>
                             <div class="dropdown-divider"></div>
@@ -39,7 +39,8 @@ Vue.component("patientHeader", {
         AccountShow: function () {
             this.$router.push('patientInfo');
         },
-        FeedbackPatientShow: function () {
+        PharmaciesShow: function () {
+            this.$router.push('pharmaciesShow');
         },
         FeedbacksAdminShow: function () {
         },

@@ -29,7 +29,7 @@ Vue.component("patientInfo", {
 	}
 		,
 	template: `
-	<div id=""></br>
+	<div id="parmaciesShowPatient"></br>
 
 <!-- Registration Info -->
 							<h3 class="pi">Personal information</h3>
@@ -205,9 +205,9 @@ Vue.component("changePatientInfo", {
 	}
 		,
 	template: `
-	<div id=""></br>
+	<div id="parmaciesShowPatient"></br>
 
-<!-- Registration Info -->
+<!-- Patient Info -->
 							<h3 class="pi">Personal information</h3>
 							<button id="MyInformations" type="button" class="btn1 btn-info btn-lg margin form-control" data-toggle="modal" v-on:click="AccountInfoShow()">Back</button>
 							<button id="MyInformations" type="button" class="btn1 btn-info btn-lg margin form-control" data-toggle="modal" v-on:click="AccountInfoChange()">Save changes</button>

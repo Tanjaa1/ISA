@@ -34,12 +34,14 @@ public class VacationInterval {
 	@Column(name="Approved", unique=false, nullable=true)
 	private Boolean Approved;
 	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	private Dermatologist Dermatologist;
+	// @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	// private Dermatologist Dermatologist;
 	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	private Pharmacist Pharmacist;
+	// @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	// private Pharmacist Pharmacist;
 	
+	public VacationInterval(){}
+
 	public VacationInterval(long id, Date dateStart, Date dateEnd, Boolean approved) {
 		super();
 		Id = id;

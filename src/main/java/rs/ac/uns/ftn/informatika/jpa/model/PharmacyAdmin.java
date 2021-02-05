@@ -21,6 +21,8 @@ public class PharmacyAdmin extends User{
 		Pharmacy = pharmacy;
 	}
 
+	public PharmacyAdmin(){}
+
 	public PharmacyAdmin(long id, String email, String password, String name, String surname, String address,
 			String city, String country, String phoneNumber, String description,
 			rs.ac.uns.ftn.informatika.jpa.model.Pharmacy pharmacy) {

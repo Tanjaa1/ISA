@@ -10,7 +10,20 @@ const PatientInfo = { template: '<patientInfo></patientInfo>' }
 const PatientHeader = { template: '<patientHeader></patientHeader>' }
 const PageHeader = { template: '<pageHeader></pageHeader>' }
 const ChangePatientInfo = { template: '<changePatientInfo></changePatientInfo>' }
+
 const DermatologistsPreview = { template: '<dermatologistsPreview></dermatologistsPreview>'}
+
+const PharmaciesShow = { template: '<pharmaciesShow></pharmaciesShow>' }
+
+
+const DermatologistInfo = { template: '<dermatologistInfo></dermatologistInfo>' }
+const ChangeDermatologistInfo = { template: '<changeDermatologistInfo></changeDermatologistInfo>' }
+const PharmacistHeader = { template: '<pharmacistHeader></pharmacistHeader>' }
+
+const PharmacistInfo = { template: '<pharmacistInfo></pharmacistInfo>' }
+const ChangePharmacistInfo = { template: '<changePharmacistInfo></changePharmacistInfo>' }
+const DermatologistHeader = { template: '<dermatologistHeader></dermatologistHeader>' }
+
 
 const router = new VueRouter({
 	  mode: 'hash',
@@ -59,21 +72,28 @@ const router = new VueRouter({
 	    },
 	    { 
 	    	path: '/dermatologistHomePage', 
-	    	name : 'dermatologistHomePage', 
+
+			name : 'dermatologistHomePage', 
 			components: {
-				pageHeader: PatientHeader,
+				pageHeader: DermatologistHeader,
 				content: DermatologistHomePage
 			}
 	    },
 	    { 
 	    	path: '/pharmacistHomePage', 
-	    	name : 'pharmacistHomePage', 
-	    	component: PharmacistHomePage
+			name : 'pharmacistHomePage', 
+			components: {
+				pageHeader: PharmacistHeader,
+				content: PharmacistHomePage
+			}
 	    },
 	    { 
 			path: '/reservation', 
             name : 'reservation', 
-            component: Reservation
+            components: {
+				pageHeader: PharmacistHeader,
+				content: Reservation
+			}
 	    },
 	        { 
 	    	path: '/patientInfo', 
@@ -90,7 +110,46 @@ const router = new VueRouter({
 				pageHeader: PatientHeader,
 				content: ChangePatientInfo
 			}
-	    }
+	    },
+		{ 
+		path: '/dermatologistInfo', 
+		name : 'dermatologistInfo', 
+		components: {
+			pageHeader: DermatologistHeader,
+			content: DermatologistInfo
+		}
+	},
+	{ 
+		path: '/changeDermatologistInfo', 
+		name : 'changeDermatologistInfo', 
+		components: {
+			pageHeader: DermatologistHeader,
+			content: ChangeDermatologistInfo
+		}
+	},		{ 
+		path: '/pharmacistInfo', 
+		name : 'pharmacistInfo', 
+		components: {
+			pageHeader: PharmacistHeader,
+			content: PharmacistInfo
+		}
+	},
+	{ 
+		path: '/changePharmacistInfo', 
+		name : 'changePharmacistInfo', 
+		components: {
+			pageHeader: PharmacistHeader,
+			content: ChangePharmacistInfo
+		}
+	},
+	{ 
+		path: '/pharmaciesShow', 
+		name : 'pharmaciesShow', 
+		components: {
+			pageHeader: PatientHeader,
+			content: PharmaciesShow
+		}
+	}
 	    
 	  ]
 });

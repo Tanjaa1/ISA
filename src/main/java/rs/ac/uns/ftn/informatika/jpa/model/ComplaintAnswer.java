@@ -54,6 +54,9 @@ public class ComplaintAnswer {
 	public void setSystemAdmin(SystemAdmin systemAdmin) {
 		SystemAdmin = systemAdmin;
 	}
+
+	public ComplaintAnswer(){}
+
 	public ComplaintAnswer(long id, rs.ac.uns.ftn.informatika.jpa.model.Complaint complaint, String text,
 			rs.ac.uns.ftn.informatika.jpa.model.SystemAdmin systemAdmin) {
 		super();

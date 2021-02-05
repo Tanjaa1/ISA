@@ -35,6 +35,8 @@ public class Counseling {
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Pharmacist Pharmacist;
 	
+	public Counseling(){}
+
 	public Counseling(long id, String report, LocalDateTime startTime, Boolean isDone,
 			rs.ac.uns.ftn.informatika.jpa.model.Patient patient,
 			rs.ac.uns.ftn.informatika.jpa.model.Pharmacist pharmacist) {

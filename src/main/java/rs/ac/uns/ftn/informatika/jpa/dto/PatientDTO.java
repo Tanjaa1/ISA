@@ -2,13 +2,6 @@ package rs.ac.uns.ftn.informatika.jpa.dto;
 
 import java.util.HashSet;
 import java.util.Set;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
-
 import rs.ac.uns.ftn.informatika.jpa.enums.LoyaltyCategories;
 import rs.ac.uns.ftn.informatika.jpa.model.Complaint;
 import rs.ac.uns.ftn.informatika.jpa.model.Counseling;
@@ -41,7 +34,7 @@ public class PatientDTO {
 	private Set<Counseling> Counselings = new HashSet<Counseling>();
 	private Set<EPrescription> EPrescriptions = new HashSet<EPrescription>();
 	private Set<Examination> Examinations = new HashSet<Examination>();
-	private Set<Reservation> Reservations = new HashSet<Reservation>();
+	//private Set<Reservation> Reservations = new HashSet<Reservation>();
 	
 	public PatientDTO() {}
 	
@@ -49,7 +42,7 @@ public class PatientDTO {
 			String country, String phoneNumber, String description, Boolean emailComfirmed, Boolean firstTimeLogin,
 			Set<String> drugAllargies, Integer points, Integer penalty, LoyaltyCategories category,
 			Set<Pharmacy> prepaidPharmacies, Set<Complaint> complaints, Set<Counseling> counselings,
-			Set<EPrescription> ePrescriptions, Set<Examination> examinations, Set<Reservation> reservations) {
+			Set<EPrescription> ePrescriptions, Set<Examination> examinations/*, Set<Reservation> reservations*/) {
 		super();
 		Id = id;
 		Email = email;
@@ -72,7 +65,7 @@ public class PatientDTO {
 		Counselings = counselings;
 		EPrescriptions = ePrescriptions;
 		Examinations = examinations;
-		Reservations = reservations;
+		//Reservations = reservations;
 	}
 	
 	public PatientDTO(Patient patient) {
@@ -95,12 +88,12 @@ public class PatientDTO {
 		Points = patient.getPoints();
 		Penalty = patient.getPenalty();
 		Category = patient.getCategory();
-		//PrepaidPharmacies = patient.P;
-		//Complaints = complaints;
-		//Counselings = counselings;
-		//EPrescriptions = ePrescriptions;
-		//Examinations = examinations;
-		//Reservations = reservations;
+		PrepaidPharmacies = patient.getPrepaidPharmacies();
+		//Complaints = patient.getComplaints();
+		//Counselings = patient.getCounselings();
+		//EPrescriptions = patient.getEPrescriptions();
+		//Examinations = patient.getExaminations();
+		//Reservations = patient.getReservations();
 	}
 	
 	public Long getId(){
@@ -233,11 +226,16 @@ public class PatientDTO {
 	public void setExaminations(Set<Examination> examinations) {
 		Examinations = examinations;
 	}
-	public Set<Reservation> getReservations() {
-		return Reservations;
-	}
-	public void setReservations(Set<Reservation> reservations) {
-		Reservations = reservations;
+	// public Set<Reservation> getReservations() {
+	// 	return Reservations;
+	// }
+	// public void setReservations(Set<Reservation> reservations) {
+	// 	Reservations = reservations;
+	// }
+
+	public boolean containsNameAndSurname(String name, String surname) {
+		return Name.toUpperCase().contains(name.toUpperCase().trim()) 
+			&& Surname.toUpperCase().contains(surname.toUpperCase().trim());
 	}
 	
 	

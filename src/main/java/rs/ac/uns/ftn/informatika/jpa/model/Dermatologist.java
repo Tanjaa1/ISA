@@ -21,10 +21,12 @@ import rs.ac.uns.ftn.informatika.jpa.util.WorkingTime;
 @Table(name="Dermatologist")
 public class Dermatologist extends User{
 	
-	@OneToMany(mappedBy = "Dermatologist", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToMany
+	@JoinTable(name = "DermatologistVacationSchedule", joinColumns = @JoinColumn(name = "Dermatologist_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "VacationInterval_id", referencedColumnName = "id"))
 	private Set<VacationInterval> VacationSchedule = new HashSet<VacationInterval>();
 	
-	@OneToMany(mappedBy = "Dermatologist", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToMany
+	@JoinTable(name = "DermatologistWorkingSchedule", joinColumns = @JoinColumn(name = "Dermatologist_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "WorkingTime_id", referencedColumnName = "id"))
 	private Set<WorkingTime> WorkingSchedule = new HashSet<WorkingTime>();
 	
 	@ManyToMany
@@ -35,11 +37,11 @@ public class Dermatologist extends User{
 	@ElementCollection
 	private Set<Integer> Marks = new HashSet<Integer>();
 	
-	@OneToMany(mappedBy = "Dermatologist", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private Set<Examination> Examinations = new HashSet<Examination>();
-
-	public Dermatologist(){}
+	// @OneToMany(mappedBy = "Dermatologist", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	// private Set<Examination> Examinations = new HashSet<Examination>();
 	
+	public Dermatologist(){}
+
 	public Dermatologist(long id, String email, String password, String name, String surname, String address,
 			String city, String country, String phoneNumber,String description, Set<VacationInterval> vacationSchedule,
 			Set<WorkingTime> workingSchedule, Set<Pharmacy> pharmacies,Set<Integer> marks) {
