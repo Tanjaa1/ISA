@@ -5,21 +5,28 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class DateCompare {
+    
     private Date Tomorrow;
     
-    public DateCompare(){
+    public DateCompare()
+    {
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.DAY_OF_YEAR, 1);
         Tomorrow = calendar.getTime();
     }
 
-    public Date getTomorrow(){
+    public Date getTomorrow()
+    {
         return Tomorrow;
     }
-    public void setTomorrow(Date date){
+
+    public void setTomorrow(Date date)
+    {
         Tomorrow=date;
     }
-    public Boolean compareDates(Date date){
+
+    public Boolean compareDates(Date date)
+    {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
         return sdf.format(date).equals(sdf.format(Tomorrow));
     }

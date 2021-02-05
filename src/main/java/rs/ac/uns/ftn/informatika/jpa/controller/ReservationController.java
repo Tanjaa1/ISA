@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,13 +23,15 @@ public class ReservationController {
 	private ResrvationService reservationService;
 	
 	@GetMapping(value = "/getReservationById/{id}")
-	public ResponseEntity<ReservationDTO> getReservationById(@PathVariable Long id) {
+	public ResponseEntity<ReservationDTO> getReservationById(@PathVariable Long id) 
+	{
 		ReservationDTO reservation = reservationService.findOne(id);
 		return reservation == null ? new ResponseEntity<>(HttpStatus.OK) : ResponseEntity.ok(reservation);
 	}
 
 	@PostMapping(value = "/update")
-	public ResponseEntity<HttpStatus> updateReservation(@RequestBody ReservationDTO reservationDTO) throws Exception {
+	public ResponseEntity<HttpStatus> updateReservation(@RequestBody ReservationDTO reservationDTO) throws Exception 
+	{
 		ReservationDTO reservation = new ReservationDTO(reservationService.updateReservation(reservationDTO.getId()));
 		return reservation == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : new ResponseEntity<>(HttpStatus.OK);
 	}
