@@ -44,4 +44,10 @@ public class PatientController {
 		List<PatientDTO> patients=patientService.findPatients(id);
 		return patients == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(patients);
 	}
+
+	@GetMapping(value = "/getPatientByDermatologistExaminationSearch/{id}/{name}/{surname}")
+	public ResponseEntity<List<PatientDTO>> getPatientByExaminationSearch(@PathVariable Long id,@PathVariable String name,@PathVariable String surname) {
+		List<PatientDTO> patients=patientService.findPatientsByNameAndSurname(id,name,surname);
+		return patients == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(patients);
+	}
 }
