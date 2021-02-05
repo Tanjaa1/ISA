@@ -50,7 +50,7 @@ public class Reservation {
 		ExpirationDate = expirationDate;
 		IsReceived = isReceived;
 		Patient = patient;
-		Medicine = medicine;=
+		Medicine = medicine;
 	}
 	public long getId() {
 		return Id;

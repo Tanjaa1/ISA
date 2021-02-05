@@ -50,6 +50,9 @@ public class Patient extends User {
 	
 	 @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	 private Set<EPrescription> EPrescriptions = new HashSet<EPrescription>();
+
+	 @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	 private Set<ActionOrPromotion> ActionOrPromotion = new HashSet<ActionOrPromotion>();
 	
 	// @OneToMany(mappedBy = "Patient", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	// private Set<Examination> Examinations = new HashSet<Examination>();
