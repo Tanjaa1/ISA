@@ -28,7 +28,6 @@ public class PharmacyDTO {
     }
     
     public PharmacyDTO(Pharmacy pharmacy) {
-		super();
 		Id=pharmacy.getId();
 		Name = pharmacy.getName();
         Address = pharmacy.getAddress();

@@ -52,7 +52,7 @@ public class Patient extends User {
 	 private Set<EPrescription> EPrescriptions = new HashSet<EPrescription>();
 
 	 @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	 private Set<ActionOrPromotion> ActionOrPromotion = new HashSet<ActionOrPromotion>();
+	 private Set<ActionOrPromotion> ActionOrPromotions = new HashSet<ActionOrPromotion>();
 	
 	// @OneToMany(mappedBy = "Patient", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	// private Set<Examination> Examinations = new HashSet<Examination>();
@@ -65,12 +65,13 @@ public class Patient extends User {
 	
 	public Patient(long id, String email, String password, String name, String surname, String address, String city,
 			String country, String phoneNumber,String description, Set<String> drugAllargies, int points, int penalty,
-			LoyaltyCategories category) {
+			LoyaltyCategories category, Set<ActionOrPromotion> actionOrPromotions) {
 		super(id, email, password, name, surname, address, city, country, phoneNumber,description);
 		DrugAllargies = drugAllargies;
 		Points = points;
 		Penalty = penalty;
 		Category = category;
+		ActionOrPromotions = actionOrPromotions;
 	}
 
 	public Set<String> getDrugAllargies() {
@@ -117,6 +118,14 @@ public class Patient extends User {
 		return getName()+" "+ getSurname();
 	}
 	
+	public Set<ActionOrPromotion> getActionOrPromotion() {
+		return ActionOrPromotions;
+	}
+
+	public void setActionOrPromotion(Set<ActionOrPromotion> actionOrPromotion) {
+		ActionOrPromotions = actionOrPromotion;
+	}
+
 	// public Set<Examination> getExaminations() {
 	// 	return Examinations;
 	// }

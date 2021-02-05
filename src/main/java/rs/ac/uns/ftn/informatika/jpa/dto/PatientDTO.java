@@ -3,6 +3,7 @@ package rs.ac.uns.ftn.informatika.jpa.dto;
 import java.util.HashSet;
 import java.util.Set;
 import rs.ac.uns.ftn.informatika.jpa.enums.LoyaltyCategories;
+import rs.ac.uns.ftn.informatika.jpa.model.ActionOrPromotion;
 import rs.ac.uns.ftn.informatika.jpa.model.Complaint;
 import rs.ac.uns.ftn.informatika.jpa.model.Counseling;
 import rs.ac.uns.ftn.informatika.jpa.model.EPrescription;
@@ -34,6 +35,7 @@ public class PatientDTO {
 	private Set<Counseling> Counselings = new HashSet<Counseling>();
 	private Set<EPrescription> EPrescriptions = new HashSet<EPrescription>();
 	private Set<Examination> Examinations = new HashSet<Examination>();
+	private Set<ActionOrPromotionsDTO> ActionOrPromotions = new HashSet<ActionOrPromotionsDTO>();
 	//private Set<Reservation> Reservations = new HashSet<Reservation>();
 	
 	public PatientDTO() {}
@@ -42,7 +44,7 @@ public class PatientDTO {
 			String country, String phoneNumber, String description, Boolean emailComfirmed, Boolean firstTimeLogin,
 			Set<String> drugAllargies, Integer points, Integer penalty, LoyaltyCategories category,
 			Set<Pharmacy> prepaidPharmacies, Set<Complaint> complaints, Set<Counseling> counselings,
-			Set<EPrescription> ePrescriptions, Set<Examination> examinations/*, Set<Reservation> reservations*/) {
+			Set<EPrescription> ePrescriptions, Set<Examination> examinations, Set<ActionOrPromotionsDTO> actionOrPromotions/*, Set<Reservation> reservations*/) {
 		super();
 		Id = id;
 		Email = email;
@@ -65,11 +67,11 @@ public class PatientDTO {
 		Counselings = counselings;
 		EPrescriptions = ePrescriptions;
 		Examinations = examinations;
+		ActionOrPromotions = actionOrPromotions;
 		//Reservations = reservations;
 	}
 	
 	public PatientDTO(Patient patient) {
-		super();
 		Id = patient.getId();
 		Email = patient.getEmail();
 		Password = patient.getPassword();
@@ -89,6 +91,9 @@ public class PatientDTO {
 		Penalty = patient.getPenalty();
 		Category = patient.getCategory();
 		PrepaidPharmacies = patient.getPrepaidPharmacies();
+		for (ActionOrPromotion actionOrPromotion : patient.getActionOrPromotion()) {
+			ActionOrPromotions.add(new ActionOrPromotionsDTO(actionOrPromotion));
+		}
 		//Complaints = patient.getComplaints();
 		//Counselings = patient.getCounselings();
 		//EPrescriptions = patient.getEPrescriptions();
@@ -226,6 +231,14 @@ public class PatientDTO {
 	public void setExaminations(Set<Examination> examinations) {
 		Examinations = examinations;
 	}
+
+	public Set<ActionOrPromotionsDTO> getActionOrPromotions() {
+		return ActionOrPromotions;
+	}
+	public void setActionOrPromotions(Set<ActionOrPromotionsDTO> actionOrPromotions) {
+		ActionOrPromotions = actionOrPromotions;
+	}
+
 	// public Set<Reservation> getReservations() {
 	// 	return Reservations;
 	// }
