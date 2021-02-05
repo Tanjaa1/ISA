@@ -6,9 +6,6 @@ import java.util.ArrayList;
 
 import rs.ac.uns.ftn.informatika.jpa.model.Dermatologist;
 
-public interface IDermatologistRepository extends JpaRepository<Dermatologist, Long> {
-
- 
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

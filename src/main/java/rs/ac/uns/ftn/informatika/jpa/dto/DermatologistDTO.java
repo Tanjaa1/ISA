@@ -65,7 +65,6 @@ public class DermatologistDTO{
       this.Description = dermatologist.getDescription();
       this.Email = dermatologist.getEmail();
       this.EmailComfirmed = dermatologist.getEmailComfirmed();
-      this.Examinations = dermatologist.getExaminations();
       this.FirstTimeLogin = dermatologist.getFirstTimeLogin();
       this.Id = dermatologist.getId();
       this.Marks = dermatologist.getMarks(); 
