@@ -1,5 +1,10 @@
 package rs.ac.uns.ftn.informatika.jpa.dto;
+
+import java.util.HashSet;
+import java.util.Set;
+
 import rs.ac.uns.ftn.informatika.jpa.model.Pharmacist;
+import rs.ac.uns.ftn.informatika.jpa.model.Pharmacy;
 
 public class PharmacistDTO {
 
@@ -15,15 +20,21 @@ public class PharmacistDTO {
 	private String Description;
 	private Boolean EmailComfirmed;
 	private Boolean FirstTimeLogin;
-	private String Pharmacy;
+	private Set<Integer> Marks = new HashSet<Integer>();
+	private Pharmacy Pharmacy ;
+
+
 
 	public PharmacistDTO() {
 	}
 
 	public PharmacistDTO(Long id, String email, String password, String name, String surname, String address,
 			String city, String country, String phoneNumber, String description, Boolean emailComfirmed,
-			Boolean firstTimeLogin) {
+			Boolean firstTimeLogin, Set<Integer> marks ,Pharmacy pharmacy
+			) {
 		super();
+		Pharmacy = pharmacy;
+		Marks = marks;
 		Id = id;
 		Email = email;
 		Password = password;
@@ -40,6 +51,8 @@ public class PharmacistDTO {
 
 	public PharmacistDTO(Pharmacist pharmaciest) {
 		super();
+		Pharmacy = pharmaciest.getPharmacy();
+		Marks = pharmaciest.getMarks();
 		Id = pharmaciest.getId();
 		Email = pharmaciest.getEmail();
 		Password = pharmaciest.getPassword();
@@ -52,8 +65,8 @@ public class PharmacistDTO {
 		Description = pharmaciest.getDescription();
 		EmailComfirmed = pharmaciest.getEmailComfirmed();
 		FirstTimeLogin = pharmaciest.getFirstTimeLogin();
-		Pharmacy=pharmaciest.getPharmacy().getName();
 	}
+
 	
 	public Long getId(){
 		return Id;
@@ -61,6 +74,14 @@ public class PharmacistDTO {
 
 	public void setId(Long id){
 		Id = id;
+	}
+
+	public Set<Integer> getMarks(){
+		return Marks;
+	}
+
+	public void setMarks(Set<Integer> Marks){
+		this.Marks = Marks;
 	}
 
 	public String getEmail() {
@@ -129,10 +150,10 @@ public class PharmacistDTO {
 	public void setFirstTimeLogin(Boolean firstTimeLogin) {
 		FirstTimeLogin = firstTimeLogin;
 	}
-	public String getPharmacy() {
+	public Pharmacy getPharmacy() {
 		return Pharmacy;
 	}
-	public void setPharmacy(String pharmacy) {
+	public void setPharmacy(Pharmacy pharmacy) {
 		Pharmacy = pharmacy;
 	}
 }

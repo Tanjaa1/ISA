@@ -7,6 +7,6 @@ public interface IDermatologistService {
 
 	public Dermatologist findOne(Long id);
 	Dermatologist update(Dermatologist dermatologist) throws Exception;
-  List<DermatologistDTO> findAll();
+  	List<DermatologistDTO> findAll();
 
 }
