@@ -3,10 +3,13 @@ package rs.ac.uns.ftn.informatika.jpa.model;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -21,17 +24,20 @@ public class ActionOrPromotion {
 	@Column(name="Text", unique=false, nullable=true)
 	private String Text;
 	
-	// @OneToOne(cascade = CascadeType.ALL)
-    // @JoinColumn(name = "Pharmacy_id", referencedColumnName = "id")
-	// private Pharmacy Pharmacy;
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	 private Pharmacy Pharmacy;
+	
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private Medicine Medicine;
 	
 	public ActionOrPromotion(){}
 
-	public ActionOrPromotion(long id, String text/*, rs.ac.uns.ftn.informatika.jpa.model.Pharmacy pharmacy*/) {
+	public ActionOrPromotion(long id, String text, Pharmacy pharmacy, Medicine medicine) {
 		super();
 		Id = id;
 		Text = text;
-		//Pharmacy = pharmacy;
+		Pharmacy = pharmacy;
+		Medicine = medicine;
 	}
 	
 	public long getId() {
@@ -46,10 +52,17 @@ public class ActionOrPromotion {
 	public void setText(String text) {
 		Text = text;
 	}
-	// public Pharmacy getPharmacy() {
-	// 	return Pharmacy;
-	// }
-	// public void setPharmacy(Pharmacy pharmacy) {
-	// 	Pharmacy = pharmacy;
-	// }
+	 public Pharmacy getPharmacy() {
+	 	return Pharmacy;
+	 }
+	 public void setPharmacy(Pharmacy pharmacy) {
+	 	Pharmacy = pharmacy;
+	 }
+
+	 public Medicine getMedicine() {
+		return Medicine;
+	}
+	public void setMedicine(Medicine medicine) {
+		Medicine = medicine;
+	}
 }

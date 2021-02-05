@@ -56,13 +56,6 @@ INSERT INTO public.system_admin(
 	id, address, city, country, description, email, email_comfirmed, first_time_login, name, password, phone_number, surname)
 	VALUES (13, 'Cirpanova 9', 'Novi Sad', 'Srbija', '', 'gordana1@gmail.com', true, false, 'Gordana', 'Grbic', '068789654', 'Grbic');
     
-INSERT INTO public.action_or_promotion(
-	id, text)
-	VALUES (11, 'akcija 50%');
-INSERT INTO public.action_or_promotion(
-	id, text)
-	VALUES (12, 'akcija 30%');
-    
 INSERT INTO public.complaint(
 	id, subject, text, patient_id)
 	VALUES (1, 'Jovan Jovic', 'neljubazan', 2);
@@ -111,6 +104,14 @@ INSERT INTO public.medicine(
 	code, composition, form, manufacturer, name, note, on_prescription, type)
 	VALUES (223, 'sastav 2', 4, 'hemofarm', 'amoksicilin','napomena 2', false, 'amoksicilin');
     
+INSERT INTO public.action_or_promotion(
+	id, text, medicine_code, pharmacy_id)
+	VALUES (11, 'akcija 50%', 222,  1);
+INSERT INTO public.action_or_promotion(
+	id, text, medicine_code, pharmacy_id)
+	VALUES (12, 'akcija 30%', 223, 1);
+
+
 INSERT INTO public.medicine_price_and_quantity(
 	id, price, quantity, medicine_code)
 	VALUES (1, 250.0, 20, 222);
@@ -275,12 +276,12 @@ INSERT INTO public.patient_eprescriptions(
 	patient_id, eprescriptions_code)
 	VALUES (1, 112);
 
-INSERT INTO public.pharmacy_list_actions_or_promotions(
-	pharmacy_id, list_actions_or_promotions_id)
-	VALUES (1, 11);
-INSERT INTO public.pharmacy_list_actions_or_promotions(
-	pharmacy_id, list_actions_or_promotions_id)
-	VALUES (2, 12);
+-- INSERT INTO public.pharmacy_list_actions_or_promotions(
+-- 	pharmacy_id, list_actions_or_promotions_id)
+-- 	VALUES (1, 11);
+-- INSERT INTO public.pharmacy_list_actions_or_promotions(
+-- 	pharmacy_id, list_actions_or_promotions_id)
+-- 	VALUES (2, 12);
 
 INSERT INTO public.pharmacy_pricelist(
 	pharmacy_id, pricelist_id)
