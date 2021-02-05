@@ -34,11 +34,14 @@ public class Examination {
 	
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Dermatologist Dermatologist;
+
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private Pharmacy Pharmacy;
 	
 	public Examination(){}
 	public Examination(long id, String report, LocalDateTime startTime, Boolean isDone,
 			rs.ac.uns.ftn.informatika.jpa.model.Patient patient,
-			rs.ac.uns.ftn.informatika.jpa.model.Dermatologist dermatologist) {
+			rs.ac.uns.ftn.informatika.jpa.model.Dermatologist dermatologist, Pharmacy pharmacy) {
 		super();
 		this.id = id;
 		Report = report;
@@ -46,6 +49,7 @@ public class Examination {
 		this.isDone = isDone;
 		Patient = patient;
 		Dermatologist = dermatologist;
+		Pharmacy = pharmacy;
 	}
 
 	public long getId() {
@@ -94,6 +98,14 @@ public class Examination {
 
 	public void setDermatologist(Dermatologist dermatologist) {
 		Dermatologist = dermatologist;
+	}
+
+	public Pharmacy getPharmacy() {
+		return Pharmacy;
+	}
+
+	public void setPharmacy(Pharmacy pharmacy) {
+		Pharmacy = pharmacy;
 	}
 	
 	
