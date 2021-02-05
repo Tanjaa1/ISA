@@ -296,3 +296,10 @@ INSERT INTO public.medicine_replacement(
 INSERT INTO public.medicine_replacement(
 	medicine_code, replacement)
 	VALUES (223, 'panadol');
+
+INSERT INTO public.patient_action_or_promotions(
+	patient_id, action_or_promotions_id)
+	VALUES (1, 11);
+INSERT INTO public.patient_action_or_promotions(
+	patient_id, action_or_promotions_id)
+	VALUES (1, 12);
