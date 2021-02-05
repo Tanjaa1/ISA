@@ -232,6 +232,11 @@ public class PatientDTO {
 	// public void setReservations(Set<Reservation> reservations) {
 	// 	Reservations = reservations;
 	// }
+
+	public boolean containsNameAndSurname(String name, String surname) {
+		return Name.toUpperCase().contains(name.toUpperCase().trim()) 
+			&& Surname.toUpperCase().contains(surname.toUpperCase().trim());
+	}
 	
 	
 	

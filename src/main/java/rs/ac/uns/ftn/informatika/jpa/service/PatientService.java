@@ -60,4 +60,13 @@ public class PatientService implements IPatientService {
 			   patients.add(new PatientDTO(examination.getPatient()));
 		return patients;
    }
+
+	public List<PatientDTO> findPatientsByNameAndSurname(Long id,String name,String surname) {	
+		List<PatientDTO> patients=new ArrayList<PatientDTO>();
+		for (PatientDTO patientDTO : findPatients(id)) {
+			if(patientDTO.containsNameAndSurname(name,surname))
+				patients.add(patientDTO);
+		}
+		return patients;
+	}
 }
