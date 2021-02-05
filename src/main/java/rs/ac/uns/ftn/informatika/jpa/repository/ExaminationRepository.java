@@ -15,10 +15,7 @@
 
 // public class ExaminationRepository implements IExaminationRpository {
 
-<<<<<<< HEAD
-=======
 // 	public ExaminationRepository() {}
->>>>>>> 30adf95... patient examinations and consultations
 	
 // 	private final ConcurrentMap<Long, Examination> examinations = new ConcurrentHashMap<Long, Examination>();
 	
