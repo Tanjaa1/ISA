@@ -1,0 +1,30 @@
+.text {
+    color: white;
+    font-size: 30px;
+    font-weight: 100;
+    font-family: 'Impact';
+    margin-left: 42%;
+}
+
+.card {
+    border-radius: 10px;
+    background-color: rgb(84, 182, 214);
+    padding-left: 60px;
+    padding-right: 60px;
+    margin-top: 70px;
+    opacity: 0.9;
+    color: white;
+    font-weight: 600;
+}
+
+#parmaciesShowPatient {
+    background-image: url("../pictures/search.jpg");
+    background-repeat: no-repeat;
+    overflow-y: hidden;
+    overflow-x: hidden;
+    background-size: cover;
+    height: auto !important;
+    min-height: 1000px;
+    color: white;
+    font-family: impact;
+}
