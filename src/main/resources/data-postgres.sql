@@ -168,11 +168,11 @@ INSERT INTO public.pharmacy_marks(
 	VALUES (2, 1);
     
 INSERT INTO public.reservation(
-	id, expiration_date, is_received, medicine_id, patient_id)
-	VALUES (1, '2021-03-22', false, 1, 1);
+	id, expiration_date, is_received, medicine_id, patient_id,pharmacy_id)
+	VALUES (1, '2021-03-22', false, 1, 1, 1);
 INSERT INTO public.reservation(
-	id, expiration_date, is_received, medicine_id, patient_id)
-	VALUES (2, '2021-05-12', false, 2, 2);
+	id, expiration_date, is_received, medicine_id, patient_id,pharmacy_id)
+	VALUES (2, '2021-05-12', false, 2, 2, 1);
     
 INSERT INTO public.supplier_offer(
 	id, offer_price, is_accepted, order_medicine_id, supplier_id)
