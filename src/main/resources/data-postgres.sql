@@ -78,11 +78,14 @@ INSERT INTO public.complaint_answer(
 	VALUES(2, 'odgovor na zalbu dva', 2, 13);
 
 INSERT INTO public.counseling(
-	id, report, start_time, is_done, patient_id, pharmacist_id)
-	VALUES (1, 'izvjestaj 1', '2016-06-22 19:10:25-07', true, 2, 5);
+	id, report, start_time, is_done, patient_id, pharmacist_id, pharmacy_id)
+	VALUES (1, 'izvjestaj 1', '2016-06-22 19:10:25-07', true, 1, 5, 2);
 INSERT INTO public.counseling(
-	id, report, start_time, is_done, patient_id, pharmacist_id)
-	VALUES (2, 'izvjestaj 2', '2016-06-22 19:10:25-07', true, 3, 5);
+	id, report, start_time, is_done, patient_id, pharmacist_id, pharmacy_id)
+	VALUES (2, 'izvjestaj 1', '2021-06-22 19:10:25-07', true, 1, 5, 2);
+INSERT INTO public.counseling(
+	id, report, start_time, is_done, patient_id, pharmacist_id, pharmacy_id)
+	VALUES (3, 'izvjestaj 2', '2016-06-22 19:10:25-07', true, 3, 5, 2);
     
 INSERT INTO public.eprescription(
 	code, issuing_date)
@@ -92,11 +95,14 @@ INSERT INTO public.eprescription(
 	VALUES (112,'2017-06-22');
     
 INSERT INTO public.examination(
-	id, report, start_time, is_done, dermatologist_id, patient_id)
-	VALUES (1, 'izvjestaj 1', '2016-06-22 19:10:25-07', true, 6, 2);
+	id, report, start_time, is_done, dermatologist_id, patient_id, pharmacy_id)
+	VALUES (1, 'izvjestaj 1', '2016-06-22 19:10:25-07', true, 6, 1, 1);
 INSERT INTO public.examination(
-	id, report, start_time, is_done, dermatologist_id, patient_id)
-	VALUES (2, 'izvjestaj 2', '2016-07-22 19:10:25-07', true, 6, 3);
+	id, report, start_time, is_done, dermatologist_id, patient_id, pharmacy_id)
+	VALUES (2, 'izvjestaj 1', '2021-06-22 19:10:25-07', true, 6, 1, 1);
+INSERT INTO public.examination(
+	id, report, start_time, is_done, dermatologist_id, patient_id, pharmacy_id)
+	VALUES (3, 'izvjestaj 2', '2016-07-22 19:10:25-07', true, 6, 3, 1);
     
 INSERT INTO public.medicine(
 	code, composition, form, manufacturer, name, note, on_prescription, type)

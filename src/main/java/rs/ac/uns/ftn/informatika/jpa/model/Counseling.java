@@ -34,6 +34,9 @@ public class Counseling {
 	
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Pharmacist Pharmacist;
+
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private Pharmacy Pharmacy;
 	
 	public Counseling(){}
 
@@ -95,5 +98,13 @@ public class Counseling {
 
 	public void setPharmacist(Pharmacist pharmacist) {
 		Pharmacist = pharmacist;
+	}
+
+	public Pharmacy getPharmacy() {
+		return Pharmacy;
+	}
+
+	public void setPharmacy(Pharmacy pharmacy) {
+		Pharmacy = pharmacy;
 	}
 }
