@@ -15,7 +15,6 @@ import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IExaminationRpository;
 
 public class ExaminationRepository implements IExaminationRpository {
 
-	public ExaminationRepository() {}
 	
 	private final ConcurrentMap<Long, Examination> examinations = new ConcurrentHashMap<Long, Examination>();
 	

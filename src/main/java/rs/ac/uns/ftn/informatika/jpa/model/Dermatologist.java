@@ -81,5 +81,9 @@ public class Dermatologist extends User{
 	public void setMarks(Set<Integer> marks) {
 		Marks = marks;
 	}
+
+	public Set<Examination> getExaminations() {
+		return Examinations;
+	}
 	
 }

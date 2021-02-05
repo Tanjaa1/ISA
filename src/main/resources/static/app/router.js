@@ -6,12 +6,11 @@ const Search = { template: '<search></search>' }
 const DermatologistHomePage = { template: '<dermatologistHomePage></dermatologistHomePage>' }
 const PharmacistHomePage = { template: '<pharmacistHomePage></pharmacistHomePage>' }
 const Reservation = { template: '<reservation></reservation>' }
-
 const PatientInfo = { template: '<patientInfo></patientInfo>' }
 const PatientHeader = { template: '<patientHeader></patientHeader>' }
 const PageHeader = { template: '<pageHeader></pageHeader>' }
 const ChangePatientInfo = { template: '<changePatientInfo></changePatientInfo>' }
-
+const DermatologistsPreview = { template: '<dermatologistsPreview></dermatologistsPreview>'}
 
 const router = new VueRouter({
 	  mode: 'hash',
@@ -41,6 +40,14 @@ const router = new VueRouter({
 				pageHeader: PatientHeader,
 				content: PatientHomePage
 			}
+		},
+		{ 
+	    	path: '/dermatologistsPreview', 
+	    	name : 'dermatologistsPreview', 
+	    	components: {
+				pageHeader: PatientHeader,
+				content: DermatologistsPreview
+			}
 	    },
 	    { 
 	    	path: '/search', 
@@ -53,7 +60,10 @@ const router = new VueRouter({
 	    { 
 	    	path: '/dermatologistHomePage', 
 	    	name : 'dermatologistHomePage', 
-	    	component: DermatologistHomePage
+			components: {
+				pageHeader: PatientHeader,
+				content: DermatologistHomePage
+			}
 	    },
 	    { 
 	    	path: '/pharmacistHomePage', 
