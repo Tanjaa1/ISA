@@ -35,6 +35,8 @@ const RegistrationSystemAdmin = { template: '<registrationSystemAdmin></registra
 const RegistrationMedicine = { template: '<registrationMedicine></registrationMedicine>' }
 const RegistrationPharmacyAdmin = { template: '<registrationPharmacyAdmin></registrationPharmacyAdmin>' } 
 
+const ExaminationDermatologist = { template: '<examinationDermatologist></examinationDermatologist>' }
+
 const router = new VueRouter({
 	  mode: 'hash',
 	  routes: [
@@ -240,7 +242,15 @@ const router = new VueRouter({
 		components: {
 			content: RegistrationPharmacyAdmin
 		}
-}
+	},
+	{ 
+		path: '/examinationDermatologist',
+		name : 'examinationDermatologist', 
+		components: {
+			pageHeader: DermatologistHeader,
+			content: ExaminationDermatologist
+		}
+	}	
 	  ]
 });
 

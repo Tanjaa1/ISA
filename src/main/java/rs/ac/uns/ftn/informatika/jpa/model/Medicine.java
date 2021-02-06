@@ -163,6 +163,13 @@ public class Medicine {
 		DailyDose = dailyDose;
 	}
 
+	public void setId(Long id) {
+		Id = id;
+	}
+
+	public Long getId() {
+		return Id;
+	}
 	public Medicine(Long id, String name, String code, MedicineType type, MedicineForm form, String composition,
 			String manufacturer, Boolean onPrescription, Set<String> replacement, String note, String contraindications,
 			String dailyDose) {
