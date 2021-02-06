@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -38,4 +39,13 @@ public class PharmacyController {
 		return pharmaciesDTO == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(pharmaciesDTO);
 	}
 	
+	@GetMapping(value = "/searchPharmacyByNameAndPlace/{name}/{place}")
+	public ResponseEntity<List<PharmacyDTO>> getAllPharmaciesForSearch(@PathVariable String name,@PathVariable String place){
+		List<PharmacyDTO> pharmaciesDTO = new ArrayList<PharmacyDTO>();
+		List<Pharmacy> pharmacies = pharmacyService.findPharmacyByNameAndPlace(name, place);
+		for (Pharmacy pharmacy : pharmacies) {
+			pharmaciesDTO.add(new PharmacyDTO(pharmacy));
+		}
+		return pharmaciesDTO == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(pharmaciesDTO);
+	}
 }
