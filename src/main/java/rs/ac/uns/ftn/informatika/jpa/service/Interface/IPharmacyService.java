@@ -7,4 +7,5 @@ import rs.ac.uns.ftn.informatika.jpa.model.Pharmacy;
 
 public interface IPharmacyService {
     public List<Pharmacy> findAll();
+    public List<Pharmacy> findPharmacyByNameAndPlace(String name,String place);
 }

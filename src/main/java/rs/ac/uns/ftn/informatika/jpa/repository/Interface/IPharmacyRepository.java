@@ -10,4 +10,7 @@ public interface IPharmacyRepository extends JpaRepository<Pharmacy, Long> {
     @Override
 	public List<Pharmacy> findAll();
 
+    @Override
+	public Pharmacy getOne(Long id);
+
 }

@@ -2,6 +2,8 @@ Vue.component("pharmaciesShow", {
 	data: function () {
 		return {
 			pharmacies:null,
+			pharmaciesHelp:null,
+			lista:[],
 			idPatient: null,
 			approvedFeedbacks: null,
 			patients: null,
@@ -53,6 +55,7 @@ Vue.component("pharmaciesShow", {
 		 	.get('/pharmacy/getAll')
 		 	.then(response => {
 				 this.pharmacies = response.data
+				 this.pharmaciesHelp = response.data
 		 	})
 		 	.catch(error => {
 		 	})
@@ -64,7 +67,25 @@ Vue.component("pharmaciesShow", {
             <br/><h3 class="text">Pharmacy</h3><br/><br/>
 			       <!-- <button type="button" class="btn btn-info btn-lg form-control" style="width:30%;height:80px; margin-bottom:5%" data-toggle="modal" data-target="#CommentModal">Leave feedback</button>-->
 		</div>
-
+		<div class="row search">
+		  	<div class="col-sm-5"><input id="name" placeholder="Enter name" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default"></div>
+		  	<div class="col-sm-6"><input id="place" placeholder="Enter place" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default"></div>
+			<div><button style="color:white" type="button" class="btn btn-default" data-dismiss="modal" v-on:click="Search()"><i class="fa fa-search"></i></button></div>
+		</div><br>
+		<div class="row search">
+		Filtration by grades:&nbsp&nbsp
+		<div>
+			<select class="col" id="sort" v-on:change="Sort()">
+				<option selected="selected" disabled>Please select grade:</option>
+					<option>0</option>
+					<option>1</option>
+					<option>2</option>
+					<option>3</option>
+					<option>4</option>
+					<option>5</option>
+			</select>
+		</div>  	
+	</div>
 
 <!--Show pharmacy -->
 	<template v-for="p in pharmacies">
@@ -84,9 +105,64 @@ Vue.component("pharmaciesShow", {
 
 	`,
 	methods: {
-		
-		
-
-
+		Search: function(){
+			var name=document.getElementById("name").value
+			var place=document.getElementById("place").value
+			if(name=="") name='%20'
+			if(place=="") place='%20'
+			axios
+			.get('/pharmacy/searchPharmacyByNameAndPlace/' + name+'/'+place) 
+			.then(response => {
+				this.pharmacies = response.data
+				this.pharmaciesHelp = response.data
+			})
+			.catch(error => {
+			})
+		},
+		Sort:function(){
+			if(document.getElementById("sort").value=="0"){
+				for(i in this.pharmaciesHelp){
+					if(this.pharmaciesHelp[i].grade == 0)
+					this.lista.push(this.pharmaciesHelp[i])
+				}
+				this.pharmacies = this.lista
+				this.lista = []
+			}else if(document.getElementById("sort").value=="1"){
+				for(i in this.pharmaciesHelp){
+					if(this.pharmaciesHelp[i].grade == 1)
+					this.lista.push(this.pharmaciesHelp[i])
+				}
+				this.pharmacies = this.lista
+				this.lista = []
+			}else if(document.getElementById("sort").value=="2"){
+				for(i in this.pharmaciesHelp){
+					if(this.pharmaciesHelp[i].grade == 2)
+					this.lista.push(this.pharmaciesHelp[i])
+				}
+				this.pharmacies = this.lista
+				this.lista = []
+			}else if(document.getElementById("sort").value=="3"){
+				for(i in this.pharmaciesHelp){
+					if(this.pharmaciesHelp[i].grade == 3)
+					this.lista.push(this.pharmaciesHelp[i])
+				}
+				this.pharmacies = this.lista
+				this.lista = []
+			}else if(document.getElementById("sort").value=="4"){
+				for(i in this.pharmaciesHelp){
+					if(this.pharmaciesHelp[i].grade == 4)
+					this.lista.push(this.pharmaciesHelp[i])
+				}
+				this.pharmacies = this.lista
+				this.lista = []
+			}else{
+				for(i in this.pharmaciesHelp){
+					if(this.pharmaciesHelp[i].grade == 5)
+					this.lista.push(this.pharmaciesHelp[i])
+				}
+				this.pharmacies = this.lista
+				this.lista = []
+			}
+		}
 	}
 });
