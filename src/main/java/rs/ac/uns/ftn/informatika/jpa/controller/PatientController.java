@@ -30,14 +30,14 @@ public class PatientController {
 		PatientDTO patient = new PatientDTO(patientService.findOne(id));
 		return patient == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(patient);
 	}
-/*
+
 	@PostMapping(value = "/update")
 	public ResponseEntity<PatientDTO> updateGreeting(@RequestBody Patient patient) throws Exception {	
-		//patientService.update(patient);
+		patientService.update(patient);
 		PatientDTO p = new PatientDTO(patientService.update(patient));
 		return p == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(p);
 	}
-*/
+
 
 	@GetMapping(value = "/getPatientByDermatologistExamination/{id}")
 	public ResponseEntity<List<PatientDTO>> getPatientByExamination(@PathVariable Long id) {
