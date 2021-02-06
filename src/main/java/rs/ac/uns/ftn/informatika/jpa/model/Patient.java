@@ -182,7 +182,10 @@ public class Patient extends User {
 		ActionOrPromotions = actionOrPromotions;
 	}
 
-	
+	public void addEPrescritpion(EPrescription ePrescription)
+	{
+		EPrescriptions.add(ePrescription);
+	}	
 
 	// public Set<Examination> getExaminations() {
 	// 	return Examinations;

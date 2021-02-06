@@ -8,6 +8,6 @@ import rs.ac.uns.ftn.informatika.jpa.model.EPrescription;
 public interface IEPrescriptionService {
     
 	public EPrescription findOne(Long id);
-	EPrescription save(EPrescriptionDTO ePrescription) throws Exception;
+	EPrescription save(EPrescriptionDTO ePrescription,Long id) throws Exception;
   	List<EPrescription> findAll();
 }

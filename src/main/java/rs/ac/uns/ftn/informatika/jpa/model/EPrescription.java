@@ -12,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -35,8 +36,9 @@ public class EPrescription {
 	// @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	// private Set<Therapy> Therapies = new HashSet<Therapy>();
 	
-	@OneToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "Medicine_id", referencedColumnName = "id")
+	// @OneToOne(cascade = CascadeType.MERGE)
+    // @JoinColumn(name = "Medicine_id", referencedColumnName = "id")
+	@ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
 	private Medicine Medicine;
 	
 	// @Column(name="Amount", unique=false, nullable=true)

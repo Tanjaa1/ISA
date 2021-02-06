@@ -3,34 +3,52 @@ Vue.component("examinationDermatologist", {
 		return {
 			patient:{},
             examination:null,
-            medicines:null,
-            getMedicine:null,
+            medicines:[],
+            med:null,
             prescriptionDTO:{
                 medicine:null,
                 therapyDuration:0,
                 issuingDate:new Date().now,
-            }
+            },
+            medicineChoose:null
 		}
 	},
 	beforeMount() {
         axios
-            .get('/eprescription/findMedicines/' + '111')
+            .get('/examination/getPastExaminationByPatientId/' + '88')
             .then(response => {
-                this.medicines = response.data
+                this.examination = response.data[0]
+                axios
+                .get('/eprescription/findMedicines/' + '111')
+                .then(response => {       
+                    this.med=response.data
+                    for(m in this.med){
+                        var find=false
+                        for(a in this.examination.patient.drugAllargies){
+                            if(this.examination.patient.drugAllargies[a].toUpperCase()==this.med[m].medicine.name.toUpperCase())
+                                find=true
+                        }
+                        if(!find)
+                            this.medicines.push(this.med[m].medicine)
+                    }
+                })
+                .catch(error => {
+                })
             })
             .catch(error => {
             })
+
 	},
 	template: `
 	<div id="ExaminationDermatologist">
         <br><br>	
         <div class="row search">
             <div class="col-sm-5">Patient:</div>
-            <div class="col-sm-4">Mila Milic</div><br><br>
+            <div class="col-sm-4">{{this.examination.patient.fullName}}</div><br><br>
             <div class="col-sm-5">Alergies:</div>
-            <div class="col-sm-4">Alergije</div><br><br>          
+            <div class="col-sm-4">{{this.examination.patient.drugAllargies}}</div><br><br>          
             <div class="col-sm-5">Report:</div>
-            <textarea id="report" class="form-control" rows="4" cols="50" style="height:200px" v-model="examination"></textarea>
+            <textarea id="report" class="form-control" rows="4" cols="50" style="height:200px" v-model="examination.report"></textarea>
         </div>
         <div class="row search">
             <button type="button" style="color:white" class="btn2 btn-default" data-dismiss="modal"  data-toggle="modal" data-target="#PrescriptionModal">Prescription</button>&nbsp&nbsp&nbsp&nbsp&nbsp
@@ -50,31 +68,31 @@ Vue.component("examinationDermatologist", {
 						<div class="modal-body search">
                         
                         <div class="row">Medicine:
-                            <select class="col" id="sort" v-for="m in medicines"  v-on:change="Medicine(m)">
+                            <select class="col" id="sort" v-model="medicineChoose" v-on:change="Medicine()">
                                 <option selected="selected" disabled>Please select one</option>
-                                    <option>{{m.medicine.name}}</option>
+                                    <option v-for="m in medicines" v-bind:value="m">{{m.name}}</option>
                             </select>
                         </div></br>
                         Composition:</br>
-                        <div v-if="this.getMedicine!=null">
-                        {{getMedicine.medicine.composition}}
+                        <div v-if="this.medicineChoose!=null">
+                        {{this.medicineChoose.composition}}
                         </div>
                         <div v-else></br>
                         </div></br>
                         Type:</br>
-                        <div v-if="this.getMedicine!=null">
-                        {{getMedicine.medicine.type}}
+                        <div v-if="this.medicineChoose!=null">
+                        {{medicineChoose.type}}
                         </div>
                         <div v-else></br>
                         </div></br>
                         Note:</br>
-                        <div v-if="this.getMedicine!=null">
-                        {{getMedicine.medicine.note}}
+                        <div v-if="this.medicineChoose!=null">
+                        {{medicineChoose.note}}
                         </div>
                         <div v-else></br>
                         </div></br>
                         Therapy duration:</br>
-                        <input type="number" :disabled="this.getMedicine==null" class = "form-control input" v-model="prescriptionDTO.therapyDuration"/><br/>
+                        <input type="number" :disabled="this.medicineChoose==null" class = "form-control input" v-model="prescriptionDTO.therapyDuration"/><br/>
 						<div class="modal-footer">
 							<button id="addF" type="button" class="btn btn-info btn-lg " v-on:click="AddPrescritpion()">Create</button>
 							<button id="cancelF" type="button" class="btn btn-info btn-lg " data-dismiss="modal">Cancel</button>
@@ -87,22 +105,30 @@ Vue.component("examinationDermatologist", {
     </div>			
 	`,
 	methods: {
-        Finish:function(){      
+        Finish:function(){    
+            axios.post('/examination/update', this.examination)
+				.then(function (response) {
+				})
+				.catch(function (error) {
+				});    
         },
         Prescription:function(){
             
         },
-        Medicine:function(m){
-            this.getMedicine=m
-        },
         AddPrescritpion:function(){
-            this.prescriptionDTO.medicine=this.getMedicine.medicine      
-            axios.post('/eprescription/add', this.prescriptionDTO)
-				.then(function (response) {
-				})
-				.catch(function (error) {
-				});
+            var pharmacyMedicines=this.examination.pharmacy.pricelist
+            for(m in pharmacyMedicines){
+                if(pharmacyMedicines[m].quantity>0){
+                    this.prescriptionDTO.medicine=this.medicineChoose
+                    axios.post('/eprescription/add/'+this.examination.patient.id, this.prescriptionDTO)
+                        .then(function (response) {
+                        })
+                        .catch(function (error) {
+                        });
+                    }else{
 
+                    }
+                }
         }
 	}
 });
