@@ -116,14 +116,17 @@ Vue.component("examinationDermatologist", {
             
         },
         AddPrescritpion:function(){
-            alert(this.medicineChoose)
-            this.prescriptionDTO.medicine=this.medicineChoose
-            axios.post('/eprescription/add', this.prescriptionDTO)
-				.then(function (response) {
-				})
-				.catch(function (error) {
-				});
-
+            var pharmacyMedicines=this.examination.pharmacy.pricelist
+            for(m in pharmacyMedicines){
+                if(pharmacyMedicines[m].quantity>0){
+                    this.prescriptionDTO.medicine=this.medicineChoose
+                    axios.post('/eprescription/add', this.prescriptionDTO)
+                        .then(function (response) {
+                        })
+                        .catch(function (error) {
+                        });
+                    }
+                }
         }
 	}
 });
