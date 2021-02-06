@@ -80,13 +80,6 @@ INSERT INTO public.counseling(
 	id, report, start_time, is_done, patient_id, pharmacist_id, pharmacy_id)
 	VALUES (3, 'izvjestaj 2', '2016-06-22 19:10:25-07', true, 3, 5, 2);
     
-INSERT INTO public.eprescription(
-	code, issuing_date)
-	VALUES (111,'2016-06-22');
-INSERT INTO public.eprescription(
-	code, issuing_date)
-	VALUES (112,'2017-06-22');
-    
 INSERT INTO public.examination(
 	id, report, start_time, is_done, dermatologist_id, patient_id, pharmacy_id)
 	VALUES (1, 'izvjestaj 1', '2016-06-22 19:10:25-07', true, 6, 1, 1);
@@ -188,13 +181,20 @@ INSERT INTO public.supplier_offer(
 	id, offer_price, is_accepted, order_medicine_id, supplier_id)
 	VALUES (2, 400.0, false, 2, 11);
     
-INSERT INTO public.therapy(
-	id, amount, therapy_duration, medicine_code)
-	VALUES (1, 2, 5, 222);
-INSERT INTO public.therapy(
-	id, amount, therapy_duration, medicine_code)
-	VALUES (2, 3, 12, 223);
+-- INSERT INTO public.therapy(
+-- 	id, amount, therapy_duration, medicine_code)
+-- 	VALUES (1, 2, 5, 222);
+-- INSERT INTO public.therapy(
+-- 	id, amount, therapy_duration, medicine_code)
+-- 	VALUES (2, 3, 12, 223);
     
+INSERT INTO public.eprescription(
+	code, issuing_date,therapy_duration, medicine_code,status)
+	VALUES (111,'2016-06-22',2,222,0);
+INSERT INTO public.eprescription(
+	code, issuing_date,therapy_duration, medicine_code,status)
+	VALUES (112,'2017-06-22',2,223,1);
+
 INSERT INTO public.pharmacy_subscribed_users(patient_id, pharmacy_id) VALUES (1, 1);
 INSERT INTO public.pharmacy_subscribed_users(patient_id, pharmacy_id) VALUES (2, 2);
 INSERT INTO public.pharmacy_subscribed_users(patient_id, pharmacy_id) VALUES (3, 1);
@@ -262,12 +262,12 @@ INSERT INTO public.order_medicine_orders(
 	order_id, orders_id)
 	VALUES (2, 1);
 
-INSERT INTO public.eprescription_therapies(
-	eprescription_code, therapies_id)
-	VALUES (111, 1);
-INSERT INTO public.eprescription_therapies(
-	eprescription_code, therapies_id)
-	VALUES (112, 2);
+-- INSERT INTO public.eprescription_therapies(
+-- 	eprescription_code,therapy_duration, medicine_code)
+-- 	VALUES (111, 1,7,2);
+-- INSERT INTO public.eprescription_therapies(
+-- 	eprescription_code,)
+-- 	VALUES (112, 2,7,1);
 
 INSERT INTO public.patient_eprescriptions(
 	patient_id, eprescriptions_code)

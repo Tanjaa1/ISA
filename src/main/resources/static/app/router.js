@@ -25,6 +25,7 @@ const PharmacistHeader = { template: '<pharmacistHeader></pharmacistHeader>' }
 const PharmacistInfo = { template: '<pharmacistInfo></pharmacistInfo>' }
 const ChangePharmacistInfo = { template: '<changePharmacistInfo></changePharmacistInfo>' }
 const DermatologistHeader = { template: '<dermatologistHeader></dermatologistHeader>' }
+const ExaminationDermatologist = { template: '<examinationDermatologist></examinationDermatologist>' }
 
 
 const router = new VueRouter({
@@ -175,8 +176,15 @@ const router = new VueRouter({
 			pageHeader: PatientHeader,
 			content: PatientCounceling
 		}
-	}
-	    
+	},
+	{ 
+		path: '/examinationDermatologist',
+		name : 'examinationDermatologist', 
+		components: {
+			pageHeader: DermatologistHeader,
+			content: ExaminationDermatologist
+		}
+	}	    
 	  ]
 });
 

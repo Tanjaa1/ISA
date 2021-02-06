@@ -143,7 +143,4 @@ public class Pharmacy {
 	// 	PharmacyAdmins = pharmacyAdmins;
 	// }
 
-	public void setId(Long id) {
-		Id = id;
-	}
 }
