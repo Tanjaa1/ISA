@@ -4,25 +4,30 @@ import java.util.HashSet;
 import java.util.Set;
 
 import rs.ac.uns.ftn.informatika.jpa.enums.MedicineForm;
+import rs.ac.uns.ftn.informatika.jpa.enums.MedicineType;
 import rs.ac.uns.ftn.informatika.jpa.model.Medicine;
 
 public class MedicineDTO {
-
-	private Long Code;
+	private Long Id;
+	private String Code;
 	private String Name;
-	private String Type;
+	//private String Type;
 	private MedicineForm Form;
+	private MedicineType Type;
 	private String Composition;
 	private String Manufacturer;
 	private Boolean OnPrescription;
-	private Set<String> Replacement = new HashSet<String>();
+	//private Set<String> Replacement = new HashSet<String>();
+	private String Replacement;
 	private String Note;
+	private String Contraindications;
+	private String DailyDose;
 	
 	//@OneToOne(mappedBy = "Medicine")
     //private MedicinePriceAndQuantity MedicinePriceAndQuantity;
 	
 	public MedicineDTO(){}
-
+/*
 	public MedicineDTO(long code, String name, String type, MedicineForm form, String composition, String manufacturer,
 			Boolean onPrescription, Set<String> replacement, String note) {
 		super();
@@ -37,6 +42,8 @@ public class MedicineDTO {
 		Note = note;
 	}
 
+	*/
+	/*
     public MedicineDTO(Medicine medicine){
         Code = medicine.getCode();
         Name = medicine.getName();
@@ -56,7 +63,7 @@ public class MedicineDTO {
 	public void setCode(long code) {
 		Code = code;
 	}
-
+*/
 	public String getName() {
 		return Name;
 	}
@@ -64,7 +71,7 @@ public class MedicineDTO {
 	public void setName(String name) {
 		Name = name;
 	}
-
+/*
 	public String getType() {
 		return Type;
 	}
@@ -72,7 +79,7 @@ public class MedicineDTO {
 	public void setType(String type) {
 		Type = type;
 	}
-
+*/
 	public MedicineForm getForm() {
 		return Form;
 	}
@@ -104,7 +111,7 @@ public class MedicineDTO {
 	public void setOnPrescription(Boolean onPrescription) {
 		OnPrescription = onPrescription;
 	}
-
+/*
 	public Set<String> getReplacement() {
 		return Replacement;
 	}
@@ -112,7 +119,7 @@ public class MedicineDTO {
 	public void setReplacement(Set<String> replacement) {
 		Replacement = replacement;
 	}
-
+*/
 	public String getNote() {
 		return Note;
 	}
@@ -120,4 +127,69 @@ public class MedicineDTO {
 	public void setNote(String note) {
 		Note = note;
 	}
+
+	public Long getId() {
+		return Id;
+	}
+
+	public void setId(Long id) {
+		Id = id;
+	}
+
+	public String getCode() {
+		return Code;
+	}
+
+	public void setCode(String code) {
+		Code = code;
+	}
+
+	public MedicineType getType() {
+		return Type;
+	}
+
+	public void setType(MedicineType type) {
+		Type = type;
+	}
+
+	public String getReplacement() {
+		return Replacement;
+	}
+
+	public void setReplacement(String replacement) {
+		Replacement = replacement;
+	}
+
+	public String getContraindications() {
+		return Contraindications;
+	}
+
+	public void setContraindications(String contraindications) {
+		Contraindications = contraindications;
+	}
+
+	public String getDailyDose() {
+		return DailyDose;
+	}
+
+	public void setDailyDose(String dailyDose) {
+		DailyDose = dailyDose;
+	}
+
+	public MedicineDTO(Long id, String name, String code, MedicineType type, MedicineForm form, String composition,
+            String manufacturer, Boolean onPrescription, String replacement, String note, String contraindications,
+            String dailyDose) {
+        Id = id;
+        Name = name;
+        Code = code;
+        Type = type;
+        Form = form;
+        Composition = composition;
+        Manufacturer = manufacturer;
+        OnPrescription = onPrescription;
+        Replacement = replacement;
+        Note = note;
+        Contraindications = contraindications;
+        DailyDose = dailyDose;
+    }
 }

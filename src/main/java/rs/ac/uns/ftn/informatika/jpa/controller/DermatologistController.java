@@ -1,6 +1,8 @@
 package rs.ac.uns.ftn.informatika.jpa.controller;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -10,15 +12,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import rs.ac.uns.ftn.informatika.jpa.dto.DermatologistDTO;
+import rs.ac.uns.ftn.informatika.jpa.dto.PharmacyDTO;
+
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import rs.ac.uns.ftn.informatika.jpa.dto.DermatologistDTO;
 import rs.ac.uns.ftn.informatika.jpa.model.Dermatologist;
+import rs.ac.uns.ftn.informatika.jpa.model.Pharmacy;
 import rs.ac.uns.ftn.informatika.jpa.service.DermatologistService;
+import rs.ac.uns.ftn.informatika.jpa.service.PharmacyService;
 
 @RestController
 @RequestMapping(value = "/dermatologist")
@@ -27,6 +29,37 @@ import rs.ac.uns.ftn.informatika.jpa.service.DermatologistService;
 public class DermatologistController {
     @Autowired
 	private DermatologistService dermatologistService;
+	
+	@Autowired
+	private PharmacyService pharmacyService;
+
+	@PostMapping(value = "/saveDermatologist")
+	public ResponseEntity<Dermatologist> savePatient(@RequestBody Dermatologist dermatologistDTO) throws Exception {
+		PharmacyDTO pharmacys = getFarmacyById(dermatologistDTO.getId());
+		Set<Pharmacy> setPhyrmacies=new HashSet<Pharmacy>();
+		setPhyrmacies.add(new Pharmacy(pharmacys));
+		dermatologistDTO.setPharmacies(setPhyrmacies);
+		dermatologistService.save(dermatologistDTO);
+	return new ResponseEntity<>(dermatologistDTO, HttpStatus.CREATED);
+	}
+
+	@GetMapping(value = "/getFarmacyById/{id}")
+	public PharmacyDTO getFarmacyById(@PathVariable Long id) {
+		PharmacyDTO pharmacyDTO = new PharmacyDTO(pharmacyService.findOne(id));
+		return pharmacyDTO ;
+	}
+
+	@GetMapping(value = "/getAllDermatologistUsernames")
+	public ResponseEntity<List<String>> getAllDermatologistUsernames() {
+		List<String> usernames =dermatologistService.getAllDermatologistUsernames();
+		return usernames == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(usernames);
+	}
+
+	@GetMapping(value = "/isUsernameValid/{username}")
+	public ResponseEntity<Boolean> isUsernameValid(@PathVariable String username) {
+		Boolean isValid = dermatologistService.isUsernameValid(username);
+		return isValid == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(isValid);
+	}
 	
 	@GetMapping(value = "/getDermatologistById/{id}")
 	public ResponseEntity<DermatologistDTO> getDermatologistById(@PathVariable Long id) {

@@ -23,7 +23,7 @@ public class ActionOrPromotionsDTO {
         Id = ationOrPromotion.getId();
         Text = ationOrPromotion.getText();
         PharmacyDTO = new PharmacyDTO(ationOrPromotion.getPharmacy());
-        Medicine = new MedicineDTO(ationOrPromotion.getMedicine());
+      //  Medicine = new MedicineDTO(ationOrPromotion.getMedicine());
     }
 	
 	public long getId() {

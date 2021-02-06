@@ -21,7 +21,7 @@ public class MedicineQuantity {
 	private Long Id;
 	
 	@OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "Medicine_code", referencedColumnName = "Code")
+    @JoinColumn(name = "Medicine_id", referencedColumnName = "Id")
 	private Medicine Medicine;
 	
 	@Column(name="Quantity", unique=false, nullable=true)

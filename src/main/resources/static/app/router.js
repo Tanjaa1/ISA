@@ -27,6 +27,13 @@ const PharmacistInfo = { template: '<pharmacistInfo></pharmacistInfo>' }
 const ChangePharmacistInfo = { template: '<changePharmacistInfo></changePharmacistInfo>' }
 const DermatologistHeader = { template: '<dermatologistHeader></dermatologistHeader>' }
 
+const RegistrationPatient = { template: '<registrationPatient></registrationPatient>' }
+const RegistrationSupplier = { template: '<registrationSupplier></registrationSupplier>' }
+const RegistrationDermatologist = { template: '<registrationDermatologist></registrationDermatologist>' }
+const RegistrationPharmacy = { template: '<registrationPharmacy></registrationPharmacy>' }
+const RegistrationSystemAdmin = { template: '<registrationSystemAdmin></registrationSystemAdmin>' }
+const RegistrationMedicine = { template: '<registrationMedicine></registrationMedicine>' }
+const RegistrationPharmacyAdmin = { template: '<registrationPharmacyAdmin></registrationPharmacyAdmin>' } 
 
 const router = new VueRouter({
 	  mode: 'hash',
@@ -184,7 +191,56 @@ const router = new VueRouter({
 			pageHeader: PatientHeader,
 			content: PatientActionsOrPromotions
 		}
-	}
+	},
+	{ 
+		path: '/registrationPatient', 
+		name : 'registrationPatient', 
+		components: {
+			content: RegistrationPatient
+		}
+	},
+		{ 
+		path: '/registrationSupplier', 
+		name : 'registrationSupplier', 
+		components: {
+			content: RegistrationSupplier
+		}
+	},
+	{ 
+		path: '/registrationDermatologist', 
+		name : 'registrationDermatologist', 
+		components: {
+			content: RegistrationDermatologist
+		}
+	},
+	{ 
+		path: '/registrationPharmacy', 
+		name : 'registrationPharmacy', 
+		components: {
+			content: RegistrationPharmacy
+		}
+	},
+	{ 
+		path: '/registrationSystemAdmin', 
+		name : 'registrationSystemAdmin', 
+		components: {
+			content: RegistrationSystemAdmin
+		}
+	},
+	{ 
+		path: '/registrationMedicine', 
+		name : 'registrationMedicine', 
+		components: {
+			content: RegistrationMedicine
+		}
+	},
+	{ 
+		path: '/registrationPharmacyAdmin', 
+		name : 'registrationPharmacyAdmin', 
+		components: {
+			content: RegistrationPharmacyAdmin
+		}
+}
 	  ]
 });
 

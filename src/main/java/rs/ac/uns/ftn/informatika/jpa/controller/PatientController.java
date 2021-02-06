@@ -50,4 +50,31 @@ public class PatientController {
 		List<PatientDTO> patients=patientService.findPatientsByNameAndSurname(id,name,surname);
 		return patients == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(patients);
 	}
+
+	
+
+	@PostMapping(value = "/savePatient")
+	public ResponseEntity<Patient> savePatient(@RequestBody Patient patientDTO) throws Exception{
+		patientService.save(patientDTO);
+	return new ResponseEntity<>(patientDTO, HttpStatus.CREATED);
+	}
+
+	
+	@GetMapping(value = "/savePatientDrugAllergies/{drugAl}")
+	public List<String> saveDrugAll(@PathVariable String drugAl) throws Exception{
+		List<String> setDrugAl=patientService.saveDrugAll(drugAl);
+	return setDrugAl;
+	}
+
+	@GetMapping(value = "/getAllPatientUsernames")
+	public ResponseEntity<List<String>> getAllPatientUsernames() {
+		List<String> usernames =patientService.getAllPatientUsernames();
+		return usernames == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(usernames);
+	}
+
+	@GetMapping(value = "/isUsernameValid/{username}")
+	public ResponseEntity<Boolean> isUsernameValid(@PathVariable String username) {
+		Boolean isValid = patientService.isUsernameValid(username);
+		return isValid == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(isValid);
+	}
 }
