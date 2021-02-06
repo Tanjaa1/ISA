@@ -185,6 +185,9 @@ INSERT INTO public.medicine_price_and_quantity(
 INSERT INTO public.medicine_price_and_quantity(
 	id, price, quantity, medicine_id)
 	VALUES (2, 200.0, 30, 223);
+INSERT INTO public.medicine_price_and_quantity(
+	id, price, quantity, medicine_id)
+	VALUES (3, 200.0, 30, 223);
 
 INSERT INTO public.dermatologist_marks(dermatologist_id, marks) VALUES (6, 0);
 INSERT INTO public.dermatologist_marks(dermatologist_id, marks) VALUES (7, 1);
@@ -199,7 +202,7 @@ INSERT INTO public.medicine_quantity(
 	id, quantity, medicine_id, supplier_id)
 	VALUES (2, 10, 223, 11);
     
-INSERT INTO public.patient_drug_allargies(patient_id, drug_allargies) VALUES (88, 'penicilin');
+INSERT INTO public.patient_drug_allargies(patient_id, drug_allargies) VALUES (88, 'brufen');
 INSERT INTO public.patient_drug_allargies(patient_id, drug_allargies) VALUES (88, 'cefalosporini');
 INSERT INTO public.patient_drug_allargies(patient_id, drug_allargies) VALUES (89, 'tetraciklini');
     
@@ -359,6 +362,9 @@ INSERT INTO public.patient_eprescriptions(
 INSERT INTO public.pharmacy_pricelist(
 	pharmacy_id, pricelist_id)
 	VALUES (111, 1);
+INSERT INTO public.pharmacy_pricelist(
+	pharmacy_id, pricelist_id)
+	VALUES (111, 3);
 INSERT INTO public.pharmacy_pricelist(
 	pharmacy_id, pricelist_id)
 	VALUES (222, 2);

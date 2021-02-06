@@ -8,6 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,14 +25,30 @@ public class ExaminationController {
 	private ExaminationService examinationService;
 	
 	@GetMapping(value = "/getPastExaminationByPatientId/{id}")
-	public ResponseEntity<List<Examination>> getPastExaminationByPatientId(@PathVariable Long id) {
+	public ResponseEntity<List<Examination>> getPastExaminationByPatientId(@PathVariable Long id) 
+	{
 		List<Examination> examinations = examinationService.findPastExaminationsByPatientId(id);
 		return examinations == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(examinations);
 	}
 
     @GetMapping(value = "/getFutureExaminationByPatientId/{id}")
-	public ResponseEntity<List<Examination>> getFutureExaminationByPatientId(@PathVariable Long id) {
+	public ResponseEntity<List<Examination>> getFutureExaminationByPatientId(@PathVariable Long id) 
+	{
 		List<Examination> examinations = examinationService.findFutureExaminationsByPatientId(id);
 		return examinations == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(examinations);
+	}
+
+	@PostMapping(value = "/update")
+	public ResponseEntity<Examination> update(@RequestBody Examination examination) throws Exception
+	{
+		examinationService.save(examination);
+		return new ResponseEntity<>(examination, HttpStatus.CREATED);
+	}
+
+	@GetMapping(value = "/getExaminationById/{id}")
+	public ResponseEntity<Examination> getExaminationById(@PathVariable Long id) 
+	{
+		Examination examination = examinationService.getExaminationById(id);
+		return examination == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(examination);
 	}
 }
