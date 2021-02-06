@@ -136,12 +136,12 @@ INSERT INTO public.counseling(
 	id, report, start_time, is_done, patient_id, pharmacist_id, pharmacy_id)
 	VALUES (3, 'izvjestaj 2', '2016-06-22 19:10:25-07', true, 90, 5, 222);
     
-INSERT INTO public.eprescription(
-	code, issuing_date)
-	VALUES (111,'2016-06-22');
-INSERT INTO public.eprescription(
-	code, issuing_date)
-	VALUES (112,'2017-06-22');
+-- INSERT INTO public.eprescription(
+-- 	code, issuing_date)
+-- 	VALUES (111,'2016-06-22');
+-- INSERT INTO public.eprescription(
+-- 	code, issuing_date)
+-- 	VALUES (112,'2017-06-22');
     
 INSERT INTO public.examination(
 	id, report, start_time, is_done, dermatologist_id, patient_id, pharmacy_id)
@@ -173,10 +173,10 @@ INSERT INTO public.medicine(
 
 INSERT INTO public.action_or_promotion(
 	id, text, medicine_id, pharmacy_id)
-	VALUES (11, 'akcija 50%', 222,  111);
+	VALUES (222, 'akcija 50%', 222,  111);
 INSERT INTO public.action_or_promotion(
 	id, text, medicine_id, pharmacy_id)
-	VALUES (12, 'akcija 30%', 223, 111);
+	VALUES (223, 'akcija 30%', 223, 111);
 
 
 INSERT INTO public.medicine_price_and_quantity(
@@ -255,12 +255,12 @@ INSERT INTO public.supplier_offer(
 	id, offer_price, is_accepted, order_medicine_id, supplier_id)
 	VALUES (2, 400.0, false, 2, 11);
     
-INSERT INTO public.therapy(
-	id, amount, therapy_duration, medicine_id)
-	VALUES (1, 2, 5, 222);
-INSERT INTO public.therapy(
-	id, amount, therapy_duration, medicine_id)
-	VALUES (2, 3, 12, 223);
+-- INSERT INTO public.therapy(
+-- 	id, amount, therapy_duration, medicine_id)
+-- 	VALUES (1, 2, 5, 222);
+-- INSERT INTO public.therapy(
+-- 	id, amount, therapy_duration, medicine_id)
+-- 	VALUES (2, 3, 12, 223);
     
 INSERT INTO public.pharmacy_subscribed_users(patient_id, pharmacy_id) VALUES (88, 111);
 INSERT INTO public.pharmacy_subscribed_users(patient_id, pharmacy_id) VALUES (88, 222);
@@ -329,12 +329,19 @@ INSERT INTO public.order_medicine_orders(
 	order_id, orders_id)
 	VALUES (2, 1);
 
-INSERT INTO public.eprescription_therapies(
-	eprescription_code, therapies_id)
-	VALUES (111, 1);
-INSERT INTO public.eprescription_therapies(
-	eprescription_code, therapies_id)
-	VALUES (112, 2);
+-- INSERT INTO public.eprescription_therapies(
+-- 	eprescription_code, therapies_id)
+-- 	VALUES (111, 1);
+-- INSERT INTO public.eprescription_therapies(
+-- 	eprescription_code, therapies_id)
+-- 	VALUES (112, 2);
+
+INSERT INTO public.eprescription(
+	code, issuing_date,therapy_duration, medicine_id,status)
+	VALUES (111,'2016-06-22',2,222,0);
+INSERT INTO public.eprescription(
+	code, issuing_date,therapy_duration, medicine_id,status)
+	VALUES (112,'2017-06-22',2,223,1);
 
 INSERT INTO public.patient_eprescriptions(
 	patient_id, eprescriptions_code)
@@ -342,7 +349,6 @@ INSERT INTO public.patient_eprescriptions(
 INSERT INTO public.patient_eprescriptions(
 	patient_id, eprescriptions_code)
 	VALUES (88, 112);
-
 -- INSERT INTO public.pharmacy_list_actions_or_promotions(
 -- 	pharmacy_id, list_actions_or_promotions_id)
 -- 	VALUES (1, 11);
@@ -366,7 +372,7 @@ INSERT INTO public.medicine_replacement(
 
 INSERT INTO public.patient_action_or_promotions(
 	patient_id, action_or_promotions_id)
-	VALUES (88, 11);
+	VALUES (88, 222);
 INSERT INTO public.patient_action_or_promotions(
 	patient_id, action_or_promotions_id)
-	VALUES (88, 12);
+	VALUES (88, 223);

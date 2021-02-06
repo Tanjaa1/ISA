@@ -2,11 +2,14 @@ package rs.ac.uns.ftn.informatika.jpa.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
+import rs.ac.uns.ftn.informatika.jpa.model.MedicinePriceAndQuantity;
 import rs.ac.uns.ftn.informatika.jpa.model.Pharmacy;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IPharmacyRepository;
 import rs.ac.uns.ftn.informatika.jpa.service.Interface.IPharmacyService;
@@ -72,4 +75,9 @@ public class PharmacyService implements IPharmacyService {
         }
         return true;
     }
+    
+    public Set<MedicinePriceAndQuantity> getPharmacyMedicines(Long id) {
+        return findOne(id).getPricelist();
+    }
+    
 }
