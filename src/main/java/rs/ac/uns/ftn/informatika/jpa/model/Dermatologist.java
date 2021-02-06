@@ -3,15 +3,12 @@ package rs.ac.uns.ftn.informatika.jpa.model;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import rs.ac.uns.ftn.informatika.jpa.util.VacationInterval;
@@ -83,6 +80,25 @@ public class Dermatologist extends User{
 	public void setMarks(Set<Integer> marks) {
 		Marks = marks;
 	}
-
+	public Dermatologist(Long id, String email, String password, String name, String surname, String address,
+			String city, String country, String phoneNumber, String description, Boolean emailComfirmed,
+			Boolean firstTimeLogin, String username, Set<VacationInterval> vacationSchedule,
+			Set<WorkingTime> workingSchedule, Set<Pharmacy> pharmacies, Set<Integer> marks) {
+		super(id, email, password, name, surname, address, city, country, phoneNumber, description, emailComfirmed,
+				firstTimeLogin, username);
+		VacationSchedule = vacationSchedule;
+		WorkingSchedule = workingSchedule;
+		Pharmacies = pharmacies;
+		Marks = marks;
+	}
+	
+	public Dermatologist(Long id, String email, String password, String name, String surname, String address,
+			String city, String country, String phoneNumber, String description, Boolean emailComfirmed,
+			Boolean firstTimeLogin, String username,  Set<Pharmacy> pharmacies) {
+		super(id, email, password, name, surname, address, city, country, phoneNumber, description, emailComfirmed,
+				firstTimeLogin, username);
+		Pharmacies = pharmacies;
+	
+	}
 
 }

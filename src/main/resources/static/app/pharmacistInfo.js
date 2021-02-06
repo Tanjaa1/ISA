@@ -80,7 +80,7 @@ Vue.component("pharmacistInfo", {
 							  <div class="input-group-prepend">
 								<span class="input-group-text width" id="basic-addon3">Pharmacy</span>
 							  </div>
-							  <input type="text" v-model="this.dermatologist.pharmacy" class="form-control" id="basic-url" aria-describedby="basic-addon3" disabled>
+							  <input type="text" v-model="this.dermatologist.pharmacy.name" class="form-control" id="basic-url" aria-describedby="basic-addon3" disabled>
 						</div>	
 	<!--END registration info modal-->
 
@@ -210,7 +210,7 @@ Vue.component("changePharmacistInfo", {
 							  <div class="input-group-prepend">
 								 <span class="input-group-text width" id="basic-addon3">Pharmacy</span>
 							  </div>
-							   <input type="text" v-model="pharmacies" class="form-control" id="basic-url" aria-describedby="basic-addon3" disabled>			 
+							   <input type="text" v-model="pharmacies.name" class="form-control" id="basic-url" aria-describedby="basic-addon3" disabled>			 
 								 <td>&nbsp&nbsp&nbsp</td>
  
 							   </div>	

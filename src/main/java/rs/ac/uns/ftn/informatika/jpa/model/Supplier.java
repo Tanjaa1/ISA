@@ -1,12 +1,6 @@
 package rs.ac.uns.ftn.informatika.jpa.model;
-
-import java.util.HashSet;
 import java.util.Set;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -23,7 +17,12 @@ public class Supplier extends User {
 		super(id, email, password, name, surname, address, city, country, phoneNumber, description);
 		//Medicines = medicines;
 	}
-
+	public Supplier(Long id, String email, String password, String name, String surname, String address, String city,
+			String country, String phoneNumber, String description, Boolean emailComfirmed, Boolean firstTimeLogin,
+			String username) {
+		super(id, email, password, name, surname, address, city, country, phoneNumber, description, emailComfirmed,
+				firstTimeLogin, username);
+	}
 	// public Set<MedicineQuantity> getMedicines() {
 	// 	return Medicines;
 	// }

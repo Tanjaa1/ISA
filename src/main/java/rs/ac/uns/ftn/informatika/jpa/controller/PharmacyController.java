@@ -9,13 +9,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import rs.ac.uns.ftn.informatika.jpa.dto.DermatologistDTO;
-import rs.ac.uns.ftn.informatika.jpa.dto.PharmacyDTO;
-import rs.ac.uns.ftn.informatika.jpa.service.DermatologistService;
-
 import rs.ac.uns.ftn.informatika.jpa.dto.PharmacyDTO;
 import rs.ac.uns.ftn.informatika.jpa.model.Pharmacy;
 import rs.ac.uns.ftn.informatika.jpa.service.PharmacyService;
@@ -47,5 +44,28 @@ public class PharmacyController {
 			pharmaciesDTO.add(new PharmacyDTO(pharmacy));
 		}
 		return pharmaciesDTO == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(pharmaciesDTO);
+	}
+
+	@PostMapping(value = "/savePharmacy")
+	public ResponseEntity<Pharmacy> savePharmacy(@RequestBody Pharmacy pharmacyDTO) throws Exception{
+		pharmacyService.save(pharmacyDTO);
+	return new ResponseEntity<>(pharmacyDTO, HttpStatus.CREATED);
+	}
+
+	@GetMapping(value = "/getAllPharmacies")
+	public ResponseEntity<List<Pharmacy>> getAll() {
+		List<Pharmacy> pharmacies =pharmacyService.getAll();
+		return pharmacies == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(pharmacies);
+	}
+	@GetMapping(value = "/getAllPharmacyNames")
+	public ResponseEntity<List<String>> getAllPharmacyNames() {
+		List<String> usernames =pharmacyService.getAllPharmacyNames();
+		return usernames == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(usernames);
+	}
+
+	@GetMapping(value = "/isNameValid/{name}")
+	public ResponseEntity<Boolean> isNameValid(@PathVariable String name) {
+		Boolean isValid = pharmacyService.isNameValid(name);
+		return isValid == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(isValid);
 	}
 }

@@ -2,7 +2,8 @@ Vue.component("dermatologistInfo", {
 	data: function () {
 		return {
 			dermatologist: null,
-			idDermatologist: ""
+			idDermatologist: "",
+			pharmacies:[]
 		}
 	},
 	beforeMount() {
@@ -10,6 +11,8 @@ Vue.component("dermatologistInfo", {
 			.get('/dermatologist/getDermatologistById/' + '6') 
 			.then(response => {
 				this.dermatologist = response.data
+				for(f in this.dermatologist.pharmacies)
+					this.pharmacies.push(this.dermatologist.pharmacies[f].name)
 			})
 			.catch(error => {
 			})
@@ -80,7 +83,7 @@ Vue.component("dermatologistInfo", {
 							  <div class="input-group-prepend">
 								<span class="input-group-text width" id="basic-addon3">Pharmacy</span>
 							  </div>
-							  <input type="text" v-model="this.dermatologist.pharmacies" class="form-control" id="basic-url" aria-describedby="basic-addon3" disabled>
+							  <input type="text" v-model="this.pharmacies" class="form-control" id="basic-url" aria-describedby="basic-addon3" disabled>
 						</div>	
 	<!--END registration info modal-->
 
@@ -114,7 +117,8 @@ Vue.component("changeDermatologistInfo", {
 			password:null,
 			emailComfirmed:null,
 			firstTimeLogin:null,
-			pharmacies:null
+			pharmacies:null,
+			pharmaciesString:[]
 
 		}
 	},
@@ -136,6 +140,9 @@ Vue.component("changeDermatologistInfo", {
 				this.firstTimeLogin = this.dermatologist.firstTimeLogin
 				this.description = this.dermatologist.description
 				this.pharmacies=this.dermatologist.pharmacies
+				
+				for(f in this.dermatologist.pharmacies)
+					this.pharmaciesString.push(this.dermatologist.pharmacies[f].name)
 			})
 			.catch(error => {
 			})
@@ -210,7 +217,7 @@ Vue.component("changeDermatologistInfo", {
 							  <div class="input-group-prepend">
 								 <span class="input-group-text width" id="basic-addon3">Pharmacy</span>
 							  </div>
-							   <input type="text" v-model="pharmacies" class="form-control" id="basic-url" aria-describedby="basic-addon3" disabled>			 
+							   <input type="text" v-model="pharmaciesString" class="form-control" id="basic-url" aria-describedby="basic-addon3" disabled>			 
 								 <td>&nbsp&nbsp&nbsp</td>
  
 							   </div>	

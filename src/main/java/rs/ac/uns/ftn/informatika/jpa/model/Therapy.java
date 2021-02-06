@@ -21,7 +21,7 @@ public class Therapy {
 	private Long id;
 	
 	@OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "Medicine_code", referencedColumnName = "code")
+    @JoinColumn(name = "Medicine_id", referencedColumnName = "Id")
 	private Medicine Medicine;
 	
 	@Column(name="Amount", unique=false, nullable=true)

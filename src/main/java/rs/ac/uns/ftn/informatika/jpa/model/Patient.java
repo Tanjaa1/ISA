@@ -1,6 +1,7 @@
 package rs.ac.uns.ftn.informatika.jpa.model;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -14,9 +15,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.core.sym.Name;
-
 import rs.ac.uns.ftn.informatika.jpa.enums.LoyaltyCategories;
 
 @Entity
@@ -26,7 +24,8 @@ public class Patient extends User {
 	@Column(name="DrugAllargies", unique=false, nullable=true)
 	//@OneToMany(mappedBy = "Patient", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@ElementCollection
-	private Set<String> DrugAllargies = new HashSet<String>();
+	//private Set<String> DrugAllargies = new HashSet<String>();
+	private List<String> DrugAllargies ;
 	
 	@Column(name="Points", unique=false, nullable=true)
 	private Integer Points;
@@ -62,7 +61,7 @@ public class Patient extends User {
 	// private Set<Reservation> Reservations = new HashSet<Reservation>();
 	
 	public Patient() {}
-	
+	/*
 	public Patient(long id, String email, String password, String name, String surname, String address, String city,
 			String country, String phoneNumber,String description, Set<String> drugAllargies, int points, int penalty,
 			LoyaltyCategories category, Set<ActionOrPromotion> actionOrPromotions) {
@@ -81,7 +80,7 @@ public class Patient extends User {
 	public void setDrugAllargies(Set<String> drugAllargies) {
 		DrugAllargies = drugAllargies;
 	}
-
+*/
 	public int getPoints() {
 		return Points;
 	}
@@ -125,6 +124,65 @@ public class Patient extends User {
 	public void setActionOrPromotion(Set<ActionOrPromotion> actionOrPromotion) {
 		ActionOrPromotions = actionOrPromotion;
 	}
+/*
+	public Patient(PatientDTO patientDTO){
+		super();
+		DrugAllargies = patientDTO.getDrugAllargies();
+		Points = patientDTO.getPoints();
+		Penalty = patientDTO.getPenalty();
+		Category = patientDTO.getCategory();
+
+	}
+*/
+	public Patient(Long id, String email, String password, String name, String surname, String address, String city,
+			String country, String phoneNumber, String description, Boolean emailComfirmed, Boolean firstTimeLogin,
+			String username, List<String> drugAllargies, Integer points, Integer penalty, LoyaltyCategories category,
+			Set<Pharmacy> prepaidPharmacies, Set<Complaint> complaints, Set<Counseling> counselings,
+			Set<EPrescription> ePrescriptions, Set<Examination> examinations, Set<Reservation> reservations) {
+		super(id, email, password, name, surname, address, city, country, phoneNumber, description, emailComfirmed,
+				firstTimeLogin, username);
+		DrugAllargies = drugAllargies;
+		Points = points;
+		Penalty = penalty;
+		Category = category;
+		PrepaidPharmacies = prepaidPharmacies;
+		EPrescriptions = ePrescriptions;
+	
+	}
+
+	public List<String> getDrugAllargies() {
+		return DrugAllargies;
+	}
+
+	public void setDrugAllargies(List<String> drugAllargies) {
+		DrugAllargies = drugAllargies;
+	}
+
+	public void setPoints(Integer points) {
+		Points = points;
+	}
+
+	public void setPenalty(Integer penalty) {
+		Penalty = penalty;
+	}
+
+	public Set<EPrescription> getEPrescriptions() {
+		return EPrescriptions;
+	}
+
+	public void setEPrescriptions(Set<EPrescription> ePrescriptions) {
+		EPrescriptions = ePrescriptions;
+	}
+
+	public Set<ActionOrPromotion> getActionOrPromotions() {
+		return ActionOrPromotions;
+	}
+
+	public void setActionOrPromotions(Set<ActionOrPromotion> actionOrPromotions) {
+		ActionOrPromotions = actionOrPromotions;
+	}
+
+	
 
 	// public Set<Examination> getExaminations() {
 	// 	return Examinations;

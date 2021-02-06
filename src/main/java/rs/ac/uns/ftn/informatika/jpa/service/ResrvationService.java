@@ -59,14 +59,15 @@ public class ResrvationService implements IReservationService{
 
 	private void changeMedicineQuantity(Reservation reservation)
 	{
-		Long medicine=reservation.getMedicine().getMedicine().getCode();
+		//Long medicine=reservation.getMedicine().getMedicine().getCode();
 		for (MedicinePriceAndQuantity medicinePQ : reservation.getPharmacy().getPricelist()) 
-		{
+		{/*
 			if(medicinePQ.getMedicine().getCode()==medicine)
 			{
 				medicinePQ.setQuantity(medicinePQ.getQuantity()-reservation.getMedicine().getQuantity());
 				priceAndQuantityRepository.save(medicinePQ);
 			}
+			*/
 		}
 	}
 

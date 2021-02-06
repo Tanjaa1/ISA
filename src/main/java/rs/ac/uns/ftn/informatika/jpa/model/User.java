@@ -34,12 +34,14 @@ public abstract class User {
 	private String Country;
 	@Column(name="PhoneNumber", unique=false, nullable=false)
 	private String PhoneNumber;
-	@Column(name="Description", unique=false, nullable=false)
+	@Column(name="Description", unique=false, nullable=true)
 	private String Description;
 	@Column(name="EmailComfirmed", unique=false, nullable=false)
 	private Boolean EmailComfirmed;
 	@Column(name="FirstTimeLogin", unique=false, nullable=false)
 	private Boolean FirstTimeLogin;
+	@Column(name="Username", unique=true, nullable=false)
+	private String Username;
 	
 	public long getId() {
 		return Id;
@@ -118,6 +120,36 @@ public abstract class User {
 		Id = id;
 	}
 	
+	public User() {}
+
+	public String getUsername() {
+		return Username;
+	}
+
+	public void setUsername(String username) {
+		Username = username;
+	}
+
+	public User(Long id, String email, String password, String name, String surname, String address, String city,
+			String country, String phoneNumber, String description, Boolean emailComfirmed, Boolean firstTimeLogin,
+			String username) {
+		Id = id;
+		Email = email;
+		Password = password;
+		Name = name;
+		Surname = surname;
+		Address = address;
+		City = city;
+		Country = country;
+		PhoneNumber = phoneNumber;
+		Description = description;
+		EmailComfirmed = emailComfirmed;
+		FirstTimeLogin = firstTimeLogin;
+		Username = username;
+	}
+
+
+
 	public User(long id, String email, String password, String name, String surname, String address, String city,
 			String country, String phoneNumber,String description) {
 		super();
@@ -133,7 +165,4 @@ public abstract class User {
 		Description=description;
 		
 	}
-	
-	public User() {}
-
 }

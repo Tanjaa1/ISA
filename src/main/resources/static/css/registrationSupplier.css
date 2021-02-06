@@ -1,0 +1,76 @@
+#RegistrationSupplier {
+    background-image: url("../pictures/supplierRegistration.jpg");
+    background-repeat: no-repeat;
+    overflow-y: hidden;
+    overflow-x: hidden;
+    background-size: cover;
+    height: auto !important;
+    min-height: 1000px;
+    color: white;
+    font-family: impact;
+}.line {
+    height: 2px;
+    border-width: 0;
+    color: gray;
+    background-color: gray;
+}
+
+
+.text5551 {
+    color:  white;
+    font-size: 30px;
+    font-weight: 100;
+    font-family: 'Impact';
+    text-align: center;
+}
+
+hr {
+    height: 1px;
+    border-width: 0;
+    color: gray;
+    background-color: gray;
+}
+.combo{
+    width: 185px;
+    height: 30px;
+}
+
+.container .t{
+    float: left;
+    font-size: 25px;
+}
+
+.margin1 {
+    margin-left: 90%;
+}
+
+.btn2 {
+    background-color: #4682B4;
+    color: white;
+    border: thick;
+    font-family: 'Impact';
+    font-weight: 100;
+        text-align:center;
+}
+
+.container .t .star {
+    color: red;
+    font-size: 25px;
+}
+
+.input {
+    height : 40px;
+    width : 200px;
+}
+
+.inputImage {
+    height : auto;
+}
+
+.width {
+    width : 210px;
+    background-color : lightblue;
+    color : white;
+    font-weight : bolder;
+}
+

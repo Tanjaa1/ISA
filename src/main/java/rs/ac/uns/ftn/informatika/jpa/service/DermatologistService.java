@@ -1,10 +1,11 @@
 package rs.ac.uns.ftn.informatika.jpa.service;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import rs.ac.uns.ftn.informatika.jpa.dto.DermatologistDTO;
@@ -57,5 +58,29 @@ public class DermatologistService implements IDermatologistService {
             returnValue.add(dermatologistDTO.toDTO(dermatologist));
         return returnValue;
     }
+
+	@Override
+    public ResponseEntity<Dermatologist> save(Dermatologist dermatologist) throws Exception {
+        dermatologistRepository.save(dermatologist);
+	return new ResponseEntity<>( HttpStatus.CREATED);
+    }
+
+	public List<String> getAllDermatologistUsernames() {
+		List<Dermatologist> dermatologists = dermatologistRepository.findAll();
+        List<String> resultList=new ArrayList<String>();
+        for (Dermatologist s : dermatologists) {
+            resultList.add(s.getUsername());
+        }
+        return resultList;
+	}
+
+	public Boolean isUsernameValid(String username) {
+        List<String> usernames=getAllDermatologistUsernames();
+        for (String s : usernames) {
+            if(s.equals(username))
+                return false;
+        }
+        return true;
+	}
 
 }

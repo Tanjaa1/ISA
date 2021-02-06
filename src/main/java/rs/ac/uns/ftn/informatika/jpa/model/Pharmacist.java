@@ -12,7 +12,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import rs.ac.uns.ftn.informatika.jpa.util.VacationInterval;
@@ -80,6 +79,18 @@ public class Pharmacist extends User {
 	}
 
 	public void setMarks(Set<Integer> marks) {
+		Marks = marks;
+	}
+
+	public Pharmacist(Long id, String email, String password, String name, String surname, String address, String city,
+			String country, String phoneNumber, String description, Boolean emailComfirmed, Boolean firstTimeLogin,
+			String username, Set<VacationInterval> vacationSchedule, Set<WorkingTime> workingSchedule,
+			Pharmacy pharmacy, Set<Integer> marks, Set<Counseling> counselings) {
+		super(id, email, password, name, surname, address, city, country, phoneNumber, description, emailComfirmed,
+				firstTimeLogin, username);
+		VacationSchedule = vacationSchedule;
+		WorkingSchedule = workingSchedule;
+		Pharmacy = pharmacy;
 		Marks = marks;
 	}
 }

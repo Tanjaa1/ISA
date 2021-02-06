@@ -11,7 +11,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import rs.ac.uns.ftn.informatika.jpa.dto.MedicineDTO;
 import rs.ac.uns.ftn.informatika.jpa.enums.MedicineForm;
+import rs.ac.uns.ftn.informatika.jpa.enums.MedicineType;
 
 @Entity
 @Table(name="Medicine")
@@ -19,13 +21,16 @@ public class Medicine {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long Code;
+	private Long Id;
+	
+	@Column(name="Code", unique=false, nullable=true)
+	private String Code;
 	
 	@Column(name="Name", unique=false, nullable=true)
 	private String Name;
 	
 	@Column(name="Type", unique=false, nullable=true)
-	private String Type;
+	private MedicineType Type;
 	
 	@Column(name="Form", unique=false, nullable=true)
 	private MedicineForm Form;
@@ -45,13 +50,21 @@ public class Medicine {
 	
 	@Column(name="Note", unique=false, nullable=true)
 	private String Note;
+
+	@Column(name="Contraindications", unique=false, nullable=true)
+	private String Contraindications;
+
+	
+	@Column(name="DailyDose", unique=false, nullable=true)
+	private String DailyDose;
+
 	
 	//@OneToOne(mappedBy = "Medicine")
     //private MedicinePriceAndQuantity MedicinePriceAndQuantity;
 	
 	public Medicine(){}
-
-	public Medicine(long code, String name, String type, MedicineForm form, String composition, String manufacturer,
+/*
+	public Medicine(long code, String name, MedicineType type, MedicineForm form, String composition, String manufacturer,
 			Boolean onPrescription, Set<String> replacement, String note) {
 		super();
 		Code = code;
@@ -64,12 +77,12 @@ public class Medicine {
 		Replacement = replacement;
 		Note = note;
 	}
-
-	public long getCode() {
+*/
+	public String getCode() {
 		return Code;
 	}
 
-	public void setCode(long code) {
+	public void setCode(String code) {
 		Code = code;
 	}
 
@@ -81,11 +94,11 @@ public class Medicine {
 		Name = name;
 	}
 
-	public String getType() {
+	public MedicineType getType() {
 		return Type;
 	}
 
-	public void setType(String type) {
+	public void setType(MedicineType type) {
 		Type = type;
 	}
 
@@ -137,5 +150,52 @@ public class Medicine {
 		Note = note;
 	}
 	
+	
+	public void setContraindications(String contraindications) {
+		Contraindications = contraindications;
+	}
 
+	public String getDailyDose() {
+		return DailyDose;
+	}
+
+	public void setDailyDose(String dailyDose) {
+		DailyDose = dailyDose;
+	}
+
+	public Medicine(Long id, String name, String code, MedicineType type, MedicineForm form, String composition,
+			String manufacturer, Boolean onPrescription, Set<String> replacement, String note, String contraindications,
+			String dailyDose) {
+		Id = id;
+		Name = name;
+		Code = code;
+		Type = type;
+		Form = form;
+		Composition = composition;
+		Manufacturer = manufacturer;
+		OnPrescription = onPrescription;
+		Replacement = replacement;
+		Note = note;
+		Contraindications = contraindications;
+		DailyDose = dailyDose;
+	}
+	public Medicine(MedicineDTO medicineDTO) {
+		Id = medicineDTO.getId();
+		Name = medicineDTO.getName();
+		Code = medicineDTO.getCode();
+		Type = medicineDTO.getType();
+		Form = medicineDTO.getForm();
+		Composition = medicineDTO.getComposition();
+		Manufacturer = medicineDTO.getManufacturer();
+		OnPrescription = medicineDTO.getOnPrescription();
+		String replacementParts[]=medicineDTO.getReplacement().split(",");
+		HashSet<String> setReplacements=new HashSet<String>();
+		for(String  i : replacementParts){
+			setReplacements.add(i);
+		}
+		Replacement = setReplacements;
+		Note = medicineDTO.getNote();
+		Contraindications = medicineDTO.getContraindications();
+		DailyDose = medicineDTO.getDailyDose();
+	}
 }
