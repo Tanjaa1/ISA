@@ -19,7 +19,7 @@ Vue.component("patientInfo", {
 			.catch(error => {
 			})*/
 			axios
-			.get('/patient/getPatientById/' + '1') 
+			.get('/patient/getPatientById/' + '88') 
 			.then(response => {
 				this.patient = response.data
 				//this.patient.category = "patient"
@@ -179,7 +179,7 @@ Vue.component("changePatientInfo", {
 			.catch(error => {
 			})*/
 			axios
-			.get('/patient/getPatientById/' + '1') 
+			.get('/patient/getPatientById/' + '88') 
 			.then(response => {
 				this.patient = response.data
 				//this.patient.category = "patient"

@@ -23,27 +23,24 @@ public class MedicineDTO {
 	private String Contraindications;
 	private String DailyDose;
 	
-	//@OneToOne(mappedBy = "Medicine")
-    //private MedicinePriceAndQuantity MedicinePriceAndQuantity;
-	
 	public MedicineDTO(){}
-/*
-	public MedicineDTO(long code, String name, String type, MedicineForm form, String composition, String manufacturer,
+
+	public MedicineDTO(String code, String name, String type, MedicineForm form, String composition, String manufacturer,
 			Boolean onPrescription, Set<String> replacement, String note) {
 		super();
 		Code = code;
 		Name = name;
-		Type = type;
+		//Type = type;
 		Form = form;
 		Composition = composition;
 		Manufacturer = manufacturer;
 		OnPrescription = onPrescription;
-		Replacement = replacement;
+		//Replacement = replacement;
 		Note = note;
 	}
 
-	*/
-	/*
+	
+	
     public MedicineDTO(Medicine medicine){
         Code = medicine.getCode();
         Name = medicine.getName();
@@ -52,18 +49,18 @@ public class MedicineDTO {
         Composition = medicine.getComposition();
         Manufacturer = medicine.getManufacturer();
         OnPrescription = medicine.getOnPrescription();
-        Replacement = medicine.getReplacement();
+       // Replacement = medicine.getReplacement();
         Note = medicine.getNote();
     }
 
-	public long getCode() {
+	public String getCode() {
 		return Code;
 	}
 
-	public void setCode(long code) {
+	public void setCode(String code) {
 		Code = code;
 	}
-*/
+
 	public String getName() {
 		return Name;
 	}
@@ -134,14 +131,6 @@ public class MedicineDTO {
 
 	public void setId(Long id) {
 		Id = id;
-	}
-
-	public String getCode() {
-		return Code;
-	}
-
-	public void setCode(String code) {
-		Code = code;
 	}
 
 	public MedicineType getType() {

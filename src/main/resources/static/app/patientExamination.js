@@ -8,14 +8,14 @@ Vue.component("patientExamination", {
     beforeMount() {
 
         axios
-            .get('/examination/getPastExaminationByPatientId/' + '1')
+            .get('/examination/getPastExaminationByPatientId/' + '88')
             .then(response => {
                 this.patientPastExaminations = response.data
             })
             .catch(error => {
             })
         axios
-            .get('/examination/getFutureExaminationByPatientId/' + '1')
+            .get('/examination/getFutureExaminationByPatientId/' + '88')
             .then(response => {
                 this.patientFutureExaminations = response.data
             })
