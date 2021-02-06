@@ -41,8 +41,8 @@ public class ExaminationController {
 	@PostMapping(value = "/update")
 	public ResponseEntity<Examination> update(@RequestBody Examination examination) throws Exception
 	{
-		examinationService.save(examination);
-		return new ResponseEntity<>(examination, HttpStatus.CREATED);
+		Examination e =examinationService.update(examination.getId());
+		return e == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(e);
 	}
 
 	@GetMapping(value = "/getExaminationById/{id}")

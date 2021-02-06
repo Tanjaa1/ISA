@@ -43,10 +43,10 @@ public class ExaminationService implements IExaminationService {
         return patientExaminations;
     }
 
-    @Override
-    public Examination save(Examination examination) throws Exception {
-        examination.setIsDone(true);
-        return examinationRepository.save(examination);
+    public Examination update(Long id) throws Exception {
+        Examination e=examinationRepository.getOne(id);
+        e.setIsDone(true);
+        return examinationRepository.save(e);
     }
 
     @Override
