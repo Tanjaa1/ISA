@@ -250,7 +250,9 @@ public class PatientDTO {
 		return Name.toUpperCase().contains(name.toUpperCase().trim()) 
 			&& Surname.toUpperCase().contains(surname.toUpperCase().trim());
 	}
-	
+	public String fullName(){
+		return Name+" "+Surname;
+	}
 	
 	
 }
