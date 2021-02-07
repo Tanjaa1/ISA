@@ -151,7 +151,10 @@ INSERT INTO public.examination(
 	VALUES (2, 'izvjestaj 1', '2021-06-22 19:10:25-07', true, 6, 88, 111);
 INSERT INTO public.examination(
 	id, report, start_time, is_done, dermatologist_id, patient_id, pharmacy_id)
-	VALUES (3, 'izvjestaj 2', '2016-07-22 19:10:25-07', true, 6, 90, 111);
+	VALUES (3, 'izvjestaj 2', '2016-07-22 19:10:25-07', true, 6, null, 111);
+INSERT INTO public.examination(
+	id, report, start_time, is_done, dermatologist_id, patient_id, pharmacy_id)
+	VALUES (4, 'izvjestaj 2', '2016-08-13 18:00:25-07', false, 6, null, 111);
     
 /*
 INSERT INTO public.medicine(
@@ -202,7 +205,7 @@ INSERT INTO public.medicine_quantity(
 	id, quantity, medicine_id, supplier_id)
 	VALUES (2, 10, 223, 11);
     
-INSERT INTO public.patient_drug_allargies(patient_id, drug_allargies) VALUES (88, 'brufen');
+INSERT INTO public.patient_drug_allargies(patient_id, drug_allargies) VALUES (88, 'paracetamol');
 INSERT INTO public.patient_drug_allargies(patient_id, drug_allargies) VALUES (88, 'cefalosporini');
 INSERT INTO public.patient_drug_allargies(patient_id, drug_allargies) VALUES (89, 'tetraciklini');
     

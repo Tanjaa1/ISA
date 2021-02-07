@@ -24,7 +24,7 @@ public class ExaminationService implements IExaminationService {
         List<Examination> examinations = examinationRepository.findAll();
         for (Examination examination : examinations) {
             int i = examination.getStartTime().compareTo(LocalDateTime.now());
-            if (id == examination.getPatient().getId() && examination.getIsDone() && i < 0) {
+            if (examination.getPatient() != null && id == examination.getPatient().getId() && examination.getIsDone() && i < 0) {
                 patientExaminations.add(examination);
             }
         }
@@ -36,7 +36,7 @@ public class ExaminationService implements IExaminationService {
         List<Examination> examinations = examinationRepository.findAll();
         for (Examination examination : examinations) {
             int i = examination.getStartTime().compareTo(LocalDateTime.now());
-            if (id == examination.getPatient().getId() && i > 0) {
+            if (examination.getPatient() != null && id == examination.getPatient().getId() && i > 0) {
                 patientExaminations.add(examination);
             }
         }

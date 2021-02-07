@@ -32,9 +32,9 @@ public class PatientDTO {
 	private LoyaltyCategories Category; 
 	private Set<Pharmacy> PrepaidPharmacies = new HashSet<Pharmacy>();
 	private Set<Complaint> Complaints = new HashSet<Complaint>();
-	private Set<Counseling> Counselings = new HashSet<Counseling>();
-	private Set<EPrescription> EPrescriptions = new HashSet<EPrescription>();
-	private Set<Examination> Examinations = new HashSet<Examination>();
+	private Set<CouncelingDTO> Counselings = new HashSet<CouncelingDTO>();
+	private Set<EPrescriptionDTO> EPrescriptions = new HashSet<EPrescriptionDTO>();
+	private Set<ExaminationDTO> Examinations = new HashSet<ExaminationDTO>();
 	private Set<ActionOrPromotionsDTO> ActionOrPromotions = new HashSet<ActionOrPromotionsDTO>();
 	//private Set<Reservation> Reservations = new HashSet<Reservation>();
 	
@@ -43,8 +43,8 @@ public class PatientDTO {
 	public PatientDTO(Long id, String email, String password, String name, String surname, String address, String city,
 			String country, String phoneNumber, String description, Boolean emailComfirmed, Boolean firstTimeLogin,
 			Set<String> drugAllargies, Integer points, Integer penalty, LoyaltyCategories category,
-			Set<Pharmacy> prepaidPharmacies, Set<Complaint> complaints, Set<Counseling> counselings,
-			Set<EPrescription> ePrescriptions, Set<Examination> examinations, Set<ActionOrPromotionsDTO> actionOrPromotions/*, Set<Reservation> reservations*/) {
+			Set<Pharmacy> prepaidPharmacies, Set<Complaint> complaints, Set<CouncelingDTO> counselings,
+			Set<EPrescriptionDTO> ePrescriptions, Set<ExaminationDTO> examinations, Set<ActionOrPromotionsDTO> actionOrPromotions/*, Set<Reservation> reservations*/) {
 		super();
 		Id = id;
 		Email = email;
@@ -96,7 +96,9 @@ public class PatientDTO {
 		}
 		//Complaints = patient.getComplaints();
 		//Counselings = patient.getCounselings();
-		//EPrescriptions = patient.getEPrescriptions();
+		for (EPrescription ePrescription : patient.getEPrescriptions()) {
+			EPrescriptions.add(new EPrescriptionDTO(ePrescription));
+		}
 		//Examinations = patient.getExaminations();
 		//Reservations = patient.getReservations();
 	}
@@ -213,22 +215,22 @@ public class PatientDTO {
 	public void setComplaints(Set<Complaint> complaints) {
 		Complaints = complaints;
 	}
-	public Set<Counseling> getCounselings() {
+	public Set<CouncelingDTO> getCounselings() {
 		return Counselings;
 	}
-	public void setCounselings(Set<Counseling> counselings) {
+	public void setCounselings(Set<CouncelingDTO> counselings) {
 		Counselings = counselings;
 	}
-	public Set<EPrescription> getEPrescriptions() {
+	public Set<EPrescriptionDTO> getEPrescriptions() {
 		return EPrescriptions;
 	}
-	public void setEPrescriptions(Set<EPrescription> ePrescriptions) {
+	public void setEPrescriptions(Set<EPrescriptionDTO> ePrescriptions) {
 		EPrescriptions = ePrescriptions;
 	}
-	public Set<Examination> getExaminations() {
+	public Set<ExaminationDTO> getExaminations() {
 		return Examinations;
 	}
-	public void setExaminations(Set<Examination> examinations) {
+	public void setExaminations(Set<ExaminationDTO> examinations) {
 		Examinations = examinations;
 	}
 
