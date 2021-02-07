@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,8 +23,10 @@ import rs.ac.uns.ftn.informatika.jpa.service.PatientService;
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class PatientController {
 	
+	
 	@Autowired
 	private PatientService patientService;
+
 	
 	@GetMapping(value = "/getPatientById/{id}")
 	public ResponseEntity<PatientDTO> getPatientById(@PathVariable Long id) {
@@ -69,6 +72,12 @@ public class PatientController {
 	public ResponseEntity<List<String>> getAllPatientUsernames() {
 		List<String> usernames =patientService.getAllPatientUsernames();
 		return usernames == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(usernames);
+	}
+
+	@PutMapping(value ="/confirmationEmail/{patientId}")
+	public ResponseEntity<Boolean> confirmationEmail(@PathVariable String patientId) throws Exception {
+		Boolean success = patientService.confirmationEmail(Long.parseLong(patientId));
+		return success == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(success);
 	}
 
 	@GetMapping(value = "/isUsernameValid/{username}")

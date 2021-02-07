@@ -215,7 +215,7 @@ Vue.component("registrationPatient", {
 					   return
 					}else{
 
-						patientDTO.emailComfirmed=false
+					patientDTO.emailComfirmed=false
 					patientDTO.firstTimeLogin=false
 					patientDTO.points=0
 					patientDTO.penalty=0
