@@ -43,7 +43,8 @@ Vue.component("patientCounceling", {
                                                             <thead>
                                                               <tr>
                                                                 <th>Pharmacist</th>
-                                                                <th>Start time</th>
+                                                                <th>Date</th>
+                                                                <th>Time</th>
                                                                 <th>Pharmacy</th>
                                                                 <th>Is done</th>
                                                               </tr>
@@ -52,6 +53,7 @@ Vue.component("patientCounceling", {
                                                               <tr v-for="f in patientPastCounceling">
                                                                 <td>{{f.pharmacist.name}}&nbsp&nbsp{{f.pharmacist.surname}}</td>
                                                                 <td>{{DateSplit(f.startTime)}}</td>
+                                                                <td>{{TimeSplit(f.startTime)}}</td>
                                                                 <td>{{f.pharmacy.name}}&nbsp -- &nbsp{{f.pharmacy.address}}</td>
                                                                 <td>{{f.isDone}}</td>
                                                                <!-- <td style="text-align:center"><button class="btnban form-control" v-on:click="Disapprove(f)">D I S A P P R O V E</button></td> --> 
@@ -68,7 +70,8 @@ Vue.component("patientCounceling", {
                                                         <thead>
                                                             <tr>
                                                                 <th>Pharmacist</th>
-                                                                <th>Start time</th>
+                                                                <th>Date</th>
+                                                                <th>Time</th>
                                                                 <th>Pharmacy</th>
                                                                 <th>Is done</th>
                                                             </tr>
@@ -77,6 +80,7 @@ Vue.component("patientCounceling", {
                                                             <tr v-for="f in patientFutureECounceling">
                                                                 <td>{{f.pharmacist.name}}&nbsp&nbsp{{f.pharmacist.surname}}</td>
                                                                 <td>{{DateSplit(f.startTime)}}</td>
+                                                                <td>{{TimeSplit(f.startTime)}}</td>
                                                                 <td>{{f.pharmacy.name}}&nbsp -- &nbsp{{f.pharmacy.address}}</td>
                                                                 <td>{{f.isDone}}</td>
                                                                 <!--<td style="text-align:center"><button class="btnapprove form-control" v-on:click="Approve(f)">A P P R O V E</button></td>-->
@@ -101,7 +105,12 @@ Vue.component("patientCounceling", {
         DateSplit: function (date) {
             var dates = (date.split("T")[0]).split("-")
             var times = (date.split("T")[1]).split(":")
-            return dates[2] + "." + dates[1] + "." + dates[0] + "  " + times[0] + ":" + times[1] + "h"
+            return dates[2] + "." + dates[1] + "." + dates[0]
+        },
+        TimeSplit: function (date) {
+            var dates = (date.split("T")[0]).split("-")
+            var times = (date.split("T")[1]).split(":")
+            return times[0] + ":" + times[1] + "h"
         },
         Approve: function (feedback) {
             axios

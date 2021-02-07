@@ -3,13 +3,21 @@ package rs.ac.uns.ftn.informatika.jpa.dto;
 import java.util.Date;
 
 import rs.ac.uns.ftn.informatika.jpa.enums.EPrescriptionStatus;
+import rs.ac.uns.ftn.informatika.jpa.model.EPrescription;
 import rs.ac.uns.ftn.informatika.jpa.model.Medicine;
 
 public class EPrescriptionDTO {
-    private Medicine Medicine;
+    private MedicineDTO Medicine;
     private Date IssuingDate;
     private Integer TherapyDuration;
 	private EPrescriptionStatus Status; 
+
+	public EPrescriptionDTO(EPrescription ePrescription){
+		Medicine = new MedicineDTO(ePrescription.getMedicine());
+		IssuingDate = ePrescription.getIssuingDate();
+		TherapyDuration = ePrescription.getTherapyDuration();
+		Status = ePrescription.getStatus();
+	}
 
     public int getTherapyDuration() {
 		return TherapyDuration;
@@ -27,11 +35,11 @@ public class EPrescriptionDTO {
 		Status = status;
 	}
 
-    public Medicine getMedicine() {
+    public MedicineDTO getMedicine() {
 		return Medicine;
 	}
 
-	public void setMedicine(Medicine medicine) {
+	public void setMedicine(MedicineDTO medicine) {
 		Medicine = medicine;
 	}
 

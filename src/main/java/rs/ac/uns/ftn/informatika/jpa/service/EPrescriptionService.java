@@ -36,7 +36,7 @@ public class EPrescriptionService implements IEPrescriptionService {
     }
 
     @Override
-    public EPrescription save(EPrescriptionDTO ePrescriptionDTO,Long id) throws Exception 
+    public EPrescription save(EPrescription ePrescriptionDTO,Long id) throws Exception 
     {
         EPrescription ePrescription=new EPrescription();
         ePrescription.setMedicine(ePrescriptionDTO.getMedicine());

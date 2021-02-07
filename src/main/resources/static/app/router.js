@@ -19,6 +19,7 @@ const PharmaciesShow = { template: '<pharmaciesShow></pharmaciesShow>' }
 const PatientExamination = { template: '<patientExamination></patientExamination>' }
 const PatientCounceling = { template: '<patientCounceling></patientCounceling>' }
 const PatientReservations = { template: '<patientReservations></patientReservations>' }
+const PatientEPrescriptions = { template: '<patientEPrescriptions></patientEPrescriptions>' }
 
 const DermatologistInfo = { template: '<dermatologistInfo></dermatologistInfo>' }
 const ChangeDermatologistInfo = { template: '<changeDermatologistInfo></changeDermatologistInfo>' }
@@ -128,7 +129,7 @@ const router = new VueRouter({
 				content: Reservation
 			}
 	    },
-	        { 
+	    { 
 	    	path: '/patientInfo', 
 	    	name : 'patientInfo', 
 	    	components: {
@@ -145,196 +146,205 @@ const router = new VueRouter({
 			}
 	    },
 		{ 
-		path: '/dermatologistInfo', 
-		name : 'dermatologistInfo', 
-		components: {
-			pageHeader: DermatologistHeader,
-			content: DermatologistInfo
-		}
-	},
-	{ 
-		path: '/changeDermatologistInfo', 
-		name : 'changeDermatologistInfo', 
-		components: {
-			pageHeader: DermatologistHeader,
-			content: ChangeDermatologistInfo
-		}
-	},		{ 
-		path: '/pharmacistInfo', 
-		name : 'pharmacistInfo', 
-		components: {
-			pageHeader: PharmacistHeader,
-			content: PharmacistInfo
-		}
-	},
-	{ 
-		path: '/changePharmacistInfo', 
-		name : 'changePharmacistInfo', 
-		components: {
-			pageHeader: PharmacistHeader,
-			content: ChangePharmacistInfo
-		}
-	},
-	{ 
-		path: '/pharmaciesShow', 
-		name : 'pharmaciesShow', 
-		components: {
-			pageHeader: PatientHeader,
-			content: PharmaciesShow
-		}
-	},
-	{ 
-		path: '/patientExamination', 
-		name : 'patientExamination', 
-		components: {
-			pageHeader: PatientHeader,
-			content: PatientExamination
-		}
-	},
-	{ 
-		path: '/patientCounceling', 
-		name : 'patientCounceling', 
-		components: {
-			pageHeader: PatientHeader,
-			content: PatientCounceling
-		}
-	},
-	{ 
-		path: '/patientActionsOrPromotions', 
-		name : 'patientActionsOrPromotions', 
-		components: {
-			pageHeader: PatientHeader,
-			content: PatientActionsOrPromotions
-		}
-	},
-	{ 
-		path: '/registrationPatient', 
-		name : 'registrationPatient', 
-		components: {
-			content: RegistrationPatient
-		}
-	},
+			path: '/dermatologistInfo', 
+			name : 'dermatologistInfo', 
+			components: {
+				pageHeader: DermatologistHeader,
+				content: DermatologistInfo
+			}
+		},
 		{ 
-		path: '/registrationSupplier', 
-		name : 'registrationSupplier', 
-		components: {
-			content: RegistrationSupplier
+			path: '/changeDermatologistInfo', 
+			name : 'changeDermatologistInfo', 
+			components: {
+				pageHeader: DermatologistHeader,
+				content: ChangeDermatologistInfo
+			}
+		},		
+		{ 
+			path: '/pharmacistInfo', 
+			name : 'pharmacistInfo', 
+			components: {
+				pageHeader: PharmacistHeader,
+				content: PharmacistInfo
+			}
+		},
+		{ 
+			path: '/changePharmacistInfo', 
+			name : 'changePharmacistInfo', 
+			components: {
+				pageHeader: PharmacistHeader,
+				content: ChangePharmacistInfo
+			}
+		},
+		{ 
+			path: '/pharmaciesShow', 
+			name : 'pharmaciesShow', 
+			components: {
+				pageHeader: PatientHeader,
+				content: PharmaciesShow
+			}
+		},
+		{ 
+			path: '/patientExamination', 
+			name : 'patientExamination', 
+			components: {
+				pageHeader: PatientHeader,
+				content: PatientExamination
+			}
+		},
+		{ 
+			path: '/patientCounceling', 
+			name : 'patientCounceling', 
+			components: {
+				pageHeader: PatientHeader,
+				content: PatientCounceling
+			}
+		},
+		{ 
+			path: '/patientActionsOrPromotions', 
+			name : 'patientActionsOrPromotions', 
+			components: {
+				pageHeader: PatientHeader,
+				content: PatientActionsOrPromotions
+			}
+		},
+		{ 
+			path: '/registrationPatient', 
+			name : 'registrationPatient', 
+			components: {
+				content: RegistrationPatient
+			}
+		},
+		{ 
+			path: '/registrationSupplier', 
+			name : 'registrationSupplier', 
+			components: {
+				content: RegistrationSupplier
+			}
+		},
+		{ 
+			path: '/registrationDermatologist', 
+			name : 'registrationDermatologist', 
+			components: {
+				content: RegistrationDermatologist
+			}
+		},
+		{ 
+			path: '/registrationPharmacy', 
+			name : 'registrationPharmacy', 
+			components: {
+				content: RegistrationPharmacy
+			}
+		},
+		{ 
+			path: '/registrationSystemAdmin', 
+			name : 'registrationSystemAdmin', 
+			components: {
+				content: RegistrationSystemAdmin
+			}
+		},
+		{ 
+			path: '/registrationMedicine', 
+			name : 'registrationMedicine', 
+			components: {
+				content: RegistrationMedicine
+			}
+		},
+		{ 
+			path: '/registrationPharmacist', 
+			name : 'registrationPharmacist', 
+			components: {
+				content: RegistrationPharmacist
+			}
+		},
+		{ 
+			path: '/registrationPharmacyAdmin', 
+			name : 'registrationPharmacyAdmin', 
+			components: {
+				content: RegistrationPharmacyAdmin
+			}
+		},
+		{ 
+			path: '/examinationDermatologist',
+			name : 'examinationDermatologist', 
+			components: {
+				pageHeader: DermatologistHeader,
+				content: ExaminationDermatologist
+			}
+		},
+		{ 
+			path: '/patientReservations', 
+			name : 'patientReservations', 
+			components: {
+				pageHeader: PatientHeader,
+				content: PatientReservations
+			}
+		},
+		{
+			path: '/counselingPharmacist',
+			name : 'counselingPharmacist', 
+			components: {
+				pageHeader: PharmacistHeader,
+				content: CounselingPharmacist
+			}	
+		},
+		{
+			path: '/emailConfirmation', 
+			name : 'emailConfirmation', 
+			components: {
+				content: EmailConfirmation
+			}
+		},
+		{ 
+			path: '/successfulRegistration', 
+			name : 'successfulRegistration', 
+			components: {
+				content: SuccessfulRegistration
+			}
+		},
+		{ 
+			path: '/emailConfirmationSupplier', 
+			name : 'emailConfirmationSupplier', 
+			components: {
+				content: emailConfirmationSupplier
+			}
+		},
+		{ 
+			path: '/emailConfirmationDermatologist', 
+			name : 'emailConfirmationDermatologist', 
+			components: {
+				content: emailConfirmationDermatologist
+			}
+		},
+		{ 
+			path: '/emailConfirmationPharmacist', 
+			name : 'emailConfirmationPharmacist', 
+			components: {
+				content: emailConfirmationPharmacist
+			}
+		},
+		{ 
+			path: '/emailConfirmationPharmacyAdmin', 
+			name : 'emailConfirmationPharmacyAdmin', 
+			components: {
+				content: emailConfirmationPharmacyAdmin
+			}
+		},
+		{ 
+			path: '/emailConfirmationSystemAdmin', 
+			name : 'emailConfirmationSystemAdmin', 
+			components: {
+				content: emailConfirmationSystemAdmin
+		},
+		{ 
+			path: '/patientEPrescriptions', 
+			name : 'patientEPrescriptions', 
+			components: {
+				pageHeader: PatientHeader,
+				content: PatientEPrescriptions
+			}
 		}
-	},
-	{ 
-		path: '/registrationDermatologist', 
-		name : 'registrationDermatologist', 
-		components: {
-			content: RegistrationDermatologist
-		}
-	},
-	{ 
-		path: '/registrationPharmacy', 
-		name : 'registrationPharmacy', 
-		components: {
-			content: RegistrationPharmacy
-		}
-	},
-	{ 
-		path: '/registrationSystemAdmin', 
-		name : 'registrationSystemAdmin', 
-		components: {
-			content: RegistrationSystemAdmin
-		}
-	},
-	{ 
-		path: '/registrationMedicine', 
-		name : 'registrationMedicine', 
-		components: {
-			content: RegistrationMedicine
-		}
-	},
-	{ 
-		path: '/registrationPharmacist', 
-		name : 'registrationPharmacist', 
-		components: {
-			content: RegistrationPharmacist
-		}
-	},
-	{ 
-		path: '/registrationPharmacyAdmin', 
-		name : 'registrationPharmacyAdmin', 
-		components: {
-			content: RegistrationPharmacyAdmin
-		}
-	},
-	{ 
-		path: '/examinationDermatologist',
-		name : 'examinationDermatologist', 
-		components: {
-			pageHeader: DermatologistHeader,
-			content: ExaminationDermatologist
-		}
-	},
-	{ 
-		path: '/patientReservations', 
-		name : 'patientReservations', 
-		components: {
-			pageHeader: PatientHeader,
-			content: PatientReservations
-		}
-	},
-	{
-		path: '/counselingPharmacist',
-		name : 'counselingPharmacist', 
-		components: {
-			pageHeader: PharmacistHeader,
-			content: CounselingPharmacist
-		}	
-	},{
-		path: '/emailConfirmation', 
-		name : 'emailConfirmation', 
-		components: {
-			content: EmailConfirmation
-		}
-	},
-	{ 
-		path: '/successfulRegistration', 
-		name : 'successfulRegistration', 
-		components: {
-			content: SuccessfulRegistration
-		}
-	},
-	{ 
-		path: '/emailConfirmationSupplier', 
-		name : 'emailConfirmationSupplier', 
-		components: {
-			content: emailConfirmationSupplier
-		}
-	},,
-	{ 
-		path: '/emailConfirmationDermatologist', 
-		name : 'emailConfirmationDermatologist', 
-		components: {
-			content: emailConfirmationDermatologist
-		}
-	},,
-	{ 
-		path: '/emailConfirmationPharmacist', 
-		name : 'emailConfirmationPharmacist', 
-		components: {
-			content: emailConfirmationPharmacist
-		}
-	},,
-	{ 
-		path: '/emailConfirmationPharmacyAdmin', 
-		name : 'emailConfirmationPharmacyAdmin', 
-		components: {
-			content: emailConfirmationPharmacyAdmin
-		}
-	},,
-	{ 
-		path: '/emailConfirmationSystemAdmin', 
-		name : 'emailConfirmationSystemAdmin', 
-		components: {
-			content: emailConfirmationSystemAdmin
-		}
-	},
 	  ]
 });
 

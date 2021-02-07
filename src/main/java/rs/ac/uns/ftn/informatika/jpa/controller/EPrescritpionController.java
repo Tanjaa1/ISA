@@ -30,7 +30,7 @@ public class EPrescritpionController {
 
 
 	@PostMapping(value = "/add/{id}")
-	public ResponseEntity<EPrescriptionDTO> addEPrescritpion(@RequestBody EPrescriptionDTO ePrescriptionDTO,@PathVariable Long id) throws Exception {
+	public ResponseEntity<EPrescriptionDTO> addEPrescritpion(@RequestBody EPrescription ePrescriptionDTO,@PathVariable Long id) throws Exception {
 		EPrescription ep= ePrescriptionService.save(ePrescriptionDTO,id);
 		return ep == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : new ResponseEntity<>(HttpStatus.OK);  
 	}
