@@ -234,7 +234,7 @@ Vue.component("changePharmacistInfo", {
 			this.dermatologistUpdated.firstTimeLogin = this.firstTimeLogin
 			this.dermatologistUpdated.description = this.description
 
-			axios.post('/pharmacist/update', this.dermatologistUpdated)
+			axios.put('/pharmacist/update', this.dermatologistUpdated)
 				.then(function (response) {
 					window.location.href = "#/pharmacistInfo";
 				})
