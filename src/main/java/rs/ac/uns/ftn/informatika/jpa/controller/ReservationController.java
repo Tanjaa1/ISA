@@ -1,5 +1,7 @@
 package rs.ac.uns.ftn.informatika.jpa.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,6 +36,20 @@ public class ReservationController {
 	{
 		ReservationDTO reservation = new ReservationDTO(reservationService.updateReservation(reservationDTO.getId()));
 		return reservation == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : new ResponseEntity<>(HttpStatus.OK);
+	}
+	
+	@GetMapping(value = "/getNotReceivedReservationByPatientId/{id}")
+	public ResponseEntity<List<ReservationDTO>> getNotReceivedReservationByPatientId(@PathVariable Long id) 
+	{	
+		List<ReservationDTO> reservations = reservationService.getAllByPatientId(id);
+		return reservations == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(reservations);
+	}
+
+	@GetMapping(value = "/getReceivedReservationByPatientId/{id}")
+	public ResponseEntity<List<ReservationDTO>> getReceivedReservationByPatientId(@PathVariable Long id) 
+	{	
+		List<ReservationDTO> reservations = reservationService.getAllReceivedByPatientId(id);
+		return reservations == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(reservations);
 	}
 
 }

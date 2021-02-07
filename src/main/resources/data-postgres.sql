@@ -249,7 +249,10 @@ INSERT INTO public.reservation(
 	VALUES (1, '2021-03-22', false, 1, 88, 111);
 INSERT INTO public.reservation(
 	id, expiration_date, is_received, medicine_id, patient_id,pharmacy_id)
-	VALUES (2, '2021-05-12', false, 2, 89, 111);
+	VALUES (2, '2021-03-22', true, 2, 88, 111);
+INSERT INTO public.reservation(
+	id, expiration_date, is_received, medicine_id, patient_id,pharmacy_id)
+	VALUES (3, '2021-05-12', false, 2, 89, 111);
     
 INSERT INTO public.supplier_offer(
 	id, offer_price, is_accepted, order_medicine_id, supplier_id)
