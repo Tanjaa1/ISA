@@ -127,7 +127,7 @@ Vue.component("examinationDermatologist", {
                             .catch(function (error) {
                             });
                         }else{
-                            axios.post('/pharmacyAdmin/sendingMail',this.medicineChoose)
+                            axios.post('/pharmacyAdmin/sendingMail/'+this.examination.pharmacy.name,this.medicineChoose)
                             .then(function (response) {
                             })
                             .catch(function (error) {

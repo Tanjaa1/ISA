@@ -42,9 +42,9 @@ public class PharmacyAdminController {
 		return isValid == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(isValid);
 	}
 	
-	@PostMapping(value = "/sendingMail")
-	public ResponseEntity<HttpStatus> sendingMail(@RequestBody Medicine medicine) {
-		Boolean sent =pharmacyAdminService.sendingMail("Jankovic",medicine);
+	@PostMapping(value = "/sendingMail/{pharmacyName}")
+	public ResponseEntity<HttpStatus> sendingMail(@PathVariable String pharmacyName,@RequestBody Medicine medicine) {
+		Boolean sent =pharmacyAdminService.sendingMail(pharmacyName,medicine);
 		return sent == false ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : new ResponseEntity<>(HttpStatus.OK);
 	}
 }
