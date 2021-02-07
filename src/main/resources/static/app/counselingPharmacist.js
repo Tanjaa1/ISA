@@ -120,7 +120,7 @@ Vue.component("counselingPharmacist", {
             for(m in pharmacyMedicines){
                 if(pharmacyMedicines[m].medicine.name==this.medicineChoose.name){
                     if(pharmacyMedicines[m].quantity>0){
-                        this.prescriptionDTO.medicine=this.medicineChoose
+                        this.prescriptionDTO.medicine=pharmacyMedicines[m]
                         axios.post('/eprescription/add/'+this.examination.patient.id, this.prescriptionDTO)
                             .then(function (response) {
                             })

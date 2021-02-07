@@ -90,10 +90,10 @@ public class PatientDTO {
 		Points = patient.getPoints();
 		Penalty = patient.getPenalty();
 		Category = patient.getCategory();
-		PrepaidPharmacies = patient.getPrepaidPharmacies();
-		for (ActionOrPromotion actionOrPromotion : patient.getActionOrPromotion()) {
-			ActionOrPromotions.add(new ActionOrPromotionsDTO(actionOrPromotion));
-		}
+		// PrepaidPharmacies = patient.getPrepaidPharmacies();
+		 for (ActionOrPromotion actionOrPromotion : patient.getActionOrPromotion()) {
+		 	ActionOrPromotions.add(new ActionOrPromotionsDTO(actionOrPromotion));
+		 }
 		//Complaints = patient.getComplaints();
 		//Counselings = patient.getCounselings();
 		for (EPrescription ePrescription : patient.getEPrescriptions()) {

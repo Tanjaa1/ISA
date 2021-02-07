@@ -347,10 +347,10 @@ INSERT INTO public.order_medicine_orders(
 
 INSERT INTO public.eprescription(
 	code, issuing_date,therapy_duration, medicine_id,status)
-	VALUES (111,'2016-06-22',2,222,0);
+	VALUES (111,'2016-06-22',2,1,0);
 INSERT INTO public.eprescription(
 	code, issuing_date,therapy_duration, medicine_id,status)
-	VALUES (112,'2017-06-22',2,223,1);
+	VALUES (112,'2017-06-22',2,2,1);
 
 INSERT INTO public.patient_eprescriptions(
 	patient_id, eprescriptions_code)

@@ -42,7 +42,7 @@ public class EPrescription {
     // @JoinColumn(name = "Medicine_id", referencedColumnName = "id")
 	@ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
 	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-	private Medicine Medicine;
+	private MedicinePriceAndQuantity Medicine;
 	
 	// @Column(name="Amount", unique=false, nullable=true)
 	// private Integer Amount;
@@ -96,10 +96,10 @@ public class EPrescription {
 	// public void setTherapies(Set<Therapy> therapies) {
 	// 	Therapies = therapies;
 	// }
-	public Medicine getMedicine() {
+	public MedicinePriceAndQuantity getMedicine() {
 		return Medicine;
 	}
-	public void setMedicine(Medicine medicine) {
+	public void setMedicine(MedicinePriceAndQuantity medicine) {
 		Medicine = medicine;
 	}
 	// public int getAmount() {

@@ -21,7 +21,7 @@ public class PharmacistDTO {
 	private Boolean EmailComfirmed;
 	private Boolean FirstTimeLogin;
 	private Set<Integer> Marks = new HashSet<Integer>();
-	private Pharmacy Pharmacy ;
+	private PharmacyDTO Pharmacy ;
 
 
 
@@ -30,7 +30,7 @@ public class PharmacistDTO {
 
 	public PharmacistDTO(Long id, String email, String password, String name, String surname, String address,
 			String city, String country, String phoneNumber, String description, Boolean emailComfirmed,
-			Boolean firstTimeLogin, Set<Integer> marks ,Pharmacy pharmacy
+			Boolean firstTimeLogin, Set<Integer> marks ,PharmacyDTO pharmacy
 			) {
 		super();
 		Pharmacy = pharmacy;
@@ -51,7 +51,7 @@ public class PharmacistDTO {
 
 	public PharmacistDTO(Pharmacist pharmaciest) {
 		super();
-		Pharmacy = pharmaciest.getPharmacy();
+		Pharmacy = new PharmacyDTO(pharmaciest.getPharmacy());
 		Marks = pharmaciest.getMarks();
 		Id = pharmaciest.getId();
 		Email = pharmaciest.getEmail();
@@ -150,10 +150,10 @@ public class PharmacistDTO {
 	public void setFirstTimeLogin(Boolean firstTimeLogin) {
 		FirstTimeLogin = firstTimeLogin;
 	}
-	public Pharmacy getPharmacy() {
+	public PharmacyDTO getPharmacy() {
 		return Pharmacy;
 	}
-	public void setPharmacy(Pharmacy pharmacy) {
+	public void setPharmacy(PharmacyDTO pharmacy) {
 		Pharmacy = pharmacy;
 	}
 }
