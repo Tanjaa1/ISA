@@ -1,5 +1,6 @@
 package rs.ac.uns.ftn.informatika.jpa.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import rs.ac.uns.ftn.informatika.jpa.dto.ExaminationDTO;
 import rs.ac.uns.ftn.informatika.jpa.model.Examination;
 import rs.ac.uns.ftn.informatika.jpa.service.ExaminationService;
 
@@ -25,16 +27,24 @@ public class ExaminationController {
 	private ExaminationService examinationService;
 	
 	@GetMapping(value = "/getPastExaminationByPatientId/{id}")
-	public ResponseEntity<List<Examination>> getPastExaminationByPatientId(@PathVariable Long id) 
+	public ResponseEntity<List<ExaminationDTO>> getPastExaminationByPatientId(@PathVariable Long id) 
 	{
+		List<ExaminationDTO> examinationDTOs = new ArrayList<ExaminationDTO>();
 		List<Examination> examinations = examinationService.findPastExaminationsByPatientId(id);
-		return examinations == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(examinations);
+		for (Examination examination : examinations) {
+			examinationDTOs.add(new ExaminationDTO(examination));
+		}
+		return examinationDTOs == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(examinationDTOs);
 	}
 
     @GetMapping(value = "/getFutureExaminationByPatientId/{id}")
 	public ResponseEntity<List<Examination>> getFutureExaminationByPatientId(@PathVariable Long id) 
 	{
+		List<ExaminationDTO> examinationDTOs = new ArrayList<ExaminationDTO>();
 		List<Examination> examinations = examinationService.findFutureExaminationsByPatientId(id);
+		for (Examination examination : examinations) {
+			examinationDTOs.add(new ExaminationDTO(examination));
+		}
 		return examinations == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(examinations);
 	}
 

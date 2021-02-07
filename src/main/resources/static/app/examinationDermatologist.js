@@ -44,9 +44,9 @@ Vue.component("examinationDermatologist", {
         <br><br>	
         <div class="row search">
             <div class="col-sm-5">Patient:</div>
-            <div class="col-sm-4">{{this.examination.patient.fullName}}</div><br><br>
+            <div class="col-sm-4">{{this.examination.patient.name}} {{this.examination.patient.surname}}</div><br><br>
             <div class="col-sm-5">Alergies:</div>
-            <div class="col-sm-4">{{this.examination.patient.drugAllargies}}</div><br><br>          
+            <div class="col-sm-4"><a v-for="a in this.examination.patient.drugAllargies">{{a}}</br></a></div><br><br>          
             <div class="col-sm-5">Report:</div>
             <textarea id="report" class="form-control" rows="4" cols="50" style="height:200px" v-model="examination.report"></textarea>
         </div>
@@ -68,7 +68,7 @@ Vue.component("examinationDermatologist", {
 						<div class="modal-body search">
                         
                         <div class="row">Medicine:
-                            <select class="col" id="sort" v-model="medicineChoose" v-on:change="Medicine()">
+                            <select class="col" id="sort" v-model="medicineChoose" >
                                 <option selected="selected" disabled>Please select one</option>
                                     <option v-for="m in medicines" v-bind:value="m">{{m.name}}</option>
                             </select>
@@ -118,15 +118,21 @@ Vue.component("examinationDermatologist", {
         AddPrescritpion:function(){
             var pharmacyMedicines=this.examination.pharmacy.pricelist
             for(m in pharmacyMedicines){
-                if(pharmacyMedicines[m].quantity>0){
-                    this.prescriptionDTO.medicine=this.medicineChoose
-                    axios.post('/eprescription/add/'+this.examination.patient.id, this.prescriptionDTO)
-                        .then(function (response) {
-                        })
-                        .catch(function (error) {
-                        });
-                    }else{
-
+                if(pharmacyMedicines[m].medicine.name==this.medicineChoose.name){
+                    if(pharmacyMedicines[m].quantity>0){
+                        this.prescriptionDTO.medicine=this.medicineChoose
+                        axios.post('/eprescription/add/'+this.examination.patient.id, this.prescriptionDTO)
+                            .then(function (response) {
+                            })
+                            .catch(function (error) {
+                            });
+                        }else{
+                            axios.post('/pharmacyAdmin/sendingMail/'+this.examination.pharmacy.name,this.medicineChoose)
+                            .then(function (response) {
+                            })
+                            .catch(function (error) {
+                            });
+                        }
                     }
                 }
         }

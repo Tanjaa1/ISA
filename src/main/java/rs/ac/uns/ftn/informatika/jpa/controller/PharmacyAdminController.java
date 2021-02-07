@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import rs.ac.uns.ftn.informatika.jpa.model.Medicine;
 import rs.ac.uns.ftn.informatika.jpa.model.PharmacyAdmin;
 import rs.ac.uns.ftn.informatika.jpa.service.PharmacyAdminService;
 
@@ -40,5 +41,10 @@ public class PharmacyAdminController {
 		Boolean isValid = pharmacyAdminService.isUsernameValid(username);
 		return isValid == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(isValid);
 	}
-
+	
+	@PostMapping(value = "/sendingMail/{pharmacyName}")
+	public ResponseEntity<HttpStatus> sendingMail(@PathVariable String pharmacyName,@RequestBody Medicine medicine) {
+		Boolean sent =pharmacyAdminService.sendingMail(pharmacyName,medicine);
+		return sent == false ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : new ResponseEntity<>(HttpStatus.OK);
+	}
 }

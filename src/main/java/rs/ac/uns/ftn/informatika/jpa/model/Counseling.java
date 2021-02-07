@@ -12,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name="Counseling")
 public class Counseling {
@@ -30,12 +32,15 @@ public class Counseling {
 	private Boolean isDone;
 	
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	//@JsonIgnoreProperties(value = {"Counseling", "hibernateLazyInitializer"})
 	private Patient Patient;
 	
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	//@JsonIgnoreProperties(value = {"Counseling", "hibernateLazyInitializer"})
 	private Pharmacist Pharmacist;
 
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	//@JsonIgnoreProperties(value = {"Counseling", "hibernateLazyInitializer"})
 	private Pharmacy Pharmacy;
 	
 	public Counseling(){}

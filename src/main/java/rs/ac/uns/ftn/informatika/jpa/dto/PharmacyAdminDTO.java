@@ -138,5 +138,7 @@ public class PharmacyAdminDTO {
         UserName = userName;
         Pharmacy = pharmacy;
     }
-
+	public String fullName(){
+		return Name+" "+Surname;
+	}
 }

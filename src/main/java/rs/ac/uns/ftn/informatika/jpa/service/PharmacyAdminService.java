@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import rs.ac.uns.ftn.informatika.jpa.model.Medicine;
 import rs.ac.uns.ftn.informatika.jpa.model.PharmacyAdmin;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IPharmacyAdminRepository;
 import rs.ac.uns.ftn.informatika.jpa.service.Interface.IPharmacyAdminService;
@@ -17,6 +18,8 @@ public class PharmacyAdminService implements IPharmacyAdminService {
     @Autowired
     private IPharmacyAdminRepository pharmacyAdminRepository;
 
+    @Autowired
+    private EmailService emailService;
     public ResponseEntity<PharmacyAdmin> save(PharmacyAdmin systemAdmin) throws Exception {
         pharmacyAdminRepository.save(systemAdmin);
         return new ResponseEntity<>(HttpStatus.CREATED);
@@ -50,4 +53,20 @@ public class PharmacyAdminService implements IPharmacyAdminService {
         return true;
     }
     
+    public Boolean sendingMail(String pharmacyName,Medicine medicine)
+    {
+        List<PharmacyAdmin> pharmacyAdmins = pharmacyAdminRepository.findAll();  
+        for (PharmacyAdmin pharmacyAdmin : pharmacyAdmins) {
+            if(pharmacyAdmin.getPharmacy().equals(pharmacyName)){
+                try{
+                    String subject="Medicine";
+                    String text="Dear "+ pharmacyAdmin.getName()+" "+pharmacyAdmin.getSurname()+ ",\nNeed medicine:"+medicine.getName();
+                    emailService.sendNotificaitionAsync(pharmacyAdmin.getEmail(), subject, text);
+                }catch(Exception e){
+                        return false;
+                }
+            }
+        }
+        return true;
+	}
 }
