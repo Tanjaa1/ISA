@@ -35,8 +35,17 @@ const RegistrationPharmacy = { template: '<registrationPharmacy></registrationPh
 const RegistrationSystemAdmin = { template: '<registrationSystemAdmin></registrationSystemAdmin>' }
 const RegistrationMedicine = { template: '<registrationMedicine></registrationMedicine>' }
 const RegistrationPharmacyAdmin = { template: '<registrationPharmacyAdmin></registrationPharmacyAdmin>' } 
+const RegistrationPharmacist= { template: '<registrationPharmacist></registrationPharmacist>' } 
+
 const EmailConfirmation = { template: '<emailConfirmation></emailConfirmation>' } 
 const SuccessfulRegistration = { template: '<successfulRegistration></successfulRegistration>' } 
+const emailConfirmationSupplier = { template: '<emailConfirmationSupplier></emailConfirmationSupplier>' } 
+const emailConfirmationDermatologist = { template: '<emailConfirmationDermatologist></emailConfirmationDermatologist>' } 
+const emailConfirmationPharmacist = { template: '<emailConfirmationPharmacist></emailConfirmationPharmacist>' } 
+const emailConfirmationSystemAdmin = { template: '<emailConfirmationSystemAdmin></emailConfirmationSystemAdmin>' } 
+const emailConfirmationPharmacyAdmin = { template: '<emailConfirmationPharmacyAdmin></emailConfirmationPharmacyAdmin>' } 
+
+
 
 
 const ExaminationDermatologist = { template: '<examinationDermatologist></examinationDermatologist>' }
@@ -97,7 +106,6 @@ const router = new VueRouter({
 	    },
 	    { 
 	    	path: '/dermatologistHomePage', 
-
 			name : 'dermatologistHomePage', 
 			components: {
 				pageHeader: DermatologistHeader,
@@ -242,6 +250,13 @@ const router = new VueRouter({
 		}
 	},
 	{ 
+		path: '/registrationPharmacist', 
+		name : 'registrationPharmacist', 
+		components: {
+			content: RegistrationPharmacist
+		}
+	},
+	{ 
 		path: '/registrationPharmacyAdmin', 
 		name : 'registrationPharmacyAdmin', 
 		components: {
@@ -284,7 +299,42 @@ const router = new VueRouter({
 		components: {
 			content: SuccessfulRegistration
 		}
-	}
+	},
+	{ 
+		path: '/emailConfirmationSupplier', 
+		name : 'emailConfirmationSupplier', 
+		components: {
+			content: emailConfirmationSupplier
+		}
+	},,
+	{ 
+		path: '/emailConfirmationDermatologist', 
+		name : 'emailConfirmationDermatologist', 
+		components: {
+			content: emailConfirmationDermatologist
+		}
+	},,
+	{ 
+		path: '/emailConfirmationPharmacist', 
+		name : 'emailConfirmationPharmacist', 
+		components: {
+			content: emailConfirmationPharmacist
+		}
+	},,
+	{ 
+		path: '/emailConfirmationPharmacyAdmin', 
+		name : 'emailConfirmationPharmacyAdmin', 
+		components: {
+			content: emailConfirmationPharmacyAdmin
+		}
+	},,
+	{ 
+		path: '/emailConfirmationSystemAdmin', 
+		name : 'emailConfirmationSystemAdmin', 
+		components: {
+			content: emailConfirmationSystemAdmin
+		}
+	},
 	  ]
 });
 

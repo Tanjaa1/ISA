@@ -73,10 +73,15 @@ public class DermatologistController {
 		DermatologistDTO d = new DermatologistDTO(dermatologistService.update(dermatologist));
 		return d == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(d);    
 	}
-  @GetMapping(value = "/getAllDermatologists")
-	public ResponseEntity<List<DermatologistDTO>> getAllDermatologists() {
-    List<DermatologistDTO> retVal = dermatologistService.findAll();
-		return retVal == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(retVal);
-  }
+	@GetMapping(value = "/getAllDermatologists")
+		public ResponseEntity<List<DermatologistDTO>> getAllDermatologists() {
+		List<DermatologistDTO> retVal = dermatologistService.findAll();
+			return retVal == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(retVal);
+	}
+	@PutMapping(value ="/confirmationEmailDermatologist/{dermaId}")
+	public ResponseEntity<Boolean> confirmationEmail(@PathVariable String dermaId) throws Exception {
+		Boolean success = dermatologistService.confirmationEmail(Long.parseLong(dermaId));
+		return success == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(success);
+	}
 
 }

@@ -6,4 +6,7 @@ import rs.ac.uns.ftn.informatika.jpa.model.SystemAdmin;
 
 public interface ISystemAdminService {
     public ResponseEntity<SystemAdmin> save(SystemAdmin systemAdmin) throws Exception;
+	public SystemAdmin findOne(Long id);
+    SystemAdmin update(SystemAdmin greeting) throws Exception;
+
 }

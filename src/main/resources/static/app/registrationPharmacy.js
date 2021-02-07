@@ -268,7 +268,7 @@ Vue.component("registrationPharmacy", {
 									pharmacyAdminDTO.description=""
 										
 									axios
-										.post('/systemAdmin/saveSystemAdmin' , pharmacyAdminDTO)
+										.post('/pharmacyAdmin/savePharmacyAdmin' , pharmacyAdminDTO)
 										.then(response => {
 											alert("DODAT U BAZU");
 										})

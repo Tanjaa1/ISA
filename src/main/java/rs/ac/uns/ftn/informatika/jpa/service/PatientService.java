@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.yaml.snakeyaml.tokens.Token.ID;
 
 import rs.ac.uns.ftn.informatika.jpa.dto.PatientDTO;
 import rs.ac.uns.ftn.informatika.jpa.model.Examination;
@@ -22,7 +21,7 @@ import rs.ac.uns.ftn.informatika.jpa.service.Interface.IPatientService;
 
 @Service
 public class PatientService implements IPatientService {
-	private Logger logger = LoggerFactory.getLogger(ResrvationService.class);
+
 
 
 	@Autowired
@@ -33,7 +32,8 @@ public class PatientService implements IPatientService {
 
 	@Autowired
 	private EmailService emailService;
-
+	private Logger logger = LoggerFactory.getLogger(ResrvationService.class);
+	
 	public Patient findOne(Long id) {
 		 Patient patient = patientRepository.getOne(id);
 	        return patient;
@@ -123,7 +123,6 @@ public class PatientService implements IPatientService {
 
 	private void emailSender(Patient patient)
 	{
-
 		try {
 			String subject="Patient "+ patient.getFullName();
 			Long encriptId=IdEncryption(patient.getId());
@@ -151,7 +150,5 @@ public class PatientService implements IPatientService {
 		patientToUpdate.setEmailComfirmed(true);
 		update(patientToUpdate);
 		return true;
-
-
 	}
 }
