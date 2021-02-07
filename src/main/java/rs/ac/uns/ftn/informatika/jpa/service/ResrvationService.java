@@ -1,4 +1,8 @@
 package rs.ac.uns.ftn.informatika.jpa.service;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -79,5 +83,27 @@ public class ResrvationService implements IReservationService{
 		}catch( Exception e ){
 			logger.info("Error sending email: " + e.getMessage());
 		}
+	}
+
+	public List<ReservationDTO> getAllByPatientId(Long id){
+		List<ReservationDTO> patientReservations = new ArrayList<ReservationDTO>();
+		List<Reservation> reservations = reservationRepository.findAll();
+		for (Reservation reservation : reservations) {
+			if(id == reservation.getPatient().getId() && !reservation.getIsReceived()){
+				patientReservations.add( new ReservationDTO(reservation));
+			}
+		}
+		return patientReservations;
+	}
+
+	public List<ReservationDTO> getAllReceivedByPatientId(Long id) {
+		List<ReservationDTO> patientReservations = new ArrayList<ReservationDTO>();
+		List<Reservation> reservations = reservationRepository.findAll();
+		for (Reservation reservation : reservations) {
+			if(id == reservation.getPatient().getId() && reservation.getIsReceived()){
+				patientReservations.add( new ReservationDTO(reservation));
+			}
+		}
+		return patientReservations;
 	}
 }
