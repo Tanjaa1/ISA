@@ -26,7 +26,7 @@ Vue.component("patientEPrescriptions", {
 			<div class="container">
 			  <div class="card">
 					<div class="card-header" style="font-size:30px">EPrescription</div>
-					<div class="card-body" style="font-size:20px">{{p.medicine.name}}<br> Date: &nbsp{{DateSplit(p.issuingDate)}}<br>Time:&nbsp{{TimeSplit(p.issuingDate)}}<br>Therapy duration:&nbsp{{p.therapyDuration}}&nbspday/s<br> Status: &nbsp{{p.status}}</div>
+					<div class="card-body" style="font-size:20px">{{p.medicine.medicine.name}}&nbsp--&nbsp{{p.medicine.price}}&nbspdin.<br> Date: &nbsp{{DateSplit(p.issuingDate)}}<br>Time:&nbsp{{TimeSplit(p.issuingDate)}}<br>Therapy duration:&nbsp{{p.therapyDuration}}&nbspday/s<br> Status: &nbsp{{p.status}}</div>
 					<!--<template v-for="p1 in p.ListActionsOrPromotions">
 					<div class="card-body" style="font-size:20px">Promotions: {{p1.text}}</div>
 					</template>-->

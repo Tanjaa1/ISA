@@ -7,13 +7,13 @@ import rs.ac.uns.ftn.informatika.jpa.model.EPrescription;
 import rs.ac.uns.ftn.informatika.jpa.model.Medicine;
 
 public class EPrescriptionDTO {
-    private MedicineDTO Medicine;
+    private MedicinePriceAndQuantityDTO Medicine;
     private Date IssuingDate;
     private Integer TherapyDuration;
 	private EPrescriptionStatus Status; 
 
 	public EPrescriptionDTO(EPrescription ePrescription){
-		Medicine = new MedicineDTO(ePrescription.getMedicine());
+		Medicine = new MedicinePriceAndQuantityDTO(ePrescription.getMedicine());
 		IssuingDate = ePrescription.getIssuingDate();
 		TherapyDuration = ePrescription.getTherapyDuration();
 		Status = ePrescription.getStatus();
@@ -35,11 +35,11 @@ public class EPrescriptionDTO {
 		Status = status;
 	}
 
-    public MedicineDTO getMedicine() {
+    public MedicinePriceAndQuantityDTO getMedicine() {
 		return Medicine;
 	}
 
-	public void setMedicine(MedicineDTO medicine) {
+	public void setMedicine(MedicinePriceAndQuantityDTO medicine) {
 		Medicine = medicine;
 	}
 

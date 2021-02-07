@@ -23,7 +23,7 @@ public class MedicinePriceAndQuantity {
 	
 	@OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "Medicine_id", referencedColumnName = "Id")
-	//@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	private Medicine Medicine;
 	
 	@Column(name="Price", unique=false, nullable=true)
