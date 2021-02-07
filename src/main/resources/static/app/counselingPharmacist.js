@@ -1,4 +1,4 @@
-Vue.component("examinationDermatologist", {
+Vue.component("counselingPharmacist", {
 	data: function () {
 		return {
 			patient:{},
@@ -15,7 +15,7 @@ Vue.component("examinationDermatologist", {
 	},
 	beforeMount() {
         axios
-            .get('/examination/getPastExaminationByPatientId/' + '88')
+            .get('/counseling/getPastCounselingByPatientId/' + '88')
             .then(response => {
                 this.examination = response.data[0]
                 axios
@@ -106,7 +106,7 @@ Vue.component("examinationDermatologist", {
 	`,
 	methods: {
         Finish:function(){    
-            axios.put('/examination/update', this.examination)
+            axios.put('/counseling/update', this.examination)
 				.then(function (response) {
 				})
 				.catch(function (error) {
