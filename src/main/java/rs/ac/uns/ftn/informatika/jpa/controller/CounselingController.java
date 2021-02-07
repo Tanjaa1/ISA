@@ -9,6 +9,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -43,4 +46,12 @@ public class CounselingController {
 		}
 		return counselingsDTO == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(counselingsDTO);
 	}
+
+	@PutMapping(value = "/update")
+	public ResponseEntity<Counseling> update(@RequestBody Counseling counseling) throws Exception
+	{
+		Counseling e =counselingService.update(counseling.getId());
+		return e == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(e);
+	}
+
 }
