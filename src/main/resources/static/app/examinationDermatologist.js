@@ -22,9 +22,9 @@ Vue.component("examinationDermatologist", {
                 .get('/eprescription/findMedicines/' + '111')
                 .then(response => {       
                     this.med=response.data
-                    for(m in this.med){
+                    for(var m in this.med){
                         var find=false
-                        for(a in this.examination.patient.drugAllargies){
+                        for(var a in this.examination.patient.drugAllargies){
                             if(this.examination.patient.drugAllargies[a].toUpperCase()==this.med[m].medicine.name.toUpperCase())
                                 find=true
                         }
@@ -117,7 +117,7 @@ Vue.component("examinationDermatologist", {
         },
         AddPrescritpion:function(){
             var pharmacyMedicines=this.examination.pharmacy.pricelist
-            for(m in pharmacyMedicines){
+            for(var m in pharmacyMedicines){
                 if(pharmacyMedicines[m].quantity>0){
                     this.prescriptionDTO.medicine=this.medicineChoose
                     axios.post('/eprescription/add/'+this.examination.patient.id, this.prescriptionDTO)

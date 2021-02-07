@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import rs.ac.uns.ftn.informatika.jpa.dto.MedicineDTO;
+import rs.ac.uns.ftn.informatika.jpa.dto.MedicinePriceAndQuantityDTO;
 import rs.ac.uns.ftn.informatika.jpa.model.Medicine;
+import rs.ac.uns.ftn.informatika.jpa.model.MedicinePriceAndQuantity;
 import rs.ac.uns.ftn.informatika.jpa.service.MedicineService;
 
 @RestController
@@ -40,5 +42,16 @@ public class MedicineController {
 		Boolean isValid = medicineService.isUsernameValid(code);
 		return isValid == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(isValid);
 	}
+
+	@GetMapping(value = "/getAll")
+	public ResponseEntity<List<MedicineDTO>> getAll() {
+    List<MedicineDTO> retVal = medicineService.findAll();
+		return retVal == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(retVal);
+  	}
+	@PostMapping(value = "/saveMedicinePriceAndQuantity")
+	public ResponseEntity<MedicinePriceAndQuantity> saveMedicinePriceAndQuantity(@RequestBody MedicinePriceAndQuantityDTO medicineDTO) throws Exception{
+		return null;
+	}
+
 }
 

@@ -7,26 +7,30 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
+import rs.ac.uns.ftn.informatika.jpa.dto.MedicineDTO;
 import rs.ac.uns.ftn.informatika.jpa.model.Medicine;
+import rs.ac.uns.ftn.informatika.jpa.model.MedicinePriceAndQuantity;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IMedicineRepository;
 import rs.ac.uns.ftn.informatika.jpa.service.Interface.IMedicineService;
 
 @Service
-public class MedicineService  implements IMedicineService {
+public class MedicineService implements IMedicineService {
 
 	@Autowired
 	private IMedicineRepository medicineRepository;
-	
+
 	public Medicine findOne(Long id) {
-        Medicine medicine = medicineRepository.getOne(id);
-	        return medicine;
+		Medicine medicine = medicineRepository.getOne(id);
+		return medicine;
 	}
-	public ResponseEntity<Medicine> save(Medicine medicine) throws Exception{
-		Medicine resultMedicine=new Medicine();
+
+	public ResponseEntity<Medicine> save(Medicine medicine) throws Exception {
+		Medicine resultMedicine = new Medicine();
 		resultMedicine.setReplacement(medicine.getReplacement());
 		resultMedicine.setCode(medicine.getCode());
 		resultMedicine.setComposition(medicine.getComposition());
-		//resultMedicine.setContraindications(medicine.getContraindications());
+		// resultMedicine.setContraindications(medicine.getContraindications());
 		resultMedicine.setDailyDose(medicine.getDailyDose());
 		resultMedicine.setForm(medicine.getForm());
 		resultMedicine.setManufacturer(medicine.getManufacturer());
@@ -34,24 +38,37 @@ public class MedicineService  implements IMedicineService {
 		resultMedicine.setNote(medicine.getNote());
 		resultMedicine.setOnPrescription(medicine.getOnPrescription());
 		resultMedicine.setType(medicine.getType());
-	
+
 		medicineRepository.save(medicine);
-	return new ResponseEntity<>( HttpStatus.CREATED);
+		return new ResponseEntity<>(HttpStatus.CREATED);
 	}
+
 	public List<String> getAllCodes() {
 		List<Medicine> medicines = medicineRepository.findAll();
-        List<String> resultList=new ArrayList<String>();
-        for (Medicine s : medicines) {
-            resultList.add(s.getCode());
-        }
-        return resultList;
+		List<String> resultList = new ArrayList<String>();
+		for (Medicine s : medicines) {
+			resultList.add(s.getCode());
+		}
+		return resultList;
 	}
+
 	public Boolean isUsernameValid(String code) {
-		List<String> codes=getAllCodes();
-        for (String s : codes) {
-            if(s.equals(code))
-                return false;
-        }
-        return true;
+		List<String> codes = getAllCodes();
+		for (String s : codes) {
+			if (s.equals(code))
+				return false;
+		}
+		return true;
 	}
+
+	@Override
+	public ArrayList<MedicineDTO> findAll() {
+		List<Medicine> medicine = medicineRepository.findAll();
+		ArrayList<MedicineDTO> returnValue = new ArrayList<MedicineDTO>();
+		for (Medicine med : medicine)
+			returnValue.add(new MedicineDTO(med));
+		return returnValue;
+	}
+
+
 }

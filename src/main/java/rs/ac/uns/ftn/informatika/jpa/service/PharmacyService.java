@@ -79,5 +79,20 @@ public class PharmacyService implements IPharmacyService {
     public Set<MedicinePriceAndQuantity> getPharmacyMedicines(Long id) {
         return findOne(id).getPricelist();
     }
+
+    public Pharmacy update(Pharmacy pharmacy){
+        Pharmacy forUpdate = pharmacyRepository.getOne(pharmacy.getId());
+        forUpdate.setId(pharmacy.getId());
+        forUpdate.setMarks(pharmacy.getMarks());
+        forUpdate.setName(pharmacy.getName());
+        forUpdate.setPricelist(pharmacy.getPricelist());
+        forUpdate.setAddress(pharmacy.getAddress());
+        return pharmacyRepository.save(forUpdate);
+    }
+
+    @Override
+    public Pharmacy getByName(String name) {
+        return pharmacyRepository.getByName(name);
+    }
     
 }
