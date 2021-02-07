@@ -11,7 +11,6 @@ Vue.component("patientReservations", {
             .get('/reservation/getReceivedReservationByPatientId/' + '88')
             .then(response => {
                 this.patientReceivedReservations = response.data
-                alert(this.patientReceivedReservations)
             })
             .catch(error => {
             })
@@ -26,7 +25,7 @@ Vue.component("patientReservations", {
     template: `
     <div id = "parmaciesShowPatient">
         <div class= "container">
-                <br/><h3 class="tex">Examinations by a dermatologist</h3><br/>
+                <br/><h3 class="te">Medicine reservation</h3><br/>
 	                            <ul class="nav nav-tabs" role="tablist">
     	                            <li class="nav-item">
     		                            <a id="tabApprovedF" class="nav-link active .cards" data-toggle="tab" href="#approvedF">Received</a>
