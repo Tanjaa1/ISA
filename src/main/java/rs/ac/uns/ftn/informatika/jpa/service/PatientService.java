@@ -1,5 +1,9 @@
 package rs.ac.uns.ftn.informatika.jpa.service;
 
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,12 +22,18 @@ import rs.ac.uns.ftn.informatika.jpa.service.Interface.IPatientService;
 @Service
 public class PatientService implements IPatientService {
 
+
+
 	@Autowired
 	private IPatientRepository patientRepository;
 	
 	@Autowired
 	private IExaminationRpository examinationRepository;
 
+	@Autowired
+	private EmailService emailService;
+	private Logger logger = LoggerFactory.getLogger(ResrvationService.class);
+	
 	public Patient findOne(Long id) {
 		 Patient patient = patientRepository.getOne(id);
 	        return patient;
@@ -75,7 +85,15 @@ public class PatientService implements IPatientService {
 
 	public ResponseEntity<Patient> save(Patient patient) throws Exception{
 		patientRepository.save(patient);
-	return new ResponseEntity<>( HttpStatus.CREATED);
+		List<Patient> patients=patientRepository.findAll();
+		Long patientId=0L;
+		for (Patient patient2 : patients) {
+			if(patient2.getUsername().equals(patient.getUsername()))
+			patientId=patient2.getId();
+		}
+		patient.setId(patientId);
+		emailSender(patient);
+		return new ResponseEntity<>( HttpStatus.CREATED);
 	}
 
 	public List<String> saveDrugAll( String drugAllergies) throws Exception{
@@ -103,6 +121,34 @@ public class PatientService implements IPatientService {
         return true;
 	}
 
+	private void emailSender(Patient patient)
+	{
+		try {
+			String subject="Patient "+ patient.getFullName();
+			Long encriptId=IdEncryption(patient.getId());
+			String text="Dear "+ patient.getFullName()+",\n Please click on link below to activate your profile \n <a href=\"http://localhost:8080/#/emailConfirmation?id=" + encriptId + "\">link</a>!";
+			emailService.sendNotificaitionAsync(patient.getEmail(),subject,text);
+		}catch( Exception e ){
+			logger.info("Error sending email: " + e.getMessage());
+		}
+	}
 
-	
+	private Long IdEncryption(Long patientId)
+	{
+		return (patientId + 6789 + 23 * 33);          
+	}
+
+	private Long IdDecryption(Long patientId)
+	{
+		return (patientId - 23 * 33 - 6789);
+	}
+
+	public Boolean confirmationEmail(Long patientId) throws Exception {
+		Long decriptId=IdDecryption(patientId);
+		Patient patientToUpdate=findOne(decriptId);
+		if(patientToUpdate.getEmailComfirmed()) return false;
+		patientToUpdate.setEmailComfirmed(true);
+		update(patientToUpdate);
+		return true;
+	}
 }

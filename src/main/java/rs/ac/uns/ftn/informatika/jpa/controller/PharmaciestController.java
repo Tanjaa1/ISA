@@ -41,6 +41,25 @@ public class PharmaciestController {
 	public ResponseEntity<List<PharmacistDTO>> getAll() {
     List<PharmacistDTO> retVal = pharmacistService.findAll();
 		return retVal == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(retVal);
-  }
+  	}
+	  
+	  @PutMapping(value ="/confirmationEmailPharmacist/{Id}")
+	  public ResponseEntity<Boolean> confirmationEmail(@PathVariable String Id) throws Exception {
+		  Boolean success = pharmacistService.confirmationEmail(Long.parseLong(Id));
+		  return success == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(success);
+	  }
+
+	  
+	  @PostMapping(value = "/savePharmacist")
+	  public ResponseEntity<Pharmacist> savePatient(@RequestBody Pharmacist patientDTO) throws Exception{
+		pharmacistService.save(patientDTO);
+	  return new ResponseEntity<>(patientDTO, HttpStatus.CREATED);
+	  }
+
+	  @GetMapping(value = "/isUsernameValid/{username}")
+		public ResponseEntity<Boolean> isUsernameValid(@PathVariable String username) {
+		Boolean isValid = pharmacistService.isUsernameValid(username);
+		return isValid == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(isValid);
+	}
 
 }

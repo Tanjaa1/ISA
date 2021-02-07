@@ -9,4 +9,7 @@ public interface IPharmacyAdminService {
 
     public ResponseEntity<PharmacyAdmin> save(PharmacyAdmin pharmacyAdmin) throws Exception;
     Boolean sendingMail(String pharmacyName,Medicine medicine);
+    public PharmacyAdmin findOne(Long id);
+	PharmacyAdmin update(PharmacyAdmin pharmacy) throws Exception;
 }
+

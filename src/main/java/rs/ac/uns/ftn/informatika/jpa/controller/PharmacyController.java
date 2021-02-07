@@ -68,4 +68,11 @@ public class PharmacyController {
 		Boolean isValid = pharmacyService.isNameValid(name);
 		return isValid == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(isValid);
 	}
+
+	@GetMapping(value = "/getByName/{name}")
+	public ResponseEntity<Pharmacy> getByName(@PathVariable String name) {
+		Pharmacy pharmacy = pharmacyService.getByName(name);
+		return pharmacy == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(pharmacy);
+	}
+	
 }

@@ -7,6 +7,7 @@ import rs.ac.uns.ftn.informatika.jpa.model.Supplier;
 public interface ISupplierService {
    
     public ResponseEntity<Supplier> save(Supplier supplier) throws Exception;
+	Supplier update(Supplier supplier) throws Exception;
 
     
 }
