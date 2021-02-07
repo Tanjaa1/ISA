@@ -8,7 +8,7 @@ Vue.component("reservation", {
 	beforeMount() {
 	},
 	template: `
-	<div id="Reservation">
+	<div id="Reservation"  class="BackendImagePhysician">
 		<br><br><br><br><br><br>				
 		<div class="row reservation">
 		  	<div class="col-sm-5"><input id="id" placeholder="Enter code" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default"></div>

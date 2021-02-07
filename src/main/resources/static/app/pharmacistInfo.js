@@ -16,7 +16,7 @@ Vue.component("pharmacistInfo", {
 	}
 		,
 	template: `
-	<div id=""></br>
+	<div id=""  class="BackendImagePhysician"></br>
 
 <!-- Registration Info -->
 							<h3 class="pi">Personal information</h3>
@@ -142,7 +142,7 @@ Vue.component("changePharmacistInfo", {
 	}
 		,
 	template: `
-	<div id=""></br>
+	<div id=""  class="BackendImagePhysician"></br>
 
 <!-- Registration Info -->
 							<h3 class="pi">Personal information</h3>

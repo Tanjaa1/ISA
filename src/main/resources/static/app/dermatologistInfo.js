@@ -19,7 +19,7 @@ Vue.component("dermatologistInfo", {
 	}
 		,
 	template: `
-	<div id=""></br>
+	<div id=""  class="BackendImagePhysician"></br>
 
 <!-- Registration Info -->
 							<h3 class="pi">Personal information</h3>
@@ -149,7 +149,7 @@ Vue.component("changeDermatologistInfo", {
 	}
 		,
 	template: `
-	<div id=""></br>
+	<div id=""  class="BackendImagePhysician"></br>
 
 <!-- Registration Info -->
 							<h3 class="pi">Personal information</h3>

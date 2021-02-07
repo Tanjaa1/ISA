@@ -14,7 +14,7 @@ Vue.component("search", {
 			})
 	},
 	template: `
-	<div id="Search">				
+	<div id="Search"  class="BackendImagePhysician">				
 		<div class="row search">
 		  	<div class="col-sm-5"><input id="name" placeholder="Enter name" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default"></div>
 		  	<div class="col-sm-6"><input id="surname" placeholder="Enter surname" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default"></div>

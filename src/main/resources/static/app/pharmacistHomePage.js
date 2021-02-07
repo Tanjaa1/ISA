@@ -7,7 +7,7 @@ Vue.component("pharmacistHomePage", {
 	beforeMount() {
 	},
 	template: `
-	<div id="PharmacistHomePage">		
+	<div id="PharmacistHomePage"  class="BackendImagePhysician">		
 			<br></br><br></br>
 			<br></br><br></br>
 				<div>
