@@ -75,7 +75,7 @@ Vue.component("pharmaciesShow", {
 		<div class="row search">
 		Filtration by grades:&nbsp&nbsp
 		<div>
-			<select class="col" id="sort" v-on:change="Sort()">
+			<select class="col" id="filter" v-on:change="Filter()">
 				<option selected="selected" disabled>Please select grade:</option>
 					<option>0</option>
 					<option>1</option>
@@ -83,9 +83,23 @@ Vue.component("pharmaciesShow", {
 					<option>3</option>
 					<option>4</option>
 					<option>5</option>
+					<option>None</option>
 			</select>
-		</div>  	
+		</div>  
+		&nbsp&nbsp&nbspSort by&nbsp&nbsp
+			<div>
+				<select class="col" id="sort1" v-on:change="Sort()">
+					<option selected="selected" disabled>Please select one</option>
+	                	<option>Name assceding</option>
+	                	<option>Name descending</option>
+	                    <option>Address assceding</option>
+	                    <option>Address descending</option>
+						<option>Grade assceding</option>
+	                    <option>Grade descending</option>
+	            </select>
+	        </div>  
 	</div>
+	
 
 <!--Show pharmacy -->
 	<template v-for="p in pharmacies">
@@ -119,49 +133,130 @@ Vue.component("pharmaciesShow", {
 			.catch(error => {
 			})
 		},
-		Sort:function(){
-			if(document.getElementById("sort").value=="0"){
+		Filter:function(){
+			if(document.getElementById("filter").value=="0"){
 				for(i in this.pharmaciesHelp){
 					if(this.pharmaciesHelp[i].grade == 0)
 					this.lista.push(this.pharmaciesHelp[i])
 				}
 				this.pharmacies = this.lista
 				this.lista = []
-			}else if(document.getElementById("sort").value=="1"){
+			}else if(document.getElementById("filter").value=="1"){
 				for(i in this.pharmaciesHelp){
 					if(this.pharmaciesHelp[i].grade == 1)
 					this.lista.push(this.pharmaciesHelp[i])
 				}
 				this.pharmacies = this.lista
 				this.lista = []
-			}else if(document.getElementById("sort").value=="2"){
+			}else if(document.getElementById("filter").value=="2"){
 				for(i in this.pharmaciesHelp){
 					if(this.pharmaciesHelp[i].grade == 2)
 					this.lista.push(this.pharmaciesHelp[i])
 				}
 				this.pharmacies = this.lista
 				this.lista = []
-			}else if(document.getElementById("sort").value=="3"){
+			}else if(document.getElementById("filter").value=="3"){
 				for(i in this.pharmaciesHelp){
 					if(this.pharmaciesHelp[i].grade == 3)
 					this.lista.push(this.pharmaciesHelp[i])
 				}
 				this.pharmacies = this.lista
 				this.lista = []
-			}else if(document.getElementById("sort").value=="4"){
+			}else if(document.getElementById("filter").value=="4"){
 				for(i in this.pharmaciesHelp){
 					if(this.pharmaciesHelp[i].grade == 4)
 					this.lista.push(this.pharmaciesHelp[i])
 				}
 				this.pharmacies = this.lista
 				this.lista = []
-			}else{
+			}else if(document.getElementById("filter").value=="5"){
 				for(i in this.pharmaciesHelp){
 					if(this.pharmaciesHelp[i].grade == 5)
 					this.lista.push(this.pharmaciesHelp[i])
 				}
 				this.pharmacies = this.lista
 				this.lista = []
+			}else{
+				for(i in this.pharmaciesHelp){
+					this.lista.push(this.pharmaciesHelp[i])
+				}
+				this.pharmacies = this.lista
+				this.lista = []
+			}
+		},
+		Sort:function(){
+			if(document.getElementById("sort1").value=="Name assceding"){
+				this.pharmacies.sort (
+					function (a, b) {
+						if (a["name"] < b["name"]){
+							return -1;
+						} else if (a["name"] > b["name"]){
+							return 1;
+						} else {
+							return 0;   
+						}
+					}
+				);
+			}else if(document.getElementById("sort1").value=="Address assceding"){
+				this.pharmacies.sort (
+					function (a, b) {
+						if (a["address"] < b["address"]){
+							return -1;
+						} else if (a["address"] > b["address"]){
+							return 1;
+						} else {
+							return 0;   
+						}
+					}
+				);
+			}else if(document.getElementById("sort1").value=="Grade assceding"){
+				this.pharmacies.sort (
+					function (a, b) {
+						if (a.grade > b.grade){
+							return -1;
+						} else if (a.grade < b.grade){
+							return 1;
+						} else {
+							return 0;   
+						}
+					}
+				);
+			}else if(document.getElementById("sort1").value=="Name descending"){
+				this.pharmacies.sort (
+					function (a, b) {
+						if (a["name"] > b["name"]){
+							return -1;
+						} else if (a["name"] < b["name"]){
+							return 1;
+						} else {
+							return 0;   
+						}
+					}
+				);
+			}else if(document.getElementById("sort1").value=="Address descending"){
+				this.pharmacies.sort (
+					function (a, b) {
+						if (a["address"] > b["address"]){
+							return -1;
+						} else if (a["address"] < b["address"]){
+							return 1;
+						} else {
+							return 0;   
+						}
+					}
+				);
+			}else{
+				this.pharmacies.sort (
+					function (a, b) {
+						if (a.grade > b.grade){
+							return -1;
+						} else if (a.grade < b.grade){
+							return 1;
+						} else {
+							return 0;   
+						}
+					}
+				);
 			}
 		}
 	}

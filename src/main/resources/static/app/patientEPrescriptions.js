@@ -1,7 +1,9 @@
 Vue.component("patientEPrescriptions", {
 	data: function () {
 		return {
-            patientEPrescriptions:null
+            patientEPrescriptions:null,
+			lista:[],
+			l:null
 		}
 	},
 	beforeMount() {
@@ -9,6 +11,7 @@ Vue.component("patientEPrescriptions", {
 		 	.get('/patient/getPatientById/' + '88')
 		 	.then(response => {
 				 this.patientEPrescriptions = response.data
+				 this.l = this.patientEPrescriptions.eprescriptions
 		 	})
 		 	.catch(error => {
 		 	})
@@ -21,6 +24,26 @@ Vue.component("patientEPrescriptions", {
 			       <!-- <button type="button" class="btn btn-info btn-lg form-control" style="width:30%;height:80px; margin-bottom:5%" data-toggle="modal" data-target="#CommentModal">Leave feedback</button>-->
 		</div>
 
+		<div class="row search">
+		Filtration by status:&nbsp&nbsp
+		<div>
+			<select class="col" id="filter" v-on:change="Filter()">
+				<option selected="selected" disabled>Please select status:</option>
+					<option>New</option>
+					<option>Processed</option>
+					<option>Rejected</option>
+					<option>None</option>
+			</select>
+		</div>  
+		&nbsp&nbsp&nbspSort by date:&nbsp&nbsp
+			<div>
+				<select class="col" id="sort" v-on:change="Sort()">
+					<option selected="selected" disabled>Please select one</option>
+	                	<option>Date assceding</option>
+	                	<option>Date descending</option>
+	            </select>
+	        </div>  
+	</div>
 <!--Show eprescriptions -->
 	<template v-for="p in patientEPrescriptions.eprescriptions">
 			<div class="container">
@@ -63,49 +86,61 @@ Vue.component("patientEPrescriptions", {
 			.catch(error => {
 			})
 		},
-		Sort:function(){
-			if(document.getElementById("sort").value=="0"){
-				for(i in this.pharmaciesHelp){
-					if(this.pharmaciesHelp[i].grade == 0)
-					this.lista.push(this.pharmaciesHelp[i])
+		Filter:function(){
+			if(document.getElementById("filter").value=="New"){
+				for(i in this.l){
+					if(this.l[i].status == "New")
+					this.lista.push(this.l[i])
 				}
-				this.pharmacies = this.lista
+				this.patientEPrescriptions.eprescriptions = this.lista
 				this.lista = []
-			}else if(document.getElementById("sort").value=="1"){
-				for(i in this.pharmaciesHelp){
-					if(this.pharmaciesHelp[i].grade == 1)
-					this.lista.push(this.pharmaciesHelp[i])
+			}else if(document.getElementById("filter").value=="Processed"){
+				for(i in this.l){
+					if(this.l[i].status == "Processed")
+					this.lista.push(this.l[i])
 				}
-				this.pharmacies = this.lista
+				this.patientEPrescriptions.eprescriptions = this.lista
 				this.lista = []
-			}else if(document.getElementById("sort").value=="2"){
-				for(i in this.pharmaciesHelp){
-					if(this.pharmaciesHelp[i].grade == 2)
-					this.lista.push(this.pharmaciesHelp[i])
+			}else if(document.getElementById("filter").value=="Rejected"){
+				for(i in this.l){
+					if(this.l[i].status == "Rejected")
+					this.lista.push(this.l[i])
 				}
-				this.pharmacies = this.lista
-				this.lista = []
-			}else if(document.getElementById("sort").value=="3"){
-				for(i in this.pharmaciesHelp){
-					if(this.pharmaciesHelp[i].grade == 3)
-					this.lista.push(this.pharmaciesHelp[i])
-				}
-				this.pharmacies = this.lista
-				this.lista = []
-			}else if(document.getElementById("sort").value=="4"){
-				for(i in this.pharmaciesHelp){
-					if(this.pharmaciesHelp[i].grade == 4)
-					this.lista.push(this.pharmaciesHelp[i])
-				}
-				this.pharmacies = this.lista
+				this.patientEPrescriptions.eprescriptions = this.lista
 				this.lista = []
 			}else{
-				for(i in this.pharmaciesHelp){
-					if(this.pharmaciesHelp[i].grade == 5)
-					this.lista.push(this.pharmaciesHelp[i])
+				for(i in this.l){
+					this.lista.push(this.l[i])
 				}
-				this.pharmacies = this.lista
+				this.patientEPrescriptions.eprescriptions = this.lista
 				this.lista = []
+			}
+		},
+		Sort:function(){
+			if(document.getElementById("sort").value=="Date assceding"){
+				this.patientEPrescriptions.eprescriptions.sort (
+					function (a, b) {
+						if (a.issuingDate < b.issuingDate){
+							return -1;
+						} else if (a.issuingDate > b.issuingDate){
+							return 1;
+						} else {
+							return 0;   
+						}
+					}
+				);
+			}else{
+				this.patientEPrescriptions.eprescriptions.sort (
+					function (a, b) {
+						if (a.issuingDate > b.issuingDate){
+							return -1;
+						} else if (a.issuingDate < b.issuingDate){
+							return 1;
+						} else {
+							return 0;   
+						}
+					}
+				);
 			}
 		}
 	}
