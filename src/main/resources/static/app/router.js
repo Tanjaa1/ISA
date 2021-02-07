@@ -336,6 +336,7 @@ const router = new VueRouter({
 			name : 'emailConfirmationSystemAdmin', 
 			components: {
 				content: emailConfirmationSystemAdmin
+			}
 		},
 		{ 
 			path: '/patientEPrescriptions', 
