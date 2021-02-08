@@ -105,4 +105,12 @@ public class ExaminationController {
 		List<ExaminationDTO> examinationDTOs = examinationService.getFreeExaminationByDermatologist(id);
 		return examinationDTOs == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(examinationDTOs);
 	}
+
+	@PutMapping(value = "/schedule")
+	public ResponseEntity<List<ExaminationDTO>> getFreeExaminationByDermatologist(@RequestBody Examination examination)
+		throws Exception 
+	{
+		Examination e =examinationService.schedule(examination);
+		return e == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : new ResponseEntity<>(HttpStatus.OK);
+	}
 }

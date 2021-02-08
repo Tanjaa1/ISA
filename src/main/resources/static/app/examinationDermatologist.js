@@ -151,7 +151,7 @@ Vue.component("examinationDermatologist", {
                                                                         <td>{{f.startTime.split('T')[1]}}</td>
                                                                         <td>{{f.endTime.split('T')[1]}}</td>
                                                                         <td>{{f.price}}</td>
-                                                                        <td><button btn btn-info btn-lg>Schedule</button></td>
+                                                                        <td><button btn btn-info btn-lg v-on:click="Schedule(f)">Schedule</button></td>
                                                                     </tr>
                                                                     </tbody>
                                                                 </table>
@@ -206,10 +206,13 @@ Vue.component("examinationDermatologist", {
                         this.prescriptionDTO.medicine=pharmacyMedicines[m]
                         axios.post('/eprescription/add/'+this.examination.patient.id, this.prescriptionDTO)
                             .then(function (response) {
+                                alert("Prescription was successfully issued!")
+                                location.reload()
                             })
                             .catch(function (error) {
                             });
                         }else{
+                            alert("Medicine is put of stock!")
                             axios.post('/pharmacyAdmin/sendingMail/'+this.examination.pharmacy.name,this.medicineChoose)
                             .then(function (response) {
                             })
@@ -218,6 +221,25 @@ Vue.component("examinationDermatologist", {
                         }
                     }
                 }
+        },
+        Schedule: async function(f){
+            f.patient=this.examination.patient
+            var fut=[]
+            await axios.put('/examination/schedule',f)
+            .then(function (response) {
+                alert("The examination was successfully scheduled!")
+                axios
+                .get('/examination/getFreeExaminationByDermatologist/' + '6')
+                .then(function (odg){
+                    this.future=odg.response
+                    location.reload()
+                })
+                .catch(error => {
+                })
+            })
+            .catch(function (error) {
+            });
+            
         }
 	}
 });
