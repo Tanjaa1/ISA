@@ -30,7 +30,7 @@ public class MedicineQuantity {
 	// @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	// private Order OrderMedicine;
 	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
 	private Supplier Supplier;
 	
 	public MedicineQuantity(){}

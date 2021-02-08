@@ -5,6 +5,7 @@ Vue.component("orderMedicinePharmacyAdmin", {
             medicines : {},
             dueDate : {},
             medicine : {},
+            pharmacy : {},
             orders : [
                 {
                     medicine : {},
@@ -15,7 +16,7 @@ Vue.component("orderMedicinePharmacyAdmin", {
             order :{
                 orders : [],
                 pharmacyAdmin :{
-                    pharmacy: "Hemofarm",
+                    pharmacy: "Benu",
                     name: "Toma",
                     id: 9,
                     address: "Jovana Ducica 65",
@@ -141,11 +142,39 @@ Vue.component("orderMedicinePharmacyAdmin", {
                 .then(response => {
 
                 })   
-                
-            axios.put('/order/add',this.order)
+             
+            axios.get('/pharmacy/getByName/'+ this.order.pharmacyAdmin.pharmacy)
                 .then(response => {
-    
+                    this.pharmacy = response.data;
+                    var names = [];
+                    for(med of this.pharmacy.pricelist)
+                        names.push(med.medicine.name)
+                    for(med of this.order.orders){
+                        if(!names.includes(med.medicine.name)){
+                            this.pharmacy.pricelist.push({
+                                id : null,
+                                price : null,
+                                medicine : med.medicine,
+                                quantity : med.quantity
+                            })
+                            names.push(med.medicine.name)
+                        }
+                        else if(index in this.pharmacy.pricelist){
+                            for(med of this.order.orders){
+                                if(this.pharmacy.pricelist[index].medicine.name == med.medicine.name){
+                                    this.pharmacy.pricelist[index].quantity = parseInt(this.pharmacy.pricelist[index].quantity) + parseInt(med.quantity)
+                                }
+                            }
+                        }
+                    }
+                    axios.put('/pharmacy/update/',this.pharmacy)
+                    .then(response => {
+                        alert("Order successfuly set")
+                    })
             })   
+            
+
+
         },
     }
 

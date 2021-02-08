@@ -62,12 +62,8 @@ public class MedicineService implements IMedicineService {
 	}
 
 	@Override
-	public ArrayList<MedicineDTO> findAll() {
-		List<Medicine> medicine = medicineRepository.findAll();
-		ArrayList<MedicineDTO> returnValue = new ArrayList<MedicineDTO>();
-		for (Medicine med : medicine)
-			returnValue.add(new MedicineDTO(med));
-		return returnValue;
+	public ArrayList<Medicine> findAll() {
+		return medicineRepository.findAll();
 	}
 
 

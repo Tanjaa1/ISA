@@ -44,8 +44,8 @@ public class MedicineController {
 	}
 
 	@GetMapping(value = "/getAll")
-	public ResponseEntity<List<MedicineDTO>> getAll() {
-    List<MedicineDTO> retVal = medicineService.findAll();
+	public ResponseEntity<List<Medicine>> getAll() {
+    List<Medicine> retVal = medicineService.findAll();
 		return retVal == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(retVal);
   	}
 	@PostMapping(value = "/saveMedicinePriceAndQuantity")
