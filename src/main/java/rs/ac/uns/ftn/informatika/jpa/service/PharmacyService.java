@@ -90,11 +90,6 @@ public class PharmacyService implements IPharmacyService {
         return pharmacyRepository.save(forUpdate);
     }
 
-    // @Override
-    // public Pharmacy getByName(String name) {
-    //     return pharmacyRepository.getByName(name);
-    // }
-    
 
 	public Pharmacy getByName(String name) {
         List<Pharmacy> pharmacies=findAll();
