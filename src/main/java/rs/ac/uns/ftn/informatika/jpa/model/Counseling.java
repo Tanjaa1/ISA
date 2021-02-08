@@ -51,13 +51,14 @@ public class Counseling {
 
 	public Counseling(){}
 
-	public Counseling(long id, String report, LocalDateTime startTime, Boolean isDone,
+	public Counseling(long id, String report, LocalDateTime startTime, Double price, Boolean isDone,
 			rs.ac.uns.ftn.informatika.jpa.model.Patient patient,
 			rs.ac.uns.ftn.informatika.jpa.model.Pharmacist pharmacist) {
 		super();
 		this.id = id;
 		Report = report;
 		StartTime = startTime;
+		Price = price;
 		this.isDone = isDone;
 		Patient = patient;
 		Pharmacist = pharmacist;
@@ -95,6 +96,14 @@ public class Counseling {
 		EndTime = endTime;
 	}
 
+	public Double getPrice() {
+		return Price;
+	}
+
+	public void setPrice(Double price) {
+		Price = price;
+	}
+
 	public Boolean getIsDone() {
 		return isDone;
 	}
@@ -125,13 +134,5 @@ public class Counseling {
 
 	public void setPharmacy(Pharmacy pharmacy) {
 		Pharmacy = pharmacy;
-	}
-		
-	public Double getPrice(){
-		return Price;
-	}
-
-	public void setPrice(Double price){
-		Price=price;
 	}
 }

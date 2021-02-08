@@ -15,7 +15,7 @@ public class PharmacyAdminDTO {
 	private Boolean EmailComfirmed;
 	private Boolean FirstTimeLogin;
     private String UserName;
-	private Pharmacy Pharmacy;
+	private PharmacyDTO Pharmacy;
 
     public String getEmail() {
         return Email;
@@ -113,17 +113,17 @@ public class PharmacyAdminDTO {
         UserName = userName;
     }
 
-    public Pharmacy getPharmacy() {
+    public PharmacyDTO getPharmacy() {
         return Pharmacy;
     }
 
-    public void setPharmacy(Pharmacy pharmacy) {
+    public void setPharmacy(PharmacyDTO pharmacy) {
         Pharmacy = pharmacy;
     }
 
     public PharmacyAdminDTO(String email, String password, String name, String surname, String address, String city,
             String country, String phoneNumber, String description, Boolean emailComfirmed, Boolean firstTimeLogin,
-            String userName, rs.ac.uns.ftn.informatika.jpa.model.Pharmacy pharmacy) {
+            String userName, PharmacyDTO pharmacy) {
         Email = email;
         Password = password;
         Name = name;

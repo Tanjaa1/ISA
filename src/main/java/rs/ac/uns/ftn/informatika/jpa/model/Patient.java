@@ -39,9 +39,9 @@ public class Patient extends User {
 	private LoyaltyCategories Category; 
 	
 	//@ManyToMany(mappedBy = "SubscribedUsers")
-	@ManyToMany
-	@JoinTable(name = "PharmacySubscribedUsers", joinColumns = @JoinColumn(name = "Patient_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "Pharmacy_id", referencedColumnName = "id"))
-	private Set<Pharmacy> PrepaidPharmacies = new HashSet<Pharmacy>();
+	// @ManyToMany
+	// @JoinTable(name = "PharmacySubscribedUsers", joinColumns = @JoinColumn(name = "Patient_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "Pharmacy_id", referencedColumnName = "id"))
+	// private Set<Pharmacy> PrepaidPharmacies = new HashSet<Pharmacy>();
 	
 	// @OneToMany(mappedBy = "Patient", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	// private Set<Complaint> Complaints = new HashSet<Complaint>();
@@ -110,13 +110,13 @@ public class Patient extends User {
 		Category = category;
 	}
 	
-	public Set<Pharmacy> getPrepaidPharmacies() {
-		return PrepaidPharmacies;
-	}
+	// public Set<Pharmacy> getPrepaidPharmacies() {
+	// 	return PrepaidPharmacies;
+	// }
 
-	public void setPrepaidPharmacies(Set<Pharmacy> prepaidPharmacies) {
-		PrepaidPharmacies = prepaidPharmacies;
-	}
+	// public void setPrepaidPharmacies(Set<Pharmacy> prepaidPharmacies) {
+	// 	PrepaidPharmacies = prepaidPharmacies;
+	// }
 
 	public String getFullName() {
 		return getName()+" "+ getSurname();
@@ -150,7 +150,7 @@ public class Patient extends User {
 		Points = points;
 		Penalty = penalty;
 		Category = category;
-		PrepaidPharmacies = prepaidPharmacies;
+		//PrepaidPharmacies = prepaidPharmacies;
 		EPrescriptions = ePrescriptions;
 	
 	}
