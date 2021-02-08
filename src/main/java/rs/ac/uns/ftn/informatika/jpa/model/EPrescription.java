@@ -134,12 +134,12 @@ public class EPrescription {
 		Pharmacy = pharmacy;
 	}
 
-	public EPrescription(Long code, Date issuingDate, rs.ac.uns.ftn.informatika.jpa.model.Medicine medicine,
+	public EPrescription(Long code, Date issuingDate, Medicine medicine,
 			Integer therapyDuration, EPrescriptionStatus status,
-			rs.ac.uns.ftn.informatika.jpa.model.Pharmacy pharmacy) {
+		Pharmacy pharmacy) {
 		Code = code;
 		IssuingDate = issuingDate;
-		Medicine = medicine;
+		//Medicine = medicine;
 		TherapyDuration = therapyDuration;
 		Status = status;
 		Pharmacy = pharmacy;
