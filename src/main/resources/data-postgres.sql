@@ -49,6 +49,8 @@ INSERT INTO public.dermatologist(
 	VALUES (7, 'Kneza Milosa 1', 'Novi Sad', 'Srbija', '', 'lola@gmail.com', false, false, 'Lola', 'Lolic', '0632413455', 'Lola');
     */
 
+
+
 INSERT INTO public.dermatologist(
 	id, address, city, country, description, email, email_comfirmed, first_time_login, name, password, phone_number, surname, username)
 	VALUES (6, 'Kneza Milosa 3', 'Novi Sad', 'Srbija', '', 'jovan.jovic838@gmail.com', false, false, 'Jovan', 'Jovic', '0632213455', 'Jovic','jokas');
@@ -114,17 +116,17 @@ INSERT INTO public.system_admin(
 
 INSERT INTO public.complaint(
 	id, subject, text, patient_id)
-	VALUES (1, 'Jovan Jovic', 'neljubazan', 88);
+	VALUES (99, 'Jovan Jovic', 'neljubazan', 88);
 INSERT INTO public.complaint(
 	id, subject, text, patient_id)
-	VALUES (2, 'Sava Savic', 'neprofesionalan', 89);
+	VALUES (200, 'Sava Savic', 'neprofesionalan', 89);
     
 INSERT INTO public.complaint_answer(
 	id, text, complaint_id, system_admin_id)
-	VALUES(1, 'odgovor na zalbu jedan', 1, 12);
+	VALUES(1111, 'odgovor na zalbu jedan', 99, 12);
 INSERT INTO public.complaint_answer(
 	id, text, complaint_id, system_admin_id)
-	VALUES(2, 'odgovor na zalbu dva', 2, 13);
+	VALUES(22222, 'odgovor na zalbu dva', 200, 13);
 
 INSERT INTO public.counseling(
 	id, report, start_time, is_done, patient_id, pharmacist_id, pharmacy_id)
@@ -346,11 +348,11 @@ INSERT INTO public.order_medicine_orders(
 -- 	VALUES (112, 2);
 
 INSERT INTO public.eprescription(
-	code, issuing_date,therapy_duration, medicine_id,status)
-	VALUES (111,'2016-06-22',2,1,0);
+	code, issuing_date,therapy_duration, medicine_id,status,pharmacy_id)
+	VALUES (111,'2016-06-22',2,222,0,111);
 INSERT INTO public.eprescription(
-	code, issuing_date,therapy_duration, medicine_id,status)
-	VALUES (112,'2017-06-22',2,2,1);
+	code, issuing_date,therapy_duration, medicine_id,status,pharmacy_id)
+	VALUES (112,'2017-06-22',2,223,1,222);
 
 INSERT INTO public.patient_eprescriptions(
 	patient_id, eprescriptions_code)
@@ -388,3 +390,13 @@ INSERT INTO public.patient_action_or_promotions(
 INSERT INTO public.patient_action_or_promotions(
 	patient_id, action_or_promotions_id)
 	VALUES (88, 223);
+
+	INSERT INTO public.eprescription(
+	code, issuing_date, status, therapy_duration, medicine_id, pharmacy_id)
+	VALUES (147, '10-10-2010', 1, 5, 222,111 );
+	INSERT INTO public.eprescription(
+	code, issuing_date, status, therapy_duration, medicine_id, pharmacy_id)
+	VALUES (187, '10-10-2010', 1, 5, 222,222 );
+	INSERT INTO public.eprescription(
+	code, issuing_date, status, therapy_duration, medicine_id, pharmacy_id)
+	VALUES (197, '10-10-2010', 1, 5, 222,111 );

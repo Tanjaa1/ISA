@@ -1,20 +1,25 @@
 package rs.ac.uns.ftn.informatika.jpa.service;
 
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import rs.ac.uns.ftn.informatika.jpa.dto.EPrescriptionDTO;
 import rs.ac.uns.ftn.informatika.jpa.dto.PatientDTO;
+import rs.ac.uns.ftn.informatika.jpa.dto.PharmacyDTO;
+import rs.ac.uns.ftn.informatika.jpa.model.EPrescription;
 import rs.ac.uns.ftn.informatika.jpa.model.Examination;
 import rs.ac.uns.ftn.informatika.jpa.model.Patient;
+import rs.ac.uns.ftn.informatika.jpa.model.Pharmacy;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IExaminationRpository;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IPatientRepository;
 import rs.ac.uns.ftn.informatika.jpa.service.Interface.IPatientService;
@@ -151,4 +156,21 @@ public class PatientService implements IPatientService {
 		update(patientToUpdate);
 		return true;
 	}
+
+	public Set<PharmacyDTO> getEPharmaciesByPatientIdAndPrescriptions(Long patientId) {
+        PatientDTO resultPatient=new PatientDTO((findOne(patientId)));
+		Set<EPrescriptionDTO> prescriptions=resultPatient.getEPrescriptions();
+		Set<PharmacyDTO> pharmacies=new HashSet<>();
+        for (EPrescriptionDTO s : prescriptions) {
+			pharmacies.add(new PharmacyDTO(s.getPharmacy()));
+        }
+        return pharmacies;
+	}
+
+	@Override
+	public Patient findById(Long id) {
+		patientRepository.findById(id).get();
+	return null;
+	}
+
 }

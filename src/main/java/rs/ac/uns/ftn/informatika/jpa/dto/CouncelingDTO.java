@@ -3,9 +3,6 @@ package rs.ac.uns.ftn.informatika.jpa.dto;
 import java.time.LocalDateTime;
 
 import rs.ac.uns.ftn.informatika.jpa.model.Counseling;
-import rs.ac.uns.ftn.informatika.jpa.model.Patient;
-import rs.ac.uns.ftn.informatika.jpa.model.Pharmacist;
-import rs.ac.uns.ftn.informatika.jpa.model.Pharmacy;
 
 public class CouncelingDTO {
  

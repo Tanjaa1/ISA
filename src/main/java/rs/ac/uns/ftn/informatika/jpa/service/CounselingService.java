@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import rs.ac.uns.ftn.informatika.jpa.dto.CouncelingDTO;
 import rs.ac.uns.ftn.informatika.jpa.model.Counseling;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.ICounselingRpository;
 import rs.ac.uns.ftn.informatika.jpa.service.Interface.ICounselingService;
@@ -46,5 +47,16 @@ public class CounselingService implements ICounselingService {
             Counseling e=counselingRepository.getOne(id);
             e.setIsDone(true);
             return counselingRepository.save(e);
-	} 
+	}
+
+	public List<CouncelingDTO> getAllExaminations() {
+        List<Counseling> counselings=counselingRepository.findAll();
+		List<CouncelingDTO> councelingDTOs = new ArrayList<CouncelingDTO>();
+        for (Counseling counseling : counselings) {
+            councelingDTOs.add(new CouncelingDTO(counseling));
+        }
+           return councelingDTOs;
+	}
+
+
 }

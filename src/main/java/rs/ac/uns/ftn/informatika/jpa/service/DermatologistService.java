@@ -77,7 +77,8 @@ public class DermatologistService implements IDermatologistService {
 		}
 		dermatologist.setId(dermaId);
 		emailSender(dermatologist);
-		return new ResponseEntity<>( HttpStatus.CREATED);    }
+		return new ResponseEntity<>( HttpStatus.CREATED);  
+	  }
 
 	public List<String> getAllDermatologistUsernames() {
 		List<Dermatologist> dermatologists = dermatologistRepository.findAll();
