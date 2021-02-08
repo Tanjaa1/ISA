@@ -52,7 +52,7 @@ Vue.component("examinationDermatologist", {
         </div>
         <div class="row search">
             <button type="button" style="color:white" class="btn2 btn-default" data-dismiss="modal"  data-toggle="modal" data-target="#PrescriptionModal">Prescription</button>&nbsp&nbsp&nbsp&nbsp&nbsp
-            <button type="button" style="color:white" class="btn2 btn-default" data-dismiss="modal" v-on:click="Schedule()">Schedule the next review</button>&nbsp&nbsp&nbsp&nbsp&nbsp
+            <button type="button" style="color:white" class="btn2 btn-default" data-dismiss="modal" data-toggle="modal" data-target="#Schedule">Schedule the next review</button>&nbsp&nbsp&nbsp&nbsp&nbsp
             <button type="button" style="color:white" class="btn2 btn-default" data-dismiss="modal" v-on:click="Finish()">Finish</button>	
         </div>
         <div>
@@ -100,7 +100,75 @@ Vue.component("examinationDermatologist", {
 					</div>
 					</div>
 				</div>
-			</div>  
+			</div>
+            <!--SCHEDULE-->
+            <div class="modal fade" tabindex="-1" role="dialog" id="Schedule">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Schedule the next examination</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                    <!--BODY-->
+                        <div class= "container">
+                                        <ul class="nav nav-tabs" role="tablist">
+                                            <li class="nav-item">
+                                                <a id="existingTab" class="nav-link active .cards" data-toggle="tab" href="#existing">EXISTING</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a id="newTab" class="nav-link .cards" data-toggle="tab" href="#new">NEW</a>
+                                            </li>
+                                        </ul>
+                                        <div>
+                                            <div class="tab-content">
+                                                <div id="existing" class="container tab-pane active"><br>
+                                                    <div class="container">
+                                                            <div class="row">
+                                                                <table id="tableApproved" class="table table-bordered">
+                                                                    <thead>
+                                                                    <tr>
+                                                                        <th>Date</th>
+                                                                        <th>Start</th>
+                                                                        <th>End</th>
+                                                                        <th>Price</th>
+                                                                    </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                    </div>			     
+                                                </div>
+                                                <div id="new" class="container tab-pane fade"><br>
+                                                    <div class="container">
+                                                        <div class="md-form mx-5 my-5">
+                                                            <label>Choose date:</label></br>
+                                                            <input style="height:25px" id="date" type="date"></input>
+                                                        </div>
+                                                        <div class="md-form mx-5 my-5">
+                                                            <label>Choose start time</label>
+                                                            <input type="time" id="start" class="form-control">
+                                                        </div>
+                                                        <div class="md-form mx-5 my-5">
+                                                            <label>Choose end time</label>
+                                                            <input type="time" id="end" class="form-control">
+                                                        </div>
+                                                    </div>			
+                                                </div>
+                                            </div>
+                                        </div></br>
+            </div>
+                    <div class="modal-footer">
+                        <button id="addF" type="button" class="btn btn-info btn-lg " v-on:click="AddPrescritpion()">Create</button>
+                        <button id="cancelF" type="button" class="btn btn-info btn-lg " data-dismiss="modal">Cancel</button>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>  
 		</div>
     </div>			
 	`,

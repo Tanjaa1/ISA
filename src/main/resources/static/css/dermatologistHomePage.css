@@ -1,4 +1,4 @@
-#DermatologistHomePage {
+.BackendImagePhysician {
     background-image: url("../pictures/search.jpg");
     background-repeat: no-repeat;
     overflow-y: hidden;
@@ -74,3 +74,4 @@
     background-position: center;
     opacity: 0.8;
 }
+

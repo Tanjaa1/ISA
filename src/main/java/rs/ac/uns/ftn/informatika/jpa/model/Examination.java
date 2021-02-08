@@ -25,7 +25,10 @@ public class Examination {
 	
 	@Column(name="StartTime", unique=false, nullable=true)
 	private LocalDateTime StartTime;
-	
+
+	@Column(name="EndTime", unique=false, nullable=true)
+	private LocalDateTime EndTime;
+
 	@Column(name="isDone", unique=false, nullable=true)
 	private Boolean isDone;
 	
@@ -41,6 +44,9 @@ public class Examination {
 	//@JsonIgnoreProperties(value = {"Examination", "hibernateLazyInitializer"})
 	private Pharmacy Pharmacy;
 	
+	@Column(name="Price", unique=false, nullable=true)
+	private Double Price;
+
 	public Examination(){}
 	public Examination(long id, String report, LocalDateTime startTime, Boolean isDone,
 			rs.ac.uns.ftn.informatika.jpa.model.Patient patient,
@@ -79,6 +85,14 @@ public class Examination {
 		StartTime = startTime;
 	}
 
+	public LocalDateTime getEndTime() {
+		return EndTime;
+	}
+
+	public void setEndTime(LocalDateTime endTime) {
+		EndTime = endTime;
+	}
+
 	public Boolean getIsDone() {
 		return isDone;
 	}
@@ -111,6 +125,12 @@ public class Examination {
 		Pharmacy = pharmacy;
 	}
 	
-	
+	public Double getPrice(){
+		return Price;
+	}
+
+	public void setPrice(Double price){
+		Price=price;
+	}
 
 }

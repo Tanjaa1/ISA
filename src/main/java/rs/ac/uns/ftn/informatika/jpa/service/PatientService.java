@@ -73,7 +73,7 @@ public class PatientService implements IPatientService {
 		List<Examination> examinations = examinationRepository.findAll();
 		List<PatientDTO> patients=new ArrayList<PatientDTO>();
 		for (Examination examination : examinations)
-			if(examination.getDermatologist().getId()==id)
+			if(examination.getDermatologist().getId()==id && examination.getPatient()!=null)
 			   patients.add(new PatientDTO(examination.getPatient()));
 		return patients;
    }

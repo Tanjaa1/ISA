@@ -40,7 +40,7 @@ Vue.component("counselingPharmacist", {
 
 	},
 	template: `
-	<div id="ExaminationDermatologist">
+	<div id="ExaminationDermatologist" class="BackendImagePhysician">
         <br><br>	
         <div class="row search">
             <div class="col-sm-5">Patient:</div>
