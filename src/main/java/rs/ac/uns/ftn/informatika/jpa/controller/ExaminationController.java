@@ -99,5 +99,10 @@ public class ExaminationController {
 		return pharmaciesDTOs == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(pharmaciesDTOs);
 	}
 
-	
+	@GetMapping(value = "/getFreeExaminationByDermatologist/{id}")
+	public ResponseEntity<List<ExaminationDTO>> getFreeExaminationByDermatologist(@PathVariable Long id) 
+	{
+		List<ExaminationDTO> examinationDTOs = examinationService.getFreeExaminationByDermatologist(id);
+		return examinationDTOs == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(examinationDTOs);
+	}
 }

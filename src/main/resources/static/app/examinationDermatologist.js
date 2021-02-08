@@ -1,7 +1,7 @@
 Vue.component("examinationDermatologist", {
 	data: function () {
 		return {
-			patient:{},
+			patient:null,
             examination:null,
             medicines:[],
             med:null,
@@ -10,7 +10,8 @@ Vue.component("examinationDermatologist", {
                 therapyDuration:0,
                 issuingDate:new Date().now,
             },
-            medicineChoose:null
+            medicineChoose:null,
+            future:null
 		}
 	},
 	beforeMount() {
@@ -38,6 +39,13 @@ Vue.component("examinationDermatologist", {
             .catch(error => {
             })
 
+            axios
+            .get('/examination/getFreeExaminationByDermatologist/' + '6')
+            .then(response => {
+                this.future = response.data
+            })
+            .catch(error => {
+            })
 	},
 	template: `
 	<div id="ExaminationDermatologist">
@@ -103,7 +111,7 @@ Vue.component("examinationDermatologist", {
 			</div>
             <!--SCHEDULE-->
             <div class="modal fade" tabindex="-1" role="dialog" id="Schedule">
-            <div class="modal-dialog" role="document">
+            <div class="modal-dialog" role="document" style="max-width: 60%;">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title">Schedule the next examination</h5>
@@ -134,9 +142,17 @@ Vue.component("examinationDermatologist", {
                                                                         <th>Start</th>
                                                                         <th>End</th>
                                                                         <th>Price</th>
+                                                                        <th>Schedule</th>
                                                                     </tr>
                                                                     </thead>
                                                                     <tbody>
+                                                                    <tr v-for="f in future">
+                                                                        <td>{{f.startTime.split('T')[0]}}</td>
+                                                                        <td>{{f.startTime.split('T')[1]}}</td>
+                                                                        <td>{{f.endTime.split('T')[1]}}</td>
+                                                                        <td>{{f.price}}</td>
+                                                                        <td><button btn btn-info btn-lg>Schedule</button></td>
+                                                                    </tr>
                                                                     </tbody>
                                                                 </table>
                                                             </div>
@@ -162,7 +178,6 @@ Vue.component("examinationDermatologist", {
                                         </div></br>
             </div>
                     <div class="modal-footer">
-                        <button id="addF" type="button" class="btn btn-info btn-lg " v-on:click="AddPrescritpion()">Create</button>
                         <button id="cancelF" type="button" class="btn btn-info btn-lg " data-dismiss="modal">Cancel</button>
                     </div>
                 </div>
