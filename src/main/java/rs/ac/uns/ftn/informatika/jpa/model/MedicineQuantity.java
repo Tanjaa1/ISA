@@ -20,7 +20,7 @@ public class MedicineQuantity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long Id;
 	
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "Medicine_id", referencedColumnName = "Id")
 	private Medicine Medicine;
 	
@@ -30,7 +30,7 @@ public class MedicineQuantity {
 	// @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	// private Order OrderMedicine;
 	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
 	private Supplier Supplier;
 	
 	public MedicineQuantity(){}

@@ -1,5 +1,6 @@
 package rs.ac.uns.ftn.informatika.jpa.dto;
 
+
 import rs.ac.uns.ftn.informatika.jpa.model.MedicinePriceAndQuantity;
 
 public class MedicinePriceAndQuantityDTO {
@@ -12,6 +13,7 @@ public class MedicinePriceAndQuantityDTO {
 	public MedicinePriceAndQuantityDTO(){}
 
 	public MedicinePriceAndQuantityDTO(long id,MedicineDTO medicine, double price,int quantity) {
+
 		super();
 		this.Id = id;
 		Medicine = medicine;
@@ -20,6 +22,7 @@ public class MedicinePriceAndQuantityDTO {
 	}
 
     public MedicinePriceAndQuantityDTO(MedicinePriceAndQuantity medicinePriceAndQuantity){
+  		  super();
         Id = medicinePriceAndQuantity.getId();
         Medicine = new MedicineDTO(medicinePriceAndQuantity.getMedicine());
         Price = medicinePriceAndQuantity.getPrice();
@@ -42,11 +45,13 @@ public class MedicinePriceAndQuantityDTO {
 		this.Id = id;
 	}
 
-	public MedicineDTO getMedicine() {
+
+	public Medicine getMedicine() {
 		return Medicine;
 	}
 
-	public void setMedicine(MedicineDTO medicine) {
+	public void setMedicine(Medicine medicine) {
+
 		Medicine = medicine;
 	}
 
@@ -57,4 +62,5 @@ public class MedicinePriceAndQuantityDTO {
 	public void setPrice(double price) {
 		Price = price;
 	}
+
 }

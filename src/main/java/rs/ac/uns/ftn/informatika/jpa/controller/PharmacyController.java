@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -52,6 +53,12 @@ public class PharmacyController {
 	return new ResponseEntity<>(pharmacyDTO, HttpStatus.CREATED);
 	}
 
+	@PutMapping(value = "/update")
+	public ResponseEntity<Pharmacy> update(@RequestBody Pharmacy pharmacy) throws Exception{
+		pharmacyService.update(pharmacy);
+	return new ResponseEntity<>(pharmacy, HttpStatus.CREATED);
+	}
+
 	@GetMapping(value = "/getAllPharmacies")
 	public ResponseEntity<List<Pharmacy>> getAll() {
 		List<Pharmacy> pharmacies =pharmacyService.getAll();
@@ -74,5 +81,5 @@ public class PharmacyController {
 		Pharmacy pharmacy = pharmacyService.getByName(name);
 		return pharmacy == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(pharmacy);
 	}
-	
+
 }

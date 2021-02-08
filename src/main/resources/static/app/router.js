@@ -52,6 +52,8 @@ const emailConfirmationPharmacyAdmin = { template: '<emailConfirmationPharmacyAd
 const ExaminationDermatologist = { template: '<examinationDermatologist></examinationDermatologist>' }
 const CounselingPharmacist = { template: '<counselingPharmacist></counselingPharmacist>' }
 
+const OrderMedicinePharmacyAdmin = { template: '<orderMedicinePharmacyAdmin></orderMedicinePharmacyAdmin>' }
+
 const router = new VueRouter({
 	  mode: 'hash',
 	  routes: [
@@ -95,6 +97,14 @@ const router = new VueRouter({
 	    	components: {
 				pageHeader: PatientHeader,
 				content: PharmacistsPreview
+			}
+	    },
+		{ 
+	    	path: '/orderMedicinePharmacyAdmin', 
+	    	name : 'orderMedicinePharmacyAdmin', 
+	    	components: {
+				pageHeader: PatientHeader,
+				content: OrderMedicinePharmacyAdmin
 			}
 	    },
 	    { 

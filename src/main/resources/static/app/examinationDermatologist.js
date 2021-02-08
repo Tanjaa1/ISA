@@ -22,9 +22,9 @@ Vue.component("examinationDermatologist", {
                 .get('/eprescription/findMedicines/' + '111')
                 .then(response => {       
                     this.med=response.data
-                    for(m in this.med){
+                    for(var m in this.med){
                         var find=false
-                        for(a in this.examination.patient.drugAllargies){
+                        for(var a in this.examination.patient.drugAllargies){
                             if(this.examination.patient.drugAllargies[a].toUpperCase()==this.med[m].medicine.name.toUpperCase())
                                 find=true
                         }
