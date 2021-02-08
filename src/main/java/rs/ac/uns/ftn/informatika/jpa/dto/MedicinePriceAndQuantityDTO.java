@@ -2,6 +2,7 @@ package rs.ac.uns.ftn.informatika.jpa.dto;
 
 
 import rs.ac.uns.ftn.informatika.jpa.model.MedicinePriceAndQuantity;
+import rs.ac.uns.ftn.informatika.jpa.model.Medicine;
 
 public class MedicinePriceAndQuantityDTO {
 
@@ -46,11 +47,11 @@ public class MedicinePriceAndQuantityDTO {
 	}
 
 
-	public Medicine getMedicine() {
+	public MedicineDTO getMedicine() {
 		return Medicine;
 	}
 
-	public void setMedicine(Medicine medicine) {
+	public void setMedicine(MedicineDTO medicine) {
 
 		Medicine = medicine;
 	}

@@ -25,8 +25,8 @@ public class DermatologistDTO{
 	private String Description;
 	private Boolean EmailComfirmed;
 	private Boolean FirstTimeLogin;
-	private Set<VacationInterval> VacationSchedule = new HashSet<VacationInterval>();
-	private Set<WorkingTime> WorkingSchedule = new HashSet<WorkingTime>();
+	private Set<VacationIntervalDTO> VacationSchedule = new HashSet<VacationIntervalDTO>();
+	private Set<WorkingTimeDTO> WorkingSchedule = new HashSet<WorkingTimeDTO>();
 	private Set<PharmacyDTO> Pharmacies = new HashSet<PharmacyDTO>();
 	private Set<Integer> Marks = new HashSet<Integer>();
     private Set<ExaminationDTO> Examinations = new HashSet<ExaminationDTO>();
@@ -35,7 +35,7 @@ public class DermatologistDTO{
     }
 
     public DermatologistDTO(Long Id,String Email,String Password,String Name,String Surname,String Address,String City, String Country,String PhoneNumber,String Description,
-    Boolean EmailComfirmed, Boolean FirstTimeLogin ,Set<VacationInterval> VacationSchedule,Set<WorkingTime> WorkingSchedule,Set<PharmacyDTO> Pharmacies,
+    Boolean EmailComfirmed, Boolean FirstTimeLogin ,Set<VacationIntervalDTO> VacationSchedule,Set<WorkingTimeDTO> WorkingSchedule,Set<PharmacyDTO> Pharmacies,
     Set<Integer> Marks,Set<ExaminationDTO> Examinations){
       super();
       this.Address = Address;
@@ -75,8 +75,8 @@ public class DermatologistDTO{
 	  }
       this.PhoneNumber = dermatologist.getPhoneNumber();
       this.Surname = dermatologist.getSurname();
-      this.VacationSchedule = dermatologist.getVacationSchedule();
-      this.WorkingSchedule = dermatologist.getWorkingSchedule();
+      this.VacationSchedule = dermatologist.getVacationScheduleAsDTO();
+      this.WorkingSchedule = dermatologist.getWorkingScheduldeAsDTO();
     }
 
     public DermatologistDTO toDTO(Dermatologist dermatologist){
@@ -147,19 +147,19 @@ public class DermatologistDTO{
 	}
 
 
-    public Set<VacationInterval> getVacationSchedule() {
+    public Set<VacationIntervalDTO> getVacationSchedule() {
 		return VacationSchedule;
 	}
 
-	public void setVacationSchedule(Set<VacationInterval> vacationSchedule) {
+	public void setVacationSchedule(Set<VacationIntervalDTO> vacationSchedule) {
 		VacationSchedule = vacationSchedule;
 	}
 
-	public Set<WorkingTime> getWorkingSchedule() {
+	public Set<WorkingTimeDTO> getWorkingSchedule() {
 		return WorkingSchedule;
 	}
 
-	public void setWorkingSchedule(Set<WorkingTime> workingSchedule) {
+	public void setWorkingSchedule(Set<WorkingTimeDTO> workingSchedule) {
 		WorkingSchedule = workingSchedule;
 	}
 

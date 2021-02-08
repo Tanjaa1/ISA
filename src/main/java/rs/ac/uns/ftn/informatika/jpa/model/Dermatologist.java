@@ -11,6 +11,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import rs.ac.uns.ftn.informatika.jpa.dto.VacationIntervalDTO;
+import rs.ac.uns.ftn.informatika.jpa.dto.WorkingTimeDTO;
 import rs.ac.uns.ftn.informatika.jpa.util.VacationInterval;
 import rs.ac.uns.ftn.informatika.jpa.util.WorkingTime;
 
@@ -52,6 +54,22 @@ public class Dermatologist extends User{
 	public Set<VacationInterval> getVacationSchedule() {
 		return VacationSchedule;
 	}
+
+	
+	public Set<VacationIntervalDTO> getVacationScheduleAsDTO() {
+		Set<VacationIntervalDTO> retVal = new HashSet<VacationIntervalDTO> ();
+		for(VacationInterval vacationInterval : VacationSchedule)
+			retVal.add(new VacationIntervalDTO(vacationInterval));
+		return retVal;
+	}
+
+	public Set<WorkingTimeDTO> getWorkingScheduldeAsDTO() {
+		Set<WorkingTimeDTO> retVal = new HashSet<WorkingTimeDTO> ();
+		for(WorkingTime workingTime : WorkingSchedule)
+			retVal.add(new WorkingTimeDTO(workingTime));
+		return retVal;
+	}
+
 
 	public void setVacationSchedule(Set<VacationInterval> vacationSchedule) {
 		VacationSchedule = vacationSchedule;

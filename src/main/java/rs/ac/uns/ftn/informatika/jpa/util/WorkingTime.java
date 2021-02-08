@@ -69,4 +69,6 @@ public class WorkingTime {
 	public void setTimeEnd(LocalDateTime timeEnd) {
 		TimeEnd = timeEnd;
 	}
+
+	
 }
