@@ -1,6 +1,7 @@
 package rs.ac.uns.ftn.informatika.jpa.controller;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,9 +14,10 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import rs.ac.uns.ftn.informatika.jpa.dto.PatientDTO;
+import rs.ac.uns.ftn.informatika.jpa.dto.PharmacyDTO;
 import rs.ac.uns.ftn.informatika.jpa.model.Patient;
+import rs.ac.uns.ftn.informatika.jpa.model.Pharmacy;
 import rs.ac.uns.ftn.informatika.jpa.service.PatientService;
 
 @RestController
@@ -84,5 +86,12 @@ public class PatientController {
 	public ResponseEntity<Boolean> isUsernameValid(@PathVariable String username) {
 		Boolean isValid = patientService.isUsernameValid(username);
 		return isValid == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(isValid);
+	}
+
+	@GetMapping(value = "/getEPharmaciesByPatientIdAndPrescriptions/{patientId}")
+	public ResponseEntity<Set<PharmacyDTO>> getEPharmaciesByPatientIdAndPrescriptions( @PathVariable Long patientId) throws Exception
+	{
+		Set<PharmacyDTO> pharmacies =patientService.getEPharmaciesByPatientIdAndPrescriptions(patientId);
+		return pharmacies == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(pharmacies);
 	}
 }

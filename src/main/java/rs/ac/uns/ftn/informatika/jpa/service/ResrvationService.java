@@ -1,13 +1,16 @@
 package rs.ac.uns.ftn.informatika.jpa.service;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import rs.ac.uns.ftn.informatika.jpa.dto.PharmacyDTO;
 import rs.ac.uns.ftn.informatika.jpa.dto.ReservationDTO;
 import rs.ac.uns.ftn.informatika.jpa.model.MedicinePriceAndQuantity;
 import rs.ac.uns.ftn.informatika.jpa.model.Reservation;
@@ -105,5 +108,30 @@ public class ResrvationService implements IReservationService{
 			}
 		}
 		return patientReservations;
+	}
+
+	public Set<ReservationDTO> getAllReceivedByPatientIdSet(Long id) {
+		Set<ReservationDTO> patientReservations = new HashSet();
+
+		List<Reservation> reservations = reservationRepository.findAll();
+		for (Reservation reservation : reservations) {
+			if(id == reservation.getPatient().getId() && reservation.getIsReceived()){
+				patientReservations.add( new ReservationDTO(reservation));
+			}
+		}
+		return patientReservations;
+	}
+
+	
+
+	public Set<PharmacyDTO> getPharmaciesOfReceivedReservationByPatientId(Long id) {
+		Set<PharmacyDTO> resultPharmacies=new HashSet();
+		Set <ReservationDTO> reservationDTOs =getAllReceivedByPatientIdSet(id);
+		for (ReservationDTO reservationDTO : reservationDTOs) {
+			if(id==reservationDTO.getPatient().getId()){
+				resultPharmacies.add(reservationDTO.getPharmacy());
+			}
+		}
+		return resultPharmacies;
 	}
 }

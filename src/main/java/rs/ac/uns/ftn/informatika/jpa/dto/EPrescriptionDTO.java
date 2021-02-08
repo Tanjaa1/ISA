@@ -4,19 +4,23 @@ import java.util.Date;
 
 import rs.ac.uns.ftn.informatika.jpa.enums.EPrescriptionStatus;
 import rs.ac.uns.ftn.informatika.jpa.model.EPrescription;
-import rs.ac.uns.ftn.informatika.jpa.model.Medicine;
+import rs.ac.uns.ftn.informatika.jpa.model.Pharmacy;
 
 public class EPrescriptionDTO {
     private MedicinePriceAndQuantityDTO Medicine;
     private Date IssuingDate;
     private Integer TherapyDuration;
 	private EPrescriptionStatus Status; 
+	private Pharmacy Pharmacy;
 
+	
 	public EPrescriptionDTO(EPrescription ePrescription){
 		Medicine = new MedicinePriceAndQuantityDTO(ePrescription.getMedicine());
 		IssuingDate = ePrescription.getIssuingDate();
 		TherapyDuration = ePrescription.getTherapyDuration();
 		Status = ePrescription.getStatus();
+		Pharmacy=ePrescription.getPharmacy();
+
 	}
 
     public int getTherapyDuration() {
@@ -50,4 +54,19 @@ public class EPrescriptionDTO {
 	public void setIssuingDate(Date issuingDate) {
 		IssuingDate = issuingDate;
 	}
+
+	public void setTherapyDuration(Integer therapyDuration) {
+		TherapyDuration = therapyDuration;
+	}
+
+	public Pharmacy getPharmacy() {
+		return Pharmacy;
+	}
+
+	public void setPharmacy(Pharmacy pharmacy) {
+		Pharmacy = pharmacy;
+	}
+	
+	
+	
 }

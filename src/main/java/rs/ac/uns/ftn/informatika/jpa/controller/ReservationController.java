@@ -1,6 +1,7 @@
 package rs.ac.uns.ftn.informatika.jpa.controller;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import rs.ac.uns.ftn.informatika.jpa.dto.PharmacyDTO;
 import rs.ac.uns.ftn.informatika.jpa.dto.ReservationDTO;
 import rs.ac.uns.ftn.informatika.jpa.service.ResrvationService;
 
@@ -49,6 +51,12 @@ public class ReservationController {
 	public ResponseEntity<List<ReservationDTO>> getReceivedReservationByPatientId(@PathVariable Long id) 
 	{	
 		List<ReservationDTO> reservations = reservationService.getAllReceivedByPatientId(id);
+		return reservations == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(reservations);
+	}
+	@GetMapping(value = "/getPharmaciesOfReceivedReservationByPatientId/{id}")
+	public ResponseEntity<Set<PharmacyDTO>> getPharmaciesOfReceivedReservationByPatientId(@PathVariable Long id) throws Exception
+	{	
+		Set<PharmacyDTO> reservations = reservationService.getPharmaciesOfReceivedReservationByPatientId(id);
 		return reservations == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(reservations);
 	}
 

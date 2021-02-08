@@ -5,10 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import rs.ac.uns.ftn.informatika.jpa.dto.ExaminationDTO;
 import rs.ac.uns.ftn.informatika.jpa.model.Examination;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IExaminationRpository;
 import rs.ac.uns.ftn.informatika.jpa.service.Interface.IExaminationService;
@@ -52,5 +51,14 @@ public class ExaminationService implements IExaminationService {
     @Override
 	public Examination getExaminationById(Long id) {
         return examinationRepository.getOne(id);
+	}
+
+	public List<ExaminationDTO> getAllExaminations() {
+        List<Examination> examinations=examinationRepository.findAll();
+		List<ExaminationDTO> examinationsDtos = new ArrayList<ExaminationDTO>();
+        for (Examination examination : examinations) {
+            examinationsDtos.add(new ExaminationDTO(examination));
+        }
+           return examinationsDtos;
 	}
 }

@@ -1,8 +1,6 @@
 package rs.ac.uns.ftn.informatika.jpa.model;
 
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -11,10 +9,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -53,6 +49,10 @@ public class EPrescription {
 	
 	@Column(name="Status", unique=false, nullable=true)
 	private EPrescriptionStatus Status; 
+	
+	@ManyToOne
+	(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+	private Pharmacy Pharmacy;
 
 	public EPrescription(){
 		Status= EPrescriptionStatus.New;
@@ -121,4 +121,28 @@ public class EPrescription {
 	public void setStatus(EPrescriptionStatus status) {
 		Status = status;
 	}
+
+	public void setTherapyDuration(Integer therapyDuration) {
+		TherapyDuration = therapyDuration;
+	}
+
+	public Pharmacy getPharmacy() {
+		return Pharmacy;
+	}
+
+	public void setPharmacy(Pharmacy pharmacy) {
+		Pharmacy = pharmacy;
+	}
+
+	public EPrescription(Long code, Date issuingDate, Medicine medicine,
+			Integer therapyDuration, EPrescriptionStatus status,
+		Pharmacy pharmacy) {
+		Code = code;
+		IssuingDate = issuingDate;
+		//Medicine = medicine;
+		TherapyDuration = therapyDuration;
+		Status = status;
+		Pharmacy = pharmacy;
+	}
+	
 }

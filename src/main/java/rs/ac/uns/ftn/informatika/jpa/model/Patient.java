@@ -88,6 +88,7 @@ public class Patient extends User {
 	public int getPoints() {
 		return Points;
 	}
+	
 
 	public void setPoints(int points) {
 		Points = points;
