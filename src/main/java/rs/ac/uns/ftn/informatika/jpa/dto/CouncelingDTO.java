@@ -12,33 +12,39 @@ public class CouncelingDTO {
 	private Long Id;
 	private String Report;
 	private LocalDateTime StartTime;
+	private LocalDateTime EndTime;
 	private Boolean isDone;
 	private PatientDTO Patient;
 	private PharmacistDTO Pharmacist;
 	private PharmacyDTO Pharmacy;
+	private Double Price;
 	
 	public CouncelingDTO(){}
 
-	public CouncelingDTO(long id, String report, LocalDateTime startTime, Boolean isDone, PatientDTO patient,
-		PharmacistDTO pharmacist, PharmacyDTO pharmacy) {
+	public CouncelingDTO(long id, String report, LocalDateTime startTime, LocalDateTime endTime, Boolean isDone, PatientDTO patient,
+		PharmacistDTO pharmacist, PharmacyDTO pharmacy,Double price) {
 		super();
 		this.Id = id;
 		Report = report;
 		StartTime = startTime;
+		EndTime = endTime;
 		this.isDone = isDone;
 		Patient = patient;
 		Pharmacist = pharmacist;
         Pharmacy = pharmacy;
+		Price=price;
 	}
 
     public CouncelingDTO(Counseling counceling){
         Id = counceling.getId();
         Report = counceling.getReport();
         StartTime = counceling.getStartTime();
+        EndTime = counceling.getEndTime();
         isDone = counceling.getIsDone();
         Patient = new PatientDTO(counceling.getPatient());
         Pharmacist = new PharmacistDTO(counceling.getPharmacist());
         Pharmacy = new PharmacyDTO(counceling.getPharmacy());
+		Price=counceling.getPrice();
     }
 
 	public long getId() {
@@ -63,6 +69,14 @@ public class CouncelingDTO {
 
 	public void setStartTime(LocalDateTime startTime) {
 		StartTime = startTime;
+	}
+
+	public LocalDateTime getEndTime() {
+		return EndTime;
+	}
+
+	public void setEndTime(LocalDateTime endTime) {
+		EndTime = endTime;
 	}
 
 	public Boolean getIsDone() {
@@ -95,5 +109,13 @@ public class CouncelingDTO {
 
 	public void setPharmacy(PharmacyDTO pharmacy) {
 		Pharmacy = pharmacy;
+	}
+		
+	public Double getPrice(){
+		return Price;
+	}
+
+	public void setPrice(Double price){
+		Price=price;
 	}
 }

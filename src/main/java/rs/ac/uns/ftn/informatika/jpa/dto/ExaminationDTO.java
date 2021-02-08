@@ -9,33 +9,39 @@ public class ExaminationDTO {
 	private Long Id;
 	private String Report;
 	private LocalDateTime StartTime;
+	private LocalDateTime EndTime;
 	private Boolean isDone;
 	private PatientDTO Patient;
 	private DermatologistDTO Dermatologist;
 	private PharmacyDTO Pharmacy;
+	private Double Price;
 	
 	public ExaminationDTO(){}
 
-	public ExaminationDTO(long id, String report, LocalDateTime startTime, Boolean isDone, PatientDTO patient,
-			DermatologistDTO dermatologist, PharmacyDTO pharmacy) {
+	public ExaminationDTO(long id, String report, LocalDateTime startTime,LocalDateTime endTime, Boolean isDone, PatientDTO patient,
+			DermatologistDTO dermatologist, PharmacyDTO pharmacy,Double price) {
 		super();
 		Id = id;
 		Report = report;
 		StartTime = startTime;
+		EndTime = endTime;
 		this.isDone = isDone;
 		Patient = patient;
 		Dermatologist = dermatologist;
 		Pharmacy = pharmacy;
+		Price=price;
 	}
 
     public ExaminationDTO(Examination examination){
         Id = examination.getId();
         Report = examination.getReport();
         StartTime = examination.getStartTime();
+        EndTime = examination.getEndTime();
         isDone = examination.getIsDone();
         Patient = new PatientDTO(examination.getPatient());
         Dermatologist = new DermatologistDTO(examination.getDermatologist());
         Pharmacy = new PharmacyDTO(examination.getPharmacy());
+		Price=examination.getPrice();
     }
 
 	public long getId() {
@@ -62,6 +68,13 @@ public class ExaminationDTO {
 		StartTime = startTime;
 	}
 
+	public LocalDateTime getEndTime() {
+		return EndTime;
+	}
+
+	public void setEndTime(LocalDateTime endTime) {
+		EndTime = endTime;
+	}
 	public Boolean getIsDone() {
 		return isDone;
 	}
@@ -94,4 +107,11 @@ public class ExaminationDTO {
 		Pharmacy = pharmacy;
 	}
 	
+	public Double getPrice(){
+		return Price;
+	}
+
+	public void setPrice(Double price){
+		Price=price;
+	}
 }

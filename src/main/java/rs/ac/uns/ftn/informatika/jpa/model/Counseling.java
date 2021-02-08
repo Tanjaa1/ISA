@@ -28,6 +28,9 @@ public class Counseling {
 	@Column(name="StartTime", unique=false, nullable=true)
 	private LocalDateTime StartTime;
 	
+	@Column(name="EndTime", unique=false, nullable=true)
+	private LocalDateTime EndTime;
+	
 	@Column(name="isDone", unique=false, nullable=true)
 	private Boolean isDone;
 	
@@ -43,6 +46,9 @@ public class Counseling {
 	//@JsonIgnoreProperties(value = {"Counseling", "hibernateLazyInitializer"})
 	private Pharmacy Pharmacy;
 	
+	@Column(name="Price", unique=false, nullable=true)
+	private Double Price;
+
 	public Counseling(){}
 
 	public Counseling(long id, String report, LocalDateTime startTime, Boolean isDone,
@@ -80,6 +86,14 @@ public class Counseling {
 	public void setStartTime(LocalDateTime startTime) {
 		StartTime = startTime;
 	}
+	
+	public LocalDateTime getEndTime() {
+		return EndTime;
+	}
+
+	public void setEndTime(LocalDateTime endTime) {
+		EndTime = endTime;
+	}
 
 	public Boolean getIsDone() {
 		return isDone;
@@ -111,5 +125,13 @@ public class Counseling {
 
 	public void setPharmacy(Pharmacy pharmacy) {
 		Pharmacy = pharmacy;
+	}
+		
+	public Double getPrice(){
+		return Price;
+	}
+
+	public void setPrice(Double price){
+		Price=price;
 	}
 }
