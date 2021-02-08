@@ -40,5 +40,11 @@ public class CounselingService implements ICounselingService {
        }
        return patientCounselings;
 	}
-    
+
+	public Counseling update(long id)throws Exception 
+    {
+            Counseling e=counselingRepository.getOne(id);
+            e.setIsDone(true);
+            return counselingRepository.save(e);
+	} 
 }

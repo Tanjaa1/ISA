@@ -15,6 +15,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import rs.ac.uns.ftn.informatika.jpa.enums.LoyaltyCategories;
 
 @Entity
@@ -48,9 +50,11 @@ public class Patient extends User {
 	// private Set<Counseling> Counselings = new HashSet<Counseling>();
 	
 	 @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	 private Set<EPrescription> EPrescriptions = new HashSet<EPrescription>();
 
 	 @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	 private Set<ActionOrPromotion> ActionOrPromotions = new HashSet<ActionOrPromotion>();
 	
 	// @OneToMany(mappedBy = "Patient", fetch = FetchType.LAZY, cascade = CascadeType.ALL)

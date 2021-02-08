@@ -11,6 +11,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name="MedicinePriceAndQuantity")
 public class MedicinePriceAndQuantity {
@@ -21,6 +23,7 @@ public class MedicinePriceAndQuantity {
 	
 	@OneToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "Medicine_id", referencedColumnName = "Id")
+	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	private Medicine Medicine;
 	
 	@Column(name="Price", unique=false, nullable=true)

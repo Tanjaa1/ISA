@@ -9,10 +9,12 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import rs.ac.uns.ftn.informatika.jpa.model.Medicine;
 import rs.ac.uns.ftn.informatika.jpa.model.PharmacyAdmin;
 import rs.ac.uns.ftn.informatika.jpa.service.PharmacyAdminService;
 
@@ -39,6 +41,18 @@ public class PharmacyAdminController {
 	public ResponseEntity<Boolean> isUsernameValid(@PathVariable String username) {
 		Boolean isValid = pharmacyAdminService.isUsernameValid(username);
 		return isValid == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(isValid);
+	}
+	
+	@PostMapping(value = "/sendingMail/{pharmacyName}")
+	public ResponseEntity<HttpStatus> sendingMail(@PathVariable String pharmacyName,@RequestBody Medicine medicine) {
+		Boolean sent =pharmacyAdminService.sendingMail(pharmacyName,medicine);
+		return sent == false ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : new ResponseEntity<>(HttpStatus.OK);
+	}
+
+	@PutMapping(value ="/confirmationEmailPharmacyAdmin/{Id}")
+	public ResponseEntity<Boolean> confirmationEmail(@PathVariable String Id) throws Exception {
+		Boolean success = pharmacyAdminService.confirmationEmail(Long.parseLong(Id));
+		return success == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(success);
 	}
 
 }

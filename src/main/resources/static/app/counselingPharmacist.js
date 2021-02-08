@@ -1,4 +1,4 @@
-Vue.component("examinationDermatologist", {
+Vue.component("counselingPharmacist", {
 	data: function () {
 		return {
 			patient:{},
@@ -15,16 +15,16 @@ Vue.component("examinationDermatologist", {
 	},
 	beforeMount() {
         axios
-            .get('/examination/getPastExaminationByPatientId/' + '88')
+            .get('/counseling/getPastCounselingByPatientId/' + '88')
             .then(response => {
                 this.examination = response.data[0]
                 axios
                 .get('/eprescription/findMedicines/' + '111')
                 .then(response => {       
                     this.med=response.data
-                    for(var m in this.med){
+                    for(m in this.med){
                         var find=false
-                        for(var a in this.examination.patient.drugAllargies){
+                        for(a in this.examination.patient.drugAllargies){
                             if(this.examination.patient.drugAllargies[a].toUpperCase()==this.med[m].medicine.name.toUpperCase())
                                 find=true
                         }
@@ -106,7 +106,7 @@ Vue.component("examinationDermatologist", {
 	`,
 	methods: {
         Finish:function(){    
-            axios.put('/examination/update', this.examination)
+            axios.put('/counseling/update', this.examination)
 				.then(function (response) {
 				})
 				.catch(function (error) {

@@ -241,7 +241,7 @@ Vue.component("changeDermatologistInfo", {
 			this.dermatologistUpdated.firstTimeLogin = this.firstTimeLogin
 			this.dermatologistUpdated.description = this.description
 
-			axios.post('/dermatologist/update', this.dermatologistUpdated)
+			axios.put('/dermatologist/update', this.dermatologistUpdated)
 				.then(function (response) {
 					window.location.href = "#/dermatologistInfo";
 				})

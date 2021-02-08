@@ -3,6 +3,9 @@ package rs.ac.uns.ftn.informatika.jpa.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +23,10 @@ import rs.ac.uns.ftn.informatika.jpa.service.Interface.IDermatologistService;
 public class DermatologistService implements IDermatologistService {
 
 
+	@Autowired
+	private EmailService emailService;
+	private Logger logger = LoggerFactory.getLogger(ResrvationService.class);
+	
 	@Autowired
 	private IDermatologistRepository dermatologistRepository;
 
@@ -62,8 +69,15 @@ public class DermatologistService implements IDermatologistService {
 	@Override
     public ResponseEntity<Dermatologist> save(Dermatologist dermatologist) throws Exception {
         dermatologistRepository.save(dermatologist);
-	return new ResponseEntity<>( HttpStatus.CREATED);
-    }
+		List<Dermatologist> dermatologists=dermatologistRepository.findAll();
+		Long dermaId=0L;
+		for (Dermatologist dermatologist2 : dermatologists) {
+			if(dermatologist2.getUsername().equals(dermatologist.getUsername()))
+			dermaId=dermatologist2.getId();
+		}
+		dermatologist.setId(dermaId);
+		emailSender(dermatologist);
+		return new ResponseEntity<>( HttpStatus.CREATED);    }
 
 	public List<String> getAllDermatologistUsernames() {
 		List<Dermatologist> dermatologists = dermatologistRepository.findAll();
@@ -81,6 +95,38 @@ public class DermatologistService implements IDermatologistService {
                 return false;
         }
         return true;
+	}
+
+	private void emailSender(Dermatologist dermatologist)
+	{
+
+		try {
+			String subject="Patient "+ dermatologist.getName()+dermatologist.getSurname();
+			Long encriptId=IdEncryption(dermatologist.getId());
+			String text="Dear "+ dermatologist.getName()+dermatologist.getSurname()+",\n Please click on link below to activate your profile \n <a href=\"http://localhost:8080/#/emailConfirmationDermatologist?id=" + encriptId + "\">link</a>!";
+			emailService.sendNotificaitionAsync(dermatologist.getEmail(),subject,text);
+		}catch( Exception e ){
+			logger.info("Error sending email: " + e.getMessage());
+		}
+	}
+
+	private Long IdEncryption(Long patientId)
+	{
+		return (patientId + 6789 + 23 * 33);          
+	}
+
+	private Long IdDecryption(Long patientId)
+	{
+		return (patientId - 23 * 33 - 6789);
+	}
+
+	public Boolean confirmationEmail(Long Id) throws Exception {
+		Long decriptId=IdDecryption(Id);
+		Dermatologist dermaToUpdate=findOne(decriptId);
+		if(dermaToUpdate.getEmailComfirmed()) return false;
+		dermaToUpdate.setEmailComfirmed(true);
+		update(dermaToUpdate);
+		return true;
 	}
 
 }

@@ -1,17 +1,19 @@
 package rs.ac.uns.ftn.informatika.jpa.dto;
 
-import rs.ac.uns.ftn.informatika.jpa.model.Medicine;
-import rs.ac.uns.ftn.informatika.jpa.model.MedicinePriceAndQuantity;
 
+import rs.ac.uns.ftn.informatika.jpa.model.MedicinePriceAndQuantity;
 
 public class MedicinePriceAndQuantityDTO {
 
-    private Long Id;
-	private Medicine Medicine;
-    private Double Price;
-    private Integer Quantity;
+	private Long Id;
+	private MedicineDTO Medicine;
+	private Double Price;
+	private Integer Quantity;
 
-	public MedicinePriceAndQuantityDTO(long id,Medicine medicine, double price,int quantity) {
+	public MedicinePriceAndQuantityDTO(){}
+
+	public MedicinePriceAndQuantityDTO(long id,MedicineDTO medicine, double price,int quantity) {
+
 		super();
 		this.Id = id;
 		Medicine = medicine;
@@ -19,12 +21,13 @@ public class MedicinePriceAndQuantityDTO {
 		Quantity=quantity;
 	}
 
-	public MedicinePriceAndQuantityDTO(MedicinePriceAndQuantity medicine) {
-		super();
-		this.Id = medicine.getId();
-		Medicine = medicine.getMedicine();
-		Quantity=medicine.getQuantity();
-	}
+    public MedicinePriceAndQuantityDTO(MedicinePriceAndQuantity medicinePriceAndQuantity){
+  		  super();
+        Id = medicinePriceAndQuantity.getId();
+        Medicine = new MedicineDTO(medicinePriceAndQuantity.getMedicine());
+        Price = medicinePriceAndQuantity.getPrice();
+        Quantity = medicinePriceAndQuantity.getQuantity();
+    }
 
 	public int getQuantity() {
 		return Quantity;
@@ -42,11 +45,13 @@ public class MedicinePriceAndQuantityDTO {
 		this.Id = id;
 	}
 
+
 	public Medicine getMedicine() {
 		return Medicine;
 	}
 
 	public void setMedicine(Medicine medicine) {
+
 		Medicine = medicine;
 	}
 
@@ -57,6 +62,5 @@ public class MedicinePriceAndQuantityDTO {
 	public void setPrice(double price) {
 		Price = price;
 	}
-	
 
 }

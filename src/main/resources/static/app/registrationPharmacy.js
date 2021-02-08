@@ -145,7 +145,7 @@ Vue.component("registrationPharmacy", {
 				</tr>
 				</table>
 				
-			<button  type="button" class="btn2 btn-info btn-lg margin1" data-toggle="modal" data-target="#registrationInfo" v-on:click="AddPharmacy(pharmacyDTO),AddPharmacyAdmin(pharmacyAdminDTO)" >Submit</button>
+			<button  type="button" class="btn2 btn-info btn-lg margin1" data-toggle="modal" data-target="#registrationInfo" v-on:click="AddPharmacy(pharmacyDTO,pharmacyAdminDTO)" >Submit</button>
 			<br/>
 			<br/>
 
@@ -239,81 +239,51 @@ Vue.component("registrationPharmacy", {
 		}
     },
 	methods: {
-		AddPharmacy: function (pharmacyDTO) {
-			if (pharmacyDTO.name != null && pharmacyDTO.address != null) {
-				
+		AddPharmacy: function (pharmacyDTO,pharmacyAdminDTO) {
+			if (pharmacyDTO.name != null && pharmacyDTO.address != null || this.pharmacyAdminDTO.name!=null || this.pharmacyAdminDTO.surname!=null || this.pharmacyAdminDTO.address!=null || 
+				this.pharmacyAdminDTO.city!=null || this.pharmacyAdminDTO.country!=null || this.pharmacyAdminDTO.phoneNumber!=null || 
+				this.pharmacyAdminDTO.email!=null || this.pharmacyAdminDTO.password!=null || this.pharmacyAdminDTO.username!=null) 
+				{
 				axios
 					.get("/pharmacy/isNameValid/" +pharmacyDTO.name)
 					.then(response => {
 						this.isValidPharmacy=response.data;
-					if(this.isValidPharmacy==false){
-					   alert('name already exists, please choose another one!')
-					   return
-					}
-					else{
-						axios
-						.post("/pharmacy/savePharmacy", pharmacyDTO)
-						.then(response => {
-							alert("APOTEKA U BAZI")
-						})
-	
-						.catch(error => {
-							
-							alert("greska");
-						})
-					}
-					})
-
-					.catch(error => {
-						
-						alert("greska");
-					})
-				
-			}
-			else {
-				alert("All fields are required.");
-
-			}
-		},
-		AddPharmacyAdmin: function (pharmacyAdminDTO) {
-			if(this.password_confirmed!=this.pharmacyAdminDTO.password){
-					alert( 'Passwords did not match!');	
-					return	
-			}else if(this.pharmacyAdminDTO.name==null || this.pharmacyAdminDTO.surname==null || this.pharmacyAdminDTO.address==null || 
-				this.pharmacyAdminDTO.city==null || this.pharmacyAdminDTO.country==null || this.pharmacyAdminDTO.phoneNumber==null || 
-				this.pharmacyAdminDTO.email==null || this.pharmacyAdminDTO.password==null || this.pharmacyAdminDTO.username==null){
-				alert('All fields must be filled!')
-				return
-			}
-			else{
 				axios
 					.get('/systemAdmin/isUsernameValid/' + pharmacyAdminDTO.username)
 					.then(response => {
-						 this.isValid=response.data;
-						 if(this.isValid==false){
-							alert('username already exists, please choose another one!')
-							return
+						this.isValid=response.data;
+						if(this.isValid==false || this.isValidPharmacy==false){
+							alert('username or pharmacyname already exists, please choose another one!')
+							return	
 						}else{
-							pharmacyAdminDTO.emailComfirmed=false
-							pharmacyAdminDTO.firstTimeLogin=false
-							pharmacyAdminDTO.description=""
-							
 							axios
-								.post('/systemAdmin/saveSystemAdmin' , pharmacyAdminDTO)
+								.post("/pharmacy/savePharmacy", pharmacyDTO)
 								.then(response => {
-									alert("DODAT U BAZU");
-								})
-		
-								.catch(error => {
-									
-									alert("GRESKA");
-								})
-						}
+									alert("APOTEKA U BAZI")})
+									.catch(error => {
+										alert("greska");
+									})
+									pharmacyAdminDTO.emailComfirmed=false
+									pharmacyAdminDTO.firstTimeLogin=false
+									pharmacyAdminDTO.description=""
+										
+									axios
+										.post('/pharmacyAdmin/savePharmacyAdmin' , pharmacyAdminDTO)
+										.then(response => {
+											alert("DODAT U BAZU");
+										})
+										.catch(error => {		
+											alert("GRESKA");
+										})
+							}
+						})
+						.catch(error => {	
+							alert("greska");
+							})
 					})
-					.catch(error => {
-						alert("GRESssssssssssKA");
-					})
-			}
+				}
+			else 
+				alert("All fields are required.");
 		},
 	},
 });

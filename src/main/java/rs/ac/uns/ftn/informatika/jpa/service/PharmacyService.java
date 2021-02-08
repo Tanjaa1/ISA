@@ -95,4 +95,16 @@ public class PharmacyService implements IPharmacyService {
         return pharmacyRepository.getByName(name);
     }
     
+
+	public Pharmacy getByName(String name) {
+        List<Pharmacy> pharmacies=findAll();
+        Pharmacy result=new Pharmacy();
+        for (Pharmacy s : pharmacies) {
+            if(s.getName().equals(name)){
+                result=s;
+                return result;
+            }
+        }
+        return null;
+	}
 }

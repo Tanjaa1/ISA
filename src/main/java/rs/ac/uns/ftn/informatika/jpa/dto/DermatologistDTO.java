@@ -27,16 +27,16 @@ public class DermatologistDTO{
 	private Boolean FirstTimeLogin;
 	private Set<VacationInterval> VacationSchedule = new HashSet<VacationInterval>();
 	private Set<WorkingTime> WorkingSchedule = new HashSet<WorkingTime>();
-	private Set<Pharmacy> Pharmacies = new HashSet<Pharmacy>();
+	private Set<PharmacyDTO> Pharmacies = new HashSet<PharmacyDTO>();
 	private Set<Integer> Marks = new HashSet<Integer>();
-    private Set<Examination> Examinations = new HashSet<Examination>();
+    private Set<ExaminationDTO> Examinations = new HashSet<ExaminationDTO>();
     
     public DermatologistDTO() {
     }
 
     public DermatologistDTO(Long Id,String Email,String Password,String Name,String Surname,String Address,String City, String Country,String PhoneNumber,String Description,
-    Boolean EmailComfirmed, Boolean FirstTimeLogin ,Set<VacationInterval> VacationSchedule,Set<WorkingTime> WorkingSchedule,Set<Pharmacy> Pharmacies,
-    Set<Integer> Marks,Set<Examination> Examinations){
+    Boolean EmailComfirmed, Boolean FirstTimeLogin ,Set<VacationInterval> VacationSchedule,Set<WorkingTime> WorkingSchedule,Set<PharmacyDTO> Pharmacies,
+    Set<Integer> Marks,Set<ExaminationDTO> Examinations){
       super();
       this.Address = Address;
       this.City = City;
@@ -70,7 +70,9 @@ public class DermatologistDTO{
       this.Marks = dermatologist.getMarks(); 
       this.Name = dermatologist.getName();
       this.Password = dermatologist.getPassword();
-      this.Pharmacies = dermatologist.getPharmacies();
+	  for (Pharmacy pharmacy : dermatologist.getPharmacies()) {
+		  Pharmacies.add(new PharmacyDTO(pharmacy));
+	  }
       this.PhoneNumber = dermatologist.getPhoneNumber();
       this.Surname = dermatologist.getSurname();
       this.VacationSchedule = dermatologist.getVacationSchedule();
@@ -161,11 +163,11 @@ public class DermatologistDTO{
 		WorkingSchedule = workingSchedule;
 	}
 
-	public Set<Pharmacy> getPharmacies() {
+	public Set<PharmacyDTO> getPharmacies() {
 		return Pharmacies;
 	}
 
-	public void setPharmacies(Set<Pharmacy> pharmacies) {
+	public void setPharmacies(Set<PharmacyDTO> pharmacies) {
 		Pharmacies = pharmacies;
 	}
 

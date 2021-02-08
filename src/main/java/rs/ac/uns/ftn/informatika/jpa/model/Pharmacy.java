@@ -14,6 +14,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import rs.ac.uns.ftn.informatika.jpa.dto.PharmacyDTO;
 
 
@@ -39,6 +41,7 @@ public class Pharmacy {
 	// public Set<ActionOrPromotion> ListActionsOrPromotions = new HashSet<ActionOrPromotion>();
 
 	 @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	 private Set<MedicinePriceAndQuantity> Pricelist = new HashSet<MedicinePriceAndQuantity>();
 	
 	// @ManyToMany

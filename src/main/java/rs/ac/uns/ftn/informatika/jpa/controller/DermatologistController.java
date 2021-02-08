@@ -16,6 +16,7 @@ import rs.ac.uns.ftn.informatika.jpa.dto.PharmacyDTO;
 
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import rs.ac.uns.ftn.informatika.jpa.model.Dermatologist;
 import rs.ac.uns.ftn.informatika.jpa.model.Pharmacy;
@@ -67,15 +68,20 @@ public class DermatologistController {
 		return dermatologist == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(dermatologist);
 	}
 
-	@PostMapping(value = "/update")
+	@PutMapping(value = "/update")
 	public ResponseEntity<DermatologistDTO> updateGreeting(@RequestBody Dermatologist dermatologist) throws Exception {
 		DermatologistDTO d = new DermatologistDTO(dermatologistService.update(dermatologist));
 		return d == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(d);    
 	}
-  @GetMapping(value = "/getAllDermatologists")
-	public ResponseEntity<List<DermatologistDTO>> getAllDermatologists() {
-    List<DermatologistDTO> retVal = dermatologistService.findAll();
-		return retVal == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(retVal);
-  }
+	@GetMapping(value = "/getAllDermatologists")
+		public ResponseEntity<List<DermatologistDTO>> getAllDermatologists() {
+		List<DermatologistDTO> retVal = dermatologistService.findAll();
+			return retVal == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(retVal);
+	}
+	@PutMapping(value ="/confirmationEmailDermatologist/{dermaId}")
+	public ResponseEntity<Boolean> confirmationEmail(@PathVariable String dermaId) throws Exception {
+		Boolean success = dermatologistService.confirmationEmail(Long.parseLong(dermaId));
+		return success == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(success);
+	}
 
 }

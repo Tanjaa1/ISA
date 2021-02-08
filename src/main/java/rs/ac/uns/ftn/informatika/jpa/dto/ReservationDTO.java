@@ -1,17 +1,15 @@
 package rs.ac.uns.ftn.informatika.jpa.dto;
 
 import java.util.Date;
-
-import rs.ac.uns.ftn.informatika.jpa.model.MedicinePriceAndQuantity;
 import rs.ac.uns.ftn.informatika.jpa.model.Reservation;
 
 public class ReservationDTO {
     private Long Id;
     private Date ExpirationDate;
     private Boolean IsReceived;
-    private MedicinePriceAndQuantity MedicinePriceAndQuantityId;
-    private String Patient;
-	private Long Pharmacy;
+    private MedicinePriceAndQuantityDTO MedicinePriceAndQuantityId;
+    private PatientDTO Patient;
+	private PharmacyDTO Pharmacy;
 
     public ReservationDTO(){}
     public ReservationDTO(Reservation reservation)
@@ -19,9 +17,9 @@ public class ReservationDTO {
         Id=reservation.getId();
         ExpirationDate=reservation.getExpirationDate();
         IsReceived=reservation.getIsReceived();
-        MedicinePriceAndQuantityId=reservation.getMedicine();
-		Patient=reservation.getPatient().getFullName();
-		Pharmacy=reservation.getPharmacy().getId();
+        MedicinePriceAndQuantityId= new MedicinePriceAndQuantityDTO(reservation.getMedicine());
+		Patient= new PatientDTO(reservation.getPatient());
+		Pharmacy= new PharmacyDTO(reservation.getPharmacy());
     }
     public long getId() {
 		return Id;
@@ -41,23 +39,23 @@ public class ReservationDTO {
 	public void setIsReceived(Boolean isReceived) {
 		IsReceived = isReceived;
 	}
-    public MedicinePriceAndQuantity getMedicinePriceAndQuantityId() {
+    public MedicinePriceAndQuantityDTO getMedicinePriceAndQuantityId() {
 		return MedicinePriceAndQuantityId;
 	}
-	public void setMedicinePriceAndQuantityId(MedicinePriceAndQuantity medicinePriceAndQuantityId) {
+	public void setMedicinePriceAndQuantityId(MedicinePriceAndQuantityDTO medicinePriceAndQuantityId) {
 		MedicinePriceAndQuantityId = medicinePriceAndQuantityId;
 	}
 
-	public String getPatient(){
+	public PatientDTO getPatient(){
 		return Patient;
 	}
-	public void setPatient(String patient){
+	public void setPatient(PatientDTO patient){
 		Patient=patient;
 	}
-	public Long getPharmacy(){
+	public PharmacyDTO getPharmacy(){
 		return Pharmacy;
 	}
-	public void setPharmacy(Long pharmacy){
+	public void setPharmacy(PharmacyDTO pharmacy){
 		Pharmacy=pharmacy;
 	}
 }

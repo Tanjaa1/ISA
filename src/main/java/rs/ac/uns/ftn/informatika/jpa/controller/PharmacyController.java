@@ -82,5 +82,4 @@ public class PharmacyController {
 		return pharmacy == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(pharmacy);
 	}
 
-
 }

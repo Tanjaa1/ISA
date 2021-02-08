@@ -151,7 +151,10 @@ INSERT INTO public.examination(
 	VALUES (2, 'izvjestaj 1', '2021-06-22 19:10:25-07', true, 6, 88, 111);
 INSERT INTO public.examination(
 	id, report, start_time, is_done, dermatologist_id, patient_id, pharmacy_id)
-	VALUES (3, 'izvjestaj 2', '2016-07-22 19:10:25-07', true, 6, 90, 111);
+	VALUES (3, 'izvjestaj 2', '2016-07-22 19:10:25-07', true, 6, null, 111);
+INSERT INTO public.examination(
+	id, report, start_time, is_done, dermatologist_id, patient_id, pharmacy_id)
+	VALUES (4, 'izvjestaj 2', '2016-08-13 18:00:25-07', false, 6, null, 111);
     
 /*
 INSERT INTO public.medicine(
@@ -201,7 +204,7 @@ INSERT INTO public.medicine_quantity(
 	id, quantity, medicine_id, supplier_id)
 	VALUES (2312312, 10, 223, 11);
     
-INSERT INTO public.patient_drug_allargies(patient_id, drug_allargies) VALUES (88, 'brufen');
+INSERT INTO public.patient_drug_allargies(patient_id, drug_allargies) VALUES (88, 'paracetamol');
 INSERT INTO public.patient_drug_allargies(patient_id, drug_allargies) VALUES (88, 'cefalosporini');
 INSERT INTO public.patient_drug_allargies(patient_id, drug_allargies) VALUES (89, 'tetraciklini');
     
@@ -248,7 +251,10 @@ INSERT INTO public.reservation(
 	VALUES (1, '2021-03-22', false, 1, 88, 111);
 INSERT INTO public.reservation(
 	id, expiration_date, is_received, medicine_id, patient_id,pharmacy_id)
-	VALUES (2, '2021-05-12', false, 2, 89, 111);
+	VALUES (2, '2021-03-22', true, 2, 88, 111);
+INSERT INTO public.reservation(
+	id, expiration_date, is_received, medicine_id, patient_id,pharmacy_id)
+	VALUES (3, '2021-05-12', false, 2, 89, 111);
     
 
 -- INSERT INTO public.therapy(
@@ -328,10 +334,10 @@ INSERT INTO public.pharmacist_working_schedule(
 
 INSERT INTO public.eprescription(
 	code, issuing_date,therapy_duration, medicine_id,status)
-	VALUES (111,'2016-06-22',2,222,0);
+	VALUES (111,'2016-06-22',2,1,0);
 INSERT INTO public.eprescription(
 	code, issuing_date,therapy_duration, medicine_id,status)
-	VALUES (112,'2017-06-22',2,223,1);
+	VALUES (112,'2017-06-22',2,2,1);
 
 INSERT INTO public.patient_eprescriptions(
 	patient_id, eprescriptions_code)

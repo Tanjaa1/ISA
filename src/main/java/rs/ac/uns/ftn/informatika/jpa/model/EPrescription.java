@@ -17,6 +17,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import rs.ac.uns.ftn.informatika.jpa.enums.EPrescriptionStatus;
 
 @Entity
@@ -39,7 +41,8 @@ public class EPrescription {
 	// @OneToOne(cascade = CascadeType.MERGE)
     // @JoinColumn(name = "Medicine_id", referencedColumnName = "id")
 	@ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
-	private Medicine Medicine;
+	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+	private MedicinePriceAndQuantity Medicine;
 	
 	// @Column(name="Amount", unique=false, nullable=true)
 	// private Integer Amount;
@@ -93,10 +96,10 @@ public class EPrescription {
 	// public void setTherapies(Set<Therapy> therapies) {
 	// 	Therapies = therapies;
 	// }
-	public Medicine getMedicine() {
+	public MedicinePriceAndQuantity getMedicine() {
 		return Medicine;
 	}
-	public void setMedicine(Medicine medicine) {
+	public void setMedicine(MedicinePriceAndQuantity medicine) {
 		Medicine = medicine;
 	}
 	// public int getAmount() {
