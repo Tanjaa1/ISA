@@ -46,11 +46,11 @@ public class MedicinePriceAndQuantityDTO {
 	}
 
 
-	public Medicine getMedicine() {
+	public MedicineDTO getMedicine() {
 		return Medicine;
 	}
 
-	public void setMedicine(Medicine medicine) {
+	public void setMedicine(MedicineDTO medicine) {
 
 		Medicine = medicine;
 	}
