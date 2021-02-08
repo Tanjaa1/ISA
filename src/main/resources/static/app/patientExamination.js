@@ -2,7 +2,9 @@ Vue.component("patientExamination", {
     data: function () {
         return {
             patientPastExaminations:null,
-            patientFutureExaminations:null
+            patientFutureExaminations:null,
+            past:false,
+            future:false
         }
     },
     beforeMount() {
@@ -26,12 +28,24 @@ Vue.component("patientExamination", {
     <div id = "parmaciesShowPatient">
         <div class= "container">
                 <br/><h3 class="tex">Examinations by a dermatologist</h3><br/>
+             <div class="row search">
+             &nbsp&nbsp&nbsp&nbsp&nbsp&nbspSort by&nbsp&nbsp
+                <div>
+                    <select class="col" id="sort" v-on:change="Sort()">
+                        <option selected="selected" disabled>Please select one</option>
+                            <option>Date assceding</option>
+                            <option>Date descending</option>
+                            <option>Price assceding</option>
+                            <option>Price descending</option>
+                    </select>
+                </div>  
+        </div>
 	                            <ul class="nav nav-tabs" role="tablist">
     	                            <li class="nav-item">
-    		                            <a id="tabApprovedF" class="nav-link active .cards" data-toggle="tab" href="#approvedF">Past</a>
+    		                            <a id="tabApprovedF" class="nav-link active .cards" data-toggle="tab" v-on:click="Past()" href="#approvedF">Past</a>
     	                            </li>
     	                            <li class="nav-item">
-    		                            <a id="tabDisapprovedF" class="nav-link .cards" data-toggle="tab" href="#disapprovedF">Future</a>
+    		                            <a id="tabDisapprovedF" class="nav-link .cards" data-toggle="tab" v-on:click="Future()" href="#disapprovedF">Future</a>
     	                            </li>
                                 </ul>
                                 <div>
@@ -47,6 +61,7 @@ Vue.component("patientExamination", {
                                                                 <th>Time</th>
                                                                 <th>Pharmacy</th>
                                                                 <th>Is done</th>
+                                                                <th>Price</th>
                                                               </tr>
                                                             </thead>
                                                             <tbody>
@@ -56,6 +71,7 @@ Vue.component("patientExamination", {
                                                                 <td>{{TimeSplit(f.startTime)}}</td>
                                                                 <td>{{f.pharmacy.name}}&nbsp -- &nbsp{{f.pharmacy.address}}</td>
                                                                 <td>{{f.isDone}}</td>
+                                                                <td>{{f.price}}&nbspdin.</td>
                                                                <!-- <td style="text-align:center"><button class="btnban form-control" v-on:click="Disapprove(f)">D I S A P P R O V E</button></td> --> 
                                                               </tr>
                                                             </tbody>
@@ -74,6 +90,7 @@ Vue.component("patientExamination", {
                                                                 <th>Time</th>
                                                                 <th>Pharmacy</th>
                                                                 <th>Is done</th>
+                                                                <th>Price</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
@@ -83,6 +100,7 @@ Vue.component("patientExamination", {
                                                                 <td>{{TimeSplit(f.startTime)}}</td>
                                                                 <td>{{f.pharmacy.name}}&nbsp -- &nbsp{{f.pharmacy.address}}</td>
                                                                 <td>{{f.isDone}}</td>
+                                                                <td>{{f.price}}&nbspdin.</td>
                                                                 <!--<td style="text-align:center"><button class="btnapprove form-control" v-on:click="Approve(f)">A P P R O V E</button></td>-->
                                                             </tr>
                                                          </tbody>
@@ -161,6 +179,119 @@ Vue.component("patientExamination", {
                 })
                 .catch(error => {
                 })
-        }
+        },
+        Past:function(){
+            this.past=false
+        },
+        Future:function(){
+            this.past=true
+        },
+        Sort:function(){
+			if(document.getElementById("sort").value=="Date assceding"){
+                if(this.past == false){
+                    this.patientPastExaminations.sort (
+                        function (a, b) {
+                            if (a.startTime < b.startTime){
+                                return -1;
+                            } else if (a.startTime > b.startTime){
+                                return 1;
+                            } else {
+                                return 0;   
+                            }
+                        }
+                    );
+                }else{
+                    this.patientFutureExaminations.sort (
+                        function (a, b) {
+                            if (a.startTime < b.startTime){
+                                return -1;
+                            } else if (a.startTime > b.startTime){
+                                return 1;
+                            } else {
+                                return 0;   
+                            }
+                        }
+                    );
+                }
+			}else if(document.getElementById("sort").value=="Date descending"){
+                if(this.past == false){
+                    this.patientPastExaminations.sort (
+                        function (a, b) {
+                            if (a.startTime > b.startTime){
+                                return -1;
+                            } else if (a.startTime < b.startTime){
+                                return 1;
+                            } else {
+                                return 0;   
+                            }
+                        }
+                    );
+                }else{
+                    this.patientFutureExaminations.sort (
+                        function (a, b) {
+                            if (a.startTime > b.startTime){
+                                return -1;
+                            } else if (a.startTime < b.startTime){
+                                return 1;
+                            } else {
+                                return 0;   
+                            }
+                        }
+                    );
+                }
+			}else if(document.getElementById("sort").value=="Price assceding"){
+                if(this.past == false){
+                    this.patientPastExaminations.sort (
+                        function (a, b) {
+                            if (a.price < b.price){
+                                return -1;
+                            } else if (a.price > b.price){
+                                return 1;
+                            } else {
+                                return 0;   
+                            }
+                        }
+                    );
+                }else{
+                    this.patientFutureExaminations.sort (
+                        function (a, b) {
+                            if (a.price < b.price){
+                                return -1;
+                            } else if (a.price > b.price){
+                                return 1;
+                            } else {
+                                return 0;   
+                            }
+                        }
+                    );
+                }
+			}else{
+                if(this.past == false){
+                    this.patientPastExaminations.sort (
+                        function (a, b) {
+                            if (a.price > b.price){
+                                return -1;
+                            } else if (a.price < b.price){
+                                return 1;
+                            } else {
+                                return 0;   
+                            }
+                        }
+                    );
+                }else{
+                    this.patientFutureExaminations.sort (
+                        function (a, b) {
+                            if (a.price > b.price){
+                                return -1;
+                            } else if (a.price < b.price){
+                                return 1;
+                            } else {
+                                return 0;   
+                            }
+                        }
+                    );
+                }
+			}
+		}
     }
 });
