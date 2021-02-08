@@ -42,14 +42,14 @@ public class ExaminationController {
 	}
 
     @GetMapping(value = "/getFutureExaminationByPatientId/{id}")
-	public ResponseEntity<List<Examination>> getFutureExaminationByPatientId(@PathVariable Long id) 
+	public ResponseEntity<List<ExaminationDTO>> getFutureExaminationByPatientId(@PathVariable Long id) 
 	{
 		List<ExaminationDTO> examinationDTOs = new ArrayList<ExaminationDTO>();
 		List<Examination> examinations = examinationService.findFutureExaminationsByPatientId(id);
 		for (Examination examination : examinations) {
 			examinationDTOs.add(new ExaminationDTO(examination));
 		}
-		return examinations == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(examinations);
+		return examinationDTOs == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(examinationDTOs);
 	}
 
 	@PutMapping(value = "/update")
