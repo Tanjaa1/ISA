@@ -86,6 +86,7 @@ Vue.component("pharmaciesShow", {
 					<option>None</option>
 			</select>
 		</div>  
+		&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
 		&nbsp&nbsp&nbspSort by&nbsp&nbsp
 			<div>
 				<select class="col" id="sort1" v-on:change="Sort()">
@@ -248,9 +249,9 @@ Vue.component("pharmaciesShow", {
 			}else{
 				this.pharmacies.sort (
 					function (a, b) {
-						if (a.grade > b.grade){
+						if (a.grade < b.grade){
 							return -1;
-						} else if (a.grade < b.grade){
+						} else if (a.grade > b.grade){
 							return 1;
 						} else {
 							return 0;   
