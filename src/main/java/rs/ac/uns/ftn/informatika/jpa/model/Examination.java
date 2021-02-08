@@ -48,13 +48,14 @@ public class Examination {
 	private Double Price;
 
 	public Examination(){}
-	public Examination(long id, String report, LocalDateTime startTime, Boolean isDone,
+	public Examination(long id, String report, LocalDateTime startTime, Double price, Boolean isDone,
 			rs.ac.uns.ftn.informatika.jpa.model.Patient patient,
 			rs.ac.uns.ftn.informatika.jpa.model.Dermatologist dermatologist, Pharmacy pharmacy) {
 		super();
 		this.id = id;
 		Report = report;
 		StartTime = startTime;
+		Price = price;
 		this.isDone = isDone;
 		Patient = patient;
 		Dermatologist = dermatologist;

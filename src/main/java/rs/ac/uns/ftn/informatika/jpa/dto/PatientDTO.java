@@ -30,7 +30,7 @@ public class PatientDTO {
 	private Integer Points;
 	private Integer Penalty;
 	private LoyaltyCategories Category; 
-	private Set<Pharmacy> PrepaidPharmacies = new HashSet<Pharmacy>();
+	//private Set<Pharmacy> PrepaidPharmacies = new HashSet<Pharmacy>();
 	private Set<Complaint> Complaints = new HashSet<Complaint>();
 	private Set<CouncelingDTO> Counselings = new HashSet<CouncelingDTO>();
 	private Set<EPrescriptionDTO> EPrescriptions = new HashSet<EPrescriptionDTO>();
@@ -62,7 +62,7 @@ public class PatientDTO {
 		Points = points;
 		Penalty = penalty;
 		Category = category;
-		PrepaidPharmacies = prepaidPharmacies;
+		//PrepaidPharmacies = prepaidPharmacies;
 		Complaints = complaints;
 		Counselings = counselings;
 		EPrescriptions = ePrescriptions;
@@ -203,12 +203,12 @@ public class PatientDTO {
 	public void setCategory(LoyaltyCategories category) {
 		Category = category;
 	}
-	public Set<Pharmacy> getPrepaidPharmacies() {
-		return PrepaidPharmacies;
-	}
-	public void setPrepaidPharmacies(Set<Pharmacy> prepaidPharmacies) {
-		PrepaidPharmacies = prepaidPharmacies;
-	}
+	// public Set<Pharmacy> getPrepaidPharmacies() {
+	// 	return PrepaidPharmacies;
+	// }
+	// public void setPrepaidPharmacies(Set<Pharmacy> prepaidPharmacies) {
+	// 	PrepaidPharmacies = prepaidPharmacies;
+	// }
 	public Set<Complaint> getComplaints() {
 		return Complaints;
 	}

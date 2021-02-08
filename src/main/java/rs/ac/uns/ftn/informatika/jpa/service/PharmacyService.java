@@ -90,6 +90,7 @@ public class PharmacyService implements IPharmacyService {
         return pharmacyRepository.save(forUpdate);
     }
 
+
 	public Pharmacy getByName(String name) {
         List<Pharmacy> pharmacies=findAll();
         Pharmacy result=new Pharmacy();
