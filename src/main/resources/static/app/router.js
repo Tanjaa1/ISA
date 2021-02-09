@@ -2,7 +2,8 @@ const Browse = { template: '<browse></browse>' }
 const Registration = { template: '<registration></registration>' }
 const Login = { template: '<login></login>' }
 const PatientHomePage = { template: '<patientHomePage></patientHomePage>' }
-const Search = { template: '<search></search>' }
+const DermatologistSearch = { template: '<dermatologistSearchPatients></dermatologistSearchPatients>' }
+const PharmacistSearch = { template: '<pharmacistSearchPatients></pharmacistSearchPatients>' }
 const DermatologistHomePage = { template: '<dermatologistHomePage></dermatologistHomePage>' }
 const PharmacistHomePage = { template: '<pharmacistHomePage></pharmacistHomePage>' }
 const Reservation = { template: '<reservation></reservation>' }
@@ -112,11 +113,19 @@ const router = new VueRouter({
 			}
 	    },
 	    { 
-	    	path: '/search', 
-	    	name : 'search', 
+	    	path: '/dermatologistPatient', 
+	    	name : 'dermatologistPatient', 
 			components: {
-				pageHeader: PatientHeader,
-				content: Search
+				pageHeader: DermatologistHeader,
+				content: DermatologistSearch
+			}
+	    },
+	    { 
+	    	path: '/pharmacistPatient', 
+	    	name : 'pharmacistPatient', 
+			components: {
+				pageHeader: PharmacistHeader,
+				content: PharmacistSearch
 			}
 	    },
 	    { 

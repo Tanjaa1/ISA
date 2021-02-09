@@ -74,25 +74,42 @@ public class PatientService implements IPatientService {
         Patient patient2 = patientRepository.save(patient1);
         return patient2;
     }
-	public List<PatientDTO> findPatients(Long id) {
-		List<Examination> examinations = examinationRepository.findAll();
-		List<PatientDTO> patients=new ArrayList<PatientDTO>();
-		for (Examination examination : examinations)
-			if(examination.getDermatologist().getId()==id && examination.getPatient()!=null)
-			   patients.add(new PatientDTO(examination.getPatient()));
-		return patients;
-   }
 
-	public List<PatientDTO> findPatientsByNameAndSurname(Long id,String name,String surname) {	
+	public List<PatientDTO> findPatientsByDermatologist(Long id) 
+	{
+		List<PatientDTO> patientsDto=new ArrayList<PatientDTO>();
+		for (Patient patient : patientRepository.findPatientsByDermatologist(id))
+			   patientsDto.add(new PatientDTO(patient));
+		return patientsDto;
+    }
+
+	public List<PatientDTO> findPatientsByPharmacist(Long id) 
+	{
+		List<PatientDTO> patientsDto=new ArrayList<PatientDTO>();
+		for (Patient patient : patientRepository.findPatientsByPharmacist(id))
+			   patientsDto.add(new PatientDTO(patient));
+		return patientsDto;
+    }
+
+	public List<PatientDTO> findPatientsByNameAndSurnameDermatologist(Long id,String name,String surname) 
+	{	
 		List<PatientDTO> patients=new ArrayList<PatientDTO>();
-		for (PatientDTO patientDTO : findPatients(id)) {
+		for (PatientDTO patientDTO : findPatientsByDermatologist(id)) {
 			if(patientDTO.containsNameAndSurname(name,surname))
 				patients.add(patientDTO);
 		}
 		return patients;
 	}
 
-
+	public List<PatientDTO> findPatientsByNameAndSurnamePharmacist(Long id,String name,String surname) 
+	{	
+		List<PatientDTO> patients=new ArrayList<PatientDTO>();
+		for (PatientDTO patientDTO : findPatientsByPharmacist(id)) {
+			if(patientDTO.containsNameAndSurname(name,surname))
+				patients.add(patientDTO);
+		}
+		return patients;
+	}
 	public ResponseEntity<Patient> save(Patient patient) throws Exception{
 		patientRepository.save(patient);
 		List<Patient> patients=patientRepository.findAll();
