@@ -28,14 +28,14 @@ public class ReservationController {
 	@Autowired
 	private ResrvationService reservationService;
 	
-	@GetMapping(value = "/getReservationById/{id}")
-	public ResponseEntity<ReservationDTO> getReservationById(@PathVariable Long id) 
+	@GetMapping(value = "/getReservationById/{id}/{pharmacyId}")
+	public ResponseEntity<ReservationDTO> getReservationById(@PathVariable Long id,@PathVariable Long pharmacyId) 
 	{
-		ReservationDTO reservation = reservationService.findOne(id);
+		ReservationDTO reservation = reservationService.getReservationById(id,pharmacyId);
 		return reservation == null ? new ResponseEntity<>(HttpStatus.OK) : ResponseEntity.ok(reservation);
 	}
 
-	@PostMapping(value = "/update")
+	@PutMapping(value = "/update")
 	public ResponseEntity<HttpStatus> updateReservation(@RequestBody ReservationDTO reservationDTO) throws Exception 
 	{
 		ReservationDTO reservation = new ReservationDTO(reservationService.updateReservation(reservationDTO.getId()));

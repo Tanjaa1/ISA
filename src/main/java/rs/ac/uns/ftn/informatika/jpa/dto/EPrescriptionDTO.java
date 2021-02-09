@@ -13,6 +13,7 @@ public class EPrescriptionDTO {
 	private EPrescriptionStatus Status; 
 	private Pharmacy Pharmacy;
 
+	public EPrescriptionDTO(){}
 	
 	public EPrescriptionDTO(EPrescription ePrescription){
 		Medicine = new MedicinePriceAndQuantityDTO(ePrescription.getMedicine());

@@ -16,22 +16,22 @@ Vue.component("reservation", {
 		</div><br>				
 		<div v-if="get" class="row reservation">
 		  	<div class="col-sm-5">Patient:</div>
-		  	<div class="col-sm-4">{{this.reservation.patient}}</div><br><br>
+		  	<div class="col-sm-4">{{this.reservation.patient.name}} {{this.reservation.patient.surname}}</div><br><br>
 		  	<div class="col-sm-5">Medicine:</div>
 		  	<div class="col-sm-4">{{this.reservation.medicinePriceAndQuantityId.medicine.name}}</div>
 		  	<div class="col-sm-5">Quantity:</div>
 		  	<div class="col-sm-4">{{this.reservation.medicinePriceAndQuantityId.quantity}}</div>
 		  	<div class="col-sm-5">Price:</div>
 		  	<div class="col-sm-4">{{this.reservation.medicinePriceAndQuantityId.price}}din</div><br><br>
-	  	</div>
-		<button  v-if="get" type="button" style="color:white" class="btn2 btn-default issue" data-dismiss="modal" v-on:click="Update()">Issue medicine</button>	
+		<button  v-if="get" type="button" style="color:white" class="btn btn-default issue" data-dismiss="modal" v-on:click="Update()">Issue medicine</button>	
+		</div>
 	</div>					
 	`,
 	methods: {
 		Search:function(){
 			var id=Number(document.getElementById("id").value)
 			axios
-			.get('/reservation/getReservationById/' + id) 
+			.get('/reservation/getReservationById/' + id+'/111') 
 			.then(response => {
 				this.reservation=response.data
 				if(this.reservation=="")
@@ -43,9 +43,10 @@ Vue.component("reservation", {
 			})
 		},
 		Update:function(){
-			axios.post('/reservation/update', this.reservation)
+			axios.put('/reservation/update', this.reservation)
 				.then(function (response) {
-					alert("RESERVATION HAS BEEN TAKEN OVER!");
+					alert("RESERVATION HAS BEEN TAKEN OVER!")
+					location.reload()
 				})
 				.catch(function (error) {
 				});

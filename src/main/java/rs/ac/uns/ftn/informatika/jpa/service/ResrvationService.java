@@ -36,15 +36,13 @@ public class ResrvationService implements IReservationService{
 	private Logger logger = LoggerFactory.getLogger(ResrvationService.class);
 	
 	@Override
-	public ReservationDTO findOne(Long id)
+	public ReservationDTO getReservationById(Long id, Long pharmacyId)
 	{
-	    Reservation reservation = reservationRepository.getOne(id);
-		if(reservation.getPharmacy().getId()!=1)
-		{
-			if (reservation.getIsReceived() || dateCompare.compareDates(reservation.getExpirationDate()))
-				return null;
-		}
-        return new ReservationDTO(reservation);
+	    Reservation reservation = reservationRepository.getReservationById(id,pharmacyId);
+		if (reservation!=null && !reservation.getIsReceived() && !dateCompare.compareDates(reservation.getExpirationDate()))
+			return new ReservationDTO(reservation);
+		else
+			return null;
 	}
 
 	@Override
@@ -81,7 +79,8 @@ public class ResrvationService implements IReservationService{
 	{
 		try {
 			String subject="Reservation "+ reservation.getId();
-			String text="Dear "+ reservation.getPatient().getFullName()+",\nThank you for your trust!\nReservation taken!";
+			String text="Dear "+ reservation.getPatient().getFullName()+
+						",\n\nThank you for your trust!\nReservation taken!\n\n"+reservation.getPharmacy().getName();
 			emailService.sendNotificaitionAsync(reservation.getPatient().getEmail(),subject,text);
 		}catch( Exception e ){
 			logger.info("Error sending email: " + e.getMessage());
