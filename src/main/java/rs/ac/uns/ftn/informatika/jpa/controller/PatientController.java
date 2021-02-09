@@ -44,18 +44,34 @@ public class PatientController {
 	}
 
 	@GetMapping(value = "/getPatientByDermatologistExamination/{id}")
-	public ResponseEntity<List<PatientDTO>> getPatientByExamination(@PathVariable Long id) {
-		List<PatientDTO> patients=patientService.findPatients(id);
+	public ResponseEntity<List<PatientDTO>> getPatientByExamination(@PathVariable Long id) 
+	{
+		List<PatientDTO> patients=patientService.findPatientsByDermatologist(id);
+		return patients == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(patients);
+	}
+
+	@GetMapping(value = "/getPatientByPharmacistCouseling/{id}")
+	public ResponseEntity<List<PatientDTO>> getPatientByPharmacistCouseling(@PathVariable Long id) 
+	{
+		List<PatientDTO> patients=patientService.findPatientsByPharmacist(id);
 		return patients == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(patients);
 	}
 
 	@GetMapping(value = "/getPatientByDermatologistExaminationSearch/{id}/{name}/{surname}")
-	public ResponseEntity<List<PatientDTO>> getPatientByExaminationSearch(@PathVariable Long id,@PathVariable String name,@PathVariable String surname) {
-		List<PatientDTO> patients=patientService.findPatientsByNameAndSurname(id,name,surname);
+	public ResponseEntity<List<PatientDTO>> getPatientByExaminationSearch(@PathVariable Long id,
+											@PathVariable String name,@PathVariable String surname) 
+	{
+		List<PatientDTO> patients=patientService.findPatientsByNameAndSurnameDermatologist(id,name,surname);
 		return patients == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(patients);
 	}
 
-	
+	@GetMapping(value = "/getPatientByPharmacistCounselingSearch/{id}/{name}/{surname}")
+	public ResponseEntity<List<PatientDTO>> getPatientByCounselingSearch(@PathVariable Long id,
+											@PathVariable String name,@PathVariable String surname) 
+	{
+		List<PatientDTO> patients=patientService.findPatientsByNameAndSurnamePharmacist(id,name,surname);
+		return patients == null? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(patients);
+	}
 	@GetMapping(value = "/getAllPatients")
 	public ResponseEntity<List<PatientDTO>> getAllPatients() {
 		List<PatientDTO> patients=patientService.getAllPatients();

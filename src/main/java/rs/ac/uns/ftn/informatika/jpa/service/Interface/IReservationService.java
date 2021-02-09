@@ -7,7 +7,7 @@ import rs.ac.uns.ftn.informatika.jpa.model.Reservation;
 
 public interface IReservationService {
     
-	public ReservationDTO findOne(Long id) throws Exception;
+	public ReservationDTO getReservationById(Long id,Long pharmacyId) throws Exception;
 	Reservation update(Reservation reservation) throws Exception;
 	public List<ReservationDTO> getAllByPatientId(Long id);
 }

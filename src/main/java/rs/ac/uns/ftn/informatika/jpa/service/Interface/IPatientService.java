@@ -14,10 +14,9 @@ public interface IPatientService {
 	public Patient findOne(Long id);
 	public Patient findById(Long id);
 	List<PatientDTO> getAllPatients();
-	public PatientDTO findByIdComplaints(Long id) ;
-	
-
-
-
-
+	public PatientDTO findByIdComplaints(Long id);
+	List<PatientDTO> findPatientsByDermatologist(Long id);
+	List<PatientDTO> findPatientsByPharmacist(Long id);
+	List<PatientDTO> findPatientsByNameAndSurnameDermatologist(Long id,String name,String surname);
+	List<PatientDTO> findPatientsByNameAndSurnamePharmacist(Long id,String name,String surname);
 }
