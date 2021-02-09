@@ -175,8 +175,8 @@ public class PatientService implements IPatientService {
 
 	@Override
 	public Patient findById(Long id) {
-		patientRepository.findById(id).get();
-	return null;
+	Patient patient=patientRepository.findById(id).get();
+	return patient;
 	}
 
 	public List<PatientDTO> getAllPatients() {

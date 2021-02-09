@@ -33,9 +33,9 @@ public class ComplaintController {
 	
 
 	@PostMapping(value = "/saveComplaint")
-	public ResponseEntity<Complaint> saveComplaint(@RequestBody Complaint complaintDTO) throws Exception {
-		complaintService.save(complaintDTO);
-	return new ResponseEntity<>(complaintDTO, HttpStatus.CREATED);
+	public ComplaintDTO saveComplaint(@RequestBody Complaint complaintDTO) throws Exception {
+		ComplaintDTO complaint=complaintService.save(complaintDTO);
+	return complaint;
 	}
 
 	@PutMapping(value = "/updateComplaint")

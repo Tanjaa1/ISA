@@ -2,7 +2,6 @@ package rs.ac.uns.ftn.informatika.jpa.service.Interface;
 
 import java.util.List;
 
-import org.springframework.http.ResponseEntity;
 
 import rs.ac.uns.ftn.informatika.jpa.dto.ComplaintDTO;
 import rs.ac.uns.ftn.informatika.jpa.model.Complaint;
@@ -15,6 +14,6 @@ Complaint update(Complaint complaint) throws Exception;
   List<ComplaintDTO> getAllComplaintsNotAnswered();
   public List<ComplaintDTO> getAllComplaints();
 
-  public ResponseEntity<Complaint> save(Complaint dermatologist) throws Exception;
+  public ComplaintDTO save(Complaint dermatologist) throws Exception;
 
 }

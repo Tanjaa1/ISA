@@ -68,7 +68,7 @@ public class ComplaintAnswerService implements IComplaintAnswerService {
     @Override
     public ResponseEntity<ComplaintAnswer> save(ComplaintAnswer complaint) throws Exception {
         PatientDTO patient=patientService.findByIdComplaints(complaint.getComplaint().getId());
-        emailSender(patient);
+       
         Complaint complaint2=complaintService.findOne(complaint.getComplaint().getId());
         complaint2.setIsAnswered(true);
         complaintService.update(complaint2);
@@ -80,7 +80,7 @@ public class ComplaintAnswerService implements IComplaintAnswerService {
 
 
         complaintAnswerRepository.save(ca);
-      
+        emailSender(patient);
 		return new ResponseEntity<>( HttpStatus.CREATED);  
     }
 

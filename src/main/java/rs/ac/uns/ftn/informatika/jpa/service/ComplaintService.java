@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import rs.ac.uns.ftn.informatika.jpa.dto.ComplaintDTO;
 import rs.ac.uns.ftn.informatika.jpa.dto.DermatologistDTO;
+import rs.ac.uns.ftn.informatika.jpa.dto.PatientDTO;
 import rs.ac.uns.ftn.informatika.jpa.dto.PharmacistDTO;
 import rs.ac.uns.ftn.informatika.jpa.dto.PharmacyDTO;
 import rs.ac.uns.ftn.informatika.jpa.model.Complaint;
@@ -89,11 +90,11 @@ public class ComplaintService implements IComplaintService {
     }
 
     @Override
-    public ResponseEntity<Complaint> save(Complaint complaint) throws Exception {
+    public ComplaintDTO save(Complaint complaint) throws Exception {
         Patient patient =patientService.findById(complaint.getId());
         complaint.setPatient(patient);
-        complaintRepository.save(complaint);
-		return new ResponseEntity<>( HttpStatus.CREATED);  
+        ComplaintDTO complaint2=new ComplaintDTO(complaintRepository.save(complaint));
+        return complaint2;
     }
 
 	public ComplaintDTO getById(Long id) {
