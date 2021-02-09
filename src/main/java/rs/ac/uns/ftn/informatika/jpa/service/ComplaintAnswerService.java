@@ -74,12 +74,12 @@ public class ComplaintAnswerService implements IComplaintAnswerService {
         complaintService.update(complaint2);
 
         ComplaintAnswer ca=new ComplaintAnswer();
-        ca.setComplaint(complaint.getComplaint());
+        ca.setComplaint(complaint2);
         ca.setId(complaint.getId());
         ca.setText(complaint.getText());
 
 
-        complaintAnswerRepository.save(complaint);
+        complaintAnswerRepository.save(ca);
       
 		return new ResponseEntity<>( HttpStatus.CREATED);  
     }
