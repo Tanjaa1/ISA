@@ -137,7 +137,7 @@ public class ResrvationService implements IReservationService{
 
 	public Reservation updateReservationIsCancel(Reservation reservation) {
 		Reservation r = reservationRepository.getOne(reservation.getId());
-		if(dateCompare.compareDates(reservation.getExpirationDate())){
+		if(!dateCompare.compareDates(reservation.getExpirationDate())){
         	r.setIsCanceled(true);
 		}
         return reservationRepository.save(r);
