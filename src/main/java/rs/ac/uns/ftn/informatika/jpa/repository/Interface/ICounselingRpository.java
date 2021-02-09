@@ -15,4 +15,9 @@ public interface ICounselingRpository extends JpaRepository<Counseling, Long> {
     @Query
 	("SELECT u FROM Counseling u,Patient d WHERE u.Patient=d.Id and d.Id = ?3 and (?1  between u.StartTime and u.EndTime) or (?2 between u.StartTime and u.EndTime)")
     public List<Counseling> isCounselingExistByPatient(LocalDateTime start,LocalDateTime end,Long id);
+    
+    @Query
+	("SELECT u FROM Counseling u,Pharmacist d WHERE u.Pharmacist=d.Id and d.Id = ?3 and (?1  between u.StartTime and u.EndTime) or (?2 between u.StartTime and u.EndTime)")
+    public List<Counseling> isExaminationExistByPharmacist(LocalDateTime start,LocalDateTime end,Long id);
+
 }

@@ -101,7 +101,7 @@ public class ExaminationController {
 		return e == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : new ResponseEntity<>(HttpStatus.OK);
 	}
 
-	@PostMapping(value = "/add")
+	@PutMapping(value = "/add")
 	public ResponseEntity<ExaminationDTO> newExamination(@RequestBody Examination examination)
 		throws Exception 
 	{

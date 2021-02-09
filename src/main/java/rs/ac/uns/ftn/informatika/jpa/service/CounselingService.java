@@ -14,13 +14,30 @@ import rs.ac.uns.ftn.informatika.jpa.dto.PharmacistDTO;
 import rs.ac.uns.ftn.informatika.jpa.dto.PharmacyDTO;
 import rs.ac.uns.ftn.informatika.jpa.model.Counseling;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.ICounselingRpository;
+import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IDermatologistRepository;
+import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IExaminationRpository;
+import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IPatientRepository;
+import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IPharmacistRepository;
+import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IPharmacyRepository;
 import rs.ac.uns.ftn.informatika.jpa.service.Interface.ICounselingService;
+import rs.ac.uns.ftn.informatika.jpa.util.WorkingTime;
 
 @Service
 public class CounselingService implements ICounselingService {
 
     @Autowired
 	private ICounselingRpository counselingRepository;
+    @Autowired
+    private IExaminationRpository examinationRepository;
+    
+    @Autowired
+    private IPatientRepository patientRepository;
+
+    @Autowired
+    private IPharmacistRepository pharmacistRepository;
+
+    @Autowired
+    private IPharmacyRepository pharmacyRepository;
 
 	public List<Counseling> findPastCounselingsByPatientId(Long id) {
         List<Counseling> patientCounselings = new ArrayList<>();
@@ -95,5 +112,30 @@ public class CounselingService implements ICounselingService {
         return pharmaciesDTOs;
 	}
 
+    
+	public CouncelingDTO newExamination(Counseling counseling) throws Exception {
+        if(!counselingRepository.isExaminationExistByPharmacist(counseling.getStartTime(),counseling.getEndTime(),counseling.getPharmacist().getId()).isEmpty())
+            return null;           
+        if(!examinationRepository.isExaminationExistByPatient(counseling.getStartTime(),counseling.getEndTime(),counseling.getPatient().getId()).isEmpty())
+            return null;
+        if(!counselingRepository.isCounselingExistByPatient(counseling.getStartTime(),counseling.getEndTime(),counseling.getPatient().getId()).isEmpty())
+            return null;
+        if(!isDermatologistWork(counseling))
+            return null;
+		Counseling c=new Counseling();
+        c.setPharmacist(pharmacistRepository.getOne(counseling.getPharmacist().getId()));
+        c.setPatient(patientRepository.getOne(counseling.getPatient().getId()));
+        c.setPharmacy(pharmacyRepository.getOne(counseling.getPharmacy().getId()));
+        c.setStartTime(counseling.getStartTime());
+        c.setEndTime(counseling.getEndTime());
+        return new CouncelingDTO(counselingRepository.save(c));
+	}
+
+    private Boolean isDermatologistWork(Counseling counseling) {
+        for(WorkingTime w: counseling.getPharmacist().getWorkingSchedule())
+            if(counseling.getStartTime().isAfter(w.getTimeStart()) || counseling.getEndTime().isAfter(w.getTimeEnd()))
+                return true;
+        return false;
+    }
 
 }
