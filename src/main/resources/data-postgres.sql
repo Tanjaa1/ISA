@@ -139,7 +139,7 @@ INSERT INTO public.counseling(
 -- INSERT INTO public.eprescription(
 -- 	code, issuing_date)
 -- 	VALUES (111,'2016-06-22');
--- INSERT INTO public.eprescription(
+-- INSERT INTO public.eprescription(this.vacation.DateStart
 -- 	code, issuing_date)
 -- 	VALUES (112,'2017-06-22');
     
@@ -282,31 +282,31 @@ INSERT INTO public.reservation(
 
 INSERT INTO public.vacation_interval(
 	id, approved, date_end, date_start)
-	VALUES (1, false, '2021-03-12', '2021-03-22');
+	VALUES (111, false, '2021-03-12', '2021-03-22');
 INSERT INTO public.vacation_interval(
 	id, approved, date_end, date_start)
-	VALUES (2, false, '2021-04-12', '2021-04-22');
+	VALUES (112, false, '2021-04-12', '2021-04-22');
 INSERT INTO public.vacation_interval(
 	id, approved, date_end, date_start)
-	VALUES (3, false, '2021-05-12', '2021-05-22');
+	VALUES (113, false, '2021-05-12', '2021-05-22');
 
 
 INSERT INTO public.dermatologist_vacation_schedule(
 	dermatologist_id, vacation_interval_id)
-	VALUES (6, 1);
+	VALUES (6, 111);
 INSERT INTO public.dermatologist_vacation_schedule(
 	dermatologist_id, vacation_interval_id)
-	VALUES (6, 2);
+	VALUES (6, 112);
 INSERT INTO public.dermatologist_vacation_schedule(
 	dermatologist_id, vacation_interval_id)
-	VALUES (7, 3);
+	VALUES (7, 113);
 
 INSERT INTO public.pharmacist_vacation_schedule(
 	pharmacist_id, vacation_interval_id)
-	VALUES (4, 1);
+	VALUES (4, 111);
 INSERT INTO public.pharmacist_vacation_schedule(
 	pharmacist_id, vacation_interval_id)
-	VALUES (5, 2);
+	VALUES (5, 112);
 
 INSERT INTO public.working_time(
 	id, time_end, time_start)

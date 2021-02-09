@@ -184,7 +184,7 @@ public class PatientService implements IPatientService {
 		Set<EPrescriptionDTO> prescriptions=resultPatient.getEPrescriptions();
 		Set<PharmacyDTO> pharmacies=new HashSet<>();
         for (EPrescriptionDTO s : prescriptions) {
-			pharmacies.add(new PharmacyDTO(s.getPharmacy()));
+			pharmacies.add(s.getPharmacy());
         }
 		if(pharmacies.isEmpty()) return null;
 		else return pharmacies;
