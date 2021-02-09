@@ -11,7 +11,10 @@ public interface IComplaintService{
 
 public Complaint findOne(Long id);
 Complaint update(Complaint complaint) throws Exception;
-  List<ComplaintDTO> findAll();
+  List<ComplaintDTO> getAllComplaintsAnswered();
+  List<ComplaintDTO> getAllComplaintsNotAnswered();
+  public List<ComplaintDTO> getAllComplaints();
+
   public ResponseEntity<Complaint> save(Complaint dermatologist) throws Exception;
 
 }

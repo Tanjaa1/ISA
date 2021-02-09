@@ -10,6 +10,9 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import rs.ac.uns.ftn.informatika.jpa.controller.ComplaintController;
+import rs.ac.uns.ftn.informatika.jpa.dto.ComplaintDTO;
+
 @Entity
 @Table(name="Complaint")
 public class Complaint {
@@ -20,26 +23,32 @@ public class Complaint {
 	
 	@Column(name="Text", unique=false, nullable=true)
 	private String Text;
+
+	@Column(name="isAnswered", unique=false, nullable=false)
+	private Boolean isAnswered;
 	
 	@Column(name="Subject", unique=false, nullable=true)
 	private String Subject;
 	
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Patient Patient;
+
+
 	
 	public Complaint(){}
 
-	public Complaint(long id, String text, String subject, rs.ac.uns.ftn.informatika.jpa.model.Patient patient) {
+	public Complaint(Long id, String text, String subject,Patient patient,Boolean isAnswered) {
 		super();
 		this.id = id;
 		Text = text;
 		Subject = subject;
 		Patient = patient;
+		isAnswered=isAnswered;
 	}
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	public String getText() {
@@ -59,6 +68,23 @@ public class Complaint {
 	}
 	public void setPatient(Patient patient) {
 		Patient = patient;
+	}
+
+	
+	public Complaint(ComplaintDTO complaintDTO){
+		id=complaintDTO.getId();
+		Text=complaintDTO.getText();
+		Subject=complaintDTO.getSubject();
+		Patient=new Patient(complaintDTO.getPatient());
+		isAnswered=complaintDTO.getIsAnswered();
+	}
+
+	public Boolean getIsAnswered() {
+		return isAnswered;
+	}
+
+	public void setIsAnswered(Boolean isAnswered) {
+		this.isAnswered = isAnswered;
 	}
 	
 	

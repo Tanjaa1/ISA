@@ -23,6 +23,7 @@ public class PatientDTO {
 	private String City;
 	private String Country;
 	private String PhoneNumber;
+	private String Username;
 	private String Description;
 	private Boolean EmailComfirmed;
 	private Boolean FirstTimeLogin;
@@ -42,9 +43,8 @@ public class PatientDTO {
 	
 	public PatientDTO(Long id, String email, String password, String name, String surname, String address, String city,
 			String country, String phoneNumber, String description, Boolean emailComfirmed, Boolean firstTimeLogin,
-			Set<String> drugAllargies, Integer points, Integer penalty, LoyaltyCategories category,
-			Set<Pharmacy> prepaidPharmacies, Set<Complaint> complaints, Set<CouncelingDTO> counselings,
-			Set<EPrescriptionDTO> ePrescriptions, Set<ExaminationDTO> examinations, Set<ActionOrPromotionsDTO> actionOrPromotions/*, Set<Reservation> reservations*/) {
+			Set<String> drugAllargies, Integer points, Integer penalty, LoyaltyCategories category, Set<Complaint> complaints, Set<CouncelingDTO> counselings,
+			Set<EPrescriptionDTO> ePrescriptions, Set<ExaminationDTO> examinations, Set<ActionOrPromotionsDTO> actionOrPromotions,String usermane/*, Set<Reservation> reservations*/) {
 		super();
 		Id = id;
 		Email = email;
@@ -53,6 +53,7 @@ public class PatientDTO {
 		Surname = surname;
 		Address = address;
 		City = city;
+		Username=usermane;
 		Country = country;
 		PhoneNumber = phoneNumber;
 		Description = description;
@@ -63,6 +64,7 @@ public class PatientDTO {
 		Penalty = penalty;
 		Category = category;
 		//PrepaidPharmacies = prepaidPharmacies;
+	//	PrepaidPharmacies = prepaidPharmacies;
 		Complaints = complaints;
 		Counselings = counselings;
 		EPrescriptions = ePrescriptions;
@@ -81,6 +83,7 @@ public class PatientDTO {
 		City = patient.getCity();
 		Country = patient.getCountry();
 		PhoneNumber = patient.getPhoneNumber();
+		Username=patient.getUsername();
 		Description = patient.getDescription();
 		EmailComfirmed = patient.getEmailComfirmed();
 		FirstTimeLogin = patient.getFirstTimeLogin();
@@ -209,6 +212,14 @@ public class PatientDTO {
 	// public void setPrepaidPharmacies(Set<Pharmacy> prepaidPharmacies) {
 	// 	PrepaidPharmacies = prepaidPharmacies;
 	// }
+	/*
+	public Set<Pharmacy> getPrepaidPharmacies() {
+		return PrepaidPharmacies;
+	}
+	public void setPrepaidPharmacies(Set<Pharmacy> prepaidPharmacies) {
+		PrepaidPharmacies = prepaidPharmacies;
+	}
+	*/
 	public Set<Complaint> getComplaints() {
 		return Complaints;
 	}
@@ -254,6 +265,14 @@ public class PatientDTO {
 	}
 	public String fullName(){
 		return Name+" "+Surname;
+	}
+
+	public String getUsername() {
+		return Username;
+	}
+
+	public void setUsername(String username) {
+		Username = username;
 	}
 	
 	

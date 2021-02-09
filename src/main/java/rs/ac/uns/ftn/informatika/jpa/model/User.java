@@ -26,7 +26,7 @@ public abstract class User {
 	private String Name;
 	@Column(name="Surname", unique=false, nullable=false)
 	private String Surname;
-	@Column(name="Address", unique=false, nullable=false)
+	@Column(name="Address", unique=false, nullable=true)
 	private String Address;
 	@Column(name="City", unique=false, nullable=false)
 	private String City;
@@ -165,4 +165,5 @@ public abstract class User {
 		Description=description;
 		
 	}
+	
 }

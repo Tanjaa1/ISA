@@ -2,6 +2,7 @@ package rs.ac.uns.ftn.informatika.jpa.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -39,13 +40,37 @@ public class ComplaintService implements IComplaintService {
     }
 
     @Override
-    public List<ComplaintDTO> findAll() {
+    public List<ComplaintDTO> getAllComplaintsAnswered() {
         ComplaintDTO complaintDTO = new ComplaintDTO();
-        List<Complaint> complaints = complaintRepository.findAll();
+        List<Complaint> complaints =complaintRepository.findAll();
+        List<Complaint> complaints2=new ArrayList<>();
+        for (Complaint complaint : complaints) {
+            if(complaint.getIsAnswered())
+            complaints2.add(complaint);
+        }
         List<ComplaintDTO> returnValue = new ArrayList<ComplaintDTO>();
-        for (Complaint complaint : complaints)
+        for (Complaint complaint : complaints2)
             returnValue.add(complaintDTO.toDTO(complaint));
-        return returnValue;
+        if (returnValue.isEmpty())
+            return null;
+        else  return returnValue;
+    }
+
+    @Override
+    public List<ComplaintDTO> getAllComplaintsNotAnswered() {
+        ComplaintDTO complaintDTO = new ComplaintDTO();
+        List<Complaint> complaints =complaintRepository.findAll();
+        List<Complaint> complaints2=new ArrayList<>();
+        for (Complaint complaint : complaints) {
+            if(!complaint.getIsAnswered())
+            complaints2.add(complaint);
+        }
+        List<ComplaintDTO> returnValue = new ArrayList<ComplaintDTO>();
+        for (Complaint complaint : complaints2)
+            returnValue.add(complaintDTO.toDTO(complaint));
+            if (returnValue.isEmpty())
+            return null;
+        else  return returnValue;
     }
 
     @Override
@@ -54,6 +79,20 @@ public class ComplaintService implements IComplaintService {
 		return new ResponseEntity<>( HttpStatus.CREATED);  
     }
 
-	
+	public ComplaintDTO getById(Long id) {
+        ComplaintDTO complaintDTO=new ComplaintDTO(complaintRepository.getOne(id));
+        return complaintDTO;
+    }
+
+	public List<ComplaintDTO> getAllComplaints() {
+        ComplaintDTO complaintDTO = new ComplaintDTO();
+        List<Complaint> complaints =complaintRepository.findAll();
+        List<ComplaintDTO> returnValue = new ArrayList<ComplaintDTO>();
+        for (Complaint complaint : complaints)
+            returnValue.add(complaintDTO.toDTO(complaint));
+        if (returnValue.isEmpty())
+            return null;
+        else  return returnValue;
+    }
 
 }

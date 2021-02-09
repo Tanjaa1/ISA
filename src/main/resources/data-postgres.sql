@@ -15,10 +15,10 @@ id, address, city, country, description, email, email_comfirmed, first_time_logi
 	VALUES (88, 'Mileve Maric 5', 'Novi Sad', 'Srbija', '', 'marijavucetic66@gmail.com', false, false, 'Jovana', 'Jovanic', '0628876678', 'Jovanic','jocas', 0, 0, 0);
 INSERT INTO public.patient(
 id, address, city, country, description, email, email_comfirmed, first_time_login, name, password, phone_number, surname, username, category, penalty, points)
-	VALUES (89, 'Glavna 100', 'Ruma', 'Srbija', '', 'sara@gmail.com', false, false, 'Sara', 'Saric', '0648816428', 'Saric','sara', 0, 0, 0);
+	VALUES (89, 'Glavna 100', 'Ruma', 'Srbija', '', 'marijavucetic66@gmail.com', false, false, 'Sara', 'Saric', '0648816428', 'Saric','sara', 0, 0, 0);
 INSERT INTO public.patient(
 id, address, city, country, description, email, email_comfirmed, first_time_login, name, password, phone_number, surname, username, category, penalty, points)
-	VALUES (90, 'Lenjinova 20', 'Ruma', 'Srbija', '', 'aleksandramilijevic98@gmail', false, false, 'Luka', 'Lukic', '0612334555', 'Lukic','luka',0, 0, 0);
+	VALUES (90, 'Lenjinova 20', 'Ruma', 'Srbija', '', 'marijavucetic66@gmail.com', false, false, 'Luka', 'Lukic', '0612334555', 'Lukic','luka',0, 0, 0);
 
 
 INSERT INTO public.pharmacy(id, address, name) VALUES (111, 'Stanoja Stanojevica 4,Novi Sad,Srbija', 'Feniks');
@@ -113,18 +113,12 @@ INSERT INTO public.system_admin(
 
 
 INSERT INTO public.complaint(
-	id, subject, text, patient_id)
-	VALUES (1, 'Jovan Jovic', 'neljubazan', 88);
+	id, subject, text, patient_id,is_answered)
+	VALUES (111, 'Jovan Jovic', 'neljubazan', 88,false);
 INSERT INTO public.complaint(
-	id, subject, text, patient_id)
-	VALUES (2, 'Sava Savic', 'neprofesionalan', 89);
-    
-INSERT INTO public.complaint_answer(
-	id, text, complaint_id, system_admin_id)
-	VALUES(1, 'odgovor na zalbu jedan', 1, 12);
-INSERT INTO public.complaint_answer(
-	id, text, complaint_id, system_admin_id)
-	VALUES(2, 'odgovor na zalbu dva', 2, 13);
+	id, subject, text, patient_id,is_answered)
+	VALUES (222, 'Sava Savic', 'neprofesionalan', 89,false);
+
 
 INSERT INTO public.counseling(
 	id, price, report, start_time, end_time, is_done, patient_id, pharmacist_id, pharmacy_id, is_canceled)
@@ -345,11 +339,11 @@ INSERT INTO public.pharmacist_working_schedule(
 -- 	VALUES (112, 2);
 
 INSERT INTO public.eprescription(
-	code, issuing_date,therapy_duration, medicine_id,status)
-	VALUES (111,'2016-10-09',2,1,0);
+	code, issuing_date,therapy_duration, medicine_id,status,pharmacy_id)
+	VALUES (111,'2016-10-09',2,1,0,111);
 INSERT INTO public.eprescription(
-	code, issuing_date,therapy_duration, medicine_id,status)
-	VALUES (112,'2017-06-22',2,2,1);
+	code, issuing_date,therapy_duration, medicine_id,status,pharmacy_id)
+	VALUES (112,'2017-06-22',2,2,1,111);
 
 INSERT INTO public.patient_eprescriptions(
 	patient_id, eprescriptions_code)

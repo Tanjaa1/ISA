@@ -9,8 +9,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import rs.ac.uns.ftn.informatika.jpa.model.Complaint;
 import rs.ac.uns.ftn.informatika.jpa.model.ComplaintAnswer;
 import rs.ac.uns.ftn.informatika.jpa.service.ComplaintAnswerService;
+import rs.ac.uns.ftn.informatika.jpa.service.ComplaintService;
 
 @RestController
 @RequestMapping(value = "/complaintAndAnswer")
@@ -18,6 +20,8 @@ import rs.ac.uns.ftn.informatika.jpa.service.ComplaintAnswerService;
 public class ComplaintAndAnswerController {
     @Autowired
 	private ComplaintAnswerService complaintAndAnswerService;
+	@Autowired
+	private ComplaintService complaintService;
 	
 	
 
@@ -26,4 +30,6 @@ public class ComplaintAndAnswerController {
 		complaintAndAnswerService.save(complaintDTOAnswer);
 	return new ResponseEntity<>(complaintDTOAnswer, HttpStatus.CREATED);
 	}
+
+
 }
