@@ -47,6 +47,8 @@ Vue.component("patientReservations", {
                                                               <th>Price</th>
                                                               <th>Expiration date</th>
                                                               <th>Pharmacy</th>
+                                                              <th>Is received</th>
+                                                              <th>Is canceled</th>
                                                               </tr>
                                                             </thead>
                                                             <tbody>
@@ -55,7 +57,8 @@ Vue.component("patientReservations", {
                                                                 <td>{{f.medicinePriceAndQuantityId.quantity}}kom.</td>
                                                                 <td>{{f.medicinePriceAndQuantityId.price}}din.</td>  <td>{{DateSplit(f.expirationDate)}}</td>
                                                                 <td>{{f.pharmacy.name}}&nbsp -- &nbsp{{f.pharmacy.address}}</td>
-                                                                <!--<td>{{f.isDone}}</td>-->
+                                                                <td>{{f.isReceived}}</td>
+                                                                <td>{{f.isCanceled}}</td>
                                                                <!-- <td style="text-align:center"><button class="btnban form-control" v-on:click="Disapprove(f)">D I S A P P R O V E</button></td> --> 
                                                               </tr>
                                                             </tbody>
@@ -74,6 +77,9 @@ Vue.component("patientReservations", {
                                                                 <th>Price</th>
                                                                 <th>Expiration date</th>
                                                                 <th>Pharmacy</th>
+                                                                <th>Is received</th>
+                                                                <th>Is canceled</th>
+                                                                <th></th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
@@ -83,8 +89,11 @@ Vue.component("patientReservations", {
                                                                 <td>{{f.medicinePriceAndQuantityId.price}}din.</td>
                                                                 <td>{{DateSplit(f.expirationDate)}}</td>
                                                                 <td>{{f.pharmacy.name}}&nbsp -- &nbsp{{f.pharmacy.address}}</td>
-                                                                <!--<td>{{f.isDone}}</td>-->
-                                                                <!--<td style="text-align:center"><button class="btnapprove form-control" v-on:click="Approve(f)">A P P R O V E</button></td>-->
+                                                                <td>{{f.isReceived}}</td>
+                                                                <td>{{f.isCanceled}}</td>
+                                                                <template v-if="f.isCanceled == false && CanCancel(f.expirationDate) == true">
+                                                                    <td style="text-align:center"><button class="btn form-control" v-on:click="Cancel(f)">Cancel</button></td> 
+                                                                </template>
                                                             </tr>
                                                          </tbody>
                                                      </table> 
@@ -103,60 +112,84 @@ Vue.component("patientReservations", {
     </div>
 	`,
     methods: {
+        Cancel:function(f){
+            axios
+            .put('/reservation/cancelReservation', f)
+            .then(response => {
+                this.Refresh();
+            })
+            .catch(error => {
+            })
+        },
+        Refresh: function () {
+            location.reload();
+        },
+        CanCancel: function (date) {
+            var dates = (date.split("T")[0]).split("-")
+            var times = (date.split("T")[1]).split(":")
+            var d = new Date(dates[0],dates[1]-1,dates[2])
+            var nowDate = new Date();
+            nowDate.setDate(nowDate.getDate() + 1)
+            var canBeCanceled = true
+            if(d <= nowDate)
+                canBeCanceled = false
+            return canBeCanceled
+        },
         DateSplit: function (date) {
             var dates = (date.split("T")[0]).split("-")
             var times = (date.split("T")[1]).split(":")
-            return dates[2] + "." + dates[1] + "." + dates[0] + "  " + times[0] + ":" + times[1] + "h"
+            var pom = Number(dates[2])+1
+            return pom + "." + dates[1] + "." + dates[0]
         },
-        Approve: function (feedback) {
-            axios
-                .put('/feedback/approve', feedback, {
-                    headers: {
-                        'Authorization': 'Bearer' + " " + localStorage.getItem('token')
-                    }
-                })
-                .then(response => {
-                    this.Refresh();
-                })
-                .catch(error => {
-                })
-        },
-        Disapprove: function (feedback) {
-            axios
-                .put('/feedback/approve', feedback, {
-                    headers: {
-                        'Authorization': 'Bearer' + " " + localStorage.getItem('token')
-                    }
-                })
-                .then(response => {
-                    this.Refresh();
-                })
-                .catch(error => {
-                })
-        },
-        Refresh: function () {
-            axios
-                .get('/feedback/approved', {
-                    headers: {
-                        'Authorization': 'Bearer' + " " + localStorage.getItem('token')
-                    }
-                })
-                .then(response => {
-                    this.approvedFeedbacks = response.data
-                })
-                .catch(error => {
-                })
-            axios
-                .get('/feedback/disapproved', {
-                    headers: {
-                        'Authorization': 'Bearer' + " " + localStorage.getItem('token')
-                    }
-                })
-                .then(response => {
-                    this.disapprovedFeedbacks = response.data
-                })
-                .catch(error => {
-                })
-        }
+        // Approve: function (feedback) {
+        //     axios
+        //         .put('/feedback/approve', feedback, {
+        //             headers: {
+        //                 'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+        //             }
+        //         })
+        //         .then(response => {
+        //             this.Refresh();
+        //         })
+        //         .catch(error => {
+        //         })
+        // },
+        // Disapprove: function (feedback) {
+        //     axios
+        //         .put('/feedback/approve', feedback, {
+        //             headers: {
+        //                 'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+        //             }
+        //         })
+        //         .then(response => {
+        //             this.Refresh();
+        //         })
+        //         .catch(error => {
+        //         })
+        // },
+        // Refresh: function () {
+        //     axios
+        //         .get('/feedback/approved', {
+        //             headers: {
+        //                 'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+        //             }
+        //         })
+        //         .then(response => {
+        //             this.approvedFeedbacks = response.data
+        //         })
+        //         .catch(error => {
+        //         })
+        //     axios
+        //         .get('/feedback/disapproved', {
+        //             headers: {
+        //                 'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+        //             }
+        //         })
+        //         .then(response => {
+        //             this.disapprovedFeedbacks = response.data
+        //         })
+        //         .catch(error => {
+        //         })
+        // }
     }
 });

@@ -58,5 +58,14 @@ public class CounselingService implements ICounselingService {
            return councelingDTOs;
 	}
 
+	public Counseling updateCounseling(Counseling counseling) {
+        int i = counseling.getStartTime().compareTo(LocalDateTime.now().plusDays(1));
+		Counseling e=counselingRepository.getOne(counseling.getId());
+        if(i > 0){
+            e.setIsCanceled(true);
+        }
+            return counselingRepository.save(e);
+	}
+
 
 }

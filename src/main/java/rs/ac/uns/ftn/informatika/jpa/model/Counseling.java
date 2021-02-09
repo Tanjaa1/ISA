@@ -49,11 +49,14 @@ public class Counseling {
 	@Column(name="Price", unique=false, nullable=true)
 	private Double Price;
 
+	@Column(name="IsCanceled", unique=false, nullable=true)
+	private Boolean IsCanceled;
+
 	public Counseling(){}
 
 	public Counseling(long id, String report, LocalDateTime startTime, Double price, Boolean isDone,
 			rs.ac.uns.ftn.informatika.jpa.model.Patient patient,
-			rs.ac.uns.ftn.informatika.jpa.model.Pharmacist pharmacist) {
+			rs.ac.uns.ftn.informatika.jpa.model.Pharmacist pharmacist, Boolean isCanceled) {
 		super();
 		this.id = id;
 		Report = report;
@@ -62,6 +65,7 @@ public class Counseling {
 		this.isDone = isDone;
 		Patient = patient;
 		Pharmacist = pharmacist;
+		IsCanceled = isCanceled;
 	}
 
 	public long getId() {
@@ -134,5 +138,13 @@ public class Counseling {
 
 	public void setPharmacy(Pharmacy pharmacy) {
 		Pharmacy = pharmacy;
+	}
+
+	public Boolean getIsCanceled() {
+		return IsCanceled;
+	}
+
+	public void setIsCanceled(Boolean isCanceled) {
+		IsCanceled = isCanceled;
 	}
 }

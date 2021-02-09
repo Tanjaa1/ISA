@@ -122,4 +122,12 @@ public class ExaminationController {
 		Examination e =examinationService.newExamination(examination);
 		return e == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : new ResponseEntity<>(HttpStatus.OK);
 	}
+	@PutMapping(value = "/cancelExamination")
+	public ResponseEntity<HttpStatus> cancelExamination(@RequestBody Examination examination) throws Exception
+	{
+		Examination e =examinationService.updateExamination(examination);
+		return e == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : new ResponseEntity<>(HttpStatus.OK);
+	}
+
+	
 }

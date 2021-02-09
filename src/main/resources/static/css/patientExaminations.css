@@ -5,3 +5,173 @@
     font-family: 'Impact';
     margin-left: 30%;
 }
+
+.btn2 {
+    background-color: rgb(119, 187, 209);
+    color: white;
+    border: thick;
+    font-family: 'Impact';
+    font-weight: 100;
+    width: 300px;
+    margin-left: 70%;
+    margin-bottom: 2%;
+}
+
+.so{
+    margin-left: 60%;
+}
+
+
+
+
+.nav-itemstep {
+    padding-right: 50px;
+}
+
+.containerAppointment {
+    align-content: center;
+}
+
+.circleStepDone {
+    background-color: #014779;
+}
+
+.circleStep {
+    width: 25px;
+    border: none;
+    color: white;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 18px;
+    border-radius: 60%
+}
+
+.circlesStepDisabled {
+    background-color: lightblue;
+}
+
+.select {
+    width: 60%;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: 3px solid #555;
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+    outline: none;
+}
+
+.btnNext {
+    margin-left: 35%;
+}
+
+h6 {
+    color: lightblue;
+}
+
+.error {
+    visibility: visible;
+}
+
+.correct {
+    visibility: hidden
+}
+
+.create {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.navbar{
+    background-color: lightblue;
+
+}
+
+.navbar-custom .navbar-brand {
+    color: white;
+    font-size: 30px;
+    font-weight: 100;
+    font-family: 'Impact';
+}
+#navbarDropdown {
+    background-color: lightblue;
+}
+#clinicLogo {
+    font-size: 30px;
+    font-weight: 100;
+    font-family: Impact;
+    color : white;
+}
+
+.btn {
+    background-color: lightblue;
+    color: white;
+    border: thick;
+    font-family: 'Impact';
+    font-weight: 100;
+}
+
+
+.text {
+    color: #014779;
+    font-size: 30px;
+    font-weight: 100;
+    font-family: 'Impact';
+}
+.textSurvey {
+    color: black;
+    font-size: 30px;
+    font-weight: 100;
+    font-family: 'Impact';
+    position: inherit;
+}
+label {
+    color: #014779;
+}
+h4 {
+    color: #014779;
+    font-family: 'Impact';
+    text-decoration: underline;
+}
+th {
+    background-color: lightblue;
+    color: #014779;
+    font-family: 'Impact';
+    font-weight: 100;
+}
+.text2 {
+    font-family: 'Impact';
+    font-size: 38px;
+}
+
+footer {
+    background-color: lightblue;
+    color: white;
+    border: thick;
+    font-family: 'Impact';
+    font-weight: 100;
+}
+
+.sameLineHeader {
+    display: flex;
+    width: 20%;
+}
+
+.navItem {
+    color : white;
+    font-size : 30px;
+    font-family : Impact;
+}
+
+.login {
+    position : absolute;
+    margin-left : 70%;
+}
+
+.chDate{
+    margin-left: 70px;
+}
+
+.inDate{
+    margin-left: 70px;
+}

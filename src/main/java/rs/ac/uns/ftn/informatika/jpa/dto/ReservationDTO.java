@@ -10,6 +10,7 @@ public class ReservationDTO {
     private MedicinePriceAndQuantityDTO MedicinePriceAndQuantityId;
     private PatientDTO Patient;
 	private PharmacyDTO Pharmacy;
+	private Boolean IsCanceled;
 
     public ReservationDTO(){}
     public ReservationDTO(Reservation reservation)
@@ -20,6 +21,7 @@ public class ReservationDTO {
         MedicinePriceAndQuantityId= new MedicinePriceAndQuantityDTO(reservation.getMedicine());
 		Patient= new PatientDTO(reservation.getPatient());
 		Pharmacy= new PharmacyDTO(reservation.getPharmacy());
+		IsCanceled = reservation.getIsCanceled();
     }
     public long getId() {
 		return Id;
@@ -57,5 +59,12 @@ public class ReservationDTO {
 	}
 	public void setPharmacy(PharmacyDTO pharmacy){
 		Pharmacy=pharmacy;
+	}
+
+	public Boolean getIsCanceled(){
+		return IsCanceled;
+	}
+	public void setIsCanceled(Boolean isCanceled){
+		IsCanceled = isCanceled;
 	}
 }

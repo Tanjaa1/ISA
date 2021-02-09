@@ -2,6 +2,7 @@ package rs.ac.uns.ftn.informatika.jpa.dto;
 
 import java.time.LocalDateTime;
 
+
 import rs.ac.uns.ftn.informatika.jpa.model.Counseling;
 
 public class CouncelingDTO {
@@ -15,11 +16,12 @@ public class CouncelingDTO {
 	private PharmacistDTO Pharmacist;
 	private PharmacyDTO Pharmacy;
 	private Double Price;
+	private Boolean IsCanceled;
 	
 	public CouncelingDTO(){}
 
 	public CouncelingDTO(long id, String report, LocalDateTime startTime, LocalDateTime endTime, Boolean isDone, PatientDTO patient,
-		PharmacistDTO pharmacist, PharmacyDTO pharmacy,Double price) {
+		PharmacistDTO pharmacist, PharmacyDTO pharmacy,Double price, Boolean isCanceled) {
 		super();
 		this.Id = id;
 		Report = report;
@@ -30,6 +32,7 @@ public class CouncelingDTO {
 		Pharmacist = pharmacist;
         Pharmacy = pharmacy;
 		Price=price;
+		IsCanceled = isCanceled;
 	}
 
     public CouncelingDTO(Counseling counceling){
@@ -42,6 +45,7 @@ public class CouncelingDTO {
         Pharmacist = new PharmacistDTO(counceling.getPharmacist());
         Pharmacy = new PharmacyDTO(counceling.getPharmacy());
 		Price=counceling.getPrice();
+		IsCanceled = counceling.getIsCanceled();
     }
 
 	public long getId() {
@@ -114,5 +118,13 @@ public class CouncelingDTO {
 
 	public void setPrice(Double price){
 		Price=price;
+	}
+
+	public Boolean getIsCanceled(){
+		return IsCanceled;
+	}
+
+	public void setIsCanceled(Boolean isCanceled){
+		IsCanceled=isCanceled;
 	}
 }

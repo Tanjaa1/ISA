@@ -1,9 +1,13 @@
 package rs.ac.uns.ftn.informatika.jpa.service;
 
 import java.time.LocalDate;
+import java.sql.Date;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.xml.crypto.Data;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -60,6 +64,15 @@ public class ExaminationService implements IExaminationService {
     public Examination update(Long id) throws Exception {
         Examination e=examinationRepository.getOne(id);
         e.setIsDone(true);
+        return examinationRepository.save(e);
+    }
+
+    public Examination updateExamination(Examination examination) throws Exception {
+        int i = examination.getStartTime().compareTo(LocalDateTime.now().plusDays(1));
+        Examination e=examinationRepository.getOne(examination.getId());
+        if(i > 0){
+            e.setIsCanceled(true);
+        }
         return examinationRepository.save(e);
     }
 
