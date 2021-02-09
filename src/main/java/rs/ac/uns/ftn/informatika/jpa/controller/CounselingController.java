@@ -91,6 +91,11 @@ public class CounselingController {
 		return pharmaciesDTOs == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(pharmaciesDTOs);
 	}
 
-
+	@PutMapping(value = "/cancelCounseling")
+	public ResponseEntity<HttpStatus> cancelCounseling(@RequestBody Counseling counseling) throws Exception
+	{
+		Counseling e =counselingService.updateCounseling(counseling);
+		return e == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : new ResponseEntity<>(HttpStatus.OK);
+	}
 
 }

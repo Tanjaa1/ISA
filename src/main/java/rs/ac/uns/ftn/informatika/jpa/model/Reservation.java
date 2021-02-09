@@ -41,16 +41,20 @@ public class Reservation {
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Pharmacy Pharmacy;
 
+	@Column(name="IsCanceled", unique=false, nullable=true)
+	private Boolean IsCanceled;
+
 	public Reservation(){}
 	
 	public Reservation(long id, Date expirationDate, Boolean isReceived,
-			rs.ac.uns.ftn.informatika.jpa.model.Patient patient, MedicinePriceAndQuantity medicine) {
+			rs.ac.uns.ftn.informatika.jpa.model.Patient patient, MedicinePriceAndQuantity medicine, Boolean isCanceled) {
 		super();
 		this.Id = id;
 		ExpirationDate = expirationDate;
 		IsReceived = isReceived;
 		Patient = patient;
 		Medicine = medicine;
+		IsCanceled = isCanceled;
 	}
 	public long getId() {
 		return Id;
@@ -89,6 +93,14 @@ public class Reservation {
 
 	public void setPharmacy(Pharmacy pharmacy) {
 		Pharmacy = pharmacy;
+	}
+
+	public Boolean getIsCanceled() {
+		return IsCanceled;
+	}
+
+	public void setIsCanceled(Boolean isCanceled) {
+		IsCanceled = isCanceled;
 	}
 
 

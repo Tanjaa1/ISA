@@ -10,12 +10,14 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import rs.ac.uns.ftn.informatika.jpa.dto.PharmacyDTO;
 import rs.ac.uns.ftn.informatika.jpa.dto.ReservationDTO;
+import rs.ac.uns.ftn.informatika.jpa.model.Reservation;
 import rs.ac.uns.ftn.informatika.jpa.service.ResrvationService;
 
 @RestController
@@ -58,6 +60,13 @@ public class ReservationController {
 	{	
 		Set<PharmacyDTO> reservations = reservationService.getPharmaciesOfReceivedReservationByPatientId(id);
 		return reservations == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(reservations);
+	}
+
+	@PutMapping(value = "/cancelReservation")
+	public ResponseEntity<HttpStatus> cancelReservation(@RequestBody Reservation reservation) throws Exception 
+	{
+		Reservation r = reservationService.updateReservationIsCancel(reservation);
+		return r == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : new ResponseEntity<>(HttpStatus.OK);
 	}
 
 }

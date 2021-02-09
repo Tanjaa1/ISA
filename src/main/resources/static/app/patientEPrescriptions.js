@@ -20,7 +20,7 @@ Vue.component("patientEPrescriptions", {
 	<div id="parmaciesShowPatient">
 <br>
 		<div class="container">
-            <br/><h3 class="text">EPrescriptions</h3><br/><br/>
+            <br/><h3 class="textt">EPrescriptions</h3><br/><br/>
 			       <!-- <button type="button" class="btn btn-info btn-lg form-control" style="width:30%;height:80px; margin-bottom:5%" data-toggle="modal" data-target="#CommentModal">Leave feedback</button>-->
 		</div>
 
