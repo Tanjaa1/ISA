@@ -1,7 +1,7 @@
 Vue.component("examinationDermatologist", {
 	data: function () {
 		return {
-			patient:{},
+			patient:null,
             examination:null,
             medicines:[],
             med:null,
@@ -10,7 +10,19 @@ Vue.component("examinationDermatologist", {
                 therapyDuration:0,
                 issuingDate:new Date().now,
             },
-            medicineChoose:null
+            newExamination: {
+                startTime:null,
+                endTime:null,
+                patient:null,
+                dermatologist:null,
+                id:null,
+                idDone:false,
+                pharmacy:null,
+                report:"",
+                price:1000.00             
+            },
+            medicineChoose:null,
+            future:null
 		}
 	},
 	beforeMount() {
@@ -38,6 +50,13 @@ Vue.component("examinationDermatologist", {
             .catch(error => {
             })
 
+            axios
+            .get('/examination/getFreeExaminationByDermatologist/' + '6')
+            .then(response => {
+                this.future = response.data
+            })
+            .catch(error => {
+            })
 	},
 	template: `
 	<div id="ExaminationDermatologist">
@@ -103,7 +122,7 @@ Vue.component("examinationDermatologist", {
 			</div>
             <!--SCHEDULE-->
             <div class="modal fade" tabindex="-1" role="dialog" id="Schedule">
-            <div class="modal-dialog" role="document">
+            <div class="modal-dialog" role="document" style="max-width: 60%;">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title">Schedule the next examination</h5>
@@ -134,9 +153,17 @@ Vue.component("examinationDermatologist", {
                                                                         <th>Start</th>
                                                                         <th>End</th>
                                                                         <th>Price</th>
+                                                                        <th>Schedule</th>
                                                                     </tr>
                                                                     </thead>
                                                                     <tbody>
+                                                                    <tr v-for="f in future">
+                                                                        <td>{{f.startTime.split('T')[0]}}</td>
+                                                                        <td>{{f.startTime.split('T')[1]}}</td>
+                                                                        <td>{{f.endTime.split('T')[1]}}</td>
+                                                                        <td>{{f.price}}</td>
+                                                                        <td><button btn btn-info btn-lg v-on:click="Schedule(f)">Schedule</button></td>
+                                                                    </tr>
                                                                     </tbody>
                                                                 </table>
                                                             </div>
@@ -156,14 +183,13 @@ Vue.component("examinationDermatologist", {
                                                             <label>Choose end time</label>
                                                             <input type="time" id="end" class="form-control">
                                                         </div>
-                                                    </div>			
+                                                    </div>
+                                                    <button id="cancelF" type="button" class="btn btn-info btn-lg " v-on:click="NewEx()">Schedule</button>			
                                                 </div>
                                             </div>
                                         </div></br>
             </div>
                     <div class="modal-footer">
-                        <button id="addF" type="button" class="btn btn-info btn-lg " v-on:click="AddPrescritpion()">Create</button>
-                        <button id="cancelF" type="button" class="btn btn-info btn-lg " data-dismiss="modal">Cancel</button>
                     </div>
                 </div>
                 </div>
@@ -191,10 +217,13 @@ Vue.component("examinationDermatologist", {
                         this.prescriptionDTO.medicine=pharmacyMedicines[m]
                         axios.post('/eprescription/add/'+this.examination.patient.id, this.prescriptionDTO)
                             .then(function (response) {
+                                alert("The prescription was successfully issued!")
+                                location.reload()
                             })
                             .catch(function (error) {
                             });
                         }else{
+                            alert("Medicine is put of stock!")
                             axios.post('/pharmacyAdmin/sendingMail/'+this.examination.pharmacy.name,this.medicineChoose)
                             .then(function (response) {
                             })
@@ -203,6 +232,38 @@ Vue.component("examinationDermatologist", {
                         }
                     }
                 }
+        },
+        Schedule: async function(f){
+            f.patient=this.examination.patient
+            var fut=[]
+            await axios.put('/examination/schedule',f)
+            .then(function (response) {
+                alert("The examination was successfully scheduled!")
+                axios
+                .get('/examination/getFreeExaminationByDermatologist/' + '6')
+                .then(function (odg){
+                    this.future=odg.response
+                    location.reload()
+                })
+                .catch(error => {
+                })
+            })
+            .catch(function (error) {
+            });
+            
+        },
+        NewEx:function(){
+            this.newExamination.startTime=document.getElementById("date").value+'T'+document.getElementById("start").value
+            this.newExamination.endTime=document.getElementById("date").value+'T'+document.getElementById("end").value
+            this.newExamination.patient=this.examination.patient
+            this.newExamination.dermatologist=this.examination.dermatologist 
+            this.newExamination.pharmacy=this.examination.pharmacy
+            axios.post('/examination/add',this.newExamination)
+            .then(function (response) {
+                alert("The examination was successfully scheduled!")
+            })
+            .catch(function (error) {
+            });
         }
 	}
 });

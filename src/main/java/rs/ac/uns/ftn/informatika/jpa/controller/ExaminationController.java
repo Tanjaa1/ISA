@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -99,5 +100,26 @@ public class ExaminationController {
 		return pharmaciesDTOs == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(pharmaciesDTOs);
 	}
 
-	
+	@GetMapping(value = "/getFreeExaminationByDermatologist/{id}")
+	public ResponseEntity<List<ExaminationDTO>> getFreeExaminationByDermatologist(@PathVariable Long id) 
+	{
+		List<ExaminationDTO> examinationDTOs = examinationService.getFreeExaminationByDermatologist(id);
+		return examinationDTOs == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(examinationDTOs);
+	}
+
+	@PutMapping(value = "/schedule")
+	public ResponseEntity<List<ExaminationDTO>> getFreeExaminationByDermatologist(@RequestBody Examination examination)
+		throws Exception 
+	{
+		Examination e =examinationService.schedule(examination);
+		return e == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : new ResponseEntity<>(HttpStatus.OK);
+	}
+
+	@PostMapping(value = "/add")
+	public ResponseEntity<HttpStatus> newExamination(@RequestBody Examination examination)
+		throws Exception 
+	{
+		Examination e =examinationService.newExamination(examination);
+		return e == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : new ResponseEntity<>(HttpStatus.OK);
+	}
 }

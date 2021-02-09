@@ -151,22 +151,22 @@ INSERT INTO public.counseling(
     
 INSERT INTO public.examination(
 	id, price, report, start_time, end_time, is_done, dermatologist_id, patient_id, pharmacy_id)
-	VALUES (1, 500.0, 'izvjestaj 1', '2016-06-22 19:10:25-07', '2016-06-22 19:20:25-07', true, 6, 88, 111);
+	VALUES (111, 500.0, 'izvjestaj 1', '2021-06-22 19:10:25-07', '2016-06-22 19:20:25-07', true, 6, 88, 111);
 INSERT INTO public.examination(
 	id, price, report, start_time, end_time, is_done, dermatologist_id, patient_id, pharmacy_id)
-	VALUES (2, 1000.0, 'izvjestaj 1', '2018-12-03 10:30:25-07', '2016-06-22 10:40:25-07', true, 6, 88, 111);
+	VALUES (112, 1000.0, 'izvjestaj 1', '2018-12-03 10:30:25-07', '2016-06-22 10:40:25-07', true, 6, 88, 111);
 INSERT INTO public.examination(
 	id, price, report, start_time, end_time, is_done, dermatologist_id, patient_id, pharmacy_id)
-	VALUES (3, 800.0, 'izvjestaj 1', '2021-06-22 19:10:25-07', '2016-06-22 19:20:25-07', true, 6, 88, 111);
+	VALUES (113, 800.0, 'izvjestaj 1', '2021-06-22 19:10:25-07', '2021-06-22 19:20:25-07', true, 6, 88, 111);
 INSERT INTO public.examination(
 	id, price, report, start_time, end_time, is_done, dermatologist_id, patient_id, pharmacy_id)
-	VALUES (4, 900.0, 'izvjestaj 1', '2021-10-11 14:15:25-07', '2016-06-22 14:25:25-07', true, 6, 88, 111);
+	VALUES (114, 900.0, 'izvjestaj 1', '2021-10-11 14:15:25-07', '2016-06-22 14:25:25-07', true, 6, 88, 111);
 INSERT INTO public.examination(
 	id, price, report, start_time, end_time, is_done, dermatologist_id, patient_id, pharmacy_id)
-	VALUES (5, 2000.0, 'izvjestaj 2', '2016-07-22 19:10:25-07', '2016-06-22 19:20:25-07', true, 6, null, 111);
+	VALUES (115, 2000.0, 'izvjestaj 2', '2016-07-22 19:10:25-07', '2016-06-22 19:20:25-07', true, 6, null, 111);
 INSERT INTO public.examination(
 	id, price, report, start_time, end_time, is_done, dermatologist_id, patient_id, pharmacy_id)
-	VALUES (6, 3000.0, 'izvjestaj 2', '2016-08-13 18:00:25-07', '2016-06-22 18:10:25-07', false, 6, null, 111);
+	VALUES (116, 3000.0, 'izvjestaj 2', '2021-08-13 18:00:25-07', '2021-06-22 18:10:25-07', false, 6, null, 111);
     
 /*
 INSERT INTO public.medicine(

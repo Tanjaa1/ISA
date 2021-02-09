@@ -38,7 +38,10 @@ public class ExaminationDTO {
         StartTime = examination.getStartTime();
         EndTime = examination.getEndTime();
         isDone = examination.getIsDone();
-        Patient = new PatientDTO(examination.getPatient());
+		if(examination.getPatient()==null)
+			Patient=new PatientDTO();
+		else
+        	Patient = new PatientDTO(examination.getPatient());
         Dermatologist = new DermatologistDTO(examination.getDermatologist());
         Pharmacy = new PharmacyDTO(examination.getPharmacy());
 		Price=examination.getPrice();
