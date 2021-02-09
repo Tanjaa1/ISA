@@ -1,4 +1,4 @@
-Vue.component("pharmacistVacatinRequest", {
+Vue.component("pharmacistVacationRequest", {
 	data: function () {
 		return {
 			user:null,
@@ -37,7 +37,7 @@ Vue.component("pharmacistVacatinRequest", {
 	}
 });
 
-Vue.component("dermatologistVacatinRequest", {
+Vue.component("dermatologistVacationRequest", {
 	data: function () {
 		return {
 			user:null,

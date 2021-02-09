@@ -23,10 +23,6 @@ Vue.component("pharmacistHomePage", {
 					<div class="col-sm">
 					</div>
 					<div class="col-sm">
-					</div>
-					<div class="col-sm">
-					</div>
-					<div class="col-sm">
 					  <h3>
 						<button id="Users" type="button" class="btn btn-info btn-lg margin form-control" data-toggle="modal" v-on:click="PatientsShow()"></button>
 						</h3><br/> 
@@ -68,14 +64,8 @@ Vue.component("pharmacistHomePage", {
 					</div>
 					<div class="col-sm">
 					</div>
-					<div class="col-sm">
-					</div>
-					<div class="col-sm">
-					</div>
-					<div class="col-sm">
-					</div>
-					<div class="col-sm">
-					</div>
+				</div>
+				<div class="row">
 					<div class="col-sm">
 					</div>
 					<div class="col-sm">
@@ -84,21 +74,21 @@ Vue.component("pharmacistHomePage", {
 					</div>
 					<div class="col-sm">
 					  <h3>
-						<button id="Account" type="button" class="btn btn-info btn-lg margin form-control" v-on:click="AccountShow()"></button>
+						<button id="Account" type="button" class="btn btn-info btn-lg form-control" v-on:click="AccountShow()"></button>
 						</h3><br/> 
 					</div>
 					<div class="col-sm">
 					</div>
 					<div class="col-sm">
 					  <h3>
-						<button id="Scheduling" type="button" class="btn btn-info btn-lg margin form-control" v-on:click="MakingExaminationShow()"></button>
+						<button id="Scheduling" type="button" class="btn btn-info btn-lg form-control" v-on:click="MakingExaminationShow()"></button>
 						</h3><br/> 
 					</div>
 					<div class="col-sm">
 					</div>
 					<div class="col-sm">
 					  <h3>
-						<button id="Medicine" type="button" class="btn btn-info btn-lg margin form-control" v-on:click="ReservationShow()"></button>
+						<button id="Medicine" type="button" class="btn btn-info btn-lg form-control" v-on:click="ReservationShow()"></button>
 						</h3><br/> 
 					</div>
 					<div class="col-sm">
@@ -107,7 +97,7 @@ Vue.component("pharmacistHomePage", {
 					</div>  
 					<div class="col-sm">
 					</div>
-				  </div>				
+				</div>				
 		</div>
 		<br></br><br></br>
 	</div>					
@@ -118,15 +108,17 @@ Vue.component("pharmacistHomePage", {
 		this.$router.push('pharmacistInfo');
 	},
 	PatientsShow: function () {
-		this.$router.push('search');
+		this.$router.push('pharmacistSearchPatients');
 	},
 	CalendarShow: function () {
 	},
 	VacationShow: function () {
+		this.$router.push('pharmacistVacationRequest');
 	},
-	CurrentExaminationShow: function () {         
+	CurrentExaminationShow: function () { 
 	},
-	MakingExaminationShow: function () {           
+	MakingExaminationShow: function () {
+		this.$router.push('createCounselingPharmacist');               
 	},
 	ReservationShow:function(){
 		this.$router.push('reservation');        
