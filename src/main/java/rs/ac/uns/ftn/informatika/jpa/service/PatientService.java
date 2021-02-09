@@ -16,10 +16,12 @@ import org.springframework.stereotype.Service;
 import rs.ac.uns.ftn.informatika.jpa.dto.EPrescriptionDTO;
 import rs.ac.uns.ftn.informatika.jpa.dto.PatientDTO;
 import rs.ac.uns.ftn.informatika.jpa.dto.PharmacyDTO;
+import rs.ac.uns.ftn.informatika.jpa.model.Complaint;
 import rs.ac.uns.ftn.informatika.jpa.model.EPrescription;
 import rs.ac.uns.ftn.informatika.jpa.model.Examination;
 import rs.ac.uns.ftn.informatika.jpa.model.Patient;
 import rs.ac.uns.ftn.informatika.jpa.model.Pharmacy;
+import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IComplaintRepository;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IExaminationRpository;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IPatientRepository;
 import rs.ac.uns.ftn.informatika.jpa.service.Interface.IPatientService;
@@ -34,6 +36,9 @@ public class PatientService implements IPatientService {
 	
 	@Autowired
 	private IExaminationRpository examinationRepository;
+
+	@Autowired
+	private IComplaintRepository complaintRepository;
 
 	@Autowired
 	private EmailService emailService;
@@ -164,13 +169,28 @@ public class PatientService implements IPatientService {
         for (EPrescriptionDTO s : prescriptions) {
 			pharmacies.add(new PharmacyDTO(s.getPharmacy()));
         }
-        return pharmacies;
+		if(pharmacies.isEmpty()) return null;
+		else return pharmacies;
 	}
 
 	@Override
 	public Patient findById(Long id) {
-		patientRepository.findById(id).get();
-	return null;
+	Patient patient=patientRepository.findById(id).get();
+	return patient;
+	}
+
+	public List<PatientDTO> getAllPatients() {
+        List<Patient> patients =patientRepository.findAll();
+        List<PatientDTO> returnValue = new ArrayList<PatientDTO>();
+        for (Patient patient : patients)
+            returnValue.add(new PatientDTO(patient));
+        return returnValue;
+	}
+
+	public PatientDTO findByIdComplaints(Long id) {
+		Complaint complaint=complaintRepository.getOne(id);
+		Patient patient=patientRepository.findById(complaint.getPatient().getId()).get();
+	return new PatientDTO(patient);
 	}
 
 }

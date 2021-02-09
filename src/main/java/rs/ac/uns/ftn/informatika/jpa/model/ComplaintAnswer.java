@@ -8,9 +8,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import rs.ac.uns.ftn.informatika.jpa.dto.ComplaintAnswerDTO;
 
 @Entity
 @Table(name="ComplaintAnswer")
@@ -27,13 +28,12 @@ public class ComplaintAnswer {
 	@Column(name="Text", unique=false, nullable=true)
 	private String Text;
 	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	private SystemAdmin SystemAdmin;
+
 	
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	public Complaint getComplaint() {
@@ -48,22 +48,28 @@ public class ComplaintAnswer {
 	public void setText(String text) {
 		Text = text;
 	}
-	public SystemAdmin getSystemAdmin() {
-		return SystemAdmin;
-	}
-	public void setSystemAdmin(SystemAdmin systemAdmin) {
-		SystemAdmin = systemAdmin;
-	}
+	
 
 	public ComplaintAnswer(){}
 
-	public ComplaintAnswer(long id, rs.ac.uns.ftn.informatika.jpa.model.Complaint complaint, String text,
-			rs.ac.uns.ftn.informatika.jpa.model.SystemAdmin systemAdmin) {
+	public ComplaintAnswer(Long id,Complaint complaint, String text) {
 		super();
 		this.id = id;
 		Complaint = complaint;
 		Text = text;
-		SystemAdmin = systemAdmin;
+	}
+	public ComplaintAnswer(Complaint complaint, String text) {
+		super();
+		Complaint = complaint;
+		Text = text;
+	}
+
+	public ComplaintAnswer(ComplaintAnswerDTO complaintAnswerDTO){
+		id=complaintAnswerDTO.getId();
+		Text=complaintAnswerDTO.getText();
+		Complaint=new Complaint(complaintAnswerDTO.getComplaint());
+		
+
 	}
 	
 	

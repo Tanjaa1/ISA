@@ -56,6 +56,20 @@ public class PatientController {
 	}
 
 	
+	@GetMapping(value = "/getAllPatients")
+	public ResponseEntity<List<PatientDTO>> getAllPatients() {
+		List<PatientDTO> patients=patientService.getAllPatients();
+		return patients == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(patients);
+	}
+
+	@GetMapping(value = "/findByIdComplaints/{id}")
+	public PatientDTO findByIdComplaints(@PathVariable Long id) {
+		PatientDTO patient=patientService.findByIdComplaints(id);
+		return patient;
+	}
+
+
+	
 
 	@PostMapping(value = "/savePatient")
 	public ResponseEntity<Patient> savePatient(@RequestBody Patient patientDTO) throws Exception{

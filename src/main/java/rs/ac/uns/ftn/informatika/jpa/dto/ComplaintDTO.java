@@ -1,14 +1,14 @@
 package rs.ac.uns.ftn.informatika.jpa.dto;
 
 import rs.ac.uns.ftn.informatika.jpa.model.Complaint;
-import rs.ac.uns.ftn.informatika.jpa.model.Patient;
 
 
 public class ComplaintDTO {
 	private Long Id;
 	private String Text;
 	private String Subject;
-	private Patient Patient;
+	private PatientDTO Patient;
+    private Boolean IsAnswered;
 
     public Long getId() {
         return Id;
@@ -34,13 +34,15 @@ public class ComplaintDTO {
         Subject = subject;
     }
 
-    public Patient getPatient() {
+    public PatientDTO getPatient() {
         return Patient;
     }
 
-    public void setPatient(Patient patient) {
+    public void setPatient(PatientDTO patient) {
         Patient = patient;
     }
+
+    
 
     public ComplaintDTO(){}
 
@@ -48,10 +50,19 @@ public class ComplaintDTO {
         Id = complaint.getId();
         Text = complaint.getText();
         Subject = complaint.getSubject();
-        Patient = complaint.getPatient();
+        Patient = new PatientDTO(complaint.getPatient());
+        IsAnswered=complaint.getIsAnswered();
     }
 
     public ComplaintDTO toDTO(Complaint complaint){
         return new ComplaintDTO(complaint);
+    }
+
+    public Boolean getIsAnswered() {
+        return IsAnswered;
+    }
+
+    public void setIsAnswered(Boolean isAnswered) {
+        IsAnswered = isAnswered;
     }
 }

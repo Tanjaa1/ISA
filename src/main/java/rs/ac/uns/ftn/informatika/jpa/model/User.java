@@ -26,7 +26,7 @@ public abstract class User {
 	private String Name;
 	@Column(name="Surname", unique=false, nullable=false)
 	private String Surname;
-	@Column(name="Address", unique=false, nullable=false)
+	@Column(name="Address", unique=false, nullable=true)
 	private String Address;
 	@Column(name="City", unique=false, nullable=false)
 	private String City;
@@ -43,7 +43,7 @@ public abstract class User {
 	@Column(name="Username", unique=true, nullable=false)
 	private String Username;
 	
-	public long getId() {
+	public Long getId() {
 		return Id;
 	}
 	public void setId(long id) {
@@ -150,7 +150,7 @@ public abstract class User {
 
 
 
-	public User(long id, String email, String password, String name, String surname, String address, String city,
+	public User(Long id, String email, String password, String name, String surname, String address, String city,
 			String country, String phoneNumber,String description) {
 		super();
 		Id = id;
@@ -165,4 +165,5 @@ public abstract class User {
 		Description=description;
 		
 	}
+	
 }

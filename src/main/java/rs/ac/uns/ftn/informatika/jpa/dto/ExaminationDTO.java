@@ -50,11 +50,11 @@ public class ExaminationDTO {
 		IsCanceled = examination.getIsCanceled();
     }
 
-	public long getId() {
+	public Long getId() {
 		return Id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		Id = id;
 	}
 

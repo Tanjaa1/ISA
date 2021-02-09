@@ -17,6 +17,7 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import rs.ac.uns.ftn.informatika.jpa.dto.PatientDTO;
 import rs.ac.uns.ftn.informatika.jpa.enums.LoyaltyCategories;
 
 @Entity
@@ -37,12 +38,16 @@ public class Patient extends User {
 	
 	@Column(name="Category", unique=false, nullable=true)
 	private LoyaltyCategories Category; 
-	
+	/*
 	//@ManyToMany(mappedBy = "SubscribedUsers")
 	// @ManyToMany
 	// @JoinTable(name = "PharmacySubscribedUsers", joinColumns = @JoinColumn(name = "Patient_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "Pharmacy_id", referencedColumnName = "id"))
 	// private Set<Pharmacy> PrepaidPharmacies = new HashSet<Pharmacy>();
 	
+	@ManyToMany
+	@JoinTable(name = "PharmacySubscribedUsers", joinColumns = @JoinColumn(name = "Patient_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "Pharmacy_id", referencedColumnName = "id"))
+	private Set<Pharmacy> PrepaidPharmacies = new HashSet<Pharmacy>();
+	*/
 	// @OneToMany(mappedBy = "Patient", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	// private Set<Complaint> Complaints = new HashSet<Complaint>();
 	
@@ -118,6 +123,15 @@ public class Patient extends User {
 	// 	PrepaidPharmacies = prepaidPharmacies;
 	// }
 
+/*	
+	public Set<Pharmacy> getPrepaidPharmacies() {
+		return PrepaidPharmacies;
+	}
+
+	public void setPrepaidPharmacies(Set<Pharmacy> prepaidPharmacies) {
+		PrepaidPharmacies = prepaidPharmacies;
+	}
+*/
 	public String getFullName() {
 		return getName()+" "+ getSurname();
 	}
@@ -129,20 +143,19 @@ public class Patient extends User {
 	public void setActionOrPromotion(Set<ActionOrPromotion> actionOrPromotion) {
 		ActionOrPromotions = actionOrPromotion;
 	}
-/*
+
 	public Patient(PatientDTO patientDTO){
 		super();
-		DrugAllargies = patientDTO.getDrugAllargies();
+		//DrugAllargies = patientDTO.getDrugAllargies();
 		Points = patientDTO.getPoints();
 		Penalty = patientDTO.getPenalty();
 		Category = patientDTO.getCategory();
 
 	}
-*/
+
 	public Patient(Long id, String email, String password, String name, String surname, String address, String city,
 			String country, String phoneNumber, String description, Boolean emailComfirmed, Boolean firstTimeLogin,
-			String username, List<String> drugAllargies, Integer points, Integer penalty, LoyaltyCategories category,
-			Set<Pharmacy> prepaidPharmacies, Set<Complaint> complaints, Set<Counseling> counselings,
+			String username, List<String> drugAllargies, Integer points, Integer penalty, LoyaltyCategories category, Set<Complaint> complaints, Set<Counseling> counselings,
 			Set<EPrescription> ePrescriptions, Set<Examination> examinations, Set<Reservation> reservations) {
 		super(id, email, password, name, surname, address, city, country, phoneNumber, description, emailComfirmed,
 				firstTimeLogin, username);
@@ -151,6 +164,7 @@ public class Patient extends User {
 		Penalty = penalty;
 		Category = category;
 		//PrepaidPharmacies = prepaidPharmacies;
+	//	PrepaidPharmacies = prepaidPharmacies;
 		EPrescriptions = ePrescriptions;
 	
 	}

@@ -37,6 +37,10 @@ const RegistrationSystemAdmin = { template: '<registrationSystemAdmin></registra
 const RegistrationMedicine = { template: '<registrationMedicine></registrationMedicine>' }
 const RegistrationPharmacyAdmin = { template: '<registrationPharmacyAdmin></registrationPharmacyAdmin>' } 
 const RegistrationPharmacist= { template: '<registrationPharmacist></registrationPharmacist>' } 
+const Complaints= { template: '<complaints></complaints>' } 
+const PatientComplaints= { template: '<complaintPatient></complaintPatient>' } 
+
+
 
 const EmailConfirmation = { template: '<emailConfirmation></emailConfirmation>' } 
 const SuccessfulRegistration = { template: '<successfulRegistration></successfulRegistration>' } 
@@ -355,7 +359,21 @@ const router = new VueRouter({
 				pageHeader: PatientHeader,
 				content: PatientEPrescriptions
 			}
-		}
+		},
+		{ 
+			path: '/complaints', 
+			name : 'complaints', 
+			components: {
+				content: Complaints
+			}
+		},
+		{ 
+			path: '/complaintPatient', 
+			name : 'complaintPatient', 
+			components: {
+				content: PatientComplaints
+			}
+		},
 	  ]
 });
 

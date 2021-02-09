@@ -36,7 +36,7 @@ public class EPrescription {
 	
 	// @OneToOne(cascade = CascadeType.MERGE)
     // @JoinColumn(name = "Medicine_id", referencedColumnName = "id")
-	@ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	private MedicinePriceAndQuantity Medicine;
 	
@@ -51,7 +51,7 @@ public class EPrescription {
 	private EPrescriptionStatus Status; 
 	
 	@ManyToOne
-	(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+	(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Pharmacy Pharmacy;
 
 	public EPrescription(){
