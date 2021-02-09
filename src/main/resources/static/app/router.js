@@ -59,6 +59,9 @@ const CounselingPharmacist = { template: '<counselingPharmacist></counselingPhar
 
 const OrderMedicinePharmacyAdmin = { template: '<orderMedicinePharmacyAdmin></orderMedicinePharmacyAdmin>' }
 
+const PharmacistVacatinRequest = { template: '<pharmacistVacatinRequest></pharmacistVacatinRequest>' }
+const DermatologistVacatinRequest = { template: '<dermatologistVacatinRequest></dermatologistVacatinRequest>' }
+
 const router = new VueRouter({
 	  mode: 'hash',
 	  routes: [
@@ -383,6 +386,22 @@ const router = new VueRouter({
 				content: PatientComplaints
 			}
 		},
+	    { 
+	    	path: '/pharmacistVacatinRequest', 
+	    	name : 'pharmacistVacatinRequest', 
+			components: {
+				pageHeader: PharmacistHeader,
+				content: PharmacistVacatinRequest
+			}
+		},
+			{ 
+				path: '/dermatologistVacatinRequest', 
+				name : 'dermatologistVacatinRequest', 
+				components: {
+					pageHeader: DermatologistHeader,
+					content: DermatologistVacatinRequest
+				}
+	    }
 	  ]
 });
 

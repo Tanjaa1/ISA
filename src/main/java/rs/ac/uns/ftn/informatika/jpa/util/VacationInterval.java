@@ -40,9 +40,11 @@ public class VacationInterval {
 	// @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	// private Pharmacist Pharmacist;
 	
-	public VacationInterval(){}
+	public VacationInterval(){
+		Approved=false;
+	}
 
-	public VacationInterval(long id, Date dateStart, Date dateEnd, Boolean approved) {
+	public VacationInterval(Long id, Date dateStart, Date dateEnd, Boolean approved) {
 		super();
 		Id = id;
 		DateStart = dateStart;
@@ -51,12 +53,12 @@ public class VacationInterval {
 	}
 
 
-	public long getId() {
+	public Long getId() {
 		return Id;
 	}
 
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		Id = id;
 	}
 

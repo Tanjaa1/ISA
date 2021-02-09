@@ -43,7 +43,7 @@ public class PharmacyDTO {
 		}
 	}
 
-	public long getId() {
+	public Long getId() {
 		return Id;
 	}
 
