@@ -1,8 +1,8 @@
 package rs.ac.uns.ftn.informatika.jpa.repository.Interface;
 
-
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-
+import java.util.List;
 
 import rs.ac.uns.ftn.informatika.jpa.model.Dermatologist;
 
