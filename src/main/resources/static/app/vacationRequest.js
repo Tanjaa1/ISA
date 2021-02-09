@@ -3,8 +3,8 @@ Vue.component("pharmacistVacatinRequest", {
 		return {
 			user:null,
             vacation:{
-                DateStart:null,
-                DateEnd:null               
+                dateStart:null,
+                dateEnd:null               
             }
 		}
 	},
@@ -24,14 +24,13 @@ Vue.component("pharmacistVacatinRequest", {
 	`,
 	methods: {
 		Request: function(){
-            this.vacation.DateStart=document.getElementById("dateS").value
-            alert(this.vacation.DateStart)
-            this.vacation.DateEnd=document.getElementById("dateE").value
+            this.vacation.dateStart=document.getElementById("dateS").value
+            this.vacation.dateEnd=document.getElementById("dateE").value
 			axios
-				.post("/vacation/add",this.vacation)
+				.post("/vacation/addPharmacistVacation/"+'4',this.vacation)
 				.then(response => {
+                    alert("Your request has been sent!")
 				})
-
 				.catch(error => {
 				})
 		}
@@ -64,14 +63,13 @@ Vue.component("dermatologistVacatinRequest", {
 	`,
 	methods: {
 		Request: function(){
-            this.vacation.DateStart=document.getElementById("dateS").value
-            alert(this.vacation.DateStart)
-            this.vacation.DateEnd=document.getElementById("dateE").value
+            this.vacation.dateStart=document.getElementById("dateS").value
+            this.vacation.dateEnd=document.getElementById("dateE").value
 			axios
-				.post("/vacation/add",this.vacation)
+				.post("/vacation/addDermatologistVacation/"+'6',this.vacation)
 				.then(response => {
+                    alert("Your request has been sent!")
 				})
-
 				.catch(error => {
 				})
 		}
