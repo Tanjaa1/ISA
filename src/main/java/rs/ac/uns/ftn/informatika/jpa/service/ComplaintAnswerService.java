@@ -2,7 +2,6 @@ package rs.ac.uns.ftn.informatika.jpa.service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,7 +16,6 @@ import rs.ac.uns.ftn.informatika.jpa.dto.ComplaintDTO;
 import rs.ac.uns.ftn.informatika.jpa.dto.PatientDTO;
 import rs.ac.uns.ftn.informatika.jpa.model.Complaint;
 import rs.ac.uns.ftn.informatika.jpa.model.ComplaintAnswer;
-import rs.ac.uns.ftn.informatika.jpa.model.Patient;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IComplaintAnswerRepository;
 import rs.ac.uns.ftn.informatika.jpa.service.Interface.IComplaintAnswerService;
 import rs.ac.uns.ftn.informatika.jpa.service.Interface.IComplaintService;

@@ -75,29 +75,15 @@ public class ExaminationController {
 	@GetMapping(value = "/getDermatologistByPatientId/{patientId}") 
 	public ResponseEntity<Set<DermatologistDTO>> getDermatologistByPatientId(@PathVariable Long patientId) throws Exception 
 	{
-		Set<DermatologistDTO> dermatologists= new HashSet();
-		List<ExaminationDTO> examinations=getAllExaminations();
-
-		for (ExaminationDTO examinationDTO : examinations) {
-			if(patientId==examinationDTO.getPatient().getId()){
-				 dermatologists.add(examinationDTO.getDermatologist());
-			}
-		}	
+		Set<DermatologistDTO> dermatologists=examinationService.getDermatologistByPatientId(patientId);
 		return dermatologists == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(dermatologists);
 	}
 
 	@GetMapping(value = "/getPharmaciesByPatientId/{patientId}") 
 	public ResponseEntity<Set<PharmacyDTO>> getPharmaciesByPatientId(@PathVariable Long patientId) throws Exception 
 	{
-		Set<PharmacyDTO> pharmaciesDTOs= new HashSet();
-		List<ExaminationDTO> councelingDTOs=getAllExaminations();
-
-		for (ExaminationDTO councelingDTO : councelingDTOs) {
-			if(patientId==councelingDTO.getPatient().getId()){
-				pharmaciesDTOs.add(councelingDTO.getPharmacy());
-			}
-		}	
-		return pharmaciesDTOs == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(pharmaciesDTOs);
+		Set<PharmacyDTO> pharmacies=examinationService.getPharmaciesByPatientId(patientId);
+		return pharmacies == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(pharmacies);
 	}
 
 	@GetMapping(value = "/getFreeExaminationByDermatologist/{id}")

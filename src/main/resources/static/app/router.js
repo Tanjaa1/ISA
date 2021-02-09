@@ -38,6 +38,8 @@ const RegistrationMedicine = { template: '<registrationMedicine></registrationMe
 const RegistrationPharmacyAdmin = { template: '<registrationPharmacyAdmin></registrationPharmacyAdmin>' } 
 const RegistrationPharmacist= { template: '<registrationPharmacist></registrationPharmacist>' } 
 const Complaints= { template: '<complaints></complaints>' } 
+const PatientComplaints= { template: '<complaintPatient></complaintPatient>' } 
+
 
 
 const EmailConfirmation = { template: '<emailConfirmation></emailConfirmation>' } 
@@ -363,6 +365,13 @@ const router = new VueRouter({
 			name : 'complaints', 
 			components: {
 				content: Complaints
+			}
+		},
+		{ 
+			path: '/complaintPatient', 
+			name : 'complaintPatient', 
+			components: {
+				content: PatientComplaints
 			}
 		},
 	  ]

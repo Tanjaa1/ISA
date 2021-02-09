@@ -5,15 +5,19 @@ import java.sql.Date;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.xml.crypto.Data;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import rs.ac.uns.ftn.informatika.jpa.dto.DermatologistDTO;
 import rs.ac.uns.ftn.informatika.jpa.dto.ExaminationDTO;
 import rs.ac.uns.ftn.informatika.jpa.model.Dermatologist;
+import rs.ac.uns.ftn.informatika.jpa.dto.PharmacyDTO;
 import rs.ac.uns.ftn.informatika.jpa.model.Examination;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IDermatologistRepository;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IExaminationRpository;
@@ -112,5 +116,30 @@ public class ExaminationService implements IExaminationService {
         e.setStartTime(examination.getStartTime());
         e.setEndTime(examination.getEndTime());
         return examinationRepository.save(e);
+    }
+	public Set<DermatologistDTO> getDermatologistByPatientId(Long patientId) {
+        Set<DermatologistDTO> dermatologists= new HashSet();
+		List<ExaminationDTO> examinations=getAllExaminations();
+
+		for (ExaminationDTO examinationDTO : examinations) {
+			if(patientId==examinationDTO.getPatient().getId()){
+				 dermatologists.add(examinationDTO.getDermatologist());
+			}
+		}	
+        if(dermatologists.isEmpty()) return null;
+        else return dermatologists;
+	}
+
+	public Set<PharmacyDTO> getPharmaciesByPatientId(Long patientId) {
+        Set<PharmacyDTO> pharmaciesDTOs= new HashSet();
+		List<ExaminationDTO> councelingDTOs=getAllExaminations();
+
+		for (ExaminationDTO councelingDTO : councelingDTOs) {
+			if(patientId==councelingDTO.getPatient().getId()){
+				pharmaciesDTOs.add(councelingDTO.getPharmacy());
+			}
+		}
+        if(pharmaciesDTOs.isEmpty()) return null;	
+        else return pharmaciesDTOs;
 	}
 }

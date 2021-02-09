@@ -69,4 +69,10 @@ public class ComplaintController {
 		return complaintDTO;
 	}
 
+	@GetMapping(value = "/getAllSubjects/{id}")
+	public Set<String> getAllSubjects(@PathVariable Long id) {
+		Set<String> subjects =complaintService.getAllSubjects(id);
+		return subjects;
+	}
+
 }

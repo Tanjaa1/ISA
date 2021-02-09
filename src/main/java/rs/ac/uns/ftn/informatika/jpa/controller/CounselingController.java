@@ -59,36 +59,23 @@ public class CounselingController {
 
 	@GetMapping(value = "/getAllExaminations")
 	public List<CouncelingDTO> getAllCounselings() {
-		List<CouncelingDTO> councelingDTOs =counselingService.getAllExaminations();
+		List<CouncelingDTO> councelingDTOs =counselingService.getAllCounselings();
 		return councelingDTOs;
 	}
 
 	@GetMapping(value = "/getPharmacistsByPatientId/{patientId}") 
 	public ResponseEntity<Set<PharmacistDTO>> getPharmacisstByPatientId(@PathVariable Long patientId) throws Exception 
 	{
-		Set<PharmacistDTO> pharmacistDTOs= new HashSet();
-		List<CouncelingDTO> councelingDTOs=getAllCounselings();
-
-		for (CouncelingDTO councelingDTO : councelingDTOs) {
-			if(patientId==councelingDTO.getPatient().getId()){
-				pharmacistDTOs.add(councelingDTO.getPharmacist());
-			}
-		}	
+		Set<PharmacistDTO> pharmacistDTOs=counselingService.getPharmacisstByPatientId(patientId);
+		
 		return pharmacistDTOs == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(pharmacistDTOs);
 	}
 
 	@GetMapping(value = "/getPharmaciesByPatientId/{patientId}") 
 	public ResponseEntity<Set<PharmacyDTO>> getPharmaciesByPatientId(@PathVariable Long patientId) throws Exception 
 	{
-		Set<PharmacyDTO> pharmaciesDTOs= new HashSet();
-		List<CouncelingDTO> councelingDTOs=getAllCounselings();
-
-		for (CouncelingDTO councelingDTO : councelingDTOs) {
-			if(patientId==councelingDTO.getPatient().getId()){
-				pharmaciesDTOs.add(councelingDTO.getPharmacy());
-			}
-		}	
-		return pharmaciesDTOs == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(pharmaciesDTOs);
+		Set<PharmacyDTO> pharmacistDTOs=counselingService.getPharmaciesByPatientId(patientId);
+		return pharmacistDTOs == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(pharmacistDTOs);
 	}
 
 	@PutMapping(value = "/cancelCounseling")

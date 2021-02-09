@@ -169,7 +169,8 @@ public class PatientService implements IPatientService {
         for (EPrescriptionDTO s : prescriptions) {
 			pharmacies.add(new PharmacyDTO(s.getPharmacy()));
         }
-        return pharmacies;
+		if(pharmacies.isEmpty()) return null;
+		else return pharmacies;
 	}
 
 	@Override
