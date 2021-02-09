@@ -14,6 +14,8 @@ import rs.ac.uns.ftn.informatika.jpa.model.Examination;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IDermatologistRepository;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IExaminationRpository;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IPatientRepository;
+import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IPharmacistRepository;
+import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IPharmacyRepository;
 import rs.ac.uns.ftn.informatika.jpa.service.Interface.IExaminationService;
 
 @Service
@@ -27,6 +29,9 @@ public class ExaminationService implements IExaminationService {
 
     @Autowired
     private IDermatologistRepository dermatologistRepository;
+
+    @Autowired
+    private IPharmacyRepository pharmacyRepository;
 
     public List<Examination> findPastExaminationsByPatientId(Long id) {
         List<Examination> patientExaminations = new ArrayList<>();
@@ -83,6 +88,16 @@ public class ExaminationService implements IExaminationService {
 	public Examination schedule(Examination examination) throws Exception{
         Examination e=examinationRepository.getOne(examination.getId());
         e.setPatient(patientRepository.getOne(examination.getPatient().getId()));
+        return examinationRepository.save(e);
+	}
+
+	public Examination newExamination(Examination examination) throws Exception {
+		Examination e=new Examination();
+        e.setDermatologist(dermatologistRepository.getOne(examination.getDermatologist().getId()));
+        e.setPatient(patientRepository.getOne(examination.getPatient().getId()));
+        e.setPharmacy(pharmacyRepository.getOne(examination.getPharmacy().getId()));
+        e.setStartTime(examination.getStartTime());
+        e.setEndTime(examination.getEndTime());
         return examinationRepository.save(e);
 	}
 }

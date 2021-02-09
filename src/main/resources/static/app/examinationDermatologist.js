@@ -10,6 +10,17 @@ Vue.component("examinationDermatologist", {
                 therapyDuration:0,
                 issuingDate:new Date().now,
             },
+            newExamination: {
+                startTime:null,
+                endTime:null,
+                patient:null,
+                dermatologist:null,
+                id:null,
+                idDone:false,
+                pharmacy:null,
+                report:"",
+                price:1000.00             
+            },
             medicineChoose:null,
             future:null
 		}
@@ -172,13 +183,13 @@ Vue.component("examinationDermatologist", {
                                                             <label>Choose end time</label>
                                                             <input type="time" id="end" class="form-control">
                                                         </div>
-                                                    </div>			
+                                                    </div>
+                                                    <button id="cancelF" type="button" class="btn btn-info btn-lg " v-on:click="NewEx()">Schedule</button>			
                                                 </div>
                                             </div>
                                         </div></br>
             </div>
                     <div class="modal-footer">
-                        <button id="cancelF" type="button" class="btn btn-info btn-lg " data-dismiss="modal">Cancel</button>
                     </div>
                 </div>
                 </div>
@@ -206,7 +217,7 @@ Vue.component("examinationDermatologist", {
                         this.prescriptionDTO.medicine=pharmacyMedicines[m]
                         axios.post('/eprescription/add/'+this.examination.patient.id, this.prescriptionDTO)
                             .then(function (response) {
-                                alert("Prescription was successfully issued!")
+                                alert("The prescription was successfully issued!")
                                 location.reload()
                             })
                             .catch(function (error) {
@@ -240,6 +251,19 @@ Vue.component("examinationDermatologist", {
             .catch(function (error) {
             });
             
+        },
+        NewEx:function(){
+            this.newExamination.startTime=document.getElementById("date").value+'T'+document.getElementById("start").value
+            this.newExamination.endTime=document.getElementById("date").value+'T'+document.getElementById("end").value
+            this.newExamination.patient=this.examination.patient
+            this.newExamination.dermatologist=this.examination.dermatologist 
+            this.newExamination.pharmacy=this.examination.pharmacy
+            axios.post('/examination/add',this.newExamination)
+            .then(function (response) {
+                alert("The examination was successfully scheduled!")
+            })
+            .catch(function (error) {
+            });
         }
 	}
 });
