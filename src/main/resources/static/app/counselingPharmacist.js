@@ -10,6 +10,17 @@ Vue.component("counselingPharmacist", {
                 therapyDuration:0,
                 issuingDate:new Date().now,
             },
+            newExamination: {
+                startTime:null,
+                endTime:null,
+                patient:null,
+                dermatologist:null,
+                id:null,
+                idDone:false,
+                pharmacy:null,
+                report:"",
+                price:1000.00             
+            },
             medicineChoose:null
 		}
 	},
@@ -52,7 +63,7 @@ Vue.component("counselingPharmacist", {
         </div>
         <div class="row search">
             <button type="button" style="color:white" class="btn2 btn-default" data-dismiss="modal"  data-toggle="modal" data-target="#PrescriptionModal">Prescription</button>&nbsp&nbsp&nbsp&nbsp&nbsp
-            <button type="button" style="color:white" class="btn2 btn-default" data-dismiss="modal" v-on:click="Schedule()">Schedule the next review</button>&nbsp&nbsp&nbsp&nbsp&nbsp
+            <button type="button" style="color:white" class="btn2 btn-default" data-dismiss="modal" data-toggle="modal" data-target="#Schedule">Schedule the next review</button>&nbsp&nbsp&nbsp&nbsp&nbsp
             <button type="button" style="color:white" class="btn2 btn-default" data-dismiss="modal" v-on:click="Finish()">Finish</button>	
         </div>
         <div>
@@ -101,6 +112,41 @@ Vue.component("counselingPharmacist", {
 					</div>
 				</div>
 			</div>  
+
+
+
+            <div class="modal fade" tabindex="-1" role="dialog" id="Schedule">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">EPrescription</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="container">
+                            <div class="md-form mx-5 my-5">
+                                <label>Choose date:</label></br>
+                                <input style="height:25px" id="date" type="date"></input>
+                            </div>
+                            <div class="md-form mx-5 my-5">
+                                <label>Choose start time</label>
+                                <input type="time" id="start" class="form-control">
+                            </div>
+                            <div class="md-form mx-5 my-5">
+                                <label>Choose end time</label>
+                                <input type="time" id="end" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                    <button id="cancelF" type="button" class="btn btn-info btn-lg " v-on:click="NewEx()">Schedule</button>	
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div> 
 		</div>
     </div>			
 	`,
@@ -135,6 +181,19 @@ Vue.component("counselingPharmacist", {
                         }
                     }
                 }
+        },
+        NewEx:function(){
+            this.newExamination.startTime=document.getElementById("date").value+'T'+document.getElementById("start").value
+            this.newExamination.endTime=document.getElementById("date").value+'T'+document.getElementById("end").value
+            this.newExamination.patient=this.examination.patient
+            this.newExamination.pharmacist=this.examination.pharmacist 
+            this.newExamination.pharmacy=this.examination.pharmacy
+            axios.post('/counseling/add',this.newExamination)
+            .then(function (response) {
+                alert("The examination was successfully scheduled!")
+            })
+            .catch(function (error) {
+            });
         }
 	}
 });

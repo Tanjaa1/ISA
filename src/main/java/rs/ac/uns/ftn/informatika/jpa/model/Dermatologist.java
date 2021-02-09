@@ -119,4 +119,7 @@ public class Dermatologist extends User{
 	
 	}
 
+	public String getFullName(){
+		return getName()+" "+getSurname();
+	}
 }

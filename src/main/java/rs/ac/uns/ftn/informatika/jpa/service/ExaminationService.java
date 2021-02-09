@@ -11,6 +11,8 @@ import java.util.Set;
 
 import javax.xml.crypto.Data;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,18 +21,23 @@ import rs.ac.uns.ftn.informatika.jpa.dto.ExaminationDTO;
 import rs.ac.uns.ftn.informatika.jpa.model.Dermatologist;
 import rs.ac.uns.ftn.informatika.jpa.dto.PharmacyDTO;
 import rs.ac.uns.ftn.informatika.jpa.model.Examination;
+import rs.ac.uns.ftn.informatika.jpa.repository.Interface.ICounselingRpository;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IDermatologistRepository;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IExaminationRpository;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IPatientRepository;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IPharmacistRepository;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IPharmacyRepository;
 import rs.ac.uns.ftn.informatika.jpa.service.Interface.IExaminationService;
+import rs.ac.uns.ftn.informatika.jpa.util.WorkingTime;
 
 @Service
 public class ExaminationService implements IExaminationService {
 
     @Autowired
     private IExaminationRpository examinationRepository;
+
+    @Autowired
+    private ICounselingRpository counselingRepository;
     
     @Autowired
     private IPatientRepository patientRepository;
@@ -40,6 +47,12 @@ public class ExaminationService implements IExaminationService {
 
     @Autowired
     private IPharmacyRepository pharmacyRepository;
+
+    
+	@Autowired
+	private EmailService emailService;
+
+	private Logger logger = LoggerFactory.getLogger(ResrvationService.class);
 
     public List<Examination> findPastExaminationsByPatientId(Long id) {
         List<Examination> patientExaminations = new ArrayList<>();
@@ -108,14 +121,24 @@ public class ExaminationService implements IExaminationService {
         return examinationRepository.save(e);
 	}
 
-	public Examination newExamination(Examination examination) throws Exception {
+	public ExaminationDTO newExamination(Examination examination) throws Exception {
+        if(!examinationRepository.isExaminationExistByDermatologist(examination.getStartTime(),examination.getEndTime(),examination.getDermatologist().getId()).isEmpty())
+            return null;           
+        if(!examinationRepository.isExaminationExistByPatient(examination.getStartTime(),examination.getEndTime(),examination.getPatient().getId()).isEmpty())
+            return null;
+        if(!counselingRepository.isCounselingExistByPatient(examination.getStartTime(),examination.getEndTime(),examination.getPatient().getId()).isEmpty())
+            return null;
+        if(!isDermatologistWork(examination))
+            return null;
 		Examination e=new Examination();
         e.setDermatologist(dermatologistRepository.getOne(examination.getDermatologist().getId()));
         e.setPatient(patientRepository.getOne(examination.getPatient().getId()));
         e.setPharmacy(pharmacyRepository.getOne(examination.getPharmacy().getId()));
         e.setStartTime(examination.getStartTime());
         e.setEndTime(examination.getEndTime());
-        return examinationRepository.save(e);
+        ExaminationDTO examinationDTO= new ExaminationDTO(examinationRepository.save(e));
+        emailSender(e);
+        return examinationDTO;
     }
 	public Set<DermatologistDTO> getDermatologistByPatientId(Long patientId) {
         Set<DermatologistDTO> dermatologists= new HashSet();
@@ -141,5 +164,23 @@ public class ExaminationService implements IExaminationService {
 		}
         if(pharmaciesDTOs.isEmpty()) return null;	
         else return pharmaciesDTOs;
+	}
+
+    private Boolean isDermatologistWork(Examination examination) {
+        for(WorkingTime w: examination.getDermatologist().getWorkingSchedule())
+            if(examination.getStartTime().isAfter(w.getTimeStart()) || examination.getEndTime().isAfter(w.getTimeEnd()))
+                return true;
+        return false;
+    }
+
+    private void emailSender(Examination examination)
+	{
+		try {
+			String subject="Examination "+ examination.getStartTime()+" " +examination.getEndTime();
+			String text="Dear "+ examination.getPatient().getFullName()+",\nThank you for your trust!\n\n!"+examination.getDermatologist().getFullName();
+			emailService.sendNotificaitionAsync(examination.getPatient().getEmail(),subject,text);
+		}catch( Exception e ){
+			logger.info("Error sending email: " + e.getMessage());
+		}
 	}
 }
