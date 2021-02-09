@@ -11,6 +11,8 @@ import java.util.Set;
 
 import javax.xml.crypto.Data;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -45,6 +47,12 @@ public class ExaminationService implements IExaminationService {
 
     @Autowired
     private IPharmacyRepository pharmacyRepository;
+
+    
+	@Autowired
+	private EmailService emailService;
+
+	private Logger logger = LoggerFactory.getLogger(ResrvationService.class);
 
     public List<Examination> findPastExaminationsByPatientId(Long id) {
         List<Examination> patientExaminations = new ArrayList<>();
@@ -128,7 +136,9 @@ public class ExaminationService implements IExaminationService {
         e.setPharmacy(pharmacyRepository.getOne(examination.getPharmacy().getId()));
         e.setStartTime(examination.getStartTime());
         e.setEndTime(examination.getEndTime());
-        return new ExaminationDTO(examinationRepository.save(e));
+        ExaminationDTO examinationDTO= new ExaminationDTO(examinationRepository.save(e));
+        emailSender(e);
+        return examinationDTO;
     }
 	public Set<DermatologistDTO> getDermatologistByPatientId(Long patientId) {
         Set<DermatologistDTO> dermatologists= new HashSet();
@@ -162,4 +172,15 @@ public class ExaminationService implements IExaminationService {
                 return true;
         return false;
     }
+
+    private void emailSender(Examination examination)
+	{
+		try {
+			String subject="Examination "+ examination.getStartTime()+" " +examination.getEndTime();
+			String text="Dear "+ examination.getPatient().getFullName()+",\nThank you for your trust!\n\n!"+examination.getDermatologist().getFullName();
+			emailService.sendNotificaitionAsync(examination.getPatient().getEmail(),subject,text);
+		}catch( Exception e ){
+			logger.info("Error sending email: " + e.getMessage());
+		}
+	}
 }

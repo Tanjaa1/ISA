@@ -93,4 +93,8 @@ public class Pharmacist extends User {
 		Pharmacy = pharmacy;
 		Marks = marks;
 	}
+
+	public String getFullName(){
+		return getName()+" "+getSurname();
+	}
 }

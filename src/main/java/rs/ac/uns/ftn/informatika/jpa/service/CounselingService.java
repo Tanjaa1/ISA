@@ -6,6 +6,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,6 +40,11 @@ public class CounselingService implements ICounselingService {
 
     @Autowired
     private IPharmacyRepository pharmacyRepository;
+    
+	@Autowired
+	private EmailService emailService;
+
+	private Logger logger = LoggerFactory.getLogger(ResrvationService.class);
 
 	public List<Counseling> findPastCounselingsByPatientId(Long id) {
         List<Counseling> patientCounselings = new ArrayList<>();
@@ -128,7 +135,9 @@ public class CounselingService implements ICounselingService {
         c.setPharmacy(pharmacyRepository.getOne(counseling.getPharmacy().getId()));
         c.setStartTime(counseling.getStartTime());
         c.setEndTime(counseling.getEndTime());
-        return new CouncelingDTO(counselingRepository.save(c));
+        CouncelingDTO councelingDTO= new CouncelingDTO(counselingRepository.save(c));
+        emailSender(c);
+        return councelingDTO;
 	}
 
     private Boolean isDermatologistWork(Counseling counseling) {
@@ -137,5 +146,14 @@ public class CounselingService implements ICounselingService {
                 return true;
         return false;
     }
-
+    private void emailSender(Counseling counseling)
+	{
+		try {
+			String subject="Counseling "+ counseling.getStartTime()+" " +counseling.getEndTime();
+			String text="Dear "+ counseling.getPatient().getFullName()+",\nThank you for your trust!\n\n!"+counseling.getPharmacist().getFullName();
+			emailService.sendNotificaitionAsync(counseling.getPatient().getEmail(),subject,text);
+		}catch( Exception e ){
+			logger.info("Error sending email: " + e.getMessage());
+		}
+	}
 }
