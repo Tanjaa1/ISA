@@ -48,10 +48,12 @@ Vue.component("pharmacistHeader", {
         CalendarShow: function () {
         },
         VacationShow: function () {
+            this.$router.push('pharmacistVacationRequest');
         },
         CurrentExaminationShow: function () {         
         },
-        MakingExaminationShow: function () {           
+        MakingExaminationShow: function () {
+            this.$router.push('createCounselingPharmacist');             
         },
         ReservationShow:function(){    
             this.$router.push('reservation');         
