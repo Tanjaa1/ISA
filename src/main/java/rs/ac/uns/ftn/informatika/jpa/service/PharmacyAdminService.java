@@ -67,17 +67,14 @@ public class PharmacyAdminService implements IPharmacyAdminService {
     
     public Boolean sendingMail(String pharmacyName,Medicine medicine)
     {
-        List<PharmacyAdmin> pharmacyAdmins = pharmacyAdminRepository.findAll();  
-        for (PharmacyAdmin pharmacyAdmin : pharmacyAdmins) {
-            if(pharmacyAdmin.getPharmacy().equals(pharmacyName)){
-                try{
-                    String subject="Medicine";
-                    String text="Dear "+ pharmacyAdmin.getName()+" "+pharmacyAdmin.getSurname()+ ",\nNeed medicine:"+medicine.getName();
-                    emailService.sendNotificaitionAsync(pharmacyAdmin.getEmail(), subject, text);
-                }catch(Exception e){
-                        return false;
-                }
-            }
+        try{
+            PharmacyAdmin pharmacyAdmin = pharmacyAdminRepository.findPharmacyAdminByPharmacyName(pharmacyName);
+            String subject="medicine for procurement";
+            String text="Dear "+ pharmacyAdmin.getName()+" "+pharmacyAdmin.getSurname()+ ",\n\nA "
+                                +medicine.getName()+" should be ordered!";
+            emailService.sendNotificaitionAsync(pharmacyAdmin.getEmail(), subject, text);
+        }catch(Exception e){
+            return false;
         }
         return true;
     }

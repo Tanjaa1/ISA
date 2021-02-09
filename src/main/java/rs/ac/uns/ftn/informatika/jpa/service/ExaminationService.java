@@ -78,8 +78,9 @@ public class ExaminationService implements IExaminationService {
         return patientExaminations;
     }
 
-    public Examination update(Long id) throws Exception {
-        Examination e=examinationRepository.getOne(id);
+    public Examination finish(Examination examination) throws Exception {
+        Examination e=examinationRepository.getOne(examination.getId());
+        e.setReport(examination.getReport());
         e.setIsDone(true);
         return examinationRepository.save(e);
     }

@@ -2,7 +2,17 @@ Vue.component("examinationDermatologist", {
 	data: function () {
 		return {
 			patient:null,
-            examination:null,
+            examination:{
+                startTime:{},
+                endTime:{},
+                patient:{},
+                dermatologist:{},
+                id:{},
+                idDone:false,
+                pharmacy:{},
+                report:"",
+                price:0.00  
+            },
             medicines:[],
             med:null,
             prescriptionDTO:{
@@ -59,20 +69,30 @@ Vue.component("examinationDermatologist", {
             })
 	},
 	template: `
-	<div id="ExaminationDermatologist">
-        <br><br>	
+	<div id="ExaminationDermatologist" class="BackendImagePhysician">
+        <br><br>
         <div class="row search">
-            <div class="col-sm-5">Patient:</div>
-            <div class="col-sm-4">{{this.examination.patient.name}} {{this.examination.patient.surname}}</div><br><br>
-            <div class="col-sm-5">Alergies:</div>
-            <div class="col-sm-4"><a v-for="a in this.examination.patient.drugAllargies">{{a}}</br></a></div><br><br>          
+            <div class="col-sm-3">Date:</div>
+            <div class="col-sm-5">{{this.examination.startTime.split('T')[0]}}  {{this.examination.startTime.split('T')[1]}}-{{this.examination.endTime.split('T')[1]}}</div>
+        </div>
+        <div class="row search">
+            <div class="col-sm-3">Patient:</div>
+            <div class="col-sm-5">{{this.examination.patient.name}} {{this.examination.patient.surname}}</div><br>
+        
+        </div>
+        <div class="row search">
+            <div class="col-sm-3">Alergies:</div>
+            <div class="col-sm-5"><a v-for="a in this.examination.patient.drugAllargies">{{a}}</br></a></div><br>
+        
+        </div>
+        <div class="row search">        
             <div class="col-sm-5">Report:</div>
             <textarea id="report" class="form-control" rows="4" cols="50" style="height:200px" v-model="examination.report"></textarea>
         </div>
         <div class="row search">
-            <button type="button" style="color:white" class="btn2 btn-default" data-dismiss="modal"  data-toggle="modal" data-target="#PrescriptionModal">Prescription</button>&nbsp&nbsp&nbsp&nbsp&nbsp
-            <button type="button" style="color:white" class="btn2 btn-default" data-dismiss="modal" data-toggle="modal" data-target="#Schedule">Schedule the next review</button>&nbsp&nbsp&nbsp&nbsp&nbsp
-            <button type="button" style="color:white" class="btn2 btn-default" data-dismiss="modal" v-on:click="Finish()">Finish</button>	
+            <button type="button" style="color:white" class="btn btn-default" data-dismiss="modal"  data-toggle="modal" data-target="#PrescriptionModal">Prescription</button>&nbsp&nbsp&nbsp&nbsp&nbsp
+            <button type="button" style="color:white" class="btn btn-default" data-dismiss="modal" data-toggle="modal" data-target="#Schedule">Schedule the next review</button>&nbsp&nbsp&nbsp&nbsp&nbsp
+            <button type="button" style="color:white" class="btn btn-default" data-dismiss="modal" v-on:click="Finish()">Finish</button>	
         </div>
         <div>
 			<div class="modal fade" tabindex="-1" role="dialog" id="PrescriptionModal">
@@ -111,10 +131,10 @@ Vue.component("examinationDermatologist", {
                         <div v-else></br>
                         </div></br>
                         Therapy duration:</br>
-                        <input type="number" :disabled="this.medicineChoose==null" class = "form-control input" v-model="prescriptionDTO.therapyDuration"/><br/>
+                        <input  min="0" type="number" :disabled="this.medicineChoose==null" class = "form-control input" v-model="prescriptionDTO.therapyDuration"/><br/>
 						<div class="modal-footer">
-							<button id="addF" type="button" class="btn btn-info btn-lg " v-on:click="AddPrescritpion()">Create</button>
-							<button id="cancelF" type="button" class="btn btn-info btn-lg " data-dismiss="modal">Cancel</button>
+							<button id="addF" type="button" class="btn btn-info btn-lg" v-on:click="AddPrescritpion()">Create</button>
+							<button id="cancelF" type="button" class="btn btn-info btn-lg" data-dismiss="modal">Cancel</button>
 						</div>
 					</div>
 					</div>
@@ -172,25 +192,25 @@ Vue.component("examinationDermatologist", {
                                                 <div id="new" class="container tab-pane fade"><br>
                                                     <div class="container">
                                                         <div class="md-form mx-5 my-5">
-                                                            <label>Choose date:</label></br>
+                                                            Choose date:</br>
                                                             <input style="height:25px" id="date" type="date"></input>
                                                         </div>
                                                         <div class="md-form mx-5 my-5">
-                                                            <label>Choose start time</label>
+                                                            Choose start time
                                                             <input type="time" id="start" class="form-control">
                                                         </div>
                                                         <div class="md-form mx-5 my-5">
-                                                            <label>Choose end time</label>
+                                                            Choose end time
                                                             <input type="time" id="end" class="form-control">
                                                         </div>
                                                     </div>
-                                                    <button id="cancelF" type="button" class="btn btn-info btn-lg " v-on:click="NewEx()">Schedule</button>			
+                                                    <hr>
+                                                    <button id="cancelF" type="button" class="btn btn-info btn-lg " v-on:click="NewEx()">Schedule</button>
                                                 </div>
                                             </div>
                                         </div></br>
-            </div>
-                    <div class="modal-footer">
-                    </div>
+                                    </div>			
+                    
                 </div>
                 </div>
             </div>
@@ -200,7 +220,7 @@ Vue.component("examinationDermatologist", {
 	`,
 	methods: {
         Finish:function(){    
-            axios.put('/examination/update', this.examination)
+            axios.put('/examination/finish', this.examination)
 				.then(function (response) {
 				})
 				.catch(function (error) {

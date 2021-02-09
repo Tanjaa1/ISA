@@ -70,9 +70,10 @@ public class CounselingService implements ICounselingService {
        return patientCounselings;
 	}
 
-	public Counseling update(long id)throws Exception 
+	public Counseling finish(Counseling counseling)throws Exception 
     {
-            Counseling e=counselingRepository.getOne(id);
+            Counseling e=counselingRepository.getOne(counseling.getId());
+            e.setReport(counseling.getReport());
             e.setIsDone(true);
             return counselingRepository.save(e);
 	}

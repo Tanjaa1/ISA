@@ -12,6 +12,7 @@ import rs.ac.uns.ftn.informatika.jpa.model.EPrescription;
 import rs.ac.uns.ftn.informatika.jpa.model.MedicinePriceAndQuantity;
 import rs.ac.uns.ftn.informatika.jpa.model.Patient;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IEPrescriptionRepository;
+import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IMedicinePriceAndQuantity;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IPatientRepository;
 import rs.ac.uns.ftn.informatika.jpa.service.Interface.IEPrescriptionService;
 import rs.ac.uns.ftn.informatika.jpa.service.Interface.IPatientService;
@@ -29,6 +30,8 @@ public class EPrescriptionService implements IEPrescriptionService {
     @Autowired
     private IPatientRepository patientRepository;
 
+    @Autowired
+    private IMedicinePriceAndQuantity medicinePriceAndQUantityRepository;
     @Override
     public EPrescription findOne(Long id) {
         // TODO Auto-generated method stub
@@ -42,6 +45,7 @@ public class EPrescriptionService implements IEPrescriptionService {
         ePrescription.setMedicine(ePrescriptionDTO.getMedicine());
         ePrescription.setTherapyDuration(ePrescriptionDTO.getTherapyDuration());
         ePrescription.setIssuingDate(new Date());
+        ePrescription.setMedicine(medicinePriceAndQUantityRepository.getOne(ePrescription.getMedicine().getId()));
         EPrescription ep= ePrescriotionRepository.save(ePrescription);
         Patient patient= patientRepository.getOne(id);
         try{

@@ -9,4 +9,5 @@ public interface ICounselingService {
     public List<Counseling> findPastCounselingsByPatientId(Long id);
     public List<Counseling> findFutureCounselingsByPatientId(Long id);
     CouncelingDTO newExamination(Counseling counseling) throws Exception;
+    Counseling finish(Counseling counseling)throws Exception;
 }
