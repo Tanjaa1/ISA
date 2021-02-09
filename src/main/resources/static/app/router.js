@@ -59,9 +59,10 @@ const CounselingPharmacist = { template: '<counselingPharmacist></counselingPhar
 
 const OrderMedicinePharmacyAdmin = { template: '<orderMedicinePharmacyAdmin></orderMedicinePharmacyAdmin>' }
 
-const PharmacistVacatinRequest = { template: '<pharmacistVacatinRequest></pharmacistVacatinRequest>' }
-const DermatologistVacatinRequest = { template: '<dermatologistVacatinRequest></dermatologistVacatinRequest>' }
+const PharmacistVacationRequest = { template: '<pharmacistVacationRequest></pharmacistVacationRequest>' }
+const DermatologistVacationRequest = { template: '<dermatologistVacationRequest></dermatologistVacationRequest>' }
 
+const CreateExaminationDermatologist = { template: '<createExaminationDermatologist></createExaminationDermatologist>' }
 const router = new VueRouter({
 	  mode: 'hash',
 	  routes: [
@@ -116,16 +117,16 @@ const router = new VueRouter({
 			}
 	    },
 	    { 
-	    	path: '/dermatologistPatient', 
-	    	name : 'dermatologistPatient', 
+	    	path: '/dermatologistSearchPatients', 
+	    	name : 'dermatologistSearchPatients', 
 			components: {
 				pageHeader: DermatologistHeader,
 				content: DermatologistSearch
 			}
 	    },
 	    { 
-	    	path: '/pharmacistPatient', 
-	    	name : 'pharmacistPatient', 
+	    	path: '/pharmacistSearchPatients', 
+	    	name : 'pharmacistSearchPatients', 
 			components: {
 				pageHeader: PharmacistHeader,
 				content: PharmacistSearch
@@ -387,21 +388,29 @@ const router = new VueRouter({
 			}
 		},
 	    { 
-	    	path: '/pharmacistVacatinRequest', 
-	    	name : 'pharmacistVacatinRequest', 
+	    	path: '/pharmacistVacationRequest', 
+	    	name : 'pharmacistVacationRequest', 
 			components: {
 				pageHeader: PharmacistHeader,
-				content: PharmacistVacatinRequest
+				content: PharmacistVacationRequest
 			}
 		},
 			{ 
-				path: '/dermatologistVacatinRequest', 
-				name : 'dermatologistVacatinRequest', 
+				path: '/dermatologistVacationRequest', 
+				name : 'dermatologistVacationRequest', 
 				components: {
 					pageHeader: DermatologistHeader,
-					content: DermatologistVacatinRequest
+					content: DermatologistVacationRequest
 				}
-	    }
+	    },
+		{ 
+			path: '/createExaminationDermatologist', 
+			name : 'createExaminationDermatologist', 
+			components: {
+				pageHeader: DermatologistHeader,
+				content: CreateExaminationDermatologist
+			}
+	}
 	  ]
 });
 

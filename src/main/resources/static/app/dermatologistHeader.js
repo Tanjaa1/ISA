@@ -42,15 +42,17 @@ Vue.component("dermatologistHeader", {
             this.$router.push('dermatologistInfo');
         },
         PatientsShow: function () {
-            this.$router.push('search');
+            this.$router.push('dermatologistSearchPatients');
         },
         CalendarShow: function () {
         },
         VacationShow: function () {
+            this.$router.push('dermatologistVacationRequest');
         },
         CurrentExaminationShow: function () {         
         },
-        MakingExaminationShow: function () {           
+        MakingExaminationShow: function () { 
+            this.$router.push('createExaminationDermatologist');              
         },
         DermatologistShow: function () {
             this.$router.push('dermatologistHomePage');

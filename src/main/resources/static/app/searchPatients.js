@@ -46,7 +46,7 @@ Vue.component("dermatologistSearchPatients", {
                 	<th style="text-align:center">Surname</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody class="tbodyPatient">
 	            <tr v-for="u in users">
 	            	<td style="text-align:center">{{u.name}}</td>
 	                <td style="text-align:center">{{u.surname}}</td>
@@ -175,7 +175,7 @@ Vue.component("pharmacistSearchPatients", {
                 	<th style="text-align:center">Surname</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody class="tbodyPatient">
 	            <tr v-for="u in users">
 	            	<td style="text-align:center">{{u.name}}</td>
 	                <td style="text-align:center">{{u.surname}}</td>

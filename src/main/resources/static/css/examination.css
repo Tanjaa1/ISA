@@ -1,0 +1,4 @@
+.tbodyPatient {
+    max-height: 700px;
+    overflow: scroll;
+  }
