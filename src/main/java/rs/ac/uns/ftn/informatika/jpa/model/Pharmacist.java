@@ -1,5 +1,9 @@
 package rs.ac.uns.ftn.informatika.jpa.model;
 
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -96,5 +100,30 @@ public class Pharmacist extends User {
 
 	public String getFullName(){
 		return getName()+" "+getSurname();
+	}
+	public boolean checkWorkingTime(LocalDateTime startTime) {
+		for (WorkingTime workingTime : WorkingSchedule) {
+			LocalTime lt1 = startTime.toLocalTime();
+			LocalTime lt2 = workingTime.getTimeStart().toLocalTime();
+			LocalTime lt3 = workingTime.getTimeEnd().toLocalTime();
+			 int start = lt2.compareTo(lt1);
+			 int end = lt3.compareTo(lt1);
+			if(start < 0 && end > 0){
+				return true;
+			}
+		}
+		return false;
+	}
+	public boolean checkVacationTime(LocalDateTime startTime) {
+		for (VacationInterval vacationTime : VacationSchedule) {
+			//LocalDateTime startDateTime = LocalDateTime.ofInstant(vacationTime.getDateStart().toInstant(), ZoneId.systemDefault());
+			Date startDate = Date.from(startTime.atZone(ZoneId.systemDefault()).toInstant());
+			int start = vacationTime.getDateStart().compareTo(startDate);
+			int end = vacationTime.getDateEnd().compareTo(startDate);
+			if(start > 0 || end < 0){
+				return true;
+			}
+		}
+		return false;
 	}
 }

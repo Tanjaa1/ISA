@@ -22,6 +22,14 @@
     margin-left: 36%;
 }
 
+.t {
+    color: white;
+    font-size: 30px;
+    font-weight: 100;
+    font-family: 'Impact';
+    margin-left: 36%;
+}
+
 .card {
     border-radius: 10px;
     background-color: rgb(84, 182, 214);

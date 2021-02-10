@@ -1,6 +1,8 @@
 package rs.ac.uns.ftn.informatika.jpa.service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import rs.ac.uns.ftn.informatika.jpa.dto.PharmacistDTO;
+import rs.ac.uns.ftn.informatika.jpa.dto.PharmacyDTO;
 import rs.ac.uns.ftn.informatika.jpa.model.Pharmacist;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IPharmacistRepository;
 import rs.ac.uns.ftn.informatika.jpa.service.Interface.IPharmacistService;
@@ -23,6 +26,7 @@ public class PharmacistService implements IPharmacistService {
 	@Autowired
 	private EmailService emailService;
 	private Logger logger = LoggerFactory.getLogger(ResrvationService.class);
+
 	public Pharmacist findOne(Long id) {
 		 return pharmacistRepository.getOne(id);
 	}
@@ -120,4 +124,24 @@ public class PharmacistService implements IPharmacistService {
         }
         return resultList;	}
 
+		public List<PharmacyDTO> gPharmaciesByPharmaciest(LocalDateTime startTime){
+			List<PharmacyDTO> pharmacyDTOs = new ArrayList<PharmacyDTO>();
+			List<Pharmacist> allPharmacists = pharmacistRepository.findAll();
+			List<Pharmacist> pharmacistsExamination = pharmacistRepository.gPharmacistBySartTime(startTime);
+			for (Pharmacist pharmacist : allPharmacists) {
+				if(!pharmacistsExamination.contains(pharmacist) && pharmacist.checkWorkingTime(startTime) && pharmacist.checkVacationTime(startTime)){
+					pharmacyDTOs.add(new PharmacyDTO(pharmacist.getPharmacy()));
+				}
+			}
+			return pharmacyDTOs;
+		}
+
+		public List<PharmacistDTO> getPharmacistByPharmacyId(Long id) {
+			List<PharmacistDTO> pharmacistDTOs = new ArrayList<PharmacistDTO>();
+			List<Pharmacist> pharmacists = pharmacistRepository.gPharmacistsByPharmacyId(id);
+			for (Pharmacist pharmacist : pharmacists) {
+				pharmacistDTOs.add(new PharmacistDTO(pharmacist));
+			}
+			return pharmacistDTOs;
+		}
 }

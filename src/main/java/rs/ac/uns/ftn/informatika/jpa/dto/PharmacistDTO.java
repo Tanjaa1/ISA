@@ -1,10 +1,14 @@
 package rs.ac.uns.ftn.informatika.jpa.dto;
 
+import java.time.LocalDateTime;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import rs.ac.uns.ftn.informatika.jpa.model.Pharmacist;
 import rs.ac.uns.ftn.informatika.jpa.model.Pharmacy;
+import rs.ac.uns.ftn.informatika.jpa.util.VacationInterval;
+import rs.ac.uns.ftn.informatika.jpa.util.WorkingTime;
 
 public class PharmacistDTO {
 
@@ -21,7 +25,11 @@ public class PharmacistDTO {
 	private Boolean EmailComfirmed;
 	private Boolean FirstTimeLogin;
 	private Set<Integer> Marks = new HashSet<Integer>();
+	private Integer Grade;
 	private PharmacyDTO Pharmacy ;
+	private Set<VacationIntervalDTO> VacationSchedule = new HashSet<VacationIntervalDTO>();
+	private Set<WorkingTimeDTO> WorkingSchedule = new HashSet<WorkingTimeDTO>();
+	
 
 
 
@@ -30,7 +38,8 @@ public class PharmacistDTO {
 
 	public PharmacistDTO(Long id, String email, String password, String name, String surname, String address,
 			String city, String country, String phoneNumber, String description, Boolean emailComfirmed,
-			Boolean firstTimeLogin, Set<Integer> marks ,PharmacyDTO pharmacy
+			Boolean firstTimeLogin, Set<Integer> marks ,PharmacyDTO pharmacy, Set<WorkingTimeDTO> workingTime,
+			 Set<VacationIntervalDTO> vacationTime, Integer grade
 			) {
 		super();
 		Pharmacy = pharmacy;
@@ -47,6 +56,9 @@ public class PharmacistDTO {
 		Description = description;
 		EmailComfirmed = emailComfirmed;
 		FirstTimeLogin = firstTimeLogin;
+		WorkingSchedule = workingTime;
+		VacationSchedule = vacationTime;
+		Grade = grade;
 	}
 
 	public PharmacistDTO(Pharmacist pharmaciest) {
@@ -65,6 +77,19 @@ public class PharmacistDTO {
 		Description = pharmaciest.getDescription();
 		EmailComfirmed = pharmaciest.getEmailComfirmed();
 		FirstTimeLogin = pharmaciest.getFirstTimeLogin();
+		for (WorkingTime workingSchedule : pharmaciest.getWorkingSchedule()) {
+			WorkingSchedule.add(new WorkingTimeDTO(workingSchedule));
+		}
+		for (VacationInterval vacationSchedule : pharmaciest.getVacationSchedule()) {
+			VacationSchedule.add(new VacationIntervalDTO(vacationSchedule));
+		}
+		double result =  0;
+        int i = 0;
+        for (Integer m : pharmaciest.getMarks()) {
+            result += m;
+            i++;
+        }
+        Grade = (int) Math.round(result / i);
 	}
 
 	
@@ -155,5 +180,27 @@ public class PharmacistDTO {
 	}
 	public void setPharmacy(PharmacyDTO pharmacy) {
 		Pharmacy = pharmacy;
+	}
+
+	public Set<WorkingTimeDTO> getWorkingSchedule() {
+		return WorkingSchedule;
+	}
+	public void setWorkingSchedule(Set<WorkingTimeDTO> workingTime) {
+		WorkingSchedule = workingTime;
+	}
+
+	public Set<VacationIntervalDTO> getVacationSchedule() {
+		return VacationSchedule;
+	}
+	public void setPharmacy(Set<VacationIntervalDTO> vacationTime) {
+		VacationSchedule = vacationTime;
+	}
+
+	public Integer getGrade() {
+		return Grade;
+	}
+
+	public void setGrade(Integer grade) {
+		Grade = grade;
 	}
 }
