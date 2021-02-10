@@ -16,6 +16,7 @@ import org.apache.catalina.User;
 
 import rs.ac.uns.ftn.informatika.jpa.model.Dermatologist;
 import rs.ac.uns.ftn.informatika.jpa.model.Pharmacist;
+import rs.ac.uns.ftn.informatika.jpa.model.Pharmacy;
 
 @Entity
 @Table(name="WorkingTime")
@@ -23,7 +24,7 @@ public class WorkingTime {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	private Long id;
 	
 	@Column(name="TimeStart", unique=false, nullable=true)
 	private LocalDateTime TimeStart;
@@ -31,6 +32,9 @@ public class WorkingTime {
 	@Column(name="TimeEnd", unique=false, nullable=true)
 	private LocalDateTime TimeEnd;
 	
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private Pharmacy Pharmacy;
+
 	// @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	// private Dermatologist Dermatologist;
 	
@@ -46,11 +50,11 @@ public class WorkingTime {
 		TimeEnd = timeEnd;
 	}
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -70,5 +74,13 @@ public class WorkingTime {
 		TimeEnd = timeEnd;
 	}
 
+	public Pharmacy getPharmacy(){
+		return Pharmacy;
+	}
+
+	public void setPharmacy (Pharmacy pharmacy){
+		 Pharmacy  = pharmacy;
+	}
 	
+
 }

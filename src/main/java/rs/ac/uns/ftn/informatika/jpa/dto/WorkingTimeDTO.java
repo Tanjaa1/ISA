@@ -2,6 +2,7 @@ package rs.ac.uns.ftn.informatika.jpa.dto;
 
 import java.time.LocalDateTime;
 
+import rs.ac.uns.ftn.informatika.jpa.model.Pharmacy;
 import rs.ac.uns.ftn.informatika.jpa.util.WorkingTime;
 
 public class WorkingTimeDTO {
@@ -12,15 +13,16 @@ public class WorkingTimeDTO {
 
 	private LocalDateTime TimeEnd;
 	
-
+	private PharmacyDTO Pharmacy;
 	
 	public WorkingTimeDTO(){}
 
-	public WorkingTimeDTO(long id, LocalDateTime timeStart, LocalDateTime timeEnd) {
+	public WorkingTimeDTO(long id, LocalDateTime timeStart, LocalDateTime timeEnd ,PharmacyDTO pharmacy) {
 		super();
 		this.id = id;
 		TimeStart = timeStart;
 		TimeEnd = timeEnd;
+		Pharmacy = pharmacy;
 	}
 
     public WorkingTimeDTO(WorkingTime WorkingTime) {
@@ -28,6 +30,7 @@ public class WorkingTimeDTO {
 		this.id = WorkingTime.getId();
 		TimeStart = WorkingTime.getTimeStart();
 		TimeEnd = WorkingTime.getTimeEnd();
+		Pharmacy = new PharmacyDTO(WorkingTime.getPharmacy());
 	}
 
 	public long getId() {
@@ -37,6 +40,15 @@ public class WorkingTimeDTO {
 	public void setId(long id) {
 		this.id = id;
 	}
+
+	public PharmacyDTO getPharmacy() {
+		return Pharmacy;
+	}
+
+	public void setPharmacy(PharmacyDTO pharmacy) {
+		this.Pharmacy = pharmacy;
+	}
+
 
 	public LocalDateTime getTimeStart() {
 		return TimeStart;
@@ -53,4 +65,6 @@ public class WorkingTimeDTO {
 	public void setTimeEnd(LocalDateTime timeEnd) {
 		TimeEnd = timeEnd;
 	}
+
+	
 }

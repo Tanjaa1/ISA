@@ -11,15 +11,16 @@ public class EPrescriptionDTO {
     private Date IssuingDate;
     private Integer TherapyDuration;
 	private EPrescriptionStatus Status; 
-	private Pharmacy Pharmacy;
+	private PharmacyDTO Pharmacy;
 
+	public EPrescriptionDTO(){}
 	
 	public EPrescriptionDTO(EPrescription ePrescription){
 		Medicine = new MedicinePriceAndQuantityDTO(ePrescription.getMedicine());
 		IssuingDate = ePrescription.getIssuingDate();
 		TherapyDuration = ePrescription.getTherapyDuration();
 		Status = ePrescription.getStatus();
-		Pharmacy=ePrescription.getPharmacy();
+		Pharmacy=new PharmacyDTO(ePrescription.getPharmacy());
 
 	}
 
@@ -59,11 +60,11 @@ public class EPrescriptionDTO {
 		TherapyDuration = therapyDuration;
 	}
 
-	public Pharmacy getPharmacy() {
+	public PharmacyDTO getPharmacy() {
 		return Pharmacy;
 	}
 
-	public void setPharmacy(Pharmacy pharmacy) {
+	public void setPharmacy(PharmacyDTO pharmacy) {
 		Pharmacy = pharmacy;
 	}
 	

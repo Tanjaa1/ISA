@@ -79,6 +79,16 @@ public class Dermatologist extends User{
 		return WorkingSchedule;
 	}
 
+	public Set<WorkingTime> getWorkingScheduleByPharmacyId(long id) {
+		Set<WorkingTime> retVal = new HashSet<WorkingTime>();
+		for (WorkingTime wt : WorkingSchedule) {
+			if(wt.getPharmacy().getId() == id)
+				retVal.add(wt);
+		}
+		return retVal;
+	}
+
+
 	public void setWorkingSchedule(Set<WorkingTime> workingSchedule) {
 		WorkingSchedule = workingSchedule;
 	}

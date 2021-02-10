@@ -107,6 +107,14 @@ public class ExaminationController {
 	{
 		return ResponseEntity.ok(examinationService.newExamination(examination));
 	}
+
+	@PostMapping(value = "/addEmptyExamination")
+	public ResponseEntity<ExaminationDTO> newEmptyExamination(@RequestBody Examination examination)
+		throws Exception 
+	{
+		return ResponseEntity.ok(examinationService.newEmptyExamination(examination));
+	}
+
 	@PutMapping(value = "/cancelExamination")
 	public ResponseEntity<HttpStatus> cancelExamination(@RequestBody Examination examination) throws Exception
 	{

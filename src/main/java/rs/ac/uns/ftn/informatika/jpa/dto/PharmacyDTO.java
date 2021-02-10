@@ -37,7 +37,8 @@ public class PharmacyDTO {
             result += m;
             i++;
         }
-        Grade = (int) Math.round(result / i);
+		if(i != 0)
+        	Grade = (int) Math.round(result / i);
 		for (MedicinePriceAndQuantity medicinePriceAndQuantity : pharmacy.getPricelist()) {
 			Pricelist.add(new MedicinePriceAndQuantityDTO(medicinePriceAndQuantity));
 		}

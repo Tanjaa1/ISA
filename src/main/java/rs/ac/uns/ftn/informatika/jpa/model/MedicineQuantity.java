@@ -45,7 +45,7 @@ public class MedicineQuantity {
 	public Long getId() {
 		return Id;
 	}
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.Id = id;
 	}
 	public Medicine getMedicine() {

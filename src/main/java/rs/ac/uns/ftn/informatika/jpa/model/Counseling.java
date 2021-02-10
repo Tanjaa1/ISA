@@ -54,7 +54,7 @@ public class Counseling {
 
 	public Counseling(){}
 
-	public Counseling(long id, String report, LocalDateTime startTime, Double price, Boolean isDone,
+	public Counseling(Long id, String report, LocalDateTime startTime, Double price, Boolean isDone,
 			rs.ac.uns.ftn.informatika.jpa.model.Patient patient,
 			rs.ac.uns.ftn.informatika.jpa.model.Pharmacist pharmacist, Boolean isCanceled) {
 		super();
