@@ -2,7 +2,10 @@ Vue.component("patientReservations", {
     data: function () {
         return {
             patientReceivedReservations:null,
-            patientNotReceivedReservations:null
+            patientNotReceivedReservations:null,
+            medicines:null,
+            pharmacies:null,
+            id:1
         }
     },
     beforeMount() {
@@ -26,6 +29,9 @@ Vue.component("patientReservations", {
     <div id = "parmaciesShowPatient">
         <div class= "container">
                 <br/><h3 class="te">Medicine reservation</h3><br/>
+                <button type="button" class="btn2 btn-primary" style="width:23%; height:35px;" data-toggle="modal" v-on:click="PatientsReservation">Schedule an examinationt</button>&nbsp&nbsp&nbsp&nbsp
+
+
 	                            <ul class="nav nav-tabs" role="tablist">
     	                            <li class="nav-item">
     		                            <a id="tabApprovedF" class="nav-link active .cards" data-toggle="tab" href="#approvedF">Received</a>
@@ -112,6 +118,61 @@ Vue.component("patientReservations", {
     </div>
 	`,
     methods: {
+        PatientsReservation: function () {
+            this.$router.push('reserveMedicine');
+        },
+        NextStep: function () {
+            if (this.Validation()) {
+                if(this.id == 1)
+                    //this.GetPharmacies()
+                if (this.id == 2)
+                   // this.SpecialistForChoose()
+                if (this.id == 3) {
+                    //this.GetTimeIntervals()
+                }
+                this.id += 1
+                this.Steps()
+            }
+        },
+        Steps: function () {
+            if (this.id == 1) {
+                document.getElementById("step1").className = "circleStep circleStepDone"
+                document.getElementById("step2").className = "circleStep circlesStepDisabled"
+            }
+            else if (this.id == 2) {
+                document.getElementById("step1").className = "circleStep circleStepDone"
+                document.getElementById("step2").className = "circleStep circleStepDone"
+            }
+        },
+        PreviousStep: function () {
+            //this.Event()
+            this.id -= 1
+            this.Steps()
+        },
+        Validation: function () {
+            if (this.id == 1 && document.getElementById("name").value != "") {
+                return true
+            }
+            else if (this.id == 2/* && this.choosenSpecialization != null*/) {
+                return true
+            }
+            else if (this.id == 3/* && this.choosenPhysician != null*/) {
+                return true
+            }
+            return false
+        },
+        Search: function(){
+			var name=document.getElementById("name").value
+			if(name=="") name='%20'
+			axios
+			.get('/pharmacy/getMedicineFromPharmacy/' + name) 
+			.then(response => {
+				this.pharmacies = response.data
+                this.NextStep()
+			})
+			.catch(error => {
+			})
+		},
         Cancel:function(f){
             axios
             .put('/reservation/cancelReservation', f)
@@ -136,6 +197,11 @@ Vue.component("patientReservations", {
             return canBeCanceled
         },
         DateSplit: function (date) {
+            var dates = (date.split("T")[0]).split("-")
+            var times = (date.split("T")[1]).split(":")
+            return dates[2] + "." + dates[1] + "." + dates[0]
+        },
+        DateSplit1: function (date) {
             var dates = (date.split("T")[0]).split("-")
             var times = (date.split("T")[1]).split(":")
             var pom = Number(dates[2])+1
@@ -191,5 +257,150 @@ Vue.component("patientReservations", {
         //         .catch(error => {
         //         })
         // }
+    }
+});
+
+
+
+Vue.component("reserveMedicine", {
+    data: function () {
+        return {
+            patientReceivedReservations:null,
+            patientNotReceivedReservations:null,
+            medicines:null,
+            pharmacies:null,
+            id:1,
+            chooseDate:null,
+            reservation:{},
+            choosenMedicineName:null,
+            medicine:null
+        }
+    },
+    beforeMount() {
+
+        axios
+            .get('/reservation/getReceivedReservationByPatientId/' + '88')
+            .then(response => {
+                this.patientReceivedReservations = response.data
+            })
+            .catch(error => {
+            })
+         axios
+             .get('/reservation/getNotReceivedReservationByPatientId/' + '88')
+             .then(response => {
+                 this.patientNotReceivedReservations = response.data
+             })
+             .catch(error => {
+             })
+    },
+    template: `
+    <div id = "parmaciesShowPatient">
+        <div class= "container">
+                    
+                    <br/><h3 class="te">Reserve medicine</h3><br/>
+                    <div class="row search">
+                    <label>Choose medicine:</label>
+                    <div class="col-sm-5"><input id="name" placeholder="Enter medicine name" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default"></div>
+                   <div><button style="color:white" type="button" class="btn btn-default" data-dismiss="modal" v-on:click="Search()"><i class="fa fa-search"></i></button></div>
+                   </div>
+            
+                   <div class="row search"><label>Choose date:</label>       &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                   <div class="col-sm-5"><input id="date" v-model="chooseDate" placeholder="Enter medicine name" type="date" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default"></div>
+                 
+              </div><br>
+                                
+                                       <template v-for="p in pharmacies">
+                                             <div class="">
+                                                <div class="card">
+                                                     <div class="card-header" style="font-size:30px">{{p.name}}</div>
+                                                     <div class="card-body" style="font-size:20px">Address: &nbsp{{p.address}}<br> Grade: &nbsp{{p.grade}}<br> Consultation price:&nbsp{{p.counselingPrice}}&nbspdin.</div>
+                                                     <button class="btn btnPrev btnChoose" v-on:click="MakeReservation(p)">Make reservation</button></br>
+                                                 </div></br>
+                                             </div>
+                                     </template>
+                                   </div>
+                                  </div>
+                                
+                             </div>
+                          </div>
+                      </div>
+                  </div>
+            </div>
+             
+               <!--End modal for create examination-->
+                              
+                                  
+                            
+
+
+               
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+
+    </div>
+    </div>
+	`,
+    methods: {
+        PatientsReservation: function () {
+            this.$router.push('patientReservations');
+        },
+        Search: function(){
+			var name=document.getElementById("name").value
+            this.choosenMedicineName = name
+			if(name=="") name='%20'
+			axios
+			.get('/medicine/findMedicine/' + name) 
+			.then(response => {
+                this.medicine  = response.data
+				this.Search1()
+			})
+			.catch(error => {
+			})
+		},
+        Search1: function(){
+			var name=document.getElementById("name").value
+            this.choosenMedicineName = name
+			if(name=="") name='%20'
+			axios
+			.get('/pharmacy/getMedicineFromPharmacy/' + name) 
+			.then(response => {
+				this.pharmacies = response.data
+			})
+			.catch(error => {
+			})
+		},
+        Refresh: function () {
+            location.reload();
+        },
+        DateSplit: function (date) {
+            var dates = (date.split("T")[0]).split("-")
+            var times = (date.split("T")[1]).split(":")
+            var pom = Number(dates[2])+1
+            return pom + "." + dates[1] + "." + dates[0]
+        },
+        MakeReservation: function(p){
+            var ob = {}
+            for(i in p.pricelist){
+                if(p.pricelist[i].medicine.name.includes(this.medicine.name)){
+                    ob= p.pricelist[i]
+                    break   
+                }
+            }
+            this.reservation.medicine = ob
+            this.reservation.isReceived = false
+            this.reservation.pharmacy = p
+            this.reservation.isCanceled = false
+            this.reservation.expirationDate = this.chooseDate
+             axios
+			 .post('/reservation/makeReservation', this.reservation) 
+			 .then(response => {
+			 	this.pharmacies = response.data
+                 this.PatientsReservation()
+			 })
+			 .catch(error => {
+			 })
+        }
     }
 });

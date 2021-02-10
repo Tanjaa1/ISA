@@ -66,5 +66,16 @@ public class MedicineService implements IMedicineService {
 		return medicineRepository.findAll();
 	}
 
+	public MedicineDTO findMedicine(String name) {
+		List<Medicine> medicines = medicineRepository.findAll();
+		MedicineDTO medicineFind = new MedicineDTO();
+		for (Medicine medicine : medicines) {
+			if(medicine.getName().toUpperCase().contains(name.toUpperCase().trim()))
+				medicineFind = new MedicineDTO(medicine);
+                break;
+		}
+        return medicineFind;
+	}
+
 
 }

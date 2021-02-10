@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import rs.ac.uns.ftn.informatika.jpa.dto.MedicineDTO;
 import rs.ac.uns.ftn.informatika.jpa.dto.PharmacyDTO;
 import rs.ac.uns.ftn.informatika.jpa.model.Pharmacy;
 import rs.ac.uns.ftn.informatika.jpa.service.PharmacyService;
@@ -80,6 +82,12 @@ public class PharmacyController {
 	public ResponseEntity<Pharmacy> getByName(@PathVariable String name) {
 		Pharmacy pharmacy = pharmacyService.getByName(name);
 		return pharmacy == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(pharmacy);
+	}
+
+	@GetMapping(value = "/getMedicineFromPharmacy/{name}")
+	public ResponseEntity<List<PharmacyDTO>> getMedicineFromPharmacy(@PathVariable String name) {
+		List<PharmacyDTO> pharmacies = pharmacyService.findPharmacyByMedicineName(name);
+		return pharmacies == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(pharmacies);
 	}
 
 }
