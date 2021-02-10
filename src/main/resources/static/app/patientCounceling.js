@@ -8,7 +8,13 @@ Vue.component("patientCounceling", {
             id: 1,
             date: null,
             time:null,
-            canBeCanceled:true
+            canBeCanceled:true,
+            pharmacies:null,
+            pharmacists:null,
+            choosenPharmacy:null,
+            choosenPharmacist:null,
+            dateTimeStart:null,
+            consultation:{}
         }
     },
     beforeMount() {
@@ -40,7 +46,7 @@ Vue.component("patientCounceling", {
                 <div class="modal-dialog modal-dialog-centered" role="document">
                        <div class="modal-content steps">
                       <div class="container" align="center">
-                          <br/><h4 class="text">Create new appointment</h4><br/>
+                          <br/><h4 class="tex">Schedule consultation</h4><br/>
                           <ul class="nav" role="tablist">
                               <li class="nav-item">
                                   <button disabled id="step1" class="circleStep circleStepDone">1</button>
@@ -58,7 +64,7 @@ Vue.component("patientCounceling", {
                                   <button disabled id="step4" disabled class="circleStep circlesStepDisabled">4</button>
                                   <h3 class="text">Step 4</h3><br/>
                               </li>
-                          </ul></br>
+                          </ul>
                         </div>                   
                           <div>
                               <div class="tab-content">
@@ -69,27 +75,44 @@ Vue.component("patientCounceling", {
                                       <input id="date" type="date" v-model ="date" class="inDate"></input>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
                                       <input id="time" type="time" v-model ="time"></input>
                                       </br></br></br></br>
-                                      <button class="btn btnNext" v-on:click="NextStep()">Next</button></br></br>
+                                      <button class="btn btnNext nn" v-on:click="NextStep()">Next</button></br></br>
                                    </div>
                                   <div id="step2" class="container tab-pane active" v-if="id==2"></br>
-                                      <label>Choose  specialization:</label></br>
-                                      <select class="select">
+                                      <label class="chDate">Choose  pharmacy:</label></br>
+                                      <!--<select class="select">
                                           <option disabled>Please select one</option>
-                                          <option></option>
-                                      </select>
-                                      </br></br></br></br>
+                                          <option v-for="p in pharmacies">{{p.name}}{{p.address}}{{p.grade}}</option>
+                                      </select>-->
+                                      <template v-for="p in pharmacies">
+                                            <div class="container">
+                                            <div class="card">
+                                                    <div class="card-header" style="font-size:30px">{{p.name}}</div>
+                                                    <div class="card-body" style="font-size:20px">Address: &nbsp{{p.address}}<br> Grade: &nbsp{{p.grade}}<br> Consultation price:&nbsp{{p.counselingPrice}}&nbspdin.</div>
+                                                    <button class="btn btnPrev" v-on:click="ScheduleConsultation(p)">Choose</button>
+                                                </div></br>
+                                            </div>
+                                    </template>
+                                      </br>
                                       <button class="btn btnPrev" v-on:click="PreviousStep()">Previous</button>
-                                      <button class="btn btnNext" v-on:click="NextStep()">Next</button></br></br>
                                    </div>
                                   <div id="step3" class="container tab-pane active" v-if="id==3"></br>
-                                      <label>Choose physician:</label></br>
-                                      <select class="select" >
+                                      <label>Choose pharmacist:</label>
+                                      <!--<select class="select" v-model="choosenPharmacist">
                                            <option disabled >Please select one</option>
-                                           <option ></option>                                        
-                                      </select>
-                                      </br></br></br></br>
+                                           <option v-for="p in pharmacists" v-bind:value="p">{{p.name}}&nbsp&nbsp{{p.surname}}</option>                                        
+                                      </select>-->
+                                      <template v-for="p in pharmacists">
+                                            <div class="container">
+                                            <div class="card">
+                                                    <div class="card-header" style="font-size:30px">{{p.name}}&nbsp&nbsp{{p.surname}}</div>
+                                                    <div class="card-body" style="font-size:20px">Grade: &nbsp{{p.grade}}</div>
+                                                    <button class="btn btnPrev" v-on:click="createCounseling(p)">Schedule consultation</button>
+                                                </div></br>
+                                            </div>
+                                    </template>
+                                      </br>
                                       <button class="btn btnPrev" v-on:click="PreviousStep()">Previous</button>
-                                      <button class="btn btnNext" v-on:click="NextStep()">Next</button></br></br>
+                                      <!--<button class="btn btnNext" v-on:click="createCounseling()">Schedule consultation</button></br></br>-->
                                   </div>
                                   <div id="step4" class="container tab-pane active" v-if="id==4"></br>                                 
                                       <label>Choose  time:</label></br>
@@ -269,17 +292,37 @@ Vue.component("patientCounceling", {
             return false
         },
         GetPharmacies: function(){
-            alert(this.date)
-            // axios
-            //     .get('/appointment/avaliableTimeIntervals', {
-            //         params: { physicianId: this.choosenPhysician.id, specializationName: this.choosenSpecialization, date: this.date },
-            //         headers: {
-            //             'Authorization': 'Bearer' + " " + localStorage.getItem('token')
-            //         }
-            //     })
-            //     .then(response => {
-            //         this.timeIntervals = response.data
-            //     })
+            timeStart = document.getElementById("date").value+' '+document.getElementById("time").value
+            this.dateTimeStart = document.getElementById("date").value+'T'+document.getElementById("time").value
+             axios
+                 .get('/pharmacist/getPharmacies/' + timeStart)
+                 .then(response => {
+                     this.pharmacies = response.data
+                })
+        },
+        ScheduleConsultation:function(p){
+            axios
+                 .get('/pharmacist/getPharmacistByPharmacyId/' + p.id)
+                 .then(response => {
+                     this.pharmacists = response.data
+                     this.choosenPharmacy=p
+                     this.NextStep()
+                })
+        },
+        createCounseling:function(p){
+            this.consultation.startTime = this.dateTimeStart
+            this.consultation.isDone = false
+            this.consultation.pharmacist = p
+            alert(this.consultation.pharmacist)
+            this.consultation.pharmacy = this.choosenPharmacy
+            this.consultation.price = this.choosenPharmacy.counselingPrice
+            this.consultation.isCanceled = false
+             axios
+                  .post('/counseling/createCounseling', this.consultation)
+                  .then(response => {
+                      this.pharmacists = response.data
+                      this.Refresh()
+                 })
         },
         Cancel:function(f){
             axios
