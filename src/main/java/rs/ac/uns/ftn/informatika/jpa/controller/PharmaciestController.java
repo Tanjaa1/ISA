@@ -1,5 +1,8 @@
 package rs.ac.uns.ftn.informatika.jpa.controller;
 
+import java.sql.Date;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import rs.ac.uns.ftn.informatika.jpa.dto.PharmacistDTO;
+import rs.ac.uns.ftn.informatika.jpa.dto.PharmacyDTO;
 import rs.ac.uns.ftn.informatika.jpa.model.Pharmacist;
 import rs.ac.uns.ftn.informatika.jpa.service.PharmacistService;
 
@@ -62,4 +66,17 @@ public class PharmaciestController {
 		return isValid == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(isValid);
 	}
 
+	@GetMapping(value = "/getPharmacies/{timeStart}")
+	public ResponseEntity<List<PharmacyDTO>> getPharmaciesByAvailavblePharmaciest(@PathVariable String timeStart) {
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"); 
+		LocalDateTime dateTime = LocalDateTime.parse(timeStart, formatter);
+		List<PharmacyDTO> pharmacyDTOs = pharmacistService.gPharmaciesByPharmaciest(dateTime);
+		return pharmacyDTOs == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(pharmacyDTOs);
+	}
+
+	@GetMapping(value = "/getPharmacistByPharmacyId/{id}")
+	public ResponseEntity<List<PharmacistDTO>> getPharmaciesByAvailavblePharmaciest(@PathVariable Long id) {
+		List<PharmacistDTO> pharmacistDTOs = pharmacistService.getPharmacistByPharmacyId(id);
+		return pharmacistDTOs == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(pharmacistDTOs);
+	}
 }

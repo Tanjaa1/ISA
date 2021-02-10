@@ -92,4 +92,11 @@ public class CounselingController {
 		return ResponseEntity.ok(counselingService.newExamination(counseling));
 	}
 
+	@PostMapping(value = "/createCounseling")
+	public ResponseEntity<CouncelingDTO> createCounseling(@RequestBody Counseling counseling)
+		throws Exception 
+	{
+		return ResponseEntity.ok(counselingService.createNewCounseling(counseling));
+	}
+
 }

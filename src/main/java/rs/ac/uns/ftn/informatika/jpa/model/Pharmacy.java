@@ -43,6 +43,9 @@ public class Pharmacy {
 	 @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	 private Set<MedicinePriceAndQuantity> Pricelist = new HashSet<MedicinePriceAndQuantity>();
+
+	 @Column(name="CounselingPrice", unique=false, nullable=true)
+	private Double CounselingPrice;
 	
 	// @ManyToMany
 	// @JoinTable(name = "PharmacySubscribedUsers", joinColumns = @JoinColumn(name = "Pharmacy_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "Patient_id", referencedColumnName = "id"))
@@ -60,7 +63,7 @@ public class Pharmacy {
 
 	public Pharmacy(){}
 
-	public Pharmacy(long id,String name, String address, Set<Integer> marks,Set<MedicinePriceAndQuantity> pricelist/*,Set<Patient> subscribedUsers*/) {
+	public Pharmacy(long id,String name, String address, Set<Integer> marks,Set<MedicinePriceAndQuantity> pricelist, Double counselingPrice/*,Set<Patient> subscribedUsers*/) {
 
 		super();
 		Id=id;
@@ -68,6 +71,7 @@ public class Pharmacy {
 		Address = address;
 		Marks = marks;
 		Pricelist=pricelist;
+		CounselingPrice = counselingPrice;
 		//SubscribedUsers=subscribedUsers;
 	}
 
@@ -110,6 +114,14 @@ public class Pharmacy {
 	 public void setPricelist(Set<MedicinePriceAndQuantity> pricelist) {
 	 	Pricelist = pricelist;
 	 }
+
+	public Double getCounselingPrice() {
+		return CounselingPrice;
+	}
+
+	public void setCounselingPrice(Double counselingPrice) {
+		CounselingPrice = counselingPrice;
+	}
 
 	// public Set<Patient> getSubscribedUsers() {
 	// 	return SubscribedUsers;

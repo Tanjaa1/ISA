@@ -113,7 +113,7 @@ h6 {
 
 
 .text {
-    color: #014779;
+    color: #d3e4f0;
     font-size: 30px;
     font-weight: 100;
     font-family: 'Impact';
@@ -126,10 +126,10 @@ h6 {
     position: inherit;
 }
 label {
-    color: #014779;
+    color: #d3e4f0;
 }
 h4 {
-    color: #014779;
+    color: #d3e4f0;
     font-family: 'Impact';
     text-decoration: underline;
 }
@@ -174,4 +174,8 @@ footer {
 
 .inDate{
     margin-left: 70px;
+}
+
+.nn{
+    margin-left: 80%;
 }
