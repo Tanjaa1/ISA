@@ -349,9 +349,9 @@ INSERT INTO public.working_time(
 
 
 
-INSERT INTO public.dermatologist_working_schedule(
-	dermatologist_id, working_time_id)
-	VALUES (6, 111);
+-- INSERT INTO public.dermatologist_working_schedule(
+-- 	dermatologist_id, working_time_id)
+-- 	VALUES (6, 111);
 INSERT INTO public.dermatologist_working_schedule(
 	dermatologist_id, working_time_id)
 	VALUES (6, 112);
@@ -377,9 +377,9 @@ INSERT INTO public.dermatologist_working_schedule(
 INSERT INTO public.pharmacist_working_schedule(
 	pharmacist_id, working_time_id)
 	VALUES (4, 112);
-INSERT INTO public.pharmacist_working_schedule(
-	pharmacist_id, working_time_id)
-	VALUES (5, 111);
+-- INSERT INTO public.pharmacist_working_schedule(
+-- 	pharmacist_id, working_time_id)
+-- 	VALUES (5, 111);
 
 
 -- INSERT INTO public.eprescription_therapies(

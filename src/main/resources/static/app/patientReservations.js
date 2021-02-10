@@ -354,7 +354,6 @@ Vue.component("reserveMedicine", {
 			.get('/medicine/findMedicine/' + name) 
 			.then(response => {
                 this.medicine  = response.data
-                alert(this.medicine)
 				this.Search1()
 			})
 			.catch(error => {
@@ -390,7 +389,6 @@ Vue.component("reserveMedicine", {
                 }
             }
             this.reservation.medicine = ob
-            alert(this.reservation.medicine)
             this.reservation.isReceived = false
             this.reservation.pharmacy = p
             this.reservation.isCanceled = false
