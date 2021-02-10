@@ -15,4 +15,5 @@ public interface IExaminationService {
     List<ExaminationDTO> getFreeExaminationByDermatologist(Long id);
     Examination schedule(Examination examination) throws Exception;
     ExaminationDTO newExamination(Examination examination) throws Exception;
+    List<ExaminationDTO> getExaminationsByDermatologist(Long id);
 }

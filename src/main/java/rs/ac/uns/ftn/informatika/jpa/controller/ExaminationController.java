@@ -115,4 +115,10 @@ public class ExaminationController {
 	}
 
 	
+	@GetMapping(value = "/getExaminationsByDermatologist/{id}")
+	public ResponseEntity<List<ExaminationDTO>> getExaminationsByDermatologist(@PathVariable Long id) 
+	{
+		List<ExaminationDTO> examinationDTOs = examinationService.getExaminationsByDermatologist(id);
+		return examinationDTOs == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(examinationDTOs);
+	}
 }

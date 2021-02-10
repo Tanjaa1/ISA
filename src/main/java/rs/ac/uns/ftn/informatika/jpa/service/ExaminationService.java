@@ -184,4 +184,12 @@ public class ExaminationService implements IExaminationService {
 			logger.info("Error sending email: " + e.getMessage());
 		}
 	}
+
+	public List<ExaminationDTO> getExaminationsByDermatologist(Long id) {
+		List<ExaminationDTO> examinationDTOs=new ArrayList<ExaminationDTO>();
+
+		for (Examination examination : examinationRepository.getExaminationsExistByDermatologist(id))
+                    examinationDTOs.add(new ExaminationDTO(examination));
+        return examinationDTOs;
+	}
 }
