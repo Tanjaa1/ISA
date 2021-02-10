@@ -268,13 +268,13 @@ INSERT INTO public.pharmacy_marks(
     
 INSERT INTO public.reservation(
 	id, expiration_date, is_received, medicine_id, patient_id,pharmacy_id, is_canceled)
-	VALUES (1, '2021-03-22', false, 1, 88, 111, false);
+	VALUES (100, '2021-03-22', false, 1, 88, 111, false);
 INSERT INTO public.reservation(
 	id, expiration_date, is_received, medicine_id, patient_id,pharmacy_id, is_canceled)
-	VALUES (2, '2021-03-22', true, 2, 88, 111, false);
+	VALUES (101, '2021-03-22', true, 2, 88, 111, false);
 INSERT INTO public.reservation(
 	id, expiration_date, is_received, medicine_id, patient_id,pharmacy_id, is_canceled)
-	VALUES (3, '2021-05-12', false, 2, 89, 111, false);
+	VALUES (102, '2021-05-12', false, 2, 89, 111, false);
     
 
 -- INSERT INTO public.therapy(
