@@ -319,23 +319,33 @@ INSERT INTO public.pharmacist_vacation_schedule(
 	VALUES (5, 112);
 
 INSERT INTO public.working_time(
-	id, time_end, time_start)
-	VALUES (111, '2021-06-22 14:00:00-07', '2021-06-22 08:00:00-07');
+
+	id, time_end, time_start,pharmacy_id)
+	VALUES (1, '2021-06-22 08:00:00-07', '2021-06-22 14:00:00-07','111');
 INSERT INTO public.working_time(
-	id, time_end, time_start)
-	VALUES (112, '2021-06-24 20:00:00-07', '2021-06-24 14:00:00-07');
+	id, time_end, time_start,pharmacy_id)
+	VALUES (2, '2021-06-24 14:00:00-07', '2021-06-24 20:00:00-07','111');
 INSERT INTO public.working_time(
-	id, time_end, time_start)
-	VALUES (113, '2021-06-23 20:00:00-07', '2021-06-23 14:00:00-07');
+	id, time_end, time_start,pharmacy_id)
+	VALUES (3, '2021-06-23 14:00:00-07', '2021-06-23 20:00:00-07','111');
 INSERT INTO public.working_time(
-	id, time_end, time_start)
-	VALUES (114, '2021-02-12 14:00:00-07', '2021-02-12 08:00:00-07');
+	id, time_end, time_start,pharmacy_id)
+	VALUES (4, '2000-06-23 14:00:00-07', '2003-06-23 20:00:00-07','111');
 INSERT INTO public.working_time(
-	id, time_end, time_start)
-	VALUES (115, '2021-02-13 20:00:00-07','2021-02-13 14:00:00-07');
+	id, time_end, time_start,pharmacy_id)
+	VALUES (112, '2021-06-24 20:00:00-07', '2021-06-24 14:00:00-07','111');
 INSERT INTO public.working_time(
-	id, time_end, time_start)
-	VALUES (116, '2021-02-10 20:00:00-07','2021-02-10 14:00:00-07');
+	id, time_end, time_start,pharmacy_id)
+	VALUES (113, '2021-06-23 20:00:00-07', '2021-06-23 14:00:00-07','111');
+INSERT INTO public.working_time(
+	id, time_end, time_start,pharmacy_id)
+	VALUES (114, '2021-02-12 14:00:00-07', '2021-02-12 08:00:00-07','111');
+INSERT INTO public.working_time(
+	id, time_end, time_start,pharmacy_id)
+	VALUES (115, '2021-02-13 20:00:00-07','2021-02-13 14:00:00-07','111');
+INSERT INTO public.working_time(
+	id, time_end, time_start,pharmacy_id)
+	VALUES (116, '2021-02-10 20:00:00-07','2021-02-10 14:00:00-07','111');
 
 
 
@@ -353,11 +363,17 @@ INSERT INTO public.dermatologist_working_schedule(
 	VALUES (6, 115);
 INSERT INTO public.dermatologist_working_schedule(
 	dermatologist_id, working_time_id)
+
+	VALUES (6, 4);
+INSERT INTO public.dermatologist_working_schedule(
+	dermatologist_id, working_time_id)
+	VALUES (7, 2);
 	VALUES (6, 116);
 
 INSERT INTO public.dermatologist_working_schedule(
 	dermatologist_id, working_time_id)
 	VALUES (7, 112);
+
 INSERT INTO public.pharmacist_working_schedule(
 	pharmacist_id, working_time_id)
 	VALUES (4, 112);

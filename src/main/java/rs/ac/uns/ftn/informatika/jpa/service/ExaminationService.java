@@ -123,7 +123,7 @@ public class ExaminationService implements IExaminationService {
 	}
 
 	public ExaminationDTO newExamination(Examination examination) throws Exception {
-        if(!examinationRepository.isExaminationExistByDermatologist(examination.getStartTime(),examination.getEndTime(),examination.getDermatologist().getId()).isEmpty())
+       if(!examinationRepository.isExaminationExistByDermatologist(examination.getStartTime(),examination.getEndTime(),examination.getDermatologist().getId()).isEmpty())
             return null;           
         if(!examinationRepository.isExaminationExistByPatient(examination.getStartTime(),examination.getEndTime(),examination.getPatient().getId()).isEmpty())
             return null;
@@ -141,6 +141,23 @@ public class ExaminationService implements IExaminationService {
         emailSender(e);
         return examinationDTO;
     }
+
+    public ExaminationDTO newEmptyExamination(Examination examination) throws Exception {          
+        if(!checkIfDermatologistFree(examination)){
+           return null;
+        }
+		Examination e=new Examination();
+        e.setDermatologist(dermatologistRepository.getOne(examination.getDermatologist().getId()));
+        e.setPatient(null);
+        e.setPrice(examination.getPrice());
+        e.setPharmacy(pharmacyRepository.getOne(examination.getPharmacy().getId()));
+        e.setStartTime(examination.getStartTime());
+        e.setEndTime(examination.getEndTime());
+        ExaminationDTO examinationDTO= new ExaminationDTO(examinationRepository.save(e));
+        emailSender(e);
+        return examinationDTO;
+    }
+
 	public Set<DermatologistDTO> getDermatologistByPatientId(Long patientId) {
         Set<DermatologistDTO> dermatologists= new HashSet();
 		List<ExaminationDTO> examinations=getAllExaminations();
@@ -173,6 +190,34 @@ public class ExaminationService implements IExaminationService {
                 return true;
         return false;
     }
+    
+    private Boolean workTimeCheck(Examination examination){
+        Dermatologist d = dermatologistRepository.getOne(examination.getDermatologist().getId());
+        Set<WorkingTime> workingTime= d.getWorkingScheduleByPharmacyId(examination.getPharmacy().getId());
+        for(WorkingTime w: workingTime)
+            if (!examination.getStartTime().isAfter(w.getTimeEnd()) && !examination.getStartTime().isBefore(examination.getStartTime()) && !examination.getEndTime().isAfter(w.getTimeEnd()))           
+                return true;
+        return false;
+    }
+
+    private Boolean checkIfDermatologistFree(Examination examination) {
+        if(workTimeCheck(examination)){
+            List<Examination> examinations = examinationRepository.getExaminationsByDermatologistId(examination.getDermatologist().getId());
+            for(Examination ex: examinations){
+                if(examination.getStartTime().isBefore(ex.getStartTime()) && examination.getEndTime().isAfter(ex.getEndTime()) ||
+                examination.getStartTime().isAfter(ex.getStartTime()) && examination.getEndTime().isBefore(ex.getEndTime()) ||
+                examination.getStartTime().isAfter(ex.getStartTime()) && examination.getEndTime().isAfter(ex.getEndTime()) && examination.getStartTime().isBefore(ex.getEndTime()) ||
+                examination.getStartTime().isBefore(ex.getStartTime()) && examination.getEndTime().isAfter(ex.getStartTime()) ||
+                examination.getStartTime().isEqual(ex.getStartTime()) ||
+                examination.getEndTime().isEqual(ex.getEndTime())
+                )
+                    return false;
+            }
+            return true;
+        }
+        return false;
+    }
+
 
     private void emailSender(Examination examination)
 	{

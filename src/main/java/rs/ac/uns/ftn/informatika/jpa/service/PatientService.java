@@ -116,7 +116,7 @@ public class PatientService implements IPatientService {
 		Long patientId=0L;
 		for (Patient patient2 : patients) {
 			if(patient2.getUsername().equals(patient.getUsername()))
-			patientId=patient2.getId();
+				patientId=patient2.getId();
 		}
 		patient.setId(patientId);
 		emailSender(patient);
