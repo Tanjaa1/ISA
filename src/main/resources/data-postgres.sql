@@ -166,6 +166,16 @@ INSERT INTO public.examination(
 INSERT INTO public.examination(
 	id, price, report, start_time, end_time, is_done, dermatologist_id, patient_id, pharmacy_id, is_canceled)
 	VALUES (117, 900.0, 'izvjestaj 1', '2016-05-22 14:45:25-07', '2016-05-22 14:25:25-07', true, 6, 89, 111, false);
+	
+INSERT INTO public.examination(
+	id, price, report, start_time, end_time, is_done, dermatologist_id, patient_id, pharmacy_id, is_canceled)
+	VALUES (118, 900.0, 'izvjestaj 1', '2021-02-13 09:00:00-07', '2016-05-22 14:25:25-07', true, 6, 89, 111, false);	
+INSERT INTO public.examination(
+	id, price, report, start_time, end_time, is_done, dermatologist_id, patient_id, pharmacy_id, is_canceled)
+	VALUES (119, 900.0, 'izvjestaj 1', '2021-02-10 16:00:00-07', '2016-05-22 14:25:25-07', true, 6, 89, 111, false);
+INSERT INTO public.examination(
+	id, price, report, start_time, end_time, is_done, dermatologist_id, patient_id, pharmacy_id, is_canceled)
+	VALUES (120, 900.0, 'izvjestaj 1', '2021-02-10 16:00:00-07', '2016-05-22 14:25:25-07', true, 6, 88, 111, false);
 /*
 INSERT INTO public.medicine(
 	code, composition, form, manufacturer, name, note, on_prescription, type)
@@ -282,13 +292,13 @@ INSERT INTO public.reservation(
 
 INSERT INTO public.vacation_interval(
 	id, approved, date_end, date_start)
-	VALUES (111, false, '2021-02-11', '2021-02-11');
+	VALUES (111, false, '2021-02-12', '2021-02-12');
 INSERT INTO public.vacation_interval(
 	id, approved, date_end, date_start)
-	VALUES (112, false, '2021-02-22','2021-02-14');
+	VALUES (112, false, '2021-02-22','2021-02-15');
 INSERT INTO public.vacation_interval(
 	id, approved, date_end, date_start)
-	VALUES (113, false, '2021-05-12', '2021-05-22');
+	VALUES (113, false, '2021-05-22', '2021-05-15');
 
 
 INSERT INTO public.dermatologist_vacation_schedule(
@@ -310,22 +320,22 @@ INSERT INTO public.pharmacist_vacation_schedule(
 
 INSERT INTO public.working_time(
 	id, time_end, time_start)
-	VALUES (111, '2021-06-22 08:00:00-07', '2021-06-22 14:00:00-07');
+	VALUES (111, '2021-06-22 14:00:00-07', '2021-06-22 08:00:00-07');
 INSERT INTO public.working_time(
 	id, time_end, time_start)
-	VALUES (112, '2021-06-24 14:00:00-07', '2021-06-24 20:00:00-07');
+	VALUES (112, '2021-06-24 20:00:00-07', '2021-06-24 14:00:00-07');
 INSERT INTO public.working_time(
 	id, time_end, time_start)
-	VALUES (113, '2021-06-23 14:00:00-07', '2021-06-23 20:00:00-07');
+	VALUES (113, '2021-06-23 20:00:00-07', '2021-06-23 14:00:00-07');
 INSERT INTO public.working_time(
 	id, time_end, time_start)
-	VALUES (114, '2021-02-12 08:00:00-07', '2021-02-12 14:00:00-07');
+	VALUES (114, '2021-02-12 14:00:00-07', '2021-02-12 08:00:00-07');
 INSERT INTO public.working_time(
 	id, time_end, time_start)
-	VALUES (115, '2021-02-13 14:00:00-07', '2021-02-13 20:00:00-07');
+	VALUES (115, '2021-02-13 20:00:00-07','2021-02-13 14:00:00-07');
 INSERT INTO public.working_time(
 	id, time_end, time_start)
-	VALUES (116, '2021-02-10 14:00:00-07', '2021-02-10 20:00:00-07');
+	VALUES (116, '2021-02-10 20:00:00-07','2021-02-10 14:00:00-07');
 
 
 
