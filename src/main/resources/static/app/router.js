@@ -2,7 +2,8 @@ const Browse = { template: '<browse></browse>' }
 const Registration = { template: '<registration></registration>' }
 const Login = { template: '<login></login>' }
 const PatientHomePage = { template: '<patientHomePage></patientHomePage>' }
-const Search = { template: '<search></search>' }
+const DermatologistSearch = { template: '<dermatologistSearchPatients></dermatologistSearchPatients>' }
+const PharmacistSearch = { template: '<pharmacistSearchPatients></pharmacistSearchPatients>' }
 const DermatologistHomePage = { template: '<dermatologistHomePage></dermatologistHomePage>' }
 const PharmacistHomePage = { template: '<pharmacistHomePage></pharmacistHomePage>' }
 const Reservation = { template: '<reservation></reservation>' }
@@ -60,6 +61,14 @@ const OrderMedicinePharmacyAdmin = { template: '<orderMedicinePharmacyAdmin></or
 const NewEmptyExamination = { template: '<newEmptyExamination></newEmptyExamination>' }
 
 
+const PharmacistVacationRequest = { template: '<pharmacistVacationRequest></pharmacistVacationRequest>' }
+const DermatologistVacationRequest = { template: '<dermatologistVacationRequest></dermatologistVacationRequest>' }
+
+const CreateExaminationDermatologist = { template: '<createExaminationDermatologist></createExaminationDermatologist>' }
+const CreateCounselingPharmacist = { template: '<createCounselingPharmacist></createCounselingPharmacist>' }
+
+
+const Calendar = { template: '<calendar></calendar>' }
 const router = new VueRouter({
 	  mode: 'hash',
 	  routes: [
@@ -114,11 +123,19 @@ const router = new VueRouter({
 			}
 	    },
 	    { 
-	    	path: '/search', 
-	    	name : 'search', 
+	    	path: '/dermatologistSearchPatients', 
+	    	name : 'dermatologistSearchPatients', 
 			components: {
-				pageHeader: PatientHeader,
-				content: Search
+				pageHeader: DermatologistHeader,
+				content: DermatologistSearch
+			}
+	    },
+	    { 
+	    	path: '/pharmacistSearchPatients', 
+	    	name : 'pharmacistSearchPatients', 
+			components: {
+				pageHeader: PharmacistHeader,
+				content: PharmacistSearch
 			}
 	    },
 	    { 
@@ -384,6 +401,46 @@ const router = new VueRouter({
 				content: PatientComplaints
 			}
 		},
+	    { 
+	    	path: '/pharmacistVacationRequest', 
+	    	name : 'pharmacistVacationRequest', 
+			components: {
+				pageHeader: PharmacistHeader,
+				content: PharmacistVacationRequest
+			}
+		},
+			{ 
+				path: '/dermatologistVacationRequest', 
+				name : 'dermatologistVacationRequest', 
+				components: {
+					pageHeader: DermatologistHeader,
+					content: DermatologistVacationRequest
+				}
+	    },
+		{ 
+			path: '/createExaminationDermatologist', 
+			name : 'createExaminationDermatologist', 
+			components: {
+				pageHeader: DermatologistHeader,
+				content: CreateExaminationDermatologist
+			}
+		},
+		{ 
+			path: '/createCounselingPharmacist', 
+			name : 'createCounselingPharmacist', 
+			components: {
+				pageHeader: PharmacistHeader,
+				content: CreateCounselingPharmacist
+			}
+		},
+		{ 
+			path: '/calendar', 
+			name : 'calendar', 
+			components: {
+				pageHeader: PharmacistHeader,
+				content: Calendar
+			}
+		}
 	  ]
 });
 

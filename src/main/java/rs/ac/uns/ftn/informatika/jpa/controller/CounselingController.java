@@ -51,10 +51,10 @@ public class CounselingController {
 		return counselingsDTO == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(counselingsDTO);
 	}
 
-	@PutMapping(value = "/update")
+	@PutMapping(value = "/finish")
 	public ResponseEntity<HttpStatus> update(@RequestBody Counseling counseling) throws Exception
 	{
-		Counseling e =counselingService.update(counseling.getId());
+		Counseling e =counselingService.finish(counseling);
 		return e == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : new ResponseEntity<>(HttpStatus.OK);
 	}
 
@@ -90,6 +90,13 @@ public class CounselingController {
 		throws Exception 
 	{
 		return ResponseEntity.ok(counselingService.newExamination(counseling));
+	}
+
+	@PostMapping(value = "/createCounseling")
+	public ResponseEntity<CouncelingDTO> createCounseling(@RequestBody Counseling counseling)
+		throws Exception 
+	{
+		return ResponseEntity.ok(counselingService.createNewCounseling(counseling));
 	}
 
 }

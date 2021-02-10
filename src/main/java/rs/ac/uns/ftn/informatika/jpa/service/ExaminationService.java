@@ -78,8 +78,9 @@ public class ExaminationService implements IExaminationService {
         return patientExaminations;
     }
 
-    public Examination update(Long id) throws Exception {
-        Examination e=examinationRepository.getOne(id);
+    public Examination finish(Examination examination) throws Exception {
+        Examination e=examinationRepository.getOne(examination.getId());
+        e.setReport(examination.getReport());
         e.setIsDone(true);
         return examinationRepository.save(e);
     }
@@ -227,5 +228,13 @@ public class ExaminationService implements IExaminationService {
 		}catch( Exception e ){
 			logger.info("Error sending email: " + e.getMessage());
 		}
+	}
+
+	public List<ExaminationDTO> getExaminationsByDermatologist(Long id) {
+		List<ExaminationDTO> examinationDTOs=new ArrayList<ExaminationDTO>();
+
+		for (Examination examination : examinationRepository.getExaminationsExistByDermatologist(id))
+                    examinationDTOs.add(new ExaminationDTO(examination));
+        return examinationDTOs;
 	}
 }

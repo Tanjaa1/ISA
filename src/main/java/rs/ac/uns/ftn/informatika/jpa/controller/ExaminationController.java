@@ -53,10 +53,10 @@ public class ExaminationController {
 		return examinationDTOs == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(examinationDTOs);
 	}
 
-	@PutMapping(value = "/update")
+	@PutMapping(value = "/finish")
 	public ResponseEntity<HttpStatus> update(@RequestBody Examination examination) throws Exception
 	{
-		Examination e =examinationService.update(examination.getId());
+		Examination e =examinationService.finish(examination);
 		return e == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : new ResponseEntity<>(HttpStatus.OK);
 	}
 
@@ -123,4 +123,10 @@ public class ExaminationController {
 	}
 
 	
+	@GetMapping(value = "/getExaminationsByDermatologist/{id}")
+	public ResponseEntity<List<ExaminationDTO>> getExaminationsByDermatologist(@PathVariable Long id) 
+	{
+		List<ExaminationDTO> examinationDTOs = examinationService.getExaminationsByDermatologist(id);
+		return examinationDTOs == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(examinationDTOs);
+	}
 }

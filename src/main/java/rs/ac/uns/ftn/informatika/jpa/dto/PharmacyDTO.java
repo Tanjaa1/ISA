@@ -13,17 +13,19 @@ public class PharmacyDTO {
 	private String Name;
 	private String Address;
 	private Integer Grade;
+	private Double CounselingPrice;
 	public Set<ActionOrPromotionsDTO> ListActionsOrPromotions = new HashSet<ActionOrPromotionsDTO>();
 	private Set<MedicinePriceAndQuantityDTO> Pricelist = new HashSet<MedicinePriceAndQuantityDTO>();
     
     public PharmacyDTO(){}
 
-	public PharmacyDTO(long id,String name, String address, Integer grade,Set<MedicinePriceAndQuantityDTO> pricelist) {
+	public PharmacyDTO(long id,String name, String address, Integer grade, Double counselingPrice, Set<MedicinePriceAndQuantityDTO> pricelist) {
 		super();
 		Id=id;
 		Name = name;
 		Address = address;
 	    Grade = grade;
+		CounselingPrice = counselingPrice;
 		Pricelist=pricelist;
     }
     
@@ -42,9 +44,10 @@ public class PharmacyDTO {
 		for (MedicinePriceAndQuantity medicinePriceAndQuantity : pharmacy.getPricelist()) {
 			Pricelist.add(new MedicinePriceAndQuantityDTO(medicinePriceAndQuantity));
 		}
+		CounselingPrice = pharmacy.getCounselingPrice();
 	}
 
-	public long getId() {
+	public Long getId() {
 		return Id;
 	}
 
@@ -83,5 +86,13 @@ public class PharmacyDTO {
 	 public void setPricelist(Set<MedicinePriceAndQuantityDTO> pricelist) {
 	 	Pricelist = pricelist;
 	 }
+
+	 public Double getCounselingPrice() {
+		return CounselingPrice;
+	}
+
+	public void setCounselingPrice(Double counselingPrice) {
+		CounselingPrice = counselingPrice;
+	}
 
 }

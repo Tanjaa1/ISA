@@ -17,13 +17,9 @@ Vue.component("dermatologistHomePage", {
 					<div class="col-sm">
 					</div>
 					<div class="col-sm">
-					</div>
-					<div class="col-sm">
 					  <h3>
 						<button id="Users" type="button" class="btn btn-info btn-lg margin form-control" data-toggle="modal" v-on:click="PatientsShow"></button>
 						</h3><br/> 
-					</div>
-					<div class="col-sm">
 					</div>
 					<div class="col-sm">
 					  <h3>
@@ -31,13 +27,9 @@ Vue.component("dermatologistHomePage", {
 						</h3><br/> 
 					</div>
 					<div class="col-sm">
-					</div>
-					<div class="col-sm">
 					  <h3>
 						<button id="Calendar" type="button" class="btn btn-info btn-lg margin form-control" v-on:click="CalendarShow"></button>
 						</h3><br/> 
-					</div>
-					<div class="col-sm">
 					</div>
 					<div class="col-sm">
 					  <h3>
@@ -45,13 +37,9 @@ Vue.component("dermatologistHomePage", {
 						</h3><br/> 
 					</div>
 					<div class="col-sm">
-					</div>
-					<div class="col-sm">
 					  <h3>
 						<button id="Account" type="button" class="btn btn-info btn-lg margin form-control" v-on:click="AccountShow()"></button>
 						</h3><br/> 
-					</div>
-					<div class="col-sm">
 					</div>
 					<div class="col-sm">
 					  <h3>
@@ -75,15 +63,17 @@ Vue.component("dermatologistHomePage", {
             this.$router.push('dermatologistInfo');
         },
         PatientsShow: function () {
-            this.$router.push('search');
+            this.$router.push('dermatologistSearchPatients');
         },
         CalendarShow: function () {
         },
         VacationShow: function () {
+            this.$router.push('dermatologistVacationRequest');
         },
         CurrentExaminationShow: function () {         
         },
-        MakingExaminationShow: function () {           
+        MakingExaminationShow: function () {     
+            this.$router.push('createExaminationDermatologist');     
         },
 	}
 });

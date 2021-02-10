@@ -1,7 +1,11 @@
 package rs.ac.uns.ftn.informatika.jpa.service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -70,9 +74,10 @@ public class CounselingService implements ICounselingService {
        return patientCounselings;
 	}
 
-	public Counseling update(long id)throws Exception 
+	public Counseling finish(Counseling counseling)throws Exception 
     {
-            Counseling e=counselingRepository.getOne(id);
+            Counseling e=counselingRepository.getOne(counseling.getId());
+            e.setReport(counseling.getReport());
             e.setIsDone(true);
             return counselingRepository.save(e);
 	}
@@ -150,10 +155,41 @@ public class CounselingService implements ICounselingService {
 	{
 		try {
 			String subject="Counseling "+ counseling.getStartTime()+" " +counseling.getEndTime();
-			String text="Dear "+ counseling.getPatient().getFullName()+",\nThank you for your trust!\n\n!"+counseling.getPharmacist().getFullName();
+			String text="Dear "+ counseling.getPatient().getFullName()+",\nThank you for your trust!\n\n"+counseling.getPharmacist().getFullName();
 			emailService.sendNotificaitionAsync(counseling.getPatient().getEmail(),subject,text);
 		}catch( Exception e ){
 			logger.info("Error sending email: " + e.getMessage());
 		}
+	}
+
+    private void emailSender2(Counseling counseling)
+	{
+        LocalDate startDate = counseling.getStartTime().toLocalDate();
+        LocalTime startTime = counseling.getStartTime().toLocalTime();
+		try {
+			String subject="Pharmacy "+ counseling.getPharmacy().getName()+"\n\n";
+			String text="Dear "+ counseling.getPatient().getFullName()+ ",\n\n"+ "Your counseling has been scheeduled.\n"+
+             "Start time:" + startDate + "  " + startTime +",\n\nThank you for your trust!\n\n Pharmacy "+counseling.getPharmacy().getName();
+			emailService.sendNotificaitionAsync(counseling.getPatient().getEmail(),subject,text);
+		}catch( Exception e ){
+			logger.info("Error sending email: " + e.getMessage());
+		}
+	}
+
+	public CouncelingDTO createNewCounseling(Counseling counseling) {
+        Counseling c = new Counseling();
+        c.setPharmacist(pharmacistRepository.getOne(counseling.getPharmacist().getId()));
+        //c.setPatient(patientRepository.getOne(counseling.getPatient().getId()));
+        Long id = (long) 88;
+        c.setPatient(patientRepository.getOne(id));
+        c.setPharmacy(pharmacyRepository.getOne(counseling.getPharmacy().getId()));
+        c.setStartTime(counseling.getStartTime());
+        c.setEndTime(counseling.getStartTime().plusMinutes(20));
+        c.setPrice(counseling.getPrice());
+        c.setIsDone(counseling.getIsDone());
+        c.setIsCanceled(counseling.getIsCanceled());
+        CouncelingDTO councelingDTO= new CouncelingDTO(counselingRepository.save(c));
+        emailSender2(c);
+        return councelingDTO;
 	}
 }
