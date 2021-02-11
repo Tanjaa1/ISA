@@ -267,11 +267,14 @@ Vue.component("calendarP",{
       else
         date+='-'+this.col[i].getDate()
         //alert(e.startTime.split('T')[0]+date)
+        
+      if(e.startTime!=undefined){
         if(e.startTime.split('T')[0]==date){
               //alert("da")
               if(parseInt(e.startTime.split('T')[1].split(':')[0])>=parseInt(time.split(':')[0]) && parseInt(e.startTime.split('T')[1].split(':')[0])<parseInt(time.split(':')[0])+1)
               return true
           }
+        }
       return false
      },
      Start:function(e){
@@ -288,6 +291,10 @@ Vue.component("calendarP",{
    PastExam:function () {
      if(parseInt(this.exam.startTime.split('T')[0].split('-')[0])<parseInt(this.today.getFullYear()) || parseInt(this.exam.startTime.split('T')[0].split('-')[1])<parseInt(this.today.getMonth())+1 || parseInt(this.exam.startTime.split('T')[0].split('-')[2])<parseInt(this.today.getDate()))
        return false
+      if(this.exam.startTime!=""){
+        if(parseInt(this.exam.endTime.split('T')[1].split(':')[0])<parseInt(d.getHours()) || parseInt(this.exam.endTime.split('T')[1].split(':')[1])<parseInt(d.getMinutes()))
+          return false
+      }
      return true
    }
   }
@@ -467,16 +474,21 @@ Vue.component("calendarP",{
         Prescription:function(){
             
         },
-        AddPrescritpion:function(){
+        AddPrescritpion: async function(){
             var pharmacyMedicines=this.examination.pharmacy.pricelist
             for(m in pharmacyMedicines){
                 if(pharmacyMedicines[m].medicine.name==this.medicineChoose.name){
                     if(pharmacyMedicines[m].quantity>0){
                         this.prescriptionDTO.medicine=pharmacyMedicines[m]
-                        axios.post('/eprescription/add/'+this.examination.patient.id, this.prescriptionDTO)
+                        await axios.post('/eprescription/add/'+this.examination.patient.id, this.prescriptionDTO)
                             .then(function (response) {
                                 alert("The prescription was successfully issued!")
-                                location.reload()
+                            })
+                            .catch(function (error) {
+                            });
+                            await axios.put('/pharmacy/updateQuantity/'+this.examination.pharmacy.id, this.medicineChoose)
+                            .then(function (response) {
+                                //location.reload()
                             })
                             .catch(function (error) {
                             });

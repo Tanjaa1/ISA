@@ -268,11 +268,12 @@ Vue.component("calendarD",{
     else
       date+='-'+this.col[i].getDate()
       //alert(e.startTime.split('T')[0]+date)
-      if(e.startTime.split('T')[0]==date){
-            //alert("da")
-            if(parseInt(e.startTime.split('T')[1].split(':')[0])>=parseInt(time.split(':')[0]) && parseInt(e.startTime.split('T')[1].split(':')[0])<parseInt(time.split(':')[0])+1)
-            return true
-        }
+      if(e.startTime!=undefined){
+        if(e.startTime.split('T')[0]==date){
+              if(parseInt(e.startTime.split('T')[1].split(':')[0])>=parseInt(time.split(':')[0]) && parseInt(e.startTime.split('T')[1].split(':')[0])<parseInt(time.split(':')[0])+1)
+              return true
+          }
+      }
     return false
    },
    Start:function(e){
@@ -281,14 +282,26 @@ Vue.component("calendarD",{
      //this.$router.push('examinationDermatologist');   
    },
    Yes:function(){
+    $('#ExaminationP').modal('hide');
     this.$router.push('examinationDermatologist');
    },
    No:function(){
     $('#ExaminationP').modal('hide');
+    this.exam.isDone=false
+    axios.put('/examination/notCome', this.exam)
+    .then(function (response) {
+    })
+    .catch(function (error) {
+    });
    },
   PastExam:function () {
+    var d = new Date();
     if(parseInt(this.exam.startTime.split('T')[0].split('-')[0])<parseInt(this.today.getFullYear()) || parseInt(this.exam.startTime.split('T')[0].split('-')[1])<parseInt(this.today.getMonth())+1 || parseInt(this.exam.startTime.split('T')[0].split('-')[2])<parseInt(this.today.getDate()))
-      return false
+      return true
+    if(this.exam.startTime!=""){
+      if(parseInt(this.exam.endTime.split('T')[1].split(':')[0])<parseInt(d.getHours()) || parseInt(this.exam.endTime.split('T')[1].split(':')[1])<parseInt(d.getMinutes()))
+        return true
+    }
     return true
   }
 }
@@ -430,7 +443,7 @@ Vue.component("examinationDermatologist", {
 			</div>
             <!--SCHEDULE-->
             <div class="modal fade" tabindex="-1" role="dialog" id="Schedule">
-            <div class="modal-dialog" role="document" style="max-width: 60%;">
+            <div class="modal-dialog" role="document" style="max-width: 30%;">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title">Schedule the next examination</h5>
@@ -509,24 +522,30 @@ Vue.component("examinationDermatologist", {
 	methods: {
         Finish:function(){    
             axios.put('/examination/finish', this.examination)
-				.then(function (response) {
-				})
-				.catch(function (error) {
-				});    
+              .then(function (response) {
+              })
+              .catch(function (error) {
+              });    
         },
         Prescription:function(){
             
         },
-        AddPrescritpion:function(){
+        AddPrescritpion:async function(){
             var pharmacyMedicines=this.examination.pharmacy.pricelist
             for(m in pharmacyMedicines){
                 if(pharmacyMedicines[m].medicine.name==this.medicineChoose.name){
                     if(pharmacyMedicines[m].quantity>0){
                         this.prescriptionDTO.medicine=pharmacyMedicines[m]
-                        axios.post('/eprescription/add/'+this.examination.patient.id, this.prescriptionDTO)
+                        await axios.post('/eprescription/add/'+this.examination.patient.id, this.prescriptionDTO)
                             .then(function (response) {
                                 alert("The prescription was successfully issued!")
-                                location.reload()
+                                //location.reload()
+                            })
+                            .catch(function (error) {
+                            });
+                            await axios.put('/pharmacy/updateQuantity', this.medicineChoose)
+                            .then(function (response) {
+                               // location.reload()
                             })
                             .catch(function (error) {
                             });

@@ -258,4 +258,10 @@ public class ExaminationService implements IExaminationService {
                     examinationDTOs.add(new ExaminationDTO(examination));
         return examinationDTOs;
     }
+	public Examination notCome(Examination examination) {
+		Examination e=examinationRepository.getOne(examination.getId());
+        e.setReport(examination.getReport());
+        e.setIsDone(false);
+        return examinationRepository.save(e);
+	}
 }
