@@ -53,6 +53,7 @@ public class DermatologistService implements IDermatologistService {
 		dermatolgist1.setEmailComfirmed(dermatologist.getEmailComfirmed());
 		dermatolgist1.setFirstTimeLogin(dermatologist.getFirstTimeLogin());
 		dermatolgist1.setDescription(dermatologist.getDescription());
+		dermatolgist1.setUsername(dermatologist.getUsername());
         return dermatologistRepository.save(dermatolgist1);
     }
   
