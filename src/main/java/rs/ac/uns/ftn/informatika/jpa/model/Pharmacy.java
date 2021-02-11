@@ -11,9 +11,12 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import rs.ac.uns.ftn.informatika.jpa.dto.PharmacyDTO;
@@ -47,9 +50,9 @@ public class Pharmacy {
 	 @Column(name="CounselingPrice", unique=false, nullable=true)
 	private Double CounselingPrice;
 	
-	// @ManyToMany
-	// @JoinTable(name = "PharmacySubscribedUsers", joinColumns = @JoinColumn(name = "Pharmacy_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "Patient_id", referencedColumnName = "id"))
-	// private Set<Patient> SubscribedUsers = new HashSet<Patient>();
+	 @ManyToMany
+	 @JoinTable(name = "PharmacySubscribedUsers", joinColumns = @JoinColumn(name = "Pharmacy_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "Patient_id", referencedColumnName = "id"))
+	 private Set<Patient> SubscribedUsers = new HashSet<Patient>();
 	
 	// @ManyToMany(mappedBy = "Pharmacies")
 	// private Set<Dermatologist> Dermatologists = new HashSet<Dermatologist>();
@@ -154,6 +157,13 @@ public class Pharmacy {
 	// public void setPharmacyAdmins(Set<PharmacyAdmin> pharmacyAdmins) {
 	// 	PharmacyAdmins = pharmacyAdmins;
 	// }
+	public Set<Patient> getSubscribedUsers(){
+		return SubscribedUsers;
+	}
+
+	public void setSubscribedUsers(Set<Patient> su){
+		SubscribedUsers = su;
+	}
 
 	public void setId(Long id) {
 		Id = id;

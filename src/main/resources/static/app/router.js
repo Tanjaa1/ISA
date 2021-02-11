@@ -66,6 +66,7 @@ const DermatologistVacationRequest = { template: '<dermatologistVacationRequest>
 
 const CreateExaminationDermatologist = { template: '<createExaminationDermatologist></createExaminationDermatologist>' }
 const CreateCounselingPharmacist = { template: '<createCounselingPharmacist></createCounselingPharmacist>' }
+const NewActionOrPromotion = { template: '<newActionOrPromotion></newActionOrPromotion>' }
 
 
 const CalendarD = { template: '<calendarD></calendarD>' }
@@ -424,6 +425,14 @@ const router = new VueRouter({
 			components: {
 				pageHeader: DermatologistHeader,
 				content: CreateExaminationDermatologist
+			}
+		},
+		{ 
+			path: '/newActionOrPromotion', 
+			name : 'newActionOrPromotion', 
+			components: {
+				pageHeader: DermatologistHeader,
+				content: NewActionOrPromotion
 			}
 		},
 		{ 

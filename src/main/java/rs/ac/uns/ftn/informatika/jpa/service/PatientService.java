@@ -26,8 +26,6 @@ import rs.ac.uns.ftn.informatika.jpa.service.Interface.IPatientService;
 @Service
 public class PatientService implements IPatientService {
 
-
-
 	@Autowired
 	private IPatientRepository patientRepository;
 
@@ -37,17 +35,17 @@ public class PatientService implements IPatientService {
 	@Autowired
 	private EmailService emailService;
 	private Logger logger = LoggerFactory.getLogger(ResrvationService.class);
-	
+
 	public Patient findOne(Long id) {
-		 Patient patient = patientRepository.getOne(id);
-	        return patient;
+		Patient patient = patientRepository.getOne(id);
+		return patient;
 	}
 
 	@Override
-    public Patient update(Patient patient) throws Exception {
-        Patient patient1 = findOne(patient.getId());
-        if (patient1 == null) {
-            throw new Exception("Trazeni entitet nije pronadjen.");
+	public Patient update(Patient patient) throws Exception {
+		Patient patient1 = findOne(patient.getId());
+		if (patient1 == null) {
+			throw new Exception("Trazeni entitet nije pronadjen.");
 		}
 		patient1.setId(patient.getId());
 		patient1.setName(patient.getName());
@@ -65,143 +63,149 @@ public class PatientService implements IPatientService {
 		patient1.setFirstTimeLogin(patient.getFirstTimeLogin());
 		patient1.setDescription(patient.getDescription());
 		patient1.setDrugAllargies(patient.getDrugAllargies());
-        Patient patient2 = patientRepository.save(patient1);
-        return patient2;
-    }
+		Patient patient2 = patientRepository.save(patient1);
+		return patient2;
+	}
 
-	public List<PatientDTO> findPatientsByDermatologist(Long id) 
-	{
-		List<PatientDTO> patientsDto=new ArrayList<PatientDTO>();
+	public List<PatientDTO> findPatientsByDermatologist(Long id) {
+		List<PatientDTO> patientsDto = new ArrayList<PatientDTO>();
 		for (Patient patient : patientRepository.findPatientsByDermatologist(id))
-			   patientsDto.add(new PatientDTO(patient));
+			patientsDto.add(new PatientDTO(patient));
 		return patientsDto;
-    }
+	}
 
-	public List<PatientDTO> findPatientsByPharmacist(Long id) 
-	{
-		List<PatientDTO> patientsDto=new ArrayList<PatientDTO>();
+	public List<PatientDTO> findPatientsByPharmacist(Long id) {
+		List<PatientDTO> patientsDto = new ArrayList<PatientDTO>();
 		for (Patient patient : patientRepository.findPatientsByPharmacist(id))
-			   patientsDto.add(new PatientDTO(patient));
+			patientsDto.add(new PatientDTO(patient));
 		return patientsDto;
-    }
+	}
 
-	public List<PatientDTO> findPatientsByNameAndSurnameDermatologist(Long id,String name,String surname) 
-	{	
-		List<PatientDTO> patients=new ArrayList<PatientDTO>();
+	public List<PatientDTO> findPatientsByNameAndSurnameDermatologist(Long id, String name, String surname) {
+		List<PatientDTO> patients = new ArrayList<PatientDTO>();
 		for (PatientDTO patientDTO : findPatientsByDermatologist(id)) {
-			if(patientDTO.containsNameAndSurname(name,surname))
+			if (patientDTO.containsNameAndSurname(name, surname))
 				patients.add(patientDTO);
 		}
 		return patients;
 	}
 
-	public List<PatientDTO> findPatientsByNameAndSurnamePharmacist(Long id,String name,String surname) 
-	{	
-		List<PatientDTO> patients=new ArrayList<PatientDTO>();
+	public List<PatientDTO> findPatientsByNameAndSurnamePharmacist(Long id, String name, String surname) {
+		List<PatientDTO> patients = new ArrayList<PatientDTO>();
 		for (PatientDTO patientDTO : findPatientsByPharmacist(id)) {
-			if(patientDTO.containsNameAndSurname(name,surname))
+			if (patientDTO.containsNameAndSurname(name, surname))
 				patients.add(patientDTO);
 		}
 		return patients;
 	}
-	public ResponseEntity<Patient> save(Patient patient) throws Exception{
+
+	public ResponseEntity<Patient> save(Patient patient) throws Exception {
 		patientRepository.save(patient);
-		List<Patient> patients=patientRepository.findAll();
-		Long patientId=0L;
+		List<Patient> patients = patientRepository.findAll();
+		Long patientId = 0L;
 		for (Patient patient2 : patients) {
-			if(patient2.getUsername().equals(patient.getUsername()))
-				patientId=patient2.getId();
+			if (patient2.getUsername().equals(patient.getUsername()))
+				patientId = patient2.getId();
 		}
 		patient.setId(patientId);
 		emailSender(patient);
-		return new ResponseEntity<>( HttpStatus.CREATED);
+		return new ResponseEntity<>(HttpStatus.CREATED);
 	}
 
-	public List<String> saveDrugAll( String drugAllergies) throws Exception{
-		String drugAllergiesParts[]=drugAllergies.split(",");
-		List<String> listdrugAllergies=new ArrayList<String>();
-		for(String  i : drugAllergiesParts){
+	public List<String> saveDrugAll(String drugAllergies) throws Exception {
+		String drugAllergiesParts[] = drugAllergies.split(",");
+		List<String> listdrugAllergies = new ArrayList<String>();
+		for (String i : drugAllergiesParts) {
 			listdrugAllergies.add(i);
-		}	
-	return listdrugAllergies;
+		}
+		return listdrugAllergies;
 	}
+
 	public List<String> getAllPatientUsernames() {
 		List<Patient> patients = patientRepository.findAll();
-        List<String> resultList=new ArrayList<String>();
-        for (Patient s : patients) {
-            resultList.add(s.getUsername());
-        }
-        return resultList;
-	}
-	public Boolean isUsernameValid(String username) {
-		List<String> usernames=getAllPatientUsernames();
-        for (String s : usernames) {
-            if(s.equals(username))
-                return false;
-        }
-        return true;
+		List<String> resultList = new ArrayList<String>();
+		for (Patient s : patients) {
+			resultList.add(s.getUsername());
+		}
+		return resultList;
 	}
 
-	private void emailSender(Patient patient)
-	{
+	public Boolean isUsernameValid(String username) {
+		List<String> usernames = getAllPatientUsernames();
+		for (String s : usernames) {
+			if (s.equals(username))
+				return false;
+		}
+		return true;
+	}
+
+	private void emailSender(Patient patient) {
 		try {
-			String subject="Patient "+ patient.getFullName();
-			Long encriptId=IdEncryption(patient.getId());
-			String text="Dear "+ patient.getFullName()+",\n Please click on link below to activate your profile \n <a href=\"http://localhost:8080/#/emailConfirmation?id=" + encriptId + "\">link</a>!";
-			emailService.sendNotificaitionAsync(patient.getEmail(),subject,text);
-		}catch( Exception e ){
+			String subject = "Patient " + patient.getFullName();
+			Long encriptId = IdEncryption(patient.getId());
+			String text = "Dear " + patient.getFullName()
+					+ ",\n Please click on link below to activate your profile \n <a href=\"http://localhost:8080/#/emailConfirmation?id="
+					+ encriptId + "\">link</a>!";
+			emailService.sendNotificaitionAsync(patient.getEmail(), subject, text);
+		} catch (Exception e) {
 			logger.info("Error sending email: " + e.getMessage());
 		}
 	}
 
-	private Long IdEncryption(Long patientId)
-	{
-		return (patientId + 6789 + 23 * 33);          
+	private Long IdEncryption(Long patientId) {
+		return (patientId + 6789 + 23 * 33);
 	}
 
-	private Long IdDecryption(Long patientId)
-	{
+	private Long IdDecryption(Long patientId) {
 		return (patientId - 23 * 33 - 6789);
 	}
 
 	public Boolean confirmationEmail(Long patientId) throws Exception {
-		Long decriptId=IdDecryption(patientId);
-		Patient patientToUpdate=findOne(decriptId);
-		if(patientToUpdate.getEmailComfirmed()) return false;
+		Long decriptId = IdDecryption(patientId);
+		Patient patientToUpdate = findOne(decriptId);
+		if (patientToUpdate.getEmailComfirmed())
+			return false;
 		patientToUpdate.setEmailComfirmed(true);
 		update(patientToUpdate);
 		return true;
 	}
 
 	public Set<PharmacyDTO> getEPharmaciesByPatientIdAndPrescriptions(Long patientId) {
-        PatientDTO resultPatient=new PatientDTO((findOne(patientId)));
-		Set<EPrescriptionDTO> prescriptions=resultPatient.getEPrescriptions();
-		Set<PharmacyDTO> pharmacies=new HashSet<>();
-        for (EPrescriptionDTO s : prescriptions) {
+		PatientDTO resultPatient = new PatientDTO((findOne(patientId)));
+		Set<EPrescriptionDTO> prescriptions = resultPatient.getEPrescriptions();
+		Set<PharmacyDTO> pharmacies = new HashSet<>();
+		for (EPrescriptionDTO s : prescriptions) {
 			pharmacies.add(s.getPharmacy());
-        }
-		if(pharmacies.isEmpty()) return null;
-		else return pharmacies;
+		}
+		if (pharmacies.isEmpty())
+			return null;
+		else
+			return pharmacies;
 	}
 
 	@Override
 	public Patient findById(Long id) {
-	Patient patient=patientRepository.findById(id).get();
-	return patient;
+		Patient patient = patientRepository.findById(id).get();
+		return patient;
 	}
 
 	public List<PatientDTO> getAllPatients() {
-        List<Patient> patients =patientRepository.findAll();
-        List<PatientDTO> returnValue = new ArrayList<PatientDTO>();
-        for (Patient patient : patients)
-            returnValue.add(new PatientDTO(patient));
-        return returnValue;
+		List<Patient> patients = patientRepository.findAll();
+		List<PatientDTO> returnValue = new ArrayList<PatientDTO>();
+		for (Patient patient : patients)
+			returnValue.add(new PatientDTO(patient));
+		return returnValue;
 	}
 
 	public PatientDTO findByIdComplaints(Long id) {
-		Complaint complaint=complaintRepository.getOne(id);
-		Patient patient=patientRepository.findById(complaint.getPatient().getId()).get();
-	return new PatientDTO(patient);
+		Complaint complaint = complaintRepository.getOne(id);
+		Patient patient = patientRepository.findById(complaint.getPatient().getId()).get();
+		return new PatientDTO(patient);
+	}
+
+	@Override
+	public List<Patient> findSubscribetPatients(Long pharmacyId) {
+		return patientRepository.findPatientsSubscribed(pharmacyId);
 	}
 
 }

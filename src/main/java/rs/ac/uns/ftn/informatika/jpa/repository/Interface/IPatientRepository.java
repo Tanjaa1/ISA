@@ -23,4 +23,7 @@ public interface IPatientRepository extends JpaRepository<Patient, Long>{
 	
     @Query("SELECT distinct p FROM Counseling u,Pharmacist d,Patient p WHERE u.Pharmacist=d.Id and u.Patient=p.Id and d.Id = ?1")
 	List<Patient> findPatientsByPharmacist(Long id);
+
+	@Query("SELECT distinct patients FROM Pharmacy u JOIN u.SubscribedUsers patients WHERE u.Id = ?1")
+	List<Patient> findPatientsSubscribed(Long pharmacyId);
 }

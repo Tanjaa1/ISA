@@ -30,7 +30,7 @@ public class SystemAdminService implements ISystemAdminService {
 		Long patientId=0L;
 		for (SystemAdmin patient2 : patients) {
 			if(patient2.getUsername().equals(systemAdmin.getUsername()))
-			patientId=patient2.getId();
+				patientId=patient2.getId();
 		}
 		systemAdmin.setId(patientId);
 		emailSender(systemAdmin);        return new ResponseEntity<>( HttpStatus.CREATED);
