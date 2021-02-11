@@ -81,15 +81,16 @@
     /* overflow-y: scroll;
     overflow-x: hidden;     */
     /*max-height: 300px;*/
+    width: 800px;
  }
 
- .modal-dialog{
+ /* .modal-dialog{
     overflow-y: initial !important;
     height: auto !important;
 }
 .modal-body{
-    /* height:250px; */
+     height:250px; 
     height: 80vh;
     overflow-y: auto;
     overflow-x: auto;
-}
+} */

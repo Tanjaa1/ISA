@@ -129,4 +129,11 @@ public class ExaminationController {
 		List<ExaminationDTO> examinationDTOs = examinationService.getExaminationsByDermatologist(id);
 		return examinationDTOs == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(examinationDTOs);
 	}
+
+	@GetMapping(value = "/getFreeExaminations")
+	public ResponseEntity<List<ExaminationDTO>> getFreeExaminations() 
+	{
+		List<ExaminationDTO> examinationDTOs = examinationService.getFreeExamination();
+		return examinationDTOs == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(examinationDTOs);
+	}
 }
