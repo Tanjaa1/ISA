@@ -31,7 +31,7 @@ public class DermatologistDTO{
 	private Set<Integer> Marks = new HashSet<Integer>();
     private Set<ExaminationDTO> Examinations = new HashSet<ExaminationDTO>();
 	private Integer Grade;
-    
+    private String Username;
     public DermatologistDTO() {
     }
 
@@ -86,6 +86,7 @@ public class DermatologistDTO{
             i++;
         }
         Grade = (int) Math.round(result / i);
+		Username=dermatologist.getUsername();
     }
 
     public DermatologistDTO toDTO(Dermatologist dermatologist){
@@ -195,6 +196,24 @@ public class DermatologistDTO{
 	public void setGrade(Integer grade) {
 		Grade = grade;
 	}
+	public Boolean getEmailComfirmed() {
+		return EmailComfirmed;
+	}
+	public void setEmailComfirmed(Boolean emailComfirmed) {
+		EmailComfirmed = emailComfirmed;
+	}
+	public Boolean getFirstTimeLogin() {
+		return FirstTimeLogin;
+	}
+	public void setFirstTimeLogin(Boolean firstTimeLogin) {
+		FirstTimeLogin = firstTimeLogin;
+	}
 
+	public String getUsername() {
+		return Username;
+	}
+	public void setUsername(String username) {
+		Username = username;
+	}
 }
 

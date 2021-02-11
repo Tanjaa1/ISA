@@ -1,10 +1,20 @@
 Vue.component("dermatologistHomePage", {
 	data: function () {
 		return {
-			users:{}
+			users:{},
+			phycian:{}
 		}
 	},
 	beforeMount() {
+		axios
+			.get('/dermatologist/getDermatologistById/' + '6') 
+			.then(response => {
+				this.phycian = response.data
+				if(!this.phycian.firstTimeLogin)
+					$('#Show').modal('show');
+			})
+			.catch(error => {
+			})
 	},
 	template: `
 	<div id="DermatologistHomePage"  class="BackendImagePhysician">		
@@ -55,6 +65,25 @@ Vue.component("dermatologistHomePage", {
 				  </div>				
 		</div>
 		<br></br><br></br>
+		<!--MODAL-->
+		<div class="modal fade" tabindex="-1" role="dialog" id="Show" >
+		<div class="modal-dialog search" role="document">
+		  <div class="modal-content">
+			<div class="modal-header">
+			  <h5 class="modal-title">Change password</h5>
+			</div>
+			<div class="modal-body search">
+						New password:\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0<input id="np" type="password" minlength="8"></br></br>
+						
+						Confirm password:\xa0\xa0\xa0\xa0\xa0\xa0\xa0<input type="password" id="cp" name="password" minlength="8"></br>
+			</div>
+			<div class="modal-footer">
+			  	<button type="button" class="btn btn-info btn-lg" v-on:click="Yes()">Confirm</button>
+			</div>
+		  </div>
+		  </div>
+		</div>
+	  </div>
 	</div>					
 				
 	`,
@@ -75,5 +104,18 @@ Vue.component("dermatologistHomePage", {
         MakingExaminationShow: function () {     
             this.$router.push('createExaminationDermatologist');     
         },
+		Yes:function(){
+			if(document.getElementById("np").value==document.getElementById("cp").value && document.getElementById("np").value.trim()!="" && document.getElementById("cp").value.trim()!=""){
+				$('#Show').modal('hide');
+				this.phycian.firstTimeLogin=true
+					axios.put('/dermatologist/update', this.phycian)
+						.then(function (response) {
+						})
+						.catch(function (error) {
+						});
+			}else{
+				alert('Comfire password!')
+			}
+		}
 	}
 });

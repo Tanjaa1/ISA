@@ -49,6 +49,7 @@ public class PharmacistService implements IPharmacistService {
 		pharmacist1.setEmailComfirmed(pharmacist.getEmailComfirmed());
 		pharmacist1.setFirstTimeLogin(pharmacist.getFirstTimeLogin());
 		pharmacist1.setDescription(pharmacist.getDescription());
+		pharmacist1.setUsername(pharmacist.getUsername());
         return pharmacistRepository.save(pharmacist1);
 	}
 	

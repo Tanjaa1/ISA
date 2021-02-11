@@ -29,7 +29,7 @@ public class PharmacistDTO {
 	private PharmacyDTO Pharmacy ;
 	private Set<VacationIntervalDTO> VacationSchedule = new HashSet<VacationIntervalDTO>();
 	private Set<WorkingTimeDTO> WorkingSchedule = new HashSet<WorkingTimeDTO>();
-	
+	private String Username;
 
 
 
@@ -90,6 +90,7 @@ public class PharmacistDTO {
             i++;
         }
         Grade = (int) Math.round(result / i);
+		Username=pharmaciest.getUsername();
 	}
 
 	
@@ -202,5 +203,13 @@ public class PharmacistDTO {
 
 	public void setGrade(Integer grade) {
 		Grade = grade;
+	}
+	
+	public String getUsername() {
+		return Username;
+	}
+
+	public void setUsername(String username) {
+		Username = username;
 	}
 }
