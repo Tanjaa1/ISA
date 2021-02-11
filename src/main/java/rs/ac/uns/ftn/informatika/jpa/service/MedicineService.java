@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import rs.ac.uns.ftn.informatika.jpa.dto.MedicineDTO;
 import rs.ac.uns.ftn.informatika.jpa.model.Medicine;
-import rs.ac.uns.ftn.informatika.jpa.model.MedicinePriceAndQuantity;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IMedicineRepository;
 import rs.ac.uns.ftn.informatika.jpa.service.Interface.IMedicineService;
 

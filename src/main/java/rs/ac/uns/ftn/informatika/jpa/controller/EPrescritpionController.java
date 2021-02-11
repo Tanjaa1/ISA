@@ -2,9 +2,13 @@ package rs.ac.uns.ftn.informatika.jpa.controller;
 
 import java.util.Set;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,7 +34,9 @@ public class EPrescritpionController {
 
 
 	@PostMapping(value = "/add/{id}")
-	public ResponseEntity<EPrescriptionDTO> addEPrescritpion(@RequestBody EPrescription ePrescriptionDTO,@PathVariable Long id) throws Exception {
+	public ResponseEntity<EPrescriptionDTO> addEPrescritpion(@Valid @RequestBody EPrescription ePrescriptionDTO, BindingResult result,@PathVariable Long id) throws Exception {
+		if (result.hasErrors()) 
+			return new ResponseEntity<>(new EPrescriptionDTO(), HttpStatus.BAD_REQUEST);
 		EPrescription ep= ePrescriptionService.save(ePrescriptionDTO,id);
 		return ep == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : new ResponseEntity<>(HttpStatus.OK);  
 	}

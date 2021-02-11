@@ -12,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import rs.ac.uns.ftn.informatika.jpa.validator.CustomAnnotation;
+
 @Entity
 @Table(name="Examination")
 public class Examination {
@@ -23,9 +25,11 @@ public class Examination {
 	@Column(name="Report", unique=false, nullable=true)
 	private String Report;
 	
+	@CustomAnnotation(message="Field cannot be empty")
 	@Column(name="StartTime", unique=false, nullable=true)
 	private LocalDateTime StartTime;
 
+	@CustomAnnotation(message="Field cannot be empty")
 	@Column(name="EndTime", unique=false, nullable=true)
 	private LocalDateTime EndTime;
 
@@ -36,10 +40,12 @@ public class Examination {
 	//@JsonIgnoreProperties(value = {"Examination", "hibernateLazyInitializer"})
 	private Patient Patient;
 	
+	@CustomAnnotation(message="Field cannot be empty")
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	//@JsonIgnoreProperties(value = {"Examination", "hibernateLazyInitializer"})
 	private Dermatologist Dermatologist;
 
+	@CustomAnnotation(message="Field cannot be empty")
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	//@JsonIgnoreProperties(value = {"Examination", "hibernateLazyInitializer"})
 	private Pharmacy Pharmacy;
@@ -50,6 +56,8 @@ public class Examination {
 	public Examination(){
 		isDone=false;
 		Report="";
+		Dermatologist=new Dermatologist();
+		Pharmacy=new Pharmacy();
 	}
 	@Column(name="IsCanceled", unique=false, nullable=true)
 	private Boolean IsCanceled;

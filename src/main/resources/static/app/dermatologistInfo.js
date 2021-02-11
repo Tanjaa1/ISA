@@ -225,7 +225,7 @@ Vue.component("changeDermatologistInfo", {
 							<div class="input-group-prepend">
 								<span class="input-group-text width" id="basic-addon3">City</span>
 							  </div>
-							  <input type="text" v-model="city" class="form-control aria-describedby="basic-addon3">
+							  <input type="text" v-model="city" class="form-control" aria-describedby="basic-addon3">
 						
 						</div>
 

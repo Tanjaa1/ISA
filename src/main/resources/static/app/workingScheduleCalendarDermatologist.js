@@ -307,10 +307,10 @@ Vue.component("calendarD",{
   PastExam:function () {
     var d = new Date();
     if(parseInt(this.exam.startTime.split('T')[0].split('-')[0])<parseInt(this.today.getFullYear()) || parseInt(this.exam.startTime.split('T')[0].split('-')[1])<parseInt(this.today.getMonth())+1 || parseInt(this.exam.startTime.split('T')[0].split('-')[2])<parseInt(this.today.getDate()))
-      return true
+      return false
     if(this.exam.startTime!=""){
       if(parseInt(this.exam.endTime.split('T')[1].split(':')[0])<parseInt(d.getHours()) || parseInt(this.exam.endTime.split('T')[1].split(':')[1])<parseInt(d.getMinutes()))
-        return true
+        return false
     }
     return true
   }
@@ -546,6 +546,7 @@ Vue.component("examinationDermatologist", {
                 if(pharmacyMedicines[m].medicine.name==this.medicineChoose.name){
                     if(pharmacyMedicines[m].quantity>0){
                         this.prescriptionDTO.medicine=pharmacyMedicines[m]
+                        this.prescriptionDTO.pharmacy=this.examination.pharmacy
                         await axios.post('/eprescription/add/'+this.examination.patient.id, this.prescriptionDTO)
                             .then(function (response) {
                                 alert("The prescription was successfully issued!")

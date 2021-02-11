@@ -480,6 +480,7 @@ Vue.component("calendarP",{
                 if(pharmacyMedicines[m].medicine.name==this.medicineChoose.name){
                     if(pharmacyMedicines[m].quantity>0){
                         this.prescriptionDTO.medicine=pharmacyMedicines[m]
+                        this.prescriptionDTO.pharmacy=this.examination.pharmacy
                         await axios.post('/eprescription/add/'+this.examination.patient.id, this.prescriptionDTO)
                             .then(function (response) {
                                 alert("The prescription was successfully issued!")

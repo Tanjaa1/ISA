@@ -1,13 +1,15 @@
 package rs.ac.uns.ftn.informatika.jpa.controller;
 
-import java.sql.Date;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -36,7 +38,10 @@ public class PharmaciestController {
 	}
 
 	@PutMapping(value = "/update")
-	public ResponseEntity<PharmacistDTO> updateGreeting(@RequestBody Pharmacist pharmacist) throws Exception {
+	public ResponseEntity<PharmacistDTO> updateGreeting(@Valid @RequestBody Pharmacist pharmacist, BindingResult result) throws Exception {
+		
+		if (result.hasErrors()) 
+			return new ResponseEntity<>(new PharmacistDTO(),HttpStatus.BAD_REQUEST);
 		PharmacistDTO p = new PharmacistDTO(pharmacistService.update(pharmacist));
 		return p == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(p);
 	}
@@ -55,9 +60,12 @@ public class PharmaciestController {
 
 	  
 	  @PostMapping(value = "/savePharmacist")
-	  public ResponseEntity<Pharmacist> savePatient(@RequestBody Pharmacist patientDTO) throws Exception{
-		pharmacistService.save(patientDTO);
-	  return new ResponseEntity<>(patientDTO, HttpStatus.CREATED);
+	  public ResponseEntity<Pharmacist> savePatient(@Valid @RequestBody Pharmacist pharmacist, BindingResult result) throws Exception{
+		  
+		if (result.hasErrors()) 
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		pharmacistService.save(pharmacist);
+	  return new ResponseEntity<>(pharmacist,HttpStatus.CREATED);
 	  }
 
 	  @GetMapping(value = "/isUsernameValid/{username}")

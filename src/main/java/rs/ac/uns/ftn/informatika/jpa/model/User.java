@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.SequenceGenerator;
 
+import rs.ac.uns.ftn.informatika.jpa.validator.CustomAnnotation;
+
 @Entity
 @Inheritance(strategy=TABLE_PER_CLASS)
 public abstract class User {
@@ -18,8 +20,13 @@ public abstract class User {
 	@SequenceGenerator(name = "Id", sequenceName = "Id1", initialValue = 1, allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "Id")
 	private Long Id;
+
+	
+	@CustomAnnotation(message="Field cannot be empty")
 	@Column(name="Email", unique=false, nullable=false)
 	private String Email;
+
+	@CustomAnnotation(message="Field cannot be empty")
 	@Column(name="Password", unique=false, nullable=false)
 	private String Password;
 	@Column(name="Name", unique=false, nullable=false)
@@ -36,10 +43,14 @@ public abstract class User {
 	private String PhoneNumber;
 	@Column(name="Description", unique=false, nullable=true)
 	private String Description;
+	
 	@Column(name="EmailComfirmed", unique=false, nullable=false)
 	private Boolean EmailComfirmed;
+	
 	@Column(name="FirstTimeLogin", unique=false, nullable=false)
 	private Boolean FirstTimeLogin;
+	
+	@CustomAnnotation(message="Field cannot be empty")
 	@Column(name="Username", unique=true, nullable=false)
 	private String Username;
 	

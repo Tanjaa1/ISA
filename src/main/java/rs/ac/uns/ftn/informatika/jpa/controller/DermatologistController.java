@@ -4,9 +4,12 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,7 +38,10 @@ public class DermatologistController {
 	private PharmacyService pharmacyService;
 
 	@PostMapping(value = "/saveDermatologist")
-	public ResponseEntity<Dermatologist> savePatient(@RequestBody Dermatologist dermatologistDTO) throws Exception {
+	public ResponseEntity<Dermatologist> savePatient(@Valid @RequestBody Dermatologist dermatologistDTO, BindingResult result) throws Exception {
+		if (result.hasErrors()) 
+			new ResponseEntity<>(new DermatologistDTO(), HttpStatus.BAD_REQUEST);
+
 		PharmacyDTO pharmacys = getFarmacyById(dermatologistDTO.getId());
 		Set<Pharmacy> setPhyrmacies=new HashSet<Pharmacy>();
 		setPhyrmacies.add(new Pharmacy(pharmacys));
@@ -69,7 +75,10 @@ public class DermatologistController {
 	}
 
 	@PutMapping(value = "/update")
-	public ResponseEntity<DermatologistDTO> updateGreeting(@RequestBody Dermatologist dermatologist) throws Exception {
+	public ResponseEntity<DermatologistDTO> updateGreeting(@Valid @RequestBody Dermatologist dermatologist, BindingResult result) throws Exception {
+		if (result.hasErrors()) 
+			return new ResponseEntity<>(new DermatologistDTO(), HttpStatus.BAD_REQUEST);
+
 		DermatologistDTO d = new DermatologistDTO(dermatologistService.update(dermatologist));
 		return d == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(d);    
 	}
