@@ -1,5 +1,7 @@
 package rs.ac.uns.ftn.informatika.jpa.service;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -14,6 +16,9 @@ import rs.ac.uns.ftn.informatika.jpa.dto.PharmacyDTO;
 import rs.ac.uns.ftn.informatika.jpa.dto.ReservationDTO;
 import rs.ac.uns.ftn.informatika.jpa.model.MedicinePriceAndQuantity;
 import rs.ac.uns.ftn.informatika.jpa.model.Reservation;
+import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IPatientRepository;
+import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IPharmacistRepository;
+import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IPharmacyRepository;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IPriceAndQuantityRepository;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IReservationRepository;
 import rs.ac.uns.ftn.informatika.jpa.service.Interface.IReservationService;
@@ -27,6 +32,16 @@ public class ResrvationService implements IReservationService{
 
 	@Autowired
 	private IPriceAndQuantityRepository priceAndQuantityRepository;
+    
+    @Autowired
+    private IPatientRepository patientRepository;
+
+    @Autowired
+    private IPharmacyRepository pharmacyRepository;
+
+	@Autowired
+    private IPharmacistRepository pharmacistRepository;
+
 
     private DateCompare dateCompare=new DateCompare();
 	
@@ -140,5 +155,34 @@ public class ResrvationService implements IReservationService{
         	r.setIsCanceled(true);
 		}
         return reservationRepository.save(r);
+	}
+
+	public ReservationDTO makeReservation(Reservation reservation) {
+		Reservation r = new Reservation();
+		r.setExpirationDate(reservation.getExpirationDate());
+		r.setIsCanceled(reservation.getIsCanceled());
+		r.setIsReceived(reservation.getIsReceived());
+		r.setPharmacy(pharmacyRepository.getOne(reservation.getPharmacy().getId()));
+        r.setMedicine(priceAndQuantityRepository.getOne(reservation.getMedicine().getId()));
+        //c.setPatient(patientRepository.getOne(counseling.getPatient().getId()));
+        Long id = (long) 88;
+        r.setPatient(patientRepository.getOne(id));
+        ReservationDTO councelingDTO= new ReservationDTO(reservationRepository.save(r));
+        emailSender3(r);
+        return councelingDTO;
+	}
+
+	private void emailSender3(Reservation reservation)
+	{
+		LocalDate date = LocalDate.ofInstant(reservation.getExpirationDate().toInstant(), ZoneId.systemDefault());
+		try {
+			String subject="Pharmacy "+ reservation.getPharmacy().getName()+"\n\n";
+			String text="Dear "+ reservation.getPatient().getFullName()+ ",\n\n"+ "Your made successfull reservation of medicine "+ 
+			reservation.getMedicine().getMedicine().getName() +
+             "\nExpiration date: " + date + ",\n\nThank you for your trust!\n\n Pharmacy "+reservation.getPharmacy().getName();
+			emailService.sendNotificaitionAsync(reservation.getPatient().getEmail(),subject,text);
+		}catch( Exception e ){
+			logger.info("Error sending email: " + e.getMessage());
+		}
 	}
 }

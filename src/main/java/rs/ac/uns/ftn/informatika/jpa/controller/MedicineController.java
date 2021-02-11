@@ -53,5 +53,11 @@ public class MedicineController {
 		return null;
 	}
 
+	@GetMapping(value = "/findMedicine/{name}")
+	public ResponseEntity<MedicineDTO> findMedicine(@PathVariable String name) {
+		MedicineDTO medicineDTO= medicineService.findMedicine(name);
+		return medicineDTO == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(medicineDTO);
+	}
+
 }
 

@@ -12,6 +12,7 @@ const PatientHeader = { template: '<patientHeader></patientHeader>' }
 const PageHeader = { template: '<pageHeader></pageHeader>' }
 const ChangePatientInfo = { template: '<changePatientInfo></changePatientInfo>' }
 const PatientActionsOrPromotions = { template: '<patientActionsOrPromotions></patientActionsOrPromotions>' }
+const ReserveMedicine = { template: '<reserveMedicine></reserveMedicine>' }
 
 const DermatologistsPreview = { template: '<dermatologistsPreview></dermatologistsPreview>'}
 const PharmacistsPreview = { template: '<pharmacistsPreview></pharmacistsPreview>'}
@@ -449,7 +450,15 @@ const router = new VueRouter({
 				pageHeader: PharmacistHeader,
 				content: CalendarP
 			}
-		}
+		},
+		{
+			path: '/reserveMedicine', 
+			name : 'reserveMedicine', 
+			components: {
+				pageHeader: PatientHeader,
+				content: ReserveMedicine
+			}
+		},
 	  ]
 });
 
