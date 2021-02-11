@@ -12,7 +12,7 @@ INSERT INTO public.patient(
 */
 INSERT INTO public.patient(
 id, address, city, country, description, email, email_comfirmed, first_time_login, name, password, phone_number, surname, username, category, penalty, points)
-	VALUES (88, 'Mileve Maric 5', 'Novi Sad', 'Srbija', '', 'marijavucetic66@gmail.com', false, false, 'Jovana', 'Jovanic', '0628876678', 'Jovanic','jocas', 0, 0, 0);
+	VALUES (88, 'Mileve Maric 5', 'Novi Sad', 'Srbija', '', 'aleksandramilijevic98@gmail.com', false, false, 'Jovana', 'Jovanic', '0628876678', 'Jovanic','jocas', 0, 0, 0);
 INSERT INTO public.patient(
 id, address, city, country, description, email, email_comfirmed, first_time_login, name, password, phone_number, surname, username, category, penalty, points)
 	VALUES (89, 'Glavna 100', 'Ruma', 'Srbija', '', 'marijavucetic66@gmail.com', false, false, 'Sara', 'Saric', '0648816428', 'Saric','sara', 0, 0, 0);
@@ -21,8 +21,8 @@ id, address, city, country, description, email, email_comfirmed, first_time_logi
 	VALUES (90, 'Lenjinova 20', 'Ruma', 'Srbija', '', 'marijavucetic66@gmail.com', false, false, 'Luka', 'Lukic', '0612334555', 'Lukic','luka',0, 0, 0);
 
 
-INSERT INTO public.pharmacy(id, address, name) VALUES (111, 'Stanoja Stanojevica 4,Novi Sad,Srbija', 'Feniks');
-INSERT INTO public.pharmacy(id, address, name) VALUES (222, 'Maksima Gorkog 44,Novi Sad,Srbija', 'Benu');
+INSERT INTO public.pharmacy(id, address, name, counseling_price) VALUES (111, 'Stanoja Stanojevica 4,Novi Sad,Srbija', 'Feniks', 1000.0);
+INSERT INTO public.pharmacy(id, address, name, counseling_price) VALUES (222, 'Maksima Gorkog 44,Novi Sad,Srbija', 'Benu', 2000.0);
 
     /*
 INSERT INTO public.pharmacist(
@@ -161,7 +161,7 @@ INSERT INTO public.examination(
 	VALUES (115, 2000.0, 'izvjestaj 2', '2016-07-22 19:10:25-07', '2016-06-22 19:20:25-07', true, 6, null, 111, false);
 INSERT INTO public.examination(
 	id, price, report, start_time, end_time, is_done, dermatologist_id, patient_id, pharmacy_id)
-	VALUES (116, 3000.0, 'izvjestaj 2', '2021-08-13 18:00:25-07', '2021-08-13 18:10:25-07', false, 6, null, 111);
+	VALUES (116, 3000.0, 'izvjestaj 2', '2021-08-13 18:00:25-07', '2021-08-13 18:10:25-07', false, 7, null, 111);
     
 INSERT INTO public.examination(
 	id, price, report, start_time, end_time, is_done, dermatologist_id, patient_id, pharmacy_id, is_canceled)
@@ -213,7 +213,11 @@ INSERT INTO public.medicine_price_and_quantity(
 	VALUES (3, 200.0, 30, 223);
 
 INSERT INTO public.dermatologist_marks(dermatologist_id, marks) VALUES (6, 0);
+INSERT INTO public.dermatologist_marks(dermatologist_id, marks) VALUES (6, 2);
+INSERT INTO public.dermatologist_marks(dermatologist_id, marks) VALUES (6, 4);
 INSERT INTO public.dermatologist_marks(dermatologist_id, marks) VALUES (7, 1);
+INSERT INTO public.dermatologist_marks(dermatologist_id, marks) VALUES (7, 5);
+INSERT INTO public.dermatologist_marks(dermatologist_id, marks) VALUES (7, 4);
 
 
 

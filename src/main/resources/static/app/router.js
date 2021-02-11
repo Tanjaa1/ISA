@@ -43,7 +43,6 @@ const Complaints= { template: '<complaints></complaints>' }
 const PatientComplaints= { template: '<complaintPatient></complaintPatient>' } 
 
 
-
 const EmailConfirmation = { template: '<emailConfirmation></emailConfirmation>' } 
 const SuccessfulRegistration = { template: '<successfulRegistration></successfulRegistration>' } 
 const emailConfirmationSupplier = { template: '<emailConfirmationSupplier></emailConfirmationSupplier>' } 
