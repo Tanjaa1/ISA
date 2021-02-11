@@ -19,4 +19,5 @@ public interface IPatientService {
 	List<PatientDTO> findPatientsByPharmacist(Long id);
 	List<PatientDTO> findPatientsByNameAndSurnameDermatologist(Long id,String name,String surname);
 	List<PatientDTO> findPatientsByNameAndSurnamePharmacist(Long id,String name,String surname);
+	List<Patient>  findSubscribetPatients (Long pharmacyId);
 }

@@ -1,5 +1,7 @@
 package rs.ac.uns.ftn.informatika.jpa.model;
 
+import java.time.LocalDateTime;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -21,20 +23,28 @@ public class ActionOrPromotion {
 	@Column(name="Text", unique=false, nullable=true)
 	private String Text;
 	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@Column(name="StartTime", unique=false, nullable=true)
+	private LocalDateTime StartTime;
+
+	@Column(name="EndTime", unique=false, nullable=true)
+	private LocalDateTime EndTime;
+
+	@ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
 	 private Pharmacy Pharmacy;
 	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
 	private Medicine Medicine;
 	
 	public ActionOrPromotion(){}
 
-	public ActionOrPromotion(long id, String text, Pharmacy pharmacy, Medicine medicine) {
+	public ActionOrPromotion(long id, String text, Pharmacy pharmacy, Medicine medicine,LocalDateTime startTime,LocalDateTime endTime) {
 		super();
 		Id = id;
 		Text = text;
 		Pharmacy = pharmacy;
 		Medicine = medicine;
+		StartTime = startTime;
+		EndTime = endTime;
 	}
 	
 	public Long getId() {
@@ -61,5 +71,19 @@ public class ActionOrPromotion {
 	}
 	public void setMedicine(Medicine medicine) {
 		Medicine = medicine;
+	}
+
+	public LocalDateTime getStartTime() {
+		return StartTime;
+	}
+	public void setStartTime(LocalDateTime date) {
+		StartTime = date;
+	}
+
+	public LocalDateTime getEndTime() {
+		return EndTime;
+	}
+	public void setEndTime(LocalDateTime date) {
+		EndTime = date;
 	}
 }
