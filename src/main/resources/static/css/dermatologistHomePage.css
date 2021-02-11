@@ -94,3 +94,8 @@
     overflow-y: auto;
     overflow-x: auto;
 } */
+
+.nocolor{
+    background-color: white;
+    background-image: none;
+}
