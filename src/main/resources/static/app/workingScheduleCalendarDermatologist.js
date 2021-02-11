@@ -8,7 +8,8 @@ Vue.component("calendarD",{
       col:null,
       phycian:{
         vacationSchedule:[],
-        workingSchedule:[]
+        workingSchedule:[],
+        pharmacies:[]
       },
       myExamination:{
         startTime:'',
@@ -25,7 +26,8 @@ Vue.component("calendarD",{
             name:'',
             surname:''
           }
-    }
+    },
+    pharmacy:null
   }
 },
 	beforeMount() {    
@@ -49,6 +51,7 @@ Vue.component("calendarD",{
 			.get('/dermatologist/getDermatologistById/' + '6') 
 			.then(response => {
 				this.phycian = response.data
+        this.pharmacy=this.phycian.pharmacies[0]
 			})
 			.catch(error => {
 			})
@@ -66,7 +69,12 @@ Vue.component("calendarD",{
   <br>
     <button type="button" class="btn btn-info btn-lg" v-on:click="Previous()">Previous</button>
     <button type="button" class="btn btn-info btn-lg" v-on:click="Next()">Next</button>
-    <br><br>
+    <br> <br>
+			Choose pharmacy by&nbsp&nbsp
+				<select class="col" id="sort" v-on:change="Repeat()" style="width:200px;" v-model="pharmacy">
+					<option v-for="p in this.phycian.pharmacies" v-bind:value="p">{{p.name}}</option>
+	            </select>	
+	<br><br>
   <table id="tableApproved" class="table table-bordered">
         <thead>
           <tr>
@@ -191,6 +199,7 @@ Vue.component("calendarD",{
         else
           date+='-'+this.col[i].getDate()
           for (i = 0; i < this.phycian.workingSchedule.length; i++){
+            if(this.phycian.workingSchedule[i].pharmacy.id==this.pharmacy.id){
             //alert(this.phycian.workingSchedule[i].timeStart.split('T')[0]+date)
               if(this.phycian.workingSchedule[i].timeStart.split('T')[0]==date){
                 //alert(time.split(':')[0]+parseInt(this.phycian.workingSchedule[i].timeStart.split('T')[1].split(':')[0])
@@ -198,6 +207,7 @@ Vue.component("calendarD",{
                   return true
               }
             }
+          }
         return false
     },
     Vacation:function(time,i){

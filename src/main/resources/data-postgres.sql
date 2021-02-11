@@ -76,6 +76,7 @@ INSERT INTO public.pharmacy_admin(
    
 INSERT INTO public.pharmacy_dermatologists(dermatologist_id, pharmacy_id)VALUES (6, 111);
 INSERT INTO public.pharmacy_dermatologists(dermatologist_id, pharmacy_id)VALUES (7, 222);
+INSERT INTO public.pharmacy_dermatologists(dermatologist_id, pharmacy_id)VALUES (6, 222);
 
 /*
 INSERT INTO public.supplier(
@@ -340,7 +341,7 @@ INSERT INTO public.working_time(
 	VALUES (115, '2021-02-13 20:00:00-07','2021-02-13 14:00:00-07','111');
 INSERT INTO public.working_time(
 	id, time_end, time_start,pharmacy_id)
-	VALUES (116, '2021-02-10 20:00:00-07','2021-02-10 14:00:00-07','111');
+	VALUES (116, '2021-02-10 20:00:00-07','2021-02-10 14:00:00-07','222');
 
 
 
