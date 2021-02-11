@@ -543,9 +543,9 @@ Vue.component("examinationDermatologist", {
                             })
                             .catch(function (error) {
                             });
-                            await axios.put('/pharmacy/updateQuantity', this.medicineChoose)
+                            await axios.put('/pharmacy/updateQuantity/'+this.examination.pharmacy.id, this.medicineChoose)
                             .then(function (response) {
-                               // location.reload()
+                                //location.reload()
                             })
                             .catch(function (error) {
                             });

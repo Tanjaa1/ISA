@@ -195,6 +195,17 @@ public class DermatologistDTO{
 	public void setGrade(Integer grade) {
 		Grade = grade;
 	}
-
+	public Boolean getEmailComfirmed() {
+		return EmailComfirmed;
+	}
+	public void setEmailComfirmed(Boolean emailComfirmed) {
+		EmailComfirmed = emailComfirmed;
+	}
+	public Boolean getFirstTimeLogin() {
+		return FirstTimeLogin;
+	}
+	public void setFirstTimeLogin(Boolean firstTimeLogin) {
+		FirstTimeLogin = firstTimeLogin;
+	}
 }
 
