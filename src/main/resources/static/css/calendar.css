@@ -7,3 +7,8 @@
 .changeCellColorVacation{
     background-color: rgb(223, 189, 189);
 }
+
+.nocolor{
+    background-color: rgb(219, 235, 240);
+    background-image: none;
+}

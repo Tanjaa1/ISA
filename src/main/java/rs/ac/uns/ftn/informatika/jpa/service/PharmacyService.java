@@ -16,6 +16,7 @@ import rs.ac.uns.ftn.informatika.jpa.model.Pharmacy;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IMedicinePriceAndQuantity;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IMedicineRepository;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IPharmacyRepository;
+import rs.ac.uns.ftn.informatika.jpa.service.Interface.IPharmacyAdminService;
 import rs.ac.uns.ftn.informatika.jpa.service.Interface.IPharmacyService;
 
 @Service
@@ -26,6 +27,8 @@ public class PharmacyService implements IPharmacyService {
     private IPharmacyRepository pharmacyRepository;
     @Autowired
     private IMedicineRepository medicineRepository;
+    @Autowired
+    private IPharmacyAdminService pharmacyAdminService;
     
     public List<Pharmacy> findAll(){
         return pharmacyRepository.findAll();
@@ -134,4 +137,25 @@ public class PharmacyService implements IPharmacyService {
         }
 		return pharmacyList;
 	}
+
+	public Pharmacy updateQuantity(Long id,Medicine medicine) {
+        int quantity=0;
+        Pharmacy pharmacy=pharmacyRepository.getOne(id);
+        for (MedicinePriceAndQuantity m : pharmacy.getPricelist()) {
+            if(m.getMedicine().getId() ==medicine.getId()){
+                m.setQuantity(m.getQuantity()-1);
+                quantity=m.getQuantity();
+                break;
+            }
+        }
+        Pharmacy p=update(pharmacy);
+            try{
+                if(quantity<2)
+                pharmacyAdminService.sendingMail(pharmacy.getName(), medicine);
+            }catch(Exception e){
+            }
+            finally{
+                return p;
+            }
+        }
 }

@@ -69,11 +69,10 @@ INSERT INTO public.pharmacy_admin(
 INSERT INTO public.pharmacy_admin(
 
 	id, address, city, country, description, email, email_comfirmed, first_time_login, name, password, phone_number, surname, username, pharmacy)
-	VALUES (8, 'Jovana Ducica 65', 'Novi Sad', 'Srbija', '', 'marijavucetic@uns.ac.rs', false, false, 'Marija', 'Vucetic', '06581111123', 'Vucetic','maja', 'Jankovic');
+	VALUES (8, 'Jovana Ducica 65', 'Novi Sad', 'Srbija', '', 'marijavucetic@uns.ac.rs', false, false, 'Marija', 'Vucetic', '06581111123', 'Vucetic','maja', 'Feniks');
 INSERT INTO public.pharmacy_admin(
 	id, address, city, country, description, email, email_comfirmed, first_time_login, name, password, phone_number, surname, username, pharmacy)
-	VALUES (9, 'Jovana Ducica 65', 'Novi Sad', 'Srbija', '', 'toma@gmail.com', false, false, 'Toma', 'Tomic', '06581222123', 'Tomic','toma', 'Benu');
-   
+	VALUES (9, 'Jovana Ducica 65', 'Novi Sad', 'Srbija', '', 'marijavucetic@uns.ac.rs', false, false, 'Toma', 'Tomic', '06581222123', 'Tomic','toma', 'Benu');
    
 INSERT INTO public.pharmacy_dermatologists(dermatologist_id, pharmacy_id)VALUES (6, 111);
 INSERT INTO public.pharmacy_dermatologists(dermatologist_id, pharmacy_id)VALUES (7, 222);
@@ -90,10 +89,10 @@ INSERT INTO public.supplier(
 
 INSERT INTO public.supplier(
 	id, address, city, country, description, email, email_comfirmed, first_time_login, name, password, phone_number, surname, username)
-	VALUES (10, 'Seljackih Buna 2', 'Novi Sad', 'Srbija', '', 'marija998v@gmail.com', false, false, 'Jelena', 'Jokic', '0632211124', 'Jokic','jeca');
+	VALUES (10, 'Seljackih Buna 2', 'Novi Sad', 'Srbija', '', 'ta.drcelic@gmail.com', false, false, 'Jelena', 'Jokic', '0632211124', 'Jokic','jeca');
 INSERT INTO public.supplier(
 	id, address, city, country, description, email, email_comfirmed, first_time_login, name, password, phone_number, surname, username)
-	VALUES (11, 'Seljackih Buna 2', 'Novi Sad', 'Srbija', '', 'goran@gmail.com', false, false, 'Goran', 'Goric', '0632211111', 'Goric','goran');
+	VALUES (11, 'Seljackih Buna 2', 'Novi Sad', 'Srbija', '', 'ta.drcelic@gmail.com', false, false, 'Goran', 'Goric', '0632211111', 'Goric','goran');
 
 /*	
 INSERT INTO public.system_admin(

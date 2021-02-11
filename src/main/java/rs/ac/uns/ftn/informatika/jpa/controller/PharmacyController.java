@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import rs.ac.uns.ftn.informatika.jpa.dto.MedicineDTO;
 import rs.ac.uns.ftn.informatika.jpa.dto.PharmacyDTO;
+import rs.ac.uns.ftn.informatika.jpa.model.Medicine;
 import rs.ac.uns.ftn.informatika.jpa.model.Pharmacy;
 import rs.ac.uns.ftn.informatika.jpa.service.PharmacyService;
 
@@ -89,5 +90,10 @@ public class PharmacyController {
 		List<PharmacyDTO> pharmacies = pharmacyService.findPharmacyByMedicineName(name);
 		return pharmacies == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(pharmacies);
 	}
-
+	
+	@PutMapping(value = "/updateQuantity/{id}")
+	public ResponseEntity<HttpStatus> updateQuantity(@PathVariable Long id,@RequestBody Medicine medicine){
+		pharmacyService.updateQuantity(id,medicine);
+	return  new ResponseEntity<>(HttpStatus.OK);
+	}
 }
