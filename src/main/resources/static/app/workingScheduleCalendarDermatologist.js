@@ -1,5 +1,5 @@
 
-Vue.component("calendar",{
+Vue.component("calendarD",{
   data :function(){
     return {
       ar:['07:00','08:00','09:00','10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00','18:00','19:00','20:00'],
@@ -174,6 +174,7 @@ Vue.component("calendar",{
                 date1+='-0'+pom[j].getDate()
               else
                 date1+='-'+pom[j].getDate()
+              //alert(date1+date)
               if(date1==date)
                 return true
             }
@@ -258,7 +259,7 @@ Vue.component("examinationDermatologist", {
         //     .then(response => {
         //         this.examination = response.data[0]
                 axios
-                .get('/eprescription/findMedicines/' + '111')
+                .get('/eprescription/findMedicines/' + this.examination.pharmacy.id)
                 .then(response => {       
                     this.med=response.data
                     for(var m in this.med){
