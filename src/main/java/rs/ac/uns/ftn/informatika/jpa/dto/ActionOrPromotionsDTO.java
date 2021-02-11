@@ -1,5 +1,7 @@
 package rs.ac.uns.ftn.informatika.jpa.dto;
 
+import java.time.LocalDateTime;
+
 import rs.ac.uns.ftn.informatika.jpa.model.ActionOrPromotion;
 
 public class ActionOrPromotionsDTO {
@@ -8,15 +10,19 @@ public class ActionOrPromotionsDTO {
 	private String Text;
 	private PharmacyDTO PharmacyDTO;
 	private MedicineDTO Medicine;
-	
+	private LocalDateTime StartTime;
+	private LocalDateTime EndTime;
+
 	public ActionOrPromotionsDTO(){}
 
-	public ActionOrPromotionsDTO(long id, String text, PharmacyDTO pharmacy, MedicineDTO medicine) {
+	public ActionOrPromotionsDTO(long id, String text, PharmacyDTO pharmacy, MedicineDTO medicine,LocalDateTime sd,LocalDateTime ed) {
 		super();
 		Id = id;
 		Text = text;
 		PharmacyDTO = pharmacy;
 		Medicine = medicine;
+		StartTime = sd;
+		EndTime = ed;
 	}
 
     public ActionOrPromotionsDTO(ActionOrPromotion ationOrPromotion){
@@ -24,6 +30,8 @@ public class ActionOrPromotionsDTO {
         Text = ationOrPromotion.getText();
         PharmacyDTO = new PharmacyDTO(ationOrPromotion.getPharmacy());
         Medicine = new MedicineDTO(ationOrPromotion.getMedicine());
+		StartTime = ationOrPromotion.getStartTime();
+		EndTime = ationOrPromotion.getEndTime();
     }
 	
 	public long getId() {
@@ -50,5 +58,19 @@ public class ActionOrPromotionsDTO {
 	}
 	public void setMedicine(MedicineDTO medicine) {
 		Medicine = medicine;
+	}
+
+	public LocalDateTime getStartTime() {
+		return StartTime;
+	}
+	public void setStartTime(LocalDateTime startTime) {
+		StartTime = startTime;
+	}
+
+	public LocalDateTime getEndDateTime() {
+		return EndTime;
+	}
+	public void setEndTIme(LocalDateTime endTime) {
+		EndTime = endTime;
 	}
 }

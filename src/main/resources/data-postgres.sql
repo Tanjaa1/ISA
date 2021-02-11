@@ -12,14 +12,16 @@ INSERT INTO public.patient(
 */
 INSERT INTO public.patient(
 id, address, city, country, description, email, email_comfirmed, first_time_login, name, password, phone_number, surname, username, category, penalty, points)
-	VALUES (88, 'Mileve Maric 5', 'Novi Sad', 'Srbija', '', 'aleksandramilijevic98@gmail.com', false, false, 'Jovana', 'Jovanic', '0628876678', 'Jovanic','jocas', 0, 0, 0);
+	VALUES (88, 'Mileve Maric 5', 'Novi Sad', 'Srbija', '', 'aleksarep0408@gmail.com', false, false, 'Jovana', 'Jovanic', '0628876678', 'Jovanic','jocas', 0, 0, 0);
 INSERT INTO public.patient(
 id, address, city, country, description, email, email_comfirmed, first_time_login, name, password, phone_number, surname, username, category, penalty, points)
 	VALUES (89, 'Glavna 100', 'Ruma', 'Srbija', '', 'marijavucetic66@gmail.com', false, false, 'Sara', 'Saric', '0648816428', 'Saric','sara', 0, 0, 0);
 INSERT INTO public.patient(
 id, address, city, country, description, email, email_comfirmed, first_time_login, name, password, phone_number, surname, username, category, penalty, points)
 	VALUES (90, 'Lenjinova 20', 'Ruma', 'Srbija', '', 'marijavucetic66@gmail.com', false, false, 'Luka', 'Lukic', '0612334555', 'Lukic','luka',0, 0, 0);
-
+INSERT INTO public.patient(
+id, address, city, country, description, email, email_comfirmed, first_time_login, name, password, phone_number, surname, username, category, penalty, points)
+	VALUES (69, 'Синђелићева 44', 'Нови Сад', 'Србија', '', 'aleksarep0408@gmail.com', false, false, 'Aлекса', 'sifra', '0612334555', 'Реповић','aleksarep',0, 0, 0);
 
 INSERT INTO public.pharmacy(id, address, name, counseling_price) VALUES (111, 'Stanoja Stanojevica 4,Novi Sad,Srbija', 'Feniks', 1000.0);
 INSERT INTO public.pharmacy(id, address, name, counseling_price) VALUES (222, 'Maksima Gorkog 44,Novi Sad,Srbija', 'Benu', 2000.0);
@@ -319,7 +321,6 @@ INSERT INTO public.pharmacist_vacation_schedule(
 	VALUES (5, 112);
 
 INSERT INTO public.working_time(
-
 	id, time_end, time_start,pharmacy_id)
 	VALUES (1, '2021-06-22 08:00:00-07', '2021-06-22 14:00:00-07','111');
 INSERT INTO public.working_time(
@@ -331,6 +332,9 @@ INSERT INTO public.working_time(
 INSERT INTO public.working_time(
 	id, time_end, time_start,pharmacy_id)
 	VALUES (4, '2000-06-23 14:00:00-07', '2003-06-23 20:00:00-07','111');
+INSERT INTO public.working_time(
+	id, time_end, time_start,pharmacy_id)
+	VALUES (111, '2016-06-24 20:00:00-07', '2017-06-24 14:00:00-07','111');
 INSERT INTO public.working_time(
 	id, time_end, time_start,pharmacy_id)
 	VALUES (112, '2021-06-24 20:00:00-07', '2021-06-24 14:00:00-07','111');
@@ -432,3 +436,11 @@ INSERT INTO public.patient_action_or_promotions(
 INSERT INTO public.patient_action_or_promotions(
 	patient_id, action_or_promotions_id)
 	VALUES (88, 223);
+
+INSERT INTO public.pharmacy_subscribed_users(
+pharmacy_id,patient_id)
+VALUES('111','88');
+
+INSERT INTO public.pharmacy_subscribed_users(
+pharmacy_id,patient_id)
+VALUES('111','69');

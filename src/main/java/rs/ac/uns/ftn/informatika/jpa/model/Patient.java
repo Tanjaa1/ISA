@@ -38,12 +38,11 @@ public class Patient extends User {
 	
 	@Column(name="Category", unique=false, nullable=true)
 	private LoyaltyCategories Category; 
-	/*
-	//@ManyToMany(mappedBy = "SubscribedUsers")
-	// @ManyToMany
-	// @JoinTable(name = "PharmacySubscribedUsers", joinColumns = @JoinColumn(name = "Patient_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "Pharmacy_id", referencedColumnName = "id"))
-	// private Set<Pharmacy> PrepaidPharmacies = new HashSet<Pharmacy>();
 	
+	@ManyToMany(mappedBy="SubscribedUsers")
+	private Set<Pharmacy> PrepaidPharmacies = new HashSet<Pharmacy>();
+	
+	/*
 	@ManyToMany
 	@JoinTable(name = "PharmacySubscribedUsers", joinColumns = @JoinColumn(name = "Patient_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "Pharmacy_id", referencedColumnName = "id"))
 	private Set<Pharmacy> PrepaidPharmacies = new HashSet<Pharmacy>();
@@ -205,6 +204,14 @@ public class Patient extends User {
 	{
 		EPrescriptions.add(ePrescription);
 	}	
+
+	public Set<Pharmacy> getPrepaidPharmacies(){
+		return PrepaidPharmacies;
+	}
+
+	public void setPrepaidPharmacies(Set<Pharmacy> pp){
+		PrepaidPharmacies = pp;
+	}
 
 	// public Set<Examination> getExaminations() {
 	// 	return Examinations;
