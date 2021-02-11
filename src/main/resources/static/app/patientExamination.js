@@ -4,11 +4,23 @@ Vue.component("patientExamination", {
             patientPastExaminations:null,
             patientFutureExaminations:null,
             past:false,
-            future:false,
             id: 1,
             date: null,
             time:null,
-            canBeCanceled:true
+            canBeCanceled:true,
+            newExamination: {
+                startTime:null,
+                endTime:null,
+                patient:null,
+                dermatologist:null,
+                id:null,
+                idDone:false,
+                pharmacy:null,
+                report:"",
+                price:1000.00             
+            },
+            future:null,
+            patient:null
         }
     },
     beforeMount() {
@@ -28,6 +40,22 @@ Vue.component("patientExamination", {
             })
             .catch(error => {
             })
+
+            axios
+            .get('/examination/getFreeExaminations')
+            .then(response => {
+                this.future = response.data
+            })
+            .catch(error => {
+            })
+
+            axios
+			.get('/patient/getPatientById/' + '88') 
+			.then(response => {
+				this.patient = response.data
+			})
+			.catch(error => {
+			})
     },
     template: `
     <div id = "parmaciesShowPatient">
@@ -38,78 +66,78 @@ Vue.component("patientExamination", {
              
              
                 <!--Modal for create examination-->
-                <div class="modal fade" id="createAppointment" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal fade" id="createAppointment"  tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" style="width: 100%;" role="document">
                        <div class="modal-content steps">
                       <div class="container" align="center">
-                          <br/><h4 class="text">Create new appointment</h4><br/>
-                          <ul class="nav" role="tablist">
-                              <li class="nav-item">
-                                  <button disabled id="step1" class="circleStep circleStepDone">1</button>
-                                  <h3 class="text">Step 1</h3><br/>
-                              </li><h6>______</h6>
-                              <li class="nav-item">
-                                  <button disabled id="step2" disabled class="circleStep circlesStepDisabled">2</button>
-                                  <h3 class="text">Step 2</h3><br/>
-                              </li><h6>______</h6>
-                              <li class="nav-item">
-                                  <button disabled id="step3" disabled class="circleStep circlesStepDisabled">3</button>
-                                  <h3 class="text">Step 3</h3><br/>
-                              </li><h6>______</h6>
-                              <li class="nav-item">
-                                  <button disabled id="step4" disabled class="circleStep circlesStepDisabled">4</button>
-                                  <h3 class="text">Step 4</h3><br/>
-                              </li>
-                          </ul></br>
+                          <br/><h4 class="">Schedule examination</h4><br/>
+                          
+
+                          <div class="row search so">
+                          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                          &nbsp&nbsp&nbsp&nbsp&nbsp&nbspSort by&nbsp&nbsp
+                             <div>
+                                 <select class="col" id="sort1" v-on:change="Sort1()">
+                                     <option selected="selected" disabled>Please select one</option>
+                                         <option>Grade asc</option>
+                                         <option>Grade desc</option>
+                                         <option>Price asc</option>
+                                         <option>Price desc</option>
+                                 </select>
+                             </div>  
+                     </div>
+
+
+
                         </div>                   
                           <div>
-                              <div class="tab-content">
-                                  <div id="step1" class="container tab-pane active" v-if="id==1"></br>
-                                  &nbsp<label class="chDate">Choose date:</label>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-                                  &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-                                      <label>Choose time:</label></br>
-                                      <input id="date" type="date" v-model ="date" class="inDate"></input>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-                                      <input id="time" type="time" v-model ="time"></input>
-                                      </br></br></br></br>
-                                      <button class="btn btnNext" v-on:click="NextStep()">Next</button></br></br>
-                                   </div>
-                                  <div id="step2" class="container tab-pane active" v-if="id==2"></br>
-                                      <label>Choose  specialization:</label></br>
-                                      <select class="select">
-                                          <option disabled>Please select one</option>
-                                          <option></option>
-                                      </select>
-                                      </br></br></br></br>
-                                      <button class="btn btnPrev" v-on:click="PreviousStep()">Previous</button>
-                                      <button class="btn btnNext" v-on:click="NextStep()">Next</button></br></br>
-                                   </div>
-                                  <div id="step3" class="container tab-pane active" v-if="id==3"></br>
-                                      <label>Choose physician:</label></br>
-                                      <select class="select" >
-                                           <option disabled >Please select one</option>
-                                           <option ></option>                                        
-                                      </select>
-                                      </br></br></br></br>
-                                      <button class="btn btnPrev" v-on:click="PreviousStep()">Previous</button>
-                                      <button class="btn btnNext" v-on:click="NextStep()">Next</button></br></br>
+                              <div>
+                                  <div class="tab-content">
+                                      <div id="existing" class="container tab-pane active"><br>
+                                          <div class="container">
+                                                  <div class="row">
+                                                      <table id="tableApproved" class="table table-bordered">
+                                                          <thead>
+                                                          <tr>
+                                                              <th>Date</th>
+                                                              <th>Start</th>
+                                                              <th>End</th>
+                                                              <th>Dermatologist</th>
+                                                              <th>Price</th>
+                                                              <th>Schedule</th>
+                                                          </tr>
+                                                          </thead>
+                                                          <tbody>
+                                                          <tr v-for="f in future">
+                                                              <td>{{f.startTime.split('T')[0]}}</td>
+                                                              <td>{{f.startTime.split('T')[1]}}</td>
+                                                              <td>{{f.endTime.split('T')[1]}}</td>
+                                                              <td>{{f.dermatologist.name}}&nbsp&nbsp{{f.dermatologist.surname}}</td>
+                                                              <td>{{f.price}}</td>
+                                                              <td><button btn btn-info btn-lg v-on:click="Schedule(f)">Schedule</button></td>
+                                                          </tr>
+                                                          </tbody>
+                                                      </table>
+                                                  </div>
+                                          </div>			     
+                                      </div>
+                                     
                                   </div>
-                                  <div id="step4" class="container tab-pane active" v-if="id==4"></br>                                 
-                                      <label>Choose  time:</label></br>
-                                      <select class="select" >
-                                          <option div  ></option>
-                                      </select>
-                                      </br></br></br></br>
-                                      <button class="btn btnPrev" v-on:click="PreviousStep()">Previous</button>
-                                      <button class="btn btnNext" v-on:click="MakeAppointment()">Submit</button></br></br>
-                                  </div>
-                             </div>
+                              </div></br>
                           </div>
-                      </div>
-                  </div>
-            </div>
+                          </div>
+                          </div>
+                        </div>
+                        			
+          
+    
+                
              
                <!--End modal for create examination-->
-            
+            <!--Sort whole page-->
             
                <div class="row search so">
              &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
@@ -127,6 +155,9 @@ Vue.component("patientExamination", {
                     </select>
                 </div>  
         </div>
+
+        <!--End sort whole page-->
+
 	                            <ul class="nav nav-tabs" role="tablist">
     	                            <li class="nav-item">
     		                            <a id="tabApprovedF" class="nav-link active .cards" data-toggle="tab" v-on:click="Past()" href="#approvedF">Past</a>
@@ -214,6 +245,25 @@ Vue.component("patientExamination", {
     </div>
 	`,
     methods: {
+        Schedule: async function(f){
+            f.patient=this.patient
+            var fut=[]
+            await axios.put('/examination/schedule',f)
+            .then(function (response) {
+                alert("The examination was successfully scheduled!")
+                axios
+                .get('/examination/getFreeExaminations')
+                .then(function (odg){
+                    this.future=odg.response
+                    location.reload()
+                })
+                .catch(error => {
+                })
+            })
+            .catch(function (error) {
+            });
+            
+        },
         NextStep: function () {
             if (this.Validation()) {
                 if(this.id == 1)
@@ -477,6 +527,57 @@ Vue.component("patientExamination", {
                         }
                     );
                 }
+			}
+		},
+        Sort1:function(){
+			if(document.getElementById("sort1").value=="Grade asc"){
+                    this.future.sort (
+                        function (a, b) {
+                            if (a.dermatologist.grade < b.dermatologist.grade){
+                                return -1;
+                            } else if (a.dermatologist.grade > b.dermatologist.grade){
+                                return 1;
+                            } else {
+                                return 0;   
+                            }
+                        }
+                    );
+                }else if(document.getElementById("sort1").value=="Grade desc"){
+                    this.future.sort (
+                        function (a, b) {
+                            if (a.dermatologist.grade > b.dermatologist.grade){
+                                return -1;
+                            } else if (a.dermatologist.grade < b.dermatologist.grade){
+                                return 1;
+                            } else {
+                                return 0;   
+                            }
+                        }
+                    );
+                }else if(document.getElementById("sort1").value=="Price asc"){
+                    this.future.sort (
+                        function (a, b) {
+                            if (a.price < b.price){
+                                return -1;
+                            } else if (a.price > b.price){
+                                return 1;
+                            } else {
+                                return 0;   
+                            }
+                        }
+                    );
+                }else{
+                this.future.sort (
+                    function (a, b) {
+                        if (a.price > b.price){
+                            return -1;
+                        } else if (a.price < b.price){
+                            return 1;
+                        } else {
+                            return 0;   
+                        }
+                    }
+                );
 			}
 		}
     }

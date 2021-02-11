@@ -69,4 +69,10 @@ public class ReservationController {
 		return r == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : new ResponseEntity<>(HttpStatus.OK);
 	}
 
+	@PostMapping(value = "/makeReservation")
+	public ResponseEntity<ReservationDTO> updateReservation(@RequestBody Reservation reservation) throws Exception 
+	{
+		return ResponseEntity.ok(reservationService.makeReservation(reservation));
+	}
+
 }

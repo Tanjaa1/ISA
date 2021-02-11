@@ -12,6 +12,7 @@ const PatientHeader = { template: '<patientHeader></patientHeader>' }
 const PageHeader = { template: '<pageHeader></pageHeader>' }
 const ChangePatientInfo = { template: '<changePatientInfo></changePatientInfo>' }
 const PatientActionsOrPromotions = { template: '<patientActionsOrPromotions></patientActionsOrPromotions>' }
+const ReserveMedicine = { template: '<reserveMedicine></reserveMedicine>' }
 
 const DermatologistsPreview = { template: '<dermatologistsPreview></dermatologistsPreview>'}
 const PharmacistsPreview = { template: '<pharmacistsPreview></pharmacistsPreview>'}
@@ -42,7 +43,6 @@ const Complaints= { template: '<complaints></complaints>' }
 const PatientComplaints= { template: '<complaintPatient></complaintPatient>' } 
 
 
-
 const EmailConfirmation = { template: '<emailConfirmation></emailConfirmation>' } 
 const SuccessfulRegistration = { template: '<successfulRegistration></successfulRegistration>' } 
 const emailConfirmationSupplier = { template: '<emailConfirmationSupplier></emailConfirmationSupplier>' } 
@@ -69,7 +69,8 @@ const CreateCounselingPharmacist = { template: '<createCounselingPharmacist></cr
 const NewActionOrPromotion = { template: '<newActionOrPromotion></newActionOrPromotion>' }
 
 
-const Calendar = { template: '<calendar></calendar>' }
+const CalendarD = { template: '<calendarD></calendarD>' }
+const CalendarP = { template: '<calendarP></calendarP>' }
 const router = new VueRouter({
 	  mode: 'hash',
 	  routes: [
@@ -443,13 +444,29 @@ const router = new VueRouter({
 			}
 		},
 		{ 
-			path: '/calendar', 
-			name : 'calendar', 
+			path: '/calendarD', 
+			name : 'calendarD', 
+			components: {
+				pageHeader: DermatologistHeader,
+				content: CalendarD
+			}
+		},
+		{ 
+			path: '/calendarP', 
+			name : 'calendarP', 
 			components: {
 				pageHeader: PharmacistHeader,
-				content: Calendar
+				content: CalendarP
 			}
-		}
+		},
+		{
+			path: '/reserveMedicine', 
+			name : 'reserveMedicine', 
+			components: {
+				pageHeader: PatientHeader,
+				content: ReserveMedicine
+			}
+		},
 	  ]
 });
 

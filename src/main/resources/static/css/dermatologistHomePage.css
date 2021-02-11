@@ -75,4 +75,22 @@
     opacity: 0.8;
 }
 
-.modal .modal-dialog .modal-content{  background-image: url("../pictures/search.jpg"); }
+.modal .modal-dialog .modal-content{  
+    background-image: url("../pictures/search.jpg");
+    background-repeat: no-repeat;
+    /* overflow-y: scroll;
+    overflow-x: hidden;     */
+    /*max-height: 300px;*/
+    width: 800px;
+ }
+
+ /* .modal-dialog{
+    overflow-y: initial !important;
+    height: auto !important;
+}
+.modal-body{
+     height:250px; 
+    height: 80vh;
+    overflow-y: auto;
+    overflow-x: auto;
+}

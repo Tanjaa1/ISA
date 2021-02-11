@@ -99,4 +99,11 @@ public class CounselingController {
 		return ResponseEntity.ok(counselingService.createNewCounseling(counseling));
 	}
 
+	@GetMapping(value = "/getCounselingByPharmacist/{id}")
+	public ResponseEntity<List<CouncelingDTO>> getCounselingByPharmacist(@PathVariable Long id) 
+	{
+		List<CouncelingDTO> councelingDTO = counselingService.getCounselingByPharmacist(id);
+		return councelingDTO == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(councelingDTO);
+	}
+
 }

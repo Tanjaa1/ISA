@@ -38,4 +38,8 @@ public interface IExaminationRpository extends JpaRepository<Examination, Long> 
     @Query("SELECT u FROM Examination u,Dermatologist d WHERE u.Dermatologist=d.Id and d.Id = ?1")
     public List<Examination> getExaminationsExistByDermatologist(Long id);
 
+
+	@Query("SELECT u FROM Examination u,Dermatologist d WHERE u.Dermatologist=d.Id and u.Patient=null")
+    public List<Examination> getFreeExamination();
+
 }

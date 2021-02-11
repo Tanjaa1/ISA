@@ -9,9 +9,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import rs.ac.uns.ftn.informatika.jpa.dto.PharmacyDTO;
+import rs.ac.uns.ftn.informatika.jpa.model.Medicine;
 import rs.ac.uns.ftn.informatika.jpa.model.MedicinePriceAndQuantity;
 import rs.ac.uns.ftn.informatika.jpa.model.Pharmacy;
+import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IMedicinePriceAndQuantity;
+import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IMedicineRepository;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IPharmacyRepository;
+import rs.ac.uns.ftn.informatika.jpa.service.Interface.IPharmacyAdminService;
 import rs.ac.uns.ftn.informatika.jpa.service.Interface.IPharmacyService;
 
 @Service
@@ -20,6 +25,10 @@ public class PharmacyService implements IPharmacyService {
  
     @Autowired
     private IPharmacyRepository pharmacyRepository;
+    @Autowired
+    private IMedicineRepository medicineRepository;
+    @Autowired
+    private IPharmacyAdminService pharmacyAdminService;
     
     public List<Pharmacy> findAll(){
         return pharmacyRepository.findAll();
@@ -102,4 +111,51 @@ public class PharmacyService implements IPharmacyService {
         }
         return null;
 	}
+
+    private Medicine findMedicine(String name){
+        List<Medicine> medicines = medicineRepository.findAll();
+        Medicine medicineFind = new Medicine();
+		for (Medicine medicine : medicines) {
+			if(medicine.getName().toUpperCase().contains(name.toUpperCase().trim()))
+				medicineFind = medicine;
+                break;
+		}
+        return medicineFind;
+    }
+
+	public List<PharmacyDTO> findPharmacyByMedicineName(String name) {
+        Medicine medicineFind = findMedicine(name);
+        List<PharmacyDTO> pharmacyList = new ArrayList<PharmacyDTO>();
+        List<Pharmacy> pharmacies = pharmacyRepository.findAll();
+        for (Pharmacy pharmacy : pharmacies) {
+            for (MedicinePriceAndQuantity medicine : pharmacy.getPricelist()) {
+                if(medicine.getMedicine().getName() == medicineFind.getName() && medicine.getQuantity()>0){
+                    pharmacyList.add(new PharmacyDTO(pharmacy));
+                    break;
+                }
+            }
+        }
+		return pharmacyList;
+	}
+
+	public Pharmacy updateQuantity(Long id,Medicine medicine) {
+        int quantity=0;
+        Pharmacy pharmacy=pharmacyRepository.getOne(id);
+        for (MedicinePriceAndQuantity m : pharmacy.getPricelist()) {
+            if(m.getMedicine().getId() ==medicine.getId()){
+                m.setQuantity(m.getQuantity()-1);
+                quantity=m.getQuantity();
+                break;
+            }
+        }
+        Pharmacy p=update(pharmacy);
+            try{
+                if(quantity<2)
+                pharmacyAdminService.sendingMail(pharmacy.getName(), medicine);
+            }catch(Exception e){
+            }
+            finally{
+                return p;
+            }
+        }
 }

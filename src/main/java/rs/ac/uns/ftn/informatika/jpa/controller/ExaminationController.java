@@ -129,4 +129,18 @@ public class ExaminationController {
 		List<ExaminationDTO> examinationDTOs = examinationService.getExaminationsByDermatologist(id);
 		return examinationDTOs == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(examinationDTOs);
 	}
+
+	@GetMapping(value = "/getFreeExaminations")
+	public ResponseEntity<List<ExaminationDTO>> getFreeExaminations() 
+	{
+		List<ExaminationDTO> examinationDTOs = examinationService.getFreeExamination();
+		return examinationDTOs == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(examinationDTOs);
+	}
+	
+	@PutMapping(value = "/notCome")
+	public ResponseEntity<HttpStatus> notCome(@RequestBody Examination examination) throws Exception
+	{
+		Examination e =examinationService.notCome(examination);
+		return e == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : new ResponseEntity<>(HttpStatus.OK);
+	}
 }

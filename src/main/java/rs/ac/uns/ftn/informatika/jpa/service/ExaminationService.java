@@ -1,7 +1,6 @@
 package rs.ac.uns.ftn.informatika.jpa.service;
 
 import java.time.LocalDate;
-import java.sql.Date;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -9,7 +8,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.xml.crypto.Data;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,7 +23,6 @@ import rs.ac.uns.ftn.informatika.jpa.repository.Interface.ICounselingRpository;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IDermatologistRepository;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IExaminationRpository;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IPatientRepository;
-import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IPharmacistRepository;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IPharmacyRepository;
 import rs.ac.uns.ftn.informatika.jpa.service.Interface.IExaminationService;
 import rs.ac.uns.ftn.informatika.jpa.util.WorkingTime;
@@ -119,7 +116,23 @@ public class ExaminationService implements IExaminationService {
 	public Examination schedule(Examination examination) throws Exception{
         Examination e=examinationRepository.getOne(examination.getId());
         e.setPatient(patientRepository.getOne(examination.getPatient().getId()));
+        e.setIsCanceled(false);
+        emailSender2(examination);
         return examinationRepository.save(e);
+	}
+
+    private void emailSender2(Examination examination)
+	{
+        LocalDate startDate = examination.getStartTime().toLocalDate();
+        LocalTime startTime = examination.getStartTime().toLocalTime();
+		try {
+			String subject="Pharmacy "+ examination.getPharmacy().getName()+"\n\n";
+			String text="Dear "+ examination.getPatient().getFullName()+ ",\n\n"+ "The drug has been successfully reserved.\nStart time:"+
+            startDate + "  " + startTime +",\n\nThank you for your trust!\n Pharmacy "+examination.getPharmacy().getName();
+			emailService.sendNotificaitionAsync(examination.getPatient().getEmail(),subject,text);
+		}catch( Exception e ){
+			logger.info("Error sending email: " + e.getMessage());
+		}
 	}
 
 	public ExaminationDTO newExamination(Examination examination) throws Exception {
@@ -236,5 +249,19 @@ public class ExaminationService implements IExaminationService {
 		for (Examination examination : examinationRepository.getExaminationsExistByDermatologist(id))
                     examinationDTOs.add(new ExaminationDTO(examination));
         return examinationDTOs;
+	}
+
+    public List<ExaminationDTO> getFreeExamination(){
+        List<ExaminationDTO> examinationDTOs=new ArrayList<ExaminationDTO>();
+
+		for (Examination examination : examinationRepository.getFreeExamination())
+                    examinationDTOs.add(new ExaminationDTO(examination));
+        return examinationDTOs;
+    }
+	public Examination notCome(Examination examination) {
+		Examination e=examinationRepository.getOne(examination.getId());
+        e.setReport(examination.getReport());
+        e.setIsDone(false);
+        return examinationRepository.save(e);
 	}
 }

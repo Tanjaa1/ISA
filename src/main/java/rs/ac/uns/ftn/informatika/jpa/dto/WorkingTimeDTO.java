@@ -7,7 +7,7 @@ import rs.ac.uns.ftn.informatika.jpa.util.WorkingTime;
 
 public class WorkingTimeDTO {
 
-	private long id;
+	private Long id;
 
 	private LocalDateTime TimeStart;
 
@@ -17,7 +17,7 @@ public class WorkingTimeDTO {
 	
 	public WorkingTimeDTO(){}
 
-	public WorkingTimeDTO(long id, LocalDateTime timeStart, LocalDateTime timeEnd ,PharmacyDTO pharmacy) {
+	public WorkingTimeDTO(Long id, LocalDateTime timeStart, LocalDateTime timeEnd ,PharmacyDTO pharmacy) {
 		super();
 		this.id = id;
 		TimeStart = timeStart;
@@ -33,11 +33,11 @@ public class WorkingTimeDTO {
 		Pharmacy = new PharmacyDTO(WorkingTime.getPharmacy());
 	}
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
