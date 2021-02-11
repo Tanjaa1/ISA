@@ -75,7 +75,7 @@ public class Pharmacy {
 		//SubscribedUsers=subscribedUsers;
 	}
 
-	public long getId() {
+	public Long getId() {
 		return Id;
 	}
 

@@ -68,7 +68,8 @@ const CreateExaminationDermatologist = { template: '<createExaminationDermatolog
 const CreateCounselingPharmacist = { template: '<createCounselingPharmacist></createCounselingPharmacist>' }
 
 
-const Calendar = { template: '<calendar></calendar>' }
+const CalendarD = { template: '<calendarD></calendarD>' }
+const CalendarP = { template: '<calendarP></calendarP>' }
 const router = new VueRouter({
 	  mode: 'hash',
 	  routes: [
@@ -434,11 +435,19 @@ const router = new VueRouter({
 			}
 		},
 		{ 
-			path: '/calendar', 
-			name : 'calendar', 
+			path: '/calendarD', 
+			name : 'calendarD', 
+			components: {
+				pageHeader: DermatologistHeader,
+				content: CalendarD
+			}
+		},
+		{ 
+			path: '/calendarP', 
+			name : 'calendarP', 
 			components: {
 				pageHeader: PharmacistHeader,
-				content: Calendar
+				content: CalendarP
 			}
 		}
 	  ]
