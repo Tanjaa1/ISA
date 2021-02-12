@@ -71,7 +71,7 @@ Vue.component("calendarD",{
     <button type="button" class="btn btn-info btn-lg" v-on:click="Next()">Next</button>
     <br> <br>
 			Choose pharmacy by&nbsp&nbsp
-				<select class="col" id="sort" v-on:change="Repeat()" style="width:200px;" v-model="pharmacy">
+				<select class="col" id="sort"style="width:200px;" v-model="pharmacy">
 					<option v-for="p in this.phycian.pharmacies" v-bind:value="p">{{p.name}}</option>
 	            </select>	
 	<br><br>
@@ -493,7 +493,8 @@ Vue.component("examinationDermatologist", {
                                                                         <td>{{f.startTime.split('T')[1]}}</td>
                                                                         <td>{{f.endTime.split('T')[1]}}</td>
                                                                         <td>{{f.price}}</td>
-                                                                        <td><button btn btn-info btn-lg v-on:click="Schedule(f)">Schedule</button></td>
+                                                                        <td>{{f.pharmacy.name}}</td>
+                                                                        <td><button class="btn btn-info btn-lg" v-on:click="Schedule(f)">Schedule</button></td>
                                                                     </tr>
                                                                     </tbody>
                                                                 </table>
