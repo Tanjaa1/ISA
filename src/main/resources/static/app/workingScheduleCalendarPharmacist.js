@@ -88,37 +88,37 @@ Vue.component("calendarP",{
                 <tr v-for="i in ar" style="text-align:center;">
                     <th style="text-align:center" class="cellColorRegular">{{i}}</th>
                     <td id="cell0" v-if="CompareDate(i,0)" class="changeCellColor">
-                      <button data-dismiss="modal"  data-toggle="modal" data-target="#ExaminationP" class="btn-info" v-for="e in myExamination" v-if="ExamDay(e,i,0)" v-on:click="Start(e)"><a v-if="e.patient!=null">{{e.startTime.split('T')[1]}}-{{e.endTime.split('T')[1]}}  {{e.patient.name}} {{e.patient.surname}}</a><a v-else>{{e.startTime.split('T')[1]}}-{{e.endTime.split('T')[1]}} </a></button><br>
+                      <button data-dismiss="modal"  data-toggle="modal" data-target="#ExaminationP" class="btn-info" v-for="e in myExamination" v-if="ExamDay(e,i,0)" v-on:click="Start(e)"><a v-if="e.patient!=null">{{e.startTime.split('T')[1].split(":")[0]}}:{{e.startTime.split('T')[1].split(":")[1]}}-{{e.endTime.split('T')[1].split(":")[0]}}:{{e.endTime.split('T')[1].split(":")[1]}}   <br>  {{e.patient.name}} {{e.patient.surname}}</a><a v-else>{{e.startTime.split('T')[1].split(":")[0]}}:{{e.startTime.split('T')[1].split(":")[1]}}-{{e.endTime.split('T')[1].split(":")[0]}}:{{e.endTime.split('T')[1].split(":")[1]}} </a></button><br>
                     </td>
                     <td v-else-if="Vacation(i,0)" class="changeCellColorVacation">vacation</td>
                     <td v-else class="cellColorRegular"></td>
                     <td id="cell1" v-if="CompareDate(i,1)" class="changeCellColor">
-                      <button data-dismiss="modal"  data-toggle="modal" data-target="#ExaminationP" class="btn-info" v-for="e in myExamination" v-if="ExamDay(e,i,1)" v-on:click="Start(e)"><a v-if="e.patient!=null">{{e.startTime.split('T')[1]}}-{{e.endTime.split('T')[1]}}  {{e.patient.name}} {{e.patient.surname}}</a><a v-else>{{e.startTime.split('T')[1]}}-{{e.endTime.split('T')[1]}} </a></button></br>
+                      <button data-dismiss="modal"  data-toggle="modal" data-target="#ExaminationP" class="btn-info" v-for="e in myExamination" v-if="ExamDay(e,i,1)" v-on:click="Start(e)"><a v-if="e.patient!=null">{{e.startTime.split('T')[1].split(":")[0]}}:{{e.startTime.split('T')[1].split(":")[1]}}-{{e.endTime.split('T')[1].split(":")[0]}}:{{e.endTime.split('T')[1].split(":")[1]}}  <br>  {{e.patient.name}} {{e.patient.surname}}</a><a v-else>{{e.startTime.split('T')[1].split(":")[0]}}:{{e.startTime.split('T')[1].split(":")[1]}}-{{e.endTime.split('T')[1].split(":")[0]}}:{{e.endTime.split('T')[1].split(":")[1]}} </a></button></br>
                     </td>
                     <td v-else-if="Vacation(i,1)" class="changeCellColorVacation">vacation</td>
                     <td v-else class="cellColorRegular"></td>
                     <td id="cell2" v-if="CompareDate(i,2)" class="changeCellColor">
-                      <button data-dismiss="modal"  data-toggle="modal" data-target="#ExaminationP" class="btn-info" v-for="e in myExamination" v-if="ExamDay(e,i,2)" v-on:click="Start(e)"><a v-if="e.patient!=null">{{e.startTime.split('T')[1]}}-{{e.endTime.split('T')[1]}}  {{e.patient.name}} {{e.patient.surname}}</a><a v-else>{{e.startTime.split('T')[1]}}-{{e.endTime.split('T')[1]}} </a></button></br>
+                      <button data-dismiss="modal"  data-toggle="modal" data-target="#ExaminationP" class="btn-info" v-for="e in myExamination" v-if="ExamDay(e,i,2)" v-on:click="Start(e)"><a v-if="e.patient!=null">{{e.startTime.split('T')[1].split(":")[0]}}:{{e.startTime.split('T')[1].split(":")[1]}}-{{e.endTime.split('T')[1].split(":")[0]}}:{{e.endTime.split('T')[1].split(":")[1]}}   <br>  {{e.patient.name}} {{e.patient.surname}}</a><a v-else>{{e.startTime.split('T')[1].split(":")[0]}}:{{e.startTime.split('T')[1].split(":")[1]}}-{{e.endTime.split('T')[1].split(":")[0]}}:{{e.endTime.split('T')[1].split(":")[1]}} </a></button></br>
                     </td>
                     <td v-else-if="Vacation(i,2)" class="changeCellColorVacation">vacation</td>
                     <td v-else class="cellColorRegular"></td>
                     <td id="cell3" v-if="CompareDate(i,3)" class="changeCellColor">
-                      <button data-dismiss="modal"  data-toggle="modal" data-target="#ExaminationP" class="btn-info" v-for="e in myExamination" v-if="ExamDay(e,i,3)" v-on:click="Start(e)"><a v-if="e.patient!=null">{{e.startTime.split('T')[1]}}-{{e.endTime.split('T')[1]}}  {{e.patient.name}} {{e.patient.surname}}</a><a v-else>{{e.startTime.split('T')[1]}}-{{e.endTime.split('T')[1]}} </a></button></br>
+                      <button data-dismiss="modal"  data-toggle="modal" data-target="#ExaminationP" class="btn-info" v-for="e in myExamination" v-if="ExamDay(e,i,3)" v-on:click="Start(e)"><a v-if="e.patient!=null">{{e.startTime.split('T')[1].split(":")[0]}}:{{e.startTime.split('T')[1].split(":")[1]}}-{{e.endTime.split('T')[1].split(":")[0]}}:{{e.endTime.split('T')[1].split(":")[1]}}  <br>  {{e.patient.name}} {{e.patient.surname}}</a><a v-else>{{e.startTime.split('T')[1].split(":")[0]}}:{{e.startTime.split('T')[1].split(":")[1]}}-{{e.endTime.split('T')[1].split(":")[0]}}:{{e.endTime.split('T')[1].split(":")[1]}}  </a></button></br>
                     </td>
                     <td v-else-if="Vacation(i,3)" class="changeCellColorVacation">vacation</td>
                     <td v-else class="cellColorRegular"></td>
                     <td id="cell4" v-if="CompareDate(i,4)" class="changeCellColor">
-                      <button data-dismiss="modal"  data-toggle="modal" data-target="#ExaminationP" class="btn-info" v-for="e in myExamination" v-if="ExamDay(e,i,4)" v-on:click="Start(e)"><a v-if="e.patient!=null">{{e.startTime.split('T')[1]}}-{{e.endTime.split('T')[1]}}  {{e.patient.name}} {{e.patient.surname}}</a><a v-else>{{e.startTime.split('T')[1]}}-{{e.endTime.split('T')[1]}} </a></button></br>
+                      <button data-dismiss="modal"  data-toggle="modal" data-target="#ExaminationP" class="btn-info" v-for="e in myExamination" v-if="ExamDay(e,i,4)" v-on:click="Start(e)"><a v-if="e.patient!=null">{{e.startTime.split('T')[1].split(":")[0]}}:{{e.startTime.split('T')[1].split(":")[1]}}-{{e.endTime.split('T')[1].split(":")[0]}}:{{e.endTime.split('T')[1].split(":")[1]}}  <br>  {{e.patient.name}} {{e.patient.surname}}</a><a v-else>{{e.startTime.split('T')[1].split(":")[0]}}:{{e.startTime.split('T')[1].split(":")[1]}}-{{e.endTime.split('T')[1].split(":")[0]}}:{{e.endTime.split('T')[1].split(":")[1]}} </a></button></br>
                     </td>
                     <td v-else-if="Vacation(i,4)" class="changeCellColorVacation">vacation</td>
                     <td v-else class="cellColorRegular"></td>
                     <td id="cell5" v-if="CompareDate(i,5)" class="changeCellColor">
-                      <button data-dismiss="modal"  data-toggle="modal" data-target="#ExaminationP" class="btn-info" v-for="e in myExamination" v-if="ExamDay(e,i,5)" v-on:click="Start(e)"><a v-if="e.patient!=null">{{e.startTime.split('T')[1]}}-{{e.endTime.split('T')[1]}}  {{e.patient.name}} {{e.patient.surname}}</a><a v-else>{{e.startTime.split('T')[1]}}-{{e.endTime.split('T')[1]}} </a></button></br>
+                      <button data-dismiss="modal"  data-toggle="modal" data-target="#ExaminationP" class="btn-info" v-for="e in myExamination" v-if="ExamDay(e,i,5)" v-on:click="Start(e)"><a v-if="e.patient!=null">{{e.startTime.split('T')[1].split(":")[0]}}:{{e.startTime.split('T')[1].split(":")[1]}}-{{e.endTime.split('T')[1].split(":")[0]}}:{{e.endTime.split('T')[1].split(":")[1]}}  <br> {{e.patient.name}} {{e.patient.surname}}</a><a v-else>{{e.startTime.split('T')[1].split(":")[0]}}:{{e.startTime.split('T')[1].split(":")[1]}}-{{e.endTime.split('T')[1].split(":")[0]}}:{{e.endTime.split('T')[1].split(":")[1]}}  </a></button></br>
                     </td>
                     <td v-else-if="Vacation(i,5)" class="changeCellColorVacation">vacation</td>
                     <td v-else class="cellColorRegular"></td>
                     <td id="cell6" v-if="CompareDate(i,6)" class="changeCellColor">
-                      <button data-dismiss="modal"  data-toggle="modal" data-target="#ExaminationP" class="btn-info" v-for="e in myExamination" v-if="ExamDay(e,i,6)" v-on:click="Start(e)"><a v-if="e.patient!=null">{{e.startTime.split('T')[1]}}-{{e.endTime.split('T')[1]}}  {{e.patient.name}} {{e.patient.surname}}</a><a v-else>{{e.startTime.split('T')[1]}}-{{e.endTime.split('T')[1]}} </a></button></br>
+                      <button data-dismiss="modal"  data-toggle="modal" data-target="#ExaminationP" class="btn-info" v-for="e in myExamination" v-if="ExamDay(e,i,6)" v-on:click="Start(e)"><a v-if="e.patient!=null">{{e.startTime.split('T')[1].split(":")[0]}}:{{e.startTime.split('T')[1].split(":")[1]}}-{{e.endTime.split('T')[1].split(":")[0]}}:{{e.endTime.split('T')[1].split(":")[1]}}  <br> {{e.patient.name}} {{e.patient.surname}}</a><a v-else>{{e.startTime.split('T')[1].split(":")[0]}}:{{e.startTime.split('T')[1].split(":")[1]}}-{{e.endTime.split('T')[1].split(":")[0]}}:{{e.endTime.split('T')[1].split(":")[1]}} </a></button></br>
                     </td><td v-else-if="Vacation(i,6)" class="changeCellColorVacation">vacation</td>
                     <td v-else class="cellColorRegular"></td>
                 </tr>
@@ -430,7 +430,7 @@ Vue.component("calendarP",{
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">EPrescription</h5>
+                        <h5 class="modal-title">Schedule the next couseling</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -476,6 +476,7 @@ Vue.component("calendarP",{
             for(m in pharmacyMedicines){
                 if(pharmacyMedicines[m].medicine.name==this.medicineChoose.name){
                     if(pharmacyMedicines[m].quantity>0){
+                        pharmacyMedicines[m].quantity=pharmacyMedicines[m].quantity-1
                         this.prescriptionDTO.medicine=pharmacyMedicines[m]
                         this.prescriptionDTO.pharmacy=this.examination.pharmacy
                         await axios.post('/eprescription/add/'+this.examination.patient.id, this.prescriptionDTO)
@@ -488,6 +489,7 @@ Vue.component("calendarP",{
                                 .get('/eprescription/findMedicines/' + this.examination.pharmacy.id)
                                 .then(response => {       
                                     this.med=response.data
+                                    this.medicines=[]
                                     for(m in this.med){
                                         var find=false
                                         for(a in this.examination.patient.drugAllargies){
@@ -500,6 +502,7 @@ Vue.component("calendarP",{
                                 })
                                 .catch(error => {
                                 })
+                                await $('#PrescriptionModal').modal('hide');
                         }else{
                             alert("Medicine is put of stock!")
                             axios.post('/pharmacyAdmin/sendingMail/'+this.examination.pharmacy.name,this.medicineChoose)

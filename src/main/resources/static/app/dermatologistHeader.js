@@ -20,7 +20,6 @@ Vue.component("dermatologistHeader", {
                             <a class="dropdown-item" v-on:click="PatientsShow()">My patients</a>
                             <a class="dropdown-item" v-on:click="CalendarShow()">My working schedule</a>
                             <a class="dropdown-item" v-on:click="VacationShow()">Request for vacation</a>
-                            <a class="dropdown-item" v-on:click="CurrentExaminationShow()">Current examination</a>
                             <a class="dropdown-item" v-on:click="MakingExaminationShow()">Making an appointment</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" v-on:click="Logout()">Log out</a>
@@ -45,11 +44,10 @@ Vue.component("dermatologistHeader", {
             this.$router.push('dermatologistSearchPatients');
         },
         CalendarShow: function () {
+            this.$router.push('calendarD');
         },
         VacationShow: function () {
             this.$router.push('dermatologistVacationRequest');
-        },
-        CurrentExaminationShow: function () {         
         },
         MakingExaminationShow: function () { 
             this.$router.push('createExaminationDermatologist');              

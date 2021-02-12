@@ -1,5 +1,6 @@
 package rs.ac.uns.ftn.informatika.jpa.controller;
 
+import java.util.List;
 import java.util.Set;
 
 import javax.validation.Valid;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import rs.ac.uns.ftn.informatika.jpa.dto.EPrescriptionDTO;
+import rs.ac.uns.ftn.informatika.jpa.dto.MedicinePriceAndQuantityDTO;
 import rs.ac.uns.ftn.informatika.jpa.model.EPrescription;
 import rs.ac.uns.ftn.informatika.jpa.model.Medicine;
 import rs.ac.uns.ftn.informatika.jpa.model.MedicinePriceAndQuantity;
@@ -42,8 +44,8 @@ public class EPrescritpionController {
 	}
 
     @GetMapping(value = "/findMedicines/{id}")
-	public ResponseEntity<Set<MedicinePriceAndQuantity>> findMedicineByPharmacy(@PathVariable Long id) {
-		Set<MedicinePriceAndQuantity> medicines=ePrescriptionService.findMedicineByPharmacy(id);
+	public ResponseEntity<List<MedicinePriceAndQuantityDTO>> findMedicineByPharmacy(@PathVariable Long id) {
+		List<MedicinePriceAndQuantityDTO> medicines=ePrescriptionService.findMedicineByPharmacy(id);
 		return medicines == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(medicines);  
 	}
 }

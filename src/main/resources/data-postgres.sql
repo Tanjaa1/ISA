@@ -124,13 +124,13 @@ INSERT INTO public.complaint(
 
 INSERT INTO public.counseling(
 	id, price, report, start_time, end_time, is_done, patient_id, pharmacist_id, pharmacy_id, is_canceled)
-	VALUES (111, 1000.0, 'Headache', '2021-02-10 16:00:00-07', '2021-02-10 16:25:25-07', true, 88, 5, 222, false);
+	VALUES (111, 1000.0, 'Headache', '2021-02-09 16:00:00-07', '2021-02-09 16:25:25-07', true, 88, 5, 222, false);
 INSERT INTO public.counseling(
 	id, price, report, start_time, end_time, is_done, patient_id, pharmacist_id, pharmacy_id, is_canceled)
 	VALUES (112, 2000.0, '', '2021-02-15 17:00:00-07', '2021-02-15 17:25:25-07', true, 89, 5, 222, false);
 INSERT INTO public.counseling(
 	id, price, report, start_time, end_time, is_done, patient_id, pharmacist_id, pharmacy_id, is_canceled)
-	VALUES (113, 1000.0, '', '2021-02-15 16:00:00-07', '2021-02-15 16:25:25-07', true, 88, 5, 222, false);
+	VALUES (113, 1000.0, '', '2021-02-15 15:00:00-07', '2021-02-15 15:25:25-07', true, 88, 5, 222, false);
 INSERT INTO public.counseling(
 	id, price, report, start_time, end_time, is_done, patient_id, pharmacist_id, pharmacy_id, is_canceled)
 	VALUES (114, 2000.0, '', '2021-02-16 17:00:00-07', '2021-02-16 17:25:25-07', true, 89, 5, 222, false);
@@ -365,50 +365,50 @@ INSERT INTO public.pharmacist_vacation_schedule(
 
 INSERT INTO public.working_time(
 	id, time_end, time_start,pharmacy_id)
-	VALUES (111, '2021-02-09 20:00:00-07','2021-02-09 14:00:00-07','111');
+	VALUES (111, '2021-02-09 20:00:00-07','2021-02-09 11:00:00-07','111');
 INSERT INTO public.working_time(
 	id, time_end, time_start,pharmacy_id)
-	VALUES (112, '2021-02-10 20:00:00-07','2021-02-10 14:00:00-07','111');
+	VALUES (112, '2021-02-10 20:00:00-07','2021-02-10 11:00:00-07','111');
 INSERT INTO public.working_time(
 	id, time_end, time_start,pharmacy_id)
-	VALUES (113, '2021-02-11 20:00:00-07','2021-02-11 14:00:00-07','111');
+	VALUES (113, '2021-02-11 20:00:00-07','2021-02-11 11:00:00-07','111');
 INSERT INTO public.working_time(
 	id, time_end, time_start,pharmacy_id)
-	VALUES (114, '2021-02-12 20:00:00-07','2021-02-12 14:00:00-07','111');
+	VALUES (114, '2021-02-12 20:00:00-07','2021-02-12 11:00:00-07','111');
 INSERT INTO public.working_time(
 	id, time_end, time_start,pharmacy_id)
 	VALUES (115, '2021-02-13 20:00:00-07','2021-02-13 14:00:00-07','111');
 INSERT INTO public.working_time(
 	id, time_end, time_start,pharmacy_id)
-	VALUES (116, '2021-02-14 20:00:00-07','2021-02-14 14:00:00-07','111');
+	VALUES (116, '2021-02-14 20:00:00-07','2021-02-14 11:00:00-07','111');
 INSERT INTO public.working_time(
 	id, time_end, time_start,pharmacy_id)
 	VALUES (117, '2021-02-15 20:00:00-07','2021-02-15 14:00:00-07','111');
 INSERT INTO public.working_time(
 	id, time_end, time_start,pharmacy_id)
-	VALUES (118, '2021-02-16 20:00:00-07','2021-02-16 14:00:00-07','111');
+	VALUES (118, '2021-02-16 20:00:00-07','2021-02-16 11:00:00-07','111');
 INSERT INTO public.working_time(
 	id, time_end, time_start,pharmacy_id)
-	VALUES (119, '2021-02-17 20:00:00-07','2021-02-17 14:00:00-07','111');
+	VALUES (119, '2021-02-17 20:00:00-07','2021-02-17 11:00:00-07','111');
 INSERT INTO public.working_time(
 	id, time_end, time_start,pharmacy_id)
 	VALUES (120, '2021-02-23 20:00:00-07','2021-02-23 14:00:00-07','111');
 
 INSERT INTO public.working_time(
 	id, time_end, time_start,pharmacy_id)
-	VALUES (211, '2021-02-09 14:00:00-07','2021-02-09 08:00:00-07','222');
+	VALUES (211, '2021-02-09 15:00:00-07','2021-02-09 07:00:00-07','222');
 INSERT INTO public.working_time(
 	id, time_end, time_start,pharmacy_id)
 	VALUES (212, '2021-02-10 14:00:00-07','2021-02-10 08:00:00-07','222');
 INSERT INTO public.working_time(
 	id, time_end, time_start,pharmacy_id)
-	VALUES (213, '2021-02-11 14:00:00-07','2021-02-11 08:00:00-07','222');
+	VALUES (213, '2021-02-11 15:00:00-07','2021-02-11 08:00:00-07','222');
 INSERT INTO public.working_time(
 	id, time_end, time_start,pharmacy_id)
 	VALUES (214, '2021-02-12 14:00:00-07','2021-02-12 08:00:00-07','222');
 INSERT INTO public.working_time(
 	id, time_end, time_start,pharmacy_id)
-	VALUES (215, '2021-02-13 14:00:00-07','2021-02-13 08:00:00-07','222');
+	VALUES (215, '2021-02-13 15:00:00-07','2021-02-13 08:00:00-07','222');
 INSERT INTO public.working_time(
 	id, time_end, time_start,pharmacy_id)
 	VALUES (216, '2021-02-14 14:00:00-07','2021-02-14 08:00:00-07','222');
@@ -417,13 +417,13 @@ INSERT INTO public.working_time(
 	VALUES (217, '2021-02-15 14:00:00-07','2021-02-15 08:00:00-07','222');
 INSERT INTO public.working_time(
 	id, time_end, time_start,pharmacy_id)
-	VALUES (218, '2021-02-16 14:00:00-07','2021-02-16 08:00:00-07','222');
+	VALUES (218, '2021-02-16 15:00:00-07','2021-02-16 08:00:00-07','222');
 INSERT INTO public.working_time(
 	id, time_end, time_start,pharmacy_id)
 	VALUES (219, '2021-02-17 14:00:00-07','2021-02-17 08:00:00-07','222');
 INSERT INTO public.working_time(
 	id, time_end, time_start,pharmacy_id)
-	VALUES (220, '2021-02-23 14:00:00-07','2021-02-23 08:00:00-07','222');
+	VALUES (220, '2021-02-23 15:00:00-07','2021-02-23 08:00:00-07','222');
 
 INSERT INTO public.dermatologist_working_schedule(
 	dermatologist_id, working_time_id)

@@ -20,7 +20,6 @@ Vue.component("pharmacistHeader", {
                         <a class="dropdown-item" v-on:click="PatientsShow()">My patients</a>
                         <a class="dropdown-item" v-on:click="CalendarShow()">My working schedule</a>
                         <a class="dropdown-item" v-on:click="VacationShow()">Request for vacation</a>
-                        <a class="dropdown-item" v-on:click="CurrentExaminationShow()">Current counseling</a>
                         <a class="dropdown-item" v-on:click="MakingExaminationShow()">Making an counseling</a>
                         <a class="dropdown-item" v-on:click="ReservationShow()">EPrescription</a>
                         <div class="dropdown-divider"></div>
@@ -43,14 +42,13 @@ Vue.component("pharmacistHeader", {
             this.$router.push('pharmacistInfo');
         },
         PatientsShow: function () {
-            this.$router.push('search');
+            this.$router.push("pharmacistSearchPatients");
         },
         CalendarShow: function () {
+            this.$router.push('calendarP');
         },
         VacationShow: function () {
             this.$router.push('pharmacistVacationRequest');
-        },
-        CurrentExaminationShow: function () {         
         },
         MakingExaminationShow: function () {
             this.$router.push('createCounselingPharmacist');             
