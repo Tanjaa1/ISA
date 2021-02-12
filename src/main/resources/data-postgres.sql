@@ -343,9 +343,6 @@ INSERT INTO public.working_time(
 	VALUES (111, '2021-06-22 14:00:00-07', '2021-06-22 08:00:00-07','111');
 INSERT INTO public.working_time(
 	id, time_end, time_start,pharmacy_id)
-	VALUES (111, '2016-06-24 20:00:00-07', '2017-06-24 14:00:00-07','111');
-INSERT INTO public.working_time(
-	id, time_end, time_start,pharmacy_id)
 	VALUES (112, '2021-06-24 20:00:00-07', '2021-06-24 14:00:00-07','111');
 INSERT INTO public.working_time(
 	id, time_end, time_start,pharmacy_id)

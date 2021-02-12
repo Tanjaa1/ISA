@@ -33,11 +33,6 @@ Vue.component("dermatologistHomePage", {
 					</div>
 					<div class="col-sm">
 					  <h3>
-						<button id="Examination" type="button" class="btn btn-info btn-lg margin form-control" v-on:click="CurrentExaminationShow()"></button>
-						</h3><br/> 
-					</div>
-					<div class="col-sm">
-					  <h3>
 						<button id="Calendar" type="button" class="btn btn-info btn-lg margin form-control" v-on:click="CalendarShow"></button>
 						</h3><br/> 
 					</div>
@@ -95,11 +90,10 @@ Vue.component("dermatologistHomePage", {
             this.$router.push('dermatologistSearchPatients');
         },
         CalendarShow: function () {
+            this.$router.push('calendarD');
         },
         VacationShow: function () {
             this.$router.push('dermatologistVacationRequest');
-        },
-        CurrentExaminationShow: function () {         
         },
         MakingExaminationShow: function () {     
             this.$router.push('createExaminationDermatologist');     
