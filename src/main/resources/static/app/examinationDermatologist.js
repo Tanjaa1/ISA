@@ -2,7 +2,7 @@
 Vue.component("createExaminationDermatologist", {
 	data: function () {
 		return {
-			patients:null,
+			patients:{},
             newExamination: {
                 startTime:null,
                 endTime:null,
@@ -14,8 +14,9 @@ Vue.component("createExaminationDermatologist", {
                 report:"",
                 price:1000.00             
             },
-            patient:null,
-            future:null
+            patient:{},
+            future:{},
+            physician:{},
 		}
 	},
 	beforeMount() {
@@ -33,6 +34,13 @@ Vue.component("createExaminationDermatologist", {
             })
             .catch(error => {
             })
+            axios
+              .get('/dermatologist/getDermatologistById/' + '6') 
+              .then(response => {
+                  this.physician = response.data
+              })
+              .catch(error => {
+              })
 	},
 	template: `
 	<div id="ExaminationDermatologist" class="BackendImagePhysician"> 
@@ -41,7 +49,7 @@ Vue.component("createExaminationDermatologist", {
                 Choose patient</br>
                 <select class="col" id="sort" v-model="patient">
                     <option selected="selected" disabled>Please select one</option>
-                    <option v-for="p in patients">{{p.name}} {{p.surname}}</option>
+                    <option v-for="p in this.patients"  v-bind:value="p">{{p.name}} {{p.surname}}</option>
                 </select>		
             </div>		
         </div>
@@ -130,8 +138,9 @@ Vue.component("createExaminationDermatologist", {
             this.newExamination.startTime=document.getElementById("date").value+'T'+document.getElementById("start").value
             this.newExamination.endTime=document.getElementById("date").value+'T'+document.getElementById("end").value
             this.newExamination.patient=this.patient
-            //this.newExamination.dermatologist=this.examination.dermatologist 
-            //this.newExamination.pharmacy=this.examination.pharmacy
+            this.newExamination.dermatologist=this.physician 
+            this.newExamination.pharmacy=this.physician.pharmacies[0]
+            alert(this.physician.pharmacies[0])
             axios.post('/examination/add',this.newExamination)
             .then(function (response) {
                 alert("The examination was successfully scheduled!")
