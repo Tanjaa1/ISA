@@ -13,10 +13,12 @@ import org.springframework.stereotype.Service;
 
 import rs.ac.uns.ftn.informatika.jpa.dto.DermatologistDTO;
 
-
-
 import rs.ac.uns.ftn.informatika.jpa.model.Dermatologist;
+import rs.ac.uns.ftn.informatika.jpa.model.Markk;
+import rs.ac.uns.ftn.informatika.jpa.model.Patient;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IDermatologistRepository;
+import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IMarkRepository;
+import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IPatientRepository;
 import rs.ac.uns.ftn.informatika.jpa.service.Interface.IDermatologistService;
 
 @Service
@@ -29,6 +31,10 @@ public class DermatologistService implements IDermatologistService {
 	
 	@Autowired
 	private IDermatologistRepository dermatologistRepository;
+	@Autowired
+	private IPatientRepository patientRepository;
+	@Autowired
+	private IMarkRepository markRepository;
 
 	public Dermatologist findOne(Long id) 
 	{
@@ -129,6 +135,39 @@ public class DermatologistService implements IDermatologistService {
 		dermaToUpdate.setEmailComfirmed(true);
 		update(dermaToUpdate);
 		return true;
+	}
+
+	public List<DermatologistDTO> getDermatologist(Long id) {
+		List<DermatologistDTO> pharmacistDTOs = new ArrayList<>();
+		List<Dermatologist> pharmacists = dermatologistRepository.getDermatologists(id);
+		for (Dermatologist pharmacist : pharmacists) {
+			pharmacistDTOs.add(new DermatologistDTO(pharmacist));
+		}
+		return pharmacistDTOs;
+	}
+
+	public DermatologistDTO addMark(Dermatologist pharmacist, Integer medicinesMark, Long id) {
+		Dermatologist pharmacist2 = dermatologistRepository.getOne(pharmacist.getId());
+		Patient patient = patientRepository.getOne(id);
+		boolean i = false;
+		for (Markk mark : pharmacist2.getMarks()) {
+			if(mark.getPatient().getId() == patient.getId()){
+				i = true;
+				mark.setMarks(medicinesMark);
+				//medicine2.setMarks(marks);
+				break;
+			}
+		}
+		if(!i){
+			Markk mark = new Markk();
+			mark.setMarks(medicinesMark);
+			mark.setPatient(patient);
+			Markk mm = markRepository.save(mark);
+			pharmacist2.getMarks().add(mm);
+			//pharmacist2.setMarks(m);
+		}
+		dermatologistRepository.save(pharmacist2);
+		return new DermatologistDTO(pharmacist2);
 	}
 
 }

@@ -6,6 +6,7 @@ import java.util.Set;
 
 import rs.ac.uns.ftn.informatika.jpa.model.Dermatologist;
 import rs.ac.uns.ftn.informatika.jpa.model.Examination;
+import rs.ac.uns.ftn.informatika.jpa.model.Markk;
 import rs.ac.uns.ftn.informatika.jpa.model.Pharmacy;
 import rs.ac.uns.ftn.informatika.jpa.util.VacationInterval;
 import rs.ac.uns.ftn.informatika.jpa.util.WorkingTime;
@@ -69,7 +70,6 @@ public class DermatologistDTO{
       this.EmailComfirmed = dermatologist.getEmailComfirmed();
       this.FirstTimeLogin = dermatologist.getFirstTimeLogin();
       this.Id = dermatologist.getId();
-      this.Marks = dermatologist.getMarks(); 
       this.Name = dermatologist.getName();
       this.Password = dermatologist.getPassword();
 	  for (Pharmacy pharmacy : dermatologist.getPharmacies()) {
@@ -81,10 +81,10 @@ public class DermatologistDTO{
       this.WorkingSchedule = dermatologist.getWorkingScheduldeAsDTO();
 	  double result =  0;
         int i = 0;
-        for (Integer m : dermatologist.getMarks()) {
-            result += m;
-            i++;
-        }
+        for (Markk m : dermatologist.getMarks()) {
+			result += m.getMarks();
+			i++;
+		}
         Grade = (int) Math.round(result / i);
 		Username=dermatologist.getUsername();
     }

@@ -93,4 +93,15 @@ public class DermatologistController {
 		return success == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(success);
 	}
 
+	@GetMapping(value = "/getDermatologistsByPatientId/{id}")
+	public ResponseEntity<List<DermatologistDTO>> getPharmacistByPatientId(@PathVariable Long id) {
+		List<DermatologistDTO> pharmacistDTOs = dermatologistService.getDermatologist(id);
+		return pharmacistDTOs == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(pharmacistDTOs);
+	}
+
+	@PostMapping(value = "/giveMarkDermatologist/{medicinesMark}/{id}")
+	public ResponseEntity<DermatologistDTO> addMark(@RequestBody Dermatologist pharmacist, @PathVariable Integer medicinesMark, @PathVariable Long id) throws Exception {
+		return ResponseEntity.ok(dermatologistService.addMark(pharmacist,medicinesMark, id));
+	}
+
 }
