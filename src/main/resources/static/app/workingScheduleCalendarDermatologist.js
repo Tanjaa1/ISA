@@ -306,11 +306,13 @@ Vue.component("calendarD",{
    },
   PastExam:function () {
     var d = new Date();
-    if(parseInt(this.exam.startTime.split('T')[0].split('-')[0])<parseInt(this.today.getFullYear()) || parseInt(this.exam.startTime.split('T')[0].split('-')[1])<parseInt(this.today.getMonth())+1 || parseInt(this.exam.startTime.split('T')[0].split('-')[2])<parseInt(this.today.getDate()))
+    if(parseInt(this.exam.startTime.split('T')[0].split('-')[0])<parseInt(d.getFullYear()) || parseInt(this.exam.startTime.split('T')[0].split('-')[1])<parseInt(d.getMonth())+1 || parseInt(this.exam.startTime.split('T')[0].split('-')[2])<parseInt(d.getDate()))
       return false
     if(this.exam.startTime!=""){
-      if(parseInt(this.exam.endTime.split('T')[1].split(':')[0])<parseInt(d.getHours()) || parseInt(this.exam.endTime.split('T')[1].split(':')[1])<parseInt(d.getMinutes()))
-        return false
+      if(parseInt(this.exam.startTime.split('T')[0].split('-')[2])==parseInt(d.getDate())){
+        if(parseInt(this.exam.endTime.split('T')[1].split(':')[0])<parseInt(d.getHours()) || parseInt(this.exam.endTime.split('T')[1].split(':')[1])<parseInt(d.getMinutes()))
+          return false
+      }
     }
     return true
   }
@@ -347,10 +349,6 @@ Vue.component("examinationDermatologist", {
 		}
 	},
 	beforeMount() {
-        // axios
-        //     .get('/examination/getPastExaminationByPatientId/' + '88')
-        //     .then(response => {
-        //         this.examination = response.data[0]
                 axios
                 .get('/eprescription/findMedicines/' + this.examination.pharmacy.id)
                 .then(response => {       
@@ -367,9 +365,6 @@ Vue.component("examinationDermatologist", {
                 })
                 .catch(error => {
                 })
-            //})
-            // .catch(error => {
-            // })
 
             axios
             .get('/examination/getFreeExaminationByDermatologist/' + '6')
@@ -484,6 +479,7 @@ Vue.component("examinationDermatologist", {
                                                                         <th>Start</th>
                                                                         <th>End</th>
                                                                         <th>Price</th>
+                                                                        <th>Pharmacy</th>
                                                                         <th>Schedule</th>
                                                                     </tr>
                                                                     </thead>
@@ -555,12 +551,22 @@ Vue.component("examinationDermatologist", {
                             })
                             .catch(function (error) {
                             });
-                            await axios.put('/pharmacy/updateQuantity/'+this.examination.pharmacy.id, this.medicineChoose)
-                            .then(function (response) {
-                                //location.reload()
-                            })
-                            .catch(function (error) {
-                            });
+                            await  axios
+                                .get('/eprescription/findMedicines/' + this.examination.pharmacy.id)
+                                .then(response => {       
+                                    this.med=response.data
+                                    for(m in this.med){
+                                        var find=false
+                                        for(a in this.examination.patient.drugAllargies){
+                                            if(this.examination.patient.drugAllargies[a].toUpperCase()==this.med[m].medicine.name.toUpperCase())
+                                                find=true
+                                        }
+                                        if(!find)
+                                            this.medicines.push(this.med[m].medicine)
+                                    }
+                                })
+                                .catch(error => {
+                                })
                         }else{
                             alert("Medicine is put of stock!")
                             axios.post('/pharmacyAdmin/sendingMail/'+this.examination.pharmacy.name,this.medicineChoose)
@@ -582,7 +588,8 @@ Vue.component("examinationDermatologist", {
                 .get('/examination/getFreeExaminationByDermatologist/' + '6')
                 .then(function (odg){
                     this.future=odg.response
-                    location.reload()
+                    //location.reload()
+                    $('#Schedule').modal('hide');
                 })
                 .catch(error => {
                 })
@@ -600,6 +607,7 @@ Vue.component("examinationDermatologist", {
             axios.post('/examination/add',this.newExamination)
             .then(function (response) {
                 alert("The examination was successfully scheduled!")
+                $('#Schedule').modal('hide');
             })
             .catch(function (error) {
             });

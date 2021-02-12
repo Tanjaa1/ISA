@@ -283,17 +283,21 @@ Vue.component("calendarP",{
       //this.$router.push('examinationDermatologist');   
     },
     Yes:function(){
+      $('#ExaminationP').modal('hide');
      this.$router.push('counselingPharmacist');
     },
     No:function(){
      $('#ExaminationP').modal('hide');
     },
    PastExam:function () {
-     if(parseInt(this.exam.startTime.split('T')[0].split('-')[0])<parseInt(this.today.getFullYear()) || parseInt(this.exam.startTime.split('T')[0].split('-')[1])<parseInt(this.today.getMonth())+1 || parseInt(this.exam.startTime.split('T')[0].split('-')[2])<parseInt(this.today.getDate()))
+    var d = new Date();
+     if(parseInt(this.exam.startTime.split('T')[0].split('-')[0])<parseInt(d.getFullYear()) || parseInt(this.exam.startTime.split('T')[0].split('-')[1])<parseInt(d.getMonth())+1 || parseInt(this.exam.startTime.split('T')[0].split('-')[2])<parseInt(d.getDate()))
        return false
       if(this.exam.startTime!=""){
-        if(parseInt(this.exam.endTime.split('T')[1].split(':')[0])<parseInt(d.getHours()) || parseInt(this.exam.endTime.split('T')[1].split(':')[1])<parseInt(d.getMinutes()))
-          return false
+        if(parseInt(this.exam.startTime.split('T')[0].split('-')[2])==parseInt(d.getDate())){
+          if(parseInt(this.exam.endTime.split('T')[1].split(':')[0])<parseInt(d.getHours()) || parseInt(this.exam.endTime.split('T')[1].split(':')[1])<parseInt(d.getMinutes()))
+            return false
+        }
       }
      return true
    }
@@ -330,10 +334,6 @@ Vue.component("calendarP",{
 	},
 	beforeMount() {
         axios
-            // .get('/counseling/getPastCounselingByPatientId/' + '88')
-            // .then(response => {
-            //     this.examination = response.data[0]
-            //     axios
                 .get('/eprescription/findMedicines/' + this.examination.pharmacy.id)
                 .then(response => {       
                     this.med=response.data
@@ -349,9 +349,6 @@ Vue.component("calendarP",{
                 })
                 .catch(error => {
                 })
-            // })
-            // .catch(error => {
-            // })
 
 	},
 	template: `
@@ -487,12 +484,22 @@ Vue.component("calendarP",{
                             })
                             .catch(function (error) {
                             });
-                            await axios.put('/pharmacy/updateQuantity/'+this.examination.pharmacy.id, this.medicineChoose)
-                            .then(function (response) {
-                                //location.reload()
-                            })
-                            .catch(function (error) {
-                            });
+                             await  axios
+                                .get('/eprescription/findMedicines/' + this.examination.pharmacy.id)
+                                .then(response => {       
+                                    this.med=response.data
+                                    for(m in this.med){
+                                        var find=false
+                                        for(a in this.examination.patient.drugAllargies){
+                                            if(this.examination.patient.drugAllargies[a].toUpperCase()==this.med[m].medicine.name.toUpperCase())
+                                                find=true
+                                        }
+                                        if(!find)
+                                            this.medicines.push(this.med[m].medicine)
+                                    }
+                                })
+                                .catch(error => {
+                                })
                         }else{
                             alert("Medicine is put of stock!")
                             axios.post('/pharmacyAdmin/sendingMail/'+this.examination.pharmacy.name,this.medicineChoose)
@@ -513,6 +520,7 @@ Vue.component("calendarP",{
             axios.post('/counseling/add',this.newExamination)
             .then(function (response) {
                 alert("The examination was successfully scheduled!")
+                $('#Schedule').modal('hide');
             })
             .catch(function (error) {
             });

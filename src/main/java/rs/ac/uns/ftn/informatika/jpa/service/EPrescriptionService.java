@@ -49,6 +49,7 @@ public class EPrescriptionService implements IEPrescriptionService {
         try{
              patient.getEPrescriptions().add(ep);
              patientRepository.save(patient);
+             pharmacyService.updateQuantity(ePrescriptionDTO.getPharmacy().getId(),ePrescription.getMedicine().getMedicine());
         }catch(Exception ex){
             throw new Exception("Error.");
         }
