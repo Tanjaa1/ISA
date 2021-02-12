@@ -20,6 +20,7 @@ import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IMarkRepository;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IMedicineRepository;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IPatientRepository;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IPharmacyRepository;
+import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IPriceAndQuantityRepository;
 import rs.ac.uns.ftn.informatika.jpa.service.Interface.IPharmacyAdminService;
 import rs.ac.uns.ftn.informatika.jpa.service.Interface.IPharmacyService;
 
@@ -34,9 +35,12 @@ public class PharmacyService implements IPharmacyService {
     @Autowired
     private IPharmacyAdminService pharmacyAdminService;
     @Autowired
+    private IPriceAndQuantityRepository priceAndQuantityRepository;
+    @Autowired
     private IPatientRepository patientRepository;
     @Autowired
     private IMarkRepository markRepository;
+
     
     public List<Pharmacy> findAll(){
         return pharmacyRepository.findAll();
@@ -93,6 +97,8 @@ public class PharmacyService implements IPharmacyService {
         return true;
     }
     
+
+    
     public Set<MedicinePriceAndQuantity> getPharmacyMedicines(Long id) {
         return findOne(id).getPricelist();
     }
@@ -147,12 +153,13 @@ public class PharmacyService implements IPharmacyService {
 	}
 
 	public Pharmacy updateQuantity(Long id,Medicine medicine) {
-        int quantity=0;
+        int quantity=100;
         Pharmacy pharmacy=pharmacyRepository.getOne(id);
         for (MedicinePriceAndQuantity m : pharmacy.getPricelist()) {
-            if(m.getMedicine().getId() ==medicine.getId()){
+            if(m.getMedicine().getId()==medicine.getId()){
                 m.setQuantity(m.getQuantity()-1);
                 quantity=m.getQuantity();
+                priceAndQuantityRepository.save(m);
                 break;
             }
         }

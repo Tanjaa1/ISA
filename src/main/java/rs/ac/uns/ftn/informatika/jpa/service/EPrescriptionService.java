@@ -1,5 +1,6 @@
 package rs.ac.uns.ftn.informatika.jpa.service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -7,6 +8,7 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import rs.ac.uns.ftn.informatika.jpa.dto.MedicinePriceAndQuantityDTO;
 import rs.ac.uns.ftn.informatika.jpa.model.EPrescription;
 import rs.ac.uns.ftn.informatika.jpa.model.MedicinePriceAndQuantity;
 import rs.ac.uns.ftn.informatika.jpa.model.Patient;
@@ -49,6 +51,7 @@ public class EPrescriptionService implements IEPrescriptionService {
         try{
              patient.getEPrescriptions().add(ep);
              patientRepository.save(patient);
+             pharmacyService.updateQuantity(ePrescriptionDTO.getPharmacy().getId(),ePrescription.getMedicine().getMedicine());
         }catch(Exception ex){
             throw new Exception("Error.");
         }
@@ -61,9 +64,12 @@ public class EPrescriptionService implements IEPrescriptionService {
         return null;
     }
 
-	public Set<MedicinePriceAndQuantity> findMedicineByPharmacy(Long id) 
+	public List<MedicinePriceAndQuantityDTO> findMedicineByPharmacy(Long id) 
     {
-        return pharmacyService.getPharmacyMedicines(id);
+        List<MedicinePriceAndQuantityDTO> priceAndQuantityDTOs=new ArrayList<MedicinePriceAndQuantityDTO>();
+        for (MedicinePriceAndQuantity m : pharmacyService.getPharmacyMedicines(id))
+            priceAndQuantityDTOs.add(new MedicinePriceAndQuantityDTO(m));
+        return priceAndQuantityDTOs;
 	}
     
 }
