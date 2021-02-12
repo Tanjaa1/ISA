@@ -16,6 +16,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import rs.ac.uns.ftn.informatika.jpa.util.VacationInterval;
@@ -36,9 +37,8 @@ public class Pharmacist extends User {
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Pharmacy Pharmacy;
 	
-	@Column(name="Marks", unique=false, nullable=true)
-	@ElementCollection
-	private Set<Integer> Marks = new HashSet<Integer>();
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private Set<Markk> Marks = new HashSet<Markk>();
 	
 	// @OneToMany(mappedBy = "Pharmacist", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	// private Set<Counseling> Counselings = new HashSet<Counseling>();
@@ -46,7 +46,7 @@ public class Pharmacist extends User {
 	public Pharmacist(){}
 	public Pharmacist(long id, String email, String password, String name, String surname, String address, String city,
 			String country, String phoneNumber,String description, Set<VacationInterval> vacationSchedule,
-			Set<WorkingTime> workingSchedule, Pharmacy pharmacy,Set<Integer> marks) {
+			Set<WorkingTime> workingSchedule, Pharmacy pharmacy,Set<Markk> marks) {
 		super(id, email, password, name, surname, address, city, country, phoneNumber,description);
 		VacationSchedule = vacationSchedule;
 		WorkingSchedule = workingSchedule;
@@ -78,18 +78,18 @@ public class Pharmacist extends User {
 		Pharmacy = pharmacy;
 	}
 
-	public Set<Integer> getMarks() {
+	public Set<Markk> getMarks() {
 		return Marks;
 	}
 
-	public void setMarks(Set<Integer> marks) {
+	public void setMarks(Set<Markk> marks) {
 		Marks = marks;
 	}
 
 	public Pharmacist(Long id, String email, String password, String name, String surname, String address, String city,
 			String country, String phoneNumber, String description, Boolean emailComfirmed, Boolean firstTimeLogin,
 			String username, Set<VacationInterval> vacationSchedule, Set<WorkingTime> workingSchedule,
-			Pharmacy pharmacy, Set<Integer> marks, Set<Counseling> counselings) {
+			Pharmacy pharmacy, Set<Markk> marks, Set<Counseling> counselings) {
 		super(id, email, password, name, surname, address, city, country, phoneNumber, description, emailComfirmed,
 				firstTimeLogin, username);
 		VacationSchedule = vacationSchedule;

@@ -3,12 +3,15 @@ package rs.ac.uns.ftn.informatika.jpa.model;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import rs.ac.uns.ftn.informatika.jpa.dto.MedicineDTO;
@@ -57,8 +60,10 @@ public class Medicine {
 	
 	@Column(name="DailyDose", unique=false, nullable=true)
 	private String DailyDose;
-
 	
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private Set<Markk> Marks = new HashSet<Markk>();
+
 	//@OneToOne(mappedBy = "Medicine")
     //private MedicinePriceAndQuantity MedicinePriceAndQuantity;
 	
@@ -204,5 +209,13 @@ public class Medicine {
 		Note = medicineDTO.getNote();
 		Contraindications = medicineDTO.getContraindications();
 		DailyDose = medicineDTO.getDailyDose();
+	}
+	
+	public Set<Markk> getMarks() {
+		return Marks;
+	}
+
+	public void setMarks(Set<Markk> marks) {
+		Marks = marks;
 	}
 }
