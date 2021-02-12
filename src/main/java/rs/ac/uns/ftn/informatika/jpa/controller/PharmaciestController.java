@@ -79,4 +79,15 @@ public class PharmaciestController {
 		List<PharmacistDTO> pharmacistDTOs = pharmacistService.getPharmacistByPharmacyId(id);
 		return pharmacistDTOs == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(pharmacistDTOs);
 	}
+
+	@GetMapping(value = "/getPharmacistByPatientId/{id}")
+	public ResponseEntity<List<PharmacistDTO>> getPharmacistByPatientId(@PathVariable Long id) {
+		List<PharmacistDTO> pharmacistDTOs = pharmacistService.getPharmacists(id);
+		return pharmacistDTOs == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(pharmacistDTOs);
+	}
+
+	@PostMapping(value = "/giveMarkPharmacist/{medicinesMark}/{id}")
+	public ResponseEntity<PharmacistDTO> addMark(@RequestBody Pharmacist pharmacist, @PathVariable Integer medicinesMark, @PathVariable Long id) throws Exception {
+		return ResponseEntity.ok(pharmacistService.addMark(pharmacist,medicinesMark, id));
+	}
 }

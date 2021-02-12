@@ -2,6 +2,7 @@ package rs.ac.uns.ftn.informatika.jpa.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,10 +14,12 @@ import org.springframework.stereotype.Service;
 
 import rs.ac.uns.ftn.informatika.jpa.dto.DermatologistDTO;
 
-
-
 import rs.ac.uns.ftn.informatika.jpa.model.Dermatologist;
+import rs.ac.uns.ftn.informatika.jpa.model.Mark;
+import rs.ac.uns.ftn.informatika.jpa.model.Patient;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IDermatologistRepository;
+import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IMarkRepository;
+import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IPatientRepository;
 import rs.ac.uns.ftn.informatika.jpa.service.Interface.IDermatologistService;
 
 @Service
@@ -29,6 +32,12 @@ public class DermatologistService implements IDermatologistService {
 	
 	@Autowired
 	private IDermatologistRepository dermatologistRepository;
+
+	@Autowired
+	private IPatientRepository patientRepository;
+
+	@Autowired
+	private IMarkRepository markRepository;
 
 	public Dermatologist findOne(Long id) 
 	{
@@ -128,6 +137,39 @@ public class DermatologistService implements IDermatologistService {
 		dermaToUpdate.setEmailComfirmed(true);
 		update(dermaToUpdate);
 		return true;
+	}
+
+	public List<DermatologistDTO> getDermatologists(Long id){
+		List<DermatologistDTO> dermatologistDTOs = new ArrayList<>();
+		List<Dermatologist> dermatologists = dermatologistRepository.getDermatologists(id);
+		for (Dermatologist dermatologist : dermatologists) {
+			dermatologistDTOs.add(new DermatologistDTO(dermatologist));
+		}
+		return dermatologistDTOs;
+	}
+
+	public DermatologistDTO addMark(Dermatologist dermatologist, Integer dermatologistMark, Long id) {
+		Dermatologist dermatologist2 = dermatologistRepository.getOne(dermatologist.getId());
+		Patient patient = patientRepository.getOne(id);
+		boolean i = false;
+		for (Mark mark : dermatologist2.getMarks()) {
+			if(mark.getPatient().getId() == patient.getId()){
+				i = true;
+				mark.setMarks(dermatologistMark);
+				//medicine2.setMarks(marks);
+				break;
+			}
+		}
+		if(!i){
+			Set<Mark> m = dermatologist2.getMarks();
+			Mark mark = new Mark(dermatologistMark, patient);
+			m.add(mark);
+			markRepository.save(mark);
+			dermatologist2.setMarks(m);
+		}
+		dermatologistRepository.save(dermatologist2);
+		return new DermatologistDTO(dermatologist2);
+	
 	}
 
 }

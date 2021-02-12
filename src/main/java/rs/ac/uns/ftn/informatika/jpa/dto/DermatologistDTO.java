@@ -6,6 +6,7 @@ import java.util.Set;
 
 import rs.ac.uns.ftn.informatika.jpa.model.Dermatologist;
 import rs.ac.uns.ftn.informatika.jpa.model.Examination;
+import rs.ac.uns.ftn.informatika.jpa.model.Mark;
 import rs.ac.uns.ftn.informatika.jpa.model.Pharmacy;
 import rs.ac.uns.ftn.informatika.jpa.util.VacationInterval;
 import rs.ac.uns.ftn.informatika.jpa.util.WorkingTime;
@@ -28,7 +29,7 @@ public class DermatologistDTO{
 	private Set<VacationIntervalDTO> VacationSchedule = new HashSet<VacationIntervalDTO>();
 	private Set<WorkingTimeDTO> WorkingSchedule = new HashSet<WorkingTimeDTO>();
 	private Set<PharmacyDTO> Pharmacies = new HashSet<PharmacyDTO>();
-	private Set<Integer> Marks = new HashSet<Integer>();
+	private Set<MarkDTO> Marks = new HashSet<MarkDTO>();
     private Set<ExaminationDTO> Examinations = new HashSet<ExaminationDTO>();
 	private Integer Grade;
     
@@ -37,7 +38,7 @@ public class DermatologistDTO{
 
     public DermatologistDTO(Long Id,String Email,String Password,String Name,String Surname,String Address,String City, String Country,String PhoneNumber,String Description,
     Boolean EmailComfirmed, Boolean FirstTimeLogin ,Set<VacationIntervalDTO> VacationSchedule,Set<WorkingTimeDTO> WorkingSchedule,Set<PharmacyDTO> Pharmacies,
-    Set<Integer> Marks,Set<ExaminationDTO> Examinations, Integer grade){
+    Set<MarkDTO> Marks,Set<ExaminationDTO> Examinations, Integer grade){
       super();
       this.Address = Address;
       this.City = City;
@@ -69,7 +70,9 @@ public class DermatologistDTO{
       this.EmailComfirmed = dermatologist.getEmailComfirmed();
       this.FirstTimeLogin = dermatologist.getFirstTimeLogin();
       this.Id = dermatologist.getId();
-      this.Marks = dermatologist.getMarks(); 
+      for (Mark mark : dermatologist.getMarks()) {
+		Marks.add(new MarkDTO(mark));
+	} 
       this.Name = dermatologist.getName();
       this.Password = dermatologist.getPassword();
 	  for (Pharmacy pharmacy : dermatologist.getPharmacies()) {
@@ -81,8 +84,8 @@ public class DermatologistDTO{
       this.WorkingSchedule = dermatologist.getWorkingScheduldeAsDTO();
 	  double result =  0;
         int i = 0;
-        for (Integer m : dermatologist.getMarks()) {
-            result += m;
+        for (Mark m : dermatologist.getMarks()) {
+            result += m.getMarks();
             i++;
         }
         Grade = (int) Math.round(result / i);
@@ -180,11 +183,11 @@ public class DermatologistDTO{
 		Pharmacies = pharmacies;
 	}
 
-	public Set<Integer> getMarks() {
+	public Set<MarkDTO> getMarks() {
 		return Marks;
 	}
 
-	public void setMarks(Set<Integer> marks) {
+	public void setMarks(Set<MarkDTO> marks) {
 		Marks = marks;
     }
     

@@ -33,9 +33,9 @@ public class Pharmacy {
 	@Column(name="Address", unique=false, nullable=true)
 	private String Address;
 	
-	@Column(name="Marks", unique=false, nullable=true)
-	@ElementCollection
-	private Set<Integer> Marks = new HashSet<Integer>();
+	// @Column(name="Marks", unique=false, nullable=true)
+	// @ElementCollection
+	// private Set<Integer> Marks = new HashSet<Integer>();
 
 	// @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	// public Set<ActionOrPromotion> ListActionsOrPromotions = new HashSet<ActionOrPromotion>();
@@ -46,6 +46,9 @@ public class Pharmacy {
 
 	 @Column(name="CounselingPrice", unique=false, nullable=true)
 	private Double CounselingPrice;
+
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private Set<Mark> Marks = new HashSet<Mark>();
 	
 	// @ManyToMany
 	// @JoinTable(name = "PharmacySubscribedUsers", joinColumns = @JoinColumn(name = "Pharmacy_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "Patient_id", referencedColumnName = "id"))
@@ -63,7 +66,7 @@ public class Pharmacy {
 
 	public Pharmacy(){}
 
-	public Pharmacy(long id,String name, String address, Set<Integer> marks,Set<MedicinePriceAndQuantity> pricelist, Double counselingPrice/*,Set<Patient> subscribedUsers*/) {
+	public Pharmacy(long id,String name, String address, Set<Mark> marks,Set<MedicinePriceAndQuantity> pricelist, Double counselingPrice/*,Set<Patient> subscribedUsers*/) {
 
 		super();
 		Id=id;
@@ -79,7 +82,7 @@ public class Pharmacy {
 		return Id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		Id = id;
 	}
 
@@ -97,14 +100,6 @@ public class Pharmacy {
 
 	public void setAddress(String address) {
 		Address = address;
-	}
-
-	public Set<Integer> getMarks() {
-		return Marks;
-	}
-
-	public void setMarks(Set<Integer> marks) {
-		Marks = marks;
 	}
 
 	 public Set<MedicinePriceAndQuantity> getPricelist() {
@@ -155,12 +150,17 @@ public class Pharmacy {
 	// 	PharmacyAdmins = pharmacyAdmins;
 	// }
 
-	public void setId(Long id) {
-		Id = id;
-	}
 	public Pharmacy(PharmacyDTO pharmacyDTO) {
 		Id=pharmacyDTO.getId();
 		Name =pharmacyDTO.getName();
 		Address = pharmacyDTO.getAddress();
+	}
+
+	public Set<Mark> getMarks() {
+		return Marks;
+	}
+
+	public void setMarks(Set<Mark> marks) {
+		Marks = marks;
 	}
 }

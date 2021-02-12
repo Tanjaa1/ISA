@@ -6,8 +6,8 @@ import java.util.List;
 
 import rs.ac.uns.ftn.informatika.jpa.model.Dermatologist;
 
-
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 public interface IDermatologistRepository extends JpaRepository<Dermatologist, Long>{
 
@@ -16,4 +16,7 @@ public interface IDermatologistRepository extends JpaRepository<Dermatologist, L
 	@Override
 	public <S extends Dermatologist> S save(S entity);
   	ArrayList<Dermatologist> findAll();
+
+	@Query("SELECT distinct d FROM Dermatologist d,Examination e,Patient p WHERE e.Dermatologist=d.Id and e.Patient=p.Id and p.Id=?1")
+    public List<Dermatologist> getDermatologists(Long id);
 }

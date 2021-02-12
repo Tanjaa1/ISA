@@ -6,6 +6,7 @@ import java.util.Set;
 import rs.ac.uns.ftn.informatika.jpa.enums.MedicineForm;
 import rs.ac.uns.ftn.informatika.jpa.enums.MedicineType;
 import rs.ac.uns.ftn.informatika.jpa.model.Medicine;
+import rs.ac.uns.ftn.informatika.jpa.model.Mark;
 
 public class MedicineDTO {
 	private Long Id;
@@ -22,11 +23,13 @@ public class MedicineDTO {
 	private String Note;
 	private String Contraindications;
 	private String DailyDose;
+	private Set<MarkDTO> Marks = new HashSet<MarkDTO>();
+	private Integer Grade;
 	
 	public MedicineDTO(){}
 
 	public MedicineDTO(String code, String name, String type, MedicineForm form, String composition, String manufacturer,
-			Boolean onPrescription, Set<String> replacement, String note) {
+			Boolean onPrescription, Set<String> replacement, String note,Set<MarkDTO> marks, Integer grade) {
 		super();
 		Code = code;
 		Name = name;
@@ -37,11 +40,14 @@ public class MedicineDTO {
 		OnPrescription = onPrescription;
 		//Replacement = replacement;
 		Note = note;
+		Marks = marks;
+		Grade = grade;
 	}
 
 	
 	
     public MedicineDTO(Medicine medicine){
+		Id = medicine.getId();
         Code = medicine.getCode();
         Name = medicine.getName();
         Type = medicine.getType();
@@ -51,6 +57,17 @@ public class MedicineDTO {
         OnPrescription = medicine.getOnPrescription();
        // Replacement = medicine.getReplacement();
         Note = medicine.getNote();
+		for (Mark mark : medicine.getMarks()) {
+			Marks.add(new MarkDTO(mark));
+		}
+		double result =  0;
+        int i = 0;
+        for (Mark m : medicine.getMarks()) {
+            result += m.getMarks();
+            i++;
+        }
+		if(i != 0)
+        	Grade = (int) Math.round(result / i);
     }
 
 	public String getCode() {
@@ -181,4 +198,20 @@ public class MedicineDTO {
         Contraindications = contraindications;
         DailyDose = dailyDose;
     }
+
+	public Set<MarkDTO> getMarks() {
+		return Marks;
+	}
+
+	public void setMarks(Set<MarkDTO> marks) {
+		Marks = marks;
+	}
+
+	public Integer getGrade() {
+		return Grade;
+	}
+
+	public void setGrade(Integer grade) {
+		Grade = grade;
+	}
 }

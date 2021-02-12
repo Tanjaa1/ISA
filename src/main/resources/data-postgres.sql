@@ -212,12 +212,12 @@ INSERT INTO public.medicine_price_and_quantity(
 	id, price, quantity, medicine_id)
 	VALUES (3, 200.0, 30, 223);
 
-INSERT INTO public.dermatologist_marks(dermatologist_id, marks) VALUES (6, 0);
-INSERT INTO public.dermatologist_marks(dermatologist_id, marks) VALUES (6, 2);
-INSERT INTO public.dermatologist_marks(dermatologist_id, marks) VALUES (6, 4);
-INSERT INTO public.dermatologist_marks(dermatologist_id, marks) VALUES (7, 1);
-INSERT INTO public.dermatologist_marks(dermatologist_id, marks) VALUES (7, 5);
-INSERT INTO public.dermatologist_marks(dermatologist_id, marks) VALUES (7, 4);
+-- INSERT INTO public.dermatologist_marks(dermatologist_id, marks) VALUES (6, 0);
+-- INSERT INTO public.dermatologist_marks(dermatologist_id, marks) VALUES (6, 2);
+-- INSERT INTO public.dermatologist_marks(dermatologist_id, marks) VALUES (6, 4);
+-- INSERT INTO public.dermatologist_marks(dermatologist_id, marks) VALUES (7, 1);
+-- INSERT INTO public.dermatologist_marks(dermatologist_id, marks) VALUES (7, 5);
+-- INSERT INTO public.dermatologist_marks(dermatologist_id, marks) VALUES (7, 4);
 
 
 
@@ -232,43 +232,43 @@ INSERT INTO public.patient_drug_allargies(patient_id, drug_allargies) VALUES (88
 INSERT INTO public.patient_drug_allargies(patient_id, drug_allargies) VALUES (88, 'cefalosporini');
 INSERT INTO public.patient_drug_allargies(patient_id, drug_allargies) VALUES (89, 'tetraciklini');
     
-INSERT INTO public.pharmacist_marks(
-	pharmacist_id, marks)
-	VALUES (4, 4);
-INSERT INTO public.pharmacist_marks(
-	pharmacist_id, marks)
-	VALUES (4, 2);
-INSERT INTO public.pharmacist_marks(
-	pharmacist_id, marks)
-	VALUES (4, 1);
-INSERT INTO public.pharmacist_marks(
-	pharmacist_id, marks)
-	VALUES (5, 2);
-INSERT INTO public.pharmacist_marks(
-	pharmacist_id, marks)
-	VALUES (5, 4);
-INSERT INTO public.pharmacist_marks(
-	pharmacist_id, marks)
-	VALUES (5, 2);
+-- INSERT INTO public.pharmacist_marks(
+-- 	pharmacist_id, marks)
+-- 	VALUES (4, 4);
+-- INSERT INTO public.pharmacist_marks(
+-- 	pharmacist_id, marks)
+-- 	VALUES (4, 2);
+-- INSERT INTO public.pharmacist_marks(
+-- 	pharmacist_id, marks)
+-- 	VALUES (4, 1);
+-- INSERT INTO public.pharmacist_marks(
+-- 	pharmacist_id, marks)
+-- 	VALUES (5, 2);
+-- INSERT INTO public.pharmacist_marks(
+-- 	pharmacist_id, marks)
+-- 	VALUES (5, 4);
+-- INSERT INTO public.pharmacist_marks(
+-- 	pharmacist_id, marks)
+-- 	VALUES (5, 2);
     
-INSERT INTO public.pharmacy_marks(
-	pharmacy_id, marks)
-	VALUES (111, 4);
-INSERT INTO public.pharmacy_marks(
-	pharmacy_id, marks)
-	VALUES (111, 5);
-INSERT INTO public.pharmacy_marks(
-	pharmacy_id, marks)
-	VALUES (111, 1);
-INSERT INTO public.pharmacy_marks(
-	pharmacy_id, marks)
-	VALUES (222, 4);
-INSERT INTO public.pharmacy_marks(
-	pharmacy_id, marks)
-	VALUES (222, 2);
-INSERT INTO public.pharmacy_marks(
-	pharmacy_id, marks)
-	VALUES (222, 1);
+-- INSERT INTO public.pharmacy_marks(
+-- 	pharmacy_id, marks)
+-- 	VALUES (111, 4);
+-- INSERT INTO public.pharmacy_marks(
+-- 	pharmacy_id, marks)
+-- 	VALUES (111, 5);
+-- INSERT INTO public.pharmacy_marks(
+-- 	pharmacy_id, marks)
+-- 	VALUES (111, 1);
+-- INSERT INTO public.pharmacy_marks(
+-- 	pharmacy_id, marks)
+-- 	VALUES (222, 4);
+-- INSERT INTO public.pharmacy_marks(
+-- 	pharmacy_id, marks)
+-- 	VALUES (222, 2);
+-- INSERT INTO public.pharmacy_marks(
+-- 	pharmacy_id, marks)
+-- 	VALUES (222, 1);
     
 INSERT INTO public.reservation(
 	id, expiration_date, is_received, medicine_id, patient_id,pharmacy_id, is_canceled)
@@ -324,6 +324,7 @@ INSERT INTO public.pharmacist_vacation_schedule(
 INSERT INTO public.pharmacist_vacation_schedule(
 	pharmacist_id, vacation_interval_id)
 	VALUES (5, 113);
+
 INSERT INTO public.working_time(
 	id, time_end, time_start,pharmacy_id)
 	VALUES (111, '2021-06-22 14:00:00-07', '2021-06-22 08:00:00-07','111');
@@ -400,6 +401,9 @@ INSERT INTO public.eprescription(
 INSERT INTO public.eprescription(
 	code, issuing_date,therapy_duration, medicine_id,status,pharmacy_id)
 	VALUES (112,'2017-06-22',2,2,1,111);
+INSERT INTO public.eprescription(
+	code, issuing_date,therapy_duration, medicine_id,status,pharmacy_id)
+	VALUES (113,'2018-02-22',2,2,1,111);
 
 INSERT INTO public.patient_eprescriptions(
 	patient_id, eprescriptions_code)
@@ -407,6 +411,9 @@ INSERT INTO public.patient_eprescriptions(
 INSERT INTO public.patient_eprescriptions(
 	patient_id, eprescriptions_code)
 	VALUES (88, 112);
+INSERT INTO public.patient_eprescriptions(
+	patient_id, eprescriptions_code)
+	VALUES (88, 113);
 -- INSERT INTO public.pharmacy_list_actions_or_promotions(
 -- 	pharmacy_id, list_actions_or_promotions_id)
 -- 	VALUES (1, 11);
@@ -437,3 +444,56 @@ INSERT INTO public.patient_action_or_promotions(
 INSERT INTO public.patient_action_or_promotions(
 	patient_id, action_or_promotions_id)
 	VALUES (88, 223);
+
+-- INSERT INTO public.medicine_marks(
+-- 	medicine_id, marks)
+-- 	VALUES (222, 1);
+-- INSERT INTO public.medicine_marks(
+-- 	medicine_id, marks)
+-- 	VALUES (222, 4);
+-- INSERT INTO public.medicine_marks(
+-- 	medicine_id, marks)
+-- 	VALUES (222, 5);
+-- INSERT INTO public.medicine_marks(
+-- 	medicine_id, marks)
+-- 	VALUES (223, 4);
+-- INSERT INTO public.medicine_marks(
+-- 	medicine_id, marks)
+-- 	VALUES (223, 4);
+-- INSERT INTO public.medicine_marks(
+-- 	medicine_id, marks)
+-- 	VALUES (223, 2);
+
+INSERT INTO public.mark(
+	id, marks, patient_id)
+	VALUES (100, 3, 88);
+INSERT INTO public.mark(
+	id, marks, patient_id)
+	VALUES (101, 1, 88);
+INSERT INTO public.mark(
+	id, marks, patient_id)
+	VALUES (102, 2, 88);
+INSERT INTO public.mark(
+	id, marks, patient_id)
+	VALUES (103, 3, 88);
+INSERT INTO public.mark(
+	id, marks, patient_id)
+	VALUES (104, 3, 88);
+INSERT INTO public.mark(
+	id, marks, patient_id)
+	VALUES (105, 1, 89);
+
+
+-- INSERT INTO public.medicine_marks(
+-- 	medicine_id, marks_id)
+-- 	VALUES (222, 100);
+INSERT INTO public.medicine_marks(
+	medicine_id, marks_id)
+	VALUES (223, 101);
+INSERT INTO public.medicine_marks(
+	medicine_id, marks_id)
+	VALUES (223, 105);
+
+INSERT INTO public.dermatologist_marks(
+	dermatologist_id, marks_id)
+	VALUES (6, 104);

@@ -55,7 +55,7 @@ public class Patient extends User {
 	// private Set<Counseling> Counselings = new HashSet<Counseling>();
 	
 	 @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+	 //@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	 private Set<EPrescription> EPrescriptions = new HashSet<EPrescription>();
 
 	 @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)

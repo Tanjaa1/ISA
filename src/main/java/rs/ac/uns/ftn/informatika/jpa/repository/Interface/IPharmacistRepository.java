@@ -25,5 +25,7 @@ public interface IPharmacistRepository extends JpaRepository<Pharmacist, Long> {
 	@Query("SELECT p FROM Pharmacist p,Pharmacy ph WHERE p.Pharmacy=ph.Id and ph.Id= ?1")
 	public List<Pharmacist> gPharmacistsByPharmacyId(Long id);
 
+	@Query("SELECT distinct ph FROM Pharmacist ph,Counseling c,Patient p WHERE c.Pharmacist=ph.Id and c.Patient=p.Id and p.Id=?1")
+    public List<Pharmacist> getPharmacists(Long id);
 
 }

@@ -13,5 +13,6 @@ public interface IDermatologistService {
 	Dermatologist update(Dermatologist dermatologist) throws Exception;
   	List<DermatologistDTO> findAll();
 	public ResponseEntity<Dermatologist> save(Dermatologist dermatologist) throws Exception;
+	public List<DermatologistDTO> getDermatologists(Long id);
 
 }

@@ -13,6 +13,7 @@ const PageHeader = { template: '<pageHeader></pageHeader>' }
 const ChangePatientInfo = { template: '<changePatientInfo></changePatientInfo>' }
 const PatientActionsOrPromotions = { template: '<patientActionsOrPromotions></patientActionsOrPromotions>' }
 const ReserveMedicine = { template: '<reserveMedicine></reserveMedicine>' }
+const PatientEvaluates = { template: '<patientEvaluates></patientEvaluates>' }
 
 const DermatologistsPreview = { template: '<dermatologistsPreview></dermatologistsPreview>'}
 const PharmacistsPreview = { template: '<pharmacistsPreview></pharmacistsPreview>'}
@@ -456,6 +457,14 @@ const router = new VueRouter({
 			components: {
 				pageHeader: PatientHeader,
 				content: ReserveMedicine
+			}
+		},
+		{
+			path: '/patientEvaluates', 
+			name : 'patientEvaluates', 
+			components: {
+				pageHeader: PatientHeader,
+				content: PatientEvaluates
 			}
 		},
 	  ]

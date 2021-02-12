@@ -3,14 +3,18 @@ package rs.ac.uns.ftn.informatika.jpa.model;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import rs.ac.uns.ftn.informatika.jpa.dto.MarkDTO;
 import rs.ac.uns.ftn.informatika.jpa.dto.MedicineDTO;
 import rs.ac.uns.ftn.informatika.jpa.enums.MedicineForm;
 import rs.ac.uns.ftn.informatika.jpa.enums.MedicineType;
@@ -58,9 +62,10 @@ public class Medicine {
 	@Column(name="DailyDose", unique=false, nullable=true)
 	private String DailyDose;
 
-	
-	//@OneToOne(mappedBy = "Medicine")
-    //private MedicinePriceAndQuantity MedicinePriceAndQuantity;
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private Set<Mark> Marks = new HashSet<Mark>();
+
+
 	
 	public Medicine(){}
 /*
@@ -172,7 +177,7 @@ public class Medicine {
 	}
 	public Medicine(Long id, String name, String code, MedicineType type, MedicineForm form, String composition,
 			String manufacturer, Boolean onPrescription, Set<String> replacement, String note, String contraindications,
-			String dailyDose) {
+			String dailyDose, Set<Mark> marks) {
 		Id = id;
 		Name = name;
 		Code = code;
@@ -185,6 +190,7 @@ public class Medicine {
 		Note = note;
 		Contraindications = contraindications;
 		DailyDose = dailyDose;
+		Marks = marks;
 	}
 	public Medicine(MedicineDTO medicineDTO) {
 		Id = medicineDTO.getId();
@@ -204,5 +210,16 @@ public class Medicine {
 		Note = medicineDTO.getNote();
 		Contraindications = medicineDTO.getContraindications();
 		DailyDose = medicineDTO.getDailyDose();
+		for (MarkDTO markDTO : medicineDTO.getMarks()) {
+			Marks.add(new Mark(markDTO));
+		}
+	}
+
+	public Set<Mark> getMarks() {
+		return Marks;
+	}
+
+	public void setMarks(Set<Mark> marks) {
+		Marks = marks;
 	}
 }

@@ -3,12 +3,15 @@ package rs.ac.uns.ftn.informatika.jpa.model;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import rs.ac.uns.ftn.informatika.jpa.dto.VacationIntervalDTO;
@@ -32,9 +35,8 @@ public class Dermatologist extends User{
 	@JoinTable(name = "Pharmacy_dermatologists", joinColumns = @JoinColumn(name = "Dermatologist_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "Pharmacy_id", referencedColumnName = "id"))
 	private Set<Pharmacy> Pharmacies = new HashSet<Pharmacy>();
 	
-	@Column(name="Marks", unique=false, nullable=true)
-	@ElementCollection
-	private Set<Integer> Marks = new HashSet<Integer>();
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private Set<Mark> Marks = new HashSet<Mark>();
 	
 	// @OneToMany(mappedBy = "Dermatologist", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	// private Set<Examination> Examinations = new HashSet<Examination>();
@@ -43,7 +45,7 @@ public class Dermatologist extends User{
 
 	public Dermatologist(long id, String email, String password, String name, String surname, String address,
 			String city, String country, String phoneNumber,String description, Set<VacationInterval> vacationSchedule,
-			Set<WorkingTime> workingSchedule, Set<Pharmacy> pharmacies,Set<Integer> marks) {
+			Set<WorkingTime> workingSchedule, Set<Pharmacy> pharmacies,Set<Mark> marks) {
 		super(id, email, password, name, surname, address, city, country, phoneNumber,description);
 		VacationSchedule = vacationSchedule;
 		WorkingSchedule = workingSchedule;
@@ -101,17 +103,18 @@ public class Dermatologist extends User{
 		Pharmacies = pharmacies;
 	}
 
-	public Set<Integer> getMarks() {
+	public Set<Mark> getMarks() {
 		return Marks;
 	}
 
-	public void setMarks(Set<Integer> marks) {
+	public void setMarks(Set<Mark> marks) {
 		Marks = marks;
 	}
+
 	public Dermatologist(Long id, String email, String password, String name, String surname, String address,
 			String city, String country, String phoneNumber, String description, Boolean emailComfirmed,
 			Boolean firstTimeLogin, String username, Set<VacationInterval> vacationSchedule,
-			Set<WorkingTime> workingSchedule, Set<Pharmacy> pharmacies, Set<Integer> marks) {
+			Set<WorkingTime> workingSchedule, Set<Pharmacy> pharmacies, Set<Mark> marks) {
 		super(id, email, password, name, surname, address, city, country, phoneNumber, description, emailComfirmed,
 				firstTimeLogin, username);
 		VacationSchedule = vacationSchedule;
