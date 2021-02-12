@@ -5,6 +5,7 @@ import java.util.Set;
 
 
 import rs.ac.uns.ftn.informatika.jpa.model.ActionOrPromotion;
+import rs.ac.uns.ftn.informatika.jpa.model.Markk;
 import rs.ac.uns.ftn.informatika.jpa.model.MedicinePriceAndQuantity;
 import rs.ac.uns.ftn.informatika.jpa.model.Pharmacy;
 
@@ -35,8 +36,8 @@ public class PharmacyDTO {
         Address = pharmacy.getAddress();
         double result =  0;
         int i = 0;
-        for (Integer m : pharmacy.getMarks()) {
-            result += m;
+        for (Markk m : pharmacy.getMarks()) {
+            result += m.getMarks();
             i++;
         }
 		if(i != 0)

@@ -35,10 +35,7 @@ public class Pharmacy {
 	
 	@Column(name="Address", unique=false, nullable=true)
 	private String Address;
-	
-	@Column(name="Marks", unique=false, nullable=true)
-	@ElementCollection
-	private Set<Integer> Marks = new HashSet<Integer>();
+
 
 	// @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	// public Set<ActionOrPromotion> ListActionsOrPromotions = new HashSet<ActionOrPromotion>();
@@ -63,10 +60,12 @@ public class Pharmacy {
 	// @OneToMany(mappedBy = "Pharmacy", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	// private Set<PharmacyAdmin> PharmacyAdmins = new HashSet<PharmacyAdmin>();
 	
+	 @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+		private Set<Markk> Marks = new HashSet<Markk>();
 
 	public Pharmacy(){}
 
-	public Pharmacy(long id,String name, String address, Set<Integer> marks,Set<MedicinePriceAndQuantity> pricelist, Double counselingPrice/*,Set<Patient> subscribedUsers*/) {
+	public Pharmacy(long id,String name, String address, Set<Markk> marks,Set<MedicinePriceAndQuantity> pricelist, Double counselingPrice/*,Set<Patient> subscribedUsers*/) {
 
 		super();
 		Id=id;
@@ -102,11 +101,11 @@ public class Pharmacy {
 		Address = address;
 	}
 
-	public Set<Integer> getMarks() {
+	public Set<Markk> getMarks() {
 		return Marks;
 	}
 
-	public void setMarks(Set<Integer> marks) {
+	public void setMarks(Set<Markk> marks) {
 		Marks = marks;
 	}
 

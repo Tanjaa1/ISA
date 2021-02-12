@@ -58,6 +58,17 @@ public class MedicineController {
 		MedicineDTO medicineDTO= medicineService.findMedicine(name);
 		return medicineDTO == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(medicineDTO);
 	}
+	
+	@GetMapping(value = "/getMedicineByPatientId/{id}")
+	public ResponseEntity<List<MedicineDTO>> getMedicineByPatientId(@PathVariable Long id) {
+		List<MedicineDTO> medicineDTOs = medicineService.getMedicinesAll(id);
+		return medicineDTOs == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(medicineDTOs);
+	}
+
+	@PostMapping(value = "/giveMarkMedicine/{medicinesMark}/{id}")
+	public ResponseEntity<MedicineDTO> addMark(@RequestBody Medicine medicine, @PathVariable Integer medicinesMark, @PathVariable Long id) throws Exception {
+		return ResponseEntity.ok(medicineService.addMark(medicine,medicinesMark, id));
+	}
 
 }
 

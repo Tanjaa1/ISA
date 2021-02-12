@@ -17,3 +17,47 @@
 	text-align: center;
 	margin-bottom:8%;
 }
+
+#Pharmacy {
+    background-image: url("../pictures/pharmacy3.png");
+    height: 150px;
+    width: 150px;
+    background-color: white;
+    border-radius: 20px;
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: 0.8;
+}
+
+#dermatologistExamination{
+    background-image: url("../pictures/dermatologistExamination.jpg");
+    height: 150px;
+    width: 150px;
+    background-color: white;
+    border-radius: 20px;
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: 0.8;
+}
+
+#pharmacistExaminatio{
+    background-image: url("../pictures/pharmacist2.png");
+    height: 150px;
+    width: 150px;
+    background-color: white;
+    border-radius: 20px;
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: 0.8;
+}
+
+#medicineReservation{
+    background-image: url("../pictures/medicineReservation.jpg");
+    height: 150px;
+    width: 150px;
+    background-color: white;
+    border-radius: 20px;
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: 0.8;
+}
