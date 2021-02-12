@@ -2,7 +2,7 @@
 Vue.component("createCounselingPharmacist", {
 	data: function () {
 		return {
-			patients:null,
+			patients:{},
             newExamination: {
                 startTime:null,
                 endTime:null,
@@ -14,7 +14,8 @@ Vue.component("createCounselingPharmacist", {
                 report:"",
                 price:1000.00             
             },
-            patient:null
+            patient:{},
+            physician:{}
 		}
 	},
 	beforeMount() {
@@ -25,6 +26,14 @@ Vue.component("createCounselingPharmacist", {
             })
             .catch(error => {
             })
+
+            axios
+              .get('/pharmacist/getPharmacistById/' + '5') 
+              .then(response => {
+                  this.physician = response.data
+              })
+              .catch(error => {
+              })
 	},
 	template: `
 	<div id="ExaminationDermatologist" class="BackendImagePhysician"> 
@@ -33,7 +42,7 @@ Vue.component("createCounselingPharmacist", {
                 Choose patient</br>
                 <select class="col" id="sort" v-model="patient">
                     <option selected="selected" disabled>Please select one</option>
-                    <option v-for="p in patients">{{p.name}} {{p.surname}}</option>
+                    <option v-for="p in this.patients" v-bind:value="p">{{p.name}} {{p.surname}}</option>
                 </select>		
             </div>		
         </div>
@@ -80,6 +89,8 @@ Vue.component("createCounselingPharmacist", {
             this.newExamination.patient=this.patient
             //this.newExamination.dermatologist=this.examination.dermatologist 
             //this.newExamination.pharmacy=this.examination.pharmacy
+            this.newExamination.pharmacist=this.physician 
+            this.newExamination.pharmacy=this.physician.pharmacy
             axios.post('/counseling/add',this.newExamination)
             .then(function (response) {
                 alert("The counseling was successfully scheduled!")

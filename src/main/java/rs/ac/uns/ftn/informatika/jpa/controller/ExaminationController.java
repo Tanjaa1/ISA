@@ -114,7 +114,8 @@ public class ExaminationController {
 	{
 		if (result.hasErrors()) 
 			return new ResponseEntity<>(new ExaminationDTO(),HttpStatus.BAD_REQUEST);
-		return ResponseEntity.ok(examinationService.newExamination(examination));
+		ExaminationDTO e =examinationService.newExamination(examination);
+			return e == null ? new ResponseEntity<>(HttpStatus.BAD_REQUEST) : new ResponseEntity<>(e,HttpStatus.OK);
 	}
 
 	@PostMapping(value = "/addEmptyExamination")

@@ -140,7 +140,6 @@ Vue.component("createExaminationDermatologist", {
             this.newExamination.patient=this.patient
             this.newExamination.dermatologist=this.physician 
             this.newExamination.pharmacy=this.physician.pharmacies[0]
-            alert(this.physician.pharmacies[0])
             axios.post('/examination/add',this.newExamination)
             .then(function (response) {
                 alert("The examination was successfully scheduled!")
