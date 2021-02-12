@@ -254,8 +254,11 @@ public class ExaminationService implements IExaminationService {
     public List<ExaminationDTO> getFreeExamination(){
         List<ExaminationDTO> examinationDTOs=new ArrayList<ExaminationDTO>();
 
-		for (Examination examination : examinationRepository.getFreeExamination())
+		for (Examination examination : examinationRepository.getFreeExamination()){
+        int i = examination.getStartTime().compareTo(LocalDateTime.now());
+            if(i > 0)
                     examinationDTOs.add(new ExaminationDTO(examination));
+        }
         return examinationDTOs;
     }
 	public Examination notCome(Examination examination) {

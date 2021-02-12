@@ -123,20 +123,20 @@ INSERT INTO public.complaint(
 
 
 INSERT INTO public.counseling(
-	id, price, report, start_time, end_time, is_done, patient_id, pharmacist_id, pharmacy_id)
-	VALUES (111, 1000.0, 'izvjestaj 1', '2021-02-10 16:00:00-07', '2016-05-22 16:25:25-07', true, 88, 5, 222);
+	id, price, report, start_time, end_time, is_done, patient_id, pharmacist_id, pharmacy_id, is_canceled)
+	VALUES (111, 1000.0, 'izvjestaj 1', '2021-02-10 16:00:00-07', '2016-05-22 16:25:25-07', true, 88, 5, 222, false);
 INSERT INTO public.counseling(
-	id, price, report, start_time, end_time, is_done, patient_id, pharmacist_id, pharmacy_id)
-	VALUES (112, 2000.0, 'izvjestaj 1', '2021-02-10 17:00:00-07', '2016-05-22 17:25:25-07', true, 89, 5, 222);
+	id, price, report, start_time, end_time, is_done, patient_id, pharmacist_id, pharmacy_id, is_canceled)
+	VALUES (112, 2000.0, 'izvjestaj 1', '2021-02-10 17:00:00-07', '2016-05-22 17:25:25-07', true, 89, 5, 222, false);
 INSERT INTO public.counseling(
-	id, price, report, start_time, end_time, is_done, patient_id, pharmacist_id, pharmacy_id)
-	VALUES (113, 800.0, 'izvjestaj 1', '2021-06-22 19:10:25-07', '2016-06-22 19:20:25-07', true, 88, 5, 222);
+	id, price, report, start_time, end_time, is_done, patient_id, pharmacist_id, pharmacy_id, is_canceled)
+	VALUES (113, 800.0, 'izvjestaj 1', '2021-06-22 19:10:25-07', '2016-06-22 19:20:25-07', true, 88, 5, 222, false);
 INSERT INTO public.counseling(
-	id, price, report, start_time, end_time, is_done, patient_id, pharmacist_id, pharmacy_id)
-	VALUES (114, 500.0, 'izvjestaj 1', '2021-08-08 09:00:25-07', '2016-06-22 09:10:25-07', true, 88, 5, 222);
+	id, price, report, start_time, end_time, is_done, patient_id, pharmacist_id, pharmacy_id, is_canceled)
+	VALUES (114, 500.0, 'izvjestaj 1', '2021-08-08 09:00:25-07', '2016-06-22 09:10:25-07', true, 88, 5, 222, false);
 INSERT INTO public.counseling(
-	id, price, report, start_time, end_time, is_done, patient_id, pharmacist_id, pharmacy_id)
-	VALUES (115, 2000.0, 'izvjestaj 2', '2016-06-22 19:10:25-07', '2016-06-22 19:20:25-07', true, 90, 5, 222);
+	id, price, report, start_time, end_time, is_done, patient_id, pharmacist_id, pharmacy_id, is_canceled)
+	VALUES (115, 2000.0, 'izvjestaj 2', '2016-06-22 19:10:25-07', '2016-06-22 19:20:25-07', true, 90, 5, 222, false);
     
 -- INSERT INTO public.eprescription(
 -- 	code, issuing_date)
