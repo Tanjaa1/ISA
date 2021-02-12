@@ -4,7 +4,8 @@ Vue.component("patientInfo", {
 	data: function () {
 		return {
 			patient: null,
-			idPatient: ""
+			idPatient: "",
+			brPenalty:0,
 		}
 	},
 	beforeMount() {
@@ -22,7 +23,11 @@ Vue.component("patientInfo", {
 			.get('/patient/getPatientById/' + '88') 
 			.then(response => {
 				this.patient = response.data
-				//this.patient.category = "patient"
+				for(i = 0; i < this.patient.penalty.length; i++){
+					if(this.patient.penalty[i].isDeleted == false){
+						this.brPenalty++;
+					}
+				}
 			})
 			.catch(error => {
 			})
@@ -100,7 +105,7 @@ Vue.component("patientInfo", {
 							  <div class="input-group-prepend">
 								<span class="input-group-text width" id="basic-addon3">Penalty</span>
 							  </div>
-							  <input type="text" v-model="this.patient.penalty" class="form-control" id="basic-url" aria-describedby="basic-addon3" disabled>
+							  <input type="text" v-model="this.brPenalty" class="form-control" id="basic-url" aria-describedby="basic-addon3" disabled>
 						
 								<td>&nbsp&nbsp&nbsp</td>
 
@@ -163,7 +168,8 @@ Vue.component("changePatientInfo", {
 			drugAllargies:null,
 			category:null,
 			emailComfirmed:null,
-			firstTimeLogin:null
+			firstTimeLogin:null,
+			brPenalty:null
 
 		}
 	},
@@ -199,6 +205,7 @@ Vue.component("changePatientInfo", {
 				this.emailComfirmed = this.patient.emailComfirmed
 				this.firstTimeLogin = this.patient.firstTimeLogin
 				this.description = this.patient.description
+				this.brPenalty = this.patient.penalty.length
 			})
 			.catch(error => {
 			})
@@ -271,14 +278,14 @@ Vue.component("changePatientInfo", {
 							  <div class="input-group-prepend">
 								<span class="input-group-text width" id="basic-addon3">Points</span>
 							  </div>
-							  <input type="text" v-model="points" class="form-control" id="basic-url" aria-describedby="basic-addon3">
+							  <input type="text" v-model="points" class="form-control" id="basic-url" aria-describedby="basic-addon3" disabled>
 						</div>
 
 							<div class="input-group mb-3">
 							  <div class="input-group-prepend">
 								<span class="input-group-text width" id="basic-addon3">Penalty</span>
 							  </div>
-							  <input type="text" v-model="penalty" class="form-control" id="basic-url" aria-describedby="basic-addon3">
+							  <input type="text" v-model="this.brPenalty" class="form-control" id="basic-url" aria-describedby="basic-addon3" disabled>
 						
 								<td>&nbsp&nbsp&nbsp</td>
 
@@ -301,7 +308,7 @@ Vue.component("changePatientInfo", {
 							  <div class="input-group-prepend">
 								<span class="input-group-text width" id="basic-addon3"></span>
 							  </div>
-							  <input type="text"   class="form-control" id="basic-url" aria-describedby="basic-addon3">
+							  <input type="text"   class="form-control" id="basic-url" aria-describedby="basic-addon3" disabled>
 						</div>
 
 							

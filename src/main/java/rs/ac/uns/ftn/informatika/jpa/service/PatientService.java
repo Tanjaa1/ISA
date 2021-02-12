@@ -3,7 +3,10 @@ package rs.ac.uns.ftn.informatika.jpa.service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -18,9 +21,13 @@ import rs.ac.uns.ftn.informatika.jpa.dto.PatientDTO;
 import rs.ac.uns.ftn.informatika.jpa.dto.PharmacyDTO;
 import rs.ac.uns.ftn.informatika.jpa.model.Complaint;
 import rs.ac.uns.ftn.informatika.jpa.model.Patient;
+import rs.ac.uns.ftn.informatika.jpa.model.Penaltys;
+import rs.ac.uns.ftn.informatika.jpa.model.Reservation;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IComplaintRepository;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IExaminationRpository;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IPatientRepository;
+import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IPenaltyRepository;
+import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IReservationRepository;
 import rs.ac.uns.ftn.informatika.jpa.service.Interface.IPatientService;
 
 @Service
@@ -33,12 +40,65 @@ public class PatientService implements IPatientService {
 	private IComplaintRepository complaintRepository;
 
 	@Autowired
+	private IReservationRepository reservationRepository;
+	
+	@Autowired
+	private IPenaltyRepository penaltyRepository;
+
+	@Autowired
 	private EmailService emailService;
 	private Logger logger = LoggerFactory.getLogger(ResrvationService.class);
 
 	public Patient findOne(Long id) {
 		Patient patient = patientRepository.getOne(id);
-		return patient;
+		List<Reservation> reservations = reservationRepository.getReservationsByPatientId(id);
+		int ii = LocalDate.now().getDayOfMonth();
+		if(ii == 1 && !patient.getPenalty().isEmpty()){
+			for (Penaltys penaltys : patient.getPenalty()){
+				penaltys.setIsDeleted(true);
+				penaltys.setPenaltyNymber(0);
+				penaltyRepository.save(penaltys);
+			}
+		patientRepository.save(patient);
+		}
+		return CheckPenaltys(reservations, patient);	
+	}
+
+	private Patient CheckPenaltys(List<Reservation> reservations, Patient patient) {
+		if(patient.getPenalty().isEmpty()){
+			for (Reservation reservation : reservations) {
+					int i = reservation.getExpirationDate().compareTo(new Date());
+					if(i < 0 && !reservation.getIsCanceled() && !reservation.getIsReceived()){
+						Penaltys p = new Penaltys();
+						p.setPenaltyNymber(1);
+						p.setIsDeleted(false);
+						p.setReservation(reservation.getId());
+						penaltyRepository.save(p);
+						patient.getPenalty().add(p);
+					}
+			}
+		}else{
+			for (Reservation reservation : reservations) {
+				boolean t = false;
+				for (Penaltys penaltys : patient.getPenalty()) {
+					int i = reservation.getExpirationDate().compareTo(new Date());
+					if(penaltys.getIsDeleted() || i > 0 || reservation.getIsCanceled() || reservation.getIsReceived() ||
+						penaltys.getReservation() == reservation.getId()){
+							t = true;
+					}
+				}
+				if(!t){
+					Penaltys p = new Penaltys();
+					p.setPenaltyNymber(1);
+					p.setIsDeleted(false);
+					p.setReservation(reservation.getId());
+					penaltyRepository.save(p);
+					patient.getPenalty().add(p);
+				}
+			}
+		}
+		Patient pp = patientRepository.save(patient);
+		return pp;
 	}
 
 	@Override
