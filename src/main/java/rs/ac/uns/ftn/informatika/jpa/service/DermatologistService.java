@@ -148,8 +148,8 @@ public class DermatologistService implements IDermatologistService {
 		return dermatologistDTOs;
 	}
 
-	public DermatologistDTO addMark(Dermatologist dermatologist, Integer dermatologistMark, Long id) {
-		Dermatologist dermatologist2 = dermatologistRepository.getOne(dermatologist.getId());
+	public DermatologistDTO addMark(Long dermatologist, Integer dermatologistMark, Long id) {
+		Dermatologist dermatologist2 = dermatologistRepository.getOne(dermatologist);
 		Patient patient = patientRepository.getOne(id);
 		boolean i = false;
 		for (Mark mark : dermatologist2.getMarks()) {

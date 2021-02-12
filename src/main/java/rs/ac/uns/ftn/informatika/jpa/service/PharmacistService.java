@@ -178,11 +178,12 @@ public class PharmacistService implements IPharmacistService {
 				}
 			}
 			if(!i){
-				Set<Mark> m = pharmacist2.getMarks();
-				Mark mark = new Mark(medicinesMark, patient);
-				m.add(mark);
-				markRepository.save(mark);
-				pharmacist2.setMarks(m);
+				Mark mark = new Mark();
+				mark.setMarks(medicinesMark);
+				mark.setPatient(patient);
+				Mark mm = markRepository.save(mark);
+				pharmacist2.getMarks().add(mm);
+				//pharmacist2.setMarks(m);
 			}
 			pharmacistRepository.save(pharmacist2);
 			return new PharmacistDTO(pharmacist2);

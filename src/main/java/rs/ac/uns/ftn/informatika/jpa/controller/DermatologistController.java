@@ -90,14 +90,9 @@ public class DermatologistController {
 		return dermatologist == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(dermatologist);
 	}
 
-	@PostMapping(value = "/giveMarkDermatologist/{medicinesMark}/{id}")
-	public ResponseEntity<DermatologistDTO> addMark(@RequestBody Dermatologist dermatologist, @PathVariable Integer medicinesMark, @PathVariable Long id) throws Exception {
-		return ResponseEntity.ok(dermatologistService.addMark(dermatologist,medicinesMark, id));
+	@PostMapping(value = "/giveMarkDermatologist/{medicinesMark}/{id}/{d}")
+	public ResponseEntity<DermatologistDTO> addMark(@PathVariable Integer medicinesMark, @PathVariable Long id,@PathVariable Long d) throws Exception {
+		return ResponseEntity.ok(dermatologistService.addMark(d,medicinesMark, id));
 	}
-
-	// @PostMapping(value = "/giveMarkMedicine/{medicinesMark}/{id}")
-	// public ResponseEntity<MedicineDTO> addMark(@RequestBody Medicine medicine, @PathVariable Integer medicinesMark, @PathVariable Long id) throws Exception {
-	// 	return ResponseEntity.ok(medicineService.addMark(medicine,medicinesMark, id));
-	// }
 
 }

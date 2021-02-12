@@ -51,6 +51,7 @@ Vue.component("patientEvaluates", {
             .get('/pharmacist/getPharmacistByPatientId/' + '88')
             .then(response => {
                 this.pharmacists = response.data
+                alert(this.pharmacists)
             })
             .catch(error => {
             })
@@ -296,7 +297,7 @@ Vue.component("patientEvaluates", {
             alert(mm)
             alert(d.name)
             axios
-            .post('/dermatologist/giveMarkDermatologist/'  + mm + '/' + '88', d)
+            .post('/dermatologist/giveMarkDermatologist/'  + mm + '/' + '88' + '/' + d.id)
             .then(response => {
                 this.Refresh();
             })

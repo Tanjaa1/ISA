@@ -25,7 +25,7 @@ public class PharmacistDTO {
 	private String Description;
 	private Boolean EmailComfirmed;
 	private Boolean FirstTimeLogin;
-	private Set<Mark> Marks = new HashSet<Mark>();
+	private Set<MarkDTO> Marks = new HashSet<MarkDTO>();
 	private Integer Grade;
 	private PharmacyDTO Pharmacy ;
 	private Set<VacationIntervalDTO> VacationSchedule = new HashSet<VacationIntervalDTO>();
@@ -39,7 +39,7 @@ public class PharmacistDTO {
 
 	public PharmacistDTO(Long id, String email, String password, String name, String surname, String address,
 			String city, String country, String phoneNumber, String description, Boolean emailComfirmed,
-			Boolean firstTimeLogin, Set<Mark> marks ,PharmacyDTO pharmacy, Set<WorkingTimeDTO> workingTime,
+			Boolean firstTimeLogin, Set<MarkDTO> marks ,PharmacyDTO pharmacy, Set<WorkingTimeDTO> workingTime,
 			 Set<VacationIntervalDTO> vacationTime, Integer grade
 			) {
 		super();
@@ -63,9 +63,8 @@ public class PharmacistDTO {
 	}
 
 	public PharmacistDTO(Pharmacist pharmaciest) {
-		super();
+		//super();
 		Pharmacy = new PharmacyDTO(pharmaciest.getPharmacy());
-		Marks = pharmaciest.getMarks();
 		Id = pharmaciest.getId();
 		Email = pharmaciest.getEmail();
 		Password = pharmaciest.getPassword();
@@ -83,6 +82,9 @@ public class PharmacistDTO {
 		}
 		for (VacationInterval vacationSchedule : pharmaciest.getVacationSchedule()) {
 			VacationSchedule.add(new VacationIntervalDTO(vacationSchedule));
+		}
+		for (Mark mark : pharmaciest.getMarks()) {
+			Marks.add(new MarkDTO(mark));
 		}
 		double result =  0;
         int i = 0;
@@ -102,11 +104,11 @@ public class PharmacistDTO {
 		Id = id;
 	}
 
-	public Set<Mark> getMarks(){
+	public Set<MarkDTO> getMarks(){
 		return Marks;
 	}
 
-	public void setMarks(Set<Mark> Marks){
+	public void setMarks(Set<MarkDTO> Marks){
 		this.Marks = Marks;
 	}
 
