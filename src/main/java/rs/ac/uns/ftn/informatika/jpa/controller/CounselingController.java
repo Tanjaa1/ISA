@@ -97,7 +97,8 @@ public class CounselingController {
 	{
 		if (result.hasErrors()) 
 			return new ResponseEntity<>(new CouncelingDTO(),HttpStatus.BAD_REQUEST);
-		return ResponseEntity.ok(counselingService.newExamination(counseling));
+		CouncelingDTO e =counselingService.newExamination(counseling);
+		return e == null ? new ResponseEntity<>(HttpStatus.BAD_REQUEST) : new ResponseEntity<>(e,HttpStatus.OK);
 	}
 
 	@PostMapping(value = "/createCounseling")

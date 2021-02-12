@@ -144,7 +144,8 @@ public class CounselingService implements ICounselingService {
 
     private Boolean isDermatologistWork(Counseling counseling) {
         for(WorkingTime w: counseling.getPharmacist().getWorkingSchedule())
-            if(counseling.getStartTime().isAfter(w.getTimeStart()) || counseling.getEndTime().isAfter(w.getTimeEnd()))
+            if(counseling.getStartTime().compareTo(w.getTimeStart()) > 0 && w.getTimeEnd().compareTo(counseling.getStartTime())>0
+                && w.getTimeEnd().compareTo(counseling.getEndTime())>0 && counseling.getEndTime().compareTo(w.getTimeStart())>0)
                 return true;
         return false;
     }

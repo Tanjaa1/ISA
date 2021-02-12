@@ -142,7 +142,7 @@ public class ExaminationService implements IExaminationService {
             return null;
         if(!counselingRepository.isCounselingExistByPatient(examination.getStartTime(),examination.getEndTime(),examination.getPatient().getId()).isEmpty())
             return null;
-        if(!isDermatologistWork(examination))
+        if(!workTimeCheck(examination))
             return null;
 		Examination e=new Examination();
         e.setDermatologist(dermatologistRepository.getOne(examination.getDermatologist().getId()));
@@ -197,18 +197,19 @@ public class ExaminationService implements IExaminationService {
         else return pharmaciesDTOs;
 	}
 
-    private Boolean isDermatologistWork(Examination examination) {
-        for(WorkingTime w: examination.getDermatologist().getWorkingSchedule())
-            if(examination.getStartTime().isAfter(w.getTimeStart()) || examination.getEndTime().isAfter(w.getTimeEnd()))
-                return true;
-        return false;
-    }
+    // private Boolean isDermatologistWork(Examination examination) {
+    //     for(WorkingTime w: examination.getDermatologist().getWorkingSchedule())
+    //         if(examination.getStartTime().isAfter(w.getTimeStart()) || examination.getEndTime().isAfter(w.getTimeEnd()))
+    //             return true;
+    //     return false;
+    // }
     
     private Boolean workTimeCheck(Examination examination){
         Dermatologist d = dermatologistRepository.getOne(examination.getDermatologist().getId());
         Set<WorkingTime> workingTime= d.getWorkingScheduleByPharmacyId(examination.getPharmacy().getId());
         for(WorkingTime w: workingTime)
-            if (!examination.getStartTime().isAfter(w.getTimeEnd()) && !examination.getStartTime().isBefore(examination.getStartTime()) && !examination.getEndTime().isAfter(w.getTimeEnd()))           
+            if(examination.getStartTime().compareTo(w.getTimeStart()) > 0 && w.getTimeEnd().compareTo(examination.getStartTime())>0
+                && w.getTimeEnd().compareTo(examination.getEndTime())>0 && examination.getEndTime().compareTo(w.getTimeStart())>0)
                 return true;
         return false;
     }
