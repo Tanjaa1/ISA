@@ -40,6 +40,9 @@ Vue.component("patientHeader", {
 
 	`,
     methods: {
+        PatientShow: function () {
+            this.$router.push('patientHomePage');
+        },
         AccountShow: function () {
             this.$router.push('patientInfo');
         },
