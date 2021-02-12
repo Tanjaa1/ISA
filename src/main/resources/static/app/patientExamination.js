@@ -20,7 +20,8 @@ Vue.component("patientExamination", {
                 price:1000.00             
             },
             future:null,
-            patient:null
+            patient:null,
+            brPenalty:0,
         }
     },
     beforeMount() {
@@ -53,6 +54,11 @@ Vue.component("patientExamination", {
 			.get('/patient/getPatientById/' + '88') 
 			.then(response => {
 				this.patient = response.data
+                for(i = 0; i < this.patient.penalty.length; i++){
+					if(this.patient.penalty[i].isDeleted == false){
+						this.brPenalty++;
+					}
+				}
 			})
 			.catch(error => {
 			})
@@ -64,7 +70,7 @@ Vue.component("patientExamination", {
                 <br/><h3 class="tex">Examinations by a dermatologist</h3><br/>
                 <button type="button" class="btn2 btn-primary" style="width:23%; height:35px;" data-toggle="modal" data-target="#createAppointment">Schedule an examinationt</button>&nbsp&nbsp&nbsp&nbsp
              
-             
+             <div v-if="this.brPenalty < 3">
                 <!--Modal for create examination-->
                 <div class="modal fade" id="createAppointment"  tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered" style="width: 100%;" role="document">
@@ -92,7 +98,7 @@ Vue.component("patientExamination", {
 
 
 
-                        </div>                   
+                                      
                           <div>
                               <div>
                                   <div class="tab-content">
@@ -131,9 +137,24 @@ Vue.component("patientExamination", {
                           </div>
                           </div>
                         </div>
-                        			
-          
-    
+                    </div>
+                    </div>
+                
+                    <div v-else>
+                    <!--Modal for create examination-->
+                    <div class="modal fade" id="createAppointment"  tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" style="width: 100%;" role="document">
+                           <div class="modal-content steps">
+                          <div class="container" align="center">
+                              <br/><h4 class=""></h4><br/>
+                              <h3>You have 3 or more penalty so you are not allowed to schedule examination</h3>
+                              </div>
+                            </div>
+                    </div>	
+                </div>
+            </div>
+        
+            
                 
              
                <!--End modal for create examination-->
@@ -157,7 +178,7 @@ Vue.component("patientExamination", {
         </div>
 
         <!--End sort whole page-->
-
+        <div>
 	                            <ul class="nav nav-tabs" role="tablist">
     	                            <li class="nav-item">
     		                            <a id="tabApprovedF" class="nav-link active .cards" data-toggle="tab" v-on:click="Past()" href="#approvedF">Past</a>
@@ -234,6 +255,8 @@ Vue.component("patientExamination", {
                                             </div>			
                                         </div>
                                     </div>
+                                </div>
+                                </div>
                                 </div>
     
         <br></br>

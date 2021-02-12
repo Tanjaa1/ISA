@@ -11,17 +11,17 @@ INSERT INTO public.patient(
 	VALUES (3, 'Lenjinova 20', 'Ruma', 'Srbija', '', 'aleksandramilijevic98@gmail', false, false, 'Luka', 'Lukic', '0612334555', 'Lukic', 0, 0, 0);
 */
 INSERT INTO public.patient(
-id, address, city, country, description, email, email_comfirmed, first_time_login, name, password, phone_number, surname, username, category, penalty, points)
-	VALUES (88, 'Mileve Maric 5', 'Novi Sad', 'Srbija', '', 'aleksarep0408@gmail.com', false, false, 'Jovana', 'Jovanic', '0628876678', 'Jovanic','jocas', 0, 0, 0);
+id, address, city, country, description, email, email_comfirmed, first_time_login, name, password, phone_number, surname, username, category, points)
+	VALUES (88, 'Mileve Maric 5', 'Novi Sad', 'Srbija', '', 'aleksarep0408@gmail.com', false, false, 'Jovana', 'Jovanic', '0628876678', 'Jovanic','jocas', 0, 0);
 INSERT INTO public.patient(
-id, address, city, country, description, email, email_comfirmed, first_time_login, name, password, phone_number, surname, username, category, penalty, points)
-	VALUES (89, 'Glavna 100', 'Ruma', 'Srbija', '', 'marijavucetic66@gmail.com', false, false, 'Sara', 'Saric', '0648816428', 'Saric','sara', 0, 0, 0);
+id, address, city, country, description, email, email_comfirmed, first_time_login, name, password, phone_number, surname, username, category, points)
+	VALUES (89, 'Glavna 100', 'Ruma', 'Srbija', '', 'marijavucetic66@gmail.com', false, false, 'Sara', 'Saric', '0648816428', 'Saric','sara', 0, 0);
 INSERT INTO public.patient(
-id, address, city, country, description, email, email_comfirmed, first_time_login, name, password, phone_number, surname, username, category, penalty, points)
-	VALUES (90, 'Lenjinova 20', 'Ruma', 'Srbija', '', 'marijavucetic66@gmail.com', false, false, 'Luka', 'Lukic', '0612334555', 'Lukic','luka',0, 0, 0);
+id, address, city, country, description, email, email_comfirmed, first_time_login, name, password, phone_number, surname, username, category, points)
+	VALUES (90, 'Lenjinova 20', 'Ruma', 'Srbija', '', 'marijavucetic66@gmail.com', false, false, 'Luka', 'Lukic', '0612334555', 'Lukic','luka',0, 0);
 INSERT INTO public.patient(
-id, address, city, country, description, email, email_comfirmed, first_time_login, name, password, phone_number, surname, username, category, penalty, points)
-	VALUES (69, 'Синђелићева 44', 'Нови Сад', 'Србија', '', 'aleksarep0408@gmail.com', false, false, 'Aлекса', 'sifra', '0612334555', 'Реповић','aleksarep',0, 0, 0);
+id, address, city, country, description, email, email_comfirmed, first_time_login, name, password, phone_number, surname, username, category, points)
+	VALUES (69, 'Синђелићева 44', 'Нови Сад', 'Србија', '', 'aleksarep0408@gmail.com', false, false, 'Aлекса', 'sifra', '0612334555', 'Реповић','aleksarep',0, 0);
 
 INSERT INTO public.pharmacy(id, address, name, counseling_price) VALUES (111, 'Stanoja Stanojevica 4,Novi Sad,Srbija', 'Feniks', 1000.0);
 INSERT INTO public.pharmacy(id, address, name, counseling_price) VALUES (222, 'Maksima Gorkog 44,Novi Sad,Srbija', 'Benu', 2000.0);
@@ -308,6 +308,12 @@ INSERT INTO public.reservation(
 INSERT INTO public.reservation(
 	id, expiration_date, is_received, medicine_id, patient_id,pharmacy_id, is_canceled)
 	VALUES (102, '2021-05-12', false, 2, 89, 111, false);
+INSERT INTO public.reservation(
+	id, expiration_date, is_received, medicine_id, patient_id,pharmacy_id, is_canceled)
+	VALUES (103, '2020-03-22', false, 2, 88, 111, false);
+INSERT INTO public.reservation(
+	id, expiration_date, is_received, medicine_id, patient_id,pharmacy_id, is_canceled)
+	VALUES (104, '2021-01-22', false, 2, 88, 111, false);
     
 
 -- INSERT INTO public.therapy(

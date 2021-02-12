@@ -11,6 +11,7 @@ import rs.ac.uns.ftn.informatika.jpa.model.Examination;
 import rs.ac.uns.ftn.informatika.jpa.model.Patient;
 import rs.ac.uns.ftn.informatika.jpa.model.Pharmacy;
 import rs.ac.uns.ftn.informatika.jpa.model.Reservation;
+import rs.ac.uns.ftn.informatika.jpa.model.Penaltys;
 
 public class PatientDTO {
 
@@ -29,7 +30,7 @@ public class PatientDTO {
 	private Boolean FirstTimeLogin;
 	private Set<String> DrugAllargies = new HashSet<String>();
 	private Integer Points;
-	private Integer Penalty;
+	private Set<PenaltysDTO> Penalty = new HashSet<PenaltysDTO>();
 	private LoyaltyCategories Category; 
 	//private Set<Pharmacy> PrepaidPharmacies = new HashSet<Pharmacy>();
 	private Set<Complaint> Complaints = new HashSet<Complaint>();
@@ -43,7 +44,7 @@ public class PatientDTO {
 	
 	public PatientDTO(Long id, String email, String password, String name, String surname, String address, String city,
 			String country, String phoneNumber, String description, Boolean emailComfirmed, Boolean firstTimeLogin,
-			Set<String> drugAllargies, Integer points, Integer penalty, LoyaltyCategories category, Set<Complaint> complaints, Set<CouncelingDTO> counselings,
+			Set<String> drugAllargies, Integer points, Set<PenaltysDTO> penalty, LoyaltyCategories category, Set<Complaint> complaints, Set<CouncelingDTO> counselings,
 			Set<EPrescriptionDTO> ePrescriptions, Set<ExaminationDTO> examinations, Set<ActionOrPromotionsDTO> actionOrPromotions,String usermane/*, Set<Reservation> reservations*/) {
 		super();
 		Id = id;
@@ -91,7 +92,9 @@ public class PatientDTO {
 			DrugAllargies.add(da);
 		}
 		Points = patient.getPoints();
-		Penalty = patient.getPenalty();
+		for (Penaltys penaltys : patient.getPenalty()) {
+			Penalty.add(new PenaltysDTO(penaltys));
+		}
 		Category = patient.getCategory();
 		// PrepaidPharmacies = patient.getPrepaidPharmacies();
 		 for (ActionOrPromotion actionOrPromotion : patient.getActionOrPromotion()) {
@@ -194,10 +197,10 @@ public class PatientDTO {
 	public void setPoints(Integer points) {
 		Points = points;
 	}
-	public Integer getPenalty() {
+	public Set<PenaltysDTO> getPenalty() {
 		return Penalty;
 	}
-	public void setPenalty(Integer penalty) {
+	public void setPenalty(Set<PenaltysDTO> penalty) {
 		Penalty = penalty;
 	}
 	public LoyaltyCategories getCategory() {

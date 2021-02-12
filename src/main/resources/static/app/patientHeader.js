@@ -1,8 +1,23 @@
 Vue.component("patientHeader", {
     data: function () {
         return {
-           
+           patient:null,
+           brPenalty:0,
         }
+    },
+    beforeMount(){
+        axios
+			.get('/patient/getPatientById/' + '88') 
+			.then(response => {
+				this.patient = response.data
+                for(i = 0; i < this.patient.penalty.length; i++){
+					if(this.patient.penalty[i].isDeleted == false){
+						this.brPenalty++;
+					}
+				}
+			})
+			.catch(error => {
+			})
     },
     
     template: `
@@ -36,6 +51,17 @@ Vue.component("patientHeader", {
             </div>
         </nav>
     </div>
+    <!--Modal for create examination-->
+                    <div class="modal fade" id="notReservation"  tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" style="width: 100%;" role="document">
+                           <div class="modal-content steps">
+                          <div class="container" align="center">
+                              <br/><h4 class=""></h4><br/>
+                              <h3>You have 3 or more penalty so you are not allowed to go on page for ePrescription</h3>
+                              </div>
+                            </div>
+                    </div>	
+                </div>
 	</div>
 
 	`,
@@ -62,7 +88,12 @@ Vue.component("patientHeader", {
             this.$router.push('patientReservations');
         },
         PatientEPrescriptions: function () {
-            this.$router.push('patientEPrescriptions');
+            if(this.brPenalty < 3){
+                this.$router.push('patientEPrescriptions');
+                $('#notReservation').modal('hide');
+            }else{
+                $('#notReservation').modal('show');
+            }
         },
         PatientEvaluates: function () {
             this.$router.push('patientEvaluates');

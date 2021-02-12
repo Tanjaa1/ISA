@@ -5,7 +5,8 @@ Vue.component("patientReservations", {
             patientNotReceivedReservations:null,
             medicines:null,
             pharmacies:null,
-            id:1
+            id:1,
+            brPenalty:0,
         }
     },
     beforeMount() {
@@ -24,13 +25,38 @@ Vue.component("patientReservations", {
              })
              .catch(error => {
              })
+             axios
+             .get('/patient/getPatientById/' + '88') 
+             .then(response => {
+                 this.patient = response.data
+                 for(i = 0; i < this.patient.penalty.length; i++){
+					if(this.patient.penalty[i].isDeleted == false){
+						this.brPenalty++;
+					}
+				}
+             })
+             .catch(error => {
+             })
     },
     template: `
     <div id = "parmaciesShowPatient">
         <div class= "container">
                 <br/><h3 class="te">Medicine reservation</h3><br/>
-                <button type="button" class="btn2 btn-primary" style="width:23%; height:35px;" data-toggle="modal" v-on:click="PatientsReservation">Schedule an examinationt</button>&nbsp&nbsp&nbsp&nbsp
-
+                <button type="button" class="btn2 btn-primary" style="width:23%; height:35px;" data-toggle="modal" v-on:click="PatientsReservation">Make reservation</button>&nbsp&nbsp&nbsp&nbsp
+                
+                
+                    <!--Modal for create examination-->
+                    <div class="modal fade" id="notReservation"  tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" style="width: 100%;" role="document">
+                           <div class="modal-content steps">
+                          <div class="container" align="center">
+                              <br/><h4 class=""></h4><br/>
+                              <h3>You have 3 or more penalty so you are not allowed to make medicine reservation</h3>
+                              </div>
+                            </div>
+                    </div>	
+                </div>
+            
 
 	                            <ul class="nav nav-tabs" role="tablist">
     	                            <li class="nav-item">
@@ -119,7 +145,12 @@ Vue.component("patientReservations", {
 	`,
     methods: {
         PatientsReservation: function () {
-            this.$router.push('reserveMedicine');
+            if(this.brPenalty < 3){
+                this.$router.push('reserveMedicine');
+                $('#notReservation').modal('hide');
+            }else{
+                $('#notReservation').modal('show');
+            }
         },
         NextStep: function () {
             if (this.Validation()) {
