@@ -5,6 +5,7 @@ import java.util.Set;
 
 import rs.ac.uns.ftn.informatika.jpa.enums.MedicineForm;
 import rs.ac.uns.ftn.informatika.jpa.enums.MedicineType;
+import rs.ac.uns.ftn.informatika.jpa.model.Markk;
 import rs.ac.uns.ftn.informatika.jpa.model.Medicine;
 
 public class MedicineDTO {
@@ -22,6 +23,7 @@ public class MedicineDTO {
 	private String Note;
 	private String Contraindications;
 	private String DailyDose;
+	private Integer Grade;
 	
 	public MedicineDTO(){}
 
@@ -41,17 +43,26 @@ public class MedicineDTO {
 
 	
 	
-    public MedicineDTO(Medicine medicine){
-        Code = medicine.getCode();
-        Name = medicine.getName();
-        Type = medicine.getType();
-        Form = medicine.getForm();
-        Composition = medicine.getComposition();
-        Manufacturer = medicine.getManufacturer();
-        OnPrescription = medicine.getOnPrescription();
-       // Replacement = medicine.getReplacement();
-        Note = medicine.getNote();
-    }
+	 public MedicineDTO(Medicine medicine){
+			Id = medicine.getId();
+	        Code = medicine.getCode();
+	        Name = medicine.getName();
+	        Type = medicine.getType();
+	        Form = medicine.getForm();
+	        Composition = medicine.getComposition();
+	        Manufacturer = medicine.getManufacturer();
+	        OnPrescription = medicine.getOnPrescription();
+	       // Replacement = medicine.getReplacement();
+	        Note = medicine.getNote();
+			double result =  0;
+	        int i = 0;
+	        for (Markk m : medicine.getMarks()) {
+	            result += m.getMarks();
+	            i++;
+	        }
+			if(i != 0)
+	        	Grade = (int) Math.round(result / i);
+	    }
 
 	public String getCode() {
 		return Code;
@@ -181,4 +192,12 @@ public class MedicineDTO {
         Contraindications = contraindications;
         DailyDose = dailyDose;
     }
+	
+	public Integer getGrade() {
+		return Grade;
+	}
+
+	public void setGrade(Integer grade) {
+		Grade = grade;
+	}
 }

@@ -96,4 +96,15 @@ public class PharmacyController {
 		pharmacyService.updateQuantity(id,medicine);
 	return  new ResponseEntity<>(HttpStatus.OK);
 	}
+	
+	@GetMapping(value = "/getPharmacies/{id}")
+	public ResponseEntity<List<PharmacyDTO>> getPharmacies(@PathVariable Long id) {
+		List<PharmacyDTO> pharmacies = pharmacyService.getPharmacies(id);
+		return pharmacies == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(pharmacies);
+	}
+
+	@PostMapping(value = "/giveMarkPharmacy/{medicinesMark}/{id}")
+	public ResponseEntity<PharmacyDTO> addMark(@RequestBody Pharmacy pharmacy, @PathVariable Integer medicinesMark, @PathVariable Long id) throws Exception {
+		return ResponseEntity.ok(pharmacyService.addMark(pharmacy,medicinesMark, id));
+	}
 }

@@ -13,7 +13,11 @@ import org.springframework.stereotype.Service;
 
 import rs.ac.uns.ftn.informatika.jpa.dto.PharmacistDTO;
 import rs.ac.uns.ftn.informatika.jpa.dto.PharmacyDTO;
+import rs.ac.uns.ftn.informatika.jpa.model.Markk;
+import rs.ac.uns.ftn.informatika.jpa.model.Patient;
 import rs.ac.uns.ftn.informatika.jpa.model.Pharmacist;
+import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IMarkRepository;
+import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IPatientRepository;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IPharmacistRepository;
 import rs.ac.uns.ftn.informatika.jpa.service.Interface.IPharmacistService;
 
@@ -22,6 +26,10 @@ public class PharmacistService implements IPharmacistService {
 
 	@Autowired
 	private IPharmacistRepository pharmacistRepository;
+	@Autowired
+	private IPatientRepository patientRepository;
+	@Autowired
+	private IMarkRepository markRepository;
 	@Autowired
 	private EmailService emailService;
 	private Logger logger = LoggerFactory.getLogger(ResrvationService.class);
@@ -144,4 +152,38 @@ public class PharmacistService implements IPharmacistService {
 			}
 			return pharmacistDTOs;
 		}
+		
+		public List<PharmacistDTO> getPharmacists(Long id) {
+			List<PharmacistDTO> pharmacistDTOs = new ArrayList<>();
+			List<Pharmacist> pharmacists = pharmacistRepository.getPharmacists(id);
+			for (Pharmacist pharmacist : pharmacists) {
+				pharmacistDTOs.add(new PharmacistDTO(pharmacist));
+			}
+			return pharmacistDTOs;
+		}
+
+		public PharmacistDTO addMark(Pharmacist pharmacist, Integer medicinesMark, Long id) {
+			Pharmacist pharmacist2 = pharmacistRepository.getOne(pharmacist.getId());
+			Patient patient = patientRepository.getOne(id);
+			boolean i = false;
+			for (Markk mark : pharmacist2.getMarks()) {
+				if(mark.getPatient().getId() == patient.getId()){
+					i = true;
+					mark.setMarks(medicinesMark);
+					//medicine2.setMarks(marks);
+					break;
+				}
+			}
+			if(!i){
+				Markk mark = new Markk();
+				mark.setMarks(medicinesMark);
+				mark.setPatient(patient);
+				Markk mm = markRepository.save(mark);
+				pharmacist2.getMarks().add(mm);
+				//pharmacist2.setMarks(m);
+			}
+			pharmacistRepository.save(pharmacist2);
+			return new PharmacistDTO(pharmacist2);
+		}
+
 }

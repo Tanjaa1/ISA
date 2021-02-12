@@ -10,10 +10,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import rs.ac.uns.ftn.informatika.jpa.dto.PharmacyDTO;
+import rs.ac.uns.ftn.informatika.jpa.model.EPrescription;
+import rs.ac.uns.ftn.informatika.jpa.model.Markk;
 import rs.ac.uns.ftn.informatika.jpa.model.Medicine;
 import rs.ac.uns.ftn.informatika.jpa.model.MedicinePriceAndQuantity;
+import rs.ac.uns.ftn.informatika.jpa.model.Patient;
 import rs.ac.uns.ftn.informatika.jpa.model.Pharmacy;
+import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IMarkRepository;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IMedicineRepository;
+import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IPatientRepository;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IPharmacyRepository;
 import rs.ac.uns.ftn.informatika.jpa.service.Interface.IPharmacyAdminService;
 import rs.ac.uns.ftn.informatika.jpa.service.Interface.IPharmacyService;
@@ -28,6 +33,10 @@ public class PharmacyService implements IPharmacyService {
     private IMedicineRepository medicineRepository;
     @Autowired
     private IPharmacyAdminService pharmacyAdminService;
+    @Autowired
+    private IPatientRepository patientRepository;
+    @Autowired
+    private IMarkRepository markRepository;
     
     public List<Pharmacy> findAll(){
         return pharmacyRepository.findAll();
@@ -157,4 +166,79 @@ public class PharmacyService implements IPharmacyService {
                 return p;
             }
         }
+	
+	 public List<PharmacyDTO> getPharmacies(Long id){
+	        List<PharmacyDTO> pharmacies = convert(pharmacyRepository.getPharmaciesFromCounseling(id));
+	        List<PharmacyDTO> pharmacies2 = convert(pharmacyRepository.getPharmaciesFromExamination(id));
+	        List<PharmacyDTO> pharmacies3 = convert(pharmacyRepository.getPharmaciesFromReservation(id));
+	        Patient patient = patientRepository.getOne(id);
+	        List<PharmacyDTO> pharmacyDTOs = compareLists(pharmacies,pharmacies2);
+	        pharmacyDTOs = compareLists(pharmacyDTOs, pharmacies3);
+	        pharmacyDTOs = compareListsFromPatient(pharmacyDTOs, patient);
+	        return pharmacyDTOs;
+	        //return convert(pharmacyDTOs);
+	    }
+
+	    private List<PharmacyDTO> compareListsFromPatient(List<PharmacyDTO> pharmacyDTOs, Patient patient) {
+	        List<PharmacyDTO> p = new ArrayList<>(); 
+	        p.addAll(pharmacyDTOs);
+	        for (EPrescription ePrescription : patient.getEPrescriptions()) {
+	            boolean pp = false;
+	            for (PharmacyDTO pharmacy : pharmacyDTOs) {
+	                if(pharmacy.getId() == ePrescription.getPharmacy().getId())
+	                    pp = true;
+	            }
+	            if(!pp)
+	                p.add(new PharmacyDTO(ePrescription.getPharmacy()));
+	        }
+	        return p;
+	    }
+
+	    private List<PharmacyDTO> compareLists(List<PharmacyDTO> pharmacies, List<PharmacyDTO> pharmacies2) {
+	        List<PharmacyDTO> p = new ArrayList<>();
+	        p.addAll(pharmacies2);
+	        for (PharmacyDTO pharmacy : pharmacies) {
+	            boolean pp = false;
+	             for (PharmacyDTO pharmacy2 : pharmacies2) {
+	                 if(pharmacy.getId() == pharmacy2.getId()){
+	                     pp = true;
+	                     break;
+	                 }
+	             }
+	             if(!pp)
+	                p.add(pharmacy);
+	        }
+	        return p;
+	    }
+
+	    private List<PharmacyDTO> convert(List<Pharmacy> pharmacies) {
+	        List<PharmacyDTO> pharmacyDTOs = new ArrayList<PharmacyDTO>();
+	        for(Pharmacy pharmacy : pharmacies){
+	            pharmacyDTOs.add(new PharmacyDTO(pharmacy));
+	        }
+	        return pharmacyDTOs;
+	    }
+
+		public PharmacyDTO addMark(Pharmacy pharmacy, Integer medicinesMark, Long id) {
+			Pharmacy pharmacy2 = pharmacyRepository.getOne(pharmacy.getId());
+			Patient patient = patientRepository.getOne(id);
+			boolean i = false;
+			for (Markk mark : pharmacy2.getMarks()) {
+				if(mark.getPatient().getId() == patient.getId()){
+					i = true;
+					mark.setMarks(medicinesMark);
+					//medicine2.setMarks(marks);
+					break;
+				}
+			}
+			if(!i){
+				Set<Markk> m = pharmacy2.getMarks();
+				Markk mark = new Markk(medicinesMark, patient);
+				m.add(mark);
+				markRepository.save(mark);
+				pharmacy2.setMarks(m);
+			}
+			pharmacyRepository.save(pharmacy2);
+			return new PharmacyDTO(pharmacy2);
+		}
 }

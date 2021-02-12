@@ -23,6 +23,7 @@ Vue.component("patientHeader", {
                             <a class="dropdown-item" v-on:click="ConsultationWithPharmacist()">Consultation with pharmacist</a>
                             <a class="dropdown-item" v-on:click="PatientReservations()">Medicin reservation</a>
                             <a class="dropdown-item" v-on:click="ActionsOrPromotions()">Actions and promotions</a>
+                            <a class="dropdown-item" v-on:click="PatientEvaluates()">Patient evaluates</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" v-on:click="Logout()">Log out</a>
                         </div>     
@@ -60,8 +61,8 @@ Vue.component("patientHeader", {
         PatientEPrescriptions: function () {
             this.$router.push('patientEPrescriptions');
         },
-        PatientShow: function () {
-            
+        PatientEvaluates: function () {
+            this.$router.push('patientEvaluates');
         },
         RegistrationShow: function () {
            

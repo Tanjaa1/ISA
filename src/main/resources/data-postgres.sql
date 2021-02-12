@@ -237,43 +237,43 @@ INSERT INTO public.patient_drug_allargies(patient_id, drug_allargies) VALUES (88
 INSERT INTO public.patient_drug_allargies(patient_id, drug_allargies) VALUES (88, 'cefalosporini');
 INSERT INTO public.patient_drug_allargies(patient_id, drug_allargies) VALUES (89, 'tetraciklini');
     
-INSERT INTO public.pharmacist_marks(
-	pharmacist_id, marks)
-	VALUES (4, 4);
-INSERT INTO public.pharmacist_marks(
-	pharmacist_id, marks)
-	VALUES (4, 2);
-INSERT INTO public.pharmacist_marks(
-	pharmacist_id, marks)
-	VALUES (4, 1);
-INSERT INTO public.pharmacist_marks(
-	pharmacist_id, marks)
-	VALUES (5, 2);
-INSERT INTO public.pharmacist_marks(
-	pharmacist_id, marks)
-	VALUES (5, 4);
-INSERT INTO public.pharmacist_marks(
-	pharmacist_id, marks)
-	VALUES (5, 2);
+-- INSERT INTO public.pharmacist_marks(
+-- 	pharmacist_id, marks)
+-- 	VALUES (4, 4);
+-- INSERT INTO public.pharmacist_marks(
+-- 	pharmacist_id, marks)
+-- 	VALUES (4, 2);
+-- INSERT INTO public.pharmacist_marks(
+-- 	pharmacist_id, marks)
+-- 	VALUES (4, 1);
+-- INSERT INTO public.pharmacist_marks(
+-- 	pharmacist_id, marks)
+-- 	VALUES (5, 2);
+-- INSERT INTO public.pharmacist_marks(
+-- 	pharmacist_id, marks)
+-- 	VALUES (5, 4);
+-- INSERT INTO public.pharmacist_marks(
+-- 	pharmacist_id, marks)
+-- 	VALUES (5, 2);
     
-INSERT INTO public.pharmacy_marks(
-	pharmacy_id, marks)
-	VALUES (111, 4);
-INSERT INTO public.pharmacy_marks(
-	pharmacy_id, marks)
-	VALUES (111, 5);
-INSERT INTO public.pharmacy_marks(
-	pharmacy_id, marks)
-	VALUES (111, 1);
-INSERT INTO public.pharmacy_marks(
-	pharmacy_id, marks)
-	VALUES (222, 4);
-INSERT INTO public.pharmacy_marks(
-	pharmacy_id, marks)
-	VALUES (222, 2);
-INSERT INTO public.pharmacy_marks(
-	pharmacy_id, marks)
-	VALUES (222, 1);
+-- INSERT INTO public.pharmacy_marks(
+-- 	pharmacy_id, marks)
+-- 	VALUES (111, 4);
+-- INSERT INTO public.pharmacy_marks(
+-- 	pharmacy_id, marks)
+-- 	VALUES (111, 5);
+-- INSERT INTO public.pharmacy_marks(
+-- 	pharmacy_id, marks)
+-- 	VALUES (111, 1);
+-- INSERT INTO public.pharmacy_marks(
+-- 	pharmacy_id, marks)
+-- 	VALUES (222, 4);
+-- INSERT INTO public.pharmacy_marks(
+-- 	pharmacy_id, marks)
+-- 	VALUES (222, 2);
+-- INSERT INTO public.pharmacy_marks(
+-- 	pharmacy_id, marks)
+-- 	VALUES (222, 1);
     
 INSERT INTO public.reservation(
 	id, expiration_date, is_received, medicine_id, patient_id,pharmacy_id, is_canceled)

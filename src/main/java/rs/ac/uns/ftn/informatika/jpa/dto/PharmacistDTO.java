@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import rs.ac.uns.ftn.informatika.jpa.model.Markk;
 import rs.ac.uns.ftn.informatika.jpa.model.Pharmacist;
 import rs.ac.uns.ftn.informatika.jpa.model.Pharmacy;
 import rs.ac.uns.ftn.informatika.jpa.util.VacationInterval;
@@ -24,7 +25,7 @@ public class PharmacistDTO {
 	private String Description;
 	private Boolean EmailComfirmed;
 	private Boolean FirstTimeLogin;
-	private Set<Integer> Marks = new HashSet<Integer>();
+	private Set<MarkDTO> Marks = new HashSet<MarkDTO>();
 	private Integer Grade;
 	private PharmacyDTO Pharmacy ;
 	private Set<VacationIntervalDTO> VacationSchedule = new HashSet<VacationIntervalDTO>();
@@ -38,7 +39,7 @@ public class PharmacistDTO {
 
 	public PharmacistDTO(Long id, String email, String password, String name, String surname, String address,
 			String city, String country, String phoneNumber, String description, Boolean emailComfirmed,
-			Boolean firstTimeLogin, Set<Integer> marks ,PharmacyDTO pharmacy, Set<WorkingTimeDTO> workingTime,
+			Boolean firstTimeLogin, Set<MarkDTO> marks ,PharmacyDTO pharmacy, Set<WorkingTimeDTO> workingTime,
 			 Set<VacationIntervalDTO> vacationTime, Integer grade
 			) {
 		super();
@@ -62,9 +63,8 @@ public class PharmacistDTO {
 	}
 
 	public PharmacistDTO(Pharmacist pharmaciest) {
-		super();
+		//super();
 		Pharmacy = new PharmacyDTO(pharmaciest.getPharmacy());
-		Marks = pharmaciest.getMarks();
 		Id = pharmaciest.getId();
 		Email = pharmaciest.getEmail();
 		Password = pharmaciest.getPassword();
@@ -83,10 +83,13 @@ public class PharmacistDTO {
 		for (VacationInterval vacationSchedule : pharmaciest.getVacationSchedule()) {
 			VacationSchedule.add(new VacationIntervalDTO(vacationSchedule));
 		}
+		for (Markk mark : pharmaciest.getMarks()) {
+			Marks.add(new MarkDTO(mark));
+		}
 		double result =  0;
         int i = 0;
-        for (Integer m : pharmaciest.getMarks()) {
-            result += m;
+        for (Markk m : pharmaciest.getMarks()) {
+            result += m.getMarks();
             i++;
         }
         Grade = (int) Math.round(result / i);
@@ -102,11 +105,11 @@ public class PharmacistDTO {
 		Id = id;
 	}
 
-	public Set<Integer> getMarks(){
+	public Set<MarkDTO> getMarks(){
 		return Marks;
 	}
 
-	public void setMarks(Set<Integer> Marks){
+	public void setMarks(Set<MarkDTO> Marks){
 		this.Marks = Marks;
 	}
 
