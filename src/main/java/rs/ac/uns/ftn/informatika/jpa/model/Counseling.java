@@ -12,7 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import rs.ac.uns.ftn.informatika.jpa.validator.CustomAnnotation;
 
 @Entity
 @Table(name="Counseling")
@@ -25,9 +25,11 @@ public class Counseling {
 	@Column(name="Report", unique=false, nullable=true)
 	private String Report;
 	
+	@CustomAnnotation(message="Field cannot be empty")
 	@Column(name="StartTime", unique=false, nullable=true)
 	private LocalDateTime StartTime;
 	
+	@CustomAnnotation(message="Field cannot be empty")
 	@Column(name="EndTime", unique=false, nullable=true)
 	private LocalDateTime EndTime;
 	
@@ -38,10 +40,12 @@ public class Counseling {
 	//@JsonIgnoreProperties(value = {"Counseling", "hibernateLazyInitializer"})
 	private Patient Patient;
 	
+	@CustomAnnotation(message="Field cannot be empty")
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	//@JsonIgnoreProperties(value = {"Counseling", "hibernateLazyInitializer"})
 	private Pharmacist Pharmacist;
 
+	@CustomAnnotation(message="Field cannot be empty")
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	//@JsonIgnoreProperties(value = {"Counseling", "hibernateLazyInitializer"})
 	private Pharmacy Pharmacy;
@@ -52,7 +56,10 @@ public class Counseling {
 	@Column(name="IsCanceled", unique=false, nullable=true)
 	private Boolean IsCanceled;
 
-	public Counseling(){}
+	public Counseling(){
+		Pharmacy=new Pharmacy();
+		Pharmacist=new Pharmacist();
+	}
 
 	public Counseling(Long id, String report, LocalDateTime startTime, Double price, Boolean isDone,
 			rs.ac.uns.ftn.informatika.jpa.model.Patient patient,

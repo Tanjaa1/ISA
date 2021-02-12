@@ -17,10 +17,7 @@ import rs.ac.uns.ftn.informatika.jpa.dto.EPrescriptionDTO;
 import rs.ac.uns.ftn.informatika.jpa.dto.PatientDTO;
 import rs.ac.uns.ftn.informatika.jpa.dto.PharmacyDTO;
 import rs.ac.uns.ftn.informatika.jpa.model.Complaint;
-import rs.ac.uns.ftn.informatika.jpa.model.EPrescription;
-import rs.ac.uns.ftn.informatika.jpa.model.Examination;
 import rs.ac.uns.ftn.informatika.jpa.model.Patient;
-import rs.ac.uns.ftn.informatika.jpa.model.Pharmacy;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IComplaintRepository;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IExaminationRpository;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IPatientRepository;
@@ -31,9 +28,6 @@ public class PatientService implements IPatientService {
 
 	@Autowired
 	private IPatientRepository patientRepository;
-
-	@Autowired
-	private IExaminationRpository examinationRepository;
 
 	@Autowired
 	private IComplaintRepository complaintRepository;

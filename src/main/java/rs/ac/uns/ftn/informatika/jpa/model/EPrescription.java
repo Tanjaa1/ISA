@@ -12,10 +12,12 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import rs.ac.uns.ftn.informatika.jpa.enums.EPrescriptionStatus;
+import rs.ac.uns.ftn.informatika.jpa.validator.CustomAnnotation;
 
 @Entity
 @Table(name="EPrescription")
@@ -36,6 +38,8 @@ public class EPrescription {
 	
 	// @OneToOne(cascade = CascadeType.MERGE)
     // @JoinColumn(name = "Medicine_id", referencedColumnName = "id")
+	
+    @CustomAnnotation(message = "Medicine is mandatory")
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	private MedicinePriceAndQuantity Medicine;
@@ -50,12 +54,14 @@ public class EPrescription {
 	@Column(name="Status", unique=false, nullable=true)
 	private EPrescriptionStatus Status; 
 	
+    @CustomAnnotation(message = "Pharmacy is mandatory")
 	@ManyToOne
 	(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Pharmacy Pharmacy;
 
 	public EPrescription(){
 		Status= EPrescriptionStatus.New;
+		Pharmacy=new Pharmacy();
 	}
 
 	public EPrescription(Long code, Date issuingDate) {

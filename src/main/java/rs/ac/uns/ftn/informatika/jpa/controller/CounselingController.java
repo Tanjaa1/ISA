@@ -1,13 +1,15 @@
 package rs.ac.uns.ftn.informatika.jpa.controller;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -52,8 +54,10 @@ public class CounselingController {
 	}
 
 	@PutMapping(value = "/finish")
-	public ResponseEntity<HttpStatus> update(@RequestBody Counseling counseling) throws Exception
+	public ResponseEntity<HttpStatus> update(@Valid @RequestBody Counseling counseling, BindingResult result) throws Exception
 	{
+		if (result.hasErrors()) 
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		Counseling e =counselingService.finish(counseling);
 		return e == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : new ResponseEntity<>(HttpStatus.OK);
 	}
@@ -80,22 +84,28 @@ public class CounselingController {
 	}
 
 	@PutMapping(value = "/cancelCounseling")
-	public ResponseEntity<HttpStatus> cancelCounseling(@RequestBody Counseling counseling) throws Exception
+	public ResponseEntity<HttpStatus> cancelCounseling(@Valid @RequestBody Counseling counseling, BindingResult result) throws Exception
 	{
+		if (result.hasErrors()) 
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		Counseling e =counselingService.updateCounseling(counseling);
 		return e == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : new ResponseEntity<>(HttpStatus.OK);
 	}
 	@PostMapping(value = "/add")
-	public ResponseEntity<CouncelingDTO> newExamination(@RequestBody Counseling counseling)
+	public ResponseEntity<CouncelingDTO> newExamination(@Valid @RequestBody Counseling counseling, BindingResult result)
 		throws Exception 
 	{
+		if (result.hasErrors()) 
+			return new ResponseEntity<>(new CouncelingDTO(),HttpStatus.BAD_REQUEST);
 		return ResponseEntity.ok(counselingService.newExamination(counseling));
 	}
 
 	@PostMapping(value = "/createCounseling")
-	public ResponseEntity<CouncelingDTO> createCounseling(@RequestBody Counseling counseling)
+	public ResponseEntity<CouncelingDTO> createCounseling(@RequestBody Counseling counseling, BindingResult result)
 		throws Exception 
 	{
+		if (result.hasErrors()) 
+			return new ResponseEntity<>(new CouncelingDTO(),HttpStatus.BAD_REQUEST);
 		return ResponseEntity.ok(counselingService.createNewCounseling(counseling));
 	}
 

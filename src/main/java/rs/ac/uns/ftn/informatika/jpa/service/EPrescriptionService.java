@@ -7,7 +7,6 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import rs.ac.uns.ftn.informatika.jpa.dto.EPrescriptionDTO;
 import rs.ac.uns.ftn.informatika.jpa.model.EPrescription;
 import rs.ac.uns.ftn.informatika.jpa.model.MedicinePriceAndQuantity;
 import rs.ac.uns.ftn.informatika.jpa.model.Patient;
@@ -15,7 +14,6 @@ import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IEPrescriptionReposito
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IMedicinePriceAndQuantity;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IPatientRepository;
 import rs.ac.uns.ftn.informatika.jpa.service.Interface.IEPrescriptionService;
-import rs.ac.uns.ftn.informatika.jpa.service.Interface.IPatientService;
 import rs.ac.uns.ftn.informatika.jpa.service.Interface.IPharmacyService;
 
 @Service

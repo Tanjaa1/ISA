@@ -13,7 +13,6 @@ import rs.ac.uns.ftn.informatika.jpa.dto.PharmacyDTO;
 import rs.ac.uns.ftn.informatika.jpa.model.Medicine;
 import rs.ac.uns.ftn.informatika.jpa.model.MedicinePriceAndQuantity;
 import rs.ac.uns.ftn.informatika.jpa.model.Pharmacy;
-import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IMedicinePriceAndQuantity;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IMedicineRepository;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IPharmacyRepository;
 import rs.ac.uns.ftn.informatika.jpa.service.Interface.IPharmacyAdminService;

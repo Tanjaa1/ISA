@@ -27,7 +27,7 @@ Vue.component("dermatologistInfo", {
 							<button type="button" class="btn1 btn-info btn-lg margin form-control" data-toggle="modal" data-target="#Show">Change password</button>
 							<div class="input-group mb-3">
 							  <div class="input-group-prepend">
-								<span class="input-group-text width" id="basic-addon3">Name</span>
+								<span class="input-group-text width" id="basic-addon13">Name</span>
 							  </div>
 							  <input type="text" v-model="this.dermatologist.name" class="form-control" aria-describedby="basic-addon3" disabled>
 						
@@ -35,7 +35,7 @@ Vue.component("dermatologistInfo", {
 
 
 							  <div class="input-group-prepend">
-								<span class="input-group-text width" id="basic-addon3">Surname</span>
+								<span class="input-group-text width" id="basic-addon4">Surname</span>
 							  </div>
 							  <input type="text" v-model="this.dermatologist.surname" class="form-control" aria-describedby="basic-addon3" disabled>
 							</div>
@@ -198,7 +198,7 @@ Vue.component("changeDermatologistInfo", {
 							
 							<div class="input-group mb-3">
 							  <div class="input-group-prepend">
-								<span class="input-group-text width" id="basic-addon3">Name</span>
+								<span class="input-group-text width" id="basic-addon32">Name</span>
 							  </div>
 							  <input type="text" v-model="name" class="form-control" aria-describedby="basic-addon3">
 						
@@ -206,7 +206,7 @@ Vue.component("changeDermatologistInfo", {
 
 
 							  <div class="input-group-prepend">
-								<span class="input-group-text width" id="basic-addon3">Surname</span>
+								<span class="input-group-text width" id="basic-addon32">Surname</span>
 							  </div>
 							  <input type="text" v-model="surname" class="form-control" aria-describedby="basic-addon3">
 							</div>
@@ -217,21 +217,21 @@ Vue.component("changeDermatologistInfo", {
 
 						<div class="input-group mb-3">
 							  <div class="input-group-prepend ">
-								<span class="input-group-text width" id="basic-addon3">Address</span>
+								<span class="input-group-text width" id="basic-addon32">Address</span>
 							  </div>
 							  <input type="text" v-model="address" class="form-control" aria-describedby="basic-addon3">
 							<td>&nbsp&nbsp&nbsp</td>
 							
 							<div class="input-group-prepend">
-								<span class="input-group-text width" id="basic-addon3">City</span>
+								<span class="input-group-text width" id="basic-addon32">City</span>
 							  </div>
-							  <input type="text" v-model="city" class="form-control aria-describedby="basic-addon3">
+							  <input type="text" v-model="city" class="form-control" aria-describedby="basic-addon3">
 						
 						</div>
 
 							<div class="input-group mb-3">
 							  <div class="input-group-prepend">
-								<span class="input-group-text width" id="basic-addon3">Country</span>
+								<span class="input-group-text width" id="basic-addon3212">Country</span>
 							  </div>
 							  <input type="text" v-model="country" class="form-control" aria-describedby="basic-addon3">
 					
@@ -239,27 +239,27 @@ Vue.component("changeDermatologistInfo", {
 
 
 							  <div class="input-group-prepend">
-								<span class="input-group-text width" id="basic-addon3">Phone number</span>
+								<span class="input-group-text width" id="basic-addon312">Phone number</span>
 							  </div>
 							  <input type="text" v-model="phoneNumber" class="form-control" aria-describedby="basic-addon3">
 						</div>
 
 						<div class="input-group mb-3">
 							 <div class="input-group-prepend">
-								<span class="input-group-text width" id="basic-addon3">Email</span>
+								<span class="input-group-text width" id="basic-addon3879">Email</span>
 							 </div>
 							  <input type="text" v-model="email" class="form-control" aria-describedby="basic-addon3" disabled>
 					
 								<td>&nbsp&nbsp&nbsp</td>
 							<div class="input-group-prepend">
-								<span class="input-group-text width" id="basic-addon3">Username</span>
+								<span class="input-group-text width" id="basic-addon38979">Username</span>
 							 </div>
 							  <input type="text" v-model="username" class="form-control" aria-describedby="basic-addon3">			 
 								<td>&nbsp&nbsp&nbsp</td>
 						</div>
 							  <div class="input-group mb-3">
 							  <div class="input-group-prepend">
-								 <span class="input-group-text width" id="basic-addon3">Pharmacy</span>
+								 <span class="input-group-text width" id="basic-addon3'098">Pharmacy</span>
 							  </div>
 							   <input type="text" v-model="pharmaciesString" class="form-control" aria-describedby="basic-addon3" disabled>
 							   </div>

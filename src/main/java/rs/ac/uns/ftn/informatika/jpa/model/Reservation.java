@@ -16,6 +16,8 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+import rs.ac.uns.ftn.informatika.jpa.validator.CustomAnnotation;
+
 @Entity
 @Table(name="Reservation")
 public class Reservation {
@@ -38,6 +40,7 @@ public class Reservation {
     @JoinColumn(name = "Medicine_id", referencedColumnName = "id")
 	private MedicinePriceAndQuantity Medicine;
 	
+	@CustomAnnotation(message="Field cannot be empty")
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Pharmacy Pharmacy;
 

@@ -130,7 +130,7 @@ Vue.component("calendarP",{
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header nocolor">
-                <h5 class="modal-title">Examination</h5>
+                <h5 class="modal-title">Counseling</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
@@ -480,6 +480,7 @@ Vue.component("calendarP",{
                 if(pharmacyMedicines[m].medicine.name==this.medicineChoose.name){
                     if(pharmacyMedicines[m].quantity>0){
                         this.prescriptionDTO.medicine=pharmacyMedicines[m]
+                        this.prescriptionDTO.pharmacy=this.examination.pharmacy
                         await axios.post('/eprescription/add/'+this.examination.patient.id, this.prescriptionDTO)
                             .then(function (response) {
                                 alert("The prescription was successfully issued!")

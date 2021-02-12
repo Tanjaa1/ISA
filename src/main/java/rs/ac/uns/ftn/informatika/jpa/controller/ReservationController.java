@@ -36,10 +36,10 @@ public class ReservationController {
 	}
 
 	@PutMapping(value = "/update")
-	public ResponseEntity<HttpStatus> updateReservation(@RequestBody ReservationDTO reservationDTO) throws Exception 
+	public ResponseEntity<HttpStatus> update(@RequestBody Reservation reservation) throws Exception 
 	{
-		ReservationDTO reservation = new ReservationDTO(reservationService.updateReservation(reservationDTO.getId()));
-		return reservation == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : new ResponseEntity<>(HttpStatus.OK);
+		ReservationDTO r = new ReservationDTO(reservationService.updateReservation(reservation.getId()));
+		return r == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : new ResponseEntity<>(HttpStatus.OK);
 	}
 	
 	@GetMapping(value = "/getNotReceivedReservationByPatientId/{id}")

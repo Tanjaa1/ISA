@@ -5,9 +5,12 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -54,8 +57,10 @@ public class ExaminationController {
 	}
 
 	@PutMapping(value = "/finish")
-	public ResponseEntity<HttpStatus> update(@RequestBody Examination examination) throws Exception
+	public ResponseEntity<HttpStatus> update(@Valid @RequestBody Examination examination, BindingResult result) throws Exception
 	{
+		if (result.hasErrors()) 
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		Examination e =examinationService.finish(examination);
 		return e == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : new ResponseEntity<>(HttpStatus.OK);
 	}
@@ -94,30 +99,38 @@ public class ExaminationController {
 	}
 
 	@PutMapping(value = "/schedule")
-	public ResponseEntity<List<ExaminationDTO>> getFreeExaminationByDermatologist(@RequestBody Examination examination)
+	public ResponseEntity<List<ExaminationDTO>> getFreeExaminationByDermatologist(@Valid @RequestBody Examination examination, BindingResult result)
 		throws Exception 
 	{
+		if (result.hasErrors()) 
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		Examination e =examinationService.schedule(examination);
 		return e == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : new ResponseEntity<>(HttpStatus.OK);
 	}
 
 	@PostMapping(value = "/add")
-	public ResponseEntity<ExaminationDTO> newExamination(@RequestBody Examination examination)
+	public ResponseEntity<ExaminationDTO> newExamination(@Valid @RequestBody Examination examination, BindingResult result)
 		throws Exception 
 	{
+		if (result.hasErrors()) 
+			return new ResponseEntity<>(new ExaminationDTO(),HttpStatus.BAD_REQUEST);
 		return ResponseEntity.ok(examinationService.newExamination(examination));
 	}
 
 	@PostMapping(value = "/addEmptyExamination")
-	public ResponseEntity<ExaminationDTO> newEmptyExamination(@RequestBody Examination examination)
+	public ResponseEntity<ExaminationDTO> newEmptyExamination(@Valid @RequestBody Examination examination, BindingResult result)
 		throws Exception 
 	{
+		if (result.hasErrors()) 
+			return new ResponseEntity<>(new ExaminationDTO(),HttpStatus.BAD_REQUEST);
 		return ResponseEntity.ok(examinationService.newEmptyExamination(examination));
 	}
 
 	@PutMapping(value = "/cancelExamination")
-	public ResponseEntity<HttpStatus> cancelExamination(@RequestBody Examination examination) throws Exception
+	public ResponseEntity<HttpStatus> cancelExamination(@Valid @RequestBody Examination examination, BindingResult result) throws Exception
 	{
+		if (result.hasErrors()) 
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		Examination e =examinationService.updateExamination(examination);
 		return e == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : new ResponseEntity<>(HttpStatus.OK);
 	}
@@ -138,8 +151,10 @@ public class ExaminationController {
 	}
 	
 	@PutMapping(value = "/notCome")
-	public ResponseEntity<HttpStatus> notCome(@RequestBody Examination examination) throws Exception
+	public ResponseEntity<HttpStatus> notCome(@Valid @RequestBody Examination examination, BindingResult result) throws Exception
 	{
+		if (result.hasErrors()) 
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		Examination e =examinationService.notCome(examination);
 		return e == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : new ResponseEntity<>(HttpStatus.OK);
 	}

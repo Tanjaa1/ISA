@@ -39,9 +39,6 @@ public class ResrvationService implements IReservationService{
     @Autowired
     private IPharmacyRepository pharmacyRepository;
 
-	@Autowired
-    private IPharmacistRepository pharmacistRepository;
-
 
     private DateCompare dateCompare=new DateCompare();
 	
