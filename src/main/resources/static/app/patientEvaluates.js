@@ -33,7 +33,7 @@ Vue.component("patientEvaluates", {
     },
     beforeMount() {
         axios
-            .get('/dermatologist/getDermatologistByPatientId/' + '88')
+            .get('/dermatologist/getDermatologistsByPatientId/' + '88')
             .then(response => {
                 this.dermatologists = response.data
             })
@@ -292,17 +292,15 @@ Vue.component("patientEvaluates", {
             .catch(error => {
             })
         },
-        /*GiveMarkDermatologist:function(d,mm){
-            alert(mm)
-            alert(d.name)
+        GiveMarkDermatologist:function(d,mm){
             axios
-            .post('/dermatologist/giveMarkDermatologist/'  + mm + '/' + '88' + '/' + d.id)
+            .post('/dermatologist/giveMarkDermatologist/'  + mm + '/' + '88', d)
             .then(response => {
                 this.Refresh();
             })
             .catch(error => {
             })
-        },*/
+        },
         GiveMarkPharmacy:function(ph, mm){
             axios
             .post('/pharmacy/giveMarkPharmacy/' + mm + '/' + '88', ph)
