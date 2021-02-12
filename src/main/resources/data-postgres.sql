@@ -428,6 +428,8 @@ INSERT INTO public.patient_eprescriptions(
 -- 	pharmacy_id, list_actions_or_promotions_id)
 -- 	VALUES (2, 12);
 
+
+
 INSERT INTO public.pharmacy_pricelist(
 	pharmacy_id, pricelist_id)
 	VALUES (111, 1);
