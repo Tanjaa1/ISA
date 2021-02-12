@@ -122,14 +122,14 @@ public class CounselingService implements ICounselingService {
 	}
 
     
-	public CouncelingDTO newExamination(Counseling counseling) throws Exception {
+	public CouncelingDTO newCounseling(Counseling counseling) throws Exception {
         if(!counselingRepository.isExaminationExistByPharmacist(counseling.getStartTime(),counseling.getEndTime(),counseling.getPharmacist().getId()).isEmpty())
             return null;           
         if(!examinationRepository.isExaminationExistByPatient(counseling.getStartTime(),counseling.getEndTime(),counseling.getPatient().getId()).isEmpty())
             return null;
         if(!counselingRepository.isCounselingExistByPatient(counseling.getStartTime(),counseling.getEndTime(),counseling.getPatient().getId()).isEmpty())
             return null;
-        if(!isDermatologistWork(counseling))
+        if(!isPharmacistWork(counseling))
             return null;
 		Counseling c=new Counseling();
         c.setPharmacist(pharmacistRepository.getOne(counseling.getPharmacist().getId()));
@@ -142,7 +142,7 @@ public class CounselingService implements ICounselingService {
         return councelingDTO;
 	}
 
-    private Boolean isDermatologistWork(Counseling counseling) {
+    private Boolean isPharmacistWork(Counseling counseling) {
         for(WorkingTime w: counseling.getPharmacist().getWorkingSchedule())
             if(counseling.getStartTime().compareTo(w.getTimeStart()) > 0 && w.getTimeEnd().compareTo(counseling.getStartTime())>0
                 && w.getTimeEnd().compareTo(counseling.getEndTime())>0 && counseling.getEndTime().compareTo(w.getTimeStart())>0)
