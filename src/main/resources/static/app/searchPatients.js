@@ -12,13 +12,6 @@ Vue.component("dermatologistSearchPatients", {
 			})
 			.catch(error => {
 			})
-		// axios
-		// 	.get('/patient/getPatientByPharmacistCouseling/' + '4') 
-		// 	.then(response => {
-		// 		this.users = response.data
-		// 	})
-		// 	.catch(error => {
-		// 	})
 	},
 	template: `
 	<div id="Search"  class="BackendImagePhysician">				
@@ -69,14 +62,6 @@ Vue.component("dermatologistSearchPatients", {
 			})
 			.catch(error => {
 			})
-
-			// axios
-			// .get('/patient/getPatientByPharmacistCounselingSearch/' + '4/'+name+'/'+surname) 
-			// .then(response => {
-			// 	this.users = response.data
-			// })
-			// .catch(error => {
-			// })
 		},
 		Sort:function(){
 			if(document.getElementById("sort").value=="Name assceding"){

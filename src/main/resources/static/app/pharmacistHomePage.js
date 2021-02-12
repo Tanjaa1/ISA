@@ -29,24 +29,9 @@ Vue.component("pharmacistHomePage", {
 					<div class="col-sm">
 					</div>
 					<div class="col-sm">
-					</div>
-					<div class="col-sm">
-					</div>
-					<div class="col-sm">
 					  <h3>
 						<button id="Users" type="button" class="btn btn-info btn-lg margin form-control" data-toggle="modal" v-on:click="PatientsShow()"></button>
 						</h3><br/> 
-					</div>
-					<div class="col-sm">
-					</div>
-					<div class="col-sm">
-					</div>
-					<div class="col-sm">
-					  <h3>
-						<button id="Examination" type="button" class="btn btn-info btn-lg margin form-control" v-on:click="CurrentExaminationShow()"></button>
-						</h3><br/> 
-					</div>
-					<div class="col-sm">
 					</div>
 					<div class="col-sm">
 					</div>
@@ -58,27 +43,9 @@ Vue.component("pharmacistHomePage", {
 					<div class="col-sm">
 					</div>
 					<div class="col-sm">
-					</div>
-					<div class="col-sm">
 					  <h3>
 						<button id="Vacation" type="button" class="btn btn-info btn-lg margin form-control" v-on:click="VacationShow()"></button>
 						</h3><br/> 
-					</div>
-					<div class="col-sm">
-					</div>
-					<div class="col-sm">
-					</div>
-					<div class="col-sm">
-					</div>
-					<div class="col-sm">
-					</div>
-					<div class="col-sm">
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-sm">
-					</div>
-					<div class="col-sm">
 					</div>
 					<div class="col-sm">
 					</div>
@@ -140,11 +107,10 @@ Vue.component("pharmacistHomePage", {
 		this.$router.push('pharmacistSearchPatients');
 	},
 	CalendarShow: function () {
+		this.$router.push('calendarP');
 	},
 	VacationShow: function () {
 		this.$router.push('pharmacistVacationRequest');
-	},
-	CurrentExaminationShow: function () { 
 	},
 	MakingExaminationShow: function () {
 		this.$router.push('createCounselingPharmacist');               

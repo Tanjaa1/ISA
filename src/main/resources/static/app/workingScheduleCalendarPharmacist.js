@@ -130,7 +130,7 @@ Vue.component("calendarP",{
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header nocolor">
-                <h5 class="modal-title">Examination</h5>
+                <h5 class="modal-title">Counseling</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
