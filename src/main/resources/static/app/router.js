@@ -9,6 +9,8 @@ const PharmacistHomePage = { template: '<pharmacistHomePage></pharmacistHomePage
 const Reservation = { template: '<reservation></reservation>' }
 const PatientInfo = { template: '<patientInfo></patientInfo>' }
 const PatientHeader = { template: '<patientHeader></patientHeader>' }
+const systemAdminHeader = { template: '<systemAdminHeader></systemAdminHeader>' }
+
 const PageHeader = { template: '<pageHeader></pageHeader>' }
 const ChangePatientInfo = { template: '<changePatientInfo></changePatientInfo>' }
 const PatientActionsOrPromotions = { template: '<patientActionsOrPromotions></patientActionsOrPromotions>' }
@@ -42,6 +44,8 @@ const RegistrationPharmacyAdmin = { template: '<registrationPharmacyAdmin></regi
 const RegistrationPharmacist= { template: '<registrationPharmacist></registrationPharmacist>' } 
 const Complaints= { template: '<complaints></complaints>' } 
 const PatientComplaints= { template: '<complaintPatient></complaintPatient>' } 
+const SystemAdminHomaPage= { template: '<systemAdminHomaPage></systemAdminHomaPage>' } 
+
 
 
 const EmailConfirmation = { template: '<emailConfirmation></emailConfirmation>' } 
@@ -115,6 +119,15 @@ const router = new VueRouter({
 	    	components: {
 				pageHeader: PatientHeader,
 				content: PharmacistsPreview
+			}
+	    },
+		{ 
+	    	path: '/systemAdminHomaPage', 
+	    	name : 'systemAdminHomaPage', 
+	    	components: {
+				content: SystemAdminHomaPage,
+				pageHeader: systemAdminHeader,
+
 			}
 	    },
 		{ 

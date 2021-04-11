@@ -16,8 +16,8 @@
 }
 
 
-.text1 {
-    color: #00FFFF;
+.text11 {
+    color:white ;
     font-size: 30px;
     font-weight: 100;
     font-family: 'Impact';
@@ -39,6 +39,11 @@ hr {
     float: left;
     font-size: 25px;
 }
+.container .tt{
+    float: 50%;
+    font-size: 25px;
+}
+
 
 .margin1 {
     margin-left: 90%;
@@ -54,6 +59,11 @@ hr {
 }
 
 .container .t .star {
+    color: red;
+    font-size: 25px;
+    position: relative;
+}
+.container .tt .star {
     color: red;
     font-size: 25px;
 }

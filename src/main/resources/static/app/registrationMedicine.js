@@ -130,7 +130,6 @@ Vue.component("registrationMedicine", {
             </table>
 
             <br></br>
-            <br/><h2 class="text1">Medicine Registration</h2>
         <br><br><br>
         <table class="t">
 			<colgroup>
