@@ -40,7 +40,7 @@ Vue.component("registrationPharmacy", {
 		<br><br><br>
 		<table class="t">
 			<tr>
-				<td><label>Name</label><a class="star">*</a></td>
+				<td><label>Namez</label><a class="star">*</a></td>
 				<td><input type="text" class = "form-control input" v-model="pharmacyDTO.name"/></td><br/>
 			<tr>
 			<tr><td>&nbsp;</td>
@@ -59,6 +59,10 @@ Vue.component("registrationPharmacy", {
 
 			<br></br>
 			<br></br>
+			<br></br>
+			<br></br>
+
+			
 			<br/><h2 class="text122">Pharmacy Admin Registration</h2>
 			<br><br><br>
 			<table class="t">

@@ -40,13 +40,9 @@ Vue.component("registrationDermatologist", {
 	`
 	<div id="RegistrationDermatologist">
     <div class="container">
-        <br/><h2 class="text1"> Dermatologist Registration</h2>
+        <br/><h2 class="text11"> Dermatologist Registration</h2>
 		<br><br><br>
 		<table class="t">
-			<colgroup>
-                 <col style="width: 50%;">
-                 <col style="width: 50%;">
-            </colgroup>
 			<tr>
 				<td><label>Name</label><a class="star">*</a></td>
 				<td><input type="text" class = "form-control input" v-model="dermatologistDTO.name"/></td><br/>
@@ -86,9 +82,7 @@ Vue.component("registrationDermatologist", {
 				<td>&nbsp;</td>
 				<td align="left" style="color: red;font-size:12px">{{stateValidation}}</td>
 			</tr>
-		</table>
-			<table class="t">
-			<tr>
+	
 			<tr>
 				<td><label>Contact number</label><a class="star">*</a></td>
 				<td><input type="number" class = "form-control input" v-model="dermatologistDTO.phoneNumber"/></td><br/>
@@ -135,7 +129,7 @@ Vue.component("registrationDermatologist", {
 			</tr>
 			
 			
-			</table>
+		</table>
 			<button  type="button" class="btn2 btn-info btn-lg margin1" data-toggle="modal" v-on:click="AddDermatologist(dermatologistDTO,this.pharmaciesList.id)">Submit</button>
 			<br/>
 			<br/>
