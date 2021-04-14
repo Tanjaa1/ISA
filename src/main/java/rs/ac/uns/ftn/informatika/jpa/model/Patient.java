@@ -9,16 +9,13 @@ import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.JoinTable;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import rs.ac.uns.ftn.informatika.jpa.model.Penaltys;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import rs.ac.uns.ftn.informatika.jpa.dto.ActionOrPromotionsDTO;
 import rs.ac.uns.ftn.informatika.jpa.dto.PatientDTO;
 import rs.ac.uns.ftn.informatika.jpa.enums.LoyaltyCategories;
 
@@ -49,7 +46,7 @@ public class Patient extends User {
 	 private Set<EPrescription> EPrescriptions = new HashSet<EPrescription>();
 
 	 @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+	 //@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	 private Set<ActionOrPromotion> ActionOrPromotions = new HashSet<ActionOrPromotion>();
 	
 	
@@ -108,6 +105,7 @@ public class Patient extends User {
 	public void setActionOrPromotion(Set<ActionOrPromotion> actionOrPromotion) {
 		ActionOrPromotions = actionOrPromotion;
 	}
+	
 
 	public Patient(PatientDTO patientDTO){
 		super();
@@ -117,6 +115,7 @@ public class Patient extends User {
 		Category = patientDTO.getCategory();
 
 	}
+
 
 	public Patient(Long id, String email, String password, String name, String surname, String address, String city,
 			String country, String phoneNumber, String description, Boolean emailComfirmed, Boolean firstTimeLogin,
@@ -130,6 +129,21 @@ public class Patient extends User {
 		Category = category;
 		//PrepaidPharmacies = prepaidPharmacies;
 	//	PrepaidPharmacies = prepaidPharmacies;
+		EPrescriptions = ePrescriptions;
+	
+	}
+	//novo dodato
+	public Patient(Long id, String email, String password, String name, String surname, String address, String city,
+			String country, String phoneNumber, String description, Boolean emailComfirmed, Boolean firstTimeLogin,
+			String username, List<String> drugAllargies, Integer points, Set<Penaltys> penalty, LoyaltyCategories category, Set<Complaint> complaints, Set<Counseling> counselings,
+			Set<EPrescription> ePrescriptions, Set<Examination> examinations, Set<Reservation> reservations,Set<ActionOrPromotion> actionOrPromotions) {
+		super(id, email, password, name, surname, address, city, country, phoneNumber, description, emailComfirmed,
+				firstTimeLogin, username);
+		DrugAllargies = drugAllargies;
+		Points = points;
+		Penalty = penalty;
+		Category = category;
+		ActionOrPromotions=actionOrPromotions;
 		EPrescriptions = ePrescriptions;
 	
 	}

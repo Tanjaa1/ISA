@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import rs.ac.uns.ftn.informatika.jpa.dto.ActionOrPromotionsDTO;
 import rs.ac.uns.ftn.informatika.jpa.dto.PatientDTO;
 import rs.ac.uns.ftn.informatika.jpa.dto.PharmacyDTO;
 import rs.ac.uns.ftn.informatika.jpa.model.Patient;
@@ -124,5 +126,24 @@ public class PatientController {
 	{
 		Set<PharmacyDTO> pharmacies =patientService.getEPharmaciesByPatientIdAndPrescriptions(patientId);
 		return pharmacies == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(pharmacies);
+	}
+
+
+	@PostMapping(value = "/saveActionOrPromotion/{patientId}")
+	public ActionOrPromotionsDTO saveActionOrPromotion(@PathVariable String patientId,@RequestBody ActionOrPromotionsDTO actionOrPromotionsDTO) throws Exception{
+		ActionOrPromotionsDTO saveActionOrPromotion=patientService.saveActionOrPromotion(patientId,actionOrPromotionsDTO);
+	return saveActionOrPromotion;
+	}
+
+	@GetMapping(value = "/cancelActionOrPromotion/{idPatient}/{idAction}")
+	public ActionOrPromotionsDTO calcelActionOrPromotion(@PathVariable String idPatient,@PathVariable String idAction) throws Exception{
+		ActionOrPromotionsDTO canceledActionOrPromotion=patientService.cancelActionOrPromotion(idPatient,idAction);
+	return canceledActionOrPromotion;
+	}
+
+	@GetMapping(value = "/getAllActionsAndPromotionByPatientId/{patientId}")
+	public ResponseEntity<Set<ActionOrPromotionsDTO>> getAllActionsAndPromotionByPatientId(@PathVariable String patientId) {
+		Set<ActionOrPromotionsDTO> actionOrPromotionsDTOs =patientService.getAllActionsAndPromotionByPatientId(patientId);
+		return actionOrPromotionsDTOs == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(actionOrPromotionsDTOs);
 	}
 }

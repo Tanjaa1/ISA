@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 
+import rs.ac.uns.ftn.informatika.jpa.dto.ActionOrPromotionsDTO;
 import rs.ac.uns.ftn.informatika.jpa.dto.PatientDTO;
 import rs.ac.uns.ftn.informatika.jpa.model.Patient;
 
@@ -20,4 +21,5 @@ public interface IPatientService {
 	List<PatientDTO> findPatientsByNameAndSurnameDermatologist(Long id,String name,String surname);
 	List<PatientDTO> findPatientsByNameAndSurnamePharmacist(Long id,String name,String surname);
 	List<Patient>  findSubscribetPatients (Long pharmacyId);
+
 }

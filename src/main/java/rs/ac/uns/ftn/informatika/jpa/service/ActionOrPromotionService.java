@@ -1,5 +1,7 @@
 package rs.ac.uns.ftn.informatika.jpa.service;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -34,10 +36,20 @@ public class ActionOrPromotionService implements IActionOrPromotionService {
 	private EmailService emailService;
 	@Autowired
 	private IPharmacyRepository pharmacyService;
+    @Autowired
+	private PatientService patientService;
 
     
-    public List<ActionOrPromotion> getAll() {
-        return actionOrPromotionRepository.findAll();
+    public List<ActionOrPromotionsDTO> getAll() {
+        List<ActionOrPromotion> actionOrPromotions = actionOrPromotionRepository.findAll();
+        List<ActionOrPromotionsDTO> resultList =new ArrayList<ActionOrPromotionsDTO>();
+        for (ActionOrPromotion actionOrPromotion : actionOrPromotions) {
+               resultList.add(new ActionOrPromotionsDTO(actionOrPromotion));
+        }
+        if(resultList.isEmpty())
+        return null;
+    else
+        return resultList;
     }
 
     @Override
@@ -66,5 +78,57 @@ public class ActionOrPromotionService implements IActionOrPromotionService {
 			System.out.println("Error sending email: " + e.getMessage());
 		}
 	}
+
+    @Override
+    public List<ActionOrPromotionsDTO> getByPharmacyId(String id) {
+        Long idActionOrPromotion=Integer.toUnsignedLong(Integer.valueOf(id));
+        List<ActionOrPromotion> actionOrPromotions = actionOrPromotionRepository.findAll();
+        List<ActionOrPromotionsDTO> resultList =new ArrayList<ActionOrPromotionsDTO>();
+        for (ActionOrPromotion actionOrPromotion : actionOrPromotions) {
+           if(actionOrPromotion.getPharmacy().getId()==idActionOrPromotion){
+               resultList.add(new ActionOrPromotionsDTO(actionOrPromotion));
+           }
+        }
+        if(resultList.isEmpty())
+            return null;
+        else
+            return resultList;
+
+       }
+
+    @Override
+    public ActionOrPromotionsDTO findById(Long Id) {
+        ActionOrPromotion aop=actionOrPromotionRepository.findById(Id).get();
+        return new ActionOrPromotionsDTO(aop);
+    }
+
+    @Override
+    public List<ActionOrPromotionsDTO> getAllUnsubscribed(Long id) {
+        List<ActionOrPromotionsDTO> all=getAll();
+        Set<ActionOrPromotionsDTO> subscribed=patientService.getAllActionsAndPromotionByPatientId(id.toString(id));
+        Set<ActionOrPromotionsDTO> resultList=new HashSet<>();
+        for (ActionOrPromotionsDTO actionOrPromotionsDTO : all) {
+            for (ActionOrPromotionsDTO actionOrPromotionsDTO2 : subscribed) {
+                if(!actionOrPromotionsDTO2.equals(actionOrPromotionsDTO)){
+                    resultList.add(actionOrPromotionsDTO);
+                }
+            }
+            
+        }
+        for (ActionOrPromotionsDTO actionOrPromotionsDTO : resultList) {
+            all.remove(actionOrPromotionsDTO);
+        }
+       
+        if(all.isEmpty())
+        return null;
+    else
+        return all;
+
+    }
+
+  
+
+   
+   
 
 }

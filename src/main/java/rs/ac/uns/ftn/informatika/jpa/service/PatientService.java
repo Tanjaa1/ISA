@@ -16,13 +16,16 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import rs.ac.uns.ftn.informatika.jpa.dto.ActionOrPromotionsDTO;
 import rs.ac.uns.ftn.informatika.jpa.dto.EPrescriptionDTO;
 import rs.ac.uns.ftn.informatika.jpa.dto.PatientDTO;
 import rs.ac.uns.ftn.informatika.jpa.dto.PharmacyDTO;
+import rs.ac.uns.ftn.informatika.jpa.model.ActionOrPromotion;
 import rs.ac.uns.ftn.informatika.jpa.model.Complaint;
 import rs.ac.uns.ftn.informatika.jpa.model.Patient;
 import rs.ac.uns.ftn.informatika.jpa.model.Penaltys;
 import rs.ac.uns.ftn.informatika.jpa.model.Reservation;
+import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IActionOrPromotionRepository;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IComplaintRepository;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IExaminationRpository;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IPatientRepository;
@@ -44,6 +47,8 @@ public class PatientService implements IPatientService {
 	
 	@Autowired
 	private IPenaltyRepository penaltyRepository;
+	@Autowired
+	private IActionOrPromotionRepository actionOrPromotionRepository;
 
 	@Autowired
 	private EmailService emailService;
@@ -212,6 +217,30 @@ public class PatientService implements IPatientService {
 		}
 	}
 
+	private void emailSenderActionsOrPromotions(Patient patient,ActionOrPromotion actionOrPromotion) {
+		try {
+			String subject = "Patient " + patient.getFullName();
+			String text = "Dear " + patient.getFullName()
+					+ ",\nWe would like to inform you that you have subscribed to actions and promotions: \n"
+					+ actionOrPromotion.getText();
+			emailService.sendNotificaitionAsync(patient.getEmail(), subject, text);
+		} catch (Exception e) {
+			logger.info("Error sending email: " + e.getMessage());
+		}
+	}
+
+	private void emailSenderActionsOrPromotionsCancel(Patient patient,ActionOrPromotion actionOrPromotion) {
+		try {
+			String subject = "Patient " + patient.getFullName();
+			String text = "Dear " + patient.getFullName()
+					+ ",\nyou have cancelled  subscripton from the following promotions and promotions: \n"
+					+ actionOrPromotion.getText();
+			emailService.sendNotificaitionAsync(patient.getEmail(), subject, text);
+		} catch (Exception e) {
+			logger.info("Error sending email: " + e.getMessage());
+		}
+	}
+
 	private Long IdEncryption(Long patientId) {
 		return (patientId + 6789 + 23 * 33);
 	}
@@ -268,4 +297,54 @@ public class PatientService implements IPatientService {
 		return patientRepository.findPatientsSubscribed(pharmacyId);
 	}
 
+    public ActionOrPromotionsDTO saveActionOrPromotion(String patientId, ActionOrPromotionsDTO actionOrPromotionsDTO) throws Exception {
+        Long PatientId=Integer.toUnsignedLong(Integer.valueOf(patientId));
+		Patient patientToUpdate=patientRepository.findById(PatientId).get();
+
+		Set<ActionOrPromotion>actionOrPromotionsSet=new HashSet<>();
+		ActionOrPromotion a=new ActionOrPromotion(actionOrPromotionsDTO);
+		a.setId(actionOrPromotionsDTO.getId());
+		actionOrPromotionsSet.add(a);
+		
+		Set<ActionOrPromotion> newSet=new HashSet<>();
+		newSet.addAll(patientToUpdate.getActionOrPromotion());
+		newSet.add(a);
+		patientToUpdate.setActionOrPromotion(newSet);
+		update(patientToUpdate);
+		emailSenderActionsOrPromotions(patientToUpdate,new ActionOrPromotion(actionOrPromotionsDTO));
+		//emailSender(patientToUpdate);
+		return actionOrPromotionsDTO;
+	}
+
+	public ActionOrPromotionsDTO cancelActionOrPromotion(String id, String idAction) throws Exception {
+		
+
+		Long PatientId=Integer.toUnsignedLong(Integer.valueOf(id));	
+		Long actionOrPromotionId=Integer.toUnsignedLong(Integer.valueOf(idAction));
+
+		Patient patientToUpdate=patientRepository.findById(PatientId).get();
+		ActionOrPromotion toCancel=actionOrPromotionRepository.getOne(actionOrPromotionId);
+		Set<ActionOrPromotion> newSetA=patientToUpdate.getActionOrPromotion();
+		newSetA.remove(toCancel);
+		patientToUpdate.setActionOrPromotion(newSetA);
+		update(patientToUpdate);
+		return new ActionOrPromotionsDTO(toCancel);
+		}
+
+	public Set<ActionOrPromotionsDTO> getAllActionsAndPromotionByPatientId(String patientId) {
+		Long PatientId=Integer.toUnsignedLong(Integer.valueOf(patientId));
+
+		Patient patient=patientRepository.getOne(PatientId);
+		Set<ActionOrPromotion> resultList=new HashSet<>();
+		resultList=patient.getActionOrPromotion();
+
+		Set<ActionOrPromotionsDTO> rSet=new HashSet<>();
+		for(ActionOrPromotion actionOrPromotion : resultList){
+			rSet.add(new ActionOrPromotionsDTO(actionOrPromotion));
+		}
+		return rSet;
+	}
+
+	
+	
 }

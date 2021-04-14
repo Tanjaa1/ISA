@@ -27,6 +27,8 @@ Vue.component("patientHomePage", {
 					<div class="col-sm">
 					</div>
 					<div class="col-sm">
+					</div>
+					<div class="col-sm">
 					  <h3>
 						<button id="Pharmacy" type="button" class="btn btn-info btn-lg margin form-control" data-toggle="modal" v-on:click="PharmaciesShow"></button>
 						</h3><br/> 
@@ -49,6 +51,11 @@ Vue.component("patientHomePage", {
 					<div class="col-sm">
 					  <h3>
 						<button id="medicineReservation" type="button" class="btn btn-info btn-lg margin form-control" v-on:click="medicineReservation()"></button>
+						</h3><br/> 
+					</div>
+					<div class="col-sm">
+					  <h3>
+						<button id="actionAndPromotion" type="button" class="btn btn-info btn-lg margin form-control" v-on:click="ActionAndPromotionShow()"></button>
 						</h3><br/> 
 					</div>
 					<div class="col-sm">
@@ -97,6 +104,9 @@ Vue.component("patientHomePage", {
         },
         medicineReservation: function () {     
             this.$router.push('patientReservations');    
+        },
+		ActionAndPromotionShow: function () {     
+            this.$router.push('actonAndPromotion');    
         },
 		Yes:function(){
 			if(document.getElementById("np").value==document.getElementById("cp").value && document.getElementById("np").value.trim()!="" && document.getElementById("cp").value.trim()!=""){

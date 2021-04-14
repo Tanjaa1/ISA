@@ -12,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import rs.ac.uns.ftn.informatika.jpa.dto.ActionOrPromotionsDTO;
+
 @Entity
 @Table(name="ActionOrPromotion")
 public class ActionOrPromotion {
@@ -46,7 +48,15 @@ public class ActionOrPromotion {
 		StartTime = startTime;
 		EndTime = endTime;
 	}
-	
+	public ActionOrPromotion(ActionOrPromotionsDTO a){
+		Id=a.getId();
+		Text=a.getText();
+		Pharmacy=new Pharmacy(a.getPharmacy());
+		Medicine=new Medicine(a.getMedicine());
+		StartTime=a.getStartTime();
+		EndTime=a.getEndDateTime();
+
+	}
 	public Long getId() {
 		return Id;
 	}
