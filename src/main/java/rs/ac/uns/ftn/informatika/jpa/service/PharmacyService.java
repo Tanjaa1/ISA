@@ -1,6 +1,7 @@
 package rs.ac.uns.ftn.informatika.jpa.service;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -9,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import rs.ac.uns.ftn.informatika.jpa.dto.MedicineDTO;
+import rs.ac.uns.ftn.informatika.jpa.dto.MedicinePriceAndQuantityDTO;
 import rs.ac.uns.ftn.informatika.jpa.dto.PharmacyDTO;
 import rs.ac.uns.ftn.informatika.jpa.model.EPrescription;
 import rs.ac.uns.ftn.informatika.jpa.model.Markk;
@@ -17,6 +20,7 @@ import rs.ac.uns.ftn.informatika.jpa.model.MedicinePriceAndQuantity;
 import rs.ac.uns.ftn.informatika.jpa.model.Patient;
 import rs.ac.uns.ftn.informatika.jpa.model.Pharmacy;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IMarkRepository;
+import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IMedicinePriceAndQuantity;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IMedicineRepository;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IPatientRepository;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IPharmacyRepository;
@@ -40,6 +44,11 @@ public class PharmacyService implements IPharmacyService {
     private IPatientRepository patientRepository;
     @Autowired
     private IMarkRepository markRepository;
+    @Autowired
+    private MedicineService madicineService;
+    
+    
+
 
     
     public List<Pharmacy> findAll(){
@@ -138,14 +147,17 @@ public class PharmacyService implements IPharmacyService {
     }
 
 	public List<PharmacyDTO> findPharmacyByMedicineName(String name) {
-        Medicine medicineFind = findMedicine(name);
+        
+        List<MedicineDTO> medicineFind =madicineService.findAllSearchMedicine(name);
         List<PharmacyDTO> pharmacyList = new ArrayList<PharmacyDTO>();
         List<Pharmacy> pharmacies = pharmacyRepository.findAll();
         for (Pharmacy pharmacy : pharmacies) {
             for (MedicinePriceAndQuantity medicine : pharmacy.getPricelist()) {
-                if(medicine.getMedicine().getName() == medicineFind.getName() && medicine.getQuantity()>0){
-                    pharmacyList.add(new PharmacyDTO(pharmacy));
-                    break;
+                for(MedicineDTO mddd : medicineFind){
+                    if(medicine.getMedicine().getName().toUpperCase().trim().contains(mddd.getName().toUpperCase().trim()) && medicine.getQuantity()>0){
+                        pharmacyList.add(new PharmacyDTO(pharmacy));
+                        break;
+                    }
                 }
             }
         }
@@ -248,4 +260,38 @@ public class PharmacyService implements IPharmacyService {
 			pharmacyRepository.save(pharmacy2);
 			return new PharmacyDTO(pharmacy2);
 		}
+
+        public List<MedicinePriceAndQuantityDTO> getPharmaciesPriceLists() {
+            Set<MedicinePriceAndQuantity> resultList=new HashSet();
+                        List<Pharmacy> pharmaciesList=findAll();
+            for (Pharmacy pharmacyDTO : pharmaciesList) {
+                resultList.addAll(pharmacyDTO.getPricelist());
+            }
+           List<MedicinePriceAndQuantityDTO>newSet=new ArrayList();
+           for (MedicinePriceAndQuantity medicinePriceAndQuantityDTO : resultList) {
+               newSet.add(new MedicinePriceAndQuantityDTO(medicinePriceAndQuantityDTO));
+           }
+           return newSet;
+        }
+
+        public PharmacyDTO getPharmacyByPriceListId(Long id) {
+            List<MedicinePriceAndQuantityDTO> pharmaciesList=getPharmaciesPriceLists();
+            MedicinePriceAndQuantityDTO pp=new MedicinePriceAndQuantityDTO();
+            for (MedicinePriceAndQuantityDTO medicinePriceAndQuantityDTO : pharmaciesList) {
+                if(medicinePriceAndQuantityDTO.getId()==id){
+                    pp=medicinePriceAndQuantityDTO;
+                }
+            }
+            MedicinePriceAndQuantity mk=new MedicinePriceAndQuantity(pp);
+            Pharmacy resultPharmacy=new Pharmacy();
+            List<Pharmacy> pList=findAll();
+            for (Pharmacy m : pList) {
+                for (MedicinePriceAndQuantity pharmacy : m.getPricelist()) {
+                    if( pharmacy.getId().equals(mk.getId())){
+                        resultPharmacy=m;
+                    }
+                }
+            }
+            return new PharmacyDTO(resultPharmacy);
+        }
 }

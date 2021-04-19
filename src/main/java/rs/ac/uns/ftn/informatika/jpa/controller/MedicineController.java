@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import rs.ac.uns.ftn.informatika.jpa.dto.MedicineDTO;
 import rs.ac.uns.ftn.informatika.jpa.dto.MedicinePriceAndQuantityDTO;
+import rs.ac.uns.ftn.informatika.jpa.dto.PharmacistDTO;
+import rs.ac.uns.ftn.informatika.jpa.dto.PharmacyDTO;
 import rs.ac.uns.ftn.informatika.jpa.model.Medicine;
 import rs.ac.uns.ftn.informatika.jpa.model.MedicinePriceAndQuantity;
 import rs.ac.uns.ftn.informatika.jpa.service.MedicineService;
@@ -44,8 +46,8 @@ public class MedicineController {
 	}
 
 	@GetMapping(value = "/getAll")
-	public ResponseEntity<List<Medicine>> getAll() {
-    List<Medicine> retVal = medicineService.findAll();
+	public ResponseEntity<List<MedicineDTO>> getAll() {
+    List<MedicineDTO> retVal = medicineService.findAll();
 		return retVal == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(retVal);
   	}
 	@PostMapping(value = "/saveMedicinePriceAndQuantity")
@@ -70,5 +72,40 @@ public class MedicineController {
 		return ResponseEntity.ok(medicineService.addMark(medicine,medicinesMark, id));
 	}
 
+	@GetMapping(value = "/getPharmacyForAvaliableMedicine/{medicineName}")
+	public ResponseEntity<List<PharmacyDTO>> getMedicineByPatientId(@PathVariable String medicineName) {
+		List<PharmacyDTO> medicineDTOs = medicineService.getPharmacyForAvaliableMedicine(medicineName);
+		return medicineDTOs == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(medicineDTOs);
+	}
+
+	@GetMapping(value = "/filtrationMedicineByType/{medicineName}/{type}")
+	public ResponseEntity<List<PharmacyDTO>> filtrationMedicineByType(@PathVariable String medicineName,@PathVariable String type) {
+		List<PharmacyDTO> medicineDTOs = medicineService.filtrationMedicineByType(medicineName,type);
+		return medicineDTOs == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(medicineDTOs);
+	}
+
+	@GetMapping(value = "/filtrationMedicineByForm/{medicineName}/{form}")
+	public ResponseEntity<List<PharmacyDTO>> filtrationMedicineByForm(@PathVariable String medicineName,@PathVariable String form) {
+		List<PharmacyDTO> medicineDTOs = medicineService.filtrationMedicineByForm(medicineName,form);
+		return medicineDTOs == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(medicineDTOs);
+	}
+
+	@GetMapping(value = "/filtrationMedicineByMark/{medicineName}/{mark}")
+	public ResponseEntity<List<PharmacyDTO>> filtrationMedicineByMark(@PathVariable String medicineName,@PathVariable String mark) {
+		List<PharmacyDTO> medicineDTOs = medicineService.filtrationMedicineByMark(medicineName,mark);
+		return medicineDTOs == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(medicineDTOs);
+	}
+
+	@GetMapping(value = "/filtrationMedicineOnPrescription/{medicineName}")
+	public ResponseEntity<List<PharmacyDTO>> filtrationMedicineOnPrrescription(@PathVariable String medicineName) {
+		List<PharmacyDTO> medicineDTOs = medicineService.filtrationMedicineOnPrescription(medicineName);
+		return medicineDTOs == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(medicineDTOs);
+	}
+	@GetMapping(value = "/filtrationMedicineNotOnPrescription/{medicineName}")
+	public ResponseEntity<List<PharmacyDTO>> filtrationMedicineNotOnPrescription(@PathVariable String medicineName) {
+		List<PharmacyDTO> medicineDTOs = medicineService.filtrationMedicineNotOnPrescription(medicineName);
+		return medicineDTOs == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(medicineDTOs);
+	}
+	
 }
 

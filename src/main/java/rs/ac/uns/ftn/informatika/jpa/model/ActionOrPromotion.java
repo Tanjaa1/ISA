@@ -31,7 +31,7 @@ public class ActionOrPromotion {
 	@Column(name="EndTime", unique=false, nullable=true)
 	private LocalDateTime EndTime;
 
-	@ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	 private Pharmacy Pharmacy;
 	
 	@ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)

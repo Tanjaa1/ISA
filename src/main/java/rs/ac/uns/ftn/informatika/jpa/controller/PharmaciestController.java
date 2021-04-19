@@ -98,4 +98,6 @@ public class PharmaciestController {
 	public ResponseEntity<PharmacistDTO> addMark(@RequestBody Pharmacist pharmacist, @PathVariable Integer medicinesMark, @PathVariable Long id) throws Exception {
 		return ResponseEntity.ok(pharmacistService.addMark(pharmacist,medicinesMark, id));
 	}
+
+	
 }

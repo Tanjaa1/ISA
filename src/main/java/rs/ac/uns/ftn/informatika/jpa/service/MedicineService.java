@@ -10,14 +10,21 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import rs.ac.uns.ftn.informatika.jpa.dto.MedicineDTO;
+import rs.ac.uns.ftn.informatika.jpa.dto.MedicinePriceAndQuantityDTO;
+import rs.ac.uns.ftn.informatika.jpa.dto.PharmacyDTO;
 import rs.ac.uns.ftn.informatika.jpa.model.EPrescription;
 import rs.ac.uns.ftn.informatika.jpa.model.Markk;
 import rs.ac.uns.ftn.informatika.jpa.model.Medicine;
+import rs.ac.uns.ftn.informatika.jpa.model.MedicinePriceAndQuantity;
 import rs.ac.uns.ftn.informatika.jpa.model.Patient;
+import rs.ac.uns.ftn.informatika.jpa.model.Pharmacy;
+import rs.ac.uns.ftn.informatika.jpa.model.PharmacyAdmin;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IMarkRepository;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IMedicineRepository;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IPatientRepository;
+import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IPharmacyRepository;
 import rs.ac.uns.ftn.informatika.jpa.service.Interface.IMedicineService;
+import rs.ac.uns.ftn.informatika.jpa.service.Interface.IPharmacyService;
 
 @Service
 public class MedicineService implements IMedicineService {
@@ -30,6 +37,13 @@ public class MedicineService implements IMedicineService {
 
 	@Autowired
 	private IMarkRepository markRepository;
+
+	@Autowired
+	private PharmacyService pharmacyService;
+
+
+	@Autowired
+	private IPharmacyRepository pharmacyRepository;
 
 	public Medicine findOne(Long id) {
 		Medicine medicine = medicineRepository.getOne(id);
@@ -73,17 +87,34 @@ public class MedicineService implements IMedicineService {
 	}
 
 	@Override
-	public ArrayList<Medicine> findAll() {
-		return medicineRepository.findAll();
+	public ArrayList<MedicineDTO> findAll() {
+		List<Medicine> list=medicineRepository.findAll();
+		ArrayList<MedicineDTO> resultList=new ArrayList();
+		for (Medicine medicine : list) {
+			resultList.add(new MedicineDTO(medicine));
+		}
+		return resultList;
 	}
 
 	public MedicineDTO findMedicine(String name) {
 		List<Medicine> medicines = medicineRepository.findAll();
 		MedicineDTO medicineFind = new MedicineDTO();
 		for (Medicine medicine : medicines) {
-			if(medicine.getName().toUpperCase().contains(name.toUpperCase().trim()))
+			if(medicine.getName().toUpperCase().trim().contains(name.toUpperCase().trim()))
 				medicineFind = new MedicineDTO(medicine);
-                break;
+            //    break;
+		}
+        return medicineFind;
+	}
+	
+
+	public List<MedicineDTO> findAllSearchMedicine(String name) {
+		List<Medicine> medicines = medicineRepository.findAll();
+		List<MedicineDTO> medicineFind = new ArrayList<>();
+		for (Medicine medicine : medicines) {
+			if(medicine.getName().toUpperCase().trim().contains(name.toUpperCase().trim()))
+				medicineFind.add(new MedicineDTO(medicine));
+             
 		}
         return medicineFind;
 	}
@@ -157,6 +188,104 @@ public class MedicineService implements IMedicineService {
 		return new MedicineDTO(medicine2);
 	
 	}
+
+    public List<PharmacyDTO> getPharmacyForAvaliableMedicine(String medicineName) {
+		List<MedicineDTO> medicineDTO=findAllSearchMedicine(medicineName);
+        List<PharmacyDTO> pharmacies=pharmacyService.findPharmacyByMedicineName(medicineName);
+		List<PharmacyDTO> resultList=new ArrayList<>();
+
+		for (PharmacyDTO pharmacy : pharmacies) {
+			for(MedicinePriceAndQuantityDTO m : pharmacy.getPricelist()){
+				for(MedicineDTO mdto:medicineDTO){
+					if(m.getMedicine().getId().equals(mdto.getId()) && m.getQuantity()>0){
+						resultList.add(pharmacy);
+					}
+				}
+			}
+		}
+		return resultList;
+	    }
+
+	public List<PharmacyDTO> filtrationMedicineByType(String medicineName, String type) {
+		List<MedicineDTO> medicineDTO=findAllSearchMedicine(medicineName);
+        List<PharmacyDTO> pharmacies=pharmacyService.findPharmacyByMedicineName(medicineName);
+		List<PharmacyDTO> resultList=new ArrayList<>();
+
+		for (PharmacyDTO pharmacy : pharmacies) {
+			for(MedicinePriceAndQuantityDTO m : pharmacy.getPricelist()){
+				for(MedicineDTO mss : medicineDTO )
+				if(m.getMedicine().getId().equals(mss.getId()) && m.getQuantity()>0 && m.getMedicine().getType().toString().equals(type)){
+					resultList.add(pharmacy);
+				}
+			}
+		}
+		return resultList;
+	}
+
+    public List<PharmacyDTO> filtrationMedicineByForm(String medicineName, String form) {
+		List<MedicineDTO> medicineDTO=findAllSearchMedicine(medicineName);
+        List<PharmacyDTO> pharmacies=pharmacyService.findPharmacyByMedicineName(medicineName);
+		List<PharmacyDTO> resultList=new ArrayList<>();
+
+		for (PharmacyDTO pharmacy : pharmacies) {
+			for(MedicinePriceAndQuantityDTO m : pharmacy.getPricelist()){
+				for(MedicineDTO mss : medicineDTO )
+				if(m.getMedicine().getId().equals(mss.getId()) && m.getQuantity()>0 && m.getMedicine().getForm().toString().equals(form)){
+					resultList.add(pharmacy);
+				}
+			}
+		}
+		return resultList;    
+	}
+
+	public List<PharmacyDTO> filtrationMedicineByMark(String medicineName, String mark) {
+		List<MedicineDTO> medicineDTO=findAllSearchMedicine(medicineName);
+        List<PharmacyDTO> pharmacies=pharmacyService.findPharmacyByMedicineName(medicineName);
+		List<PharmacyDTO> resultList=new ArrayList<>();
+
+		for (PharmacyDTO pharmacy : pharmacies) {
+			for(MedicinePriceAndQuantityDTO m : pharmacy.getPricelist()){
+				for(MedicineDTO mss : medicineDTO )
+				if(m.getMedicine().getId().equals(mss.getId()) && m.getQuantity()>0 && m.getMedicine().getGrade()==Integer.valueOf(mark)){
+					resultList.add(pharmacy);
+				}
+			}
+		}
+		return resultList;  
+	}
+
+	public List<PharmacyDTO> filtrationMedicineOnPrescription(String medicineName) {
+		List<MedicineDTO> medicineDTO=findAllSearchMedicine(medicineName);
+        List<PharmacyDTO> pharmacies=pharmacyService.findPharmacyByMedicineName(medicineName);
+		List<PharmacyDTO> resultList=new ArrayList<>();
+
+		for (PharmacyDTO pharmacy : pharmacies) {
+			for(MedicinePriceAndQuantityDTO m : pharmacy.getPricelist()){
+				for(MedicineDTO mss : medicineDTO )
+				if(m.getMedicine().getId().equals(mss.getId()) && m.getQuantity()>0 && m.getMedicine().getOnPrescription()==true){
+					resultList.add(pharmacy);
+				}
+			}
+		}
+		return resultList;  	
+	}
+
+    public List<PharmacyDTO> filtrationMedicineNotOnPrescription(String medicineName) {
+		List<MedicineDTO> medicineDTO=findAllSearchMedicine(medicineName);
+        List<PharmacyDTO> pharmacies=pharmacyService.findPharmacyByMedicineName(medicineName);
+		List<PharmacyDTO> resultList=new ArrayList<>();
+
+		for (PharmacyDTO pharmacy : pharmacies) {
+			for(MedicinePriceAndQuantityDTO m : pharmacy.getPricelist()){
+				for(MedicineDTO mss : medicineDTO )
+				if(m.getMedicine().getId().equals(mss.getId()) && m.getQuantity()>0 && m.getMedicine().getOnPrescription()==false){
+					resultList.add(pharmacy);
+				}
+			}
+		}
+		return resultList;     }
+
+
 
 
 }

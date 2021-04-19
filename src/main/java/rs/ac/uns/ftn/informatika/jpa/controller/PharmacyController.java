@@ -2,7 +2,6 @@ package rs.ac.uns.ftn.informatika.jpa.controller;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import rs.ac.uns.ftn.informatika.jpa.dto.MedicineDTO;
+import rs.ac.uns.ftn.informatika.jpa.dto.MedicinePriceAndQuantityDTO;
 import rs.ac.uns.ftn.informatika.jpa.dto.PharmacyDTO;
 import rs.ac.uns.ftn.informatika.jpa.model.Medicine;
 import rs.ac.uns.ftn.informatika.jpa.model.Pharmacy;
@@ -107,4 +106,16 @@ public class PharmacyController {
 	public ResponseEntity<PharmacyDTO> addMark(@RequestBody Pharmacy pharmacy, @PathVariable Integer medicinesMark, @PathVariable Long id) throws Exception {
 		return ResponseEntity.ok(pharmacyService.addMark(pharmacy,medicinesMark, id));
 	}
+
+	@GetMapping(value = "/getPharmaciesPriceLists")
+	public ResponseEntity<List<MedicinePriceAndQuantityDTO>> getPharmaciesPriceLists() {
+		List<MedicinePriceAndQuantityDTO> pharmacies = pharmacyService.getPharmaciesPriceLists();
+		return pharmacies == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(pharmacies);
+	}
+	@GetMapping(value = "/getPharmacyByPriceListId/{id}")
+	public ResponseEntity<PharmacyDTO> getPharmacyByPriceListId(@PathVariable Long id) {
+		PharmacyDTO pharmacie = pharmacyService.getPharmacyByPriceListId(id);
+		return pharmacie == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(pharmacie);
+	}
+	
 }

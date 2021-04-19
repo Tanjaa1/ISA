@@ -128,6 +128,7 @@ public class PatientService implements IPatientService {
 		patient1.setFirstTimeLogin(patient.getFirstTimeLogin());
 		patient1.setDescription(patient.getDescription());
 		patient1.setDrugAllargies(patient.getDrugAllargies());
+		patient1.setActionOrPromotion(patient.getActionOrPromotion());
 		Patient patient2 = patientRepository.save(patient1);
 		return patient2;
 	}
@@ -328,6 +329,8 @@ public class PatientService implements IPatientService {
 		newSetA.remove(toCancel);
 		patientToUpdate.setActionOrPromotion(newSetA);
 		update(patientToUpdate);
+		emailSenderActionsOrPromotionsCancel(patientToUpdate,toCancel);
+
 		return new ActionOrPromotionsDTO(toCancel);
 		}
 

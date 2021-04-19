@@ -14,7 +14,7 @@ Vue.component("AllActionsAndPromotions", {
 	},
 	beforeMount(){
 		axios
-		.get('/actionOrPromotion/getAllUnsubscribed/88')
+		.get('/actionOrPromotion/getAll')
 		.then(response => {
 			this.allActionsAndPromotions = response.data
 		})
@@ -88,7 +88,7 @@ Vue.component("AllActionsAndPromotions", {
 			})
 
             await axios
-            .post('/patient/saveActionOrPromotion/'+'88',this.actionOrPromotion)
+            .post('/patient/saveActionOrPromotion/'+'90',this.actionOrPromotion)
             .then(response => {
                     alert('uspjesno dodat')
             })
