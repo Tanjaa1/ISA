@@ -45,6 +45,10 @@ const RegistrationPharmacist= { template: '<registrationPharmacist></registratio
 const Complaints= { template: '<complaints></complaints>' } 
 const PatientComplaints= { template: '<complaintPatient></complaintPatient>' } 
 const SystemAdminHomaPage= { template: '<systemAdminHomaPage></systemAdminHomaPage>' } 
+const ActionAndPromotion= { template: '<actionAndPromotion></actionAndPromotion>' } 
+const AllActionsAndPromotions= { template: '<allActionsAndPromotions></allActionsAndPromotions>' } 
+const SearchMedicine= { template: '<searchMedicine></searchMedicine>' } 
+
 
 
 
@@ -489,6 +493,29 @@ const router = new VueRouter({
 				content: PatientEvaluates
 			}
 		},
+		{
+			path: '/actionAndPromotion', 
+			name : 'actionAndPromotion', 
+			components: {
+				pageHeader: PatientHeader,
+				content: ActionAndPromotion
+			}
+		},
+		{
+			path: '/allActionsAndPromotions', 
+			name : 'allActionsAndPromotions', 
+			components: {
+				pageHeader: PatientHeader,
+				content: AllActionsAndPromotions
+			}
+		},
+		{
+			path: '/searchMedicine', 
+			name : 'searchMedicine', 
+			components: {
+				content: SearchMedicine
+			}
+		}
 	  ]
 });
 

@@ -18,8 +18,8 @@ public class MedicineDTO {
 	private String Composition;
 	private String Manufacturer;
 	private Boolean OnPrescription;
-	//private Set<String> Replacement = new HashSet<String>();
-	private String Replacement;
+	private Set<String> Replacement = new HashSet<String>();
+	//private String Replacement;
 	private String Note;
 	private String Contraindications;
 	private String DailyDose;
@@ -37,7 +37,7 @@ public class MedicineDTO {
 		Composition = composition;
 		Manufacturer = manufacturer;
 		OnPrescription = onPrescription;
-		//Replacement = replacement;
+		Replacement = replacement;
 		Note = note;
 	}
 
@@ -119,7 +119,7 @@ public class MedicineDTO {
 	public void setOnPrescription(Boolean onPrescription) {
 		OnPrescription = onPrescription;
 	}
-/*
+
 	public Set<String> getReplacement() {
 		return Replacement;
 	}
@@ -127,7 +127,7 @@ public class MedicineDTO {
 	public void setReplacement(Set<String> replacement) {
 		Replacement = replacement;
 	}
-*/
+
 	public String getNote() {
 		return Note;
 	}
@@ -151,7 +151,7 @@ public class MedicineDTO {
 	public void setType(MedicineType type) {
 		Type = type;
 	}
-
+/*
 	public String getReplacement() {
 		return Replacement;
 	}
@@ -159,7 +159,7 @@ public class MedicineDTO {
 	public void setReplacement(String replacement) {
 		Replacement = replacement;
 	}
-
+*/
 	public String getContraindications() {
 		return Contraindications;
 	}
@@ -177,7 +177,7 @@ public class MedicineDTO {
 	}
 
 	public MedicineDTO(Long id, String name, String code, MedicineType type, MedicineForm form, String composition,
-            String manufacturer, Boolean onPrescription, String replacement, String note, String contraindications,
+            String manufacturer, Boolean onPrescription, Set<String> replacement, String note, String contraindications,
             String dailyDose) {
         Id = id;
         Name = name;

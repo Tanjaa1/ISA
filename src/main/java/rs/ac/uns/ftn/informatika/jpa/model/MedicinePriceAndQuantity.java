@@ -13,6 +13,8 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import rs.ac.uns.ftn.informatika.jpa.dto.MedicinePriceAndQuantityDTO;
+
 @Entity
 @Table(name="MedicinePriceAndQuantity")
 public class MedicinePriceAndQuantity {
@@ -76,5 +78,14 @@ public class MedicinePriceAndQuantity {
 	public void setPrice(double price) {
 		Price = price;
 	}
+
+	public MedicinePriceAndQuantity(MedicinePriceAndQuantityDTO medicinePriceAndQuantity){
+		super();
+	Id = medicinePriceAndQuantity.getId();
+	Medicine = new Medicine(medicinePriceAndQuantity.getMedicine());
+	Price = medicinePriceAndQuantity.getPrice();
+	Quantity = medicinePriceAndQuantity.getQuantity();
+}
+
 	
 }

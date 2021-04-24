@@ -10,7 +10,6 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import rs.ac.uns.ftn.informatika.jpa.controller.ComplaintController;
 import rs.ac.uns.ftn.informatika.jpa.dto.ComplaintDTO;
 
 @Entity

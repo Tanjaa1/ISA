@@ -1,10 +1,8 @@
 package rs.ac.uns.ftn.informatika.jpa.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import javax.websocket.server.PathParam;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

@@ -200,12 +200,13 @@ public class Medicine {
 		Composition = medicineDTO.getComposition();
 		Manufacturer = medicineDTO.getManufacturer();
 		OnPrescription = medicineDTO.getOnPrescription();
-		String replacementParts[]=medicineDTO.getReplacement().split(",");
+		/* replacementParts[]=.split(",");
 		HashSet<String> setReplacements=new HashSet<String>();
 		for(String  i : replacementParts){
 			setReplacements.add(i);
 		}
-		Replacement = setReplacements;
+		*/
+		Replacement = medicineDTO.getReplacement();
 		Note = medicineDTO.getNote();
 		Contraindications = medicineDTO.getContraindications();
 		DailyDose = medicineDTO.getDailyDose();

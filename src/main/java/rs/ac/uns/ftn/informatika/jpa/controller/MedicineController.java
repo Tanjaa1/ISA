@@ -1,6 +1,8 @@
 package rs.ac.uns.ftn.informatika.jpa.controller;
 
 import java.util.List;
+import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import rs.ac.uns.ftn.informatika.jpa.dto.MedicineDTO;
+import rs.ac.uns.ftn.informatika.jpa.dto.MedicineForSearch;
 import rs.ac.uns.ftn.informatika.jpa.dto.MedicinePriceAndQuantityDTO;
 import rs.ac.uns.ftn.informatika.jpa.model.Medicine;
 import rs.ac.uns.ftn.informatika.jpa.model.MedicinePriceAndQuantity;
@@ -44,8 +47,8 @@ public class MedicineController {
 	}
 
 	@GetMapping(value = "/getAll")
-	public ResponseEntity<List<Medicine>> getAll() {
-    List<Medicine> retVal = medicineService.findAll();
+	public ResponseEntity<List<MedicineDTO>> getAll() {
+    List<MedicineDTO> retVal = medicineService.findAll();
 		return retVal == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(retVal);
   	}
 	@PostMapping(value = "/saveMedicinePriceAndQuantity")
@@ -70,5 +73,46 @@ public class MedicineController {
 		return ResponseEntity.ok(medicineService.addMark(medicine,medicinesMark, id));
 	}
 
+	@GetMapping(value = "/getPharmacyForAvaliableMedicine/{medicineName}")
+	public ResponseEntity<List<MedicineForSearch>> getMedicineByPatientId(@PathVariable String medicineName) {
+		List<MedicineForSearch> medicineDTOs = medicineService.getPharmacyForAvaliableMedicine(medicineName);
+		return medicineDTOs == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(medicineDTOs);
+	}
+
+	@GetMapping(value = "/combinedSearch/{parameters}")
+	public ResponseEntity<List<MedicineForSearch>> combinedSearch(@PathVariable String parameters) {
+		List<MedicineForSearch> medicineDTOs = medicineService.combinedSearch(parameters);
+		return medicineDTOs == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(medicineDTOs);
+	}
+
+	@GetMapping(value = "/filtrationMedicineByType/{medicineName}/{type}")
+	public ResponseEntity<List<MedicineForSearch>> filtrationMedicineByType(@PathVariable String medicineName,@PathVariable String type) {
+		List<MedicineForSearch> medicineDTOs = medicineService.filtrationMedicineByType(medicineName,type);
+		return medicineDTOs == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(medicineDTOs);
+	}
+
+	@GetMapping(value = "/filtrationMedicineByForm/{medicineName}/{form}")
+	public ResponseEntity<List<MedicineForSearch>> filtrationMedicineByForm(@PathVariable String medicineName,@PathVariable String form) {
+		List<MedicineForSearch> medicineDTOs = medicineService.filtrationMedicineByForm(medicineName,form);
+		return medicineDTOs == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(medicineDTOs);
+	}
+
+	@GetMapping(value = "/filtrationMedicineByMark/{medicineName}/{mark}")
+	public ResponseEntity<List<MedicineForSearch>> filtrationMedicineByMark(@PathVariable String medicineName,@PathVariable String mark) {
+		List<MedicineForSearch> medicineDTOs = medicineService.filtrationMedicineByMark(medicineName,mark);
+		return medicineDTOs == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(medicineDTOs);
+	}
+
+	@GetMapping(value = "/filtrationMedicineOnPrescription/{medicineName}")
+	public ResponseEntity<List<MedicineForSearch>> filtrationMedicineOnPrrescription(@PathVariable String medicineName) {
+		List<MedicineForSearch> medicineDTOs = medicineService.filtrationMedicineOnPrescription(medicineName);
+		return medicineDTOs == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(medicineDTOs);
+	}
+	@GetMapping(value = "/filtrationMedicineNotOnPrescription/{medicineName}")
+	public ResponseEntity<List<MedicineForSearch>> filtrationMedicineNotOnPrescription(@PathVariable String medicineName) {
+		List<MedicineForSearch> medicineDTOs = medicineService.filtrationMedicineNotOnPrescription(medicineName);
+		return medicineDTOs == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(medicineDTOs);
+	}
+	
 }
 

@@ -12,6 +12,6 @@ public interface IMedicineService {
 
 	public Medicine findOne(Long id);
 	public ResponseEntity<Medicine> save(Medicine patient) throws Exception;
-	ArrayList<Medicine> findAll();
+	ArrayList<MedicineDTO> findAll();
 }
 

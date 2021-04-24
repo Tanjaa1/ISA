@@ -1,15 +1,11 @@
 package rs.ac.uns.ftn.informatika.jpa.dto;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import rs.ac.uns.ftn.informatika.jpa.model.Dermatologist;
-import rs.ac.uns.ftn.informatika.jpa.model.Examination;
 import rs.ac.uns.ftn.informatika.jpa.model.Markk;
 import rs.ac.uns.ftn.informatika.jpa.model.Pharmacy;
-import rs.ac.uns.ftn.informatika.jpa.util.VacationInterval;
-import rs.ac.uns.ftn.informatika.jpa.util.WorkingTime;
 
 public class DermatologistDTO{
 
