@@ -47,6 +47,7 @@ const PatientComplaints= { template: '<complaintPatient></complaintPatient>' }
 const SystemAdminHomaPage= { template: '<systemAdminHomaPage></systemAdminHomaPage>' } 
 const ActionAndPromotion= { template: '<actionAndPromotion></actionAndPromotion>' } 
 const AllActionsAndPromotions= { template: '<allActionsAndPromotions></allActionsAndPromotions>' } 
+const SearchMedicine= { template: '<searchMedicine></searchMedicine>' } 
 
 
 
@@ -506,6 +507,13 @@ const router = new VueRouter({
 			components: {
 				pageHeader: PatientHeader,
 				content: AllActionsAndPromotions
+			}
+		},
+		{
+			path: '/searchMedicine', 
+			name : 'searchMedicine', 
+			components: {
+				content: SearchMedicine
 			}
 		}
 	  ]

@@ -161,6 +161,7 @@ public class PharmacyService implements IPharmacyService {
                 }
             }
         }
+
 		return pharmacyList;
 	}
 

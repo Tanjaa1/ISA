@@ -583,6 +583,9 @@ INSERT INTO public.medicine_marks(
 INSERT INTO public.medicine_marks(
 	medicine_id, marks_id)
 	VALUES (223, 504);
+INSERT INTO public.medicine_marks(
+	medicine_id, marks_id)
+	VALUES (224, 503);
 
 INSERT INTO public.pharmacist_marks(
 	pharmacist_id, marks_id)
