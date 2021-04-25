@@ -10,6 +10,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import rs.ac.uns.ftn.informatika.jpa.enums.OfferStatus;
+
 @Entity
 @Table(name="SupplierOffer")
 public class SupplierOffer {
@@ -26,8 +28,8 @@ public class SupplierOffer {
     @JoinColumn(name = "Supplier_id", referencedColumnName = "id")
 	private Supplier Supplier;
 	
-	@Column(name="IsAccepted", unique=false, nullable=true)
-	private Boolean isAccepted;
+	@Column(name="Status", unique=false, nullable=true)
+	private OfferStatus status;
 	
 	@Column(name="OfferPrice", unique=false, nullable=true)
 	private Double OfferPrice;
@@ -35,12 +37,12 @@ public class SupplierOffer {
 	public SupplierOffer(){}
 
 	public SupplierOffer(long id, Order order, Supplier supplier,
-			Boolean isAccepted, double offerPrice) {
+			OfferStatus status, double offerPrice) {
 		super();
 		this.id = id;
 		this.Order = order;
 		Supplier = supplier;
-		this.isAccepted = isAccepted;
+		this.status = status;
 		OfferPrice = offerPrice;
 	}	
 	
@@ -62,11 +64,11 @@ public class SupplierOffer {
 	public void setSupplier(Supplier supplier) {
 		Supplier = supplier;
 	}
-	public Boolean getIsAccepted() {
-		return isAccepted;
+	public OfferStatus getStatus() {
+		return status;
 	}
-	public void setIsAccepted(Boolean isAccepted) {
-		this.isAccepted = isAccepted;
+	public void setIsAccepted(OfferStatus status) {
+		this.status = status;
 	}
 	public double getOfferPrice() {
 		return OfferPrice;

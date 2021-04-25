@@ -10,7 +10,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import rs.ac.uns.ftn.informatika.jpa.dto.SupplierDTO;
 import rs.ac.uns.ftn.informatika.jpa.model.Supplier;
+import rs.ac.uns.ftn.informatika.jpa.model.SupplierOffer;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.ISupplierRepository;
 import rs.ac.uns.ftn.informatika.jpa.service.Interface.ISupplierService;
 
@@ -56,7 +58,7 @@ public class SupplierService implements ISupplierService {
 	}
 
     public Supplier findOne(Long id) {
-        Supplier supplier = supplierRepository.getOne(id);
+        Supplier supplier = supplierRepository.findById(id).get();
            return supplier;
    }
 
@@ -114,5 +116,9 @@ public class SupplierService implements ISupplierService {
 		update(supplierToUpdate);
 		return true;
 	}
-    
+
+	public List<Supplier> getAll() {
+		return supplierRepository.findAll();
+	}
+
 }

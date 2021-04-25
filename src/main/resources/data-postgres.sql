@@ -590,3 +590,15 @@ INSERT INTO public.medicine_marks(
 INSERT INTO public.pharmacist_marks(
 	pharmacist_id, marks_id)
 	VALUES (5, 501);
+
+	
+INSERT INTO public.order_medicine(
+	id, due_date, pharmacy_admin_id)
+	VALUES (0002,'1999-01-08', 8);
+
+	INSERT INTO public.supplier_offer(
+	id, offer_price, status, order_medicine_id, supplier_id)
+	VALUES (002, 500, 1, 0002, 10);
+	INSERT INTO public.supplier_offer(
+	id, offer_price, status, order_medicine_id, supplier_id)
+	VALUES (8, 600, 0, 2, 10);

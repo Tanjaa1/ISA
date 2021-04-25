@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import rs.ac.uns.ftn.informatika.jpa.dto.SupplierDTO;
 import rs.ac.uns.ftn.informatika.jpa.model.Supplier;
+import rs.ac.uns.ftn.informatika.jpa.model.SupplierOffer;
 import rs.ac.uns.ftn.informatika.jpa.service.SupplierService;
 
 @RestController
@@ -37,6 +39,18 @@ public class SupplierController {
 		return usernames == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(usernames);
 	}
 
+	@GetMapping(value = "/getAllSuppliers")
+	public ResponseEntity<List<Supplier>> getAllSuppliers() {
+		List<Supplier> usernames =supplierService.getAll();
+		return usernames == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(usernames);
+	}
+
+
+	@PostMapping(value = "/update")
+	public ResponseEntity<Supplier> updateGreeting(@RequestBody Supplier supplier) throws Exception {	
+		Supplier p = supplierService.update(supplier);
+		return p == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(p);
+	}
 	@GetMapping(value = "/isUsernameValid/{username}")
 	public ResponseEntity<Boolean> isUsernameValid(@PathVariable String username) {
 		Boolean isValid = supplierService.isUsernameValid(username);

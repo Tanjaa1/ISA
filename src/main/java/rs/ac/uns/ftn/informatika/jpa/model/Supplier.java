@@ -30,4 +30,5 @@ public class Supplier extends User {
 	// public void setMedicines(Set<MedicineQuantity> medicines) {
 	// 	Medicines = medicines;
 	// }
+	
 }
