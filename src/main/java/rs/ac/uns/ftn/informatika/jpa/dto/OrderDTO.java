@@ -13,13 +13,13 @@ import rs.ac.uns.ftn.informatika.jpa.model.MedicineQuantity;
 public class OrderDTO {
 
 	private Long Id;
-	private Set<MedicineQuantity> Orders = new HashSet<MedicineQuantity>();
+	private Set<MedicineQuantityDTO> Orders = new HashSet<MedicineQuantityDTO>();
 	private Date DueDate;
 	private PharmacyAdmin PharmacyAdmin;
 	
     public OrderDTO(){}
 
-	public OrderDTO(long id, Set<MedicineQuantity> orders, Date dueDate,PharmacyAdmin pharmacyAdmin) {
+	public OrderDTO(long id, Set<MedicineQuantityDTO> orders, Date dueDate,PharmacyAdmin pharmacyAdmin) {
 		this.Id = id;
 		this.Orders = orders;
 		DueDate = dueDate;
@@ -28,9 +28,14 @@ public class OrderDTO {
 
     public OrderDTO(Order order) {
 		this.Id = order.getId();
-		this.Orders = order.getOrders();
+		Set<MedicineQuantity> m= order.getOrders();
+		Set<MedicineQuantityDTO> result=new HashSet<>();
+		for (MedicineQuantity medicineQuantityDTO : m) {
+				result.add(new MedicineQuantityDTO(medicineQuantityDTO));
+		}
+		this.Orders =result;
 		DueDate = order.getDueDate();
-		PharmacyAdmin = order.getPharmacyAdmin();
+		PharmacyAdmin =order.getPharmacyAdmin();
 	}
 
 	public long getId() {
@@ -39,10 +44,10 @@ public class OrderDTO {
 	public void setId(long id) {
 		this.Id = id;
 	}
-	public Set<MedicineQuantity> getOrders() {
+	public Set<MedicineQuantityDTO> getOrders() {
 		return Orders;
 	}
-	public void setOrders(Set<MedicineQuantity> orders) {
+	public void setOrders(Set<MedicineQuantityDTO> orders) {
 		this.Orders = orders;
 	}
 	public Date getDueDate() {

@@ -252,10 +252,10 @@ INSERT INTO public.medicine_price_and_quantity(
 
 INSERT INTO public.medicine_quantity(
 	id, quantity, medicine_id, supplier_id)
-	VALUES (13123, 5, 222, 10);
+	VALUES (1, 5, 222, 10);
 INSERT INTO public.medicine_quantity(
 	id, quantity, medicine_id, supplier_id)
-	VALUES (2312312, 10, 223, 11);
+	VALUES (2, 10, 223, 11);
     
 INSERT INTO public.patient_drug_allargies(patient_id, drug_allargies) VALUES (88, 'brufen');
 INSERT INTO public.patient_drug_allargies(patient_id, drug_allargies) VALUES (88, 'cefalosporini');
@@ -591,14 +591,30 @@ INSERT INTO public.pharmacist_marks(
 	pharmacist_id, marks_id)
 	VALUES (5, 501);
 
+
+
 	
 INSERT INTO public.order_medicine(
 	id, due_date, pharmacy_admin_id)
-	VALUES (0002,'1999-01-08', 8);
+	VALUES (1,'2008-11-11 13:23:44', 8);
+	
+INSERT INTO public.order_medicine(
+	id, due_date, pharmacy_admin_id)
+	VALUES (2,'2008-11-11 13:23:44', 9);
 
-	INSERT INTO public.supplier_offer(
-	id, offer_price, status, order_medicine_id, supplier_id)
-	VALUES (002, 500, 1, 0002, 10);
-	INSERT INTO public.supplier_offer(
-	id, offer_price, status, order_medicine_id, supplier_id)
-	VALUES (8, 600, 0, 2, 10);
+INSERT INTO public.order_medicine(
+	id, due_date, pharmacy_admin_id)
+	VALUES (3,'2008-11-11 13:23:44', 8);
+
+INSERT INTO public.order_medicine_orders(
+	order_id, orders_id)
+	VALUES (2, 1);
+INSERT INTO public.order_medicine_orders(
+	order_id, orders_id)
+	VALUES (2, 2);
+INSERT INTO public.medicine_quantity(
+	id, quantity, medicine_id, supplier_id)
+	VALUES (3, 3, 223, 10);
+INSERT INTO public.order_medicine_orders(
+	order_id, orders_id)
+	VALUES (3, 3);

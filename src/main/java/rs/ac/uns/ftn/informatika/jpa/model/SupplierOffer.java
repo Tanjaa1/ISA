@@ -1,5 +1,7 @@
 package rs.ac.uns.ftn.informatika.jpa.model;
 
+import java.util.Date;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -34,10 +36,50 @@ public class SupplierOffer {
 	@Column(name="OfferPrice", unique=false, nullable=true)
 	private Double OfferPrice;
 	
+	@Column(name="DueDate", unique=false, nullable=true)
+	private String DueDate;
+	
 	public SupplierOffer(){}
+	
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+
+	public void setStatus(OfferStatus status) {
+		this.status = status;
+	}
+
+
+	public void setOfferPrice(Double offerPrice) {
+		OfferPrice = offerPrice;
+	}
+
+
+	public String getDueDate() {
+		return DueDate;
+	}
+
+
+	public void setDueDate(String dueDate) {
+		DueDate = dueDate;
+	}
+
+
+	public SupplierOffer(Long id,Order order,Supplier supplier, OfferStatus status, Double offerPrice,
+	String dueDate) {
+		this.id = id;
+		Order = order;
+		Supplier = supplier;
+		this.status = status;
+		OfferPrice = offerPrice;
+		DueDate = dueDate;
+	}
+
 
 	public SupplierOffer(long id, Order order, Supplier supplier,
-			OfferStatus status, double offerPrice) {
+			OfferStatus status, Double offerPrice) {
 		super();
 		this.id = id;
 		this.Order = order;
@@ -70,10 +112,8 @@ public class SupplierOffer {
 	public void setIsAccepted(OfferStatus status) {
 		this.status = status;
 	}
-	public double getOfferPrice() {
+	public Double getOfferPrice() {
 		return OfferPrice;
 	}
-	public void setOfferPrice(double offerPrice) {
-		OfferPrice = offerPrice;
-	}
+
 }

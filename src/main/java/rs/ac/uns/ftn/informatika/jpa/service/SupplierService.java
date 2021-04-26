@@ -1,7 +1,10 @@
 package rs.ac.uns.ftn.informatika.jpa.service;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -10,7 +13,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import rs.ac.uns.ftn.informatika.jpa.dto.MedicineQuantityDTO;
 import rs.ac.uns.ftn.informatika.jpa.dto.SupplierDTO;
+import rs.ac.uns.ftn.informatika.jpa.model.MedicineQuantity;
 import rs.ac.uns.ftn.informatika.jpa.model.Supplier;
 import rs.ac.uns.ftn.informatika.jpa.model.SupplierOffer;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.ISupplierRepository;
@@ -120,5 +125,15 @@ public class SupplierService implements ISupplierService {
 	public List<Supplier> getAll() {
 		return supplierRepository.findAll();
 	}
+
+    public Set<MedicineQuantityDTO> getAllSuppliersStokcs(Long supplierId) {
+       Supplier supplier=supplierRepository.findById(supplierId).get();
+	   Set<MedicineQuantity> result=supplier.getMedicines();
+	   Set<MedicineQuantityDTO> result1=new HashSet<>();
+	   for (MedicineQuantity medicineQuantityDTO : result) {
+		result1.add(new MedicineQuantityDTO(medicineQuantityDTO));
+	   }
+	   return result1;
+    }
 
 }

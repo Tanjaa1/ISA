@@ -1,6 +1,7 @@
 package rs.ac.uns.ftn.informatika.jpa.dto;
 
 import rs.ac.uns.ftn.informatika.jpa.model.Pharmacy;
+import rs.ac.uns.ftn.informatika.jpa.model.PharmacyAdmin;
 
 public class PharmacyAdminDTO {
     private String Email;
@@ -137,6 +138,22 @@ public class PharmacyAdminDTO {
         FirstTimeLogin = firstTimeLogin;
         UserName = userName;
         Pharmacy = pharmacy;
+    }
+    
+    public PharmacyAdminDTO(PharmacyAdmin pa) {
+        Email = pa.getEmail();
+        Password = pa.getPassword();
+        Name = pa.getName();
+        Surname = pa.getSurname();
+        Address = pa.getAddress();
+        City = pa.getCity();
+        Country = pa.getCountry();
+        PhoneNumber = pa.getPhoneNumber();
+        Description = pa.getDescription();
+        EmailComfirmed = pa.getEmailComfirmed();
+        FirstTimeLogin = pa.getFirstTimeLogin();
+        UserName = pa.getUsername();
+       // Pharmacy = pa.;
     }
 	public String fullName(){
 		return Name+" "+Surname;

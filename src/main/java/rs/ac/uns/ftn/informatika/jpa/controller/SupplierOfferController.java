@@ -8,12 +8,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import rs.ac.uns.ftn.informatika.jpa.model.SupplierOffer;
 import rs.ac.uns.ftn.informatika.jpa.service.SupplierOfferService;
-import rs.ac.uns.ftn.informatika.jpa.service.SupplierService;
 
 @RestController
 @RequestMapping(value = "/supplierOffer")
@@ -33,5 +34,11 @@ public class SupplierOfferController {
 	public ResponseEntity<List<SupplierOffer>> filtrateOfferByStatus(@PathVariable String status,@PathVariable Long id) {
 		List<SupplierOffer> usernames =supplierOfferService.filtrateOfferByStatus(status,id);
 		return usernames == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(usernames);
+	}
+	@PostMapping(value = "/giveOfferToOrder/{orderId}/{supplierId}")
+	public Boolean giveOfferToOrder(@RequestParam  double price,@RequestParam  String dueDate, @PathVariable Long orderId,@PathVariable Long supplierId) throws Exception {
+		Boolean offerS =supplierOfferService.giveOfferToOrder(price,dueDate,orderId,supplierId);
+		return offerS;
+
 	}
 }

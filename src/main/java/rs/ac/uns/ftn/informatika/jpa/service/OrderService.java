@@ -21,11 +21,11 @@ public class OrderService implements IOrderService {
     @Override
     public List<OrderDTO> findAll() {
         ArrayList<Order> orders = orderRepository.findAll();
-        ArrayList<OrderDTO> returnValue = new ArrayList<OrderDTO>();
-        for (Order order : orders) {
-            returnValue.add(new OrderDTO(order));
-        }
-        return returnValue;
+        List<OrderDTO> result=new ArrayList<>(); 
+       for (Order order : orders) {
+           result.add(new OrderDTO(order));
+       }
+        return result;
     }
     
 	public ResponseEntity<Order> save(Order order) throws Exception{
@@ -33,4 +33,8 @@ public class OrderService implements IOrderService {
 	    return new ResponseEntity<>( HttpStatus.CREATED);
 	}
 
+    public OrderDTO getById(Long id) {
+        Order order=orderRepository.getOne(id);
+       return new OrderDTO(order);
+    }
 }
