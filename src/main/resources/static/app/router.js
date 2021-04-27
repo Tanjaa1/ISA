@@ -50,6 +50,8 @@ const AllActionsAndPromotions= { template: '<allActionsAndPromotions></allAction
 const SearchMedicine= { template: '<searchMedicine></searchMedicine>' } 
 const SupplierProfile= { template: '<supplierProfile></supplierProfile>' } 
 const SupplierInfo= { template: '<supplierInfo></supplierInfo>' } 
+const SuppliersOffers= { template: '<suppliersOffers></suppliersOffers>' } 
+
 
 
 
@@ -531,6 +533,13 @@ const router = new VueRouter({
 			name : 'supplierInfo', 
 			components: {
 				content: SupplierInfo
+			}
+		},
+		{
+			path: '/suppliersOffers', 
+			name : 'suppliersOffers', 
+			components: {
+				content: SuppliersOffers
 			}
 		}
 	  ]

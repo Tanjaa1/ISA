@@ -100,7 +100,8 @@ Vue.component("supplierInfo", {
 </div>
 <br></br><br></br>
 
-			
+<button id="Close" type="button" class="btn1 btn-info btn-lg margin form-control" data-toggle="modal" v-on:click="close()" >Go back</button>
+
 			
 	</div>					
 	`,
@@ -153,6 +154,9 @@ Vue.component("supplierInfo", {
             .catch(error => {
                 alert('nesupjesnooo')
             })
+        },
+        close:function(){
+          this.$router.push('supplierProfile');
         }
 }
 });

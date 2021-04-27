@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import rs.ac.uns.ftn.informatika.jpa.controller.MedicineController;
 import rs.ac.uns.ftn.informatika.jpa.dto.MedicineQuantityDTO;
 import rs.ac.uns.ftn.informatika.jpa.dto.OrderDTO;
+import rs.ac.uns.ftn.informatika.jpa.dto.SupplierOfferDTO;
 import rs.ac.uns.ftn.informatika.jpa.enums.OfferStatus;
 import rs.ac.uns.ftn.informatika.jpa.model.Medicine;
 import rs.ac.uns.ftn.informatika.jpa.model.MedicineQuantity;
@@ -32,28 +33,35 @@ public class SupplierOfferService {
     private SupplierService supplierService;
 
    
-    public List<SupplierOffer> getOfferBySupplierId(Long id) {
+    public List<SupplierOfferDTO> getOfferBySupplierId(Long id) {
     Supplier s=supplierService.findOne(id);
-    List<SupplierOffer> result=new ArrayList<>();
+    List<SupplierOfferDTO> result=new ArrayList<>();
     List<SupplierOffer> list=supplierOfferRepository.findAll();
     for(SupplierOffer supplierOffer : list){
         if(supplierOffer.getSupplier().equals(s)){
-            result.add(supplierOffer);
+            result.add(new SupplierOfferDTO(supplierOffer));
+        }else{
+            result=null;
         }
-    }
-    if(result.isEmpty())
-        return null;
-    else    
+    } 
         return result;
     }
 
-    public List<SupplierOffer> filtrateOfferByStatus(String status,Long supplierId) {
-		List<SupplierOffer> list=getOfferBySupplierId(supplierId);
-        List<SupplierOffer> result=new ArrayList<>();
+    public List<SupplierOfferDTO> filtrateOfferByStatus(String status,Long supplierId) {
+		List<SupplierOfferDTO> list=getOfferBySupplierId(supplierId);
+        List<SupplierOfferDTO> result=new ArrayList<>();
 
-        for(SupplierOffer s :list){
-            if(s.getStatus().toString().equals(status)){
-                result.add(s);
+        if(list==null){
+            result= null;
+        }else{
+            if(status.equals("All")){
+                result=getOfferBySupplierId(supplierId);
+            }else{
+                for(SupplierOfferDTO s :list){
+                    if(s.getStatus().toString().equals(status)){
+                        result.add(s);
+                    }
+                }
             }
         }
        return  result;

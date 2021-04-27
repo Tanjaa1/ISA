@@ -618,3 +618,16 @@ INSERT INTO public.medicine_quantity(
 INSERT INTO public.order_medicine_orders(
 	order_id, orders_id)
 	VALUES (3, 3);
+
+
+	INSERT INTO public.supplier_offer(
+	id, due_date, offer_price, status, order_medicine_id, supplier_id)
+	VALUES (3, 'neki datum', 14000.00, 2, 3, 10);
+	
+	INSERT INTO public.supplier_offer(
+	id, due_date, offer_price, status, order_medicine_id, supplier_id)
+	VALUES (2, 'neki datum', 15000.00, 1, 2, 10);
+	
+	INSERT INTO public.supplier_offer(
+	id, due_date, offer_price, status, order_medicine_id, supplier_id)
+	VALUES (1, 'neki datum', 16000.00, 0, 1, 10);

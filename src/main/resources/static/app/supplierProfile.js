@@ -22,7 +22,7 @@ Vue.component("supplierProfile", {
          
             <div class="col-sm">
               <h3>
-                <button id="personalInfo" type="button" class="btn btn-info btn-lg margin form-control" v-on:click="pharmacistExamination()"></button>
+                <button id="personalInfo" type="button" class="btn btn-info btn-lg margin form-control" v-on:click="personalInfo()"></button>
                 </h3><br/> 
             </div>
             <div class="col-sm">
@@ -51,6 +51,10 @@ Vue.component("supplierProfile", {
 	</div>					
 	`,
 	methods: {
+    personalInfo:function(){
+      this.$router.push('supplierInfo');
+
+    },
 		Search:function(){
 			var text=document.getElementById("idText").value
 			var onPrescriptionText=document.getElementById("onPrescription").value
