@@ -28,6 +28,7 @@ public class Supplier extends User {
 		super(id, email, password, name, surname, address, city, country, phoneNumber, description);
 		Medicines = medicines;
 	}
+	
 	public Supplier(Long id, String email, String password, String name, String surname, String address, String city,
 			String country, String phoneNumber, String description, Boolean emailComfirmed, Boolean firstTimeLogin,
 			String username) {

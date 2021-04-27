@@ -48,6 +48,9 @@ const SystemAdminHomaPage= { template: '<systemAdminHomaPage></systemAdminHomaPa
 const ActionAndPromotion= { template: '<actionAndPromotion></actionAndPromotion>' } 
 const AllActionsAndPromotions= { template: '<allActionsAndPromotions></allActionsAndPromotions>' } 
 const SearchMedicine= { template: '<searchMedicine></searchMedicine>' } 
+const SupplierProfile= { template: '<supplierProfile></supplierProfile>' } 
+const SupplierInfo= { template: '<supplierInfo></supplierInfo>' } 
+
 
 
 
@@ -514,6 +517,20 @@ const router = new VueRouter({
 			name : 'searchMedicine', 
 			components: {
 				content: SearchMedicine
+			}
+		},
+		{
+			path: '/supplierProfile', 
+			name : 'supplierProfile', 
+			components: {
+				content: SupplierProfile
+			}
+		},
+		{
+			path: '/supplierInfo', 
+			name : 'supplierInfo', 
+			components: {
+				content: SupplierInfo
 			}
 		}
 	  ]

@@ -1,6 +1,6 @@
 package rs.ac.uns.ftn.informatika.jpa.dto;
 
-import java.util.function.Supplier;
+import rs.ac.uns.ftn.informatika.jpa.model.Supplier;
 
 public class SupplierDTO {
     private Long Id;
@@ -33,7 +33,21 @@ public class SupplierDTO {
         EmailComfirmed = emailComfirmed;
         FirstTimeLogin = firstTimeLogin;
     }
-
+    public SupplierDTO(Supplier s) {
+            Id = s.getId();
+            Email = s.getEmail();
+            Password = s.getPassword();
+            Name =s.getName();
+            Surname = s.getSurname();
+            Address = s.getAddress();
+            City = s.getCity();
+            Country = s.getCountry();
+            PhoneNumber = s.getPhoneNumber();
+            Username = s.getUsername();
+            Description = s.getDescription();
+            EmailComfirmed = s.getEmailComfirmed();
+            FirstTimeLogin = s.getFirstTimeLogin();
+}
     public Long getId() {
         return Id;
     }

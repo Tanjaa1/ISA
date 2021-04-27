@@ -1,0 +1,68 @@
+#SupplierProfile {
+    background-image: url("../pictures/supplierBackground.jpg");
+    background-repeat: no-repeat;
+    overflow-y: hidden;
+    overflow-x: hidden;
+    background-size: cover;
+    height: auto !important;
+    min-height: 1000px;
+    color: white;
+    font-family: impact;
+}
+
+.navbar{
+    background-color: lightblue;
+
+}
+
+.navbar-custom .navbar-brand {
+    color: white;
+    font-size: 30px;
+    font-weight: 100;
+    font-family: 'Impact';
+}
+#navbarDropdown {
+    background-color: lightblue;
+}
+
+.pi{
+	text-align: center;
+	margin-bottom:8%;
+}
+
+
+
+#personalInfo{
+    background-image: url("../pictures/sinfo.jpg");
+    height: 150px;
+    width: 150px;
+    background-color: white;
+    border-radius: 20px;
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: 0.8;
+}
+
+#MyOffers{
+    background-image: url("../pictures/ord.jpg");
+    height: 150px;
+    width: 150px;
+    background-color: white;
+    border-radius: 20px;
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: 0.8;
+}
+
+
+
+#giveOffers{
+    background-image: url("../pictures/orders.jpg");
+    height: 150px;
+    width: 150px;
+    background-color: white;
+    border-radius: 20px;
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: 0.8;
+}

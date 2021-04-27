@@ -41,6 +41,11 @@ public class SupplierController {
 		List<String> usernames =supplierService.getAllSupplierUsernames();
 		return usernames == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(usernames);
 	}
+	@GetMapping(value = "/getById/{supplierId}")
+	public ResponseEntity<SupplierDTO> getById(@PathVariable Long supplierId) {
+		SupplierDTO usernames =new SupplierDTO(supplierService.findOne(supplierId));
+		return usernames == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(usernames);
+	}
 
 	@GetMapping(value = "/getAllSuppliers")
 	public ResponseEntity<List<Supplier>> getAllSuppliers() {
@@ -54,9 +59,9 @@ public class SupplierController {
 	}
 
 
-	@PostMapping(value = "/update")
-	public ResponseEntity<Supplier> updateGreeting(@RequestBody Supplier supplier) throws Exception {	
-		Supplier p = supplierService.update(supplier);
+	@PutMapping(value = "/update")
+	public ResponseEntity<SupplierDTO> updateGreeting(@RequestBody SupplierDTO supplier) throws Exception {	
+		SupplierDTO p = supplierService.update(supplier);
 		return p == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(p);
 	}
 	@GetMapping(value = "/isUsernameValid/{username}")

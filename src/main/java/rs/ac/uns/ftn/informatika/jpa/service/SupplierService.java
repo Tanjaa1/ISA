@@ -31,7 +31,7 @@ public class SupplierService implements ISupplierService {
 	private EmailService emailService;
 	private Logger logger = LoggerFactory.getLogger(ResrvationService.class);
     
-    public ResponseEntity<Supplier> save(Supplier supplier) throws Exception {
+    public ResponseEntity<SupplierDTO> save(Supplier supplier) throws Exception {
         supplierRepository.save(supplier);
         List<Supplier> suppliers=supplierRepository.findAll();
 		Long supplierId=0L;
@@ -67,8 +67,7 @@ public class SupplierService implements ISupplierService {
            return supplier;
    }
 
-    @Override
-    public Supplier update(Supplier supplier) throws Exception {
+    public SupplierDTO update(SupplierDTO supplier) throws Exception {
         Supplier supplier1 = findOne(supplier.getId());
         if (supplier1 == null) {
             throw new Exception("Trazeni entitet nije pronadjen.");
@@ -88,7 +87,7 @@ public class SupplierService implements ISupplierService {
         supplier1.setUsername(supplier.getUsername());
 
         Supplier supplier2 = supplierRepository.save(supplier1);
-        return supplier2;
+        return new SupplierDTO(supplier2);
     }
     private void emailSender(Supplier supplier)
 	{
@@ -116,9 +115,10 @@ public class SupplierService implements ISupplierService {
 	public Boolean confirmationEmail(Long supplierId) throws Exception {
 		Long decriptId=IdDecryption(supplierId);
 		Supplier supplierToUpdate=findOne(decriptId);
-		if(supplierToUpdate.getEmailComfirmed()) return false;
-		supplierToUpdate.setEmailComfirmed(true);
-		update(supplierToUpdate);
+		SupplierDTO supplierDTO=new SupplierDTO(supplierToUpdate);
+		if(supplierDTO.getEmailComfirmed()) return false;
+		supplierDTO.setEmailComfirmed(true);
+		update(supplierDTO);
 		return true;
 	}
 
