@@ -42,9 +42,15 @@ public class SupplierOfferController {
 		List<SupplierOfferDTO> usernames =supplierOfferService.filtrateOfferByStatus(status,id);
 		return usernames ;
 	}
-	@PostMapping(value = "/giveOfferToOrder/{orderId}/{supplierId}")
-	public Boolean giveOfferToOrder(@RequestParam  double price,@RequestParam  String dueDate, @PathVariable Long orderId,@PathVariable Long supplierId) throws Exception {
+	@GetMapping(value = "/giveOfferToOrder/{orderId}/{supplierId}/{price}/{dueDate}")
+	public Boolean giveOfferToOrder(@PathVariable  double price,@PathVariable  String dueDate, @PathVariable Long orderId,@PathVariable Long supplierId) throws Exception {
 		Boolean offerS =supplierOfferService.giveOfferToOrder(price,dueDate,orderId,supplierId);
+		return offerS;
+
+	}
+	@GetMapping(value = "/isOfferGivenToOrder/{orderId}/{supplierId}")
+	public Boolean isOfferGivenToOrder(@PathVariable Long orderId,@PathVariable Long supplierId) throws Exception {
+		Boolean offerS =supplierOfferService.isOfferGivenToOrder(orderId,supplierId);
 		return offerS;
 
 	}

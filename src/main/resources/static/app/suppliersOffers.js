@@ -79,7 +79,7 @@ Vue.component("suppliersOffers", {
 
       <!-- Modal Header -->
       <div class="modal-header">
-        <h4 class="modal-title">Modal Heading</h4>
+        <h4 class="modal-title">Orders:</h4>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
 
@@ -144,7 +144,6 @@ Vue.component("suppliersOffers", {
 			this.$router.push('supplierProfile');
 		  },
 		Offers:function(id){
-			alert(id)
 			axios
 			.get('supplierOffer/getOrdersByOrderId/'+id)
 			.then(response => {

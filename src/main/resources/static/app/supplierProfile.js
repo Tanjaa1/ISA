@@ -32,7 +32,7 @@ Vue.component("supplierProfile", {
             </div>
             <div class="col-sm">
               <h3>
-                <button id="giveOffers" type="button" class="btn btn-info btn-lg margin form-control" v-on:click="medicineReservation()"></button>
+                <button id="giveOffers" type="button" class="btn btn-info btn-lg margin form-control" v-on:click="GiveOffer()"></button>
                 </h3><br/> 
             </div>
             
@@ -82,7 +82,10 @@ Vue.component("supplierProfile", {
     OffersShow:function(){
       this.$router.push('suppliersOffers');
     }
-		
+		,
+    GiveOffer:function(){
+      this.$router.push('giveOffers');
+    }
 	}
 });
 

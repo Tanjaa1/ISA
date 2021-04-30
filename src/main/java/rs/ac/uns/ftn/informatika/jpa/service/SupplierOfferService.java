@@ -93,6 +93,7 @@ public class SupplierOfferService {
         if(hasOnStock){
             SupplierOffer s=new SupplierOffer(Long.valueOf('7'),o,supplier,OfferStatus.Waiting_for_answer,price,dueDate);
             save(s);
+            break;
         }
         }
         return hasOnStock;        
@@ -101,6 +102,19 @@ public class SupplierOfferService {
     public Set<MedicineQuantityDTO> getOrdersByOrderId(Long orderId) {
         OrderDTO orderDTO=orderService.getById(orderId);
         Set<MedicineQuantityDTO> result=orderDTO.getOrders();
+        return result;
+    }
+
+    public Boolean isOfferGivenToOrder(Long orderId, Long supplierId) {
+        List<SupplierOffer> offersList=supplierOfferRepository.findAll();
+        Boolean result=false;
+        for (SupplierOffer s : offersList) {
+            if(s.getOrder().getId()==orderId &&  s.getSupplier().getId()==supplierId){
+                result= true;
+            }else{
+                result= false;
+            }
+        }
         return result;
     }
 

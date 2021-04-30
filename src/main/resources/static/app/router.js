@@ -51,6 +51,7 @@ const SearchMedicine= { template: '<searchMedicine></searchMedicine>' }
 const SupplierProfile= { template: '<supplierProfile></supplierProfile>' } 
 const SupplierInfo= { template: '<supplierInfo></supplierInfo>' } 
 const SuppliersOffers= { template: '<suppliersOffers></suppliersOffers>' } 
+const GiveOffers= { template: '<giveOffers></giveOffers>' } 
 
 
 
@@ -540,6 +541,13 @@ const router = new VueRouter({
 			name : 'suppliersOffers', 
 			components: {
 				content: SuppliersOffers
+			}
+		},
+		{
+			path: '/giveOffers', 
+			name : 'giveOffers', 
+			components: {
+				content: GiveOffers
 			}
 		}
 	  ]
