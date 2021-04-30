@@ -12,6 +12,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import rs.ac.uns.ftn.informatika.jpa.dto.MedicineDTO;
+import rs.ac.uns.ftn.informatika.jpa.dto.MedicineQuantityDTO;
+
 @Entity
 @Table(name="MedicineQuantity")
 public class MedicineQuantity {
@@ -40,6 +43,13 @@ public class MedicineQuantity {
 		this.Id = id;
 		Medicine = medicine;
 		Quantity = quantity;
+	}
+
+	public MedicineQuantity(MedicineQuantityDTO m) {
+		super();
+		this.Id = m.getId();
+		Medicine = new Medicine(m.getMedicine());
+		Quantity = m.getQuantity();
 	}
 	
 	public Long getId() {

@@ -1,5 +1,7 @@
 package rs.ac.uns.ftn.informatika.jpa.model;
 
+import java.util.Date;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import rs.ac.uns.ftn.informatika.jpa.enums.OfferStatus;
 
 @Entity
 @Table(name="SupplierOffer")
@@ -26,21 +30,61 @@ public class SupplierOffer {
     @JoinColumn(name = "Supplier_id", referencedColumnName = "id")
 	private Supplier Supplier;
 	
-	@Column(name="IsAccepted", unique=false, nullable=true)
-	private Boolean isAccepted;
+	@Column(name="Status", unique=false, nullable=true)
+	private OfferStatus status;
 	
 	@Column(name="OfferPrice", unique=false, nullable=true)
 	private Double OfferPrice;
 	
+	@Column(name="DueDate", unique=false, nullable=true)
+	private String DueDate;
+	
 	public SupplierOffer(){}
+	
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+
+	public void setStatus(OfferStatus status) {
+		this.status = status;
+	}
+
+
+	public void setOfferPrice(Double offerPrice) {
+		OfferPrice = offerPrice;
+	}
+
+
+	public String getDueDate() {
+		return DueDate;
+	}
+
+
+	public void setDueDate(String dueDate) {
+		DueDate = dueDate;
+	}
+
+
+	public SupplierOffer(Long id,Order order,Supplier supplier, OfferStatus status, Double offerPrice,
+	String dueDate) {
+		this.id = id;
+		Order = order;
+		Supplier = supplier;
+		this.status = status;
+		OfferPrice = offerPrice;
+		DueDate = dueDate;
+	}
+
 
 	public SupplierOffer(long id, Order order, Supplier supplier,
-			Boolean isAccepted, double offerPrice) {
+			OfferStatus status, Double offerPrice) {
 		super();
 		this.id = id;
 		this.Order = order;
 		Supplier = supplier;
-		this.isAccepted = isAccepted;
+		this.status = status;
 		OfferPrice = offerPrice;
 	}	
 	
@@ -62,16 +106,14 @@ public class SupplierOffer {
 	public void setSupplier(Supplier supplier) {
 		Supplier = supplier;
 	}
-	public Boolean getIsAccepted() {
-		return isAccepted;
+	public OfferStatus getStatus() {
+		return status;
 	}
-	public void setIsAccepted(Boolean isAccepted) {
-		this.isAccepted = isAccepted;
+	public void setIsAccepted(OfferStatus status) {
+		this.status = status;
 	}
-	public double getOfferPrice() {
+	public Double getOfferPrice() {
 		return OfferPrice;
 	}
-	public void setOfferPrice(double offerPrice) {
-		OfferPrice = offerPrice;
-	}
+
 }

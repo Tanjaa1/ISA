@@ -1,0 +1,47 @@
+.btn1 {
+    background-color: lightblue;
+    color: white;
+    border: thick;
+    font-family: 'Impact';
+    font-weight: 100;
+    width: 300px;
+    margin-left: 70%;
+    margin-bottom: 2%;
+}
+
+.pi{
+	text-align: center;
+	margin-bottom:2%;
+}
+.subText{
+    background-color: lightblue;
+    color: white;
+    border: thick;
+    font-family:Georgia, 'Times New Roman', Times, serif;
+    font-weight: 100;
+    width: 300px;
+    margin-left: 70%;
+    margin-bottom: 2%;
+}
+.SaveInfo{
+    background-color: lightblue;
+    color: white;
+    border: thick;
+    font-family: 'Impact';
+    font-weight: 100;
+    width: 300px;
+    margin-left: 70%;
+    margin-bottom: 2%;
+}
+
+#SupplierInfo {
+    background-image: url("../pictures/pinfo.jpg");
+    background-repeat: no-repeat;
+    overflow-y: hidden;
+    overflow-x: hidden;
+    background-size: cover;
+    height: auto !important;
+    min-height: 1000px;
+    color: white;
+    font-family: impact;
+}

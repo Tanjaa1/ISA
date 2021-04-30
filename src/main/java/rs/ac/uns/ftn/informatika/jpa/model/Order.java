@@ -17,6 +17,9 @@ import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import rs.ac.uns.ftn.informatika.jpa.dto.MedicineQuantityDTO;
+import rs.ac.uns.ftn.informatika.jpa.dto.OrderDTO;
+
 @Entity
 @Table(name="OrderMedicine")
 public class Order {
@@ -26,7 +29,7 @@ public class Order {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "Id")
 	private Long Id;
 	
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+	@OneToMany(fetch = FetchType.LAZY, cascade ={CascadeType.PERSIST,CascadeType.REMOVE})
 	private Set<MedicineQuantity> Orders = new HashSet<MedicineQuantity>();
 	
 	@Column(name="DueDate", unique=false, nullable=true)
@@ -44,6 +47,18 @@ public class Order {
 		this.Orders = orders;
 		DueDate = dueDate;
 		PharmacyAdmin = pharmacyAdmin;
+	}
+	public Order(OrderDTO o) {
+		super();
+		this.Id = o.getId();
+		Set<MedicineQuantityDTO> m=o.getOrders();
+		Set<MedicineQuantity>result=new HashSet<>();
+		for (MedicineQuantityDTO medicineQuantity : m) {
+			result.add(new MedicineQuantity(medicineQuantity));
+		}
+		this.Orders = result;
+		DueDate = o.getDueDate();
+		PharmacyAdmin = o.getPharmacyAdmin();
 	}
 	public Long getId() {
 		return Id;

@@ -1,7 +1,10 @@
 package rs.ac.uns.ftn.informatika.jpa.service;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -10,7 +13,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import rs.ac.uns.ftn.informatika.jpa.dto.MedicineQuantityDTO;
+import rs.ac.uns.ftn.informatika.jpa.dto.SupplierDTO;
+import rs.ac.uns.ftn.informatika.jpa.model.MedicineQuantity;
 import rs.ac.uns.ftn.informatika.jpa.model.Supplier;
+import rs.ac.uns.ftn.informatika.jpa.model.SupplierOffer;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.ISupplierRepository;
 import rs.ac.uns.ftn.informatika.jpa.service.Interface.ISupplierService;
 
@@ -24,7 +31,7 @@ public class SupplierService implements ISupplierService {
 	private EmailService emailService;
 	private Logger logger = LoggerFactory.getLogger(ResrvationService.class);
     
-    public ResponseEntity<Supplier> save(Supplier supplier) throws Exception {
+    public ResponseEntity<SupplierDTO> save(Supplier supplier) throws Exception {
         supplierRepository.save(supplier);
         List<Supplier> suppliers=supplierRepository.findAll();
 		Long supplierId=0L;
@@ -56,12 +63,11 @@ public class SupplierService implements ISupplierService {
 	}
 
     public Supplier findOne(Long id) {
-        Supplier supplier = supplierRepository.getOne(id);
+        Supplier supplier = supplierRepository.findById(id).get();
            return supplier;
    }
 
-    @Override
-    public Supplier update(Supplier supplier) throws Exception {
+    public SupplierDTO update(SupplierDTO supplier) throws Exception {
         Supplier supplier1 = findOne(supplier.getId());
         if (supplier1 == null) {
             throw new Exception("Trazeni entitet nije pronadjen.");
@@ -81,7 +87,7 @@ public class SupplierService implements ISupplierService {
         supplier1.setUsername(supplier.getUsername());
 
         Supplier supplier2 = supplierRepository.save(supplier1);
-        return supplier2;
+        return new SupplierDTO(supplier2);
     }
     private void emailSender(Supplier supplier)
 	{
@@ -109,10 +115,25 @@ public class SupplierService implements ISupplierService {
 	public Boolean confirmationEmail(Long supplierId) throws Exception {
 		Long decriptId=IdDecryption(supplierId);
 		Supplier supplierToUpdate=findOne(decriptId);
-		if(supplierToUpdate.getEmailComfirmed()) return false;
-		supplierToUpdate.setEmailComfirmed(true);
-		update(supplierToUpdate);
+		SupplierDTO supplierDTO=new SupplierDTO(supplierToUpdate);
+		if(supplierDTO.getEmailComfirmed()) return false;
+		supplierDTO.setEmailComfirmed(true);
+		update(supplierDTO);
 		return true;
 	}
-    
+
+	public List<Supplier> getAll() {
+		return supplierRepository.findAll();
+	}
+
+    public Set<MedicineQuantityDTO> getAllSuppliersStokcs(Long supplierId) {
+       Supplier supplier=supplierRepository.findById(supplierId).get();
+	   Set<MedicineQuantity> result=supplier.getMedicines();
+	   Set<MedicineQuantityDTO> result1=new HashSet<>();
+	   for (MedicineQuantity medicineQuantityDTO : result) {
+		result1.add(new MedicineQuantityDTO(medicineQuantityDTO));
+	   }
+	   return result1;
+    }
+
 }

@@ -1,6 +1,7 @@
 package rs.ac.uns.ftn.informatika.jpa.controller;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,7 +15,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import rs.ac.uns.ftn.informatika.jpa.dto.MedicineQuantityDTO;
+import rs.ac.uns.ftn.informatika.jpa.dto.SupplierDTO;
+import rs.ac.uns.ftn.informatika.jpa.model.MedicineQuantity;
 import rs.ac.uns.ftn.informatika.jpa.model.Supplier;
+import rs.ac.uns.ftn.informatika.jpa.model.SupplierOffer;
 import rs.ac.uns.ftn.informatika.jpa.service.SupplierService;
 
 @RestController
@@ -36,7 +41,29 @@ public class SupplierController {
 		List<String> usernames =supplierService.getAllSupplierUsernames();
 		return usernames == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(usernames);
 	}
+	@GetMapping(value = "/getById/{supplierId}")
+	public ResponseEntity<SupplierDTO> getById(@PathVariable Long supplierId) {
+		SupplierDTO usernames =new SupplierDTO(supplierService.findOne(supplierId));
+		return usernames == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(usernames);
+	}
 
+	@GetMapping(value = "/getAllSuppliers")
+	public ResponseEntity<List<Supplier>> getAllSuppliers() {
+		List<Supplier> usernames =supplierService.getAll();
+		return usernames == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(usernames);
+	}
+	@GetMapping(value = "/getAllSuppliersStokcs/{supplierId}")
+	public ResponseEntity<Set<MedicineQuantityDTO>> getAllSuppliersStokcs(@PathVariable Long supplierId) {
+		Set<MedicineQuantityDTO> usernames =supplierService.getAllSuppliersStokcs(supplierId);
+		return usernames == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(usernames);
+	}
+
+
+	@PutMapping(value = "/update")
+	public ResponseEntity<SupplierDTO> updateGreeting(@RequestBody SupplierDTO supplier) throws Exception {	
+		SupplierDTO p = supplierService.update(supplier);
+		return p == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(p);
+	}
 	@GetMapping(value = "/isUsernameValid/{username}")
 	public ResponseEntity<Boolean> isUsernameValid(@PathVariable String username) {
 		Boolean isValid = supplierService.isUsernameValid(username);

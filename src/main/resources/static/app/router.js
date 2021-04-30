@@ -48,6 +48,12 @@ const SystemAdminHomaPage= { template: '<systemAdminHomaPage></systemAdminHomaPa
 const ActionAndPromotion= { template: '<actionAndPromotion></actionAndPromotion>' } 
 const AllActionsAndPromotions= { template: '<allActionsAndPromotions></allActionsAndPromotions>' } 
 const SearchMedicine= { template: '<searchMedicine></searchMedicine>' } 
+const SupplierProfile= { template: '<supplierProfile></supplierProfile>' } 
+const SupplierInfo= { template: '<supplierInfo></supplierInfo>' } 
+const SuppliersOffers= { template: '<suppliersOffers></suppliersOffers>' } 
+const GiveOffers= { template: '<giveOffers></giveOffers>' } 
+
+
 
 
 
@@ -514,6 +520,34 @@ const router = new VueRouter({
 			name : 'searchMedicine', 
 			components: {
 				content: SearchMedicine
+			}
+		},
+		{
+			path: '/supplierProfile', 
+			name : 'supplierProfile', 
+			components: {
+				content: SupplierProfile
+			}
+		},
+		{
+			path: '/supplierInfo', 
+			name : 'supplierInfo', 
+			components: {
+				content: SupplierInfo
+			}
+		},
+		{
+			path: '/suppliersOffers', 
+			name : 'suppliersOffers', 
+			components: {
+				content: SuppliersOffers
+			}
+		},
+		{
+			path: '/giveOffers', 
+			name : 'giveOffers', 
+			components: {
+				content: GiveOffers
 			}
 		}
 	  ]
