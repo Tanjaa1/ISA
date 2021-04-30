@@ -1,6 +1,7 @@
 package rs.ac.uns.ftn.informatika.jpa.controller;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import rs.ac.uns.ftn.informatika.jpa.dto.MedicineQuantityDTO;
 import rs.ac.uns.ftn.informatika.jpa.dto.SupplierOfferDTO;
-import rs.ac.uns.ftn.informatika.jpa.model.SupplierOffer;
 import rs.ac.uns.ftn.informatika.jpa.service.SupplierOfferService;
 
 @RestController
@@ -30,6 +31,11 @@ public class SupplierOfferController {
 	public ResponseEntity<List<SupplierOfferDTO>> getOfferBySupplierId(@PathVariable Long id) {
 		List<SupplierOfferDTO> usernames =supplierOfferService.getOfferBySupplierId(id);
 		return usernames == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(usernames);
+	}
+	@GetMapping(value = "/getOrdersByOrderId/{orderId}")
+	public Set<MedicineQuantityDTO> getOrdersByOrderId(@PathVariable Long orderId) {
+		Set<MedicineQuantityDTO> usernames =supplierOfferService.getOrdersByOrderId(orderId);
+		return usernames ;
 	}
 	@GetMapping(value = "/filtrateOfferByStatus/{status}/{id}")
 	public List<SupplierOfferDTO> filtrateOfferByStatus(@PathVariable String status,@PathVariable Long id) {

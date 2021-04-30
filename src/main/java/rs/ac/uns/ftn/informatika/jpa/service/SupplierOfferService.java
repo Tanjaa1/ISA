@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.apache.catalina.startup.RealmRuleSet;
+import org.hibernate.internal.CriteriaImpl.OrderEntry;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -95,6 +96,12 @@ public class SupplierOfferService {
         }
         }
         return hasOnStock;        
+    }
+
+    public Set<MedicineQuantityDTO> getOrdersByOrderId(Long orderId) {
+        OrderDTO orderDTO=orderService.getById(orderId);
+        Set<MedicineQuantityDTO> result=orderDTO.getOrders();
+        return result;
     }
 
   

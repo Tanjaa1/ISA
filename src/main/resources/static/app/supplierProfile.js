@@ -27,7 +27,7 @@ Vue.component("supplierProfile", {
             </div>
             <div class="col-sm">
               <h3>
-                <button id="MyOffers" type="button" class="btn btn-info btn-lg margin form-control" v-on:click="AccountShow()"></button>
+                <button id="MyOffers" type="button" class="btn btn-info btn-lg margin form-control" v-on:click="OffersShow()"></button>
                 </h3><br/> 
             </div>
             <div class="col-sm">
@@ -35,6 +35,7 @@ Vue.component("supplierProfile", {
                 <button id="giveOffers" type="button" class="btn btn-info btn-lg margin form-control" v-on:click="medicineReservation()"></button>
                 </h3><br/> 
             </div>
+            
          
             <div class="col-sm">
             </div>
@@ -42,7 +43,9 @@ Vue.component("supplierProfile", {
             </div>  
             <div class="col-sm">
             </div>
-          </div>				
+          </div>			
+          	
+
 </div>
 <br></br><br></br>
 
@@ -76,12 +79,9 @@ Vue.component("supplierProfile", {
 
 		
 		},
-
-		ShowComposition:function(composition){
-
-			alert('Composition:' + composition)
-
-		}
+    OffersShow:function(){
+      this.$router.push('suppliersOffers');
+    }
 		
 	}
 });

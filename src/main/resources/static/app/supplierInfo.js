@@ -145,7 +145,6 @@ Vue.component("supplierInfo", {
       this.supplierToUpdate.description = this.supplierDTO.description,
       this.supplierToUpdate.emailComfirmed = this.supplierDTO.emailComfirmed,
 		
-		alert(this.supplierToUpdate.name)
 
 			axios.put('/supplier/update',this.supplierToUpdate)
             .then(response => {
