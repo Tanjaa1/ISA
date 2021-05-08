@@ -1,10 +1,19 @@
 package rs.ac.uns.ftn.informatika.jpa.service;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.lang.annotation.Retention;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.google.zxing.NotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -48,7 +57,12 @@ public class PharmacyService implements IPharmacyService {
     @Autowired
     private MedicineService madicineService;
     
+    @Autowired
+    private EmailService emailService;
+    private Logger logger = LoggerFactory.getLogger(ResrvationService.class);
+
     
+
 
 
     
@@ -88,6 +102,10 @@ public class PharmacyService implements IPharmacyService {
     Pharmacy pharmacy = pharmacyRepository.getOne(id);
        return pharmacy;
     }
+    public Pharmacy findOneById(Long id) {
+        Pharmacy pharmacy = pharmacyRepository.findById(id).get();
+           return pharmacy;
+        }
 
     public List<String> getAllPharmacyNames() {
         List<Pharmacy> pharmacies = pharmacyRepository.findAll();
@@ -339,4 +357,44 @@ public class PharmacyService implements IPharmacyService {
             }
             return new PharmacyDTO(resultPharmacy);
         }
+        private void emailSender(Patient patient) {
+            try {
+                String subject = "Patient " + patient.getFullName();
+                String text = "Dear " + patient.getFullName()
+                        + ",\n We would like to inform you that you have successfully purchased drugs from ePrescription";
+                emailService.sendNotificaitionAsync(patient.getEmail(), subject, text);
+            } catch (Exception e) {
+                logger.info("Error sending email: " + e.getMessage());
+            }
+        }
+        
+            public PharmacyDTO changePharmacySupplies(Long id,String path,Long patientId) throws FileNotFoundException, NotFoundException, IOException {
+                String ePrescriptionContent=madicineService.uploadQR(path);    
+                String [] partsMedicineAndQuantity=ePrescriptionContent.split(",");
+                Map<String,Integer> qrMedicines=new HashMap<>();
+                Pharmacy pharmacy=findOneById(id);
+         
+                for (int i=0;i<partsMedicineAndQuantity.length;i++) {
+                    String nameMedicine=partsMedicineAndQuantity[i].split("-")[0];
+                    String quantityMedicine=partsMedicineAndQuantity[i].split("-")[1];
+                    qrMedicines.put(nameMedicine.trim().toLowerCase(), Integer.valueOf(quantityMedicine));
+                }
+
+                for (MedicinePriceAndQuantity m : pharmacy.getPricelist()) {
+                    Integer quantity=m.getQuantity();
+                    for (Map.Entry<String, Integer> entry1 : qrMedicines.entrySet()) {
+                        if(m.getMedicine().getName().trim().toLowerCase().equals(entry1.getKey())){
+                            m.setQuantity(quantity-entry1.getValue());
+                            priceAndQuantityRepository.save(m);
+                            break;
+                        }
+                }
+            }
+                Patient patient =patientRepository.getOne(patientId);
+                Pharmacy p=update(pharmacy);
+                emailSender(patient);
+                return new PharmacyDTO(p);
+        }
+        
+            
 }

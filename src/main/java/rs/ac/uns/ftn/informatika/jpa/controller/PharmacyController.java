@@ -1,8 +1,12 @@
 package rs.ac.uns.ftn.informatika.jpa.controller;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import com.google.zxing.NotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -124,5 +128,12 @@ public class PharmacyController {
 		List<PharmacyDTO> pharmacie = pharmacyService.findPharmacyBzListMedicines(map);
 		return pharmacie == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(pharmacie);
 	}
+
+	@GetMapping(value = "/changePharmacySupplies/{id}/{patientId}")
+	public ResponseEntity<PharmacyDTO> changePharmacySupplies(@PathVariable Long id, @RequestBody String path,@PathVariable Long patientId) throws FileNotFoundException, NotFoundException, IOException {
+		PharmacyDTO pharmacie = pharmacyService.changePharmacySupplies(id,path,patientId);
+		return pharmacie == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(pharmacie);
+	}
+	
 	
 }
