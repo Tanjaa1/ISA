@@ -375,6 +375,9 @@ INSERT INTO public.medicine_price_and_quantity(
 INSERT INTO public.medicine_price_and_quantity(
 	id, price, quantity, medicine_id)
 	VALUES (29, 250.00,2, 17);
+INSERT INTO public.medicine_price_and_quantity(
+	id, price, quantity, medicine_id)
+	VALUES (77, 235.00, 15, 15);
     
 INSERT INTO public.patient_drug_allargies(patient_id, drug_allargies) VALUES (88, 'brufen');
 INSERT INTO public.patient_drug_allargies(patient_id, drug_allargies) VALUES (88, 'cefalosporini');
@@ -847,3 +850,19 @@ INSERT INTO public.pharmacy_pricelist(
 	INSERT INTO public.pharmacy_pricelist(
 	pharmacy_id, pricelist_id)
 	VALUES (444, 55);
+
+INSERT INTO public.pharmacy_marks(
+	pharmacy_id, marks_id)
+	VALUES (222, 500);
+INSERT INTO public.pharmacy_marks(
+	pharmacy_id, marks_id)
+	VALUES (333, 503);
+INSERT INTO public.pharmacy_marks(
+	pharmacy_id, marks_id)
+	VALUES (444, 501);
+INSERT INTO public.pharmacy_marks(
+	pharmacy_id, marks_id)
+	VALUES (555, 502);
+INSERT INTO public.pharmacy_pricelist(
+	pharmacy_id, pricelist_id)
+	VALUES (222, 77);
