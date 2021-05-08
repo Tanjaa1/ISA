@@ -390,7 +390,7 @@ public class PharmacyService implements IPharmacyService {
                         }
                 }
             }
-                Patient patient =patientRepository.getOne(patientId);
+                Patient patient =patientRepository.findById(patientId).get();
                 Pharmacy p=update(pharmacy);
                 emailSender(patient);
                 return new PharmacyDTO(p);
