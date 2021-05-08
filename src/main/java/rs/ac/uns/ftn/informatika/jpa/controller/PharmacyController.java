@@ -2,6 +2,8 @@ package rs.ac.uns.ftn.informatika.jpa.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -115,6 +117,11 @@ public class PharmacyController {
 	@GetMapping(value = "/getPharmacyByPriceListId/{id}")
 	public ResponseEntity<PharmacyDTO> getPharmacyByPriceListId(@PathVariable Long id) {
 		PharmacyDTO pharmacie = pharmacyService.getPharmacyByPriceListId(id);
+		return pharmacie == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(pharmacie);
+	}
+	@GetMapping(value = "/findPharmacyBzListMedicines")
+	public ResponseEntity<List<PharmacyDTO>> findPharmacyBzListMedicines(@RequestBody Map<String,Integer> map) {
+		List<PharmacyDTO> pharmacie = pharmacyService.findPharmacyBzListMedicines(map);
 		return pharmacie == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(pharmacie);
 	}
 	

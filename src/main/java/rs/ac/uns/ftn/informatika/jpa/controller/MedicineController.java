@@ -1,7 +1,12 @@
 package rs.ac.uns.ftn.informatika.jpa.controller;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+
+import com.google.zxing.NotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,8 +20,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import rs.ac.uns.ftn.informatika.jpa.dto.MedicineDTO;
+import rs.ac.uns.ftn.informatika.jpa.dto.MedicineForQRDTO;
 import rs.ac.uns.ftn.informatika.jpa.dto.MedicineForSearch;
 import rs.ac.uns.ftn.informatika.jpa.dto.MedicinePriceAndQuantityDTO;
+import rs.ac.uns.ftn.informatika.jpa.dto.PharmacyDTO;
 import rs.ac.uns.ftn.informatika.jpa.model.Medicine;
 import rs.ac.uns.ftn.informatika.jpa.model.MedicinePriceAndQuantity;
 import rs.ac.uns.ftn.informatika.jpa.service.MedicineService;
@@ -79,6 +86,12 @@ public class MedicineController {
 		return medicineDTOs == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(medicineDTOs);
 	}
 
+	@GetMapping(value = "/getPharmacyForAvaliableMedicineAndQuantity/{medicineName}/{quantity}")
+	public ResponseEntity<List<MedicineForSearch>> getPharmacyForAvaliableMedicineAndQuantity(@PathVariable String medicineName,@PathVariable Integer quantity) {
+		List<MedicineForSearch> medicineDTOs = medicineService.getPharmacyForAvaliableMedicineAndQuantity(medicineName,quantity);
+		return medicineDTOs == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(medicineDTOs);
+	}
+
 	@GetMapping(value = "/combinedSearch/{parameters}")
 	public ResponseEntity<List<MedicineForSearch>> combinedSearch(@PathVariable String parameters) {
 		List<MedicineForSearch> medicineDTOs = medicineService.combinedSearch(parameters);
@@ -113,6 +126,18 @@ public class MedicineController {
 		List<MedicineForSearch> medicineDTOs = medicineService.filtrationMedicineNotOnPrescription(medicineName);
 		return medicineDTOs == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(medicineDTOs);
 	}
-	
+
+	@GetMapping(value = "/uploadQR")
+	public ResponseEntity<String> uploadQR(@RequestBody String path) throws FileNotFoundException, NotFoundException, IOException {
+		String medicineDTOs = medicineService.uploadQR(path);
+		return medicineDTOs == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(medicineDTOs);
+	}
+	//ne radiiiiiii
+	@GetMapping(value = "/getPharmaciesByQR")
+	public ResponseEntity<Set<PharmacyDTO>> getPharmaciesByQR(@RequestBody String path) throws FileNotFoundException, NotFoundException, IOException  {
+		Set<PharmacyDTO> medicineDTOs = medicineService.getPharmaciesByQR(path);
+		return medicineDTOs == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(medicineDTOs);
+	}
+
 }
 

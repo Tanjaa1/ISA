@@ -15,8 +15,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import rs.ac.uns.ftn.informatika.jpa.dto.MedicineDTO;
+import rs.ac.uns.ftn.informatika.jpa.dto.MedicineForQRDTO;
 import rs.ac.uns.ftn.informatika.jpa.dto.MedicineForSearch;
 import rs.ac.uns.ftn.informatika.jpa.dto.MedicinePriceAndQuantityDTO;
+import rs.ac.uns.ftn.informatika.jpa.dto.PharmacistDTO;
 import rs.ac.uns.ftn.informatika.jpa.dto.PharmacyDTO;
 import rs.ac.uns.ftn.informatika.jpa.model.EPrescription;
 import rs.ac.uns.ftn.informatika.jpa.model.Markk;
@@ -32,7 +34,40 @@ import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IPatientRepository;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IPharmacyRepository;
 import rs.ac.uns.ftn.informatika.jpa.service.Interface.IMedicineService;
 import rs.ac.uns.ftn.informatika.jpa.service.Interface.IPharmacyService;
+import java.io.File;
 
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+import com.google.zxing.EncodeHintType;
+import com.google.zxing.MultiFormatWriter;
+import com.google.zxing.NotFoundException;
+import com.google.zxing.WriterException;
+import com.google.zxing.client.j2se.MatrixToImageWriter;
+import com.google.zxing.common.BitMatrix;
+import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+import javax.imageio.ImageIO;
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.BinaryBitmap;
+import com.google.zxing.EncodeHintType;
+import com.google.zxing.MultiFormatReader;
+import com.google.zxing.MultiFormatWriter;
+import com.google.zxing.NotFoundException;
+import com.google.zxing.Result;
+import com.google.zxing.WriterException;
+import com.google.zxing.client.j2se.BufferedImageLuminanceSource;
+import com.google.zxing.client.j2se.MatrixToImageWriter;
+import com.google.zxing.common.BitMatrix;
+import com.google.zxing.common.HybridBinarizer;
+import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 @Service
 public class MedicineService implements IMedicineService {
 
@@ -234,6 +269,18 @@ public class MedicineService implements IMedicineService {
 		}
 		return result;
 	}
+	public List<MedicineForSearch> getPharmacyForAvaliableMedicineAndQuantity(String medicineName,Integer quantity) {
+		List<MedicineDTO> ms=findAllSearchMedicine(medicineName);
+		List<MedicineForSearch> result=new ArrayList<>();
+
+		for(MedicineDTO mdto : ms){
+			List<PharmacyDTO> pharmacys=pharmacyService.findPharmacyByMedicineNameAndQuantity(mdto.getName(),quantity);
+			for(PharmacyDTO p : pharmacys){
+				result.add(new MedicineForSearch( mdto.getName(), mdto.getType().toString(),mdto.getComposition(), p.getName(), mdto.getGrade().toString(),"250",mdto.getOnPrescription().toString(),mdto.getForm().toString()));
+			}
+		}
+		return result;
+	}
 
 	public List<MedicineForSearch> filtrationMedicineByType(String medicineName, String type) {
 		List<MedicineForSearch> medicineDTOs=getPharmacyForAvaliableMedicine(medicineName);
@@ -407,4 +454,74 @@ public class MedicineService implements IMedicineService {
 			}
 		return res4;
 	}
+	public static String readQR(String path, String charset, Map hashMap)throws FileNotFoundException, IOException,NotFoundException
+	{
+		BinaryBitmap binaryBitmap= new BinaryBitmap(new HybridBinarizer(new BufferedImageLuminanceSource(
+		ImageIO.read(
+			new FileInputStream(path)))));
+		Result result
+		= new MultiFormatReader().decode(binaryBitmap);
+		return result.getText();
+	}
+
+    public String uploadQR(String path)throws FileNotFoundException, IOException,NotFoundException {
+         
+        Map<EncodeHintType, ErrorCorrectionLevel> hashMap
+            = new HashMap<EncodeHintType,
+                          ErrorCorrectionLevel>();
+ 
+        hashMap.put(EncodeHintType.ERROR_CORRECTION,
+                    ErrorCorrectionLevel.L);
+ 
+        String result= readQR(path, "UTF-8", hashMap);  
+	
+	return result;
+}
+
+public Set<PharmacyDTO> getPharmaciesByQR(String path) throws FileNotFoundException, NotFoundException, IOException {
+	String ePrescriptionContent=uploadQR(path);
+	String [] partsMedicineAndQuantity=ePrescriptionContent.split(",");
+	Map<String,Integer> mapMedicineInPharmacy=new HashMap<>();
+	Map<String,Integer> qrMedicines=new HashMap<>();
+
+	List<Pharmacy> allPharmacies=pharmacyRepository.findAll();
+	Set<Pharmacy> resultList=new HashSet();
+	Set<PharmacyDTO> resultListDTOS=new HashSet();
+	for (int i=0;i<partsMedicineAndQuantity.length;i++) {
+		String nameMedicine=partsMedicineAndQuantity[i].split("-")[0];
+		String quantityMedicine=partsMedicineAndQuantity[i].split("-")[1];
+		qrMedicines.put(nameMedicine.trim().toLowerCase(), Integer.valueOf(quantityMedicine));
+	}
+	Integer indikator=0;
+		for (Pharmacy pharmacy : allPharmacies) {
+			Set<MedicinePriceAndQuantity> m=pharmacy.getPricelist();
+			mapMedicineInPharmacy.clear();
+			for (MedicinePriceAndQuantity medicineInPharmacy : m) {
+			mapMedicineInPharmacy.put(medicineInPharmacy.getMedicine().getName().trim().toLowerCase(),medicineInPharmacy.getQuantity());
+			}
+			if(mapMedicineInPharmacy.keySet().containsAll(qrMedicines.keySet())) {
+				for (Map.Entry<String, Integer> entry1 : qrMedicines.entrySet()) {
+					if(entry1.getValue()<=mapMedicineInPharmacy.get(entry1.getKey())){
+						indikator+=1;
+					}else{
+						break;
+					}
+					if(indikator==qrMedicines.size()){
+						resultList.add(pharmacy);
+						indikator=0;
+						mapMedicineInPharmacy.clear();
+					}
+				}
+				
+			}
+		}
+	
+	
+	for (Pharmacy p : resultList) {
+		resultListDTOS.add(new PharmacyDTO(p));
+	}
+	return resultListDTOS;
+}
+		
+	
 }

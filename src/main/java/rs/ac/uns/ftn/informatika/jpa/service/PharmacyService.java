@@ -3,6 +3,7 @@ package rs.ac.uns.ftn.informatika.jpa.service;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -161,6 +162,49 @@ public class PharmacyService implements IPharmacyService {
                 }
             }
         }
+
+		return pharmacyList;
+	}
+
+    public List<PharmacyDTO> findPharmacyByMedicineNameAndQuantity(String name,Integer quantity) {
+        
+        List<MedicineDTO> medicineFind =madicineService.findAllSearchMedicine(name);
+        List<PharmacyDTO> pharmacyList = new ArrayList<PharmacyDTO>();
+        List<Pharmacy> pharmacies = pharmacyRepository.findAll();
+        for (Pharmacy pharmacy : pharmacies) {
+            for (MedicinePriceAndQuantity medicine : pharmacy.getPricelist()) {
+                for(MedicineDTO mddd : medicineFind){
+                    if(medicine.getMedicine().getName().toUpperCase().trim().contains(mddd.getName().toUpperCase().trim()) && medicine.getQuantity()>=quantity){
+                        pharmacyList.add(new PharmacyDTO(pharmacy));
+                        break;
+                    }
+                }
+            }
+        }
+        return pharmacyList;
+
+    }
+
+        public List<PharmacyDTO> findPharmacyBzListMedicines(Map<String,Integer> mapOfMedicines) {
+       
+            Set<MedicineDTO> medicineFindSet =new HashSet();
+            for (String name : mapOfMedicines.keySet()) {
+                medicineFindSet.add(new MedicineDTO(findMedicine(name)));
+        }
+            List<PharmacyDTO> pharmacyList = new ArrayList<PharmacyDTO>();
+            List<Pharmacy> pharmacies = pharmacyRepository.findAll();
+            for (Pharmacy pharmacy : pharmacies) {
+                for (MedicinePriceAndQuantity medicine : pharmacy.getPricelist()) {
+                    for (Map.Entry<String, Integer> entry1 : mapOfMedicines.entrySet()) {
+                        if(medicine.getMedicine().getName().toUpperCase().trim().contains(entry1.getKey().toUpperCase().trim()) &&
+                         medicine.getQuantity()>=entry1.getValue()){
+                            pharmacyList.add(new PharmacyDTO(pharmacy));
+                        }else{
+                            continue;
+                        }
+                    }
+                }
+            }
 
 		return pharmacyList;
 	}
