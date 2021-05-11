@@ -3,6 +3,8 @@ package rs.ac.uns.ftn.informatika.jpa.service;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,9 +18,11 @@ import rs.ac.uns.ftn.informatika.jpa.dto.PharmacyDTO;
 import rs.ac.uns.ftn.informatika.jpa.model.Markk;
 import rs.ac.uns.ftn.informatika.jpa.model.Patient;
 import rs.ac.uns.ftn.informatika.jpa.model.Pharmacist;
+import rs.ac.uns.ftn.informatika.jpa.model.Pharmacy;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IMarkRepository;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IPatientRepository;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IPharmacistRepository;
+import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IPharmacyRepository;
 import rs.ac.uns.ftn.informatika.jpa.service.Interface.IPharmacistService;
 
 @Service
@@ -32,6 +36,10 @@ public class PharmacistService implements IPharmacistService {
 	private IMarkRepository markRepository;
 	@Autowired
 	private EmailService emailService;
+
+	@Autowired
+	private IPharmacyRepository pharmacyRepository;
+
 	private Logger logger = LoggerFactory.getLogger(ResrvationService.class);
 
 	public Pharmacist findOne(Long id) {
@@ -185,5 +193,50 @@ public class PharmacistService implements IPharmacistService {
 			pharmacistRepository.save(pharmacist2);
 			return new PharmacistDTO(pharmacist2);
 		}
+
+		public Pharmacist addNewPharmacistToPharmacy(Pharmacist dermatologist){
+
+			return pharmacistRepository.save(dermatologist);
+	
+		}
+
+		public Boolean addExistingPharmacistToPharmacy(Long dId, Long pId){
+			try{
+				Pharmacy pharmacy = pharmacyRepository.getById(pId);
+				Pharmacist pharmacist = pharmacistRepository.getOne(dId);
+				pharmacist.setPharmacy(pharmacy);
+				pharmacistRepository.save(pharmacist);
+				return true;
+			}
+			catch(Exception e){
+				return false;
+			}
+		}
+	
+		public String checkUserAndEmail(String username , String email) throws Exception {
+			List<Pharmacist> pharmacists=pharmacistRepository.findAll();
+			String retVal = "OK";
+			for (Pharmacist p : pharmacists) {
+				if(p.getUsername().equals(username)){
+					retVal = "Username";
+					return  retVal;
+				}
+				if(p.getEmail().equals(email)){
+				  retVal = "Email";
+				  return  retVal;
+			   }			
+			}
+			return retVal;
+			}
+
+			public List<PharmacistDTO> getUnemployedPharmacists(Long id) {
+				List<PharmacistDTO> pharmacistDTOs = new ArrayList<>();
+				List<Pharmacist> pharmacists = pharmacistRepository.findAll();
+				for (Pharmacist pharmacist : pharmacists) {
+						if(pharmacist.getPharmacy().getId().compareTo(id)!=0)
+							pharmacistDTOs.add(new PharmacistDTO(pharmacist));
+				}
+				return pharmacistDTOs;
+			}
 
 }

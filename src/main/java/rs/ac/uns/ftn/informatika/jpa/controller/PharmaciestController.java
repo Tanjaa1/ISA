@@ -104,4 +104,25 @@ public class PharmaciestController {
 		List<PharmacistDTO> pharmacistDTOs = pharmacistService.getPharmacistByPharmacyId(id);
 		return pharmacistDTOs == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(pharmacistDTOs);
 	}	
+
+	@PostMapping(value = "/addNewPharmacistToPharmacy")
+	public ResponseEntity<Pharmacist> checkUserAndEmail( @RequestBody Pharmacist pharmacist) throws Exception {
+		return ResponseEntity.ok(pharmacistService.addNewPharmacistToPharmacy(pharmacist));
+	}
+	
+	@PutMapping(value = "/addExistingPharmacistToPharmacy/{pharmacistUsername}/{pharmacyUsername}")
+	public ResponseEntity<Boolean> addExistingDermatologistToPharmacy( @PathVariable Long pharmacistUsername,@PathVariable Long pharmacyUsername,@Valid @RequestBody Pharmacist dermatologist) throws Exception {
+		return ResponseEntity.ok(pharmacistService.addExistingPharmacistToPharmacy(pharmacistUsername,pharmacyUsername));
+	}
+
+	@GetMapping(value = "/checkUserAndEmail/{username}/{email}")
+	public ResponseEntity<String> checkUserAndEmail(@PathVariable String username,@PathVariable String email) throws Exception {
+		return ResponseEntity.ok(pharmacistService.checkUserAndEmail(username,email));
+	}
+
+	@GetMapping(value = "/getUnemployedPharmacists/{id}")
+	public ResponseEntity<List<PharmacistDTO>> getUnemployedDermatolgoists(@PathVariable Long id) {
+		List<PharmacistDTO> pharmacistDTOs = pharmacistService.getUnemployedPharmacists(id);
+		return pharmacistDTOs == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(pharmacistDTOs);
+	}
 }

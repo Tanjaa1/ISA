@@ -130,4 +130,5 @@ public class DermatologistController {
 	public ResponseEntity<String> checkUserAndEmail(@PathVariable String username,@PathVariable String email) throws Exception {
 		return ResponseEntity.ok(dermatologistService.checkUserAndEmail(username,email));
 	}
+	
 }

@@ -4,6 +4,7 @@ Vue.component("administratorEmployed", {
 	data: function () {
 		return {
             existingDermatologist : {},
+			existingPharmacist : {},
 			passwordSame : false,
 			administrator: {},
             pharmacy: {},
@@ -29,9 +30,29 @@ Vue.component("administratorEmployed", {
 				firstTimeLogin : true ,
 				username : null 
 			},
+			newPharmacist : {
+				vacationSchedule : [],
+				workingSchedule : [],
+				pharmacy : {},
+				marks : [] ,
+				id : null ,
+				email : null ,
+				password : null ,
+				name : null ,
+				surname : null ,
+				address : null ,
+				city : null ,
+				country : null ,
+				phoneNumber : null ,
+				description : null ,
+				emailComfirmed : false ,
+				firstTimeLogin : true ,
+				username : null 
+			},
 			allDermatologists : [],
 			allPharmacists : [],
 			unemployedDermatologists : [],
+			unemployedPharmacists : [],
 		}
 	},
 	beforeMount() {
@@ -44,6 +65,7 @@ Vue.component("administratorEmployed", {
 				.then(response => {
 					this.pharmacy = response.data
 					this.newDermatologist.pharmacies.push(response.data)
+					this.newPharmacist.pharmacy = response.data
 					axios
 					.get('/pharmacist/getByPharmacyId/' + this.pharmacy.id) 
 					.then(response => {
@@ -64,6 +86,13 @@ Vue.component("administratorEmployed", {
 					.get('/dermatologist/getUnemployedDermatolgoists/' + this.pharmacy.id) 
 					.then(response => {
 						this.unemployedDermatologists = response.data
+					})
+					.catch(error => {
+					})
+					axios
+					.get('/pharmacist/getUnemployedPharmacists/' + this.pharmacy.id) 
+					.then(response => {
+						this.unemployedPharmacists = response.data
 					})
 					.catch(error => {
 					})
@@ -98,7 +127,8 @@ Vue.component("administratorEmployed", {
 					<td scope="row">{{pharmacist.id}}</td>
 					<td>{{pharmacist.name}}</td>
 					<td>{{pharmacist.surname}}</td>
-					<td>{{pharmacist.grade}}</td>
+					<td v-if = "pharmacist.grade != null">{{pharmacist.grade}}</td>
+					<td v-else>N/A</td>
 				</tr>
 			</tbody>
 		</table>
@@ -109,8 +139,8 @@ Vue.component("administratorEmployed", {
 
 			<div><button style="color:white" type="button" class="btn btn-default" data-dismiss="modal"  v-on:click="SearchPharmacists()"><i class="fa fa-search"></i></button></div> &nbsp
 			<div><button style="color:white" type="button" class="btn btn-default" data-dismiss="modal" v-on:click="ResetPharmacistsSearch()"><i class="fa fa-refresh"></i></button></div> &nbsp
-			<div><button style="color:white" type="button" class="btn btn-default" data-dismiss="modal" v-on:click="" data-toggle="modal" data-target="#addDermatologistModal"><i class="fa fa-user-plus"></i></button></div> &nbsp
-			<div><button style="color:white" type="button" class="btn btn-default" data-dismiss="modal" v-on:click="" data-toggle="modal" data-target="#addExistingDermatologist"><i class="fa fa-plus-square"></i></button></div> &nbsp
+			<div><button style="color:white" type="button" class="btn btn-default" data-dismiss="modal" v-on:click="" data-toggle="modal" data-target="#addPharmacistModal"><i class="fa fa-user-plus"></i></button></div> &nbsp
+			<div><button style="color:white" type="button" class="btn btn-default" data-dismiss="modal" v-on:click="" data-toggle="modal" data-target="#addExistingPharmacist"><i class="fa fa-plus-square"></i></button></div> &nbsp
 		</div>
 		</br>		
 
@@ -219,30 +249,128 @@ Vue.component("administratorEmployed", {
   
 			  <!-- Add existing dermatologist -->
 			  <div class="modal fade" id="addExistingDermatologist" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-			  <div class="modal-dialog" role="document">
-				  <div class="modal-content">
-				  <div class="modal-header">
-					  <h5 class="modal-title" id="exampleModalLabel">Add existing dermatologist</h5>
-					  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					  <span aria-hidden="true">&times;</span>
-					  </button>
-				  </div>
-				  <div class="modal-body">
-					  <div>
-					  <label for="recipient-name" min="0" class="col-form-label">Select username:</label>
-						  <select class="form-control" aria-label="Default select example" id = "existingDermatologist" v-model = "existingDermatologist" @change = "SelectExistingDermatologist(existingDermatologist)" >
-							  <option   v-bind:value="dermatologist" v-for = "dermatologist in unemployedDermatologists" >
-								  <label>{{dermatologist.name}} {{dermatologist.surname}} - {{dermatologist.username}}</label>
-							  </option>
-						  </select>
-					  </div>
-				  </div>
-				  <div class="modal-footer">
-					  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-					  <button type="button" class="btn btn-primary"  v-on:click="AddExistingDermatologist()">Finish</button>
-				  </div>
-				  </div>
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">Add existing dermatologist</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div>
+						<label for="recipient-name" min="0" class="col-form-label">Select username:</label>
+							<select class="form-control" aria-label="Default select example" id = "existingDermatologist" v-model = "existingDermatologist" @change = "SelectExistingDermatologist(existingDermatologist)" >
+								<option   v-bind:value="dermatologist" v-for = "dermatologist in unemployedDermatologists" >
+									<label>{{dermatologist.name}} {{dermatologist.surname}} - {{dermatologist.username}}</label>
+								</option>
+							</select>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+						<button type="button" class="btn btn-primary"  v-on:click="AddExistingDermatologist()">Finish</button>
+					</div>
+					</div>
+				</div>
 			  </div>
+			
+			  <!-- Add Pharmacist modal -->
+				<div class="modal fade" id="addPharmacistModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+					<div class="modal-dialog modal-dialog-scrollable" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="exampleModalLabel">Add new pharmacist</h5>
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<div class="modal-body">
+								 <div class="form-group">
+								   <label for="recipient-name" min="0" class="col-form-label">Username:</label>
+									<input type="text" min = "0"class="form-control"  v-model="newPharmacist.username">
+								 </div>
+								<div class="form-group">
+									<label for="recipient-name" class="col-form-label">Name:</label>
+									<input type="text" min = "0"class="form-control"  v-model="newPharmacist.name">
+								</div>	
+								<div class="form-group">
+									<label for="recipient-name" min="0" class="col-form-label">Surname:</label>
+									<input type="text" min = "0"class="form-control"  v-model="newPharmacist.surname">
+								</div>
+								<div class="form-group">
+									<label for="recipient-name" min="0" class="col-form-label">E-mail:</label>
+									<input type="text" min = "0"class="form-control"  v-model="newPharmacist.email">
+								  </div>
+								<div class="form-group">
+								  <label for="recipient-name" min="0" class="col-form-label">City:</label>
+								  <input type="text" min = "0"class="form-control"  v-model="newPharmacist.city">
+								</div>
+								<div class="form-group">
+									<label for="recipient-name" min="0" class="col-form-label">Country:</label>
+									<input type="text" min = "0"class="form-control"  v-model="newPharmacist.country">
+								</div>
+								<div class="form-group">
+								  <label for="recipient-name" min="0" class="col-form-label">Street:</label>
+								  <input type="text" min = "0"class="form-control"  v-model="newPharmacist.address">
+								</div>
+								<div class="form-group">
+									<label for="recipient-name" min="0" class="col-form-label">Phone number:</label>
+									<input type="text" min = "0"class="form-control"  v-model="newPharmacist.phoneNumber">
+								</div>
+								<div class="form-group">
+									<label for="recipient-name" min="0" class="col-form-label">Additional info:</label>
+									<input type="text" min = "0"class="form-control"  v-model="newPharmacist.description">
+								</div>
+								<div class="form-group">
+									<label for="recipient-name" min="0" class="col-form-label">Password:</label>
+									<input type="password" min = "0"class="form-control"  v-model="newPharmacist.password">
+								  </div>
+								  <span v-if="newPharmacist.repeatPassword != null && passwordSame == false" style = "color : red" class="label">Passwords are not matching</span>
+								  <span v-if="newPharmacist.repeatPassword != null && passwordSame == true" style = "color : green" class="label">Passwords are matching</span>
+							   <div class="form-group" v-if = "newPharmacist.password == null">
+								  <label for="recipient-name" min="0" class="col-form-label">Repeat password:</label>
+								  <input type="passwordPharmacist" min = "0"class="form-control"  v-model="newPharmacist.repeatPassword" disabled>
+							   </div>
+							   <div class="form-group" v-else>
+								   <label for="recipient-name" min="0" class="col-form-label">Repeat password:</label>
+								   <input type="password" min = "0" id = "repeatPasswordPharmacist" class="form-control"  v-model="newPharmacist.repeatPassword" @change = "ValidatePasswordPharmacist()">
+								</div>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+								<button type="button" class="btn btn-primary" v-on:click="NewPharmacist()">Finish</button>
+							</div>
+						</div>
+					</div>
+			  </div>
+  
+			  <!-- Add existing pharmacist -->
+			  <div class="modal fade" id="addExistingPharmacist" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">Add existing pharmacist</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div>
+						<label for="recipient-name" min="0" class="col-form-label">Select username:</label>
+							<select class="form-control" aria-label="Default select example" id = "existingPharmacist" v-model = "existingPharmacist" @change = "SelectExistingPharmacist(existingPharmacist)" >
+								<option   v-bind:value="pharmacist" v-for = "pharmacist in unemployedPharmacists" >
+									<label>{{pharmacist.name}} {{pharmacist.surname}} - {{pharmacist.username}}</label>
+								</option>
+							</select>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+						<button type="button" class="btn btn-primary"  v-on:click="AddExistingPharmacist()">Finish</button>
+					</div>
+					</div>
+				</div>
 			  </div>
 
     </div>
@@ -288,6 +416,7 @@ Vue.component("administratorEmployed", {
 								this.newDermatologist.emailComfirmed = false 
 								this.newDermatologist.firstTimeLogin = true 
 								this.newDermatologist.username = null 
+								this.passwordSame = false
 								$('#addDermatologistModal').modal('hide');
 							})
 							.catch(error => {
@@ -354,7 +483,7 @@ Vue.component("administratorEmployed", {
 			if(name != "" && surname == "" && id == "")
 				for (const pharmacist of this.pharmacists) {
 						if(pharmacist.name.includes(name))
-						newPharmacists.push(pharmacist)
+							newPharmacists.push(pharmacist)
 				}
 			else if(name == "" && surname != "" && id == "")
 				for (const pharmacist of this.pharmacists) {
@@ -444,6 +573,93 @@ Vue.component("administratorEmployed", {
 				alert("Please select username")
 			}
 
+		},
+		NewPharmacist: function () {
+			if(this.passwordSame == true){
+				axios
+				.get('/pharmacist/checkUserAndEmail/' + this.newPharmacist.username + '/' + this.newPharmacist.email)
+				.then(response => {
+					var responseMessage = response.data
+					if(responseMessage.valueOf() == "OK")
+						axios
+						.post('pharmacist/addNewPharmacistToPharmacy',this.newPharmacist)
+						.then(response =>{
+							axios
+							.get('/pharmacist/getByPharmacyId/' + this.pharmacy.id) 
+							.then(response => {
+								this.pharmacists = response.data
+								this.allPharmacists = response.data
+								this.newPharmacist.vacationSchedule = []
+								this.newPharmacist.workingSchedule = []
+								this.newPharmacist.pharmacies = {}
+								this.newPharmacist.marks = [] 
+								this.newPharmacist.id = null 
+								this.newPharmacist.email = null 
+								this.newPharmacist.password = null 
+								this.newPharmacist.name = null 
+								this.newPharmacist.surname = null 
+								this.newPharmacist.address = null 
+								this.newPharmacist.city = null 
+								this.newPharmacist.country = null 
+								this.newPharmacist.phoneNumber = null 
+								this.newPharmacist.description = null 
+								this.newPharmacist.emailComfirmed = false 
+								this.newPharmacist.firstTimeLogin = true 
+								this.newPharmacist.username = null 
+								this.passwordSame = false
+								$('#addPharmacistModal').modal('hide');
+							})
+							.catch(error => {
+							})
+						})
+					else if(responseMessage.valueOf() == "Username")
+						alert("Username is already taken")
+					else if(responseMessage.valueOf() == "Email")
+						alert("Email is already taken")
+				})
+				.catch(error => {
+				})
+			}
+		},
+		ValidatePasswordPharmacist : function(){
+			var password = document.getElementById("repeatPasswordPharmacist").value
+			if(password.valueOf() == this.newPharmacist.password.valueOf())
+				this.passwordSame = true
+			else
+				this.passwordSame = false
+		},
+		AddExistingPharmacist: function(){
+			if(this.existingPharmacist != null){
+				axios
+				.put('/pharmacist/addExistingPharmacistToPharmacy/' + this.existingPharmacist.id  + '/' + this.pharmacy.id, this.existingPharmacist) 
+				.then(response => {
+					this.pharmacist = response.data
+					axios
+					.get('/pharmacist/getByPharmacyId/' + this.pharmacy.id) 
+					.then(response => {
+						this.pharmacists = response.data
+						this.allPharmacists = response.data
+						$('#addExistingPharmacist').modal('hide');
+						axios
+						.get('/pharmacist/getUnemployedPharmacists/' + this.pharmacy.id) 
+						.then(response => {
+							this.unemployedPharmacists = response.data
+						})
+					})
+					.catch(error => {
+					})
+				})
+				.catch(error => {
+				})
+				this.existingDermatolgoist = null
+			}
+			else{
+				alert("Please select username")
+			}
+
+		},
+		SelectExistingPharmacist: function(pharmacist){
+			this.existingPharmacist = pharmacist
 		},
 	}
 });
