@@ -33,7 +33,8 @@ public class SystemAdminService implements ISystemAdminService {
 				patientId=patient2.getId();
 		}
 		systemAdmin.setId(patientId);
-		emailSender(systemAdmin);        return new ResponseEntity<>( HttpStatus.CREATED);
+		emailSender(systemAdmin);  
+	  return new ResponseEntity<>( HttpStatus.CREATED);
     }
    
 

@@ -553,43 +553,69 @@ public Set<PharmacyQRDTO> getPharmaciesByQR(String path) throws FileNotFoundExce
 	return resultF;
 }
 
-public List<PharmacyQRDTO> sortByPharmacyGradeQR(String path,String par) throws FileNotFoundException, NotFoundException, IOException {
+public List<PharmacyQRDTO> sortByPharmacyGradeQR(String path) throws FileNotFoundException, NotFoundException, IOException {
 	Set<PharmacyQRDTO> toSort=getPharmaciesByQR(path);
 	List<PharmacyQRDTO> phaList = toSort.stream().sorted((e1, e2) -> 
 	e1.getGrade().compareTo(e2.getGrade())).collect(Collectors.toList());
-	if(par.equals("d")){
-		Collections.reverse(phaList);
-	}
 	return phaList;
 }
 
-public List<PharmacyQRDTO> sortByPharmacyPriceQR(String path, String par) throws FileNotFoundException, NotFoundException, IOException {
+public List<PharmacyQRDTO> sortByPharmacyPriceQR(String path) throws FileNotFoundException, NotFoundException, IOException {
 	Set<PharmacyQRDTO> toSort=getPharmaciesByQR(path);
 	List<PharmacyQRDTO> phaList = toSort.stream().sorted((e1, e2) -> 
 	e1.getPriceofMedicines().compareTo(e2.getPriceofMedicines())).collect(Collectors.toList());
-	if(par.equals("d")){
-		Collections.reverse(phaList);
-	}
+	
 	return phaList;
 }
 
-public List<PharmacyQRDTO> sortByPharmacyNameQR(String path, String par) throws FileNotFoundException, NotFoundException, IOException {
+public List<PharmacyQRDTO> sortByPharmacyNameQR(String path) throws FileNotFoundException, NotFoundException, IOException {
 	Set<PharmacyQRDTO> toSort=getPharmaciesByQR(path);
 	List<PharmacyQRDTO> phaList = toSort.stream().sorted((e1, e2) -> 
 	e1.getName().compareTo(e2.getName())).collect(Collectors.toList());
-	if(par.equals("d")){
-		Collections.reverse(phaList);
-	}
+	
 	return phaList;
 }
 
-public List<PharmacyQRDTO> sortByPharmacyAddressQR(String path, String par) throws FileNotFoundException, NotFoundException, IOException {
+public List<PharmacyQRDTO> sortByPharmacyAddressQR(String path) throws FileNotFoundException, NotFoundException, IOException {
 	Set<PharmacyQRDTO> toSort=getPharmaciesByQR(path);
 	List<PharmacyQRDTO> phaList = toSort.stream().sorted((e1, e2) -> 
 	e1.getAddress().compareTo(e2.getAddress())).collect(Collectors.toList());
-	if(par.equals("d")){
-		Collections.reverse(phaList);
-	}
+	
+	return phaList;
+}
+
+public List<PharmacyQRDTO> sortByPharmacyGradeQRDESC(String path) throws FileNotFoundException, NotFoundException, IOException {
+	Set<PharmacyQRDTO> toSort=getPharmaciesByQR(path);
+	List<PharmacyQRDTO> phaList = toSort.stream().sorted((e1, e2) -> 
+	e1.getGrade().compareTo(e2.getGrade())).collect(Collectors.toList());
+	Collections.reverse(phaList);
+
+	return phaList;
+}
+
+public List<PharmacyQRDTO> sortByPharmacyPriceQRDESC(String path) throws FileNotFoundException, NotFoundException, IOException {
+	Set<PharmacyQRDTO> toSort=getPharmaciesByQR(path);
+	List<PharmacyQRDTO> phaList = toSort.stream().sorted((e1, e2) -> 
+	e1.getPriceofMedicines().compareTo(e2.getPriceofMedicines())).collect(Collectors.toList());
+
+	Collections.reverse(phaList);
+	
 	return phaList;}
+
+public List<PharmacyQRDTO> sortByPharmacyNameDESC(String path) throws FileNotFoundException, NotFoundException, IOException {
+	Set<PharmacyQRDTO> toSort=getPharmaciesByQR(path);
+	List<PharmacyQRDTO> phaList = toSort.stream().sorted((e1, e2) -> 
+	e1.getAddress().compareTo(e2.getAddress())).collect(Collectors.toList());
+	Collections.reverse(phaList);
+	return phaList;
+}
+
+public List<PharmacyQRDTO> sortByPharmacyAddressQRDESC(String path) throws FileNotFoundException, NotFoundException, IOException {
+		Set<PharmacyQRDTO> toSort=getPharmaciesByQR(path);
+		List<PharmacyQRDTO> phaList = toSort.stream().sorted((e1, e2) -> 
+		e1.getAddress().compareTo(e2.getAddress())).collect(Collectors.toList());
+		Collections.reverse(phaList);
+		return phaList;
+	}
 }
 		

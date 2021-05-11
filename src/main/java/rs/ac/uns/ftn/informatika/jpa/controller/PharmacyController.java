@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import rs.ac.uns.ftn.informatika.jpa.dto.MedicinePriceAndQuantityDTO;
@@ -130,7 +131,7 @@ public class PharmacyController {
 	}
 
 	@GetMapping(value = "/changePharmacySupplies/{id}/{patientId}")
-	public ResponseEntity<PharmacyDTO> changePharmacySupplies(@PathVariable Long id, @RequestBody String path,@PathVariable Long patientId) throws FileNotFoundException, NotFoundException, IOException {
+	public ResponseEntity<PharmacyDTO> changePharmacySupplies(@PathVariable Long id, @RequestParam String path,@PathVariable Long patientId) throws FileNotFoundException, NotFoundException, IOException {
 		PharmacyDTO pharmacie = pharmacyService.changePharmacySupplies(id,path,patientId);
 		return pharmacie == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(pharmacie);
 	}

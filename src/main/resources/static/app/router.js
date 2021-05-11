@@ -65,6 +65,7 @@ const emailConfirmationDermatologist = { template: '<emailConfirmationDermatolog
 const emailConfirmationPharmacist = { template: '<emailConfirmationPharmacist></emailConfirmationPharmacist>' } 
 const emailConfirmationSystemAdmin = { template: '<emailConfirmationSystemAdmin></emailConfirmationSystemAdmin>' } 
 const emailConfirmationPharmacyAdmin = { template: '<emailConfirmationPharmacyAdmin></emailConfirmationPharmacyAdmin>' } 
+const QR = { template: '<QR></QR>' } 
 
 
 
@@ -548,6 +549,13 @@ const router = new VueRouter({
 			name : 'giveOffers', 
 			components: {
 				content: GiveOffers
+			}
+		},
+		{
+			path: '/QR', 
+			name : 'QR', 
+			components: {
+				content: QR
 			}
 		}
 	  ]

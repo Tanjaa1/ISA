@@ -246,7 +246,7 @@ Vue.component("registrationPatient", {
 
 						.catch(error => {
 							
-							alert("GRESKA");
+							alert("GRESKAA");
 						})
 					}
 				})

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import rs.ac.uns.ftn.informatika.jpa.dto.MedicineDTO;
@@ -134,30 +135,50 @@ public class MedicineController {
 		return medicineDTOs == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(medicineDTOs);
 	}
 
-	@GetMapping(value = "/getPharmaciesByQR")
-	public ResponseEntity<Set<PharmacyQRDTO>> getPharmaciesByQR(@RequestBody String path) throws FileNotFoundException, NotFoundException, IOException  {
-		Set<PharmacyQRDTO> medicineDTOs = medicineService.getPharmaciesByQR(path);
+	@GetMapping(value = "/getPharmaciesByQR/")
+	public ResponseEntity<Set<PharmacyQRDTO>> getPharmaciesByQR(@RequestParam String par) throws FileNotFoundException, NotFoundException, IOException  {
+		Set<PharmacyQRDTO> medicineDTOs = medicineService.getPharmaciesByQR(par);
 		return medicineDTOs == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(medicineDTOs);
 	}
 
-	@GetMapping(value = "/sortByPharmacyGradeQR/{par}")
-	public ResponseEntity<List<PharmacyQRDTO>> sortByPharmacyGradeQR(@RequestBody String path,@PathVariable String par) throws FileNotFoundException, NotFoundException, IOException  {
-		List<PharmacyQRDTO> medicineDTOs = medicineService.sortByPharmacyGradeQR(path,par);
+	@GetMapping(value = "/sortByPharmacyGradeQRASC/")
+	public ResponseEntity<List<PharmacyQRDTO>> sortByPharmacyGradeQR(@RequestParam String path) throws FileNotFoundException, NotFoundException, IOException  {
+		List<PharmacyQRDTO> medicineDTOs = medicineService.sortByPharmacyGradeQR(path);
 		return medicineDTOs == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(medicineDTOs);
 	}
-	@GetMapping(value = "/sortByPharmacyPriceQR/{par}")
-	public ResponseEntity<List<PharmacyQRDTO>> sortByPharmacyPriceQR(@RequestBody String path,@PathVariable String par) throws FileNotFoundException, NotFoundException, IOException  {
-		List<PharmacyQRDTO> medicineDTOs = medicineService.sortByPharmacyPriceQR(path,par);
+	@GetMapping(value = "/sortByPharmacyGradeQRDESC/")
+	public ResponseEntity<List<PharmacyQRDTO>> sortByPharmacyGradeQRDESC(@RequestParam String path) throws FileNotFoundException, NotFoundException, IOException  {
+		List<PharmacyQRDTO> medicineDTOs = medicineService.sortByPharmacyGradeQRDESC(path);
 		return medicineDTOs == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(medicineDTOs);
 	}
-	@GetMapping(value = "/sortByPharmacyNameQR/{par}")
-	public ResponseEntity<List<PharmacyQRDTO>> sortByPharmacyNameQR(@RequestBody String path,@PathVariable String par) throws FileNotFoundException, NotFoundException, IOException  {
-		List<PharmacyQRDTO> medicineDTOs = medicineService.sortByPharmacyNameQR(path,par);
+	@GetMapping(value = "/sortByPharmacyPriceQRACS/")
+	public ResponseEntity<List<PharmacyQRDTO>> sortByPharmacyPriceQR(@RequestParam String path) throws FileNotFoundException, NotFoundException, IOException  {
+		List<PharmacyQRDTO> medicineDTOs = medicineService.sortByPharmacyPriceQR(path);
 		return medicineDTOs == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(medicineDTOs);
 	}
-	@GetMapping(value = "/sortByPharmacyAddressQR/{par}")
-	public ResponseEntity<List<PharmacyQRDTO>> sortByPharmacyAddressQR(@RequestBody String path,@PathVariable String par) throws FileNotFoundException, NotFoundException, IOException  {
-		List<PharmacyQRDTO> medicineDTOs = medicineService.sortByPharmacyAddressQR(path,par);
+	@GetMapping(value = "/sortByPharmacyPriceQRDESC/")
+	public ResponseEntity<List<PharmacyQRDTO>> sortByPharmacyPriceQRDESC(@RequestParam String path) throws FileNotFoundException, NotFoundException, IOException  {
+		List<PharmacyQRDTO> medicineDTOs = medicineService.sortByPharmacyPriceQRDESC(path);
+		return medicineDTOs == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(medicineDTOs);
+	}
+	@GetMapping(value = "/sortByPharmacyNameQRASC/")
+	public ResponseEntity<List<PharmacyQRDTO>> sortByPharmacyNameQR(@RequestParam String path) throws FileNotFoundException, NotFoundException, IOException  {
+		List<PharmacyQRDTO> medicineDTOs = medicineService.sortByPharmacyNameQR(path);
+		return medicineDTOs == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(medicineDTOs);
+	}
+	@GetMapping(value = "/sortByPharmacyNameDESC/")
+	public ResponseEntity<List<PharmacyQRDTO>> sortByPharmacyNameDESC(@RequestParam String path) throws FileNotFoundException, NotFoundException, IOException  {
+		List<PharmacyQRDTO> medicineDTOs = medicineService.sortByPharmacyNameDESC(path);
+		return medicineDTOs == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(medicineDTOs);
+	}
+	@GetMapping(value = "/sortByPharmacyAddressQRASC/")
+	public ResponseEntity<List<PharmacyQRDTO>> sortByPharmacyAddressQR(@RequestParam String path) throws FileNotFoundException, NotFoundException, IOException  {
+		List<PharmacyQRDTO> medicineDTOs = medicineService.sortByPharmacyAddressQR(path);
+		return medicineDTOs == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(medicineDTOs);
+	}
+	@GetMapping(value = "/sortByPharmacyAddressQRDESC/")
+	public ResponseEntity<List<PharmacyQRDTO>> sortByPharmacyAddressQRDESC(@RequestParam String path) throws FileNotFoundException, NotFoundException, IOException  {
+		List<PharmacyQRDTO> medicineDTOs = medicineService.sortByPharmacyAddressQRDESC(path);
 		return medicineDTOs == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(medicineDTOs);
 	}
 
