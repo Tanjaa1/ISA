@@ -16,6 +16,7 @@ import rs.ac.uns.ftn.informatika.jpa.dto.DermatologistDTO;
 import rs.ac.uns.ftn.informatika.jpa.model.Dermatologist;
 import rs.ac.uns.ftn.informatika.jpa.model.Markk;
 import rs.ac.uns.ftn.informatika.jpa.model.Patient;
+import rs.ac.uns.ftn.informatika.jpa.model.Pharmacy;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IDermatologistRepository;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IMarkRepository;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IPatientRepository;
@@ -80,7 +81,7 @@ public class DermatologistService implements IDermatologistService {
 		Long dermaId=0L;
 		for (Dermatologist dermatologist2 : dermatologists) {
 			if(dermatologist2.getUsername().equals(dermatologist.getUsername()))
-			dermaId=dermatologist2.getId();
+				dermaId=dermatologist2.getId();
 		}
 		dermatologist.setId(dermaId);
 		emailSender(dermatologist);
@@ -168,6 +169,19 @@ public class DermatologistService implements IDermatologistService {
 		}
 		dermatologistRepository.save(pharmacist2);
 		return new DermatologistDTO(pharmacist2);
+	}
+
+	public List<DermatologistDTO> getByPharmacyId(Long id) {
+		List<DermatologistDTO> DermatologistDTO = new ArrayList<>();
+		List<Dermatologist> dermatologists = dermatologistRepository.findAll();
+		for (Dermatologist dermatologist : dermatologists) {
+			for(Pharmacy p : dermatologist.getPharmacies()){
+				if(p.getId().compareTo(id)==0){
+					DermatologistDTO.add(new DermatologistDTO(dermatologist));
+				}
+			}
+		}
+		return DermatologistDTO;
 	}
 
 }

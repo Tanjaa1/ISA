@@ -53,6 +53,7 @@ const SupplierInfo= { template: '<supplierInfo></supplierInfo>' }
 const SuppliersOffers= { template: '<suppliersOffers></suppliersOffers>' } 
 const GiveOffers= { template: '<giveOffers></giveOffers>' } 
 
+const AdministratorHomePage= { template: '<administratorHomePage></administratorHomePage>' } 
 
 
 
@@ -82,6 +83,9 @@ const DermatologistVacationRequest = { template: '<dermatologistVacationRequest>
 const CreateExaminationDermatologist = { template: '<createExaminationDermatologist></createExaminationDermatologist>' }
 const CreateCounselingPharmacist = { template: '<createCounselingPharmacist></createCounselingPharmacist>' }
 const NewActionOrPromotion = { template: '<newActionOrPromotion></newActionOrPromotion>' }
+
+const AdministratorAccountInfo = { template: '<administratorAccountInfo></administratorAccountInfo>' }
+const AdministratorExaminations = { template: '<administratorExaminations></administratorExaminations>' }
 
 
 const CalendarD = { template: '<calendarD></calendarD>' }
@@ -113,6 +117,30 @@ const router = new VueRouter({
 	    	components: {
 				pageHeader: PatientHeader,
 				content: PatientHomePage
+			}
+		},
+		{ 
+	    	path: '/administratorHomePage', 
+	    	name : 'administratorHomePage', 
+	    	components: {
+				pageHeader: PatientHeader,
+				content: AdministratorHomePage
+			}
+		},
+		{ 
+	    	path: '/administratorAccountInfo', 
+	    	name : 'administratorAccountInfo', 
+	    	components: {
+				pageHeader: PatientHeader,
+				content: AdministratorAccountInfo
+			}
+		},
+		{ 
+	    	path: '/administratorExaminations', 
+	    	name : 'administratorExaminations', 
+	    	components: {
+				pageHeader: PatientHeader,
+				content: AdministratorExaminations
 			}
 		},
 		{ 

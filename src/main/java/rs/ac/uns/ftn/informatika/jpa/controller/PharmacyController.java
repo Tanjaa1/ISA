@@ -79,8 +79,8 @@ public class PharmacyController {
 	}
 
 	@GetMapping(value = "/getByName/{name}")
-	public ResponseEntity<Pharmacy> getByName(@PathVariable String name) {
-		Pharmacy pharmacy = pharmacyService.getByName(name);
+	public ResponseEntity<PharmacyDTO> getByName(@PathVariable String name) {
+		PharmacyDTO pharmacy = new PharmacyDTO(pharmacyService.getByName(name));
 		return pharmacy == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(pharmacy);
 	}
 

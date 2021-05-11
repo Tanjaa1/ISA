@@ -104,4 +104,10 @@ public class DermatologistController {
 		return ResponseEntity.ok(dermatologistService.addMark(pharmacist,medicinesMark, id));
 	}
 
+	@GetMapping(value = "/getByPharmacyId/{id}")
+	public ResponseEntity<List<DermatologistDTO>> getByPharmacyId(@PathVariable Long id) {
+		List<DermatologistDTO> pharmacistDTOs = dermatologistService.getByPharmacyId(id);
+		return pharmacistDTOs == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(pharmacistDTOs);
+	}
+
 }
