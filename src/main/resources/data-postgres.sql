@@ -631,3 +631,51 @@ INSERT INTO public.order_medicine_orders(
 	INSERT INTO public.supplier_offer(
 	id, due_date, offer_price, status, order_medicine_id, supplier_id)
 	VALUES (555, 'neki datum', 16000.00, 0, 1, 10);
+
+	INSERT INTO public.mark(
+	id, marks, patient_id)
+	VALUES (555, 5, 88);
+	INSERT INTO public.mark(
+	id, marks, patient_id)
+	VALUES (556, 4, 88);
+	INSERT INTO public.mark(
+	id, marks, patient_id)
+	VALUES (557, 3, 88);
+	INSERT INTO public.mark(
+	id, marks, patient_id)
+	VALUES (558, 5, 88);
+
+ INSERT INTO public.pharmacy_marks(
+ 	pharmacy_id, marks_id)
+ 	VALUES (111, 555);
+	 
+ INSERT INTO public.pharmacy_marks(
+ 	pharmacy_id, marks_id)
+ 	VALUES (111, 556);
+	 
+ INSERT INTO public.pharmacy_marks(
+ 	pharmacy_id, marks_id)
+ 	VALUES (111, 557);
+
+ INSERT INTO public.pharmacy_marks(
+ 	pharmacy_id, marks_id)
+ 	VALUES (111, 558);
+
+	 		
+INSERT INTO public.examination(
+	id, price, start_time, end_time, is_done, dermatologist_id, pharmacy_id, is_canceled)
+	VALUES (312, 500.0,  '2021-06-15 19:10:25-07', '2021-06-15 19:20:25-07', false, 6, 111, false);
+INSERT INTO public.examination(
+	id, price, start_time, end_time, is_done, dermatologist_id, pharmacy_id, is_canceled)
+	VALUES (313, 1000.0, '2021-06-15 16:30:25-07', '2021-06-15 16:40:25-07', true, 6, 111, false);
+INSERT INTO public.examination(
+	id, price, start_time, end_time, is_done, dermatologist_id, pharmacy_id, is_canceled)
+	VALUES (314, 800.0, '2021-06-23 09:10:25-07', '2021-06-23 09:20:25-07', false, 6, 111, false);
+	
+INSERT INTO public.working_time(
+	id, time_end, time_start,pharmacy_id)
+	VALUES (69, '2021-07-23 00:00:00-07','2021-05-1 14:00:00-07','111');
+
+INSERT INTO public.dermatologist_working_schedule(
+	dermatologist_id, working_time_id)
+	VALUES (6, 69);

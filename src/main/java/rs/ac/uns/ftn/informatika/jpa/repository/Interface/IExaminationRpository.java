@@ -42,4 +42,8 @@ public interface IExaminationRpository extends JpaRepository<Examination, Long> 
 	@Query("SELECT u FROM Examination u,Dermatologist d WHERE u.Dermatologist=d.Id and u.Patient=null")
     public List<Examination> getFreeExamination();
 
+	@Query("SELECT u FROM Examination u , Dermatologist d , Pharmacy p WHERE u.Pharmacy= p.Id and u.Dermatologist= d.Id and p.Id = ?1 and d.Id = ?2 and u.StartTime >= CURRENT_DATE and u.Patient is null ")
+    public List<Examination> getUpcomingExaminationsByDermatologistAndPharmacy(Long pID, Long dID);
+
+	
 }

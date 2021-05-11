@@ -153,7 +153,7 @@ public class PharmacyAdminDTO {
         EmailComfirmed = pa.getEmailComfirmed();
         FirstTimeLogin = pa.getFirstTimeLogin();
         UserName = pa.getUsername();
-       // Pharmacy = pa.;
+        Pharmacy = new PharmacyDTO(pa.getPharmacy());
     }
 	public String fullName(){
 		return Name+" "+Surname;

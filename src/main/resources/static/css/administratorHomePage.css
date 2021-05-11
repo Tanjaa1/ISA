@@ -1,0 +1,96 @@
+.BackendImagePhysician {
+    background-image: url("../pictures/search.jpg");
+    background-repeat: no-repeat;
+    overflow-y: hidden;
+    overflow-x: hidden;
+    background-size: cover;
+    height: auto !important;
+    min-height: 1000px;
+    color: white;
+    font-family: impact;
+}
+
+#Users {
+    background-image: url("../pictures/users.png");
+    height: 150px;
+    width: 150px;
+    background-color: white;
+    border-radius: 20px;
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: 0.8;
+}
+#Examination {
+    background-image: url("../pictures/examination.png");
+    height: 150px;
+    width: 150px;
+    background-color: white;
+    border-radius: 20px;
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: 0.8;
+}
+
+#Calendar {
+    background-image: url("../pictures/calendar.jpg");
+    height: 150px;
+    width: 150px;
+    background-color: white;
+    border-radius: 20px;
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: 0.8;
+}
+
+#Vacation {
+    background-image: url("../pictures/vacation.png");
+    height: 150px;
+    width: 150px;
+    background-color: white;
+    border-radius: 20px;
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: 0.8;
+}
+
+#Account {
+    background-image: url("../pictures/user.png");
+    height: 150px;
+    width: 150px;
+    background-color: white;
+    border-radius: 20px;
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: 0.8;
+}
+
+#Scheduling {
+    background-image: url("../pictures/new.png");
+    height: 150px;
+    width: 150px;
+    background-color: white;
+    border-radius: 20px;
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: 0.8;
+}
+
+.modal .modal-dialog .modal-content{  
+    background-image: url("../pictures/search.jpg");
+    /*background-repeat: no-repeat;*/
+    /* overflow-y: scroll;
+    overflow-x: hidden;     */
+    /*max-height: 300px;*/
+    width: 800px;
+ }
+
+ /* .modal-dialog{
+    overflow-y: initial !important;
+    height: auto !important;
+}
+.modal-body{
+     height:250px; 
+    height: 80vh;
+    overflow-y: auto;
+    overflow-x: auto;
+}

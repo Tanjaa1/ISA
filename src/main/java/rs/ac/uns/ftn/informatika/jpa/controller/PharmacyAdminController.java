@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import rs.ac.uns.ftn.informatika.jpa.dto.PharmacyAdminDTO;
 import rs.ac.uns.ftn.informatika.jpa.model.Medicine;
 import rs.ac.uns.ftn.informatika.jpa.model.PharmacyAdmin;
 import rs.ac.uns.ftn.informatika.jpa.service.PharmacyAdminService;
@@ -35,6 +36,12 @@ public class PharmacyAdminController {
 	public ResponseEntity<List<String>> getAllPharmacyAdinUsernames() {
 		List<String> usernames =pharmacyAdminService.getAllSystemAdminUsernames();
 		return usernames == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(usernames);
+	}
+
+	@GetMapping(value = "/getById/{id}")
+	public ResponseEntity<PharmacyAdminDTO> getPatientById(@PathVariable Long id) {
+		PharmacyAdminDTO pharmacyAdmin = new PharmacyAdminDTO(pharmacyAdminService.findOne(id));
+		return pharmacyAdmin == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(pharmacyAdmin);
 	}
 
 	@GetMapping(value = "/isUsernameValid/{username}")

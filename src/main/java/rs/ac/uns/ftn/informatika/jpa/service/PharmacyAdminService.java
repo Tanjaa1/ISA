@@ -30,7 +30,7 @@ public class PharmacyAdminService implements IPharmacyAdminService {
 		Long patientId=0L;
 		for (PharmacyAdmin patient2 : patients) {
 			if(patient2.getUsername().equals(systemAdmin.getUsername()))
-			patientId=patient2.getId();
+			    patientId=patient2.getId();
 		}
 		systemAdmin.setId(patientId);
 		emailSender(systemAdmin);       
