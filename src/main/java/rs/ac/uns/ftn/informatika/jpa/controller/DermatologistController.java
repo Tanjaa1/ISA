@@ -110,4 +110,24 @@ public class DermatologistController {
 		return pharmacistDTOs == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(pharmacistDTOs);
 	}
 
+	@GetMapping(value = "/getUnemployedDermatolgoists/{id}")
+	public ResponseEntity<List<DermatologistDTO>> getUnemployedDermatolgoists(@PathVariable Long id) {
+		List<DermatologistDTO> pharmacistDTOs = dermatologistService.getUnemployedDermatolgoists(id);
+		return pharmacistDTOs == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(pharmacistDTOs);
+	}
+
+	@PostMapping(value = "/addNewDermatologistToPharmacy")
+	public ResponseEntity<Dermatologist> checkUserAndEmail( @RequestBody Dermatologist dermatologist) throws Exception {
+		return ResponseEntity.ok(dermatologistService.addNewDermatologistToPharmacy(dermatologist));
+	}
+
+	@PutMapping(value = "/addExistingDermatologistToPharmacy/{dermatologistUsername}/{pharmacyUsername}")
+	public ResponseEntity<Boolean> addExistingDermatologistToPharmacy( @PathVariable Long dermatologistUsername,@PathVariable Long pharmacyUsername,@Valid @RequestBody Dermatologist dermatologist) throws Exception {
+		return ResponseEntity.ok(dermatologistService.addExistingDermatologistToPharmacy(dermatologistUsername,pharmacyUsername));
+	}
+
+	@GetMapping(value = "/checkUserAndEmail/{username}/{email}")
+	public ResponseEntity<String> checkUserAndEmail(@PathVariable String username,@PathVariable String email) throws Exception {
+		return ResponseEntity.ok(dermatologistService.checkUserAndEmail(username,email));
+	}
 }

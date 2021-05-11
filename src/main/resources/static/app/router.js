@@ -86,6 +86,7 @@ const NewActionOrPromotion = { template: '<newActionOrPromotion></newActionOrPro
 
 const AdministratorAccountInfo = { template: '<administratorAccountInfo></administratorAccountInfo>' }
 const AdministratorExaminations = { template: '<administratorExaminations></administratorExaminations>' }
+const AdministratorEmployed = { template: '<administratorEmployed></administratorEmployed>' }
 
 
 const CalendarD = { template: '<calendarD></calendarD>' }
@@ -141,6 +142,14 @@ const router = new VueRouter({
 	    	components: {
 				pageHeader: PatientHeader,
 				content: AdministratorExaminations
+			}
+		},
+		{ 
+	    	path: '/administratorEmployed', 
+	    	name : 'administratorEmployed', 
+	    	components: {
+				pageHeader: PatientHeader,
+				content: AdministratorEmployed
 			}
 		},
 		{ 

@@ -1,24 +1,18 @@
 package rs.ac.uns.ftn.informatika.jpa.service;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
-import org.apache.catalina.startup.RealmRuleSet;
-import org.hibernate.internal.CriteriaImpl.OrderEntry;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import rs.ac.uns.ftn.informatika.jpa.controller.MedicineController;
 import rs.ac.uns.ftn.informatika.jpa.dto.MedicineQuantityDTO;
 import rs.ac.uns.ftn.informatika.jpa.dto.OrderDTO;
 import rs.ac.uns.ftn.informatika.jpa.dto.SupplierOfferDTO;
 import rs.ac.uns.ftn.informatika.jpa.enums.OfferStatus;
-import rs.ac.uns.ftn.informatika.jpa.model.Medicine;
-import rs.ac.uns.ftn.informatika.jpa.model.MedicineQuantity;
 import rs.ac.uns.ftn.informatika.jpa.model.Order;
 import rs.ac.uns.ftn.informatika.jpa.model.Supplier;
 import rs.ac.uns.ftn.informatika.jpa.model.SupplierOffer;

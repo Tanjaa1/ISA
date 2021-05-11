@@ -2,6 +2,7 @@ package rs.ac.uns.ftn.informatika.jpa.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,6 +21,7 @@ import rs.ac.uns.ftn.informatika.jpa.model.Pharmacy;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IDermatologistRepository;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IMarkRepository;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IPatientRepository;
+import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IPharmacyRepository;
 import rs.ac.uns.ftn.informatika.jpa.service.Interface.IDermatologistService;
 
 @Service
@@ -36,6 +38,8 @@ public class DermatologistService implements IDermatologistService {
 	private IPatientRepository patientRepository;
 	@Autowired
 	private IMarkRepository markRepository;
+	@Autowired
+	private IPharmacyRepository pharmacyRepository;
 
 	public Dermatologist findOne(Long id) 
 	{
@@ -183,5 +187,59 @@ public class DermatologistService implements IDermatologistService {
 		}
 		return DermatologistDTO;
 	}
+
+	public List<DermatologistDTO> getUnemployedDermatolgoists(Long id) {
+		boolean flag = true;
+		List<DermatologistDTO> DermatologistDTO = new ArrayList<>();
+		List<Dermatologist> dermatologists = dermatologistRepository.findAll();
+		for (Dermatologist dermatologist : dermatologists) {
+			for(Pharmacy p : dermatologist.getPharmacies()){
+				if(p.getId().compareTo(id)==0){
+					flag = false;
+				}
+			}
+			if(flag)
+				DermatologistDTO.add(new DermatologistDTO(dermatologist));
+			flag = true;
+		}
+		return DermatologistDTO;
+	}
+
+	public Boolean addExistingDermatologistToPharmacy(Long dId, Long pId){
+		try{
+			Pharmacy pharmacy = pharmacyRepository.getOne(pId);
+			Dermatologist dermatologist = dermatologistRepository.getOne(dId);
+			Set<Pharmacy> dPharmacies = dermatologist.getPharmacies();
+			dPharmacies.add(pharmacy);
+			dermatologist.setPharmacies(dPharmacies);
+			dermatologistRepository.save(dermatologist);
+			return true;
+		}
+		catch(Exception e){
+			return false;
+		}
+	}
+
+	public Dermatologist addNewDermatologistToPharmacy(Dermatologist dermatologist){
+
+		return dermatologistRepository.save(dermatologist);
+
+	}
+
+	public String checkUserAndEmail(String username , String email) throws Exception {
+		List<Dermatologist> dermatologists=dermatologistRepository.findAll();
+		String retVal = "OK";
+		for (Dermatologist d : dermatologists) {
+			if(d.getUsername().equals(username)){
+				retVal = "Username";
+				return  retVal;
+			}
+			if(d.getEmail().equals(email)){
+			  retVal = "Email";
+			  return  retVal;
+		   }			
+		}
+		return retVal;
+		}
 
 }

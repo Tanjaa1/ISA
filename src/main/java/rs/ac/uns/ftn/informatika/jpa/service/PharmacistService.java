@@ -108,7 +108,7 @@ public class PharmacistService implements IPharmacistService {
 		Long pharmacistId=0L;
 		for (Pharmacist patient2 : patients) {
 			if(patient2.getUsername().equals(pharmacist.getUsername()))
-			pharmacistId=patient2.getId();
+				pharmacistId=patient2.getId();
 		}
 		pharmacist.setId(pharmacistId);
 		emailSender(pharmacist);

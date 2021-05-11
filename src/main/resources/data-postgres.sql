@@ -41,6 +41,12 @@ INSERT INTO public.pharmacist(
 INSERT INTO public.pharmacist(
 	id, address, city, country, description, email, email_comfirmed, first_time_login, name, password, phone_number, surname, username, pharmacy_id)
 	VALUES (5, 'Jovana Ducica 9', 'Novi Sad', 'Srbija', '', 'sava@gmail.com', false, false, 'Sava', 'Savic', '06541111123', 'Savic','sava',111);
+INSERT INTO public.pharmacist(
+	id, address, city, country, description, email, email_comfirmed, first_time_login, name, password, phone_number, surname, username, pharmacy_id)
+	VALUES (11, 'Jovana Ducica 9', 'Novi Sad', 'Srbija', '', 'pera@gmail.com', false, false, 'Pera', 'Peric', '06541111123', 'Peric','pera',111);
+INSERT INTO public.pharmacist(
+	id, address, city, country, description, email, email_comfirmed, first_time_login, name, password, phone_number, surname, username, pharmacy_id)
+	VALUES (12, 'Jovana Ducica 9', 'Novi Sad', 'Srbija', '', 'mika@gmail.com', false, false, 'Mika', 'Mikic', '06541111123', 'Mika','mika',111);
 
 /*
 INSERT INTO public.dermatologist(
@@ -644,6 +650,45 @@ INSERT INTO public.order_medicine_orders(
 	INSERT INTO public.mark(
 	id, marks, patient_id)
 	VALUES (558, 5, 88);
+
+	INSERT INTO public.mark(
+	id, marks, patient_id)
+	VALUES (565, 5, 88);
+	INSERT INTO public.mark(
+	id, marks, patient_id)
+	VALUES (566, 4, 88);
+	INSERT INTO public.mark(
+	id, marks, patient_id)
+	VALUES (567, 3, 88);
+	INSERT INTO public.mark(
+	id, marks, patient_id)
+	VALUES (568, 5, 88);
+	INSERT INTO public.mark(
+	id, marks, patient_id)
+	VALUES (569, 3, 88);
+	INSERT INTO public.mark(
+	id, marks, patient_id)
+	VALUES (570, 5, 88);
+
+INSERT INTO public.pharmacist_marks(
+	pharmacist_id, marks_id)
+	VALUES (5, 565);
+INSERT INTO public.pharmacist_marks(
+	pharmacist_id, marks_id)
+	VALUES (12, 566);
+INSERT INTO public.pharmacist_marks(
+	pharmacist_id, marks_id)
+	VALUES (11, 567);
+INSERT INTO public.pharmacist_marks(
+	pharmacist_id, marks_id)
+	VALUES (12, 568);
+INSERT INTO public.pharmacist_marks(
+	pharmacist_id, marks_id)
+	VALUES (11, 569);
+INSERT INTO public.pharmacist_marks(
+	pharmacist_id, marks_id)
+	VALUES (12, 570);
+
 
  INSERT INTO public.pharmacy_marks(
  	pharmacy_id, marks_id)

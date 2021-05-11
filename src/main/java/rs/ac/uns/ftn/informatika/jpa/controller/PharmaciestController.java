@@ -99,5 +99,9 @@ public class PharmaciestController {
 		return ResponseEntity.ok(pharmacistService.addMark(pharmacist,medicinesMark, id));
 	}
 
-	
+	@GetMapping(value = "/getByPharmacyId/{id}")
+	public ResponseEntity<List<PharmacistDTO>> getByPharmacyId(@PathVariable Long id) {
+		List<PharmacistDTO> pharmacistDTOs = pharmacistService.getPharmacistByPharmacyId(id);
+		return pharmacistDTOs == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(pharmacistDTOs);
+	}	
 }
