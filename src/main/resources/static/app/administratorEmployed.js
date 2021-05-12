@@ -8,6 +8,7 @@ Vue.component("administratorEmployed", {
 			passwordSame : false,
 			administrator: {},
             pharmacy: {},
+			dermatologistWT : {},
 			pharmacists : [],
 			dermatologists : [],
 			selectedDermatologist : {},
@@ -53,6 +54,14 @@ Vue.component("administratorEmployed", {
 			allPharmacists : [],
 			unemployedDermatologists : [],
 			unemployedPharmacists : [],
+			pharmacistWT : {},
+			WT : {
+				date : "",
+				id : null,
+				pharmacy : {},
+				endTime : "",
+				startTime : "",
+			}
 		}
 	},
 	beforeMount() {
@@ -120,6 +129,7 @@ Vue.component("administratorEmployed", {
 					<th scope="col">Name</th>
 					<th scope="col">Surname</th>
 					<th scope="col">Avg. rating</th>
+					<th scope="col"></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -129,18 +139,22 @@ Vue.component("administratorEmployed", {
 					<td>{{pharmacist.surname}}</td>
 					<td v-if = "pharmacist.grade != null">{{pharmacist.grade}}</td>
 					<td v-else>N/A</td>
+					<td><button style="color:white" type="button" class="btn btn-default" data-dismiss="modal" v-on:click="SelectPharmacistWT(pharmacist)" data-toggle="modal" data-target="#addWorktimePharmacist"><i class="fa fa-calendar"></i></button>
+					<button style="color:white" type="button" class="btn btn-default" data-dismiss="modal" v-on:click="DeletePharmacist(pharmacist)" data-toggle="modal" data-target="#"><i class="fa fa-trash"></i></button></td>
 				</tr>
 			</tbody>
 		</table>
-		<div class="input-group mb-3" style = "width : 80%; margin-left:27%">
-			<div><input id="pharmacistName" placeholder="Search by  name" style = "width : 80%" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default"></div>
-			<div><input id="pharmacistSurname" placeholder="Search by  surname" style = "width : 80%" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default"></div>
-			<div ><input id="pharmacistId" placeholder="Search by  id" style = "width : 80%" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default"></div>
+		<div class="input-group mb-3" style = "width : 80%; margin-left:15%">
+			<div><input id="pharmacistName" placeholder="Filter by  name" style = "width : 80%" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default"></div>
+			<div><input id="pharmacistSurname" placeholder="Filter by  surname" style = "width : 80%" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default"></div>
+			<div ><input id="pharmacistId" placeholder="Filter by  id" style = "width : 80%" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default"></div>
+			<div ><input @change = "ValidateGradeP()" id="pharmacistMin" placeholder="Min rating" min = "0" max = "5" style = "width : 80%" type="number" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default"></div>
+			<div ><input @change = "ValidateGradeP()" id="pharmacistMax" placeholder="Max rating" min = "0" max = "5" style = "width : 80%" type="number" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default"></div>
 
 			<div><button style="color:white" type="button" class="btn btn-default" data-dismiss="modal"  v-on:click="SearchPharmacists()"><i class="fa fa-search"></i></button></div> &nbsp
 			<div><button style="color:white" type="button" class="btn btn-default" data-dismiss="modal" v-on:click="ResetPharmacistsSearch()"><i class="fa fa-refresh"></i></button></div> &nbsp
-			<div><button style="color:white" type="button" class="btn btn-default" data-dismiss="modal" v-on:click="" data-toggle="modal" data-target="#addPharmacistModal"><i class="fa fa-user-plus"></i></button></div> &nbsp
-			<div><button style="color:white" type="button" class="btn btn-default" data-dismiss="modal" v-on:click="" data-toggle="modal" data-target="#addExistingPharmacist"><i class="fa fa-plus-square"></i></button></div> &nbsp
+			<div><button  style="color:white" type="button" class="btn btn-default" data-dismiss="modal" v-on:click="" data-toggle="modal" data-target="#addPharmacistModal"><i class="fa fa-user-plus"></i></button></div> &nbsp
+			<div><button  style="color:white" type="button" class="btn btn-default" data-dismiss="modal" v-on:click="" data-toggle="modal" data-target="#addExistingPharmacist"><i class="fa fa-plus-square"></i></button></div> &nbsp
 		</div>
 		</br>		
 
@@ -154,6 +168,7 @@ Vue.component("administratorEmployed", {
 							<th scope="col">Name</th>
 							<th scope="col">Surname</th>
 							<th scope="col">Avg. rating</th>
+							<th scope="col"></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -163,13 +178,18 @@ Vue.component("administratorEmployed", {
 							<td>{{dermatologist.surname}}</td>
 							<td v-if = "dermatologist.grade != null">{{dermatologist.grade}}</td>
 							<td v-else>N/A</td>
+							<td><button style="color:white" type="button" class="btn btn-default" data-dismiss="modal" v-on:click="SelectDermatologistWT(dermatologist)" data-toggle="modal" data-target="#addWorktimeDermatolgist"><i class="fa fa-calendar"></i></button>
+							<button style="color:white" type="button" class="btn btn-default" data-dismiss="modal" v-on:click="DeleteDermatologist(dermatologist)" data-toggle="modal" data-target="#"><i class="fa fa-trash"></i></button></td>
 						</tr>
 					</tbody>
 				</table>
-				<div class="input-group mb-3" style = "width : 80%; margin-left:27%">
-					<div><input id="dermatologistName" placeholder="Search by  name" style = "width : 80%" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default"></div>
-					<div><input id="dermatologistSurname" placeholder="Search by  surname" style = "width : 80%" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default"></div>
-					<div ><input id="dermatologistId" placeholder="Search by  id" style = "width : 80%" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default"></div>
+				<div class="input-group mb-3" style = "width : 80%; margin-left:15%">
+					<div><input id="dermatologistName" placeholder="Filter by  name" style = "width : 80%" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default"></div>
+					<div><input id="dermatologistSurname" placeholder="Filter by  surname" style = "width : 80%" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default"></div>
+					<div ><input id="dermatologistId" placeholder="Filter by  id" style = "width : 80%" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default"></div>
+					<div ><input @change = "ValidateGradeD()" id="dermatologistMin" placeholder="Min rating" min = "0" max = "5" style = "width : 80%" type="number" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default"></div>
+					<div ><input @change = "ValidateGradeD()" id="dermatologistMax" placeholder="Max rating" min = "0" max = "5" style = "width : 80%" type="number" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default"></div>
+		
 
 					<div><button style="color:white" type="button" class="btn btn-default" data-dismiss="modal"  v-on:click="SearchDermatologist()"><i class="fa fa-search"></i></button></div> &nbsp
 					<div><button style="color:white" type="button" class="btn btn-default" data-dismiss="modal" v-on:click="ResetDermatologistSearch()"><i class="fa fa-refresh"></i></button></div> &nbsp
@@ -373,6 +393,70 @@ Vue.component("administratorEmployed", {
 				</div>
 			  </div>
 
+			  <!-- Add worktime pharmacist -->
+			  <div class="modal fade" id="addWorktimePharmacist" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">Add worktime</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div>
+							<label for="recipient-name" min="0" class="col-form-label">Set date:</label>
+							<div><input id="pharmacistDate"  @change = "compareDate(WT.date)" placeholder="Set date" style = "width : 50% ; margin-left : 25%" type="date" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" v-model = "WT.date"></div>
+						</div>
+						<div>
+							<label for="recipient-name" min="0" class="col-form-label">Set start time:</label>
+							<div><input id="pharmacistStart" placeholder="" style = "width : 50%; margin-left : 25%" type="time" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" v-model = "WT.startTime"></div>
+						</div>
+						<div>
+							<label for="recipient-name" min="0" class="col-form-label">Set end time:</label>
+							<div><input id="pharmacistEnd" placeholder="" style = "width : 50%; margin-left : 25%" type="time" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" v-model = "WT.endTime"></div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+						<button type="button" class="btn btn-primary"  v-on:click="AddWorktimePharmacist()">Finish</button>
+					</div>
+					</div>
+				</div>
+			  </div>
+
+			  <!-- Add worktime dermatologist -->
+			  <div class="modal fade" id="addWorktimeDermatolgist" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">Add worktime</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div>
+							<label for="recipient-name" min="0" class="col-form-label">Set date:</label>
+							<div><input id="dermatolgistDate" @change = "compareDate(WT.date)" placeholder="Set date" style = "width : 50% ; margin-left : 25%" type="date" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" v-model = "WT.date"></div>
+						</div>
+						<div>
+							<label for="recipient-name" min="0" class="col-form-label">Set start time:</label>
+							<div><input id="dermatologistStart" placeholder="Set date" style = "width : 50%; margin-left : 25%" type="time" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" v-model = "WT.startTime"></div>
+						</div>
+						<div>
+							<label for="recipient-name" min="0" class="col-form-label">Set end time:</label>
+							<div><input id="dermatologisttEnd" placeholder="Set date" style = "width : 50%; margin-left : 25%" type="time" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" v-model = "WT.endTime"></div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+						<button type="button" class="btn btn-primary"  v-on:click="AddWorktimeDermatologist()">Finish</button>
+					</div>
+					</div>
+				</div>
+			  </div>
+
     </div>
 	`
 	,
@@ -431,15 +515,43 @@ Vue.component("administratorEmployed", {
 				})
 			}
 		},
+		ValidateGradeD: function(){
+			var minD=document.getElementById("dermatologistMin").value
+			var maxD=document.getElementById("dermatologistMax").value
+
+			if(minD > maxD && minD != "" && maxD != ""){
+				alert("Maximum rating can't be lower than min")
+				document.getElementById("dermatologistMin").value = ""
+				document.getElementById("dermatologistMax").value = ""
+			}
+		},
+		ValidateGradeP: function(){
+			var minP=document.getElementById("pharmacistMin").value
+			var maxP=document.getElementById("pharmacistMax").value
+
+			if(minP > maxP  && minP != "" && maxP != ""){
+				alert("Maximum rating can't be lower than min")
+				document.getElementById("pharmacistMin").value = ""
+				document.getElementById("pharmacistMax").value = ""
+			}
+		},
 		SearchDermatologist: function(){
 			this.dermatologists = this.allDermatologists 
 			var name=document.getElementById("dermatologistName").value
 			var surname=document.getElementById("dermatologistSurname").value
 			var id=document.getElementById("dermatologistId").value
+
+			var min=document.getElementById("dermatologistMin").value
+			var max=document.getElementById("dermatologistMax").value
+
 			var newDermatologists = []
 			if(name != "" && surname == "" && id == "")
 				for (const dermatologist of this.dermatologists) {
 						if(dermatologist.name.includes(name))
+							newDermatologists.push(dermatologist)
+				}
+			else if(name == "" && surname == "" && id == "")
+				for (const dermatologist of this.dermatologists) {
 							newDermatologists.push(dermatologist)
 				}
 			else if(name == "" && surname != "" && id == "")
@@ -473,16 +585,47 @@ Vue.component("administratorEmployed", {
 						newDermatologists.push(dermatologist)
 				}
 			this.dermatologists = newDermatologists
+
+			if(min != "" || max != ""){
+				newDermatologists = []
+				if(min != "" && max == ""){
+					for (const dermatologist of this.dermatologists) {
+						if(dermatologist.grade >= min)
+							newDermatologists.push(dermatologist)
+					}
+				}
+				else if(min == "" && max != ""){
+					for (const dermatologist of this.dermatologists) {
+						if(dermatologist.grade <= max)
+							newDermatologists.push(dermatologist)
+					}
+				}
+				else if(min != "" && max != ""){
+					for (const dermatologist of this.dermatologists) {
+						if(dermatologist.grade <= max && dermatologist.grade >= min)
+							newDermatologists.push(dermatologist)
+					}
+				}
+				this.dermatologists = newDermatologists
+			}
 		},
 		SearchPharmacists: function(){
 			this.pharmacists = this.allPharmacists 
 			var name=document.getElementById("pharmacistName").value
 			var surname=document.getElementById("pharmacistSurname").value
 			var id=document.getElementById("pharmacistId").value
+
+			var min=document.getElementById("pharmacistMin").value
+			var max=document.getElementById("pharmacistMax").value
+
 			var newPharmacists = []
 			if(name != "" && surname == "" && id == "")
 				for (const pharmacist of this.pharmacists) {
 						if(pharmacist.name.includes(name))
+							newPharmacists.push(pharmacist)
+				}
+			else if(name == "" && surname == "" && id == "")
+				for (const pharmacist of this.pharmacists) {
 							newPharmacists.push(pharmacist)
 				}
 			else if(name == "" && surname != "" && id == "")
@@ -516,6 +659,30 @@ Vue.component("administratorEmployed", {
 						newPharmacists.push(pharmacist)
 				}
 			this.pharmacists = newPharmacists
+
+			
+			if(min != "" || max != ""){
+				newPharmacists = []
+				if(min != "" && max == ""){
+					for (const pharmacist of this.pharmacists) {
+						if(pharmacist.grade >= min)
+							newPharmacists.push(pharmacist)
+					}
+				}
+				else if(min == "" && max != ""){
+					for (const pharmacist of this.pharmacists) {
+						if(pharmacist.grade <= max)
+							newPharmacists.push(pharmacist)
+					}
+				}
+				else if(min != "" && max != ""){
+					for (const pharmacist of this.pharmacists) {
+						if(pharmacist.grade <= max && pharmacist.grade >= min)
+							newPharmacists.push(pharmacist)
+					}
+				}
+				this.pharmacists = newPharmacists
+			}
 		},
 		ResetPharmacistsSearch: function(){
 			axios
@@ -528,6 +695,8 @@ Vue.component("administratorEmployed", {
 			document.getElementById("pharmacistName").value = ""
 			document.getElementById("pharmacistSurname").value = ""
 			document.getElementById("pharmacistId").value = ""
+			document.getElementById("pharmacistMin").value = ""
+			document.getElementById("pharmacistMax").value = ""
 		},
 		ResetDermatologistSearch: function(){
 			axios
@@ -540,6 +709,8 @@ Vue.component("administratorEmployed", {
 			document.getElementById("dermatologistName").value = ""
 			document.getElementById("dermatologistSurname").value = ""
 			document.getElementById("dermatologistId").value = ""
+			document.getElementById("dermatologistMin").value = ""
+			document.getElementById("dermatologistMax").value = ""
 		},
 		SelectExistingDermatologist: function(dermatologist){
 			this.existingDermatolgoist = dermatologist
@@ -658,8 +829,101 @@ Vue.component("administratorEmployed", {
 			}
 
 		},
-		SelectExistingPharmacist: function(pharmacist){
+	compareDate: function (date) {
+            var day = parseInt(date.split("-")[2])
+            var month = parseInt(date.split("-")[1])
+            var year = parseInt(date.split("-")[0])
+            var today = new Date();
+            if(year < parseInt(today.getFullYear) || year == parseInt(today.getFullYear()) && month < (parseInt(today.getMonth()) + 1) ||  year == parseInt(today.getFullYear()) && month == (parseInt(today.getMonth())+1) && day <= parseInt(today.getDate())){
+                alert("Please select valid date")
+                this.WT.date = null;
+            }
+        },
+	SelectExistingPharmacist: function(pharmacist){
 			this.existingPharmacist = pharmacist
+		},
+	SelectPharmacistWT: function(pharmacist){
+			this.pharmacistWT = pharmacist
+		},
+	AddWorktimePharmacist: function(){
+			var startHour = parseInt(this.WT.startTime.split(":")[0])
+			var startMinute = parseInt(this.WT.startTime.split(":")[1])
+			var endHour = parseInt(this.WT.endTime.split(":")[0])
+			var endMinute = parseInt(this.WT.endTime.split(":")[1])
+			if(startHour > endHour || startHour == endHour && startMinute > endMinute || startHour == endHour && startMinute == endMinute){
+				alert("Please select valid time")
+			}
+			else{
+				if(this.WT.startTime != "" && this.WT.endTime != "" && this.WT.date != ""){
+					this.WT.timeStart = this.WT.date + "T" +this.WT.startTime
+					this.WT.timeEnd = this.WT.date + "T" + this.WT.endTime
+					this.WT.pharmacy = this.pharmacy
+					this.pharmacistWT.workingSchedule.push(this.WT)
+					axios
+					.put('/pharmacist/addWorktimeToPharmacist/' + this.pharmacistWT.id,this.WT) 
+					.then(response => {
+						if(response.data != false){
+							$('#addWorktimePharmacist').modal('hide');
+							this.WT.endTime = ""
+							this.WT.startTime = ""
+							this.WT.timeStart = ""
+							this.WT.timeEnd = ""
+						}
+						else
+							alert("Selected time is already taken")
+					})
+				}
+			}
+		},
+	SelectDermatologistWT: function(dermatologist){
+			this.dermatologistWT = dermatologist
+		},
+	AddWorktimeDermatologist: function(WT){
+			var startHour = parseInt(this.WT.startTime.split(":")[0])
+			var startMinute = parseInt(this.WT.startTime.split(":")[1])
+			var endHour = parseInt(this.WT.endTime.split(":")[0])
+			var endMinute = parseInt(this.WT.endTime.split(":")[1])
+			if(startHour > endHour || startHour == endHour && startMinute > endMinute || startHour == endHour && startMinute == endMinute){
+				alert("Please select valid time")
+			}
+			else{
+					if(this.WT.startTime != "" && this.WT.endTime != "" && this.WT.date != ""){
+					this.WT.timeStart = this.WT.date + "T" +this.WT.startTime
+					this.WT.timeEnd = this.WT.date + "T" + this.WT.endTime
+					this.WT.pharmacy = this.pharmacy
+					axios
+					.put('/dermatologist/addWorktimeToDermatologist/' + this.dermatologistWT.id,this.WT) 
+					.then(response => {
+						if(response.data != false){
+							$('#addWorktimeDermatolgist').modal('hide');
+							this.WT.endTime = ""
+							this.WT.startTime = ""
+							this.WT.timeStart = ""
+							this.WT.timeEnd = ""
+						}
+						else
+							alert("Selected time is already taken")
+					})
+				}
+			}
+		},
+	DeletePharmacist: function(pharmacist){
+		axios
+			.put('/pharmacist/removeFromPharmacy' + '/' +  pharmacist.id )
+			.then(response=>{
+				if(!response.data)
+					alert("Pharmacist has upcoming counseling")
+				else{
+					axios
+					.get('/pharmacist/getByPharmacyId/' + this.pharmacy.id) 
+					.then(response => {
+						this.pharmacists = response.data
+						this.allPharmacists = response.data
+					})
+					.catch(error => {
+					})
+				}
+			})
 		},
 	}
 });

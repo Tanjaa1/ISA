@@ -724,3 +724,13 @@ INSERT INTO public.working_time(
 INSERT INTO public.dermatologist_working_schedule(
 	dermatologist_id, working_time_id)
 	VALUES (6, 69);
+
+INSERT INTO public.working_time(
+	id, time_end, time_start,pharmacy_id)
+	VALUES (333, '2021-10-09 20:00:00-07','2021-02-09 11:00:00-07','111');
+INSERT INTO public.pharmacist_working_schedule(
+	pharmacist_id, working_time_id)
+	VALUES (51, 333);
+INSERT INTO public.counseling(
+	id, price, report, start_time, end_time, is_done, patient_id, pharmacist_id, pharmacy_id, is_canceled)
+	VALUES (333, 1000.0, 'Headache', '2021-06-07 16:00:00-07', '2021-07-08 16:25:25-07', false, 88, 51, 111, false);

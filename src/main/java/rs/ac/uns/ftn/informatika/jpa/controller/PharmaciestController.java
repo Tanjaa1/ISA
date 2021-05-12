@@ -23,6 +23,7 @@ import rs.ac.uns.ftn.informatika.jpa.dto.PharmacistDTO;
 import rs.ac.uns.ftn.informatika.jpa.dto.PharmacyDTO;
 import rs.ac.uns.ftn.informatika.jpa.model.Pharmacist;
 import rs.ac.uns.ftn.informatika.jpa.service.PharmacistService;
+import rs.ac.uns.ftn.informatika.jpa.util.WorkingTime;
 
 @RestController
 @RequestMapping(value = "/pharmacist")
@@ -124,5 +125,15 @@ public class PharmaciestController {
 	public ResponseEntity<List<PharmacistDTO>> getUnemployedDermatolgoists(@PathVariable Long id) {
 		List<PharmacistDTO> pharmacistDTOs = pharmacistService.getUnemployedPharmacists(id);
 		return pharmacistDTOs == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(pharmacistDTOs);
+	}
+
+	@PutMapping(value = "/addWorktimeToPharmacist/{id}")
+	public ResponseEntity<Boolean> addWorktimeToPharmacist(@PathVariable Long id, @Valid @RequestBody WorkingTime WT) throws Exception {
+		return ResponseEntity.ok(pharmacistService.addWorktimeToPharmacist(id,WT));
+	}
+
+	@PutMapping(value = "/removeFromPharmacy/{id}")
+	public ResponseEntity<Boolean> addWorktimeToPharmacist(@PathVariable Long id) throws Exception {
+		return ResponseEntity.ok(pharmacistService.removeFromPharmacy(id));
 	}
 }

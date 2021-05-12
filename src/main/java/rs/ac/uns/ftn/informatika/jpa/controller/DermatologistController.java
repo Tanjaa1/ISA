@@ -25,6 +25,7 @@ import rs.ac.uns.ftn.informatika.jpa.model.Dermatologist;
 import rs.ac.uns.ftn.informatika.jpa.model.Pharmacy;
 import rs.ac.uns.ftn.informatika.jpa.service.DermatologistService;
 import rs.ac.uns.ftn.informatika.jpa.service.PharmacyService;
+import rs.ac.uns.ftn.informatika.jpa.util.WorkingTime;
 
 @RestController
 @RequestMapping(value = "/dermatologist")
@@ -129,6 +130,11 @@ public class DermatologistController {
 	@GetMapping(value = "/checkUserAndEmail/{username}/{email}")
 	public ResponseEntity<String> checkUserAndEmail(@PathVariable String username,@PathVariable String email) throws Exception {
 		return ResponseEntity.ok(dermatologistService.checkUserAndEmail(username,email));
+	}
+
+	@PutMapping(value = "/addWorktimeToDermatologist/{id}")
+	public ResponseEntity<Boolean> addWorktimeToDermatologist(@PathVariable Long id, @Valid @RequestBody WorkingTime WT) throws Exception {
+		return ResponseEntity.ok(dermatologistService.addWorktimeToDermatologist(id,WT));
 	}
 	
 }

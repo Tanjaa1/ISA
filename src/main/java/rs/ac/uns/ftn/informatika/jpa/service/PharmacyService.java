@@ -179,7 +179,7 @@ public class PharmacyService implements IPharmacyService {
         Pharmacy p=update(pharmacy);
             try{
                 if(quantity<2)
-                pharmacyAdminService.sendingMail(pharmacy.getName(), medicine);
+                    pharmacyAdminService.sendingMail(pharmacy.getName(), medicine);
             }catch(Exception e){
             }
             finally{
