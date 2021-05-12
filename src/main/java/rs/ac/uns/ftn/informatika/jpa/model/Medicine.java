@@ -65,6 +65,8 @@ public class Medicine {
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<Markk> Marks = new HashSet<Markk>();
 
+	@Column(name="Points", unique=false, nullable=true)
+	private Integer Points ;
 	//@OneToOne(mappedBy = "Medicine")
     //private MedicinePriceAndQuantity MedicinePriceAndQuantity;
 	
@@ -234,6 +236,7 @@ public class Medicine {
 		Note = medicineDTO.getNote();
 		Contraindications = medicineDTO.getContraindications();
 		DailyDose = medicineDTO.getDailyDose();
+		Points=medicineDTO.getPoints();
 	}
 	
 	public Set<Markk> getMarks() {
@@ -243,4 +246,12 @@ public class Medicine {
 	public void setMarks(Set<Markk> marks) {
 		Marks = marks;
 	}
+	public Integer getPoints() {
+		return Points;
+	}
+	public void setPoints(Integer points) {
+		Points = points;
+	}
+
+	
 }

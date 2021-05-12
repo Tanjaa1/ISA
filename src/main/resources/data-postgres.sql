@@ -209,56 +209,56 @@ INSERT INTO public.medicine(
 
   
 INSERT INTO public.medicine(
-id, code, composition, contraindications, daily_dose, form, manufacturer, name, note, on_prescription, type)
-	VALUES (222,'222','/','Headache','2 per day',3,'Galenika','Brufen','/',true,5);
+id, code, composition, contraindications, daily_dose, form, manufacturer, name, note, on_prescription, points, type)
+	VALUES (222,'222','/','Headache','2 per day',3,'Galenika','Brufen','/',true,5,5);
 INSERT INTO public.medicine(
-	id, code, composition, contraindications, daily_dose, form, manufacturer, name, note, on_prescription, type)
-	VALUES (223,'223','/','Headache','2 per day',4,'Hemofarm','Andol','/',false,7);
+	id, code, composition, contraindications, daily_dose, form, manufacturer, name, note, on_prescription, points, type)
+	VALUES (223,'223','/','Headache','2 per day',4,'Hemofarm','Andol','/',false,7,7);
 INSERT INTO public.medicine(
-	id, code, composition, contraindications, daily_dose, form, manufacturer, name, note, on_prescription, type)
-	VALUES (224,'224','/','Headache','3 per day',4,'Hemofarm','Klindomicin','/',false,7);
+	id, code, composition, contraindications, daily_dose, form, manufacturer, name, note, on_prescription,  points,type)
+	VALUES (224,'224','/','Headache','3 per day',4,'Hemofarm','Klindomicin','/',false,8,7);
 INSERT INTO public.medicine(
-	id, code, composition, contraindications, daily_dose, form, manufacturer, name, note, on_prescription, type)
-	VALUES (4,230, 'sastav', 'nema', '5', 1, 'Galenika', 'Gentamicin', ' ', false, 3);
+	id, code, composition, contraindications, daily_dose, form, manufacturer, name, note, on_prescription, points, type)
+	VALUES (4,230, 'sastav', 'nema', '5', 1, 'Galenika', 'Gentamicin', ' ', false,1, 3);
 INSERT INTO public.medicine(
-	id, code, composition, contraindications, daily_dose, form, manufacturer, name, note, on_prescription, type)
-	VALUES (5,231, 'sastav', 'nema', '5', 2, 'Galenika', 'Alopurinol', ' ', false, 7);
+	id, code, composition, contraindications, daily_dose, form, manufacturer, name, note, on_prescription, points, type)
+	VALUES (5,231, 'sastav', 'nema', '5', 2, 'Galenika', 'Alopurinol', ' ', false, 2,7);
 INSERT INTO public.medicine(
-	id, code, composition, contraindications, daily_dose, form, manufacturer, name, note, on_prescription, type)
-	VALUES (6,232, 'sastav', 'nema', '5', 6, 'Galenika', 'Monopril', '/', true, 4);
+	id, code, composition, contraindications, daily_dose, form, manufacturer, name, note, on_prescription, points, type)
+	VALUES (6,232, 'sastav', 'nema', '5', 6, 'Galenika', 'Monopril', '/', true,1, 4);
 INSERT INTO public.medicine(
-	id, code, composition, contraindications, daily_dose, form, manufacturer, name, note, on_prescription, type)
-	VALUES (7,233, 'sastav', 'nema', '5', 3, 'Galenika', 'Amoksicilin', '/', true, 8);
+	id, code, composition, contraindications, daily_dose, form, manufacturer, name, note, on_prescription, points, type)
+	VALUES (7,233, 'sastav', 'nema', '5', 3, 'Galenika', 'Amoksicilin', '/', true,4, 8);
 INSERT INTO public.medicine(
-	id, code, composition, contraindications, daily_dose, form, manufacturer, name, note, on_prescription, type)
-	VALUES (8,234, 'sastav', 'nema', '5', 6, 'Hemofarm', 'Probiotik', '/', false, 9);
+	id, code, composition, contraindications, daily_dose, form, manufacturer, name, note, on_prescription,  points,type)
+	VALUES (8,234, 'sastav', 'nema', '5', 6, 'Hemofarm', 'Probiotik', '/', false, 3,9);
 INSERT INTO public.medicine(
-	id, code, composition, contraindications, daily_dose, form, manufacturer, name, note, on_prescription, type)
-	VALUES (9,235, 'sastav', 'nema', '5', 4, 'Hemofarm', 'Defrinol', '/', false, 7);
+	id, code, composition, contraindications, daily_dose, form, manufacturer, name, note, on_prescription, points, type)
+	VALUES (9,235, 'sastav', 'nema', '5', 4, 'Hemofarm', 'Defrinol', '/', false, 3,7);
 INSERT INTO public.medicine(
-	id, code, composition, contraindications, daily_dose, form, manufacturer, name, note, on_prescription, type)
-	VALUES (10,236, 'sastav', 'nema', '5', 2, 'Hemofarm', 'Diklofen', '/', true, 5);
+	id, code, composition, contraindications, daily_dose, form, manufacturer, name, note, on_prescription, points, type)
+	VALUES (10,236, 'sastav', 'nema', '5', 2, 'Hemofarm', 'Diklofen', '/', true, 4,5);
 INSERT INTO public.medicine(
-	id, code, composition, contraindications, daily_dose, form, manufacturer, name, note, on_prescription, type)
-	VALUES (11,237, 'sastav', 'nema', '5', 1, 'Hemofarm', 'Enterofuryl', '/', false, 1);
+	id, code, composition, contraindications, daily_dose, form, manufacturer, name, note, on_prescription, points, type)
+	VALUES (11,237, 'sastav', 'nema', '5', 1, 'Hemofarm', 'Enterofuryl', '/', false,6, 1);
 INSERT INTO public.medicine(
-	id, code, composition, contraindications, daily_dose, form, manufacturer, name, note, on_prescription, type)
-	VALUES (12,238, 'sastav', 'nema', '5', 2, 'Hemofarm', 'Hylocomod', '/', false, 3);
+	id, code, composition, contraindications, daily_dose, form, manufacturer, name, note, on_prescription, points, type)
+	VALUES (12,238, 'sastav', 'nema', '5', 2, 'Hemofarm', 'Hylocomod', '/', false,9, 3);
 INSERT INTO public.medicine(
-	id, code, composition, contraindications, daily_dose, form, manufacturer, name, note, on_prescription, type)
-	VALUES (13,239, 'sastav', 'nema', '5', 5, 'Hemofarm', 'Nolpaza', '/', false, 4);
+	id, code, composition, contraindications, daily_dose, form, manufacturer, name, note, on_prescription, points, type)
+	VALUES (13,239, 'sastav', 'nema', '5', 5, 'Hemofarm', 'Nolpaza', '/', false,6, 4);
 INSERT INTO public.medicine(
-	id, code, composition, contraindications, daily_dose, form, manufacturer, name, note, on_prescription, type)
-	VALUES (14,240, 'sastav', 'nema', '5', 4, 'Hemofarm', 'Cornelin', '/', true, 8);
+	id, code, composition, contraindications, daily_dose, form, manufacturer, name, note, on_prescription,  points,type)
+	VALUES (14,240, 'sastav', 'nema', '5', 4, 'Hemofarm', 'Cornelin', '/', true, 4,8);
 INSERT INTO public.medicine(
-	id, code, composition, contraindications, daily_dose, form, manufacturer, name, note, on_prescription, type)
-	VALUES (15,241, 'sastav', 'nema', '5', 3, 'Hemofarm', 'Presing', '/', true, 9);
+	id, code, composition, contraindications, daily_dose, form, manufacturer, name, note, on_prescription, points, type)
+	VALUES (15,241, 'sastav', 'nema', '5', 3, 'Hemofarm', 'Presing', '/', true, 6,9);
 INSERT INTO public.medicine(
-	id, code, composition, contraindications, daily_dose, form, manufacturer, name, note, on_prescription, type)
-	VALUES (16,242, 'sastav', 'nema', '5', 2, 'Hemofarm', 'Rapidol', '/', false, 8);
+	id, code, composition, contraindications, daily_dose, form, manufacturer, name, note, on_prescription,  points,type)
+	VALUES (16,242, 'sastav', 'nema', '5', 2, 'Hemofarm', 'Rapidol', '/', false, 4,8);
 INSERT INTO public.medicine(
-	id, code, composition, contraindications, daily_dose, form, manufacturer, name, note, on_prescription, type)
-	VALUES (17,243, 'sastav', 'nema', '5', 1, 'Hemofarm', 'Fursemid', '/', false, 9);
+	id, code, composition, contraindications, daily_dose, form, manufacturer, name, note, on_prescription,  points,type)
+	VALUES (17,243, 'sastav', 'nema', '5', 1, 'Hemofarm', 'Fursemid', '/', false, 3,9);
 
 
 INSERT INTO public.action_or_promotion(

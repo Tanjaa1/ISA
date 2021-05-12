@@ -1,5 +1,7 @@
 package rs.ac.uns.ftn.informatika.jpa.dto;
 
+import org.springframework.data.geo.Point;
+
 import rs.ac.uns.ftn.informatika.jpa.enums.MedicineForm;
 import rs.ac.uns.ftn.informatika.jpa.enums.MedicineType;
 import rs.ac.uns.ftn.informatika.jpa.model.Markk;
@@ -19,6 +21,7 @@ public class MedicineSDTO {
 	private String Contraindications;
 	private String DailyDose;
 	private Integer Grade;
+	private Integer Points;
 	private String ReplacmentString;
     public MedicineSDTO(Long id, String code, String name, MedicineForm form, MedicineType type, String composition,
             String manufacturer, Boolean onPrescription, String replacement, String note, String contraindications,
@@ -38,7 +41,25 @@ public class MedicineSDTO {
         Grade = grade;
         ReplacmentString = replacmentString;
     }
-
+    public MedicineSDTO(Long id, String code, String name, MedicineForm form, MedicineType type, String composition,
+    String manufacturer, Boolean onPrescription, String replacement, String note, String contraindications,
+    String dailyDose, Integer grade, String replacmentString,Integer points) {
+        Id = id;
+        Code = code;
+        Name = name;
+        Form = form;
+        Type = type;
+        Composition = composition;
+        Manufacturer = manufacturer;
+        OnPrescription = onPrescription;
+        Replacement = replacement;
+        Note = note;
+        Contraindications = contraindications;
+        DailyDose = dailyDose;
+        Grade = grade;
+        ReplacmentString = replacmentString;
+        Points=points;
+    }
     public MedicineSDTO(){}
 
     public Long getId() {
@@ -151,6 +172,12 @@ public class MedicineSDTO {
 
     public void setReplacmentString(String replacmentString) {
         ReplacmentString = replacmentString;
+    }
+    public Integer getPoints() {
+        return Points;
+    }
+    public void setPoints(Integer points) {
+        Points = points;
     }
 
     
