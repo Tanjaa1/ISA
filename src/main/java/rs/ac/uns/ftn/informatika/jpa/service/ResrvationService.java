@@ -14,10 +14,12 @@ import org.springframework.stereotype.Service;
 
 import rs.ac.uns.ftn.informatika.jpa.dto.PharmacyDTO;
 import rs.ac.uns.ftn.informatika.jpa.dto.ReservationDTO;
+import rs.ac.uns.ftn.informatika.jpa.model.Medicine;
 import rs.ac.uns.ftn.informatika.jpa.model.MedicinePriceAndQuantity;
+import rs.ac.uns.ftn.informatika.jpa.model.Patient;
 import rs.ac.uns.ftn.informatika.jpa.model.Reservation;
+import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IMedicineRepository;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IPatientRepository;
-import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IPharmacistRepository;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IPharmacyRepository;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IPriceAndQuantityRepository;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IReservationRepository;
@@ -38,6 +40,13 @@ public class ResrvationService implements IReservationService{
 
     @Autowired
     private IPharmacyRepository pharmacyRepository;
+	
+    @Autowired
+    private IMedicineRepository medicineRepository;
+	@Autowired
+    private PatientService patientService;
+	@Autowired
+    private MedicineService medicineService;
 
 
     private DateCompare dateCompare=new DateCompare();
@@ -69,6 +78,13 @@ public class ResrvationService implements IReservationService{
         if(reservation==null)
             throw new Exception("Reservation does not found.");
         reservation.setIsReceived(true);
+		
+		Patient patient =reservation.getPatient();
+		Medicine medicine=medicineRepository.findById(reservation.getMedicine().getMedicine().getId()).get();
+		patient.setPoints(patient.getPoints()+medicine.getPoints());								//dodajemo bodove koje nosi lijek  kod pacijenta
+		patientService.update(patient);
+		//cijena lijeka koji je rezervisan
+		//medicineService.Discount(price, patient.getId());
 		changeMedicineQuantity(reservation);
 		emailSender(reservation);
 		return update(reservation);
