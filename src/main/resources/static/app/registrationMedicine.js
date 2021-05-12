@@ -263,15 +263,16 @@ Vue.component("registrationMedicine", {
 					medicineDTO.onPrescription=true
 				else 
 					medicineDTO.onPrescription=false
-
+/*
 				rep=medicineDTO.replacement.split(",")
 				for(r in rep)
 				{
 					medicineDTO.replacement[r]=rep[r]
+					alert(medicineDTO.rep[r])
 				}
-
+				*/
 				axios
-					.post('/medicine/saveMedicine' , medicineDTO)
+					.post('/medicine/saveMedicine' ,medicineDTO  )
 					.then(response => {
 						alert("DODAT U BAZU");
 					})

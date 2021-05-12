@@ -13,27 +13,16 @@ Vue.component("searchMedicine", {
 		<p>Search Medicine</p>
 			
 		<div class="row search">
-		  	<div class="col-sm-5"><input id="idText" placeholder="Enter medicine" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
-			</div>
-		<br><br>
-		<br><br>
+		  	<div class="col-sm-5"><input id="idText" placeholder="Enter medicine" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default"></div>
+			<button  type="button" style="color:white" class="btn btn-defaultt" data-dismiss="modal" v-on:click="Search()"><i class="fa fa-search"></i></button>
+		 </div>
 
-		<br><br>
-
-		<div >
-			<span class="prvi">
-			<div>
-			<form action="/action_page.php">
+		<div class="labelss">
 				<label for="cars">On prescription:</label>
 					<select name="onPrescription" id="onPrescription">
 						<option value="Y">YES</option>
 						<option value="N">NO</option>
 					</select>
-			</form>
-			</div>
-	<br><br><br><br>
-			<div>
-			<form action="/action_page.php">
 				<label for="cars">Type:</label>
 					<select name="type" id="type">
 						<option value=" "> </option>
@@ -49,10 +38,6 @@ Vue.component("searchMedicine", {
 						<option value="Tranquilizer">Tranquilizer</option>
 						<option value="Statin">Statin</option>
 					</select>
-			</form>
-			</div>
-	<br><br><br><br>
-			<form action="/action_page.php">
 				<label for="form">Form:</label>
 					<select name="form" id="form">
 						<option value=" "> </option>
@@ -65,11 +50,7 @@ Vue.component("searchMedicine", {
 						<option value="Syrup">Syrup</option>
 						<option value="Ointment">Ointment</option>
 					</select>
-			</form>
-		
-		<br><br><br><br>
-	
-			<form action="/action_page.php">
+			
 				<label for="form">Mark:</label>
 					<select name="mark" id="mark">
 						<option value=" "> </option>
@@ -79,20 +60,10 @@ Vue.component("searchMedicine", {
 						<option value="4">4</option>
 						<option value="5">5</option>
 					</select>
-			</form>
-			</span>
-
 		</div>
-		
 
 		
-		<br><br><br><br>
-		<br><br><br><br>
-
-
-			<div><button type="button" style="color:white" class="btn btn-default" data-dismiss="modal" v-on:click="Search()"><i class="fa fa-search"></i></button>
-			</div>
-		</div><br>
+		<br>
 		
 
 
@@ -136,31 +107,37 @@ Vue.component("searchMedicine", {
 
 
 
-			
-			
+	
 	</div>					
 	`,
 	methods: {
 		Search:function(){
 			var text=document.getElementById("idText").value
-			var onPrescriptionText=document.getElementById("onPrescription").value
-			var type=document.getElementById("type").value
-			var form=document.getElementById("form").value
-			var mark=document.getElementById("mark").value
-		
-		
-				axios
-				.get('medicine/combinedSearch/'+text+'x'+type+'x'+form+'x'+mark+'x'+onPrescriptionText)
-				.then(response => {
-					this.pharmacies = response.data
-			  
-				})
-				.catch(error => {
-					alert('nesupjesnooo')
-				})
+			alert(text)
+			if(text==undefined || text==null || text==" " || text==""){
+				alert('Please enter medecine name!')
+			}else{
+				var onPrescriptionText=document.getElementById("onPrescription").value
+				var type=document.getElementById("type").value
+				var form=document.getElementById("form").value
+				var mark=document.getElementById("mark").value
 			
-
-		
+			
+					axios
+					.get('medicine/combinedSearch/'+text+'x'+type+'x'+form+'x'+mark+'x'+onPrescriptionText)
+					.then(response => {
+						this.pharmacies = response.data
+						if(this.pharmacies === undefined || this.pharmacies.length == 0){
+							alert('Sorry, there is no pharmacy that has  the medicine you searched for!')
+							location.reload();
+						}
+				
+					})
+					.catch(error => {
+						alert('nesupjesnooo')
+					})
+			
+			}
 		},
 
 		ShowComposition:function(composition){

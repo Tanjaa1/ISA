@@ -247,7 +247,7 @@ Vue.component("QR", {
 				var text=document.getElementById("idText").value
 
 				var pharmacyId=id;
-				var patientId="69"
+				var patientId="88"
 				axios
 				.get('pharmacy/changePharmacySupplies/'+pharmacyId +'/'+patientId,{ params: { path: text } })
 				.then(response => {

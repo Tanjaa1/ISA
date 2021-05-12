@@ -6,14 +6,20 @@
     background-size: cover;
     height: auto !important;
     min-height: 1000px;
-    color: white;
+    color: #111;
     font-family: impact;
 }
-
+.fa-search{
+    width: auto;
+}
+.labelss{
+  padding-right:inherit;
+  font-size: larger;
+}
 
 .search{	
   margin: 35px 35%;
-  width: 50%;
+  width: 300px;
 
 }
 
@@ -49,7 +55,7 @@
 }
 
 .sidebar a:hover {
-  color: #f1f1f1;
+  color:#111;
 }
 
 .sidebar .closebtn {
@@ -64,7 +70,7 @@
   font-size: 20px;
   cursor: pointer;
   background-color: #111;
-  color: white;
+  color: black;
   padding: 10px 15px;
   border: none;
 }

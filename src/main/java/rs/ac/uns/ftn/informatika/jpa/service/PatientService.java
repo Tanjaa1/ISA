@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,6 +69,10 @@ public class PatientService implements IPatientService {
 		}
 		return CheckPenaltys(reservations, patient);	
 	}
+	public PatientDTO findByIdPatient(Long id){
+		Patient patient=patientRepository.findById(id).get();
+		return new PatientDTO(patient);
+	}
 
 	private Patient CheckPenaltys(List<Reservation> reservations, Patient patient) {
 		if(patient.getPenalty().isEmpty()){
@@ -114,6 +119,34 @@ public class PatientService implements IPatientService {
 		}
 		patient1.setId(patient.getId());
 		patient1.setName(patient.getName());
+		patient1.setSurname(patient.getSurname());
+		patient1.setEmail(patient.getEmail());
+		patient1.setPassword(patient.getPassword());
+		patient1.setAddress(patient.getAddress());
+		patient1.setCity(patient.getCity());
+		patient1.setCountry(patient.getCountry());
+		patient1.setPhoneNumber(patient.getPhoneNumber());
+		patient1.setCategory(patient.getCategory());
+		patient1.setPoints(patient.getPoints());
+		patient1.setPenalty(patient.getPenalty());
+		patient1.setEmailComfirmed(patient.getEmailComfirmed());
+		patient1.setFirstTimeLogin(patient.getFirstTimeLogin());
+		patient1.setDescription(patient.getDescription());
+		patient1.setDrugAllargies(patient.getDrugAllargies());
+		patient1.setActionOrPromotion(patient.getActionOrPromotion());
+		Patient patient2 = patientRepository.save(patient1);
+		return patient2;
+	}
+	public Patient updatePatient(Patient patient) throws Exception {
+		PatientDTO patient11 =findByIdPatient(patient.getId());
+		if (patient11 == null) {
+			throw new Exception("Trazeni entitet nije pronadjen.");
+		}
+		Patient patient1=new Patient(patient11);
+
+		patient1.setId(patient.getId());
+		patient1.setName(patient.getName());
+		patient1.setUsername(patient.getUsername());
 		patient1.setSurname(patient.getSurname());
 		patient1.setEmail(patient.getEmail());
 		patient1.setPassword(patient.getPassword());
@@ -302,16 +335,16 @@ public class PatientService implements IPatientService {
         Long PatientId=Integer.toUnsignedLong(Integer.valueOf(patientId));
 		Patient patientToUpdate=patientRepository.findById(PatientId).get();
 
-		Set<ActionOrPromotion>actionOrPromotionsSet=new HashSet<>();
-		ActionOrPromotion a=new ActionOrPromotion(actionOrPromotionsDTO);
+		//Set<ActionOrPromotion>actionOrPromotionsSet=new HashSet<>();
+		/*ActionOrPromotion a=new ActionOrPromotion(actionOrPromotionsDTO);
 		a.setId(actionOrPromotionsDTO.getId());
 		actionOrPromotionsSet.add(a);
-		
+		*/
 		Set<ActionOrPromotion> newSet=new HashSet<>();
 		newSet.addAll(patientToUpdate.getActionOrPromotion());
-		newSet.add(a);
+		newSet.add(new ActionOrPromotion(actionOrPromotionsDTO));
 		patientToUpdate.setActionOrPromotion(newSet);
-		update(patientToUpdate);
+		updatePatient(patientToUpdate);
 		emailSenderActionsOrPromotions(patientToUpdate,new ActionOrPromotion(actionOrPromotionsDTO));
 		//emailSender(patientToUpdate);
 		return actionOrPromotionsDTO;

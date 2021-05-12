@@ -3,7 +3,6 @@ package rs.ac.uns.ftn.informatika.jpa.controller;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import com.google.zxing.NotFoundException;
@@ -21,10 +20,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import rs.ac.uns.ftn.informatika.jpa.dto.MedicineDTO;
-import rs.ac.uns.ftn.informatika.jpa.dto.MedicineForQRDTO;
 import rs.ac.uns.ftn.informatika.jpa.dto.MedicineForSearch;
 import rs.ac.uns.ftn.informatika.jpa.dto.MedicinePriceAndQuantityDTO;
-import rs.ac.uns.ftn.informatika.jpa.dto.PharmacyDTO;
+import rs.ac.uns.ftn.informatika.jpa.dto.MedicineSDTO;
 import rs.ac.uns.ftn.informatika.jpa.dto.PharmacyQRDTO;
 import rs.ac.uns.ftn.informatika.jpa.model.Medicine;
 import rs.ac.uns.ftn.informatika.jpa.model.MedicinePriceAndQuantity;
@@ -38,7 +36,7 @@ public class MedicineController {
 	private MedicineService medicineService;
 
 	@PostMapping(value = "/saveMedicine")
-	public ResponseEntity<Medicine> saveMedicine(@RequestBody MedicineDTO medicineDTO) throws Exception{
+	public ResponseEntity<Medicine> saveMedicine(@RequestBody MedicineSDTO medicineDTO) throws Exception{
 		medicineService.save(new Medicine(medicineDTO));
 	return new ResponseEntity<>(new Medicine(medicineDTO), HttpStatus.CREATED);
 	}
@@ -95,8 +93,8 @@ public class MedicineController {
 	}
 
 	@GetMapping(value = "/combinedSearch/{parameters}")
-	public ResponseEntity<List<MedicineForSearch>> combinedSearch(@PathVariable String parameters) {
-		List<MedicineForSearch> medicineDTOs = medicineService.combinedSearch(parameters);
+	public ResponseEntity<Set<MedicineForSearch>> combinedSearch(@PathVariable String parameters) {
+		Set<MedicineForSearch> medicineDTOs = medicineService.combinedSearch(parameters);
 		return medicineDTOs == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(medicineDTOs);
 	}
 

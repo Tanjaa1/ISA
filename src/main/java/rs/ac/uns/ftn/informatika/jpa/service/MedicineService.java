@@ -266,7 +266,11 @@ public class MedicineService implements IMedicineService {
 		for(MedicineDTO mdto : ms){
 			List<PharmacyDTO> pharmacys=pharmacyService.findPharmacyByMedicineName(mdto.getName());
 			for(PharmacyDTO p : pharmacys){
-				result.add(new MedicineForSearch( mdto.getName(), mdto.getType().toString(),mdto.getComposition(), p.getName(), mdto.getGrade().toString(),"250",mdto.getOnPrescription().toString(),mdto.getForm().toString()));
+				Integer grade=mdto.getGrade();
+				if(grade==null){
+					grade=1;
+				}
+				result.add(new MedicineForSearch( mdto.getName(), mdto.getType().toString(),mdto.getComposition(), p.getName(), grade.toString(),"250",mdto.getOnPrescription().toString(),mdto.getForm().toString()));
 			}
 		}
 		return result;
@@ -350,7 +354,7 @@ public class MedicineService implements IMedicineService {
 		return resultList;	
 	  }
 
-	public List<MedicineForSearch> combinedSearch(String parameters) {
+	public Set<MedicineForSearch> combinedSearch(String parameters) {
 		String[] pars=parameters.split("x");
 		String medicineName=pars[0];
 		String type=pars[1];
@@ -401,35 +405,30 @@ public class MedicineService implements IMedicineService {
 		}else{
 			filtrateOnPrescription=findAllSearch();
 		}
-		List<MedicineForSearch> res=new ArrayList<>();
-		List<MedicineForSearch> res1=new ArrayList<>();
-		List<MedicineForSearch> res2=new ArrayList<>();
-		List<MedicineForSearch> res3=new ArrayList<>();
-		List<MedicineForSearch> res4=new ArrayList<>();
+		Set<MedicineForSearch> res=new HashSet<>();
+		Set<MedicineForSearch> res1=new HashSet<>();
+		Set<MedicineForSearch> res2=new HashSet<>();
+		Set<MedicineForSearch> res3=new HashSet<>();
+		Set<MedicineForSearch> res4=new HashSet<>();
 
 			for(MedicineForSearch m :allWithNames){
 				for(MedicineForSearch m1: filtrateByForm){
-					if(m.getName().equals(m1.getName()) && m.getComposition().equals(m1.getComposition()) && m.getForm().equals(m1.getForm()) &&
-					m.getMark().equals(m1.getMark()) && m.getOnPrescription().equals(m1.getOnPrescription()) && m.getPharmacy().equals(m1.getPharmacy()) 
-					&& m.getPrice().equals(m1.getPrice()) && m.getType().equals(m1.getType())){
+					if(m.getName().equals(m1.getName())  && m.getForm().equals(m1.getForm())){
 						res.add(m);
 					}
 				}
 			}
 			for(MedicineForSearch m :filtrateByMark){
 				for(MedicineForSearch m1 :filtrateByType){
-					if(m.getName().equals(m1.getName()) && m.getComposition().equals(m1.getComposition()) && m.getForm().equals(m1.getForm()) &&
-					m.getMark().equals(m1.getMark()) && m.getOnPrescription().equals(m1.getOnPrescription()) && m.getPharmacy().equals(m1.getPharmacy()) 
-					&& m.getPrice().equals(m1.getPrice()) && m.getType().equals(m1.getType())){
+					if(m.getName().equals(m1.getName()) &&
+					m.getMark().equals(m1.getMark())&& m.getType().equals(m1.getType())){
 						res1.add(m);
 					}	
 				}
 			}
 			for(MedicineForSearch m :filtrateOnPrescription){
 				for(MedicineForSearch m1:filtrateNotOnPrescription){
-					if(m.getName().equals(m1.getName()) && m.getComposition().equals(m1.getComposition()) && m.getForm().equals(m1.getForm()) &&
-					m.getMark().equals(m1.getMark()) && m.getOnPrescription().equals(m1.getOnPrescription()) && m.getPharmacy().equals(m1.getPharmacy()) 
-					&& m.getPrice().equals(m1.getPrice()) && m.getType().equals(m1.getType())){
+					if(m.getName().equals(m1.getName()) && m.getOnPrescription().equals(m1.getOnPrescription())){
 						res2.add(m);
 					}
 				}
@@ -437,9 +436,7 @@ public class MedicineService implements IMedicineService {
 
 			for(MedicineForSearch m :res){
 				for(MedicineForSearch m1 :res1){
-					if(m.getName().equals(m1.getName()) && m.getComposition().equals(m1.getComposition()) && m.getForm().equals(m1.getForm()) &&
-					m.getMark().equals(m1.getMark()) && m.getOnPrescription().equals(m1.getOnPrescription()) && m.getPharmacy().equals(m1.getPharmacy()) 
-					&& m.getPrice().equals(m1.getPrice()) && m.getType().equals(m1.getType())){
+					if(m.getName().equals(m1.getName())){
 						res3.add(m);
 					}
 				}
@@ -447,9 +444,7 @@ public class MedicineService implements IMedicineService {
 
 			for(MedicineForSearch m :res2){
 				for(MedicineForSearch m1 :res3){
-					if(m.getName().equals(m1.getName()) && m.getComposition().equals(m1.getComposition()) && m.getForm().equals(m1.getForm()) &&
-					m.getMark().equals(m1.getMark()) && m.getOnPrescription().equals(m1.getOnPrescription()) && m.getPharmacy().equals(m1.getPharmacy()) 
-					&& m.getPrice().equals(m1.getPrice()) && m.getType().equals(m1.getType())){
+					if(m.getName().equals(m1.getName()) ){
 						res4.add(m);
 					}
 				}
