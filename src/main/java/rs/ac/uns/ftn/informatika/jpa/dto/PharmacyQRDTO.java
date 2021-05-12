@@ -7,7 +7,9 @@ public class PharmacyQRDTO {
 	private String Name;
 	private String Address;
 	private Integer Grade;
-    private Double PriceofMedicines;
+    private Double PriceofMedicines;  
+    private Double PriceofMedicinesWithDiscount;
+/*
     public PharmacyQRDTO(Long id, String name, String address, Integer grade, Double priceofMedicines) {
         Id = id;
         Name = name;
@@ -15,12 +17,32 @@ public class PharmacyQRDTO {
         Grade = grade;
         PriceofMedicines = priceofMedicines;
     }
+    */
+    public PharmacyQRDTO(Long id, String name, String address, Integer grade, Double priceofMedicines,Double priceWithDiscount) {
+        Id = id;
+        Name = name;
+        Address = address;
+        Grade = grade;
+        PriceofMedicines = priceofMedicines;
+        PriceofMedicinesWithDiscount=priceWithDiscount;
+    }
+    /*
     public PharmacyQRDTO(PharmacyDTO pharmacistDTO, Double priceofMedicines) {
         Id = pharmacistDTO.getId();
         Name = pharmacistDTO.getName();
         Address = pharmacistDTO.getAddress();
         Grade = pharmacistDTO.getGrade();
         PriceofMedicines = priceofMedicines;
+    }
+    */
+    public PharmacyQRDTO(PharmacyDTO pharmacistDTO, Double priceofMedicines,Double priceWithDiscount) {
+        Id = pharmacistDTO.getId();
+        Name = pharmacistDTO.getName();
+        Address = pharmacistDTO.getAddress();
+        Grade = pharmacistDTO.getGrade();
+        PriceofMedicines = priceofMedicines;
+        PriceofMedicinesWithDiscount=priceWithDiscount;
+
     }
     
     public PharmacyQRDTO(){}
@@ -63,6 +85,12 @@ public class PharmacyQRDTO {
 
     public void setPriceofMedicines(Double priceofMedicines) {
         PriceofMedicines = priceofMedicines;
+    }
+    public Double getPriceofMedicinesWithDiscount() {
+        return PriceofMedicinesWithDiscount;
+    }
+    public void setPriceofMedicinesWithDiscount(Double priceofMedicinesWithDiscount) {
+        PriceofMedicinesWithDiscount = priceofMedicinesWithDiscount;
     }
 
     

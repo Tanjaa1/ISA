@@ -15,6 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import rs.ac.uns.ftn.informatika.jpa.dto.LoyaltyProgrammeDTO;
 import rs.ac.uns.ftn.informatika.jpa.dto.MedicineDTO;
 import rs.ac.uns.ftn.informatika.jpa.dto.MedicineForQRDTO;
 import rs.ac.uns.ftn.informatika.jpa.dto.MedicineForSearch;
@@ -23,6 +24,7 @@ import rs.ac.uns.ftn.informatika.jpa.dto.PharmacistDTO;
 import rs.ac.uns.ftn.informatika.jpa.dto.PharmacyDTO;
 import rs.ac.uns.ftn.informatika.jpa.dto.PharmacyQRDTO;
 import rs.ac.uns.ftn.informatika.jpa.model.EPrescription;
+import rs.ac.uns.ftn.informatika.jpa.model.LoyaltyProgramme;
 import rs.ac.uns.ftn.informatika.jpa.model.Markk;
 import rs.ac.uns.ftn.informatika.jpa.model.Medicine;
 import rs.ac.uns.ftn.informatika.jpa.model.MedicinePriceAndQuantity;
@@ -84,6 +86,9 @@ public class MedicineService implements IMedicineService {
 
 	@Autowired
 	private PharmacyService pharmacyService;
+	
+	@Autowired
+	private LoyaltyProgrammeService loyaltyProgrammeService;
 
 
 	@Autowired
@@ -475,12 +480,12 @@ public class MedicineService implements IMedicineService {
 	return result;
 }
 
-public Set<PharmacyQRDTO> getPharmaciesByQR(String path) throws FileNotFoundException, NotFoundException, IOException {
+public Set<PharmacyQRDTO> getPharmaciesByQR(String path,Long patientIdd) throws FileNotFoundException, NotFoundException, IOException {
 	String ePrescriptionContent=uploadQR(path);
 	String [] partsMedicineAndQuantity=ePrescriptionContent.split(",");
 	Map<String,Integer> mapMedicineInPharmacy=new HashMap<>();
 	Map<String,Integer> qrMedicines=new HashMap<>();
-	Map<String,Double> priceMedicines=new HashMap<>();
+	Map<String,Double> pricePerPharmacies=new HashMap<>();
 
 	List<Pharmacy> allPharmacies=pharmacyRepository.findAll();
 	Set<Pharmacy> resultList=new HashSet();
@@ -530,57 +535,79 @@ public Set<PharmacyQRDTO> getPharmaciesByQR(String path) throws FileNotFoundExce
 					pricePerPharmacy+=medicineInPharmacy.getPrice()*entry1.getValue();
 				}
 			}
-			priceMedicines.put(pharmacyDTO.getName(), pricePerPharmacy);
 		}
+		pricePerPharmacies.put(pharmacyDTO.getName(), pricePerPharmacy);
 	}
 
 	for (PharmacyDTO pharmacyDTO : resultListDTOS) {
-		Double price=priceMedicines.get(pharmacyDTO.getName());
+		Double price=pricePerPharmacies.get(pharmacyDTO.getName());
 		Integer grade;
 		if(pharmacyDTO.getGrade()==null){
 			grade=0;
 		}else{
 			grade=pharmacyDTO.getGrade();
 		}
-		resultF.add(new PharmacyQRDTO(pharmacyDTO.getId(), pharmacyDTO.getName(),pharmacyDTO.getAddress(), grade, price));
+		Double priceWithDiscount=Discount(price, patientIdd);
+		resultF.add(new PharmacyQRDTO(pharmacyDTO.getId(), pharmacyDTO.getName(),pharmacyDTO.getAddress(), grade, price,priceWithDiscount));
 	}
 
 	return resultF;
 }
+public Double Discount(Double price,Long patientId){
+	List<LoyaltyProgrammeDTO> lp=loyaltyProgrammeService.getAll();
+	Patient patient=patientRepository.findById(patientId).get();
+	LoyaltyProgrammeDTO lpp= lp.get(0);
+	Integer regular=lpp.getRegular();
+	Integer silver=lpp.getSilver();
+	Integer gold=lpp.getGold();
+	Double priceWithDiscount=0.0;
 
-public List<PharmacyQRDTO> sortByPharmacyGradeQR(String path) throws FileNotFoundException, NotFoundException, IOException {
-	Set<PharmacyQRDTO> toSort=getPharmaciesByQR(path);
+	if(patient.getPoints()<=regular){
+		priceWithDiscount=price;
+	}
+	else if(patient.getPoints()>regular && patient.getPoints()<=silver){
+		priceWithDiscount=price-(price*0.2);
+	}else if(patient.getPoints()>silver && patient.getPoints()<=gold){
+		priceWithDiscount=price-(price*0.35);
+	}else{
+		priceWithDiscount=price-(price*0.5);
+	}
+	return priceWithDiscount;
+}
+
+public List<PharmacyQRDTO> sortByPharmacyGradeQR(String path, Long patientId) throws FileNotFoundException, NotFoundException, IOException {
+	Set<PharmacyQRDTO> toSort=getPharmaciesByQR(path,patientId);
 	List<PharmacyQRDTO> phaList = toSort.stream().sorted((e1, e2) -> 
 	e1.getGrade().compareTo(e2.getGrade())).collect(Collectors.toList());
 	return phaList;
 }
 
-public List<PharmacyQRDTO> sortByPharmacyPriceQR(String path) throws FileNotFoundException, NotFoundException, IOException {
-	Set<PharmacyQRDTO> toSort=getPharmaciesByQR(path);
+public List<PharmacyQRDTO> sortByPharmacyPriceQR(String path, Long patientId) throws FileNotFoundException, NotFoundException, IOException {
+	Set<PharmacyQRDTO> toSort=getPharmaciesByQR(path,patientId);
 	List<PharmacyQRDTO> phaList = toSort.stream().sorted((e1, e2) -> 
 	e1.getPriceofMedicines().compareTo(e2.getPriceofMedicines())).collect(Collectors.toList());
 	
 	return phaList;
 }
 
-public List<PharmacyQRDTO> sortByPharmacyNameQR(String path) throws FileNotFoundException, NotFoundException, IOException {
-	Set<PharmacyQRDTO> toSort=getPharmaciesByQR(path);
+public List<PharmacyQRDTO> sortByPharmacyNameQR(String path, Long patientId) throws FileNotFoundException, NotFoundException, IOException {
+	Set<PharmacyQRDTO> toSort=getPharmaciesByQR(path,patientId);
 	List<PharmacyQRDTO> phaList = toSort.stream().sorted((e1, e2) -> 
 	e1.getName().compareTo(e2.getName())).collect(Collectors.toList());
 	
 	return phaList;
 }
 
-public List<PharmacyQRDTO> sortByPharmacyAddressQR(String path) throws FileNotFoundException, NotFoundException, IOException {
-	Set<PharmacyQRDTO> toSort=getPharmaciesByQR(path);
+public List<PharmacyQRDTO> sortByPharmacyAddressQR(String path, Long patientId) throws FileNotFoundException, NotFoundException, IOException {
+	Set<PharmacyQRDTO> toSort=getPharmaciesByQR(path,patientId);
 	List<PharmacyQRDTO> phaList = toSort.stream().sorted((e1, e2) -> 
 	e1.getAddress().compareTo(e2.getAddress())).collect(Collectors.toList());
 	
 	return phaList;
 }
 
-public List<PharmacyQRDTO> sortByPharmacyGradeQRDESC(String path) throws FileNotFoundException, NotFoundException, IOException {
-	Set<PharmacyQRDTO> toSort=getPharmaciesByQR(path);
+public List<PharmacyQRDTO> sortByPharmacyGradeQRDESC(String path, Long patientId) throws FileNotFoundException, NotFoundException, IOException {
+	Set<PharmacyQRDTO> toSort=getPharmaciesByQR(path,patientId);
 	List<PharmacyQRDTO> phaList = toSort.stream().sorted((e1, e2) -> 
 	e1.getGrade().compareTo(e2.getGrade())).collect(Collectors.toList());
 	Collections.reverse(phaList);
@@ -588,8 +615,8 @@ public List<PharmacyQRDTO> sortByPharmacyGradeQRDESC(String path) throws FileNot
 	return phaList;
 }
 
-public List<PharmacyQRDTO> sortByPharmacyPriceQRDESC(String path) throws FileNotFoundException, NotFoundException, IOException {
-	Set<PharmacyQRDTO> toSort=getPharmaciesByQR(path);
+public List<PharmacyQRDTO> sortByPharmacyPriceQRDESC(String path, Long patientId) throws FileNotFoundException, NotFoundException, IOException {
+	Set<PharmacyQRDTO> toSort=getPharmaciesByQR(path,patientId);
 	List<PharmacyQRDTO> phaList = toSort.stream().sorted((e1, e2) -> 
 	e1.getPriceofMedicines().compareTo(e2.getPriceofMedicines())).collect(Collectors.toList());
 
@@ -597,16 +624,16 @@ public List<PharmacyQRDTO> sortByPharmacyPriceQRDESC(String path) throws FileNot
 	
 	return phaList;}
 
-public List<PharmacyQRDTO> sortByPharmacyNameDESC(String path) throws FileNotFoundException, NotFoundException, IOException {
-	Set<PharmacyQRDTO> toSort=getPharmaciesByQR(path);
+public List<PharmacyQRDTO> sortByPharmacyNameDESC(String path, Long patientId) throws FileNotFoundException, NotFoundException, IOException {
+	Set<PharmacyQRDTO> toSort=getPharmaciesByQR(path,patientId);
 	List<PharmacyQRDTO> phaList = toSort.stream().sorted((e1, e2) -> 
 	e1.getAddress().compareTo(e2.getAddress())).collect(Collectors.toList());
 	Collections.reverse(phaList);
 	return phaList;
 }
 
-public List<PharmacyQRDTO> sortByPharmacyAddressQRDESC(String path) throws FileNotFoundException, NotFoundException, IOException {
-		Set<PharmacyQRDTO> toSort=getPharmaciesByQR(path);
+public List<PharmacyQRDTO> sortByPharmacyAddressQRDESC(String path, Long patientId) throws FileNotFoundException, NotFoundException, IOException {
+		Set<PharmacyQRDTO> toSort=getPharmaciesByQR(path,patientId);
 		List<PharmacyQRDTO> phaList = toSort.stream().sorted((e1, e2) -> 
 		e1.getAddress().compareTo(e2.getAddress())).collect(Collectors.toList());
 		Collections.reverse(phaList);

@@ -57,5 +57,14 @@ public class LoyaltyProgrammeService implements ILoyaltyProgrammeService {
         LoyaltyProgramme loyaltyProgramme2 = loyaltyProgrammeRepository.save(loyaltyProgramme1);
         return new LoyaltyProgrammeDTO(loyaltyProgramme2);
     }
+
+    public List<LoyaltyProgrammeDTO> getAll(){
+        List<LoyaltyProgramme> loyaltyProgramme1 = loyaltyProgrammeRepository.findAll();
+        List<LoyaltyProgrammeDTO> result=new ArrayList<>();
+        for (LoyaltyProgramme loyaltyProgramme : loyaltyProgramme1) {
+            result.add(new LoyaltyProgrammeDTO(loyaltyProgramme));
+        }
+        return result;
+    }
     
 }

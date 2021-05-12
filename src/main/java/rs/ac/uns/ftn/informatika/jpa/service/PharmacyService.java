@@ -56,6 +56,8 @@ public class PharmacyService implements IPharmacyService {
     private IMarkRepository markRepository;
     @Autowired
     private MedicineService madicineService;
+    @Autowired
+    private PatientService patientService;
     
     @Autowired
     private EmailService emailService;
@@ -368,7 +370,7 @@ public class PharmacyService implements IPharmacyService {
             }
         }
         
-            public PharmacyDTO changePharmacySupplies(Long id,String path,Long patientId) throws FileNotFoundException, NotFoundException, IOException {
+            public PharmacyDTO changePharmacySupplies(Long id,String path,Long patientId) throws Exception {
                 String ePrescriptionContent=madicineService.uploadQR(path);    
                 String [] partsMedicineAndQuantity=ePrescriptionContent.split(",");
                 Map<String,Integer> qrMedicines=new HashMap<>();
@@ -379,18 +381,22 @@ public class PharmacyService implements IPharmacyService {
                     String quantityMedicine=partsMedicineAndQuantity[i].split("-")[1];
                     qrMedicines.put(nameMedicine.trim().toLowerCase(), Integer.valueOf(quantityMedicine));
                 }
-
+                Integer bonusPoints=0;
                 for (MedicinePriceAndQuantity m : pharmacy.getPricelist()) {
                     Integer quantity=m.getQuantity();
                     for (Map.Entry<String, Integer> entry1 : qrMedicines.entrySet()) {
                         if(m.getMedicine().getName().trim().toLowerCase().equals(entry1.getKey())){
                             m.setQuantity(quantity-entry1.getValue());
+                            bonusPoints+=m.getMedicine().getPoints();
                             priceAndQuantityRepository.save(m);
                             break;
                         }
                 }
             }
+            
                 Patient patient =patientRepository.findById(patientId).get();
+                patient.setPoints(patient.getPoints()+bonusPoints);
+                patientService.update(patient);
                 Pharmacy p=update(pharmacy);
                 emailSender(patient);
                 return new PharmacyDTO(p);

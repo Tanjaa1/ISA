@@ -77,6 +77,7 @@ Vue.component("QR", {
 										<th>Address</th>
 										<th>Mark</th>
 										<th>Total price</th>
+										<th>Price with discount</th>
 										<th>Buy</th>
 									</tr>
 								</thead>
@@ -86,6 +87,7 @@ Vue.component("QR", {
 										<td>{{a.address}}</td>
 										<td>{{a.grade}}</td>
 										<td>{{a.priceofMedicines}}</td>
+										<td>{{a.priceofMedicinesWithDiscount}}</td>
 										<td><button type="button" class="btn btn-info btn-lg" v-on:click="Buy(a.id)">Buy</button></td>									
 									</tr>
 								</tbody>
@@ -110,13 +112,13 @@ Vue.component("QR", {
 	methods: {
 		Search:function(){
 			var text=document.getElementById("idText").value
-			
+			var patientId="88"
 
 			if(text==null || text==undefined || text=="Enter full path to QR code:" || text==""){
 				alert('Please enter full path to QR code!')
 			}else{
 				axios
-				.get('medicine/getPharmaciesByQR/',{ params: { par: text } })
+				.get('medicine/getPharmaciesByQR/88',{ params: { par: text } })
 				.then(response => {
 					this.pharmacies = response.data
 					document.getElementById("pharmaciesTable").hidden=false;
@@ -136,6 +138,7 @@ Vue.component("QR", {
 		Sort:function(){
 			var x;
 			var text=document.getElementById("idText").value
+			var patientId="88"
 
 			if(text==null || text==undefined || text=="Enter full path to QR code:" || text==""){
 				alert('Please enter full path to QR code!')
@@ -160,7 +163,7 @@ Vue.component("QR", {
 				  
 				if(x=="priceDesc"){
 					axios
-					.get('medicine/sortByPharmacyPriceQRDESC/',{ params: { path: text } })
+					.get('medicine/sortByPharmacyPriceQRDESC/'+patientId,{ params: { path: text } })
 					.then(response => {
 						this.pharmacies = response.data
 					})
@@ -169,7 +172,7 @@ Vue.component("QR", {
 					})
 				}else if(x=="priceAsc"){
 					axios
-					.get('medicine/sortByPharmacyPriceQRACS/',{ params: { path: text } })
+					.get('medicine/sortByPharmacyPriceQRACS/'+patientId,{ params: { path: text } })
 					.then(response => {
 						this.pharmacies = response.data
 	
@@ -179,7 +182,7 @@ Vue.component("QR", {
 					})
 				}else if(x=="markDesc"){
 					axios
-					.get('medicine/sortByPharmacyGradeQRDESC/',{ params: { path: text } })
+					.get('medicine/sortByPharmacyGradeQRDESC/'+patientId,{ params: { path: text } })
 					.then(response => {
 						this.pharmacies = response.data
 	
@@ -189,7 +192,7 @@ Vue.component("QR", {
 					})
 				}else if(x=="markAsc"){
 					axios
-					.get('medicine/sortByPharmacyGradeQRASC/',{ params: { path: text } })
+					.get('medicine/sortByPharmacyGradeQRASC/'+patientId,{ params: { path: text } })
 					.then(response => {
 						this.pharmacies = response.data
 	
@@ -199,7 +202,7 @@ Vue.component("QR", {
 					})
 				}else if(x=="nameDesc"){
 					axios
-					.get('medicine/sortByPharmacyNameDESC/',{ params: { path: text } })
+					.get('medicine/sortByPharmacyNameDESC/'+patientId,{ params: { path: text } })
 					.then(response => {
 						this.pharmacies = response.data
 	
@@ -209,7 +212,7 @@ Vue.component("QR", {
 					})
 				}else if(x=="nameAsc"){
 					axios
-					.get('medicine/sortByPharmacyNameQRASC/',{ params: { path: text } })
+					.get('medicine/sortByPharmacyNameQRASC/'+patientId,{ params: { path: text } })
 	
 					.then(response => {
 						this.pharmacies = response.data
@@ -220,7 +223,7 @@ Vue.component("QR", {
 					})
 				}else if(x=="addressDesc"){
 					axios
-					.get('medicine/sortByPharmacyAddressQRDESC/',{ params: { path: text } })
+					.get('medicine/sortByPharmacyAddressQRDESC/'+patientId,{ params: { path: text } })
 					.then(response => {
 						this.pharmacies = response.data
 	
@@ -230,7 +233,7 @@ Vue.component("QR", {
 					})
 				}else{
 					axios
-					.get('medicine/sortByPharmacyAddressQRASC/',{ params: { path: text } })
+					.get('medicine/sortByPharmacyAddressQRASC/'+patientId,{ params: { path: text } })
 					.then(response => {
 						this.pharmacies = response.data
 	
