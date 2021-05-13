@@ -925,6 +925,24 @@ Vue.component("administratorEmployed", {
 				}
 			})
 		},
+	DeleteDermatologist: function(dermatologist){
+			axios
+				.put('/dermatologist/removeDermatologistFromPharmacy' + '/' +  dermatologist.id + '/' + this.pharmacy.id)
+				.then(response=>{
+					if(!response.data)
+						alert("Dermatologist has upcoming examination")
+					else{
+						axios
+						.get('/dermatologist/getByPharmacyId/' + this.pharmacy.id) 
+						.then(response => {
+							this.dermatologists = response.data
+							this.allDermatologists = response.data
+						})
+						.catch(error => {
+					})
+				}
+			})
+		},
 	}
 });
 

@@ -137,4 +137,9 @@ public class DermatologistController {
 		return ResponseEntity.ok(dermatologistService.addWorktimeToDermatologist(id,WT));
 	}
 	
+	@PutMapping(value = "/removeDermatologistFromPharmacy/{did}/{pid}")
+	public ResponseEntity<Boolean> removeDermatologistFromPharmacy(@PathVariable Long did,@PathVariable Long pid) throws Exception {
+		return ResponseEntity.ok(dermatologistService.removeFromPharmacy(did,pid));
+	}
+
 }

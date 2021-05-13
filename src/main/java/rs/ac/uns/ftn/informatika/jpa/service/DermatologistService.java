@@ -2,6 +2,7 @@ package rs.ac.uns.ftn.informatika.jpa.service;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -20,6 +21,7 @@ import rs.ac.uns.ftn.informatika.jpa.model.Markk;
 import rs.ac.uns.ftn.informatika.jpa.model.Patient;
 import rs.ac.uns.ftn.informatika.jpa.model.Pharmacy;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IDermatologistRepository;
+import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IExaminationRpository;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IMarkRepository;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IPatientRepository;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IPharmacyRepository;
@@ -45,6 +47,8 @@ public class DermatologistService implements IDermatologistService {
 	private IPharmacyRepository pharmacyRepository;
 	@Autowired
 	private IWorkTimeRepository wTimeRepository;
+	@Autowired
+	private IExaminationRpository examinationRpository;
 
 	public Dermatologist findOne(Long id) 
 	{
@@ -282,4 +286,24 @@ public class DermatologistService implements IDermatologistService {
 			return false;
 		}
 
+
+		public Boolean removeFromPharmacy(Long dId, Long pId){
+			try{
+				if(examinationRpository.checkForDelete(pId, dId).isEmpty()){
+					Set<Pharmacy> pharmacies = new HashSet<Pharmacy>();
+					Dermatologist dermatologist = dermatologistRepository.getOne(dId);
+					for (Pharmacy ph : pharmacies) {
+						if(ph.getId().compareTo(pId) != 0)
+							pharmacies.add(ph);
+					}
+					dermatologist.setPharmacies(pharmacies);
+					dermatologistRepository.save(dermatologist);
+					return true;
+				}
+			else return false;
+			}
+			catch(Exception e){
+				return false;
+			}
+		}
 }
