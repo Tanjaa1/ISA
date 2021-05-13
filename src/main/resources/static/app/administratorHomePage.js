@@ -22,22 +22,21 @@ Vue.component("administratorHomePage", {
 					</div>
 					<div class="col-sm">
 					  <h3>
-						<button id="Users" type="button" class="btn btn-info btn-lg margin form-control" data-toggle="modal" v-on:click="PatientsShow"></button>
+						<button id="EmployedAdmin" type="button" class="btn btn-info btn-lg margin form-control" data-toggle="modal" v-on:click="AdministratorEmployedShow()"></button>
 						</h3><br/> 
 					</div>
 					<div class="col-sm">
 					  <h3>
-						<button id="Calendar" type="button" class="btn btn-info btn-lg margin form-control" v-on:click="ExaminationsShow()"></button>
+						<button id="CalendarAdmin" type="button" class="btn btn-info btn-lg margin form-control" v-on:click="ExaminationsShow()"></button>
 						</h3><br/> 
 					</div>
 					<div class="col-sm">
 					  <h3>
-						<button id="Vacation" type="button" class="btn btn-info btn-lg margin form-control" v-on:click="VacationShow()"></button>
 						</h3><br/> 
 					</div>
 					<div class="col-sm">
 					  <h3>
-						<button id="Account" type="button" class="btn btn-info btn-lg margin form-control" v-on:click="AccountInfoShow()"></button>
+						<button id="AccountAdmin" type="button" class="btn btn-info btn-lg margin form-control" v-on:click="AccountInfoShow()"></button>
 						</h3><br/> 
 					</div>
 					<div class="col-sm">
@@ -81,6 +80,9 @@ Vue.component("administratorHomePage", {
 	methods:{
         AccountInfoShow : function(){
             this.$router.push('administratorAccountInfo');
+        },
+        AdministratorEmployedShow : function(){
+            this.$router.push('administratorEmployed');
         },
         ExaminationsShow : function(){
             this.$router.push('administratorExaminations');

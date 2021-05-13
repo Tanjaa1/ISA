@@ -1,7 +1,10 @@
 package rs.ac.uns.ftn.informatika.jpa.service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,9 +21,13 @@ import rs.ac.uns.ftn.informatika.jpa.model.Markk;
 import rs.ac.uns.ftn.informatika.jpa.model.Patient;
 import rs.ac.uns.ftn.informatika.jpa.model.Pharmacy;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IDermatologistRepository;
+import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IExaminationRpository;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IMarkRepository;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IPatientRepository;
+import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IPharmacyRepository;
+import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IWorkTimeRepository;
 import rs.ac.uns.ftn.informatika.jpa.service.Interface.IDermatologistService;
+import rs.ac.uns.ftn.informatika.jpa.util.WorkingTime;
 
 @Service
 public class DermatologistService implements IDermatologistService {
@@ -36,6 +43,12 @@ public class DermatologistService implements IDermatologistService {
 	private IPatientRepository patientRepository;
 	@Autowired
 	private IMarkRepository markRepository;
+	@Autowired
+	private IPharmacyRepository pharmacyRepository;
+	@Autowired
+	private IWorkTimeRepository wTimeRepository;
+	@Autowired
+	private IExaminationRpository examinationRpository;
 
 	public Dermatologist findOne(Long id) 
 	{
@@ -184,4 +197,113 @@ public class DermatologistService implements IDermatologistService {
 		return DermatologistDTO;
 	}
 
+	public List<DermatologistDTO> getUnemployedDermatolgoists(Long id) {
+		boolean flag = true;
+		List<DermatologistDTO> DermatologistDTO = new ArrayList<>();
+		List<Dermatologist> dermatologists = dermatologistRepository.findAll();
+		for (Dermatologist dermatologist : dermatologists) {
+			for(Pharmacy p : dermatologist.getPharmacies()){
+				if(p.getId().compareTo(id)==0){
+					flag = false;
+				}
+			}
+			if(flag)
+				DermatologistDTO.add(new DermatologistDTO(dermatologist));
+			flag = true;
+		}
+		return DermatologistDTO;
+	}
+
+	public Boolean addExistingDermatologistToPharmacy(Long dId, Long pId){
+		try{
+			Pharmacy pharmacy = pharmacyRepository.getOne(pId);
+			Dermatologist dermatologist = dermatologistRepository.getOne(dId);
+			Set<Pharmacy> dPharmacies = dermatologist.getPharmacies();
+			dPharmacies.add(pharmacy);
+			dermatologist.setPharmacies(dPharmacies);
+			dermatologistRepository.save(dermatologist);
+			return true;
+		}
+		catch(Exception e){
+			return false;
+		}
+	}
+
+	public Dermatologist addNewDermatologistToPharmacy(Dermatologist dermatologist){
+
+		return dermatologistRepository.save(dermatologist);
+
+	}
+
+	public String checkUserAndEmail(String username , String email) throws Exception {
+		List<Dermatologist> dermatologists=dermatologistRepository.findAll();
+		String retVal = "OK";
+		for (Dermatologist d : dermatologists) {
+			if(d.getUsername().equals(username)){
+				retVal = "Username";
+				return  retVal;
+			}
+			if(d.getEmail().equals(email)){
+			  retVal = "Email";
+			  return  retVal;
+		   }			
+		}
+		return retVal;
+		}
+
+
+		public Boolean checkIfWorktimeValid(LocalDateTime start,LocalDateTime end,Long Id){
+			WorkingTime workingTime = new WorkingTime();
+			workingTime.setTimeEnd(end);
+			workingTime.setTimeStart(start);
+	
+			Dermatologist dermatologist = dermatologistRepository.getOne(Id);
+			if(dermatologist.getWorkingSchedule().isEmpty())
+				return true;
+			for(WorkingTime w: dermatologist.getWorkingSchedule())
+					if(workingTime.getTimeStart().compareTo(w.getTimeStart()) < 0 && workingTime.getTimeEnd().compareTo(w.getTimeStart()) > 0 && workingTime.getTimeEnd().compareTo(w.getTimeEnd()) < 0
+					|| workingTime.getTimeStart().compareTo(w.getTimeStart()) > 0 && workingTime.getTimeEnd().compareTo(w.getTimeEnd()) > 0 && workingTime.getTimeStart().compareTo(w.getTimeEnd()) <0
+					|| 	workingTime.getTimeStart().compareTo(w.getTimeStart()) > 0  && workingTime.getTimeEnd().compareTo(w.getTimeEnd()) < 0
+					|| workingTime.getTimeStart().compareTo(w.getTimeStart()) < 0  && workingTime.getTimeEnd().compareTo(w.getTimeEnd()) > 0
+					|| workingTime.getTimeStart().compareTo(w.getTimeStart()) == 0  && workingTime.getTimeEnd().compareTo(w.getTimeEnd()) == 0
+					|| workingTime.getTimeStart().compareTo(w.getTimeStart()) == 0  && workingTime.getTimeEnd().compareTo(w.getTimeEnd()) < 0
+					|| workingTime.getTimeStart().compareTo(w.getTimeStart()) == 0  && workingTime.getTimeEnd().compareTo(w.getTimeEnd()) > 0)
+						return false;
+				return true;
+		}
+		
+	
+		public Boolean addWorktimeToDermatologist(Long pId,WorkingTime wt){
+			Dermatologist dermatologist = dermatologistRepository.getOne(pId);
+			if(checkIfWorktimeValid(wt.getTimeStart(), wt.getTimeEnd(),pId)){
+					wTimeRepository.save(wt);
+					Set<WorkingTime> wtS = dermatologist.getWorkingSchedule();
+					wtS.add(wt);
+					dermatologist.setWorkingSchedule(wtS);	
+					dermatologistRepository.save(dermatologist);
+					return true;
+			}
+			return false;
+		}
+
+
+		public Boolean removeFromPharmacy(Long dId, Long pId){
+			try{
+				if(examinationRpository.checkForDelete(pId, dId).isEmpty()){
+					Set<Pharmacy> pharmacies = new HashSet<Pharmacy>();
+					Dermatologist dermatologist = dermatologistRepository.getOne(dId);
+					for (Pharmacy ph : pharmacies) {
+						if(ph.getId().compareTo(pId) != 0)
+							pharmacies.add(ph);
+					}
+					dermatologist.setPharmacies(pharmacies);
+					dermatologistRepository.save(dermatologist);
+					return true;
+				}
+			else return false;
+			}
+			catch(Exception e){
+				return false;
+			}
+		}
 }

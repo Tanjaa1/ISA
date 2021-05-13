@@ -5,9 +5,7 @@ import rs.ac.uns.ftn.informatika.jpa.model.ActionOrPromotion;
 import rs.ac.uns.ftn.informatika.jpa.service.Interface.IActionOrPromotionService;
 
 import java.util.List;
-import java.util.Set;
 
-import javax.websocket.server.PathParam;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

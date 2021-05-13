@@ -1,13 +1,10 @@
 package rs.ac.uns.ftn.informatika.jpa.dto;
 
-import java.time.LocalDateTime;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import rs.ac.uns.ftn.informatika.jpa.model.Markk;
 import rs.ac.uns.ftn.informatika.jpa.model.Pharmacist;
-import rs.ac.uns.ftn.informatika.jpa.model.Pharmacy;
 import rs.ac.uns.ftn.informatika.jpa.util.VacationInterval;
 import rs.ac.uns.ftn.informatika.jpa.util.WorkingTime;
 
@@ -26,7 +23,7 @@ public class PharmacistDTO {
 	private Boolean EmailComfirmed;
 	private Boolean FirstTimeLogin;
 	private Set<MarkDTO> Marks = new HashSet<MarkDTO>();
-	private Integer Grade;
+	private Double Grade;
 	private PharmacyDTO Pharmacy ;
 	private Set<VacationIntervalDTO> VacationSchedule = new HashSet<VacationIntervalDTO>();
 	private Set<WorkingTimeDTO> WorkingSchedule = new HashSet<WorkingTimeDTO>();
@@ -40,7 +37,7 @@ public class PharmacistDTO {
 	public PharmacistDTO(Long id, String email, String password, String name, String surname, String address,
 			String city, String country, String phoneNumber, String description, Boolean emailComfirmed,
 			Boolean firstTimeLogin, Set<MarkDTO> marks ,PharmacyDTO pharmacy, Set<WorkingTimeDTO> workingTime,
-			 Set<VacationIntervalDTO> vacationTime, Integer grade
+			 Set<VacationIntervalDTO> vacationTime, Double grade
 			) {
 		super();
 		Pharmacy = pharmacy;
@@ -63,7 +60,6 @@ public class PharmacistDTO {
 	}
 
 	public PharmacistDTO(Pharmacist pharmaciest) {
-		//super();
 		Pharmacy = new PharmacyDTO(pharmaciest.getPharmacy());
 		Id = pharmaciest.getId();
 		Email = pharmaciest.getEmail();
@@ -92,7 +88,8 @@ public class PharmacistDTO {
             result += m.getMarks();
             i++;
         }
-        Grade = (int) Math.round(result / i);
+		if(i !=0)
+			Grade = (double) Math.round(result / i * 10) / 10;
 		Username=pharmaciest.getUsername();
 	}
 
@@ -200,11 +197,11 @@ public class PharmacistDTO {
 		VacationSchedule = vacationTime;
 	}
 
-	public Integer getGrade() {
+	public Double getGrade() {
 		return Grade;
 	}
 
-	public void setGrade(Integer grade) {
+	public void setGrade(Double grade) {
 		Grade = grade;
 	}
 	

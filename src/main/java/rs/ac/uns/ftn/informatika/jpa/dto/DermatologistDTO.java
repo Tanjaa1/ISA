@@ -27,14 +27,14 @@ public class DermatologistDTO{
 	private Set<PharmacyDTO> Pharmacies = new HashSet<PharmacyDTO>();
 	private Set<Integer> Marks = new HashSet<Integer>();
     private Set<ExaminationDTO> Examinations = new HashSet<ExaminationDTO>();
-	private Integer Grade;
+	private Double Grade;
     private String Username;
     public DermatologistDTO() {
     }
 
     public DermatologistDTO(Long Id,String Email,String Password,String Name,String Surname,String Address,String City, String Country,String PhoneNumber,String Description,
     Boolean EmailComfirmed, Boolean FirstTimeLogin ,Set<VacationIntervalDTO> VacationSchedule,Set<WorkingTimeDTO> WorkingSchedule,Set<PharmacyDTO> Pharmacies,
-    Set<Integer> Marks,Set<ExaminationDTO> Examinations, Integer grade){
+    Set<Integer> Marks,Set<ExaminationDTO> Examinations, Double grade){
       super();
       this.Address = Address;
       this.City = City;
@@ -81,7 +81,8 @@ public class DermatologistDTO{
 			result += m.getMarks();
 			i++;
 		}
-        Grade = (int) Math.round(result / i);
+		if(i != 0)
+			Grade = (double) Math.round(result / i * 10) / 10;
 		Username=dermatologist.getUsername();
     }
 
@@ -185,11 +186,11 @@ public class DermatologistDTO{
 		Marks = marks;
     }
     
-	public Integer getGrade() {
+	public Double getGrade() {
 		return Grade;
 	}
 
-	public void setGrade(Integer grade) {
+	public void setGrade(Double grade) {
 		Grade = grade;
 	}
 	public Boolean getEmailComfirmed() {

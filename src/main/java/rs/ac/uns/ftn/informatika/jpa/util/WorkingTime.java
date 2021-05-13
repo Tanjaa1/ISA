@@ -28,7 +28,7 @@ public class WorkingTime {
 	@Column(name="TimeEnd", unique=false, nullable=true)
 	private LocalDateTime TimeEnd;
 	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
 	private Pharmacy Pharmacy;
 
 	// @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
