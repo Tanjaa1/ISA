@@ -32,6 +32,12 @@ public class PharmacyAdminController {
 	return new ResponseEntity<>(pharmacyAdminDTO, HttpStatus.CREATED);
 	}
 
+	@PutMapping(value = "/updateAdmin")
+	public ResponseEntity<String> updateAdmin(@RequestBody PharmacyAdminDTO pharmacyAdminDTO) throws Exception{
+	return new ResponseEntity<>(pharmacyAdminService.updateAdmin(pharmacyAdminDTO), HttpStatus.CREATED);
+	}
+
+
 	@GetMapping(value = "/getAllPharmacyAdinUsernames")
 	public ResponseEntity<List<String>> getAllPharmacyAdinUsernames() {
 		List<String> usernames =pharmacyAdminService.getAllSystemAdminUsernames();
