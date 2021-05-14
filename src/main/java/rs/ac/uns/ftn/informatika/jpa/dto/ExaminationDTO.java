@@ -67,6 +67,7 @@ public class ExaminationDTO {
         Pharmacy = new PharmacyDTO(examination.getPharmacy());
 		Price=examination.getPrice();
 		IsCanceled = examination.getIsCanceled();
+		PriceWithDiscount=examination.getPriceWithDiscount();
     }
 
 	public Long getId() {

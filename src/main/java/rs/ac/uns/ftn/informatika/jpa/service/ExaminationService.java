@@ -70,13 +70,14 @@ public class ExaminationService implements IExaminationService {
         return patientExaminations;
     }
 
-    public List<Examination> findFutureExaminationsByPatientId(Long id) {
-        List<Examination> patientExaminations = new ArrayList<>();
+    public List<ExaminationDTO> findFutureExaminationsByPatientId(Long id) {
+        List<ExaminationDTO> patientExaminations = new ArrayList<>();
         List<Examination> examinations = examinationRepository.findAll();
         for (Examination examination : examinations) {
             int i = examination.getStartTime().compareTo(LocalDateTime.now());
             if (examination.getPatient() != null && id == examination.getPatient().getId() && i > 0) {
-                patientExaminations.add(examination);
+                ExaminationDTO cdto=new ExaminationDTO(examination);
+                patientExaminations.add(cdto);
             }
         }
         return patientExaminations;
@@ -120,12 +121,21 @@ public class ExaminationService implements IExaminationService {
         return examinationsDtos;
 	}
 
-	public Examination schedule(Examination examination) throws Exception{
+	public ExaminationDTO schedule(Examination examination) throws Exception{
         Examination e=examinationRepository.getOne(examination.getId());
         e.setPatient(patientRepository.getOne(examination.getPatient().getId()));
         e.setIsCanceled(false);
+        LoyaltyProgramme lpDTO=loyaltyProgrammeService.findById(Long.valueOf(1));
+        Patient patient =examination.getPatient();
+        patient.setPoints(patient.getPoints()+lpDTO.getPointsForCounceling());
+        patientService.update(patient);
         emailSender2(examination);
-        return examinationRepository.save(e);
+        examinationRepository.save(e);
+        ExaminationDTO eDTO=new ExaminationDTO(examination);
+        Double price=medicineService.Discount(examination.getPrice(),examination.getPatient().getId());
+        e.setPriceWithDiscount(price);
+        examinationRepository.save(e);
+        return eDTO;
 	}
 
     private void emailSender2(Examination examination)

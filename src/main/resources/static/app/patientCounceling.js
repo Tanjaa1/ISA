@@ -230,6 +230,7 @@ Vue.component("patientCounceling", {
                                                                 <th>Pharmacy</th>
                                                                 <th>Is done</th>
                                                                 <th>Price</th>
+                                                                <th>Price With Discount</th>
                                                                 <th>Is canceled</th>
                                                                 <th></th>
                                                             </tr>
@@ -242,6 +243,7 @@ Vue.component("patientCounceling", {
                                                                 <td>{{f.pharmacy.name}}&nbsp -- &nbsp{{f.pharmacy.address}}</td>
                                                                 <td>{{f.isDone}}</td>
                                                                 <td>{{f.price}}&nbspdin.</td>
+                                                                <td>{{f.priceWithDiscount}}&nbspdin.</td>
                                                                 <td>{{f.isCanceled}}</td>
                                                                 <template v-if="f.isCanceled == false && CanCancel(f.startTime) == true">
                                                                     <td style="text-align:center"><button class="btn form-control" v-on:click="Cancel(f)">Cancel</button></td> 
