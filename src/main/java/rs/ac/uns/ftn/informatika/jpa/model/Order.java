@@ -58,7 +58,7 @@ public class Order {
 		}
 		this.Orders = result;
 		DueDate = o.getDueDate();
-		PharmacyAdmin = o.getPharmacyAdmin();
+		PharmacyAdmin = new PharmacyAdmin(o.getPharmacyAdmin());
 	}
 	public Long getId() {
 		return Id;

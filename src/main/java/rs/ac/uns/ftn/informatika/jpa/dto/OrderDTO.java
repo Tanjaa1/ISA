@@ -15,11 +15,11 @@ public class OrderDTO {
 	private Long Id;
 	private Set<MedicineQuantityDTO> Orders = new HashSet<MedicineQuantityDTO>();
 	private Date DueDate;
-	private PharmacyAdmin PharmacyAdmin;
+	private PharmacyAdminDTO PharmacyAdmin;
 	
     public OrderDTO(){}
 
-	public OrderDTO(long id, Set<MedicineQuantityDTO> orders, Date dueDate,PharmacyAdmin pharmacyAdmin) {
+	public OrderDTO(long id, Set<MedicineQuantityDTO> orders, Date dueDate,PharmacyAdminDTO pharmacyAdmin) {
 		this.Id = id;
 		this.Orders = orders;
 		DueDate = dueDate;
@@ -35,7 +35,7 @@ public class OrderDTO {
 		}
 		this.Orders =result;
 		DueDate = order.getDueDate();
-		PharmacyAdmin =order.getPharmacyAdmin();
+		PharmacyAdmin =new PharmacyAdminDTO(order.getPharmacyAdmin());
 	}
 
 	public long getId() {
@@ -56,10 +56,10 @@ public class OrderDTO {
 	public void setDueDate(Date dueDate) {
 		DueDate = dueDate;
 	}
-	public PharmacyAdmin getPharmacyAdmin() {
+	public PharmacyAdminDTO getPharmacyAdmin() {
 		return PharmacyAdmin;
 	}
-	public void setPharmacyAdmin(PharmacyAdmin pharmacyAdmin) {
+	public void setPharmacyAdmin(PharmacyAdminDTO pharmacyAdmin) {
 		PharmacyAdmin = pharmacyAdmin;
 	}
 

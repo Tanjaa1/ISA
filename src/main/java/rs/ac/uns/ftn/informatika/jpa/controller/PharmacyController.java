@@ -56,9 +56,9 @@ public class PharmacyController {
 	}
 
 	@PutMapping(value = "/update")
-	public ResponseEntity<Pharmacy> update(@RequestBody Pharmacy pharmacy) throws Exception{
+	public ResponseEntity<PharmacyDTO> update(@RequestBody Pharmacy pharmacy) throws Exception{
 		pharmacyService.update(pharmacy);
-	return new ResponseEntity<>(pharmacy, HttpStatus.CREATED);
+	return new ResponseEntity<>(new PharmacyDTO(pharmacy), HttpStatus.CREATED);
 	}
 
 	@GetMapping(value = "/getAllPharmacies")

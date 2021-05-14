@@ -233,19 +233,19 @@ INSERT INTO public.action_or_promotion(
 
 INSERT INTO public.medicine_price_and_quantity(
 	id, price, quantity, medicine_id)
-	VALUES (1, 250.0, 3, 222);
+	VALUES (11, 250.0, 3, 222);
 INSERT INTO public.medicine_price_and_quantity(
 	id, price, quantity, medicine_id)
-	VALUES (2, 200.0, 3, 223);
+	VALUES (21, 200.0, 3, 223);
 INSERT INTO public.medicine_price_and_quantity(
 	id, price, quantity, medicine_id)
-	VALUES (3, 200.0, 5, 223);
+	VALUES (31, 200.0, 5, 223);
 INSERT INTO public.medicine_price_and_quantity(
 	id, price, quantity, medicine_id)
-	VALUES (4, 200.0, 5, 222);
+	VALUES (41, 200.0, 5, 222);
 INSERT INTO public.medicine_price_and_quantity(
 	id, price, quantity, medicine_id)
-	VALUES (5, 200.0, 4, 224);
+	VALUES (51,200.0, 4, 224);
 
 -- INSERT INTO public.dermatologist_marks(dermatologist_id, marks) VALUES (6, 0);
 -- INSERT INTO public.dermatologist_marks(dermatologist_id, marks) VALUES (6, 2);
@@ -258,10 +258,10 @@ INSERT INTO public.medicine_price_and_quantity(
 
 INSERT INTO public.medicine_quantity(
 	id, quantity, medicine_id, supplier_id)
-	VALUES (1, 5, 222, 10);
+	VALUES (111, 5, 222, 10);
 INSERT INTO public.medicine_quantity(
 	id, quantity, medicine_id, supplier_id)
-	VALUES (2, 10, 223, 11);
+	VALUES (211, 10, 223, 11);
     
 INSERT INTO public.patient_drug_allargies(patient_id, drug_allargies) VALUES (88, 'brufen');
 INSERT INTO public.patient_drug_allargies(patient_id, drug_allargies) VALUES (88, 'cefalosporini');
@@ -307,19 +307,19 @@ INSERT INTO public.patient_drug_allargies(patient_id, drug_allargies) VALUES (89
     
 INSERT INTO public.reservation(
 	id, expiration_date, is_received, medicine_id, patient_id,pharmacy_id, is_canceled)
-	VALUES (100, '2021-03-22', false, 1, 88, 111, false);
+	VALUES (100, '2021-03-22', false, 11, 88, 111, false);
 INSERT INTO public.reservation(
 	id, expiration_date, is_received, medicine_id, patient_id,pharmacy_id, is_canceled)
-	VALUES (101, '2021-03-22', true, 2, 88, 111, false);
+	VALUES (101, '2021-03-22', true, 21, 88, 111, false);
 INSERT INTO public.reservation(
 	id, expiration_date, is_received, medicine_id, patient_id,pharmacy_id, is_canceled)
-	VALUES (102, '2021-05-12', false, 2, 89, 111, false);
+	VALUES (102, '2021-05-12', false, 21, 89, 111, false);
 INSERT INTO public.reservation(
 	id, expiration_date, is_received, medicine_id, patient_id,pharmacy_id, is_canceled)
-	VALUES (103, '2020-03-22', false, 2, 88, 111, false);
+	VALUES (103, '2020-03-22', false, 21, 88, 111, false);
 INSERT INTO public.reservation(
 	id, expiration_date, is_received, medicine_id, patient_id,pharmacy_id, is_canceled)
-	VALUES (104, '2021-01-22', false, 2, 88, 111, false);
+	VALUES (104, '2021-01-22', false, 21, 88, 111, false);
     
 
 -- INSERT INTO public.therapy(
@@ -509,10 +509,10 @@ INSERT INTO public.pharmacist_working_schedule(
 
 INSERT INTO public.eprescription(
 	code, issuing_date,therapy_duration, medicine_id,status,pharmacy_id)
-	VALUES (111,'2016-10-09',2,1,0,111);
+	VALUES (111,'2016-10-09',2,11,0,111);
 INSERT INTO public.eprescription(
 	code, issuing_date,therapy_duration, medicine_id,status,pharmacy_id)
-	VALUES (112,'2017-06-22',2,2,1,111);
+	VALUES (112,'2017-06-22',2,21,1,111);
 
 INSERT INTO public.patient_eprescriptions(
 	patient_id, eprescriptions_code)
@@ -531,19 +531,19 @@ INSERT INTO public.patient_eprescriptions(
 
 INSERT INTO public.pharmacy_pricelist(
 	pharmacy_id, pricelist_id)
-	VALUES (111, 1);
+	VALUES (111, 11);
 INSERT INTO public.pharmacy_pricelist(
 	pharmacy_id, pricelist_id)
-	VALUES (111, 3);
+	VALUES (111, 31);
 INSERT INTO public.pharmacy_pricelist(
 	pharmacy_id, pricelist_id)
-	VALUES (222, 2);
+	VALUES (222, 21);
 INSERT INTO public.pharmacy_pricelist(
 	pharmacy_id, pricelist_id)
-	VALUES (222, 4);
+	VALUES (222, 41);
 INSERT INTO public.pharmacy_pricelist(
 	pharmacy_id, pricelist_id)
-	VALUES (222, 5);
+	VALUES (222, 51);
 
 INSERT INTO public.medicine_replacement(
 	medicine_id, replacement)
@@ -602,41 +602,41 @@ INSERT INTO public.pharmacist_marks(
 	
 INSERT INTO public.order_medicine(
 	id, due_date, pharmacy_admin_id)
-	VALUES (1,'2008-11-11 13:23:44', 8);
+	VALUES (111,'2008-11-11 13:23:44', 8);
 	
 INSERT INTO public.order_medicine(
 	id, due_date, pharmacy_admin_id)
-	VALUES (2,'2008-11-11 13:23:44', 9);
+	VALUES (211,'2008-11-11 13:23:44', 9);
 
 INSERT INTO public.order_medicine(
 	id, due_date, pharmacy_admin_id)
-	VALUES (3,'2008-11-11 13:23:44', 8);
+	VALUES (311,'2008-11-11 13:23:44', 8);
 
 INSERT INTO public.order_medicine_orders(
 	order_id, orders_id)
-	VALUES (2, 1);
+	VALUES (211, 111);
 INSERT INTO public.order_medicine_orders(
 	order_id, orders_id)
-	VALUES (2, 2);
+	VALUES (211, 211);
 INSERT INTO public.medicine_quantity(
 	id, quantity, medicine_id, supplier_id)
-	VALUES (3, 3, 223, 10);
+	VALUES (311, 3, 223, 10);
 INSERT INTO public.order_medicine_orders(
 	order_id, orders_id)
-	VALUES (3, 3);
+	VALUES (311, 311);
 
 
 	INSERT INTO public.supplier_offer(
 	id, due_date, offer_price, status, order_medicine_id, supplier_id)
-	VALUES (557, 'neki datum', 14000.00, 2, 3, 10);
+	VALUES (557, 'neki datum', 14000.00, 2, 311, 10);
 	
 	INSERT INTO public.supplier_offer(
 	id, due_date, offer_price, status, order_medicine_id, supplier_id)
-	VALUES (556, 'neki datum', 15000.00, 1, 2, 10);
+	VALUES (556, 'neki datum', 15000.00, 1, 211, 10);
 	
 	INSERT INTO public.supplier_offer(
 	id, due_date, offer_price, status, order_medicine_id, supplier_id)
-	VALUES (555, 'neki datum', 16000.00, 0, 1, 10);
+	VALUES (555, 'neki datum', 16000.00, 0, 111, 10);
 
 	INSERT INTO public.mark(
 	id, marks, patient_id)

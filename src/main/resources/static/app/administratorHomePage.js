@@ -32,6 +32,7 @@ Vue.component("administratorHomePage", {
 					</div>
 					<div class="col-sm">
 					  <h3>
+					  	<button id="AdminMedicine" type="button" class="btn btn-info btn-lg margin form-control" v-on:click="MedicineShow()"></button>
 						</h3><br/> 
 					</div>
 					<div class="col-sm">
@@ -41,7 +42,7 @@ Vue.component("administratorHomePage", {
 					</div>
 					<div class="col-sm">
 					  <h3>
-						<button id="Scheduling" type="button" class="btn btn-info btn-lg margin form-control" v-on:click="MakingExaminationShow()"></button>
+						<button id="OrderAdmin" type="button" class="btn btn-info btn-lg margin form-control" v-on:click="OrdersShow()"></button>
 						</h3><br/> 
 					</div>
 					<div class="col-sm">
@@ -86,6 +87,12 @@ Vue.component("administratorHomePage", {
         },
         ExaminationsShow : function(){
             this.$router.push('administratorExaminations');
+        },
+		MedicineShow : function(){
+            this.$router.push('administratorMedicine');
+        },
+		OrdersShow : function(){
+            this.$router.push('orderMedicinePharmacyAdmin');
         },
 	}
 });

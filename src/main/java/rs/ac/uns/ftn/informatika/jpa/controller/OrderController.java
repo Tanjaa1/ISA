@@ -31,7 +31,7 @@ public class OrderController {
 
 	
 	@PostMapping(value = "/add")
-	public ResponseEntity<Order> savePatient(@RequestBody Order order) throws Exception{
+	public ResponseEntity<OrderDTO> savePatient(@RequestBody OrderDTO order) throws Exception{
 		orderService.save(order);
 	return new ResponseEntity<>(order, HttpStatus.CREATED);
 	}

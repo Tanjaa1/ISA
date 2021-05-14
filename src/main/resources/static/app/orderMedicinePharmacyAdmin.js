@@ -16,28 +16,20 @@ Vue.component("orderMedicinePharmacyAdmin", {
             order :{
                 orders : [],
                 pharmacyAdmin :{
-                    pharmacy: "Benu",
-                    name: "Toma",
-                    id: 9,
-                    address: "Jovana Ducica 65",
-                    country: "Srbija",
-                    description: "",
-                    emailComfirmed: false,
-                    firstTimeLogin: false,
-                    email: "toma@gmail.com",
-                    phoneNumber: "06581222123",
-                    surname: "Tomic",
-                    city: "Novi Sad",
-                    username: "toma",
-                    password: "Tomic"
                 },
                 dueDate : null,
-                id : 123
+                id : 333
             },
             rows: ['row'],
 		}
 	},
     beforeMount(){
+        axios
+        .get('/pharmacyAdmin/getById/' + '8') 
+			.then(response => {
+				this.order.pharmacyAdmin = response.data
+                this.order.pharmacyAdmin.pharmacy = this.order.pharmacyAdmin.pharmacy.name
+            })
         axios.get('/medicine/getAll', {
             headers: {
                 'Authorization': 'Bearer' + " " + localStorage.getItem('token')
