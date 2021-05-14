@@ -867,5 +867,5 @@ INSERT INTO public.pharmacy_pricelist(
 	pharmacy_id, pricelist_id)
 	VALUES (222, 77);
 INSERT INTO public.loyalty_programme(
-	id, gold, points_for_counceling, points_for_examination, regular, silver)
-	VALUES (1, 75, 10, 10, 50, 25);
+	id, gold, gold_discount, points_for_counceling, points_for_examination, regular, regular_discount, silver, silver_discount)
+	VALUES (1, 200, 0.5, 10, 10, 50, 0.2, 100, 0.3);

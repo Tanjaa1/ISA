@@ -9,15 +9,22 @@ public class LoyaltyProgrammeDTO {
     private Integer Gold;
     private Integer PointsForExamination;
     private Integer PointsForCounceling;
+    private Double RegularDiscount;
+    private Double SilverDiscount;
+    private Double GoldDiscount;
    
+
     public LoyaltyProgrammeDTO(Long id, Integer regular, Integer silver, Integer gold, Integer pointsForExamination,
-            Integer pointsForCounceling) {
+            Integer pointsForCounceling, Double regularDiscount, Double silverDiscount, Double goldDiscount) {
         Id = id;
         Regular = regular;
         Silver = silver;
         Gold = gold;
         PointsForExamination = pointsForExamination;
         PointsForCounceling = pointsForCounceling;
+        RegularDiscount = regularDiscount;
+        SilverDiscount = silverDiscount;
+        GoldDiscount = goldDiscount;
     }
 
     public LoyaltyProgrammeDTO(){}
@@ -29,6 +36,9 @@ public class LoyaltyProgrammeDTO {
         Gold = lp.getGold();
         PointsForCounceling=lp.getPointsForCounceling();
         PointsForExamination=lp.getPointsForExamination();
+        RegularDiscount=lp.getRegularDiscount();
+        SilverDiscount=lp.getSilverDiscount();
+        GoldDiscount=lp.getGoldDiscount();
     }
 
     public Long getId() {
@@ -77,6 +87,30 @@ public class LoyaltyProgrammeDTO {
 
     public void setPointsForCounceling(Integer pointsForCounceling) {
         PointsForCounceling = pointsForCounceling;
+    }
+
+    public Double getRegularDiscount() {
+        return RegularDiscount;
+    }
+
+    public void setRegularDiscount(Double regularDiscount) {
+        RegularDiscount = regularDiscount;
+    }
+
+    public Double getSilverDiscount() {
+        return SilverDiscount;
+    }
+
+    public void setSilverDiscount(Double silverDiscount) {
+        SilverDiscount = silverDiscount;
+    }
+
+    public Double getGoldDiscount() {
+        return GoldDiscount;
+    }
+
+    public void setGoldDiscount(Double goldDiscount) {
+        GoldDiscount = goldDiscount;
     }
 
     

@@ -27,6 +27,9 @@ public class LoyaltyProgrammeService implements ILoyaltyProgrammeService {
             loyaltyProgramme2.setRegular(loyaltyProgramme.getRegular());
             loyaltyProgramme2.setSilver(loyaltyProgramme.getSilver());
             loyaltyProgramme2.setGold(loyaltyProgramme.getGold());
+            loyaltyProgramme2.setRegularDiscount(loyaltyProgramme.getRegularDiscount());
+            loyaltyProgramme2.setSilverDiscount(loyaltyProgramme.getSilverDiscount());
+            loyaltyProgramme2.setGoldDiscount(loyaltyProgramme.getGoldDiscount());
     
             loyaltyProgrammeRepository.save(loyaltyProgramme2);
         }
@@ -54,7 +57,9 @@ public class LoyaltyProgrammeService implements ILoyaltyProgrammeService {
 		loyaltyProgramme1.setPointsForCounceling(loyaltyProgramme.getPointsForCounceling());
         loyaltyProgramme1.setPointsForExamination(loyaltyProgramme.getPointsForExamination());
 		loyaltyProgramme1.setGold(loyaltyProgramme.getGold());
-		
+        loyaltyProgramme1.setRegularDiscount(loyaltyProgramme.getRegularDiscount());
+        loyaltyProgramme1.setSilverDiscount(loyaltyProgramme.getSilverDiscount());
+        loyaltyProgramme1.setGoldDiscount(loyaltyProgramme.getGoldDiscount());
 
         LoyaltyProgramme loyaltyProgramme2 = loyaltyProgrammeRepository.save(loyaltyProgramme1);
         return new LoyaltyProgrammeDTO(loyaltyProgramme2);
@@ -68,5 +73,12 @@ public class LoyaltyProgrammeService implements ILoyaltyProgrammeService {
         }
         return result;
     }
+
+    
+    public LoyaltyProgrammeDTO getLP() {
+        List<LoyaltyProgrammeDTO> lp=getAll();
+        LoyaltyProgrammeDTO lpp= lp.get(0);   
+    return lpp;
+ }
     
 }

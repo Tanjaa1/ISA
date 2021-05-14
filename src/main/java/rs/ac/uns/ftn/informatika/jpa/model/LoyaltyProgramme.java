@@ -24,6 +24,15 @@ public class LoyaltyProgramme {
 
     @Column(name="Gold", unique=false, nullable=true)
     private Integer Gold;
+    @Column(name="RegularDiscount", unique=false, nullable=true)
+    private Double RegularDiscount;
+
+    @Column(name="SilverDiscount", unique=false, nullable=true)
+    private Double SilverDiscount;
+
+    @Column(name="GoldDiscount", unique=false, nullable=true)
+    private Double GoldDiscount;
+
     @Column(name="PointsForExamination", unique=false, nullable=true)
     private Integer PointsForExamination;
     @Column(name="PointsForCounceling", unique=false, nullable=true)
@@ -31,12 +40,15 @@ public class LoyaltyProgramme {
 
 
   
-    public LoyaltyProgramme(Long id, Integer regular, Integer silver, Integer gold, Integer pointsForExamination,
-            Integer pointsForCounceling) {
+    public LoyaltyProgramme(Long id, Integer regular, Integer silver, Integer gold, Double regularDiscount,
+    Double silverDiscount, Double goldDiscount, Integer pointsForExamination, Integer pointsForCounceling) {
         this.id = id;
         Regular = regular;
         Silver = silver;
         Gold = gold;
+        RegularDiscount = regularDiscount;
+        SilverDiscount = silverDiscount;
+        GoldDiscount = goldDiscount;
         PointsForExamination = pointsForExamination;
         PointsForCounceling = pointsForCounceling;
     }
@@ -47,6 +59,9 @@ public class LoyaltyProgramme {
         Gold = lpDTO.getGold();
         PointsForExamination = lpDTO.getPointsForExamination();
         PointsForCounceling =lpDTO.getPointsForCounceling();
+        RegularDiscount=lpDTO.getRegularDiscount();
+        SilverDiscount=lpDTO.getSilverDiscount();
+        GoldDiscount=lpDTO.getGoldDiscount();
     }
     public LoyaltyProgramme(){}
 
@@ -92,6 +107,24 @@ public class LoyaltyProgramme {
     }
     public void setPointsForCounceling(Integer pointsForCounceling) {
         PointsForCounceling = pointsForCounceling;
+    }
+    public Double getRegularDiscount() {
+        return RegularDiscount;
+    }
+    public void setRegularDiscount(Double regularDiscount) {
+        RegularDiscount = regularDiscount;
+    }
+    public Double getSilverDiscount() {
+        return SilverDiscount;
+    }
+    public void setSilverDiscount(Double silverDiscount) {
+        SilverDiscount = silverDiscount;
+    }
+    public Double getGoldDiscount() {
+        return GoldDiscount;
+    }
+    public void setGoldDiscount(Double goldDiscount) {
+        GoldDiscount = goldDiscount;
     }
 
     

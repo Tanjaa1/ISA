@@ -560,17 +560,21 @@ public Double Discount(Double price,Long patientId){
 	Integer regular=lpp.getRegular();
 	Integer silver=lpp.getSilver();
 	Integer gold=lpp.getGold();
+	Double regularDiscount=lpp.getGoldDiscount();
+	Double silverDiscount=lpp.getSilverDiscount();
+	Double goldDiscount=lpp.getGoldDiscount();
+
 	Double priceWithDiscount=0.0;
 
 	if(patient.getPoints()<=regular){
 		priceWithDiscount=price;
 	}
 	else if(patient.getPoints()>regular && patient.getPoints()<=silver){
-		priceWithDiscount=price-(price*0.2);
+		priceWithDiscount=price-(price*regularDiscount);
 	}else if(patient.getPoints()>silver && patient.getPoints()<=gold){
-		priceWithDiscount=price-(price*0.35);
+		priceWithDiscount=price-(price*silverDiscount);
 	}else{
-		priceWithDiscount=price-(price*0.5);
+		priceWithDiscount=price-(price*goldDiscount);
 	}
 	return priceWithDiscount;
 }

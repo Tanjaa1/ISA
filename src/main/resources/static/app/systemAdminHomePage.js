@@ -89,6 +89,8 @@ Vue.component("systemAdminHomaPage", {
             this.$router.push('complaints');
         },
 		LoyaltyProgramme: function () {
+			this.$router.push('loyaltyProgramme');
+
         },
     }
 

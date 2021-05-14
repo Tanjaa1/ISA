@@ -5,9 +5,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import rs.ac.uns.ftn.informatika.jpa.dto.LoyaltyProgrammeDTO;
@@ -27,10 +30,15 @@ public class LoyaltyProgrammeController {
 	return new ResponseEntity<>(new LoyaltyProgramme(loyaltyProgrammeDTO), HttpStatus.CREATED);
 	}
 
-    @GetMapping(value = "/updateLP/")
-	public ResponseEntity<LoyaltyProgramme> updateLP(@RequestBody LoyaltyProgrammeDTO loyaltyProgrammeDTO) throws Exception{
-		loyaltyProgrammeService.update(new LoyaltyProgramme(loyaltyProgrammeDTO));
-	return new ResponseEntity<>(new LoyaltyProgramme(loyaltyProgrammeDTO), HttpStatus.CREATED);
+    @PutMapping(value = "/updateLP")
+	public ResponseEntity<LoyaltyProgramme> updateLP(@RequestBody LoyaltyProgrammeDTO lpDTO) throws Exception{
+		loyaltyProgrammeService.update(new LoyaltyProgramme(lpDTO));
+	return new ResponseEntity<>(new LoyaltyProgramme(lpDTO), HttpStatus.CREATED);
+	}
+	@GetMapping(value = "/getLP/")
+	public ResponseEntity<LoyaltyProgramme> getLP() throws Exception{
+		LoyaltyProgrammeDTO lp=loyaltyProgrammeService.getLP();
+	return new ResponseEntity<>(new LoyaltyProgramme(lp), HttpStatus.CREATED);
 	}
     
 }

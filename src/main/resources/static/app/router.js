@@ -53,6 +53,7 @@ const SupplierInfo= { template: '<supplierInfo></supplierInfo>' }
 const SuppliersOffers= { template: '<suppliersOffers></suppliersOffers>' } 
 const GiveOffers= { template: '<giveOffers></giveOffers>' } 
 
+const LoyaltyProgramme= { template: '<loyaltyProgramme></loyaltyProgramme>' } 
 
 
 
@@ -556,6 +557,13 @@ const router = new VueRouter({
 			name : 'QR', 
 			components: {
 				content: QR
+			}
+		},
+		{
+			path: '/loyaltyProgramme', 
+			name : 'loyaltyProgramme', 
+			components: {
+				content: LoyaltyProgramme
 			}
 		}
 	  ]
