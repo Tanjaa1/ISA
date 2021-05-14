@@ -12,7 +12,7 @@ Vue.component("createCounselingPharmacist", {
                 idDone:false,
                 pharmacy:null,
                 report:"",
-                price:1000.00             
+                price:1000.00   ,
             },
             patient:{},
             physician:{}
@@ -87,7 +87,7 @@ Vue.component("createCounselingPharmacist", {
             this.newExamination.startTime=document.getElementById("date").value+'T'+document.getElementById("start").value
             this.newExamination.endTime=document.getElementById("date").value+'T'+document.getElementById("end").value
             this.newExamination.patient=this.patient
-            //this.newExamination.dermatologist=this.examination.dermatologist 
+           // this.newExamination.dermatologist=this.examination.dermatologist 
             //this.newExamination.pharmacy=this.examination.pharmacy
             this.newExamination.pharmacist=this.physician 
             this.newExamination.pharmacy=this.physician.pharmacy
@@ -96,6 +96,7 @@ Vue.component("createCounselingPharmacist", {
                 alert("The counseling was successfully scheduled!")
             })
             .catch(function (error) {
+                alert(error)
             });
         }
 	}

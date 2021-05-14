@@ -126,19 +126,19 @@ INSERT INTO public.complaint(
 
 INSERT INTO public.counseling(
 	id, price, report, start_time, end_time, is_done, patient_id, pharmacist_id, pharmacy_id, is_canceled)
-	VALUES (111, 1000.0, 'Headache', '2021-02-09 16:00:00-07', '2021-02-09 16:25:25-07', true, 88, 5, 222, false);
+	VALUES (111, 1000.0, 'Headache', '2022-02-09 16:00:00-07', '2021-02-09 16:25:25-07', true, 88, 5, 222, false);
 INSERT INTO public.counseling(
 	id, price, report, start_time, end_time, is_done, patient_id, pharmacist_id, pharmacy_id, is_canceled)
 	VALUES (112, 2000.0, '', '2021-02-15 17:00:00-07', '2021-02-15 17:25:25-07', true, 89, 5, 222, false);
 INSERT INTO public.counseling(
 	id, price, report, start_time, end_time, is_done, patient_id, pharmacist_id, pharmacy_id, is_canceled)
-	VALUES (113, 1000.0, '', '2021-02-15 15:00:00-07', '2021-02-15 15:25:25-07', true, 88, 5, 222, false);
+	VALUES (113, 1000.0, '', '2022-02-15 15:00:00-07', '2021-02-15 15:25:25-07', true, 88, 5, 222, false);
 INSERT INTO public.counseling(
 	id, price, report, start_time, end_time, is_done, patient_id, pharmacist_id, pharmacy_id, is_canceled)
 	VALUES (114, 2000.0, '', '2021-02-16 17:00:00-07', '2021-02-16 17:25:25-07', true, 89, 5, 222, false);
 INSERT INTO public.counseling(
 	id, price, report, start_time, end_time, is_done, patient_id, pharmacist_id, pharmacy_id, is_canceled)
-	VALUES (115, 1000.0, '', '2021-02-13 16:00:00-07', '2021-02-13 16:25:25-07', false, 88, 5, 222, false);
+	VALUES (115, 1000.0, '', '2022-02-13 16:00:00-07', '2021-02-13 16:25:25-07', false, 88, 5, 222, false);
 INSERT INTO public.counseling(
 	id, price, report, start_time, end_time, is_done, patient_id, pharmacist_id, pharmacy_id, is_canceled)
 	VALUES (116, 2000.0, 'Headache', '2021-02-13 17:00:00-07', '2021-02-13 17:25:25-07', true, 89, 5, 222, false);
@@ -866,7 +866,6 @@ INSERT INTO public.pharmacy_marks(
 INSERT INTO public.pharmacy_pricelist(
 	pharmacy_id, pricelist_id)
 	VALUES (222, 77);
-
 INSERT INTO public.loyalty_programme(
-	id, gold, regular, silver)
-	VALUES (1, 25, 15, 5);
+	id, gold, points_for_counceling, points_for_examination, regular, silver)
+	VALUES (1, 75, 10, 10, 50, 25);

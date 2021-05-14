@@ -24,19 +24,29 @@ public class LoyaltyProgramme {
 
     @Column(name="Gold", unique=false, nullable=true)
     private Integer Gold;
+    @Column(name="PointsForExamination", unique=false, nullable=true)
+    private Integer PointsForExamination;
+    @Column(name="PointsForCounceling", unique=false, nullable=true)
+    private Integer PointsForCounceling;
 
-    public LoyaltyProgramme(Long id, Integer regular, Integer silver, Integer gold) {
+
+  
+    public LoyaltyProgramme(Long id, Integer regular, Integer silver, Integer gold, Integer pointsForExamination,
+            Integer pointsForCounceling) {
         this.id = id;
         Regular = regular;
         Silver = silver;
         Gold = gold;
+        PointsForExamination = pointsForExamination;
+        PointsForCounceling = pointsForCounceling;
     }
-
     public LoyaltyProgramme(LoyaltyProgrammeDTO lpDTO) {
         this.id = lpDTO.getId();
         Regular = lpDTO.getRegular();
         Silver = lpDTO.getSilver();
         Gold = lpDTO.getGold();
+        PointsForExamination = lpDTO.getPointsForExamination();
+        PointsForCounceling =lpDTO.getPointsForCounceling();
     }
     public LoyaltyProgramme(){}
 
@@ -70,6 +80,18 @@ public class LoyaltyProgramme {
 
     public void setGold(Integer gold) {
         Gold = gold;
+    }
+    public Integer getPointsForExamination() {
+        return PointsForExamination;
+    }
+    public void setPointsForExamination(Integer pointsForExamination) {
+        PointsForExamination = pointsForExamination;
+    }
+    public Integer getPointsForCounceling() {
+        return PointsForCounceling;
+    }
+    public void setPointsForCounceling(Integer pointsForCounceling) {
+        PointsForCounceling = pointsForCounceling;
     }
 
     

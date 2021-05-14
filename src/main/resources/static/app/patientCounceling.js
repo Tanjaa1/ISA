@@ -16,28 +16,29 @@ Vue.component("patientCounceling", {
             dateTimeStart:null,
             consultation:{},
             brPenalty:0,
+            patientt:null
         }
     },
     beforeMount() {
 
         axios
-            .get('/counseling/getPastCounselingByPatientId/' + '88')
+            .get('/counseling/getPastCounselingByPatientId/' + '90')
             .then(response => {
                 this.patientPastCounceling = response.data
             })
             .catch(error => {
             })
         axios
-            .get('/counseling/getFutureCounselingByPatientId/' + '88')
+            .get('/counseling/getFutureCounselingByPatientId/' + '90')
             .then(response => {
                 this.patientFutureECounceling = response.data
             })
             .catch(error => {
             })
             axios
-			.get('/patient/getPatientById/' + '88') 
+			.get('/patient/getPatientByIdd/' + '90') 
 			.then(response => {
-				this.patient = response.data
+				this.consultation.patient = response.data
                 for(i = 0; i < this.patient.penalty.length; i++){
 					if(this.patient.penalty[i].isDeleted == false){
 						this.brPenalty++;
@@ -345,6 +346,9 @@ Vue.component("patientCounceling", {
             this.consultation.pharmacy = this.choosenPharmacy
             this.consultation.price = this.choosenPharmacy.counselingPrice
             this.consultation.isCanceled = false
+
+           
+            
              axios
                   .post('/counseling/createCounseling', this.consultation)
                   .then(response => {

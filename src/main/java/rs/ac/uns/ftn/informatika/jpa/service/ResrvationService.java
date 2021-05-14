@@ -84,6 +84,7 @@ public class ResrvationService implements IReservationService{
 		patient.setPoints(patient.getPoints()+medicine.getPoints());								//dodajemo bodove koje nosi lijek  kod pacijenta
 		patientService.update(patient);
 		//cijena lijeka koji je rezervisan
+		//ubaciti negdje ovu cijenu
 		//medicineService.Discount(price, patient.getId());
 		changeMedicineQuantity(reservation);
 		emailSender(reservation);

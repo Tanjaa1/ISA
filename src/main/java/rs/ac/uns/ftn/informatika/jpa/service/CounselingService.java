@@ -17,6 +17,8 @@ import rs.ac.uns.ftn.informatika.jpa.dto.CouncelingDTO;
 import rs.ac.uns.ftn.informatika.jpa.dto.PharmacistDTO;
 import rs.ac.uns.ftn.informatika.jpa.dto.PharmacyDTO;
 import rs.ac.uns.ftn.informatika.jpa.model.Counseling;
+import rs.ac.uns.ftn.informatika.jpa.model.LoyaltyProgramme;
+import rs.ac.uns.ftn.informatika.jpa.model.Patient;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.ICounselingRpository;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IExaminationRpository;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IPatientRepository;
@@ -32,7 +34,8 @@ public class CounselingService implements ICounselingService {
 	private ICounselingRpository counselingRepository;
     @Autowired
     private IExaminationRpository examinationRepository;
-    
+    @Autowired
+    private LoyaltyProgrammeService loyaltyProgrammeService ;
     @Autowired
     private IPatientRepository patientRepository;
 
@@ -41,6 +44,10 @@ public class CounselingService implements ICounselingService {
 
     @Autowired
     private IPharmacyRepository pharmacyRepository;
+    @Autowired
+    private MedicineService medicineService;
+    @Autowired
+    private PatientService patientService;
     
 	@Autowired
 	private EmailService emailService;
@@ -59,15 +66,19 @@ public class CounselingService implements ICounselingService {
        return patientCounselings;
 	}
 
-    public List<Counseling> findFutureCounselingsByPatientId(Long id) {
-        List<Counseling> patientCounselings = new ArrayList<>();
+    public List<CouncelingDTO> findFutureCounselingsByPatientId(Long id) {
+        List<CouncelingDTO> patientCounselings = new ArrayList<>();
         List<Counseling> counselings = counselingRepository.findAll();
         for (Counseling counseling : counselings) {
         int i = counseling.getStartTime().compareTo(LocalDateTime.now());
            if(id == counseling.getPatient().getId() && i > 0){
-                patientCounselings.add(counseling);
+               Double price=medicineService.Discount(counseling.getPrice(), id);
+              CouncelingDTO cdto=new CouncelingDTO(counseling);
+            cdto.setPriceWithDiscount(price);
+                patientCounselings.add(cdto);
             }
        }
+
        return patientCounselings;
 	}
 
@@ -174,18 +185,24 @@ public class CounselingService implements ICounselingService {
 		}
 	}
 
-	public CouncelingDTO createNewCounseling(Counseling counseling) {
+	public CouncelingDTO createNewCounseling(Counseling counseling) throws Exception {
         Counseling c = new Counseling();
         c.setPharmacist(pharmacistRepository.getOne(counseling.getPharmacist().getId()));
-        //c.setPatient(patientRepository.getOne(counseling.getPatient().getId()));
-        Long id = (long) 88;
-        c.setPatient(patientRepository.getOne(id));
+        c.setPatient(patientRepository.getOne(counseling.getPatient().getId()));
+       // Long id = (long) 88;
+        ///c.setPatient(patientRepository.findById(id).get());
         c.setPharmacy(pharmacyRepository.getOne(counseling.getPharmacy().getId()));
         c.setStartTime(counseling.getStartTime());
         c.setEndTime(counseling.getStartTime().plusMinutes(20));
         c.setPrice(counseling.getPrice());
         c.setIsDone(counseling.getIsDone());
         c.setIsCanceled(counseling.getIsCanceled());
+        Double price=medicineService.Discount(counseling.getPrice(),counseling.getPatient().getId());
+        c.setPrice(price);
+        LoyaltyProgramme lpDTO=loyaltyProgrammeService.findById(Long.valueOf(1));
+        Patient patient =counseling.getPatient();
+        patient.setPoints(patient.getPoints()+lpDTO.getPointsForCounceling());
+        patientService.update(patient);
         CouncelingDTO councelingDTO= new CouncelingDTO(counselingRepository.save(c));
         emailSender2(c);
         return councelingDTO;

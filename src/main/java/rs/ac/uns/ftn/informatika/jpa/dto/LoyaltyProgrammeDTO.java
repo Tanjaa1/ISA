@@ -7,11 +7,17 @@ public class LoyaltyProgrammeDTO {
     private Integer Regular;
     private Integer Silver;
     private Integer Gold;
-    public LoyaltyProgrammeDTO(Long id, Integer regular, Integer silver, Integer gold) {
-        this.Id = id;
+    private Integer PointsForExamination;
+    private Integer PointsForCounceling;
+   
+    public LoyaltyProgrammeDTO(Long id, Integer regular, Integer silver, Integer gold, Integer pointsForExamination,
+            Integer pointsForCounceling) {
+        Id = id;
         Regular = regular;
         Silver = silver;
         Gold = gold;
+        PointsForExamination = pointsForExamination;
+        PointsForCounceling = pointsForCounceling;
     }
 
     public LoyaltyProgrammeDTO(){}
@@ -21,6 +27,8 @@ public class LoyaltyProgrammeDTO {
         Regular = lp.getRegular();
         Silver = lp.getSilver();
         Gold = lp.getGold();
+        PointsForCounceling=lp.getPointsForCounceling();
+        PointsForExamination=lp.getPointsForExamination();
     }
 
     public Long getId() {
@@ -53,6 +61,22 @@ public class LoyaltyProgrammeDTO {
 
     public void setGold(Integer gold) {
         Gold = gold;
+    }
+
+    public Integer getPointsForExamination() {
+        return PointsForExamination;
+    }
+
+    public void setPointsForExamination(Integer pointsForExamination) {
+        PointsForExamination = pointsForExamination;
+    }
+
+    public Integer getPointsForCounceling() {
+        return PointsForCounceling;
+    }
+
+    public void setPointsForCounceling(Integer pointsForCounceling) {
+        PointsForCounceling = pointsForCounceling;
     }
 
     

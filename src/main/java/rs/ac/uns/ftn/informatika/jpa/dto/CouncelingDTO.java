@@ -16,10 +16,11 @@ public class CouncelingDTO {
 	private PharmacistDTO Pharmacist;
 	private PharmacyDTO Pharmacy;
 	private Double Price;
+	private Double PriceWithDiscount;
 	private Boolean IsCanceled;
 	
 	public CouncelingDTO(){}
-
+/*
 	public CouncelingDTO(long id, String report, LocalDateTime startTime, LocalDateTime endTime, Boolean isDone, PatientDTO patient,
 		PharmacistDTO pharmacist, PharmacyDTO pharmacy,Double price, Boolean isCanceled) {
 		super();
@@ -33,6 +34,22 @@ public class CouncelingDTO {
         Pharmacy = pharmacy;
 		Price=price;
 		IsCanceled = isCanceled;
+	}
+
+*/	public CouncelingDTO(long id, String report, LocalDateTime startTime, LocalDateTime endTime, Boolean isDone, PatientDTO patient,
+		PharmacistDTO pharmacist, PharmacyDTO pharmacy,Double price, Boolean isCanceled,Double priceWitDiscount) {
+		super();
+		this.Id = id;
+		Report = report;
+		StartTime = startTime;
+		EndTime = endTime;
+		this.isDone = isDone;
+		Patient = patient;
+		Pharmacist = pharmacist;
+        Pharmacy = pharmacy;
+		Price=price;
+		IsCanceled = isCanceled;
+		PriceWithDiscount=priceWitDiscount;
 	}
 
     public CouncelingDTO(Counseling counceling){
@@ -127,4 +144,17 @@ public class CouncelingDTO {
 	public void setIsCanceled(Boolean isCanceled){
 		IsCanceled=isCanceled;
 	}
+
+	public void setId(Long id) {
+		Id = id;
+	}
+
+	public Double getPriceWithDiscount() {
+		return PriceWithDiscount;
+	}
+
+	public void setPriceWithDiscount(Double priceWithDiscount) {
+		PriceWithDiscount = priceWithDiscount;
+	}
+	
 }

@@ -15,6 +15,8 @@ public class ExaminationDTO {
 	private DermatologistDTO Dermatologist;
 	private PharmacyDTO Pharmacy;
 	private Double Price;
+	private Double PriceWithDiscount;
+
 	private Boolean IsCanceled;
 	
 	public ExaminationDTO(){}
@@ -32,6 +34,23 @@ public class ExaminationDTO {
 		Pharmacy = pharmacy;
 		Price=price;
 		IsCanceled = isCanceled;
+	}
+
+	
+	public ExaminationDTO(long id, String report, LocalDateTime startTime,LocalDateTime endTime, Boolean isDone, PatientDTO patient,
+			DermatologistDTO dermatologist, PharmacyDTO pharmacy,Double price, Boolean isCanceled,Double priceWithDiscount) {
+		super();
+		Id = id;
+		Report = report;
+		StartTime = startTime;
+		EndTime = endTime;
+		this.isDone = isDone;
+		Patient = patient;
+		Dermatologist = dermatologist;
+		Pharmacy = pharmacy;
+		Price=price;
+		IsCanceled = isCanceled;
+		PriceWithDiscount=priceWithDiscount;
 	}
 
     public ExaminationDTO(Examination examination){
@@ -128,4 +147,13 @@ public class ExaminationDTO {
 	public void setIsCanceled(Boolean isCanceled) {
 		this.IsCanceled = isCanceled;
 	}
+
+	public Double getPriceWithDiscount() {
+		return PriceWithDiscount;
+	}
+
+	public void setPriceWithDiscount(Double priceWithDiscount) {
+		PriceWithDiscount = priceWithDiscount;
+	}
+	
 }

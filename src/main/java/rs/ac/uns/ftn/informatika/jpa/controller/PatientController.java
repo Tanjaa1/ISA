@@ -38,6 +38,11 @@ public class PatientController {
 		PatientDTO patient = new PatientDTO(patientService.findOne(id));
 		return patient == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(patient);
 	}
+	@GetMapping(value = "/getPatientByIdd/{id}")
+	public ResponseEntity<PatientDTO> getPatientByIdd(@PathVariable Long id) {
+		PatientDTO patient = new PatientDTO(patientService.findById(id));
+		return patient == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(patient);
+	}
 
 	@PostMapping(value = "/update")
 	public ResponseEntity<PatientDTO> updateGreeting(@RequestBody Patient patient) throws Exception {	

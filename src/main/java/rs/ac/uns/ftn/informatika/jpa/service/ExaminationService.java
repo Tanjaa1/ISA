@@ -19,6 +19,8 @@ import rs.ac.uns.ftn.informatika.jpa.dto.ExaminationDTO;
 import rs.ac.uns.ftn.informatika.jpa.model.Dermatologist;
 import rs.ac.uns.ftn.informatika.jpa.dto.PharmacyDTO;
 import rs.ac.uns.ftn.informatika.jpa.model.Examination;
+import rs.ac.uns.ftn.informatika.jpa.model.LoyaltyProgramme;
+import rs.ac.uns.ftn.informatika.jpa.model.Patient;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.ICounselingRpository;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IDermatologistRepository;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IExaminationRpository;
@@ -44,7 +46,12 @@ public class ExaminationService implements IExaminationService {
 
     @Autowired
     private IPharmacyRepository pharmacyRepository;
-
+    @Autowired
+    private MedicineService medicineService;
+    @Autowired
+    private PatientService patientService;
+    @Autowired
+    private LoyaltyProgrammeService loyaltyProgrammeService;
     
 	@Autowired
 	private EmailService emailService;
@@ -145,12 +152,18 @@ public class ExaminationService implements IExaminationService {
         if(!workTimeCheck(examination))
             return null;
 		Examination e=new Examination();
+        Double price=medicineService.Discount(examination.getPrice(), examination.getPatient().getId());
+        e.setPrice(price);
         e.setDermatologist(dermatologistRepository.getOne(examination.getDermatologist().getId()));
         e.setPatient(patientRepository.getOne(examination.getPatient().getId()));
         e.setPharmacy(pharmacyRepository.getOne(examination.getPharmacy().getId()));
         e.setStartTime(examination.getStartTime());
         e.setEndTime(examination.getEndTime());
         ExaminationDTO examinationDTO= new ExaminationDTO(examinationRepository.save(e));
+        LoyaltyProgramme lpDTO=loyaltyProgrammeService.findById(Long.valueOf(1));
+        Patient patient =patientRepository.findById(examination.getPatient().getId()).get();
+        patient.setPoints(patient.getPoints()+lpDTO.getPointsForExamination());
+        patientService.update(patient);
         emailSender(e);
         return examinationDTO;
     }

@@ -51,6 +51,8 @@ public class LoyaltyProgrammeService implements ILoyaltyProgrammeService {
 		loyaltyProgramme1.setId(loyaltyProgramme.getId());
 		loyaltyProgramme1.setRegular(loyaltyProgramme.getRegular());
 		loyaltyProgramme1.setSilver(loyaltyProgramme.getSilver());
+		loyaltyProgramme1.setPointsForCounceling(loyaltyProgramme.getPointsForCounceling());
+        loyaltyProgramme1.setPointsForExamination(loyaltyProgramme.getPointsForExamination());
 		loyaltyProgramme1.setGold(loyaltyProgramme.getGold());
 		
 
