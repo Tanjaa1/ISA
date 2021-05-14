@@ -7,6 +7,8 @@ import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import rs.ac.uns.ftn.informatika.jpa.dto.PharmacyAdminDTO;
+
 @Entity
 @Table(name="PharmacyAdmin")
 public class PharmacyAdmin extends User{
@@ -37,5 +39,12 @@ public class PharmacyAdmin extends User{
 		super(id, email, password, name, surname, address, city, country, phoneNumber, description, emailComfirmed,
 				firstTimeLogin, username);
 		Pharmacy = pharmacy;
+	}
+
+		public PharmacyAdmin(PharmacyAdminDTO pa) {
+		super(pa.getId(), pa.getEmail(), pa.getPassword(), pa.getName(), pa.getSurname(), pa.getAddress(), pa.getCity(), pa.getCity(), pa.getPhoneNumber(), pa.getDescription(), pa.getEmailComfirmed(),
+		pa.getFirstTimeLogin(), pa.getUsername());
+		Pharmacy = pa.getPharmacy().getName();
+		
 	}
 }

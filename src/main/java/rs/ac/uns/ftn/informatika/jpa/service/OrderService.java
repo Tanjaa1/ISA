@@ -28,8 +28,8 @@ public class OrderService implements IOrderService {
         return result;
     }
     
-	public ResponseEntity<Order> save(Order order) throws Exception{
-		orderRepository.save(order);
+	public ResponseEntity<Order> save(OrderDTO order) throws Exception{
+		orderRepository.save(new Order(order));
 	    return new ResponseEntity<>( HttpStatus.CREATED);
 	}
 

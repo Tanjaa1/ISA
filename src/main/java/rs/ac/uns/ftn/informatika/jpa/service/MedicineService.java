@@ -25,11 +25,14 @@ import rs.ac.uns.ftn.informatika.jpa.model.MedicinePriceAndQuantity;
 import rs.ac.uns.ftn.informatika.jpa.model.Patient;
 import rs.ac.uns.ftn.informatika.jpa.model.Pharmacy;
 import rs.ac.uns.ftn.informatika.jpa.model.PharmacyAdmin;
+import rs.ac.uns.ftn.informatika.jpa.model.Reservation;
 import rs.ac.uns.ftn.informatika.jpa.repository.MedicineRepository;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IMarkRepository;
+import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IMedicinePriceAndQuantity;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IMedicineRepository;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IPatientRepository;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IPharmacyRepository;
+import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IReservationRepository;
 import rs.ac.uns.ftn.informatika.jpa.service.Interface.IMedicineService;
 import rs.ac.uns.ftn.informatika.jpa.service.Interface.IPharmacyService;
 
@@ -48,9 +51,14 @@ public class MedicineService implements IMedicineService {
 	@Autowired
 	private PharmacyService pharmacyService;
 
-
 	@Autowired
 	private IPharmacyRepository pharmacyRepository;
+
+	@Autowired
+	private IMedicinePriceAndQuantity medPriceAndQuantityRepository;
+
+	@Autowired
+	private IReservationRepository reservationRepository;
 
 	public Medicine findOne(Long id) {
 		Medicine medicine = medicineRepository.getOne(id);
@@ -407,4 +415,56 @@ public class MedicineService implements IMedicineService {
 			}
 		return res4;
 	}
+
+	public List<MedicineDTO> getAllAR() {
+		List<Medicine> medicines = medicineRepository.findAll();
+		List<MedicineDTO> retVal = new ArrayList<MedicineDTO>();
+		for (Medicine medicine : medicines) {
+			medicine.setMarks(new HashSet<Markk>());
+			retVal.add(new MedicineDTO(medicine));
+		}
+
+		return retVal;
+	}
+
+	public boolean deleteMedicineFromPricelist(Long ID,Long pID){
+
+		Pharmacy pharmacy = pharmacyRepository.getOne(pID);
+		List<Reservation> reservations;
+		MedicinePriceAndQuantity med = medPriceAndQuantityRepository.getOne(ID);
+
+		reservations = reservationRepository.getReservationByPharmacyAndMedicine(pharmacy, med);
+		if(reservations.isEmpty()){
+			Set<MedicinePriceAndQuantity> newPricelist = new HashSet<MedicinePriceAndQuantity>();
+
+			for (MedicinePriceAndQuantity mpq : pharmacy.getPricelist()) {
+				if(mpq.getId() != ID){
+					newPricelist.add(mpq);
+				}
+			}
+
+			pharmacy.setPricelist(newPricelist);
+			pharmacyRepository.save(pharmacy);
+
+			return true;
+		}	
+		return false;
+	}
+
+	public ResponseEntity<MedicinePriceAndQuantity> addToPricelist( MedicinePriceAndQuantity MPQ ,Long PharmacyId) throws Exception {
+
+		Pharmacy pharmacy = pharmacyRepository.getOne(PharmacyId);
+		Set<MedicinePriceAndQuantity> pricelist= pharmacy.getPricelist();
+		pricelist.add(MPQ);
+		pharmacy.setPricelist(pricelist);
+		pharmacyRepository.save(pharmacy);
+		return new ResponseEntity<>(HttpStatus.CREATED);
+	}
+
+	public ResponseEntity<MedicinePriceAndQuantity> savePriceAndQuantity(MedicinePriceAndQuantity medicine) throws Exception {
+
+		medPriceAndQuantityRepository.save(medicine);
+		return new ResponseEntity<>(HttpStatus.CREATED);
+	}
+
 }
