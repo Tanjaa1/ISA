@@ -20,4 +20,7 @@ public interface IPharmacyAdminRepository extends JpaRepository<PharmacyAdmin, L
 	
 	@Query("SELECT p FROM PharmacyAdmin p WHERE p.Pharmacy like ?1")
 	public PharmacyAdmin findPharmacyAdminByPharmacyName(String name);
+
+	@Query("SELECT p FROM PharmacyAdmin p")
+	public List<PharmacyAdmin> getAll();
 }

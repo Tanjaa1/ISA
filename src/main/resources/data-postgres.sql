@@ -601,16 +601,16 @@ INSERT INTO public.pharmacist_marks(
 
 	
 INSERT INTO public.order_medicine(
-	id, due_date, pharmacy_admin_id)
-	VALUES (111,'2008-11-11 13:23:44', 8);
+	id, due_date, pharmacy_admin_id,is_processed)
+	VALUES (111,'2008-11-11 13:23:44', 8,false);
 	
 INSERT INTO public.order_medicine(
-	id, due_date, pharmacy_admin_id)
-	VALUES (211,'2008-11-11 13:23:44', 9);
+	id, due_date, pharmacy_admin_id,is_processed)
+	VALUES (211,'2008-11-11 13:23:44', 9,true);
 
 INSERT INTO public.order_medicine(
-	id, due_date, pharmacy_admin_id)
-	VALUES (311,'2008-11-11 13:23:44', 8);
+	id, due_date, pharmacy_admin_id,is_processed)
+	VALUES (311,'2008-11-11 13:23:44', 8,true);
 
 INSERT INTO public.order_medicine_orders(
 	order_id, orders_id)

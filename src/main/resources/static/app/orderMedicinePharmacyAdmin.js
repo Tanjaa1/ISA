@@ -18,9 +18,12 @@ Vue.component("orderMedicinePharmacyAdmin", {
                 pharmacyAdmin :{
                 },
                 dueDate : null,
-                id : 333
+                id : 333,
+                isProcessed : null
             },
             rows: ['row'],
+            allOrders : [],
+            filter : 0,
 		}
 	},
     beforeMount(){
@@ -29,6 +32,15 @@ Vue.component("orderMedicinePharmacyAdmin", {
 			.then(response => {
 				this.order.pharmacyAdmin = response.data
                 this.order.pharmacyAdmin.pharmacy = this.order.pharmacyAdmin.pharmacy.name
+                axios.get('/pharmacy/getByName/'+ this.order.pharmacyAdmin.pharmacy)
+                .then(response => {
+                    this.pharmacy = response.data
+                    axios
+                    .get('/order/ordersByPharmacyId/' + this.pharmacy.id) 
+                    .then(response => {
+                        this.allOrders = response.data
+                    })
+                })
             })
         axios.get('/medicine/getAll', {
             headers: {
@@ -41,7 +53,9 @@ Vue.component("orderMedicinePharmacyAdmin", {
     },
 	template: ` 
     <div id="OMPA">       
-            <div style = "margin-top : 14%;"/>
+    <br><br>
+            <h1>Order new medicine</h1>
+            <div style = "margin-top : 3%;">
             <div class = "sameLineOMPA"  style ="margin-left : 5%; margin-top : 0.5%;" v-for = "(row,index) in orders">
                 <div class="input-group mb-3" style = "width : 20%;">
                     <div class="input-group-prepend">
@@ -82,8 +96,78 @@ Vue.component("orderMedicinePharmacyAdmin", {
                     <input type = "date" min="1" class="form-control" v-model="order.dueDate" aria-describedby="basic-addon3" v-on:change = "compareDate(order.dueDate)">
                 </div>
                 <button type="button" class="btn btn-primary" style = "background-color : darkgrey; width : 25%; margin-left :24%;" v-on:click = "completeOrder()">Order</button>            
-                </div>
+            </div>
 
+        <br><br><br><br><br>
+        <h1>Orders overview</h1>
+
+            <!-- Orders unfiltered -->
+		<table class="table" style = "width : 50%; margin-left:25%; color :  #515a5a " v-if ="filter == 0">
+			<thead class="thead-light">
+				<tr>
+					<th scope="col">Id</th>
+					<th scope="col">Medicine</th>
+					<th scope="col">Quantity</th>
+					<th scope="col">Status</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr v-for = "(order) in allOrders">
+					<td scope="row">{{order.id}}</td>
+                    <td><div  v-for = "o in order.orders">{{o.medicine.name}}</div></td>				
+                    <td><div  v-for = "o in order.orders">{{o.quantity}}</div></td>	
+                    <td scope="row" v-if = "!order.isProcessed" >Pending offers</td>
+                    <td scope="row" v-else >Processed</td>
+				</tr>
+			</tbody>
+		</table>
+
+        <!-- Orders pending -->
+        <table class="table" style = "width : 50%; margin-left:25%; color :  #515a5a   " v-else-if ="filter == 1">
+            <thead class="thead-light">
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Medicine</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for = "(order) in allOrders" v-if = "!order.isProcessed">
+                    <td scope="row">{{order.id}}</td>
+                    <td><div  v-for = "o in order.orders">{{o.medicine.name}}</div></td>				
+                    <td><div  v-for = "o in order.orders">{{o.quantity}}</div></td>	
+                    <td scope="row" v-if = "!order.isProcessed" >Pending offers</td>
+                    <td scope="row" v-else >Processed</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Orders processed -->
+        <table class="table" style = "width : 50%; margin-left:25%; color :  #515a5a   " v-else-if ="filter == 2">
+            <thead class="thead-light">
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Medicine</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for = "(order) in allOrders" v-if="order.isProcessed">
+                    <td scope="row">{{order.id}}</td>
+                    <td><div  v-for = "o in order.orders">{{o.medicine.name}}</div></td>				
+                    <td><div  v-for = "o in order.orders">{{o.quantity}}</div></td>	
+                    <td scope="row" v-if = "!order.isProcessed" >Pending offers</td>
+                    <td scope="row" v-else >Processed</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <button style="color:white; width : 300px" type="button" class="btn btn-default" data-dismiss="modal" v-on:click="FilterPending()" data-toggle="modal" data-target="#">Filter pending</button>
+        <button style="color:white; width : 300px" type="button" class="btn btn-default" data-dismiss="modal" v-on:click="FilterProcessed()" data-toggle="modal" data-target="#">Filter processed</button>
+        <button style="color:white; width : 300px" type="button" class="btn btn-default" data-dismiss="modal" v-on:click="FilterReset()" data-toggle="modal" data-target="#">Reset filter</button>
+		</br>		
     </div>
 	`,
     methods: {
@@ -111,6 +195,15 @@ Vue.component("orderMedicinePharmacyAdmin", {
         },
         deleteRow: function () {
             this.orders.pop()
+        },
+        FilterPending: function(){
+            this.filter = 1
+        },
+        FilterProcessed: function(){
+            this.filter = 2
+        },
+        FilterReset: function(){
+            this.filter = 0
         },
         completeOrder: function () {
             for(var med of this.medicines){
@@ -141,27 +234,31 @@ Vue.component("orderMedicinePharmacyAdmin", {
                     var names = [];
                     for(med of this.pharmacy.pricelist)
                         names.push(med.medicine.name)
-                    for(med of this.order.orders){
-                        if(!names.includes(med.medicine.name)){
+                    for(var med of this.order.orders){
+                        var flag = true
+                        for(var medP of this.pharmacy.pricelist){
+                            if(med.medicine.name.valueOf() == medP.medicine.name.valueOf()){
+                                flag = false
+                                break
+                            }                    
+                        }
+                        if(flag){
                             this.pharmacy.pricelist.push({
                                 id : null,
-                                price : null,
+                                price : 0,
                                 medicine : med.medicine,
-                                quantity : med.quantity
+                                quantity : 0
                             })
-                            names.push(med.medicine.name)
-                        }
-                        else if(index in this.pharmacy.pricelist){
-                            for(med of this.order.orders){
-                                if(this.pharmacy.pricelist[index].medicine.name == med.medicine.name){
-                                    this.pharmacy.pricelist[index].quantity = parseInt(this.pharmacy.pricelist[index].quantity) + parseInt(med.quantity)
-                                }
-                            }
                         }
                     }
                     axios.put('/pharmacy/update/',this.pharmacy)
                     .then(response => {
                         alert("Order successfuly set")
+                        axios
+                        .get('/order/ordersByPharmacyId/' + this.pharmacy.id) 
+                        .then(response => {
+                            this.allOrders = response.data
+                        })
                     })
             })   
             

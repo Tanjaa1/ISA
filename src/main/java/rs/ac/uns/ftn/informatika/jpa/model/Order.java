@@ -29,11 +29,14 @@ public class Order {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "Id")
 	private Long Id;
 	
-	@OneToMany(fetch = FetchType.LAZY, cascade ={CascadeType.PERSIST,CascadeType.REMOVE})
+	@OneToMany(fetch = FetchType.LAZY, cascade ={CascadeType.PERSIST,CascadeType.REMOVE,CascadeType.REFRESH,CascadeType.DETACH,CascadeType.MERGE})
 	private Set<MedicineQuantity> Orders = new HashSet<MedicineQuantity>();
 	
 	@Column(name="DueDate", unique=false, nullable=true)
 	private Date DueDate;
+
+	@Column(name="IsProcessed", unique=false, nullable=true)
+	private Boolean IsProcessed;
 	
 	@OneToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "PharmacyAdmin_id", referencedColumnName = "id")
@@ -41,12 +44,13 @@ public class Order {
 	
 	public Order(){}
 
-	public Order(long id, Set<MedicineQuantity> orders, Date dueDate,PharmacyAdmin pharmacyAdmin) {
+	public Order(long id, Set<MedicineQuantity> orders, Date dueDate,PharmacyAdmin pharmacyAdmin , Boolean isProcessed) {
 		super();
 		this.Id = id;
 		this.Orders = orders;
 		DueDate = dueDate;
 		PharmacyAdmin = pharmacyAdmin;
+		IsProcessed = isProcessed;
 	}
 	public Order(OrderDTO o) {
 		super();
@@ -59,6 +63,7 @@ public class Order {
 		this.Orders = result;
 		DueDate = o.getDueDate();
 		PharmacyAdmin = new PharmacyAdmin(o.getPharmacyAdmin());
+		IsProcessed = o.getIsProcessed();
 	}
 	public Long getId() {
 		return Id;
@@ -83,5 +88,11 @@ public class Order {
 	}
 	public void setPharmacyAdmin(PharmacyAdmin pharmacyAdmin) {
 		PharmacyAdmin = pharmacyAdmin;
+	}
+	public Boolean getIsProcessed() {
+		return IsProcessed;
+	}
+	public void setIsProcessed(Boolean isProcessed) {
+		IsProcessed = isProcessed;
 	}
 }
