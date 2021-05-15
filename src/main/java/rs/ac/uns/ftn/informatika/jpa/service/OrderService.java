@@ -29,6 +29,7 @@ public class OrderService implements IOrderService {
     }
     
 	public ResponseEntity<Order> save(OrderDTO order) throws Exception{
+        order.setIsProcessed(false);
 		orderRepository.save(new Order(order));
 	    return new ResponseEntity<>( HttpStatus.CREATED);
 	}
@@ -36,5 +37,16 @@ public class OrderService implements IOrderService {
     public OrderDTO getById(Long id) {
         Order order=orderRepository.getOne(id);
        return new OrderDTO(order);
+    }
+
+    public List<OrderDTO> getByPharmacyId(Long id) {
+        List<Order> orders = orderRepository.getOrdersByPharmacyId(id);
+        List<OrderDTO> retVal =new ArrayList<OrderDTO>();
+
+        for (Order order : orders) {
+            retVal.add(new OrderDTO(order));
+        }
+
+       return retVal;
     }
 }
