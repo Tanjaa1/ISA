@@ -734,3 +734,10 @@ INSERT INTO public.pharmacist_working_schedule(
 INSERT INTO public.counseling(
 	id, price, report, start_time, end_time, is_done, patient_id, pharmacist_id, pharmacy_id, is_canceled)
 	VALUES (333, 1000.0, 'Headache', '2021-06-07 16:00:00-07', '2021-07-08 16:25:25-07', false, 88, 51, 111, false);
+
+INSERT INTO public.medicine_request(
+	id,medicine_id,date,pharmacy_id,solved)
+	VALUES (333,223, '2021-06-07 16:00:00-07',111,false);
+INSERT INTO public.medicine_request(
+	id,medicine_id,date,pharmacy_id,solved)
+	VALUES (334,223, '2021-06-07 16:00:00-07',111,false);

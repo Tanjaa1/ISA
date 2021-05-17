@@ -40,7 +40,7 @@ public class ActionOrPromotionService implements IActionOrPromotionService {
                resultList.add(new ActionOrPromotionsDTO(actionOrPromotion));
         }
         if(resultList.isEmpty())
-        return null;
+            return null;
     else
         return resultList;
     }
@@ -113,7 +113,7 @@ public class ActionOrPromotionService implements IActionOrPromotionService {
         }
        
         if(all.isEmpty())
-        return null;
+            return null;
     else
         return all;
 
