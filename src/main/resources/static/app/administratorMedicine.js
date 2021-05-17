@@ -18,6 +18,18 @@ Vue.component("administratorMedicine", {
         },
         selectedMedicine : {},
         allMedicine : [],
+        newAOP : {
+            id: 222,
+            startTime : null,
+            endTime : null, 
+            text: "",
+            medicine: {
+                name : null,
+            },
+            pharmacy: {
+                id: 111,
+            },
+        },
 		}
 	},
 	beforeMount() {
@@ -93,6 +105,59 @@ Vue.component("administratorMedicine", {
         </br>
         </br>
 
+
+        <br>
+        <h1>Define action or promotion</h1>
+        <br>
+        <!-- Action or promotion -->
+        <div style = "margin-top : 2%;"/>
+            <div class = "sameLineOMPA"  style ="margin-left : 5%; margin-top : 0.5%;" >
+                <div class="input-group mb-3 inline-block" style = "width : 20%;">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text " id="basic-addon3">Select medicine to for promotion</span>
+                    </div>
+                    <select class="form-control"  v-model="newAOP.medicine" aria-describedby="basic-addon3" >
+                        <option value=""  selected disabled> </option>
+                        <option v-for = "medicine in displayedMedicine"  v-bind:value="medicine.medicine" >{{medicine.medicine.name}}</option>
+                    </select>
+                </div>
+                <button type="button" class="btn btn-primary inline-block" style = "  height : 3%; width : 11%; margin-left : 1%;" v-on:click = "completeAction()">Add</button>            
+                &nbsp
+                &nbsp
+                &nbsp
+                &nbsp
+                &nbsp
+                &nbsp
+                                            
+        </div>
+
+        <div class="input-group mb-3" style = "width : 35%; margin-left : 5%;">
+            <div class="input-group-prepend" >
+                <span class="input-group-text " id="basic-addon3">Action start date</span>
+            </div>
+            <div  style = "width : 25%;">
+                <input type = "date" min="1" class="form-control" v-model="newAOP.startTime" aria-describedby="basic-addon3" v-on:change = "compareDates(newAOP.startTime)">
+            </div>
+        </div>
+        <div class="input-group mb-3" style = "width : 35%; margin-left : 5%;">
+            <div class="input-group-prepend" >
+                <span class="input-group-text " id="basic-addon3">Action end date</span>
+            </div>
+            <div  style = "width : 25%;">
+                <input type = "date" min="1" class="form-control" v-model="newAOP.endTime" aria-describedby="basic-addon3" v-on:change = "compareDates(newAOP.endTime)">
+            </div>
+        </div>
+        <div class="input-group mb-3" style = "width : 41%; margin-left : 5%;">
+            <div class="input-group-prepend" >
+                <span class="input-group-text " id="basic-addon3">Action text</span>
+            </div>
+            <div  style = "width : 25%;">
+                <input type = "text" min="1" class="form-control" v-model="newAOP.text" aria-describedby="basic-addon3"">
+            </div>
+        </div>
+    
+
+
         <!-- Add medicine modal -->
         <div class="modal fade" id="addMedicineModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
@@ -156,6 +221,7 @@ Vue.component("administratorMedicine", {
                 </div>
             </div>
         </div>
+            
 
     </div>
 	`
@@ -280,6 +346,36 @@ Vue.component("administratorMedicine", {
 
 			this.displayedMedicine = this.pharmacy.pricelist
 		},
+        compareDates: function (date) {
+            var day = parseInt(date.split("-")[2])
+            var month = parseInt(date.split("-")[1])
+            var year = parseInt(date.split("-")[0])
+            var today = new Date();
+            if(year < parseInt(today.getFullYear) || year == parseInt(today.getFullYear()) && month < (parseInt(today.getMonth()) + 1) ||  year == parseInt(today.getFullYear()) && month == (parseInt(today.getMonth())+1) && day <= parseInt(today.getDate())){
+                alert("Please select valid date")
+                this.newAOP.startTime = null;
+                this.newAOP.endTime = null;
+            }
+        },
+        completeAction: function(){
+            if(this.newAOP.startTime != null && this.newAOP.endTime != null && this.newAOP.text != ""){
+                this.newAOP.startTime = this.newAOP.startTime + 'T' + '00:00:00';
+                this.newAOP.endTime = this.newAOP.endTime + 'T' + '00:00:00';
+                axios.post('/actionOrPromotion/add',this.newAOP)
+                .then(response => {
+                    if(response.data == null)
+                        alert("Error")
+                    else
+                        alert("The action successfully added!")
+                        this.newAOP.startTime = null;
+                        this.newAOP.endTime = null;
+                        this.newAOP.medicine = null;
+                })
+            }
+            else{
+                alert("Check input data")
+            }
+        }   
 	}
 });
 

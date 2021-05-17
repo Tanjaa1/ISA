@@ -6,6 +6,7 @@ Vue.component("orderMedicinePharmacyAdmin", {
             dueDate : {},
             medicine : {},
             pharmacy : {},
+            requests : [],
             orders : [
                 {
                     medicine : {},
@@ -39,6 +40,14 @@ Vue.component("orderMedicinePharmacyAdmin", {
                     .get('/order/ordersByPharmacyId/' + this.pharmacy.id) 
                     .then(response => {
                         this.allOrders = response.data
+                    })
+                    axios
+                    .get('/order/getRequestsByPharmacyUnsolved/' + this.pharmacy.id) 
+                    .then(response => {
+                        this.requests = response.data
+                        for(var r of this.requests){
+                            r.date = r.date.split('T')[0]
+                        } 
                     })
                 })
             })
@@ -169,6 +178,28 @@ Vue.component("orderMedicinePharmacyAdmin", {
         <button style="color:white; width : 300px" type="button" class="btn btn-default" data-dismiss="modal" v-on:click="FilterReset()" data-toggle="modal" data-target="#">Reset filter</button>
 		</br>		
     </div>
+    
+    <br><br><br><br><br>
+    <h1>Requests overview</h1>
+    <table class="table" style = "width : 50%; margin-left:25%; color :  #515a5a " v-if ="filter == 0">
+        <thead class="thead-light">
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Medicine</th>
+                <th scope="col">Date</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr v-for = "(request) in requests">
+                <td scope="row">{{request.id}}</td>
+                <td><div >{{request.medicine.name}}</div></td>				
+                <td><div>{{request.date}}</div></td>
+                <td><button style="color:white" type="button" class="btn btn-default" data-dismiss="modal" v-on:click="SolveRequest(request)" data-toggle="modal" data-target="#"><i class="fa fa-check"></i></button></td>	
+            </tr>
+        </tbody>
+    </table>
+
 	`,
     methods: {
         compareDate: function (date) {
@@ -262,9 +293,21 @@ Vue.component("orderMedicinePharmacyAdmin", {
                     })
             })   
             
-
-
         },
+        SolveRequest : function(request){
+            axios
+            .put('/order/setRequestToSolved/' + request.id)
+            .then(response => {
+                axios
+                .get('/order/getRequestsByPharmacyUnsolved/' + this.pharmacy.id) 
+                .then(response => {
+                    this.requests = response.data
+                    for(var r of this.requests){
+                        r.date = r.date.split('T')[0]
+                    } 
+                })
+                })
+        }
     }
 
 });

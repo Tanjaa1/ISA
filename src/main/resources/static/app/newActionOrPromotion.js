@@ -91,7 +91,14 @@ Vue.component("newActionOrPromotion", {
             }
         },
         completeAction: function(){
-            if(this.newAOP.startDate != null && this.newAOP.endDate != null && this.newAOP.text != ""){
+            var startHour = parseInt(this.newAOP.startTime.split(":")[0])
+            var startMinute = parseInt(this.newAOP.startTime.split(":")[1])
+			var endHour = parseInt(this.newAOP.endTime.split(":")[0])
+            var endMinute = parseInt(this.newAOP.endTime.split(":")[1])
+			if(startHour > endHour || startHour == endHour && startMinute > endMinute || startHour == endHour && startMinute == endMinute){
+				alert("Please select valid time")
+			}
+            else if(this.newAOP.startDate != null && this.newAOP.endDate != null && this.newAOP.text != ""){
                 axios.post('/actionOrPromotion/add',this.newAOP)
                 .then(response => {
                     if(response.data == null)
