@@ -127,7 +127,7 @@ Vue.component("pharmacistSearchPatients", {
 	},
 	beforeMount() {
 		axios
-			.get('/patient/getPatientByPharmacistCouseling/' + '5') 
+			.get('/patient/getPatientByPharmacistCouseling/' + '51') 
 			.then(response => {
 				this.users = response.data
 			})

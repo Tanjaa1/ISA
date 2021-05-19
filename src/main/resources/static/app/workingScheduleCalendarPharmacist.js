@@ -46,7 +46,7 @@ Vue.component("calendarP",{
       )
   
       axios
-              .get('/pharmacist/getPharmacistById/' + '5') 
+              .get('/pharmacist/getPharmacistById/' + '41') 
               .then(response => {
                   this.phycian = response.data
               })
@@ -54,7 +54,7 @@ Vue.component("calendarP",{
               })
   
       axios
-              .get('/counseling/getCounselingByPharmacist/' + '5') 
+              .get('/counseling/getCounselingByPharmacist/' + '41') 
               .then(response => {
                   this.myExamination = response.data
               })
@@ -145,7 +145,7 @@ Vue.component("calendarP",{
                           {{exam.startTime.split('T')[1]}}-{{exam.endTime.split('T')[1]}}
                           </div></br>
                           <a v-if="exam.isDone">
-                          Report:</br>
+                          Report:</br>{{exam.isDone}}
                           <div>
                           {{exam.report}}
                           </div></br></a>
@@ -155,7 +155,7 @@ Vue.component("calendarP",{
                           </div></br></a>
                           <div class="modal-footer">
                 <button v-if="PastExam()" id="addF" type="button" class="btn btn-info btn-lg" v-on:click="No()">Did not come</button>
-                <button v-if="PastExam()" id="cancelF" type="button" class="btn btn-info btn-lg" v-on:click="Yes()"">Start</button>
+                <button v-if="!PastExam()" id="cancelF" type="button" class="btn btn-info btn-lg" v-on:click="Yes()"">Start</button>
               </div>
             </div>
             </div>
@@ -329,7 +329,11 @@ Vue.component("calendarP",{
                 report:"",
                 price:1000.00             
             },
-            medicineChoose:null
+            medicineChoose:null,
+            request:{
+              medicine:null,
+              pharmacy:null
+            }
 		}
 	},
 	beforeMount() {
@@ -503,9 +507,12 @@ Vue.component("calendarP",{
                                 .catch(error => {
                                 })
                                 await $('#PrescriptionModal').modal('hide');
-                        }else{
+                        }//else
+                        {
                             alert("Medicine is put of stock!")
-                            axios.post('/pharmacyAdmin/sendingMail/'+this.examination.pharmacy.name,this.medicineChoose)
+                            this.request.medicine=this.medicineChoose
+                            this.request.pharmacy=this.examination.pharmacy
+                            axios.post('/order/addRequest',this.request)
                             .then(function (response) {
                             })
                             .catch(function (error) {
