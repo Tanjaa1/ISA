@@ -380,6 +380,16 @@ public class PatientService implements IPatientService {
 		}
 		return rSet;
 	}
+    public Patient getPatientByCredentials(String username) {
+		List<Patient>list=patientRepository.findAll();
+		Patient patieResult=new Patient();
+		for (Patient patient : list) {
+			if(patient.getUsername().equals(username)){
+				patieResult=patient;
+			}
+		}
+		return patieResult;
+		}
 
 	
 	

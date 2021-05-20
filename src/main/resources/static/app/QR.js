@@ -37,6 +37,7 @@ Vue.component("QR", {
 				<label class="radio-inline">
 				<input type="radio" name="radio" id="radioId1" value="priceDesc">Price desc     
 				</label>
+				<br>
 				<label class="radio-inline">
 				<input type="radio" name="radio" id="radioId2" value="priceAsc">Price asc     
 				</label>

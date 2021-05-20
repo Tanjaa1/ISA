@@ -9,6 +9,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -102,6 +103,12 @@ public class DermatologistController {
 	@PostMapping(value = "/giveMarkDermatologist/{medicinesMark}/{id}")
 	public ResponseEntity<DermatologistDTO> addMark(@RequestBody Dermatologist pharmacist, @PathVariable Integer medicinesMark, @PathVariable Long id) throws Exception {
 		return ResponseEntity.ok(dermatologistService.addMark(pharmacist,medicinesMark, id));
+	}
+	@PreAuthorize("hasRole('DERMATOLOGIST')")
+	@GetMapping(value = "/getDermatologistByCredentials/{username}")
+	public ResponseEntity<DermatologistDTO> getDermatologistByCredentials(@PathVariable String username) {
+		DermatologistDTO patient = new DermatologistDTO(dermatologistService.getDermatologistByCredentials(username));
+		return patient == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(patient);
 	}
 
 }

@@ -6,6 +6,7 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -75,4 +76,12 @@ public class SupplierController {
 		Boolean success = supplierService.confirmationEmail(Long.parseLong(supplierId));
 		return success == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(success);
 	}
+
+	@PreAuthorize("hasRole('SUPPLIER')")
+	@GetMapping(value = "/getSupplierByCredentials/{username}")
+	public ResponseEntity<SupplierDTO> getPatientByCredgetSupplierByCredentialsentials(@PathVariable String username) {
+		SupplierDTO patient = new SupplierDTO(supplierService.getSupplierByCredentials(username));
+		return patient == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(patient);
+	}
+
 }

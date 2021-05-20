@@ -134,4 +134,15 @@ public class PharmacyAdminService implements IPharmacyAdminService {
 		update(pharmacyAdmnToUpdate);
 		return true;
 	}
+
+    public PharmacyAdmin getPharmacyAdminByCredentials(String username) {
+        List<PharmacyAdmin>list=pharmacyAdminRepository.findAll();
+		PharmacyAdmin patieResult=new PharmacyAdmin();
+		for (PharmacyAdmin patient : list) {
+			if(patient.getUsername().equals(username)){
+				patieResult=patient;
+			}
+		}
+		return patieResult;
+		}
 }

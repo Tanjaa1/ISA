@@ -2,6 +2,11 @@ package rs.ac.uns.ftn.informatika.jpa.model;
 
 import static javax.persistence.InheritanceType.TABLE_PER_CLASS;
 
+import java.security.Timestamp;
+import java.util.Collection;
+import java.util.Date;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,12 +14,23 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.FetchType;
 
 import rs.ac.uns.ftn.informatika.jpa.validator.CustomAnnotation;
 
-@Entity
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Inheritance(strategy=TABLE_PER_CLASS)
-public abstract class User {
+@Entity
+@Table(name="USERS")
+public class User  implements UserDetails  {
 	
 	@Id
 	@SequenceGenerator(name = "Id", sequenceName = "Id1", initialValue = 1, allocationSize = 1)
@@ -52,8 +68,21 @@ public abstract class User {
 	
 	@CustomAnnotation(message="Field cannot be empty")
 	@Column(name="Username", unique=true, nullable=false)
-	private String Username;
+	private String username;
 	
+
+	
+    @Column(name = "enabled")
+    private boolean enabled;
+
+    @Column(name = "last_password_reset_date")
+    private Date lastPasswordResetDate;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "user_authority",
+            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "authority_id", referencedColumnName = "id"))
+    private List<Authority> authorities;
 	public Long getId() {
 		return Id;
 	}
@@ -134,11 +163,11 @@ public abstract class User {
 	public User() {}
 
 	public String getUsername() {
-		return Username;
+		return username;
 	}
 
 	public void setUsername(String username) {
-		Username = username;
+		username = username;
 	}
 
 	public User(Long id, String email, String password, String name, String surname, String address, String city,
@@ -156,7 +185,7 @@ public abstract class User {
 		Description = description;
 		EmailComfirmed = emailComfirmed;
 		FirstTimeLogin = firstTimeLogin;
-		Username = username;
+		username = username;
 	}
 
 
@@ -175,6 +204,38 @@ public abstract class User {
 		PhoneNumber = phoneNumber;
 		Description=description;
 		
+	}
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+        return this.authorities;
+	}
+	@Override
+	public boolean isAccountNonExpired() {
+        return true;
+	}
+	@Override
+	public boolean isAccountNonLocked() {
+		return true;
+	}
+	@Override
+	public boolean isCredentialsNonExpired() {
+		return true;
+	}
+	@Override
+	public boolean isEnabled() {
+		return enabled;
+	}
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
+	public Date getLastPasswordResetDate() {
+		return lastPasswordResetDate;
+	}
+	public void setLastPasswordResetDate(Date lastPasswordResetDate) {
+		this.lastPasswordResetDate = lastPasswordResetDate;
+	}
+	public void setAuthorities(List<Authority> authorities) {
+		this.authorities = authorities;
 	}
 	
 }

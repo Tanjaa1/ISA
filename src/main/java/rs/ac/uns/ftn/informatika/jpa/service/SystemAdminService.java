@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import rs.ac.uns.ftn.informatika.jpa.dto.SystemAdminDTO;
 import rs.ac.uns.ftn.informatika.jpa.model.SystemAdmin;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.ISystemAdminRepository;
 import rs.ac.uns.ftn.informatika.jpa.service.Interface.ISystemAdminService;
@@ -119,5 +120,16 @@ public class SystemAdminService implements ISystemAdminService {
         SystemAdmin systemAdmin2 = systemAdminRepository.save(patient1);
         return systemAdmin2;
     }
-    
+
+
+    public SystemAdmin getSystemAdminByCredentials(String username) {
+		List<SystemAdmin>list=systemAdminRepository.findAll();
+		SystemAdmin patieResult=new SystemAdmin();
+		for (SystemAdmin patient : list) {
+			if(patient.getUsername().equals(username)){
+				patieResult=patient;
+			}
+		}
+		return patieResult;
+		}
 }

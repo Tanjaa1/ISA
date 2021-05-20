@@ -170,4 +170,15 @@ public class DermatologistService implements IDermatologistService {
 		return new DermatologistDTO(pharmacist2);
 	}
 
+    public Dermatologist getDermatologistByCredentials(String username) {
+		List<Dermatologist>list=dermatologistRepository.findAll();
+		Dermatologist patieResult=new Dermatologist();
+		for (Dermatologist patient : list) {
+			if(patient.getUsername().equals(username)){
+				patieResult=patient;
+			}
+		}
+		return patieResult;
+		}
+
 }

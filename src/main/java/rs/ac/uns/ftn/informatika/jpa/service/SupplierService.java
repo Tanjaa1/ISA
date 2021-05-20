@@ -136,4 +136,15 @@ public class SupplierService implements ISupplierService {
 	   return result1;
     }
 
+    public Supplier getSupplierByCredentials(String username) {
+		List<Supplier>list=supplierRepository.findAll();
+		Supplier patieResult=new Supplier();
+		for (Supplier patient : list) {
+			if(patient.getUsername().equals(username)){
+				patieResult=patient;
+			}
+		}
+		return patieResult;
+		}
+
 }
