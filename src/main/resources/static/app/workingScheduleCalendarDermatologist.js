@@ -48,7 +48,7 @@ Vue.component("calendarD",{
     )
 
     axios
-			.get('/dermatologist/getDermatologistById/' + '6') 
+			.get('/dermatologist/getDermatologistById/' + '61') 
 			.then(response => {
 				this.phycian = response.data
         this.pharmacy=this.phycian.pharmacies[0]
@@ -57,7 +57,7 @@ Vue.component("calendarD",{
 			})
 
     axios
-			.get('/examination/getExaminationsByDermatologist/' + '6') 
+			.get('/examination/getExaminationsByDermatologist/' + '61') 
 			.then(response => {
 				this.myExamination = response.data
 			})
@@ -367,7 +367,7 @@ Vue.component("examinationDermatologist", {
                 })
 
             axios
-            .get('/examination/getFreeExaminationByDermatologist/' + '6')
+            .get('/examination/getFreeExaminationByDermatologist/' + '61')
             .then(response => {
                 this.future = response.data
             })
@@ -588,7 +588,7 @@ Vue.component("examinationDermatologist", {
             .then(function (response) {
                 alert("The examination was successfully scheduled!")
                 axios
-                .get('/examination/getFreeExaminationByDermatologist/' + '6')
+                .get('/examination/getFreeExaminationByDermatologist/' + '61')
                 .then(function (odg){
                     this.future=odg.response
                     //location.reload()
