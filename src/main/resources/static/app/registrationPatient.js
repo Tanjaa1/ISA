@@ -206,6 +206,7 @@ Vue.component("registrationPatient", {
 				alert('All fields must be filled!')
 				return
 			}else{
+				alert(patientDTO.username)
 				axios
 				.get('/patient/isUsernameValid/'+patientDTO.username)
 				.then(response => {
@@ -218,8 +219,9 @@ Vue.component("registrationPatient", {
 					patientDTO.emailComfirmed=false
 					patientDTO.firstTimeLogin=false
 					patientDTO.points=0
-					patientDTO.penalty=0
-					
+					patientDTO.penalty=null
+					patientDTO.description="/"
+
 				
 					axios
 					.get('/patient/savePatientDrugAllergies/' + patientDTO.drugAllergi)
@@ -238,10 +240,22 @@ Vue.component("registrationPatient", {
 
 						alert(patientDTO.drugAllargies)
 						
+					
+
 						axios
-						.post('/patient/savePatient' , patientDTO)
+						.post('/api/saveUser' , patientDTO)
 						.then(response => {
-							alert("DODAT U BAZU");
+							alert("DODAT U BAZU user");
+							axios
+							.post('/patient/savePatient' , patientDTO)
+							.then(response => {
+								alert("DODAT U BAZU pacijent");
+							})
+	
+							.catch(error => {
+								
+								alert("GRESKAA");
+							})
 						})
 
 						.catch(error => {

@@ -13,14 +13,19 @@ import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import rs.ac.uns.ftn.informatika.jpa.dto.ActionOrPromotionsDTO;
 import rs.ac.uns.ftn.informatika.jpa.dto.EPrescriptionDTO;
 import rs.ac.uns.ftn.informatika.jpa.dto.PatientDTO;
 import rs.ac.uns.ftn.informatika.jpa.dto.PharmacyDTO;
+import rs.ac.uns.ftn.informatika.jpa.enums.LoyaltyCategories;
 import rs.ac.uns.ftn.informatika.jpa.model.ActionOrPromotion;
 import rs.ac.uns.ftn.informatika.jpa.model.Complaint;
 import rs.ac.uns.ftn.informatika.jpa.model.Patient;
@@ -33,13 +38,13 @@ import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IPatientRepository;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IPenaltyRepository;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IReservationRepository;
 import rs.ac.uns.ftn.informatika.jpa.service.Interface.IPatientService;
-
+@Configuration
 @Service
 public class PatientService implements IPatientService {
 
 	@Autowired
 	private IPatientRepository patientRepository;
-
+	
 	@Autowired
 	private IComplaintRepository complaintRepository;
 
@@ -50,7 +55,8 @@ public class PatientService implements IPatientService {
 	private IPenaltyRepository penaltyRepository;
 	@Autowired
 	private IActionOrPromotionRepository actionOrPromotionRepository;
-
+	
+	
 	@Autowired
 	private EmailService emailService;
 	private Logger logger = LoggerFactory.getLogger(ResrvationService.class);
@@ -199,6 +205,8 @@ public class PatientService implements IPatientService {
 	}
 
 	public ResponseEntity<Patient> save(Patient patient) throws Exception {
+		patient.setCategory(LoyaltyCategories.Regular);
+		patient.setLastPasswordResetDate(new Date());
 		patientRepository.save(patient);
 		List<Patient> patients = patientRepository.findAll();
 		Long patientId = 0L;

@@ -101,8 +101,6 @@ public class PatientController {
 	}
 
 
-	
-
 	@PostMapping(value = "/savePatient")
 	public ResponseEntity<Patient> savePatient(@RequestBody Patient patientDTO) throws Exception{
 		patientService.save(patientDTO);

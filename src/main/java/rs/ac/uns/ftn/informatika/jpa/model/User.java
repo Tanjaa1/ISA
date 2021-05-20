@@ -166,13 +166,13 @@ public class User  implements UserDetails  {
 		return username;
 	}
 
-	public void setUsername(String username) {
-		username = username;
+	public void setUsername(String Username) {
+		username = Username;
 	}
 
 	public User(Long id, String email, String password, String name, String surname, String address, String city,
 			String country, String phoneNumber, String description, Boolean emailComfirmed, Boolean firstTimeLogin,
-			String username) {
+			String Username) {
 		Id = id;
 		Email = email;
 		Password = password;
@@ -185,7 +185,7 @@ public class User  implements UserDetails  {
 		Description = description;
 		EmailComfirmed = emailComfirmed;
 		FirstTimeLogin = firstTimeLogin;
-		username = username;
+		username = Username;
 	}
 
 

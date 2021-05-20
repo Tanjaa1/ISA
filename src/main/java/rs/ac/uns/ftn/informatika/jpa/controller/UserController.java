@@ -1,9 +1,11 @@
 package rs.ac.uns.ftn.informatika.jpa.controller;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import rs.ac.uns.ftn.informatika.jpa.model.Patient;
 import rs.ac.uns.ftn.informatika.jpa.model.User;
 import rs.ac.uns.ftn.informatika.jpa.service.UserService;
 
@@ -16,6 +18,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 @RestController
 @RequestMapping(value = "/api", produces = MediaType.APPLICATION_JSON_VALUE)
 public class UserController {
@@ -50,4 +54,10 @@ public class UserController {
         fooObj.put("foo", "bar");
         return fooObj;
     }
+	
+	@PostMapping(value = "/saveUser")
+	public ResponseEntity<User> saveUserByPatient(@RequestBody Patient user) throws Exception{
+		userService.saveUserByPatient(user);
+	return new ResponseEntity<>(user, HttpStatus.CREATED);
+	}
 }
