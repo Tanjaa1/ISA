@@ -7,7 +7,7 @@ Vue.component("dermatologistHomePage", {
 	},
 	beforeMount() {
 		axios
-			.get('/dermatologist/getDermatologistById/' + '6') 
+			.get('/dermatologist/getDermatologistById/' + '61') 
 			.then(response => {
 				this.phycian = response.data
 				if(!this.phycian.firstTimeLogin)
@@ -102,6 +102,7 @@ Vue.component("dermatologistHomePage", {
 			if(document.getElementById("np").value==document.getElementById("cp").value && document.getElementById("np").value.trim()!="" && document.getElementById("cp").value.trim()!=""){
 				$('#Show').modal('hide');
 				this.phycian.firstTimeLogin=true
+				this.phycian.password=document.getElementById("np").value
 					axios.put('/dermatologist/update', this.phycian)
 						.then(function (response) {
 						})

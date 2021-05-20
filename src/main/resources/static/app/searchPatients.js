@@ -6,7 +6,7 @@ Vue.component("dermatologistSearchPatients", {
 	},
 	beforeMount() {
 		axios
-			.get('/patient/getPatientByDermatologistExamination/' + '6') 
+			.get('/patient/getPatientByDermatologistExamination/' + '61') 
 			.then(response => {
 				this.users = response.data
 			})
@@ -56,7 +56,7 @@ Vue.component("dermatologistSearchPatients", {
 			if(surname=="") surname='%20'
 
 			axios
-			.get('/patient/getPatientByDermatologistExaminationSearch/' + '6/'+name+'/'+surname) 
+			.get('/patient/getPatientByDermatologistExaminationSearch/' + '61/'+name+'/'+surname) 
 			.then(response => {
 				this.users = response.data
 			})
@@ -127,7 +127,7 @@ Vue.component("pharmacistSearchPatients", {
 	},
 	beforeMount() {
 		axios
-			.get('/patient/getPatientByPharmacistCouseling/' + '51') 
+			.get('/patient/getPatientByPharmacistCouseling/' + '41') 
 			.then(response => {
 				this.users = response.data
 			})
@@ -177,7 +177,7 @@ Vue.component("pharmacistSearchPatients", {
 			if(surname=="") surname='%20'
 
 			axios
-			.get('/patient/getPatientByPharmacistCounselingSearch/' + '5/'+name+'/'+surname) 
+			.get('/patient/getPatientByPharmacistCounselingSearch/' + '41/'+name+'/'+surname) 
 			.then(response => {
 				this.users = response.data
 			})
