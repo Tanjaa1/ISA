@@ -5,7 +5,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import rs.ac.uns.ftn.informatika.jpa.model.Dermatologist;
 import rs.ac.uns.ftn.informatika.jpa.model.Patient;
+import rs.ac.uns.ftn.informatika.jpa.model.Pharmacist;
+import rs.ac.uns.ftn.informatika.jpa.model.PharmacyAdmin;
+import rs.ac.uns.ftn.informatika.jpa.model.Supplier;
+import rs.ac.uns.ftn.informatika.jpa.model.SystemAdmin;
 import rs.ac.uns.ftn.informatika.jpa.model.User;
 import rs.ac.uns.ftn.informatika.jpa.service.UserService;
 
@@ -58,6 +63,31 @@ public class UserController {
 	@PostMapping(value = "/saveUser")
 	public ResponseEntity<User> saveUserByPatient(@RequestBody Patient user) throws Exception{
 		userService.saveUserByPatient(user);
+	return new ResponseEntity<>(user, HttpStatus.CREATED);
+	}
+	@PostMapping(value = "/saveUserBySupplier")
+	public ResponseEntity<User> saveUserBySupplier(@RequestBody Supplier user) throws Exception{
+		userService.saveUserBySupplier(user);
+	return new ResponseEntity<>(user, HttpStatus.CREATED);
+	}
+	@PostMapping(value = "/saveUserBySystemAdmin")
+	public ResponseEntity<User> saveUserBySystemAdmin(@RequestBody SystemAdmin user) throws Exception{
+		userService.saveUserBySystemAdmin(user);
+	return new ResponseEntity<>(user, HttpStatus.CREATED);
+	}
+	@PostMapping(value = "/saveUserByPharmacyAdmin")
+	public ResponseEntity<User> saveUserByPharmacyAdmin(@RequestBody PharmacyAdmin user) throws Exception{
+		userService.saveUserByPharmacyAdmin(user);
+	return new ResponseEntity<>(user, HttpStatus.CREATED);
+	}
+	@PostMapping(value = "/saveUserByPharmacist")
+	public ResponseEntity<User> saveUserByPharmacist(@RequestBody Pharmacist user) throws Exception{
+		userService.saveUserByPharmacist(user);
+	return new ResponseEntity<>(user, HttpStatus.CREATED);
+	}
+	@PostMapping(value = "/saveUserByDermatologist")
+	public ResponseEntity<User> saveUserByDermatologist(@RequestBody Dermatologist user) throws Exception{
+		userService.saveUserByDermatologist(user);
 	return new ResponseEntity<>(user, HttpStatus.CREATED);
 	}
 }

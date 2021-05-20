@@ -2,7 +2,7 @@ package rs.ac.uns.ftn.informatika.jpa.securitySecurityAuth;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
-
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -127,15 +127,25 @@ public String getUsernameFromToken(String token) {
     return username;
 }
 
-public String getRoleFromToken(String token) {
+public List<String> getRoleFromToken(String token) {
     String role;
+    List<String> roless=new ArrayList<>();
     try {
         final Claims claims = this.getAllClaimsFromToken(token);
         role = claims.get("key").toString();
+        String []roles=role.split("/");
+        if(roles.length==1){
+            roless.add(roles[0]);
+        }else{
+            for (String string : roles) {
+                roless.add(string);
+            }
+        }
+        
     } catch (Exception e) {
-        role = null;
+        roless = null;
     }
-    return role;
+    return roless;
 }
 
 public Date getIssuedAtDateFromToken(String token) {

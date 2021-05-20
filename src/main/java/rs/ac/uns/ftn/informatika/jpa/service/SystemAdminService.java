@@ -1,6 +1,7 @@
 package rs.ac.uns.ftn.informatika.jpa.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -26,6 +27,7 @@ public class SystemAdminService implements ISystemAdminService {
 	private Logger logger = LoggerFactory.getLogger(ResrvationService.class);
 
     public ResponseEntity<SystemAdmin> save(SystemAdmin systemAdmin) throws Exception {
+		systemAdmin.setLastPasswordResetDate(new Date());
         systemAdminRepository.save(systemAdmin);
 		List<SystemAdmin> patients=systemAdminRepository.findAll();
 		Long patientId=0L;

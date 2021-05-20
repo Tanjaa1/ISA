@@ -26,7 +26,7 @@ import rs.ac.uns.ftn.informatika.jpa.service.PharmacyAdminService;
 public class PharmacyAdminController {
     @Autowired
     private PharmacyAdminService pharmacyAdminService;
-    
+	@PreAuthorize("hasRole('ADMIN')")
     @PostMapping(value = "/savePharmacyAdmin")
 	public ResponseEntity<PharmacyAdmin> savePatient(@RequestBody PharmacyAdmin pharmacyAdminDTO) throws Exception{
 		pharmacyAdminService.save(pharmacyAdminDTO);
@@ -38,7 +38,7 @@ public class PharmacyAdminController {
 		List<String> usernames =pharmacyAdminService.getAllSystemAdminUsernames();
 		return usernames == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(usernames);
 	}
-
+	@PreAuthorize("hasRole('ADMIN')")
 	@GetMapping(value = "/isUsernameValid/{username}")
 	public ResponseEntity<Boolean> isUsernameValid(@PathVariable String username) {
 		Boolean isValid = pharmacyAdminService.isUsernameValid(username);

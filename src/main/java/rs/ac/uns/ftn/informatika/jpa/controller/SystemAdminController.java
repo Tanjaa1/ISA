@@ -26,7 +26,8 @@ public class SystemAdminController {
 
     @Autowired
     private SystemAdminService systemAdminService;
-    
+
+	@PreAuthorize("hasRole('ADMIN')")
     @PostMapping(value = "/saveSystemAdmin")
 	public ResponseEntity<SystemAdmin> savePatient(@RequestBody SystemAdmin systemaAdminDTO) throws Exception{
 		systemAdminService.save(systemaAdminDTO);
@@ -38,7 +39,8 @@ public class SystemAdminController {
 		List<String> usernames =systemAdminService.getAllSystemAdinUsernames();
 		return usernames == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(usernames);
 	}
-
+	
+	@PreAuthorize("hasRole('ADMIN')")
 	@GetMapping(value = "/isUsernameValid/{username}")
 	public ResponseEntity<Boolean> isUsernameValid(@PathVariable String username) {
 		Boolean isValid = systemAdminService.isUsernameValid(username);

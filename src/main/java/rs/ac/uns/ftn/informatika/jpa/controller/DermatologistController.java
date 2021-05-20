@@ -1,5 +1,6 @@
 package rs.ac.uns.ftn.informatika.jpa.controller;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -37,7 +38,7 @@ public class DermatologistController {
 	
 	@Autowired
 	private PharmacyService pharmacyService;
-
+	@PreAuthorize("hasRole('ADMIN')")
 	@PostMapping(value = "/saveDermatologist")
 	public ResponseEntity<Dermatologist> savePatient(@Valid @RequestBody Dermatologist dermatologistDTO, BindingResult result) throws Exception {
 		if (result.hasErrors()) 
@@ -47,6 +48,7 @@ public class DermatologistController {
 		Set<Pharmacy> setPhyrmacies=new HashSet<Pharmacy>();
 		setPhyrmacies.add(new Pharmacy(pharmacys));
 		dermatologistDTO.setPharmacies(setPhyrmacies);
+		dermatologistDTO.setLastPasswordResetDate(new Date());
 		dermatologistService.save(dermatologistDTO);
 	return new ResponseEntity<>(dermatologistDTO, HttpStatus.CREATED);
 	}
@@ -62,7 +64,7 @@ public class DermatologistController {
 		List<String> usernames =dermatologistService.getAllDermatologistUsernames();
 		return usernames == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(usernames);
 	}
-
+	@PreAuthorize("hasRole('ADMIN')")
 	@GetMapping(value = "/isUsernameValid/{username}")
 	public ResponseEntity<Boolean> isUsernameValid(@PathVariable String username) {
 		Boolean isValid = dermatologistService.isUsernameValid(username);

@@ -30,7 +30,7 @@ public class SupplierController {
     
     @Autowired
     private SupplierService supplierService;
-    
+	@PreAuthorize("hasRole('ADMIN')")
     @PostMapping(value = "/saveSupplier")
 	public ResponseEntity<Supplier> saveSupplier(@RequestBody Supplier supplierDTO) throws Exception{
 		supplierService.save(supplierDTO);
@@ -63,8 +63,10 @@ public class SupplierController {
 	@PutMapping(value = "/update")
 	public ResponseEntity<SupplierDTO> updateGreeting(@RequestBody SupplierDTO supplier) throws Exception {	
 		SupplierDTO p = supplierService.update(supplier);
-		return p == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(p);
+		return p == 
+		null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(p);
 	}
+	@PreAuthorize("hasRole('ADMIN')")
 	@GetMapping(value = "/isUsernameValid/{username}")
 	public ResponseEntity<Boolean> isUsernameValid(@PathVariable String username) {
 		Boolean isValid = supplierService.isUsernameValid(username);

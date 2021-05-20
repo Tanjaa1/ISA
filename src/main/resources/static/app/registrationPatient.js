@@ -224,7 +224,7 @@ Vue.component("registrationPatient", {
 
 				
 					axios
-					.get('/patient/savePatientDrugAllergies/' + patientDTO.drugAllergi)
+					.get('/patient/savePatientDrugAllergies/' + patientDTO.drugAllargies)
 					.then(response => {
 						var pom = response.data					})
 
@@ -250,6 +250,8 @@ Vue.component("registrationPatient", {
 							.post('/patient/savePatient' , patientDTO)
 							.then(response => {
 								alert("DODAT U BAZU pacijent");
+								this.$router.push('patientHomePage');
+
 							})
 	
 							.catch(error => {

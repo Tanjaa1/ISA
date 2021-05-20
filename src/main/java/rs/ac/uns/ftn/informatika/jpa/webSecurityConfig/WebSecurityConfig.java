@@ -70,7 +70,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 				// svim korisnicima dopusti da pristupe putanjama /auth/**, (/h2-console/** ako se koristi H2 baza) i /api/foo
 				.authorizeRequests().antMatchers("/auth/**").permitAll().antMatchers("/api/**").permitAll().antMatchers("/patient/getPatientByCredentials").permitAll()
-				.antMatchers("/patient/**").permitAll()
+				.antMatchers("/patient/savePatient/**").permitAll().antMatchers("/patient/isUsernameValid/**").permitAll()
+				.antMatchers("/pharmacy/getAll").permitAll()
 				// za svaki drugi zahtev korisnik mora biti autentifikovan
 				.anyRequest().authenticated().and()
 				// za development svrhe ukljuci konfiguraciju za CORS iz WebConfig klase
@@ -89,7 +90,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		// TokenAuthenticationFilter ce ignorisati sve ispod navedene putanje
 		web.ignoring().antMatchers(HttpMethod.POST, "/auth/login");
 		web.ignoring().antMatchers(HttpMethod.POST, "/patient/login");
-		web.ignoring().antMatchers(HttpMethod.GET,"/patient/isUsernameValid/","/patient/savePatientDrugAllergies/");
 
 
 		web.ignoring().antMatchers(HttpMethod.GET, "/", "/webjars/**", "/*.html", "/**/*.html",

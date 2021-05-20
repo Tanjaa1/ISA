@@ -262,7 +262,11 @@ Vue.component("registrationMedicine", {
 			}else{
 
 				axios
-				.get('/medicine/isCodeValid/' +medicineDTO.code)
+				.get('/medicine/isCodeValid/' +medicineDTO.code,{
+					headers: {
+						'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+					}
+				})
 				.then(response => {
 					this.isValid=response.data;
 					if(this.isValid==false){
@@ -275,9 +279,15 @@ Vue.component("registrationMedicine", {
 					medicineDTO.onPrescription=false
 
 				axios
-					.post('/medicine/saveMedicine' ,medicineDTO  )
+					.post('/medicine/saveMedicine' ,medicineDTO ,{
+						headers: {
+							'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+						}
+					} )
 					.then(response => {
 						alert("DODAT U BAZU");
+						this.$router.push('systemAdminHomaPage');
+
 					})
 
 					.catch(error => {

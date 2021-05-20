@@ -11,6 +11,7 @@ import com.google.zxing.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -55,7 +56,7 @@ public class PharmacyController {
 		}
 		return pharmaciesDTO == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(pharmaciesDTO);
 	}
-
+	@PreAuthorize("hasRole('ADMIN')")
 	@PostMapping(value = "/savePharmacy")
 	public ResponseEntity<Pharmacy> savePharmacy(@RequestBody Pharmacy pharmacyDTO) throws Exception{
 		pharmacyService.save(pharmacyDTO);
@@ -78,7 +79,7 @@ public class PharmacyController {
 		List<String> usernames =pharmacyService.getAllPharmacyNames();
 		return usernames == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(usernames);
 	}
-
+	@PreAuthorize("hasRole('ADMIN')")
 	@GetMapping(value = "/isNameValid/{name}")
 	public ResponseEntity<Boolean> isNameValid(@PathVariable String name) {
 		Boolean isValid = pharmacyService.isNameValid(name);

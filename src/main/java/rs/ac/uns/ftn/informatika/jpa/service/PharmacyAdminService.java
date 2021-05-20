@@ -1,6 +1,7 @@
 package rs.ac.uns.ftn.informatika.jpa.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,6 +26,7 @@ public class PharmacyAdminService implements IPharmacyAdminService {
 	private Logger logger = LoggerFactory.getLogger(ResrvationService.class);
 	
     public ResponseEntity<PharmacyAdmin> save(PharmacyAdmin systemAdmin) throws Exception {
+		systemAdmin.setLastPasswordResetDate(new Date());
         pharmacyAdminRepository.save(systemAdmin);
 		List<PharmacyAdmin> patients=pharmacyAdminRepository.findAll();
 		Long patientId=0L;

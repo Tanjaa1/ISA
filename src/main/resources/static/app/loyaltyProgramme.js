@@ -7,7 +7,11 @@ Vue.component("loyaltyProgramme", {
 	},
 	beforeMount() {
         axios
-        .get('loyaltyProgramme/getLP/')
+        .get('loyaltyProgramme/getLP/',{
+          headers: {
+            'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+          }
+        } )
         .then(response => {
             this.lpDTO = response.data
             
@@ -141,7 +145,11 @@ Vue.component("loyaltyProgramme", {
             this.lpDTOtoUpdate.pointsForCounceling = document.getElementById("pointsForC").value,
 
 
-			axios.put('/loyaltyProgramme/updateLP', this.lpDTOtoUpdate)
+			axios.put('/loyaltyProgramme/updateLP', this.lpDTOtoUpdate,{
+        headers: {
+          'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+        }
+      } )
             .then(response => {
                 alert('uspjesno')
             })

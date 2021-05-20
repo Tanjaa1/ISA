@@ -3,6 +3,7 @@ package rs.ac.uns.ftn.informatika.jpa.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,12 +30,13 @@ public class LoyaltyProgrammeController {
 		loyaltyProgrammeService.save(new LoyaltyProgramme(loyaltyProgrammeDTO));
 	return new ResponseEntity<>(new LoyaltyProgramme(loyaltyProgrammeDTO), HttpStatus.CREATED);
 	}
-
+	@PreAuthorize("hasRole('ADMIN')")
     @PutMapping(value = "/updateLP")
 	public ResponseEntity<LoyaltyProgramme> updateLP(@RequestBody LoyaltyProgrammeDTO lpDTO) throws Exception{
 		loyaltyProgrammeService.update(new LoyaltyProgramme(lpDTO));
 	return new ResponseEntity<>(new LoyaltyProgramme(lpDTO), HttpStatus.CREATED);
 	}
+	@PreAuthorize("hasRole('ADMIN')")
 	@GetMapping(value = "/getLP/")
 	public ResponseEntity<LoyaltyProgramme> getLP() throws Exception{
 		LoyaltyProgrammeDTO lp=loyaltyProgrammeService.getLP();

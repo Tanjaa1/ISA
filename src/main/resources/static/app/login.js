@@ -26,7 +26,7 @@ Vue.component("Login", {
 						<p id="loginboxText">Password</p>
 						<input type="password" name="" id="passwordId" placeholder="Enter Password" v-model="passwordText">
 						<input type="button" name="" id="submitId" value="Login" v-on:click="Validation()">
-						<a href="/#/registration">You don't have an account?</a>
+						<a href="/#/registrationPatient">You don't have an account?</a>
 					</form>
 		</div>
 
@@ -163,6 +163,10 @@ Vue.component("Login", {
 				.post('/auth/login',this.jwtAuthenticationRequest)
 				.then(response => {
 					this.token = response.data.accessToken
+					if(this.token==undefined){
+						alert("Username or password are wrong, please try again!")
+						return
+					}
 					alert(this.token)
 					localStorage.setItem('token', this.token);
 					localStorage.setItem('isLogged', true);
@@ -182,6 +186,7 @@ Vue.component("Login", {
 							alert('pacijent')
 						})
 						.catch(error => {
+							alert("Username or password are wrong, please try again!")
 						})
 					}
 					else if (response.data.role == "ROLE_ADMIN") {
@@ -199,6 +204,7 @@ Vue.component("Login", {
 
 						})
 						.catch(error => {
+
 						})
 					}else if (response.data.role == "ROLE_PHARMACYADMIN") {
 						axios
@@ -214,6 +220,8 @@ Vue.component("Login", {
 							alert('pharmacyAdmin')
 						})
 						.catch(error => {
+							alert("Username or password are wrong, please try again!")
+
 						})
 					}else if (response.data.role == "ROLE_PHARMACIST") {
 						axios
@@ -230,6 +238,8 @@ Vue.component("Login", {
 
 						})
 						.catch(error => {
+							alert("Username or password are wrong, please try again!")
+
 						})
 					}else if (response.data.role == "ROLE_DERMATOLOGIST") {
 						axios
@@ -246,6 +256,8 @@ Vue.component("Login", {
 
 						})
 						.catch(error => {
+							alert("Username or password are wrong, please try again!")
+
 						})
 					}else if (response.data.role == "ROLE_SUPPLIER") {
 						axios
@@ -261,6 +273,8 @@ Vue.component("Login", {
 							('supplier')
 						})
 						.catch(error => {
+							alert("Username or password are wrong, please try again!")
+
 						})
 					}
 				})

@@ -1,6 +1,7 @@
 package rs.ac.uns.ftn.informatika.jpa.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -32,6 +33,7 @@ public class SupplierService implements ISupplierService {
 	private Logger logger = LoggerFactory.getLogger(ResrvationService.class);
     
     public ResponseEntity<SupplierDTO> save(Supplier supplier) throws Exception {
+		supplier.setLastPasswordResetDate(new Date());
         supplierRepository.save(supplier);
         List<Supplier> suppliers=supplierRepository.findAll();
 		Long supplierId=0L;

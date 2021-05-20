@@ -1,9 +1,11 @@
 package rs.ac.uns.ftn.informatika.jpa.model;
 
+import java.util.List;
+
 public class UserTokenState {
     private String accessToken;
     private Long expiresIn;
-    private String role;
+    private List<String> role;
     private String username;
 
 
@@ -14,13 +16,13 @@ public class UserTokenState {
         this.username=null;
 
     }
-    public UserTokenState(String accessToken, long expiresIn,String role,String username) {
+    public UserTokenState(String accessToken, long expiresIn,List<String> role,String username) {
         this.accessToken = accessToken;
         this.expiresIn = expiresIn;
         this.role=role;
         this.username=username;
     }
-    public UserTokenState(String accessToken, long expiresIn,String role) {
+    public UserTokenState(String accessToken, long expiresIn,List<String> role) {
         this.accessToken = accessToken;
         this.expiresIn = expiresIn;
         this.role=role;
@@ -46,11 +48,11 @@ public class UserTokenState {
         this.expiresIn = expiresIn;
     }
 
-    public String getRole() {
+    public List<String> getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(List<String> role) {
         this.role = role;
     }
     public String getUsername() {

@@ -66,28 +66,31 @@ public class AuthenticationController {
 			HttpServletResponse response) {
 
 		// 
-        
-		Authentication authentication = authenticationManager
-				.authenticate(new UsernamePasswordAuthenticationToken(authenticationRequest.getUsername(),
-						authenticationRequest.getPassword()));
+        try {
+			Authentication authentication = authenticationManager
+			.authenticate(new UsernamePasswordAuthenticationToken(authenticationRequest.getUsername(),
+					authenticationRequest.getPassword()));
 
-		// Ubaci korisnika u trenutni security kontekst
-		SecurityContextHolder.getContext().setAuthentication(authentication);
+	// Ubaci korisnika u trenutni security kontekst
+	SecurityContextHolder.getContext().setAuthentication(authentication);
 
-		// Kreiraj token za tog korisnika
-		User user = (User) authentication.getPrincipal();
-		Collection<? extends GrantedAuthority> auts=user.getAuthorities();
-		ArrayList<String> autss=new ArrayList<>();
-		for (GrantedAuthority string : auts) {
-			autss.add(string.getAuthority());
+	// Kreiraj token za tog korisnika
+	User user = (User) authentication.getPrincipal();
+	Collection<? extends GrantedAuthority> auts=user.getAuthorities();
+	ArrayList<String> autss=new ArrayList<>();
+	for (GrantedAuthority string : auts) {
+		autss.add(string.getAuthority());
+	}
+//	Patient patient=patientService.getPatientByCredentials(user.getUsername());
+	String jwt = tokenUtils.generateToken(user.getUsername(),autss);
+	int expiresIn = tokenUtils.getExpiredIn();
+	ArrayList<String> role=new ArrayList<>();
+	role=(ArrayList<String>) tokenUtils.getRoleFromToken(jwt);
+// Vrati token kao odgovor na uspesnu autentifikaciju
+return ResponseEntity.ok(new UserTokenState(jwt, expiresIn,role,user.getUsername()));
+		} catch (Exception e) {
+			return null;	
 		}
-	//	Patient patient=patientService.getPatientByCredentials(user.getUsername());
-		String jwt = tokenUtils.generateToken(user.getUsername(),autss);
-		int expiresIn = tokenUtils.getExpiredIn();
-		String role=tokenUtils.getRoleFromToken(jwt);
-
-		// Vrati token kao odgovor na uspesnu autentifikaciju
-		return ResponseEntity.ok(new UserTokenState(jwt, expiresIn,role,user.getUsername()));
 	}
 
 	// Endpoint za registraciju novog korisnika

@@ -105,7 +105,6 @@ const router = new VueRouter({
 	    	path: '/login', 
 	    	name : 'login', 
 			components: {
-				pageHeader: PatientHeader,
 				content: Login
 			}
 	    },

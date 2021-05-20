@@ -92,6 +92,7 @@ public class PharmacyService implements IPharmacyService {
     } 
 
     public ResponseEntity<Pharmacy> save(Pharmacy pharmacy) throws Exception {
+        pharmacy.setCounselingPrice(1000.00);
         pharmacyRepository.save(pharmacy);
         return new ResponseEntity<>( HttpStatus.CREATED);
     }
