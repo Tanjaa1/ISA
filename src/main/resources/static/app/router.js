@@ -54,6 +54,7 @@ const SupplierInfo= { template: '<supplierInfo></supplierInfo>' }
 const SuppliersOffers= { template: '<suppliersOffers></suppliersOffers>' } 
 const GiveOffers= { template: '<giveOffers></giveOffers>' } 
 
+const LoyaltyProgramme= { template: '<loyaltyProgramme></loyaltyProgramme>' } 
 const AdministratorHomePage= { template: '<administratorHomePage></administratorHomePage>' } 
 
 
@@ -67,6 +68,7 @@ const emailConfirmationDermatologist = { template: '<emailConfirmationDermatolog
 const emailConfirmationPharmacist = { template: '<emailConfirmationPharmacist></emailConfirmationPharmacist>' } 
 const emailConfirmationSystemAdmin = { template: '<emailConfirmationSystemAdmin></emailConfirmationSystemAdmin>' } 
 const emailConfirmationPharmacyAdmin = { template: '<emailConfirmationPharmacyAdmin></emailConfirmationPharmacyAdmin>' } 
+const QR = { template: '<QR></QR>' } 
 
 
 
@@ -114,7 +116,6 @@ const router = new VueRouter({
 	    	path: '/login', 
 	    	name : 'login', 
 			components: {
-				pageHeader: PatientHeader,
 				content: Login
 			}
 	    },
@@ -620,6 +621,20 @@ const router = new VueRouter({
 			name : 'giveOffers', 
 			components: {
 				content: GiveOffers
+			}
+		},
+		{
+			path: '/QR', 
+			name : 'QR', 
+			components: {
+				content: QR
+			}
+		},
+		{
+			path: '/loyaltyProgramme', 
+			name : 'loyaltyProgramme', 
+			components: {
+				content: LoyaltyProgramme
 			}
 		}
 	  ]

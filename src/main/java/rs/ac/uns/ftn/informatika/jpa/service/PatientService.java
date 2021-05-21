@@ -9,17 +9,23 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import rs.ac.uns.ftn.informatika.jpa.dto.ActionOrPromotionsDTO;
 import rs.ac.uns.ftn.informatika.jpa.dto.EPrescriptionDTO;
 import rs.ac.uns.ftn.informatika.jpa.dto.PatientDTO;
 import rs.ac.uns.ftn.informatika.jpa.dto.PharmacyDTO;
+import rs.ac.uns.ftn.informatika.jpa.enums.LoyaltyCategories;
 import rs.ac.uns.ftn.informatika.jpa.model.ActionOrPromotion;
 import rs.ac.uns.ftn.informatika.jpa.model.Complaint;
 import rs.ac.uns.ftn.informatika.jpa.model.Patient;
@@ -32,13 +38,13 @@ import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IPatientRepository;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IPenaltyRepository;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IReservationRepository;
 import rs.ac.uns.ftn.informatika.jpa.service.Interface.IPatientService;
-
+@Configuration
 @Service
 public class PatientService implements IPatientService {
 
 	@Autowired
 	private IPatientRepository patientRepository;
-
+	
 	@Autowired
 	private IComplaintRepository complaintRepository;
 
@@ -49,7 +55,8 @@ public class PatientService implements IPatientService {
 	private IPenaltyRepository penaltyRepository;
 	@Autowired
 	private IActionOrPromotionRepository actionOrPromotionRepository;
-
+	
+	
 	@Autowired
 	private EmailService emailService;
 	private Logger logger = LoggerFactory.getLogger(ResrvationService.class);
@@ -67,6 +74,10 @@ public class PatientService implements IPatientService {
 		patientRepository.save(patient);
 		}
 		return CheckPenaltys(reservations, patient);	
+	}
+	public PatientDTO findByIdPatient(Long id){
+		Patient patient=patientRepository.findById(id).get();
+		return new PatientDTO(patient);
 	}
 
 	private Patient CheckPenaltys(List<Reservation> reservations, Patient patient) {
@@ -132,6 +143,34 @@ public class PatientService implements IPatientService {
 		Patient patient2 = patientRepository.save(patient1);
 		return patient2;
 	}
+	public Patient updatePatient(Patient patient) throws Exception {
+		PatientDTO patient11 =findByIdPatient(patient.getId());
+		if (patient11 == null) {
+			throw new Exception("Trazeni entitet nije pronadjen.");
+		}
+		Patient patient1=new Patient(patient11);
+
+		patient1.setId(patient.getId());
+		patient1.setName(patient.getName());
+		patient1.setUsername(patient.getUsername());
+		patient1.setSurname(patient.getSurname());
+		patient1.setEmail(patient.getEmail());
+		patient1.setPassword(patient.getPassword());
+		patient1.setAddress(patient.getAddress());
+		patient1.setCity(patient.getCity());
+		patient1.setCountry(patient.getCountry());
+		patient1.setPhoneNumber(patient.getPhoneNumber());
+		patient1.setCategory(patient.getCategory());
+		patient1.setPoints(patient.getPoints());
+		patient1.setPenalty(patient.getPenalty());
+		patient1.setEmailComfirmed(patient.getEmailComfirmed());
+		patient1.setFirstTimeLogin(patient.getFirstTimeLogin());
+		patient1.setDescription(patient.getDescription());
+		patient1.setDrugAllargies(patient.getDrugAllargies());
+		patient1.setActionOrPromotion(patient.getActionOrPromotion());
+		Patient patient2 = patientRepository.save(patient1);
+		return patient2;
+	}
 
 	public List<PatientDTO> findPatientsByDermatologist(Long id) {
 		List<PatientDTO> patientsDto = new ArrayList<PatientDTO>();
@@ -166,6 +205,8 @@ public class PatientService implements IPatientService {
 	}
 
 	public ResponseEntity<Patient> save(Patient patient) throws Exception {
+		patient.setCategory(LoyaltyCategories.Regular);
+		patient.setLastPasswordResetDate(new Date());
 		patientRepository.save(patient);
 		List<Patient> patients = patientRepository.findAll();
 		Long patientId = 0L;
@@ -302,16 +343,16 @@ public class PatientService implements IPatientService {
         Long PatientId=Integer.toUnsignedLong(Integer.valueOf(patientId));
 		Patient patientToUpdate=patientRepository.findById(PatientId).get();
 
-		Set<ActionOrPromotion>actionOrPromotionsSet=new HashSet<>();
-		ActionOrPromotion a=new ActionOrPromotion(actionOrPromotionsDTO);
+		//Set<ActionOrPromotion>actionOrPromotionsSet=new HashSet<>();
+		/*ActionOrPromotion a=new ActionOrPromotion(actionOrPromotionsDTO);
 		a.setId(actionOrPromotionsDTO.getId());
 		actionOrPromotionsSet.add(a);
-		
+		*/
 		Set<ActionOrPromotion> newSet=new HashSet<>();
 		newSet.addAll(patientToUpdate.getActionOrPromotion());
-		newSet.add(a);
+		newSet.add(new ActionOrPromotion(actionOrPromotionsDTO));
 		patientToUpdate.setActionOrPromotion(newSet);
-		update(patientToUpdate);
+		updatePatient(patientToUpdate);
 		emailSenderActionsOrPromotions(patientToUpdate,new ActionOrPromotion(actionOrPromotionsDTO));
 		//emailSender(patientToUpdate);
 		return actionOrPromotionsDTO;
@@ -347,6 +388,16 @@ public class PatientService implements IPatientService {
 		}
 		return rSet;
 	}
+    public Patient getPatientByCredentials(String username) {
+		List<Patient>list=patientRepository.findAll();
+		Patient patieResult=new Patient();
+		for (Patient patient : list) {
+			if(patient.getUsername().equals(username)){
+				patieResult=patient;
+			}
+		}
+		return patieResult;
+		}
 
 	
 	

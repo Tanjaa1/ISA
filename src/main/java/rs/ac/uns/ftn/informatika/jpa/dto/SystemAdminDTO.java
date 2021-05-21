@@ -7,6 +7,7 @@ import rs.ac.uns.ftn.informatika.jpa.model.ComplaintAnswer;
 import rs.ac.uns.ftn.informatika.jpa.model.SystemAdmin;
 
 public class SystemAdminDTO {
+    private Long Id;
     private String Email;
 	private String Password;
 	private String Name;
@@ -132,8 +133,27 @@ public class SystemAdminDTO {
         FirstTimeLogin = firstTimeLogin;
         Complaints = complaints;
     }
+    public SystemAdminDTO(Long id,String email, String password, String name, String surname, String address, String city,
+            String country, String phoneNumber, String description, Boolean emailComfirmed, Boolean firstTimeLogin,
+            Set<ComplaintAnswer> complaints) {
+        Id=id;
+        Email = email;
+        Password = password;
+        Name = name;
+        Surname = surname;
+        Address = address;
+        City = city;
+        Country = country;
+        PhoneNumber = phoneNumber;
+        Description = description;
+        EmailComfirmed = emailComfirmed;
+        FirstTimeLogin = firstTimeLogin;
+        Complaints = complaints;
+    }
+    
     
     public SystemAdminDTO(SystemAdmin systemAdmin){
+        Id=systemAdmin.getId();
         Email = systemAdmin.getEmail();
         Password = systemAdmin.getPassword();
         Name = systemAdmin.getName();
@@ -146,6 +166,14 @@ public class SystemAdminDTO {
         EmailComfirmed = systemAdmin.getEmailComfirmed();
         FirstTimeLogin = systemAdmin.getFirstTimeLogin();
        // Complaints = systemAdmin.getComplaintAnswers();
+    }
+
+    public Long getId() {
+        return Id;
+    }
+
+    public void setId(Long id) {
+        Id = id;
     }
 	
 }

@@ -211,7 +211,11 @@ methods: {
 		}
 		else{
 			axios
-				.get('/dermatologist/isUsernameValid/' + dermatologistDTO.username)
+				.get('/dermatologist/isUsernameValid/' + dermatologistDTO.username,{
+					headers: {
+						'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+					}
+				})
 				.then(response => {
 					this.isValid=response.data;
 					if(this.isValid==false){
@@ -221,17 +225,32 @@ methods: {
 						dermatologistDTO.emailComfirmed=false
 						dermatologistDTO.firstTimeLogin=false
 						dermatologistDTO.id=idDe
+						dermatologistDTO.description="/"
 						axios
-							.post('/dermatologist/saveDermatologist', dermatologistDTO)
-							.then(response => {
-								alert("DODAT U BAZU");
+						.post('/api/saveUserByDermatologist' , dermatologistDTO,{
+							headers: {
+								'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+							}
+						})
+						.then(response => {
+							alert("DODAT U BAZU user");
+							axios
+							.post('/dermatologist/saveDermatologist' , dermatologistDTO,{
+								headers: {
+									'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+								}
 							})
-
+							.then(response => {
+								alert("DODAT U BAZU dermatolog");
+								this.$router.push('systemAdminHomaPage');
+							})
+	
 							.catch(error => {
 								
-								alert("GRESKA");
+								alert("GRESKAA");
 							})
-						}
+						})
+					}
 				})
 
 				.catch(error => {

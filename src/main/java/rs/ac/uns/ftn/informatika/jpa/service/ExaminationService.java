@@ -19,6 +19,8 @@ import rs.ac.uns.ftn.informatika.jpa.dto.ExaminationDTO;
 import rs.ac.uns.ftn.informatika.jpa.model.Dermatologist;
 import rs.ac.uns.ftn.informatika.jpa.dto.PharmacyDTO;
 import rs.ac.uns.ftn.informatika.jpa.model.Examination;
+import rs.ac.uns.ftn.informatika.jpa.model.LoyaltyProgramme;
+import rs.ac.uns.ftn.informatika.jpa.model.Patient;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.ICounselingRpository;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IDermatologistRepository;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IExaminationRpository;
@@ -44,7 +46,12 @@ public class ExaminationService implements IExaminationService {
 
     @Autowired
     private IPharmacyRepository pharmacyRepository;
-
+    @Autowired
+    private MedicineService medicineService;
+    @Autowired
+    private PatientService patientService;
+    @Autowired
+    private LoyaltyProgrammeService loyaltyProgrammeService;
     
 	@Autowired
 	private EmailService emailService;
@@ -63,13 +70,14 @@ public class ExaminationService implements IExaminationService {
         return patientExaminations;
     }
 
-    public List<Examination> findFutureExaminationsByPatientId(Long id) {
-        List<Examination> patientExaminations = new ArrayList<>();
+    public List<ExaminationDTO> findFutureExaminationsByPatientId(Long id) {
+        List<ExaminationDTO> patientExaminations = new ArrayList<>();
         List<Examination> examinations = examinationRepository.findAll();
         for (Examination examination : examinations) {
             int i = examination.getStartTime().compareTo(LocalDateTime.now());
             if (examination.getPatient() != null && id == examination.getPatient().getId() && i > 0) {
-                patientExaminations.add(examination);
+                ExaminationDTO cdto=new ExaminationDTO(examination);
+                patientExaminations.add(cdto);
             }
         }
         return patientExaminations;
@@ -113,12 +121,21 @@ public class ExaminationService implements IExaminationService {
         return examinationsDtos;
 	}
 
-	public Examination schedule(Examination examination) throws Exception{
+	public ExaminationDTO schedule(Examination examination) throws Exception{
         Examination e=examinationRepository.getOne(examination.getId());
         e.setPatient(patientRepository.getOne(examination.getPatient().getId()));
         e.setIsCanceled(false);
+        LoyaltyProgramme lpDTO=loyaltyProgrammeService.findById(Long.valueOf(1));
+        Patient patient =examination.getPatient();
+        patient.setPoints(patient.getPoints()+lpDTO.getPointsForCounceling());
+        patientService.update(patient);
         emailSender2(examination);
-        return examinationRepository.save(e);
+        examinationRepository.save(e);
+        ExaminationDTO eDTO=new ExaminationDTO(examination);
+        Double price=medicineService.Discount(examination.getPrice(),examination.getPatient().getId());
+        e.setPriceWithDiscount(price);
+        examinationRepository.save(e);
+        return eDTO;
 	}
 
     private void emailSender2(Examination examination)
@@ -145,12 +162,18 @@ public class ExaminationService implements IExaminationService {
         if(!workTimeCheck(examination))
             return null;
 		Examination e=new Examination();
+        Double price=medicineService.Discount(examination.getPrice(), examination.getPatient().getId());
+        e.setPrice(price);
         e.setDermatologist(dermatologistRepository.getOne(examination.getDermatologist().getId()));
         e.setPatient(patientRepository.getOne(examination.getPatient().getId()));
         e.setPharmacy(pharmacyRepository.getOne(examination.getPharmacy().getId()));
         e.setStartTime(examination.getStartTime());
         e.setEndTime(examination.getEndTime());
         ExaminationDTO examinationDTO= new ExaminationDTO(examinationRepository.save(e));
+        LoyaltyProgramme lpDTO=loyaltyProgrammeService.findById(Long.valueOf(1));
+        Patient patient =patientRepository.findById(examination.getPatient().getId()).get();
+        patient.setPoints(patient.getPoints()+lpDTO.getPointsForExamination());
+        patientService.update(patient);
         emailSender(e);
         return examinationDTO;
     }

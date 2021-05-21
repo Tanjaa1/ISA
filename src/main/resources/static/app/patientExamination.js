@@ -26,7 +26,7 @@ Vue.component("patientExamination", {
     },
     beforeMount() {
         axios
-            .get('/examination/getPastExaminationByPatientId/' + '88')
+            .get('/examination/getPastExaminationByPatientId/' + '90')
             .then(response => {
                 this.patientPastExaminations = response.data
                 // let [month, date, year]    = new Date().toLocaleDateString("en-US").split("/")
@@ -35,7 +35,7 @@ Vue.component("patientExamination", {
             .catch(error => {
             })
         axios
-            .get('/examination/getFutureExaminationByPatientId/' + '88')
+            .get('/examination/getFutureExaminationByPatientId/' + '90')
             .then(response => {
                 this.patientFutureExaminations = response.data
             })
@@ -51,7 +51,7 @@ Vue.component("patientExamination", {
             })
 
             axios
-			.get('/patient/getPatientById/' + '88') 
+			.get('/patient/getPatientById/' + '90') 
 			.then(response => {
 				this.patient = response.data
                 for(i = 0; i < this.patient.penalty.length; i++){
@@ -232,6 +232,7 @@ Vue.component("patientExamination", {
                                                                 <th>Pharmacy</th>
                                                                 <th>Is done</th>
                                                                 <th>Price</th>
+                                                                <th>Price with Discount</th>
                                                                 <th>Is canceled</th>
                                                                 <th></th>
                                                             </tr>
@@ -244,6 +245,7 @@ Vue.component("patientExamination", {
                                                                 <td>{{f.pharmacy.name}}&nbsp -- &nbsp{{f.pharmacy.address}}</td>
                                                                 <td>{{f.isDone}}</td>
                                                                 <td>{{f.price}}&nbspdin.</td>
+                                                                <td>{{f.priceWithDiscount}}&nbspdin.</td>
                                                                 <td>{{f.isCanceled}}</td>
                                                                 <template v-if="f.isCanceled == false && CanCancel(f.startTime) == true">
                                                                     <td style="text-align:center"><button class="btn form-control" v-on:click="Cancel(f)">Cancel</button></td> 

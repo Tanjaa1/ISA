@@ -77,7 +77,13 @@ Vue.component("systemAdminHeader", {
             this.$router.push('complaints');
         },
 		LoyaltyProgramme: function () {
+            this.$router.push('loyaltyProgramme');
+
         },
+        Logout: function () {
+            localStorage.setItem('userId', "");
+            this.$router.push("login")
+        }
     }
 
 

@@ -24,7 +24,7 @@ public class MedicineDTO {
 	private String Contraindications;
 	private String DailyDose;
 	private Integer Grade;
-	
+	private String ReplacmentString;
 	public MedicineDTO(){}
 
 	public MedicineDTO(String code, String name, String type, MedicineForm form, String composition, String manufacturer,
@@ -38,6 +38,20 @@ public class MedicineDTO {
 		Manufacturer = manufacturer;
 		OnPrescription = onPrescription;
 		Replacement = replacement;
+		Note = note;
+	}
+
+	public MedicineDTO(String code, String name, String type, MedicineForm form, String composition, String manufacturer,
+			Boolean onPrescription, Set<String> replacement, String note,String replacmentString) {
+		super();
+		Code = code;
+		Name = name;
+		//Type = type;
+		Form = form;
+		Composition = composition;
+		Manufacturer = manufacturer;
+		OnPrescription = onPrescription;
+		ReplacmentString = replacmentString;
 		Note = note;
 	}
 
@@ -63,6 +77,15 @@ public class MedicineDTO {
 			if(i != 0)
 	        	Grade = (int) Math.round(result / i);
 	    }
+		
+
+	public String getReplacmentString() {
+		return ReplacmentString;
+	}
+
+	public void setReplacmentString(String replacmentString) {
+		ReplacmentString = replacmentString;
+	}
 
 	public String getCode() {
 		return Code;
@@ -192,6 +215,23 @@ public class MedicineDTO {
         Contraindications = contraindications;
         DailyDose = dailyDose;
     }
+	public MedicineDTO(Long id, String name, String code, MedicineType type, MedicineForm form, String composition,
+            String manufacturer, Boolean onPrescription, String replacement, String note, String contraindications,
+            String dailyDose) {
+        Id = id;
+        Name = name;
+        Code = code;
+        Type = type;
+        Form = form;
+        Composition = composition;
+        Manufacturer = manufacturer;
+        OnPrescription = onPrescription;
+        ReplacmentString = replacement;
+        Note = note;
+        Contraindications = contraindications;
+        DailyDose = dailyDose;
+    }
+	
 	
 	public Integer getGrade() {
 		return Grade;

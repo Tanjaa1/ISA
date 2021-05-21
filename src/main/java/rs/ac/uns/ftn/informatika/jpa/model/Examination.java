@@ -54,6 +54,11 @@ public class Examination {
 	@Column(name="Price", unique=false, nullable=true)
 	private Double Price;
 
+		
+	@Column(name="PriceWithDiscount", unique=false, nullable=true)
+	private Double PriceWithDiscount;
+
+
 	public Examination(){
 		isDone=false;
 		Report="";
@@ -76,6 +81,21 @@ public class Examination {
 		Dermatologist = dermatologist;
 		Pharmacy = pharmacy;
 		IsCanceled = isCanceled;
+	}
+	public Examination(long id, String report, LocalDateTime startTime, Double price,Double priceWithDiscount, Boolean isDone,
+			rs.ac.uns.ftn.informatika.jpa.model.Patient patient,
+			rs.ac.uns.ftn.informatika.jpa.model.Dermatologist dermatologist, Pharmacy pharmacy, Boolean isCanceled) {
+		super();
+		this.id = id;
+		Report = report;
+		StartTime = startTime;
+		Price = price;
+		this.isDone = isDone;
+		Patient = patient;
+		Dermatologist = dermatologist;
+		Pharmacy = pharmacy;
+		IsCanceled = isCanceled;
+		PriceWithDiscount=priceWithDiscount;
 	}
 
 
@@ -170,6 +190,12 @@ public class Examination {
 
 	public void setIsCanceled(Boolean isCanceled) {
 		this.IsCanceled = isCanceled;
+	}
+	public Double getPriceWithDiscount() {
+		return PriceWithDiscount;
+	}
+	public void setPriceWithDiscount(Double priceWithDiscount) {
+		PriceWithDiscount = priceWithDiscount;
 	}
 
 }

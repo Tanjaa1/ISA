@@ -105,6 +105,6 @@ public class Reservation {
 	public void setIsCanceled(Boolean isCanceled) {
 		IsCanceled = isCanceled;
 	}
-
+	
 
 }

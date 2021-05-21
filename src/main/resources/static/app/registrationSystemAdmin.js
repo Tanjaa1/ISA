@@ -196,7 +196,12 @@ Vue.component("registrationSystemAdmin", {
 			}
 			else{
 				axios
-					.get('/systemAdmin/isUsernameValid/' + systemAdminDTO.username)
+					.get('/systemAdmin/isUsernameValid/' + systemAdminDTO.username,
+						{
+						headers: {
+							'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+						}
+					})
 					.then(response => {
 						 this.isValid=response.data;
 						 if(this.isValid==false){
@@ -208,15 +213,30 @@ Vue.component("registrationSystemAdmin", {
 							systemAdminDTO.description=""
 							
 							axios
-								.post('/systemAdmin/saveSystemAdmin' , systemAdminDTO)
+							.post('/api/saveUserBySystemAdmin' , systemAdminDTO,{
+								headers: {
+									'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+								}
+							})
+							.then(response => {
+								alert("DODAT U BAZU user");
+								axios
+								.post('/systemAdmin/saveSystemAdmin' , systemAdminDTO,{
+									headers: {
+										'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+									}
+								})
 								.then(response => {
-									alert("DODAT U BAZU");
+									alert("DODAT U BAZU systemAdmin");
+									this.$router.push('systemAdminHomaPage');
+
 								})
 		
 								.catch(error => {
 									
-									alert("GRESKA");
+									alert("GRESKAA");
 								})
+							})
 						}
 					})
 					.catch(error => {

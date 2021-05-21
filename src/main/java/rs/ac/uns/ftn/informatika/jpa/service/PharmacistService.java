@@ -200,6 +200,17 @@ public class PharmacistService implements IPharmacistService {
 			return new PharmacistDTO(pharmacist2);
 		}
 
+        public Pharmacist getPharmacistByCredentials(String username) {
+			List<Pharmacist>list=pharmacistRepository.findAll();
+			Pharmacist patieResult=new Pharmacist();
+			for (Pharmacist patient : list) {
+				if(patient.getUsername().equals(username)){
+					patieResult=patient;
+				}
+			}
+			return patieResult;
+			}
+
 	public Pharmacist addNewPharmacistToPharmacy(Pharmacist dermatologist){
 
 			return pharmacistRepository.save(dermatologist);

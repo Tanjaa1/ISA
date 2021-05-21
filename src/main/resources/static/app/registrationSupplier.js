@@ -16,6 +16,7 @@ Vue.component("registrationSupplier", {
 				firstTimeLogin: null,
 				points: null,
 				penalty: null,
+				description:null
 			},
 		}
 	},
@@ -196,7 +197,11 @@ Vue.component("registrationSupplier", {
 				return
 			}else{
 				axios
-				.get('/supplier/isUsernameValid/'+ supplierDTO.username)
+				.get('/supplier/isUsernameValid/'+ supplierDTO.username,{
+					headers: {
+						'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+					}
+				})
 				.then(response => {
 					this.isValid=response.data;
 					if(this.isValid==false){
@@ -207,16 +212,32 @@ Vue.component("registrationSupplier", {
 						supplierDTO.firstTimeLogin=false
 						supplierDTO.points=0
 						supplierDTO.penalty=0
+						supplierDTO.description="/"
 					
 						axios
-							.post('/supplier/saveSupplier' , supplierDTO)
-							.then(response => {
-								alert("DODAT U BAZU");
+							.post('/api/saveUserBySupplier' , supplierDTO,{
+								headers: {
+									'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+								}
 							})
+							.then(response => {
+								alert("DODAT U BAZU user");
+								axios
+								.post('/supplier/saveSupplier' , supplierDTO,{
+									headers: {
+										'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+									}
+								})
+								.then(response => {
+									alert("DODAT U BAZU supplier");
+									this.$router.push('systemAdminHomaPage');
 
-							.catch(error => {
-								
-								alert("GRESKA");
+								})
+		
+								.catch(error => {
+									
+									alert("GRESKAA");
+								})
 							})
 					}
 				})

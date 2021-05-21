@@ -15,6 +15,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import rs.ac.uns.ftn.informatika.jpa.dto.MedicineDTO;
+import rs.ac.uns.ftn.informatika.jpa.dto.MedicineSDTO;
 import rs.ac.uns.ftn.informatika.jpa.enums.MedicineForm;
 import rs.ac.uns.ftn.informatika.jpa.enums.MedicineType;
 
@@ -64,6 +65,8 @@ public class Medicine {
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<Markk> Marks = new HashSet<Markk>();
 
+	@Column(name="Points", unique=false, nullable=true)
+	private Integer Points ;
 	//@OneToOne(mappedBy = "Medicine")
     //private MedicinePriceAndQuantity MedicinePriceAndQuantity;
 	
@@ -211,6 +214,30 @@ public class Medicine {
 		Contraindications = medicineDTO.getContraindications();
 		DailyDose = medicineDTO.getDailyDose();
 	}
+	public Medicine(MedicineSDTO medicineDTO) {
+		Id = medicineDTO.getId();
+		Name = medicineDTO.getName();
+		Code = medicineDTO.getCode();
+		Type = medicineDTO.getType();
+		Form = medicineDTO.getForm();
+		Composition = medicineDTO.getComposition();
+		Manufacturer = medicineDTO.getManufacturer();
+		OnPrescription = medicineDTO.getOnPrescription();
+		try {
+			String replacementParts[]=medicineDTO.getReplacmentString().split(",");
+			for(String  i : replacementParts){
+				Replacement.add(i);
+			}
+		} catch (Exception e) {
+				Replacement.add(medicineDTO.getReplacmentString());
+		}
+		
+		
+		Note = medicineDTO.getNote();
+		Contraindications = medicineDTO.getContraindications();
+		DailyDose = medicineDTO.getDailyDose();
+		Points=medicineDTO.getPoints();
+	}
 	
 	public Set<Markk> getMarks() {
 		return Marks;
@@ -219,4 +246,12 @@ public class Medicine {
 	public void setMarks(Set<Markk> marks) {
 		Marks = marks;
 	}
+	public Integer getPoints() {
+		return Points;
+	}
+	public void setPoints(Integer points) {
+		Points = points;
+	}
+
+	
 }

@@ -1,5 +1,7 @@
 package rs.ac.uns.ftn.informatika.jpa.dto;
 
+import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
+
 import rs.ac.uns.ftn.informatika.jpa.model.Pharmacy;
 import rs.ac.uns.ftn.informatika.jpa.model.PharmacyAdmin;
 
@@ -124,6 +126,29 @@ public class PharmacyAdminDTO {
         Pharmacy = pharmacy;
     }
 
+
+    public PharmacyAdminDTO(Long id,String email, String password, String name, String surname, String address, String city,
+            String country, String phoneNumber, String description, Boolean emailComfirmed, Boolean firstTimeLogin,
+            String userName, PharmacyDTO pharmacy) {
+        Id=id;
+        Email = email;
+        Password = password;
+        Name = name;
+        Surname = surname;
+        Address = address;
+        City = city;
+        Country = country;
+        PhoneNumber = phoneNumber;
+        Description = description;
+        EmailComfirmed = emailComfirmed;
+        FirstTimeLogin = firstTimeLogin;
+        UserName = userName;
+        Pharmacy = pharmacy;
+    }
+    public PharmacyAdminDTO(String email, String password, String name, String surname, String address, String city,
+            String country, String phoneNumber, String description, Boolean emailComfirmed, Boolean firstTimeLogin,
+            String userName, PharmacyDTO pharmacy) {
+        
     public Long getId() {
         return Id;
     }
@@ -153,6 +178,7 @@ public class PharmacyAdminDTO {
     
     public PharmacyAdminDTO(PharmacyAdmin pa) {
         Email = pa.getEmail();
+        Id=pa.getId();
         Password = pa.getPassword();
         Name = pa.getName();
         Surname = pa.getSurname();
@@ -170,4 +196,13 @@ public class PharmacyAdminDTO {
 	public String fullName(){
 		return Name+" "+Surname;
 	}
+
+    public Long getId() {
+        return Id;
+    }
+
+    public void setId(Long id) {
+        Id = id;
+    }
+    
 }
