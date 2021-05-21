@@ -115,6 +115,8 @@ Vue.component("registrationSupplier", {
 			
 			</table>
 			<button  type="button" class="btn2 btn-info btn-lg margin1" data-toggle="modal" v-on:click="AddSupplier(supplierDTO)">Submit</button>
+			<button id="Close" type="button" class="btn1 btn-info btn-lg margin form-control" data-toggle="modal" v-on:click="close()" >Go back</button>
+
 			<br/>
 			<br/>
     </div>
@@ -186,6 +188,9 @@ Vue.component("registrationSupplier", {
 		
     },
 	methods: {
+		close:function(){
+			this.$router.push('systemAdminHomaPage');
+		  },
 		AddSupplier: function (supplierDTO) {
 			if(this.password_confirmed!=this.supplierDTO.password){
 					alert( 'Passwords did not match!');	

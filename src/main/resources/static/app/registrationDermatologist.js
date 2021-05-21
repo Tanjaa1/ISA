@@ -131,6 +131,8 @@ Vue.component("registrationDermatologist", {
 			
 		</table>
 			<button  type="button" class="btn2 btn-info btn-lg margin1" data-toggle="modal" v-on:click="AddDermatologist(dermatologistDTO,this.pharmaciesList.id)">Submit</button>
+			<button id="Close" type="button" class="btn1 btn-info btn-lg margin form-control" data-toggle="modal" v-on:click="close()" >Go back</button>
+
 			<br/>
 			<br/>
     </div>
@@ -199,6 +201,9 @@ Vue.component("registrationDermatologist", {
 	
 },
 methods: {
+	close:function(){
+		this.$router.push('systemAdminHomaPage');
+	  },
 	AddDermatologist: function (dermatologistDTO,idDe) {
 		if(this.password_confirmed!=this.dermatologistDTO.password){
 				alert( 'Passwords did not match!');	

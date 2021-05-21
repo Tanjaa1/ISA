@@ -352,13 +352,15 @@ const router = new VueRouter({
 			path: '/registrationSupplier', 
 			name : 'registrationSupplier', 
 			components: {
+				pageHeader: systemAdminHeader,
 				content: RegistrationSupplier
 			}
 		},
 		{ 
 			path: '/registrationDermatologist', 
 			name : 'registrationDermatologist', 
-			components: {
+			components: {	
+				pageHeader: systemAdminHeader,
 				content: RegistrationDermatologist
 			}
 		},
@@ -366,13 +368,16 @@ const router = new VueRouter({
 			path: '/registrationPharmacy', 
 			name : 'registrationPharmacy', 
 			components: {
+				pageHeader: systemAdminHeader,
 				content: RegistrationPharmacy
+
 			}
 		},
 		{ 
 			path: '/registrationSystemAdmin', 
 			name : 'registrationSystemAdmin', 
-			components: {
+			components: {			
+				pageHeader: systemAdminHeader,
 				content: RegistrationSystemAdmin
 			}
 		},
@@ -380,6 +385,7 @@ const router = new VueRouter({
 			path: '/registrationMedicine', 
 			name : 'registrationMedicine', 
 			components: {
+				pageHeader: systemAdminHeader,
 				content: RegistrationMedicine
 			}
 		},
@@ -490,6 +496,7 @@ const router = new VueRouter({
 			path: '/complaints', 
 			name : 'complaints', 
 			components: {
+				pageHeader: systemAdminHeader,
 				content: Complaints
 			}
 		},
@@ -634,6 +641,7 @@ const router = new VueRouter({
 			path: '/loyaltyProgramme', 
 			name : 'loyaltyProgramme', 
 			components: {
+				pageHeader: systemAdminHeader,
 				content: LoyaltyProgramme
 			}
 		}

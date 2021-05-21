@@ -150,6 +150,8 @@ Vue.component("registrationPharmacy", {
 				</table>
 				
 			<button  type="button" class="btn2 btn-info btn-lg margin1" data-toggle="modal" data-target="#registrationInfo" v-on:click="AddPharmacy(pharmacyDTO,pharmacyAdminDTO)" >Submit</button>
+			<button id="Close" type="button" class="btn1 btn-info btn-lg margin form-control" data-toggle="modal" v-on:click="close()" >Go back</button>
+
 			<br/>
 			<br/>
 
@@ -243,6 +245,9 @@ Vue.component("registrationPharmacy", {
 		}
     },
 	methods: {
+		close:function(){
+			this.$router.push('systemAdminHomaPage');
+		  },
 		AddPharmacy: function (pharmacyDTO,pharmacyAdminDTO) {
 			if (pharmacyDTO.name != null && pharmacyDTO.address != null || this.pharmacyAdminDTO.name!=null || this.pharmacyAdminDTO.surname!=null || this.pharmacyAdminDTO.address!=null || 
 				this.pharmacyAdminDTO.city!=null || this.pharmacyAdminDTO.country!=null || this.pharmacyAdminDTO.phoneNumber!=null || 
