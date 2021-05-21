@@ -219,7 +219,7 @@ methods: {
 				.then(response => {
 					this.isValid=response.data;
 					if(this.isValid==false){
-						alert('surname already exists, please choose another one!')
+						alert('username already exists, please choose another one!')
 						return
 					}else{
 						dermatologistDTO.emailComfirmed=false

@@ -81,7 +81,7 @@ Vue.component("loyaltyProgramme", {
       <div class="input-group-prepend">
         <span class="input-group-text width" id="basic-addon3">Points for examination</span>
       </div>
-      <input type="number"  v-model="lpDTO.pointsFodExamintaion" class="form-control" id="pointsForEx" aria-describedby="basic-addon3" disabled>
+      <input type="number"  v-model="lpDTO.pointsForExamination" class="form-control" id="pointsForEx" aria-describedby="basic-addon3" disabled>
 
         <td>&nbsp&nbsp&nbsp</td>
 
@@ -135,11 +135,11 @@ Vue.component("loyaltyProgramme", {
             document.getElementById("pointsForC").disabled=true;
 
             this.lpDTOtoUpdate.id = this.lpDTO.id,
-			this.lpDTOtoUpdate.regular = document.getElementById("regular").value,
-			this.lpDTOtoUpdate.regularDiscount = document.getElementById("regularDiscount").value,
-			this.lpDTOtoUpdate.silver = document.getElementById("silver").value,
-			this.lpDTOtoUpdate.silverDiscount = document.getElementById("silverDiscount").value,
-			this.lpDTOtoUpdate.gold = document.getElementById("gold").value,
+		      	this.lpDTOtoUpdate.regular = document.getElementById("regular").value,
+		      	this.lpDTOtoUpdate.regularDiscount = document.getElementById("regularDiscount").value,
+		      	this.lpDTOtoUpdate.silver = document.getElementById("silver").value,
+		      	this.lpDTOtoUpdate.silverDiscount = document.getElementById("silverDiscount").value,
+			      this.lpDTOtoUpdate.gold = document.getElementById("gold").value,
             this.lpDTOtoUpdate.goldDiscount = document.getElementById("goldDiscount").value,
             this.lpDTOtoUpdate.pointsForExamination = document.getElementById("pointsForEx").value,
             this.lpDTOtoUpdate.pointsForCounceling = document.getElementById("pointsForC").value,

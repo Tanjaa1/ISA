@@ -142,21 +142,11 @@ public class PharmacyAdminDTO {
         Description = description;
         EmailComfirmed = emailComfirmed;
         FirstTimeLogin = firstTimeLogin;
-        UserName = userName;
+        Username = userName;
         Pharmacy = pharmacy;
     }
-    public PharmacyAdminDTO(String email, String password, String name, String surname, String address, String city,
-            String country, String phoneNumber, String description, Boolean emailComfirmed, Boolean firstTimeLogin,
-            String userName, PharmacyDTO pharmacy) {
-        
-    public Long getId() {
-        return Id;
-    }
-
-    public void setId(Long id) {
-        Id = Id;
-    }
-
+   
+ 
     public PharmacyAdminDTO(String email, String password, String name, String surname, String address, String city,
             String country, String phoneNumber, String description, Boolean emailComfirmed, Boolean firstTimeLogin,
             String username, PharmacyDTO pharmacy,Long id) {

@@ -6,7 +6,7 @@ public class PharmacyQRDTO {
     private Long Id;
 	private String Name;
 	private String Address;
-	private Integer Grade;
+	private Double Grade;
     private Double PriceofMedicines;  
     private Double PriceofMedicinesWithDiscount;
 /*
@@ -18,7 +18,7 @@ public class PharmacyQRDTO {
         PriceofMedicines = priceofMedicines;
     }
     */
-    public PharmacyQRDTO(Long id, String name, String address, Integer grade, Double priceofMedicines,Double priceWithDiscount) {
+    public PharmacyQRDTO(Long id, String name, String address, Double grade, Double priceofMedicines,Double priceWithDiscount) {
         Id = id;
         Name = name;
         Address = address;
@@ -71,11 +71,11 @@ public class PharmacyQRDTO {
         Address = address;
     }
 
-    public Integer getGrade() {
+    public Double getGrade() {
         return Grade;
     }
 
-    public void setGrade(Integer grade) {
+    public void setGrade(Double grade) {
         Grade = grade;
     }
 

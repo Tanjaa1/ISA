@@ -549,9 +549,9 @@ public Set<PharmacyQRDTO> getPharmaciesByQR(String path,Long patientIdd) throws 
 
 	for (PharmacyDTO pharmacyDTO : resultListDTOS) {
 		Double price=pricePerPharmacies.get(pharmacyDTO.getName());
-		Integer grade;
+		Double grade;
 		if(pharmacyDTO.getGrade()==null){
-			grade=0;
+			grade=0.0;
 		}else{
 			grade=pharmacyDTO.getGrade();
 		}
