@@ -1,0 +1,12 @@
+#pharmacyHomePage {
+    background-image: url("../pictures/bSO.jpg");
+    background-repeat: no-repeat;
+    overflow-y: hidden;
+    overflow-x: hidden;
+    background-size: cover;
+    height: auto !important;
+    min-height: 1000px;
+    color: white;
+    font-family: impact;
+}
+

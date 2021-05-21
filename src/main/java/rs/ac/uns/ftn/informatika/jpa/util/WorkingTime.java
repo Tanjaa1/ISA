@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import rs.ac.uns.ftn.informatika.jpa.dto.WorkingTimeDTO;
 import rs.ac.uns.ftn.informatika.jpa.model.Pharmacy;
 
 @Entity
@@ -44,6 +45,13 @@ public class WorkingTime {
 		this.id = id;
 		TimeStart = timeStart;
 		TimeEnd = timeEnd;
+	}
+
+	public WorkingTime(WorkingTimeDTO wt) {
+		super();
+		this.id = wt.getId();
+		TimeStart = wt.getTimeStart();
+		TimeEnd = wt.getTimeEnd();
 	}
 
 	public Long getId() {

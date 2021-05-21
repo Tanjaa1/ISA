@@ -118,4 +118,10 @@ public class PharmacyController {
 		return pharmacie == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(pharmacie);
 	}
 	
+	@PutMapping(value = "/subscribeUser/{pID}")
+	public ResponseEntity<Boolean> update(@RequestBody PharmacyDTO pharmacy,@PathVariable Long pID) throws Exception{
+		Boolean response = pharmacyService.subscribeUser(pharmacy,pID);
+	return new ResponseEntity<>(response, HttpStatus.CREATED);
+	}
+
 }

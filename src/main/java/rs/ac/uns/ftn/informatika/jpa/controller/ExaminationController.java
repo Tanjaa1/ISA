@@ -166,4 +166,7 @@ public class ExaminationController {
 		List<ExaminationDTO> examinationDTOs = examinationService.getUpcomingExaminationsByDermatologistAndPharmacy(idP,  idD);
 		return examinationDTOs == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(examinationDTOs);
 	}
+
+
+
 }

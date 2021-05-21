@@ -1,3 +1,4 @@
+
 const Browse = { template: '<browse></browse>' }
 const Registration = { template: '<registration></registration>' }
 const Login = { template: '<login></login>' }
@@ -89,6 +90,10 @@ const AdministratorExaminations = { template: '<administratorExaminations></admi
 const AdministratorEmployed = { template: '<administratorEmployed></administratorEmployed>' }
 const AdministratorMedicine = { template: '<administratorMedicine></administratorMedicine>' }
 
+const PharmacyHomePage = { template: '<pharmacyHomePage></pharmacyHomePage>' }
+const PharmacyEmployees = { template: '<pharmacyEmployees></pharmacyEmployees>' }
+const PharmacyMedicine = { template: '<pharmacyMedicine></pharmacyMedicine>' }
+
 
 const CalendarD = { template: '<calendarD></calendarD>' }
 const CalendarP = { template: '<calendarP></calendarP>' }
@@ -159,6 +164,27 @@ const router = new VueRouter({
 	    	components: {
 				pageHeader: PatientHeader,
 				content: AdministratorMedicine
+			}
+		},
+		{ 
+	    	path: '/pharmacyHomePage', 
+	    	name : 'pharmacyHomePage', 
+	    	components: {
+				content: PharmacyHomePage
+			}
+		},
+		{ 
+	    	path: '/pharmacyMedicine', 
+	    	name : 'pharmacyMedicine', 
+	    	components: {
+				content: PharmacyMedicine
+			}
+		},
+		{ 
+	    	path: '/pharmacyEmployees', 
+	    	name : 'pharmacyEmployees', 
+	    	components: {
+				content: PharmacyEmployees
 			}
 		},
 		{ 

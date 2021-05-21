@@ -537,8 +537,8 @@ Vue.component("administratorEmployed", {
 		},
 		SearchDermatologist: function(){
 			this.dermatologists = this.allDermatologists 
-			var name=document.getElementById("dermatologistName").value
-			var surname=document.getElementById("dermatologistSurname").value
+			var name=document.getElementById("dermatologistName").value.toLowerCase()
+			var surname=document.getElementById("dermatologistSurname").value.toLowerCase()
 			var id=document.getElementById("dermatologistId").value
 
 			var min=document.getElementById("dermatologistMin").value
@@ -547,7 +547,7 @@ Vue.component("administratorEmployed", {
 			var newDermatologists = []
 			if(name != "" && surname == "" && id == "")
 				for (const dermatologist of this.dermatologists) {
-						if(dermatologist.name.includes(name))
+						if(dermatologist.name.toLowerCase().includes(name))
 							newDermatologists.push(dermatologist)
 				}
 			else if(name == "" && surname == "" && id == "")
@@ -556,7 +556,7 @@ Vue.component("administratorEmployed", {
 				}
 			else if(name == "" && surname != "" && id == "")
 				for (const dermatologist of this.dermatologists) {
-					if(dermatologist.surname.includes(surname))
+					if(dermatologist.surname.toLowerCase().includes(surname))
 						newDermatologists.push(dermatologist)
 				}
 			else if(name == "" && surname == "" && id != "")
@@ -566,22 +566,22 @@ Vue.component("administratorEmployed", {
 				}
 			else if(name != "" && surname != "" && id == "")
 				for (const dermatologist of this.dermatologists) {
-					if(dermatologist.name.includes(name) && dermatologist.surname.includes(surname))
+					if(dermatologist.name.toLowerCase().includes(name) && dermatologist.surname.toLowerCase().includes(surname))
 						newDermatologists.push(dermatologist)
 				}
 			else if(name != "" && surname == "" && id != "")
 				for (const dermatologist of this.dermatologists) {
-					if(dermatologist.name.includes(name) && dermatologist.id == id)
+					if(dermatologist.name.toLowerCase().includes(name) && dermatologist.id == id)
 						newDermatologists.push(dermatologist)
 				}
 			else if(name == "" && surname != "" && id != "")
 				for (const dermatologist of this.dermatologists) {
-					if(dermatologist.surname.includes(surname) &&  dermatologist.id == id)
+					if(dermatologist.surname.toLowerCase().includes(surname) &&  dermatologist.id == id)
 						newDermatologists.push(dermatologist)
 				}
 			else if(name != "" && surname != "" && id != "")
 				for (const dermatologist of this.dermatologists) {
-					if(dermatologist.surname.includes(surname) &&  dermatologist.id == id && dermatologist.name.includes(name))
+					if(dermatologist.surname.toLowerCase().includes(surname) &&  dermatologist.id == id && dermatologist.name.toLowerCase().includes(name))
 						newDermatologists.push(dermatologist)
 				}
 			this.dermatologists = newDermatologists
@@ -611,8 +611,8 @@ Vue.component("administratorEmployed", {
 		},
 		SearchPharmacists: function(){
 			this.pharmacists = this.allPharmacists 
-			var name=document.getElementById("pharmacistName").value
-			var surname=document.getElementById("pharmacistSurname").value
+			var name=document.getElementById("pharmacistName").value.toLowerCase()
+			var surname=document.getElementById("pharmacistSurname").value.toLowerCase()
 			var id=document.getElementById("pharmacistId").value
 
 			var min=document.getElementById("pharmacistMin").value
@@ -621,7 +621,7 @@ Vue.component("administratorEmployed", {
 			var newPharmacists = []
 			if(name != "" && surname == "" && id == "")
 				for (const pharmacist of this.pharmacists) {
-						if(pharmacist.name.includes(name))
+						if(pharmacist.name.toLowerCase().includes(name))
 							newPharmacists.push(pharmacist)
 				}
 			else if(name == "" && surname == "" && id == "")
@@ -630,7 +630,7 @@ Vue.component("administratorEmployed", {
 				}
 			else if(name == "" && surname != "" && id == "")
 				for (const pharmacist of this.pharmacists) {
-					if(pharmacist.surname.includes(surname))
+					if(pharmacist.surname.toLowerCase().includes(surname))
 						newPharmacists.push(pharmacist)
 				}
 			else if(name == "" && surname == "" && id != "")
@@ -640,22 +640,22 @@ Vue.component("administratorEmployed", {
 				}
 			else if(name != "" && surname != "" && id == "")
 				for (const pharmacist of this.pharmacists) {
-					if(pharmacist.name.includes(name) && pharmacist.surname.includes(surname))
+					if(pharmacist.name.toLowerCase().includes(name) && pharmacist.surname.toLowerCase().includes(surname))
 						newPharmacists.push(pharmacist)
 				}
 			else if(name != "" && surname == "" && id != "")
 				for (const pharmacist of this.pharmacists) {
-					if(pharmacist.name.includes(name) && pharmacist.id == id)
+					if(pharmacist.name.toLowerCase().includes(name) && pharmacist.id == id)
 						newPharmacists.push(pharmacist)
 				}
 			else if(name == "" && surname != "" && id != "")
 				for (const pharmacist of this.pharmacists) {
-					if(pharmacist.surname.includes(surname) &&  pharmacist.id == id)
+					if(pharmacist.surname.toLowerCase().includes(surname) &&  pharmacist.id == id)
 						newPharmacists.push(pharmacist)
 				}
 			else if(name != "" && surname != "" && id != "")
 				for (const pharmacist of this.pharmacists) {
-					if(pharmacist.surname.includes(surname) &&  pharmacist.id == id && pharmacist.name.includes(name))
+					if(pharmacist.surname.toLowerCase().includes(surname) &&  pharmacist.id == id && pharmacist.name.toLowerCase().includes(name))
 						newPharmacists.push(pharmacist)
 				}
 			this.pharmacists = newPharmacists

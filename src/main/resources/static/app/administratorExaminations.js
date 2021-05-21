@@ -174,7 +174,7 @@ Vue.component("administratorExaminations", {
 					.post('/examination/addEmptyExamination',this.newExamination)
 					.then(response => {
                         axios
-                        .get('/examination/getUpcomingFreeExaminations/' + this.pharmacy.id +"/" +  localStorage.getItem('selectedDermatologist'))
+                        .get('/examination/getUpcomingFreeExaminations/' + this.pharmacy.id +"/" +  this.newExamination.dermatologist.id)
                         .then(response => {
                             this.upcomingExaminations = response.data
                             for (var i = 0; i < this.upcomingExaminations.length; i++) {

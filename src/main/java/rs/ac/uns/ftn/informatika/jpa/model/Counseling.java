@@ -36,17 +36,17 @@ public class Counseling {
 	@Column(name="isDone", unique=false, nullable=true)
 	private Boolean isDone;
 	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToOne(cascade = {CascadeType.DETACH,CascadeType.PERSIST,CascadeType.REFRESH,CascadeType.REMOVE}, fetch = FetchType.EAGER)
 	//@JsonIgnoreProperties(value = {"Counseling", "hibernateLazyInitializer"})
 	private Patient Patient;
 	
 	@CustomAnnotation(message="Field cannot be empty")
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToOne(cascade = {CascadeType.DETACH,CascadeType.PERSIST,CascadeType.REFRESH,CascadeType.REMOVE}, fetch = FetchType.EAGER)
 	//@JsonIgnoreProperties(value = {"Counseling", "hibernateLazyInitializer"})
 	private Pharmacist Pharmacist;
 
 	@CustomAnnotation(message="Field cannot be empty")
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToOne(cascade = {CascadeType.DETACH,CascadeType.PERSIST,CascadeType.REFRESH,CascadeType.REMOVE}, fetch = FetchType.EAGER)
 	//@JsonIgnoreProperties(value = {"Counseling", "hibernateLazyInitializer"})
 	private Pharmacy Pharmacy;
 	

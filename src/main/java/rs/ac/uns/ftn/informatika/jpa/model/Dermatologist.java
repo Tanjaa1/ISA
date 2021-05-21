@@ -14,6 +14,9 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import rs.ac.uns.ftn.informatika.jpa.dto.DermatologistDTO;
+import rs.ac.uns.ftn.informatika.jpa.dto.MarkDTO;
+import rs.ac.uns.ftn.informatika.jpa.dto.PharmacyDTO;
 import rs.ac.uns.ftn.informatika.jpa.dto.VacationIntervalDTO;
 import rs.ac.uns.ftn.informatika.jpa.dto.WorkingTimeDTO;
 import rs.ac.uns.ftn.informatika.jpa.util.VacationInterval;
@@ -52,6 +55,30 @@ public class Dermatologist extends User{
 		Pharmacies = pharmacies;
 		Marks=marks;
 	}
+
+	public Dermatologist(DermatologistDTO d) {
+	super(d.getId(), d.getEmail() ,d.getPassword(), d.getName(), d.getSurname(), d.getAddress(), d.getCity(), d.getCountry(), d.getPhoneNumber(),d.getDescription());
+
+	VacationSchedule = new HashSet<VacationInterval>();
+	for (VacationIntervalDTO v : d.getVacationSchedule()) {
+		VacationSchedule.add(new VacationInterval(v));
+	}
+
+	WorkingSchedule = new HashSet<WorkingTime>();
+	for (WorkingTimeDTO w : d.getWorkingSchedule()) {
+		WorkingSchedule.add(new WorkingTime(w));
+	}
+
+	Pharmacies = new HashSet<Pharmacy>();
+	for (PharmacyDTO p : d.getPharmacies()) {
+		Pharmacies.add(new Pharmacy(p));
+	}
+	
+	Marks= new HashSet<Markk>();
+
+	
+	}
+
 
 	public Set<VacationInterval> getVacationSchedule() {
 		return VacationSchedule;

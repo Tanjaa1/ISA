@@ -57,9 +57,12 @@ public class ActionOrPromotionController {
 		return actionOrPromotion;
 	}
 
+	@GetMapping(value = "/getCurrentByPharmacyId/{id}")
+	public ResponseEntity<List<ActionOrPromotionsDTO>> getCurrentActionsAndPromotions(@PathVariable Long id) {	 
+		return ResponseEntity.ok(actionOrPromotionService.getCurrentActionsAndPromotions(id));
+	}
 	
 	
-
 
 
 }

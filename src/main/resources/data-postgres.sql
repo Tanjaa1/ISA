@@ -559,9 +559,6 @@ INSERT INTO public.patient_action_or_promotions(
 	patient_id, action_or_promotions_id)
 	VALUES (88, 223);
 
-INSERT INTO public.pharmacy_subscribed_users(
-pharmacy_id,patient_id)
-VALUES('111','88');
 
 INSERT INTO public.pharmacy_subscribed_users(
 pharmacy_id,patient_id)
@@ -741,3 +738,20 @@ INSERT INTO public.medicine_request(
 INSERT INTO public.medicine_request(
 	id,medicine_id,date,pharmacy_id,solved)
 	VALUES (334,223, '2021-06-07 16:00:00-07',111,false);
+
+INSERT INTO public.counseling(
+	id, price, report, start_time, end_time, is_done, pharmacist_id, pharmacy_id, is_canceled)
+	VALUES (155, 2000.0, '', '2021-08-16 17:00:00-07', '2021-08-16 17:25:25-07', false, 51, 111, false);
+INSERT INTO public.counseling(
+	id, price, report, start_time, end_time, is_done, pharmacist_id, pharmacy_id, is_canceled)
+	VALUES (156, 1000.0, '', '2021-09-13 16:00:00-07', '2021-09-13 16:25:25-07', false, 51, 111, false);
+INSERT INTO public.counseling(
+	id, price, report, start_time, end_time, is_done, pharmacist_id, pharmacy_id, is_canceled)
+	VALUES (157, 2000.0, '', '2021-08-13 17:00:00-07', '2021-08-13 17:25:25-07', false, 51, 111, false);
+
+INSERT INTO public.action_or_promotion(
+	id, text, medicine_id, pharmacy_id,start_time,end_time)
+	VALUES (331, 'akcija 350%', 222,  111,'2019-08-13 17:00:00-07', '2024-08-13 17:25:25-07');
+INSERT INTO public.action_or_promotion(
+	id, text, medicine_id, pharmacy_id,start_time,end_time)
+	VALUES (443, 'akcija 530%', 223, 111,'2019-08-13 17:00:00-07', '2024-08-13 17:25:25-07');
