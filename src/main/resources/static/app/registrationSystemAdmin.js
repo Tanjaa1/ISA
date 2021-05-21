@@ -115,6 +115,8 @@ Vue.component("registrationSystemAdmin", {
 			
 			</table>
 			<button  type="button" class="btn2 btn-info btn-lg margin1" data-toggle="modal" v-on:click="AddSystemAdmin(systemAdminDTO)">Submit</button>
+			<button id="Close" type="button" class="btn1 btn-info btn-lg margin form-control" data-toggle="modal" v-on:click="close()" >Go back</button>
+
 			<br/>
 			<br/>
     </div>
@@ -184,6 +186,9 @@ Vue.component("registrationSystemAdmin", {
 		}
     },
 	methods: {
+		close:function(){
+			this.$router.push('systemAdminHomaPage');
+		  },
 		AddSystemAdmin: function (systemAdminDTO) {
 			if(this.password_confirmed!=this.systemAdminDTO.password){
 					alert( 'Passwords did not match!');	

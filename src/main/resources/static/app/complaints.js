@@ -22,7 +22,11 @@ Vue.component("complaints", {
     },
     beforeMount() {
         axios
-            .get('/complaint/getAllComplaintsAnswered')
+            .get('/complaint/getAllComplaintsAnswered',{
+              headers: {
+                'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+              }
+            })
             .then(response => {
                 this.complaintsList = response.data
             })
@@ -30,7 +34,11 @@ Vue.component("complaints", {
             })
 
             axios
-            .get('/complaint/getAllComplaintsNotAnswered')
+            .get('/complaint/getAllComplaintsNotAnswered',{
+              headers: {
+                'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+              }
+            })
             .then(response => {
                 this.complaintsListNotAnswered = response.data
             })
@@ -97,6 +105,8 @@ Vue.component("complaints", {
                                               </div>			     
 		                                 </div>  
                                     </div>
+                                    <button id="Close" type="button" class="btn1 btn-info btn-lg margin form-control" data-toggle="modal" v-on:click="close()" >Go back</button>
+
                                 </div>
 
 
@@ -155,7 +165,11 @@ Vue.component("complaints", {
        
         Text: function (id) {
             axios
-            .get('/complaint/getById/' + id)
+            .get('/complaint/getById/' + id,{
+              headers: {
+                'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+              }
+              })
             .then(response => {
                 this.complaint = response.data
             })
@@ -165,13 +179,19 @@ Vue.component("complaints", {
             $('#myModalText').modal('show');
 
 
+        },  close:function(){
+          this.$router.push('systemAdminHomaPage');
         },
         Answer:function(id){
           $('#myModalAnswer').modal('show');
 
 
           axios
-          .get('/complaint/getById/' + id)
+          .get('/complaint/getById/' + id,{
+            headers: {
+              'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+            }
+            })
           .then(response => {
             this.complaint1 = response.data
           })
@@ -205,7 +225,11 @@ Vue.component("complaints", {
           })
 */
           await axios
-          .post('/complaintAndAnswer/saveComplaintAndAnswer/',this.complaintAnswerDTO)
+          .post('/complaintAndAnswer/saveComplaintAndAnswer/',this.complaintAnswerDTO,{
+						headers: {
+							'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+						}
+					})
           .then(response => {
               this.complaint = response.data
               location.reload();

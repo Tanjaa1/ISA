@@ -90,4 +90,5 @@ public class UserController {
 		userService.saveUserByDermatologist(user);
 	return new ResponseEntity<>(user, HttpStatus.CREATED);
 	}
+	
 }

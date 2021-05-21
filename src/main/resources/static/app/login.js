@@ -167,10 +167,8 @@ Vue.component("Login", {
 						alert("Username or password are wrong, please try again!")
 						return
 					}
-					alert(this.token)
 					localStorage.setItem('token', this.token);
 					localStorage.setItem('isLogged', true);
-					this.Redirect(response.data.role)
 
 					if (response.data.role == "ROLE_PATIENT") {
 						axios
@@ -184,6 +182,7 @@ Vue.component("Login", {
 							this.idPatient = response.data
 							localStorage.setItem('userId', this.idPatient.id)
 							alert('pacijent')
+							
 						})
 						.catch(error => {
 							alert("Username or password are wrong, please try again!")
@@ -201,6 +200,15 @@ Vue.component("Login", {
 							this.idSystemAdmin = response.data
 							localStorage.setItem('userId', this.idSystemAdmin.id)
 							alert('systemAdmin')
+							alert(this.idSystemAdmin.emailComfirmed)
+
+							if(this.idSystemAdmin.emailComfirmed==false){
+								alert("Please comfirme your registration by email")
+								return
+							}else{
+								this.Redirect(response.data.role)
+
+							}
 
 						})
 						.catch(error => {
@@ -218,6 +226,14 @@ Vue.component("Login", {
 							this.idPharmacyAdmin = response.data
 							localStorage.setItem('userId', this.idPharmacyAdmin.id)
 							alert('pharmacyAdmin')
+							
+							if(this.idPharmacyAdmin.emailComfirmed==false){
+								alert("Please comfirme your registration by email")
+								return
+							}else{
+								this.Redirect(response.data.role)
+
+							}
 						})
 						.catch(error => {
 							alert("Username or password are wrong, please try again!")
@@ -235,7 +251,14 @@ Vue.component("Login", {
 							this.idPharmacist= response.data
 							localStorage.setItem('userId', this.idPharmacist.id)
 							alert('pharmacist')
+							if(this.idPharmacist.emailComfirmed==false){
+								alert("Please comfirme your registration by email")
+								return
+							}else{
+								this.Redirect(response.data.role)
 
+							}
+							
 						})
 						.catch(error => {
 							alert("Username or password are wrong, please try again!")
@@ -253,6 +276,13 @@ Vue.component("Login", {
 							this.idDermatologist = response.data
 							localStorage.setItem('userId', this.idDermatologist.id)
 							alert('dermatologist')
+							if(this.idDermatologist.emailComfirmed==false){
+								alert("Please comfirme your registration by email")
+								return
+							}else{
+								this.Redirect(response.data.role)
+
+							}
 
 						})
 						.catch(error => {
@@ -271,12 +301,21 @@ Vue.component("Login", {
 							this.idSupplier = response.data
 							localStorage.setItem('supplierId', this.idSupplier.id)
 							('supplier')
+							if(this.idSupplier.emailComfirmed==false){
+								alert("Please comfirme your registration by email")
+								return
+							}else{
+								this.Redirect(response.data.role)
+
+							}
 						})
 						.catch(error => {
 							alert("Username or password are wrong, please try again!")
 
 						})
 					}
+
+
 				})
 				.catch(error => {
 				})

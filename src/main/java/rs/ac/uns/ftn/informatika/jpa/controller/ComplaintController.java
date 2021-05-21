@@ -7,6 +7,7 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -42,7 +43,7 @@ public class ComplaintController {
 	return new ResponseEntity<>(complaintDTO, HttpStatus.CREATED);
 	}
     
-
+	@PreAuthorize("hasRole('ADMIN')")
 	@GetMapping(value = "/getAllComplaintsAnswered")
 	public List<ComplaintDTO> getAllComplaintsAnswered() {
 		List<ComplaintDTO> codes =complaintService.getAllComplaintsAnswered();
@@ -53,14 +54,14 @@ public class ComplaintController {
 		List<ComplaintDTO> codes =complaintService.getAllComplaints();
 		return codes;
 	}
-
+	@PreAuthorize("hasRole('ADMIN')")
 	@GetMapping(value = "/getAllComplaintsNotAnswered")
 	public List<ComplaintDTO> getAllComplaintsNotAnswered() {
 		List<ComplaintDTO> codes =complaintService.getAllComplaintsNotAnswered();
 		return codes;
 	}
 
-	
+	@PreAuthorize("hasRole('ADMIN')")
 	@GetMapping(value = "/getById/{id}")
 	public ComplaintDTO getById(@PathVariable Long id) {
 		ComplaintDTO complaintDTO =complaintService.getById(id);
