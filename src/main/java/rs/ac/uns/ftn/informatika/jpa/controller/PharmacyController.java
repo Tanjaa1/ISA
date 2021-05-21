@@ -64,9 +64,9 @@ public class PharmacyController {
 	}
 
 	@PutMapping(value = "/update")
-	public ResponseEntity<Pharmacy> update(@RequestBody Pharmacy pharmacy) throws Exception{
+	public ResponseEntity<PharmacyDTO> update(@RequestBody Pharmacy pharmacy) throws Exception{
 		pharmacyService.update(pharmacy);
-	return new ResponseEntity<>(pharmacy, HttpStatus.CREATED);
+	return new ResponseEntity<>(new PharmacyDTO(pharmacy), HttpStatus.CREATED);
 	}
 
 	@GetMapping(value = "/getAllPharmacies")
@@ -87,8 +87,8 @@ public class PharmacyController {
 	}
 
 	@GetMapping(value = "/getByName/{name}")
-	public ResponseEntity<Pharmacy> getByName(@PathVariable String name) {
-		Pharmacy pharmacy = pharmacyService.getByName(name);
+	public ResponseEntity<PharmacyDTO> getByName(@PathVariable String name) {
+		PharmacyDTO pharmacy = new PharmacyDTO(pharmacyService.getByName(name));
 		return pharmacy == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(pharmacy);
 	}
 
@@ -138,4 +138,10 @@ public class PharmacyController {
 	}
 	
 	
+	@PutMapping(value = "/subscribeUser/{pID}")
+	public ResponseEntity<Boolean> update(@RequestBody PharmacyDTO pharmacy,@PathVariable Long pID) throws Exception{
+		Boolean response = pharmacyService.subscribeUser(pharmacy,pID);
+	return new ResponseEntity<>(response, HttpStatus.CREATED);
+	}
+
 }

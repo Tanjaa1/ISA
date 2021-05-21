@@ -20,6 +20,9 @@ public interface IPharmacyRepository extends JpaRepository<Pharmacy, Long> {
     @Query("SELECT u FROM Pharmacy u WHERE u.Name like ?1")
     public Pharmacy getByName(String name);
     
+    @Query("SELECT p FROM Pharmacy p WHERE p.Id = ?1")
+    public Pharmacy getById(Long Id);
+
     @Query("SELECT distinct ph FROM Pharmacy ph,Counseling c,Patient p WHERE c.Pharmacy=ph.Id and c.Patient=p.Id and p.Id=?1")
     public List<Pharmacy> getPharmaciesFromCounseling(Long id);
 

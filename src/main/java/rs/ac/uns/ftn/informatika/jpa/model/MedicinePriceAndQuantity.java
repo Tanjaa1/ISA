@@ -23,7 +23,7 @@ public class MedicinePriceAndQuantity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long Id;
 	
-	@OneToOne(cascade = CascadeType.MERGE)
+	@OneToOne(cascade = {CascadeType.DETACH,CascadeType.PERSIST,CascadeType.REFRESH,CascadeType.REMOVE})
     @JoinColumn(name = "Medicine_id", referencedColumnName = "Id")
 	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	private Medicine Medicine;

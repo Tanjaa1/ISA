@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import rs.ac.uns.ftn.informatika.jpa.dto.ExaminationDTO;
 import rs.ac.uns.ftn.informatika.jpa.validator.CustomAnnotation;
 
 @Entity
@@ -96,6 +97,21 @@ public class Examination {
 		IsCanceled = isCanceled;
 		PriceWithDiscount=priceWithDiscount;
 	}
+
+
+	public Examination(ExaminationDTO ex) {
+		super();
+		this.id = ex.getId();
+		Report = ex.getReport();
+		StartTime = ex.getStartTime();
+		Price = ex.getPrice();
+		this.isDone = ex.getIsDone();
+		Patient = new Patient(ex.getPatient());
+		Dermatologist = new Dermatologist(ex.getDermatologist());
+		Pharmacy = new Pharmacy(ex.getPharmacy());
+		IsCanceled = ex.getIsCanceled();
+	}
+
 	public Long getId() {
 		return id;
 	}

@@ -12,9 +12,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -62,6 +64,11 @@ public class MedicineController {
   	}
 	@PostMapping(value = "/saveMedicinePriceAndQuantity")
 	public ResponseEntity<MedicinePriceAndQuantity> saveMedicinePriceAndQuantity(@RequestBody MedicinePriceAndQuantityDTO medicineDTO) throws Exception{
+		return null;
+	}
+
+	@PutMapping(value = "/saveMedicinePriceAndQuantity")
+	public ResponseEntity<MedicinePriceAndQuantity> updatePriceAndQuantity(@RequestBody MedicinePriceAndQuantityDTO medicineDTO) throws Exception{
 		return null;
 	}
 
@@ -123,6 +130,7 @@ public class MedicineController {
 		List<MedicineForSearch> medicineDTOs = medicineService.filtrationMedicineOnPrescription(medicineName);
 		return medicineDTOs == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(medicineDTOs);
 	}
+
 	@GetMapping(value = "/filtrationMedicineNotOnPrescription/{medicineName}")
 	public ResponseEntity<List<MedicineForSearch>> filtrationMedicineNotOnPrescription(@PathVariable String medicineName) {
 		List<MedicineForSearch> medicineDTOs = medicineService.filtrationMedicineNotOnPrescription(medicineName);
@@ -181,8 +189,29 @@ public class MedicineController {
 		List<PharmacyQRDTO> medicineDTOs = medicineService.sortByPharmacyAddressQRDESC(path,patientId);
 		return medicineDTOs == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(medicineDTOs);
 	}
+	
+	@GetMapping(value = "/getAllAR")
+	public ResponseEntity<List<MedicineDTO>> getAllAR() {
+	List<MedicineDTO> retVal = medicineService.getAllAR();
+		return retVal == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(retVal);
+	}
 
+	@DeleteMapping(value = "/deleteFromPricelist/{Id}/{pharmacyID}")
+	  public boolean deleteFromPricelist(@PathVariable Long Id,@PathVariable Long pharmacyID) throws Exception{
+		  return medicineService.deleteMedicineFromPricelist(Id,pharmacyID);
+	}
 
+	@PostMapping(value = "/addToPricelist/{Pharmacy}")
+	public ResponseEntity<MedicinePriceAndQuantity> addToPricelist(@RequestBody MedicinePriceAndQuantity medicineDTO,@PathVariable Long Pharmacy) throws Exception{
+		return  medicineService.addToPricelist(medicineDTO,Pharmacy);
+
+	}
+
+	@PostMapping(value = "/addMedicinePriceAndQuantity")
+	public ResponseEntity<MedicinePriceAndQuantity> addMedicinePriceAndQuantity(@RequestBody MedicinePriceAndQuantity medicineDTO) throws Exception{
+		return  medicineService.savePriceAndQuantity(medicineDTO);
+
+	}
 
 }
 

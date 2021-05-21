@@ -27,7 +27,7 @@ Vue.component("pharmacistVacationRequest", {
             this.vacation.dateStart=document.getElementById("dateS").value
             this.vacation.dateEnd=document.getElementById("dateE").value
 			axios
-				.post("/vacation/addPharmacistVacation/"+'4',this.vacation)
+				.post("/vacation/addPharmacistVacation/"+'41',this.vacation)
 				.then(response => {
                     alert("Your request has been sent!")
 				})

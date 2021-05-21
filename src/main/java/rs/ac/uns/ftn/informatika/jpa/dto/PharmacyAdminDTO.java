@@ -18,8 +18,9 @@ public class PharmacyAdminDTO {
 	private String Description;
 	private Boolean EmailComfirmed;
 	private Boolean FirstTimeLogin;
-    private String UserName;
+    private String Username;
 	private PharmacyDTO Pharmacy;
+
 
     public String getEmail() {
         return Email;
@@ -109,12 +110,12 @@ public class PharmacyAdminDTO {
         FirstTimeLogin = firstTimeLogin;
     }
 
-    public String getUserName() {
-        return UserName;
+    public String getUsername() {
+        return Username;
     }
 
-    public void setUserName(String userName) {
-        UserName = userName;
+    public void setUsername(String userName) {
+        Username = userName;
     }
 
     public PharmacyDTO getPharmacy() {
@@ -124,6 +125,7 @@ public class PharmacyAdminDTO {
     public void setPharmacy(PharmacyDTO pharmacy) {
         Pharmacy = pharmacy;
     }
+
 
     public PharmacyAdminDTO(Long id,String email, String password, String name, String surname, String address, String city,
             String country, String phoneNumber, String description, Boolean emailComfirmed, Boolean firstTimeLogin,
@@ -147,6 +149,17 @@ public class PharmacyAdminDTO {
             String country, String phoneNumber, String description, Boolean emailComfirmed, Boolean firstTimeLogin,
             String userName, PharmacyDTO pharmacy) {
         
+    public Long getId() {
+        return Id;
+    }
+
+    public void setId(Long id) {
+        Id = Id;
+    }
+
+    public PharmacyAdminDTO(String email, String password, String name, String surname, String address, String city,
+            String country, String phoneNumber, String description, Boolean emailComfirmed, Boolean firstTimeLogin,
+            String username, PharmacyDTO pharmacy,Long id) {
         Email = email;
         Password = password;
         Name = name;
@@ -158,8 +171,9 @@ public class PharmacyAdminDTO {
         Description = description;
         EmailComfirmed = emailComfirmed;
         FirstTimeLogin = firstTimeLogin;
-        UserName = userName;
+        Username = username;
         Pharmacy = pharmacy;
+        Id = id;
     }
     
     public PharmacyAdminDTO(PharmacyAdmin pa) {
@@ -175,8 +189,9 @@ public class PharmacyAdminDTO {
         Description = pa.getDescription();
         EmailComfirmed = pa.getEmailComfirmed();
         FirstTimeLogin = pa.getFirstTimeLogin();
-        UserName = pa.getUsername();
-       // Pharmacy = pa.;
+        Username = pa.getUsername();
+        Pharmacy = new PharmacyDTO(pa.getPharmacy());
+        Id = pa.getId();
     }
 	public String fullName(){
 		return Name+" "+Surname;

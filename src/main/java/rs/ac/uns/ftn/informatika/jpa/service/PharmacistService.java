@@ -3,6 +3,8 @@ package rs.ac.uns.ftn.informatika.jpa.service;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,10 +18,15 @@ import rs.ac.uns.ftn.informatika.jpa.dto.PharmacyDTO;
 import rs.ac.uns.ftn.informatika.jpa.model.Markk;
 import rs.ac.uns.ftn.informatika.jpa.model.Patient;
 import rs.ac.uns.ftn.informatika.jpa.model.Pharmacist;
+import rs.ac.uns.ftn.informatika.jpa.model.Pharmacy;
+import rs.ac.uns.ftn.informatika.jpa.repository.Interface.ICounselingRpository;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IMarkRepository;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IPatientRepository;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IPharmacistRepository;
+import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IPharmacyRepository;
+import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IWorkTimeRepository;
 import rs.ac.uns.ftn.informatika.jpa.service.Interface.IPharmacistService;
+import rs.ac.uns.ftn.informatika.jpa.util.WorkingTime;
 
 @Service
 public class PharmacistService implements IPharmacistService {
@@ -32,6 +39,13 @@ public class PharmacistService implements IPharmacistService {
 	private IMarkRepository markRepository;
 	@Autowired
 	private EmailService emailService;
+	@Autowired
+	private IPharmacyRepository pharmacyRepository;
+	@Autowired
+	private IWorkTimeRepository wtrepository;
+	@Autowired
+	private ICounselingRpository counselingRpository;
+
 	private Logger logger = LoggerFactory.getLogger(ResrvationService.class);
 
 	public Pharmacist findOne(Long id) {
@@ -108,7 +122,7 @@ public class PharmacistService implements IPharmacistService {
 		Long pharmacistId=0L;
 		for (Pharmacist patient2 : patients) {
 			if(patient2.getUsername().equals(pharmacist.getUsername()))
-			pharmacistId=patient2.getId();
+				pharmacistId=patient2.getId();
 		}
 		pharmacist.setId(pharmacistId);
 		emailSender(pharmacist);
@@ -132,7 +146,7 @@ public class PharmacistService implements IPharmacistService {
         }
         return resultList;	}
 
-		public List<PharmacyDTO> gPharmaciesByPharmaciest(LocalDateTime startTime){
+	public List<PharmacyDTO> gPharmaciesByPharmaciest(LocalDateTime startTime){
 			List<PharmacyDTO> pharmacyDTOs = new ArrayList<PharmacyDTO>();
 			List<Pharmacist> allPharmacists = pharmacistRepository.findAll();
 			List<Pharmacist> pharmacistsExamination = pharmacistRepository.gPharmacistBySartTime(startTime);
@@ -144,7 +158,7 @@ public class PharmacistService implements IPharmacistService {
 			return pharmacyDTOs;
 		}
 
-		public List<PharmacistDTO> getPharmacistByPharmacyId(Long id) {
+	public List<PharmacistDTO> getPharmacistByPharmacyId(Long id) {
 			List<PharmacistDTO> pharmacistDTOs = new ArrayList<PharmacistDTO>();
 			List<Pharmacist> pharmacists = pharmacistRepository.gPharmacistsByPharmacyId(id);
 			for (Pharmacist pharmacist : pharmacists) {
@@ -153,7 +167,7 @@ public class PharmacistService implements IPharmacistService {
 			return pharmacistDTOs;
 		}
 		
-		public List<PharmacistDTO> getPharmacists(Long id) {
+	public List<PharmacistDTO> getPharmacists(Long id) {
 			List<PharmacistDTO> pharmacistDTOs = new ArrayList<>();
 			List<Pharmacist> pharmacists = pharmacistRepository.getPharmacists(id);
 			for (Pharmacist pharmacist : pharmacists) {
@@ -162,7 +176,7 @@ public class PharmacistService implements IPharmacistService {
 			return pharmacistDTOs;
 		}
 
-		public PharmacistDTO addMark(Pharmacist pharmacist, Integer medicinesMark, Long id) {
+	public PharmacistDTO addMark(Pharmacist pharmacist, Integer medicinesMark, Long id) {
 			Pharmacist pharmacist2 = pharmacistRepository.getOne(pharmacist.getId());
 			Patient patient = patientRepository.getOne(id);
 			boolean i = false;
@@ -197,4 +211,92 @@ public class PharmacistService implements IPharmacistService {
 			return patieResult;
 			}
 
+	public Pharmacist addNewPharmacistToPharmacy(Pharmacist dermatologist){
+
+			return pharmacistRepository.save(dermatologist);
+	
+		}
+
+	public Boolean addExistingPharmacistToPharmacy(Long dId, Long pId){
+			try{
+				Pharmacy pharmacy = pharmacyRepository.getById(pId);
+				Pharmacist pharmacist = pharmacistRepository.getOne(dId);
+				pharmacist.setPharmacy(pharmacy);
+				pharmacistRepository.save(pharmacist);
+				return true;
+			}
+			catch(Exception e){
+				return false;
+			}
+		}
+	
+	public String checkUserAndEmail(String username , String email) throws Exception {
+			List<Pharmacist> pharmacists=pharmacistRepository.findAll();
+			String retVal = "OK";
+			for (Pharmacist p : pharmacists) {
+				if(p.getUsername().equals(username)){
+					retVal = "Username";
+					return  retVal;
+				}
+				if(p.getEmail().equals(email)){
+				  retVal = "Email";
+				  return  retVal;
+			   }			
+			}
+			return retVal;
+		}
+
+	public List<PharmacistDTO> getUnemployedPharmacists(Long id) {
+			List<PharmacistDTO> pharmacistDTOs = new ArrayList<>();
+			List<Pharmacist> pharmacists = pharmacistRepository.findAll();
+			for (Pharmacist pharmacist : pharmacists) {
+					if(pharmacist.getPharmacy().getId().compareTo(id)!=0)
+						pharmacistDTOs.add(new PharmacistDTO(pharmacist));
+				}
+			return pharmacistDTOs;
+		}
+
+
+	public Boolean checkIfWorktimeValid(LocalDateTime start,LocalDateTime end,Long Id){
+		WorkingTime workingTime = new WorkingTime();
+		workingTime.setTimeEnd(end);
+		workingTime.setTimeStart(start);
+
+		Pharmacist pharmacist = pharmacistRepository.getOne(Id);
+		if(pharmacist.getWorkingSchedule().isEmpty())
+			return true;
+		for(WorkingTime w: pharmacist.getWorkingSchedule())
+				if(workingTime.getTimeStart().compareTo(w.getTimeStart()) < 0 && workingTime.getTimeEnd().compareTo(w.getTimeStart()) > 0 && workingTime.getTimeEnd().compareTo(w.getTimeEnd()) < 0
+				|| workingTime.getTimeStart().compareTo(w.getTimeStart()) > 0 && workingTime.getTimeEnd().compareTo(w.getTimeEnd()) > 0 && workingTime.getTimeStart().compareTo(w.getTimeEnd()) <0
+				|| 	workingTime.getTimeStart().compareTo(w.getTimeStart()) > 0  && workingTime.getTimeEnd().compareTo(w.getTimeEnd()) < 0
+				|| workingTime.getTimeStart().compareTo(w.getTimeStart()) < 0  && workingTime.getTimeEnd().compareTo(w.getTimeEnd()) > 0
+				|| workingTime.getTimeStart().compareTo(w.getTimeStart()) == 0  && workingTime.getTimeEnd().compareTo(w.getTimeEnd()) == 0
+				|| workingTime.getTimeStart().compareTo(w.getTimeStart()) == 0  && workingTime.getTimeEnd().compareTo(w.getTimeEnd()) < 0
+				|| workingTime.getTimeStart().compareTo(w.getTimeStart()) == 0  && workingTime.getTimeEnd().compareTo(w.getTimeEnd()) > 0)
+					return false;
+			return true;
+	}
+
+	public Boolean addWorktimeToPharmacist(Long pId,WorkingTime wt){
+		Pharmacist pharmacist = pharmacistRepository.getOne(pId);
+		if(checkIfWorktimeValid(wt.getTimeStart(), wt.getTimeEnd(),pId)){
+				wtrepository.save(wt);
+				Set<WorkingTime> wtS = pharmacist.getWorkingSchedule();
+				wtS.add(wt);
+				pharmacist.setWorkingSchedule(wtS);	
+				pharmacistRepository.save(pharmacist);
+				return true;
+		}
+		return false;
+	}
+
+	public Boolean removeFromPharmacy(Long pID){
+		if(counselingRpository.getUpcomingCounselingByPharmacist(pID).isEmpty()){
+			Pharmacist p = pharmacistRepository.getOne(pID);
+			p.setPharmacy(null);
+			pharmacistRepository.save(p);
+			return true;
+		}
+		else return false;
+	}
 }

@@ -15,15 +15,17 @@ public class OrderDTO {
 	private Long Id;
 	private Set<MedicineQuantityDTO> Orders = new HashSet<MedicineQuantityDTO>();
 	private Date DueDate;
-	private PharmacyAdmin PharmacyAdmin;
+	private PharmacyAdminDTO PharmacyAdmin;
+	private Boolean IsProcessed;
 	
     public OrderDTO(){}
 
-	public OrderDTO(long id, Set<MedicineQuantityDTO> orders, Date dueDate,PharmacyAdmin pharmacyAdmin) {
+	public OrderDTO(long id, Set<MedicineQuantityDTO> orders, Date dueDate,PharmacyAdminDTO pharmacyAdmin,Boolean isProcessed) {
 		this.Id = id;
 		this.Orders = orders;
 		DueDate = dueDate;
 		PharmacyAdmin = pharmacyAdmin;
+		IsProcessed = isProcessed;
 	}
 
     public OrderDTO(Order order) {
@@ -35,7 +37,8 @@ public class OrderDTO {
 		}
 		this.Orders =result;
 		DueDate = order.getDueDate();
-		PharmacyAdmin =order.getPharmacyAdmin();
+		PharmacyAdmin =new PharmacyAdminDTO(order.getPharmacyAdmin());
+		IsProcessed = order.getIsProcessed();
 	}
 
 	public long getId() {
@@ -56,11 +59,16 @@ public class OrderDTO {
 	public void setDueDate(Date dueDate) {
 		DueDate = dueDate;
 	}
-	public PharmacyAdmin getPharmacyAdmin() {
+	public PharmacyAdminDTO getPharmacyAdmin() {
 		return PharmacyAdmin;
 	}
-	public void setPharmacyAdmin(PharmacyAdmin pharmacyAdmin) {
+	public void setPharmacyAdmin(PharmacyAdminDTO pharmacyAdmin) {
 		PharmacyAdmin = pharmacyAdmin;
 	}
-
+	public Boolean getIsProcessed() {
+		return IsProcessed;
+	}
+	public void setIsProcessed(Boolean isProcessed) {
+		this.IsProcessed = isProcessed;
+	}
 }

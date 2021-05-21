@@ -21,21 +21,21 @@ Vue.component("createExaminationDermatologist", {
 	},
 	beforeMount() {
             axios
-            .get('/patient/getPatientByDermatologistExamination/' + '6') 
+            .get('/patient/getPatientByDermatologistExamination/' + '61') 
             .then(response => {
                 this.patients = response.data
             })
             .catch(error => {
             })
             axios
-            .get('/examination/getFreeExaminationByDermatologist/' + '6')
+            .get('/examination/getFreeExaminationByDermatologist/' + '61')
             .then(response => {
                 this.future = response.data
             })
             .catch(error => {
             })
             axios
-              .get('/dermatologist/getDermatologistById/' + '6') 
+              .get('/dermatologist/getDermatologistById/' + '61') 
               .then(response => {
                   this.physician = response.data
               })
@@ -117,13 +117,13 @@ Vue.component("createExaminationDermatologist", {
 	`,
 	methods: {
         Schedule: async function(f){
-            f.patient=this.examination.patient
+            f.patient=this.patient
             var fut=[]
             await axios.put('/examination/schedule',f)
             .then(function (response) {
                 alert("The examination was successfully scheduled!")
                 axios
-                .get('/examination/getFreeExaminationByDermatologist/' + '6')
+                .get('/examination/getFreeExaminationByDermatologist/' + '61')
                 .then(function (odg){
                     this.future=odg.response
                     location.reload()

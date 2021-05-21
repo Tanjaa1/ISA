@@ -157,6 +157,19 @@ public class PharmacyService implements IPharmacyService {
         return null;
 	}
 
+    public Boolean subscribeUser(PharmacyDTO pharmacy,Long patientId) {
+        Pharmacy p = pharmacyRepository.getById(pharmacy.getId());
+        Set<Patient> su = p.getSubscribedUsers();
+        for (Patient patient : su) {
+            if(patient.getId().longValue() == patientId.longValue())
+                return false;
+        }
+            su.add(patientRepository.getOne(patientId));
+            p.setSubscribedUsers(su);
+            pharmacyRepository.save(p);
+            return true;
+	}
+
     private Medicine findMedicine(String name){
         List<Medicine> medicines = medicineRepository.findAll();
         Medicine medicineFind = new Medicine();
@@ -244,7 +257,7 @@ public class PharmacyService implements IPharmacyService {
         Pharmacy p=update(pharmacy);
             try{
                 if(quantity<2)
-                pharmacyAdminService.sendingMail(pharmacy.getName(), medicine);
+                    pharmacyAdminService.sendingMail(pharmacy.getName(), medicine);
             }catch(Exception e){
             }
             finally{

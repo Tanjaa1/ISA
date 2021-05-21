@@ -2,7 +2,6 @@ package rs.ac.uns.ftn.informatika.jpa.dto;
 
 
 import rs.ac.uns.ftn.informatika.jpa.model.MedicinePriceAndQuantity;
-import rs.ac.uns.ftn.informatika.jpa.model.Medicine;
 
 public class MedicinePriceAndQuantityDTO {
 

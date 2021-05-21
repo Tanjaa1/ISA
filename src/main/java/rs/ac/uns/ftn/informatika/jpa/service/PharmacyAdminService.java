@@ -3,6 +3,8 @@ package rs.ac.uns.ftn.informatika.jpa.service;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import rs.ac.uns.ftn.informatika.jpa.dto.PharmacyAdminDTO;
 import rs.ac.uns.ftn.informatika.jpa.model.Medicine;
 import rs.ac.uns.ftn.informatika.jpa.model.PharmacyAdmin;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IPharmacyAdminRepository;
@@ -32,11 +35,48 @@ public class PharmacyAdminService implements IPharmacyAdminService {
 		Long patientId=0L;
 		for (PharmacyAdmin patient2 : patients) {
 			if(patient2.getUsername().equals(systemAdmin.getUsername()))
-			patientId=patient2.getId();
+			    patientId=patient2.getId();
 		}
 		systemAdmin.setId(patientId);
 		emailSender(systemAdmin);       
          return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    public String updateAdmin(PharmacyAdminDTO Admin) throws Exception {
+      PharmacyAdmin pAdmin = new PharmacyAdmin(Admin);
+      PharmacyAdmin pa = pharmacyAdminRepository.getOne(pAdmin.getId());
+      if(pa.getEmail().equalsIgnoreCase(pAdmin.getEmail()) && pa.getUsername().equals(pAdmin.getUsername())){
+            pharmacyAdminRepository.save(pAdmin);
+            return "OK";
+      }
+      else if(pa.getEmail().equalsIgnoreCase(pAdmin.getEmail()) && !pa.getUsername().equals(pAdmin.getUsername())){
+        List<PharmacyAdmin> admins =  pharmacyAdminRepository.getAll();
+        for (PharmacyAdmin pharmacyAdmin : admins) {
+            if(pAdmin.getUsername().equals(pharmacyAdmin.getUsername()))
+                return "USERNAME";
+        }
+         pharmacyAdminRepository.save(pAdmin);
+         return "OK";
+      }
+      else if(!pa.getEmail().equalsIgnoreCase(pAdmin.getEmail()) && pa.getUsername().equals(pAdmin.getUsername())){
+        List<PharmacyAdmin> admins =  pharmacyAdminRepository.getAll();
+        for (PharmacyAdmin pharmacyAdmin : admins) {
+            if(pAdmin.getEmail().equals(pharmacyAdmin.getEmail()))
+                return "EMAIL";
+        }
+         pharmacyAdminRepository.save(pAdmin);
+         return "OK";
+      }
+      else if(!pa.getEmail().equalsIgnoreCase(pAdmin.getEmail()) && !pa.getUsername().equals(pAdmin.getUsername())){
+        List<PharmacyAdmin> admins =  pharmacyAdminRepository.getAll();
+        for (PharmacyAdmin pharmacyAdmin : admins) {
+            if(pAdmin.getEmail().equals(pharmacyAdmin.getEmail()) || pAdmin.getUsername().equals(pharmacyAdmin.getUsername()) )
+                return "EMAILUSERNAME";
+        }
+        pharmacyAdminRepository.save(pAdmin);
+        return "OK";
+      }
+      return "IDK";
     }
 
     public List<PharmacyAdmin> getAll() {

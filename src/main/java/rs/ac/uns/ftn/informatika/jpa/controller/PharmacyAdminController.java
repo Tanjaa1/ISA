@@ -33,12 +33,24 @@ public class PharmacyAdminController {
 	return new ResponseEntity<>(pharmacyAdminDTO, HttpStatus.CREATED);
 	}
 
+	@PutMapping(value = "/updateAdmin")
+	public ResponseEntity<String> updateAdmin(@RequestBody PharmacyAdminDTO pharmacyAdminDTO) throws Exception{
+	return new ResponseEntity<>(pharmacyAdminService.updateAdmin(pharmacyAdminDTO), HttpStatus.CREATED);
+	}
+
+
 	@GetMapping(value = "/getAllPharmacyAdinUsernames")
 	public ResponseEntity<List<String>> getAllPharmacyAdinUsernames() {
 		List<String> usernames =pharmacyAdminService.getAllSystemAdminUsernames();
 		return usernames == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(usernames);
 	}
 	@PreAuthorize("hasRole('ADMIN')")
+	@GetMapping(value = "/getById/{id}")
+	public ResponseEntity<PharmacyAdminDTO> getPatientById(@PathVariable Long id) {
+		PharmacyAdminDTO pharmacyAdmin = new PharmacyAdminDTO(pharmacyAdminService.findOne(id));
+		return pharmacyAdmin == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(pharmacyAdmin);
+	}
+
 	@GetMapping(value = "/isUsernameValid/{username}")
 	public ResponseEntity<Boolean> isUsernameValid(@PathVariable String username) {
 		Boolean isValid = pharmacyAdminService.isUsernameValid(username);

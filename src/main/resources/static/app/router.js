@@ -1,3 +1,4 @@
+
 const Browse = { template: '<browse></browse>' }
 const Registration = { template: '<registration></registration>' }
 const Login = { template: '<login></login>' }
@@ -54,6 +55,7 @@ const SuppliersOffers= { template: '<suppliersOffers></suppliersOffers>' }
 const GiveOffers= { template: '<giveOffers></giveOffers>' } 
 
 const LoyaltyProgramme= { template: '<loyaltyProgramme></loyaltyProgramme>' } 
+const AdministratorHomePage= { template: '<administratorHomePage></administratorHomePage>' } 
 
 
 
@@ -85,6 +87,15 @@ const CreateExaminationDermatologist = { template: '<createExaminationDermatolog
 const CreateCounselingPharmacist = { template: '<createCounselingPharmacist></createCounselingPharmacist>' }
 const NewActionOrPromotion = { template: '<newActionOrPromotion></newActionOrPromotion>' }
 
+const AdministratorAccountInfo = { template: '<administratorAccountInfo></administratorAccountInfo>' }
+const AdministratorExaminations = { template: '<administratorExaminations></administratorExaminations>' }
+const AdministratorEmployed = { template: '<administratorEmployed></administratorEmployed>' }
+const AdministratorMedicine = { template: '<administratorMedicine></administratorMedicine>' }
+
+const PharmacyHomePage = { template: '<pharmacyHomePage></pharmacyHomePage>' }
+const PharmacyEmployees = { template: '<pharmacyEmployees></pharmacyEmployees>' }
+const PharmacyMedicine = { template: '<pharmacyMedicine></pharmacyMedicine>' }
+
 
 const CalendarD = { template: '<calendarD></calendarD>' }
 const CalendarP = { template: '<calendarP></calendarP>' }
@@ -114,6 +125,67 @@ const router = new VueRouter({
 	    	components: {
 				pageHeader: PatientHeader,
 				content: PatientHomePage
+			}
+		},
+		{ 
+	    	path: '/administratorHomePage', 
+	    	name : 'administratorHomePage', 
+	    	components: {
+				pageHeader: PatientHeader,
+				content: AdministratorHomePage
+			}
+		},
+		{ 
+	    	path: '/administratorAccountInfo', 
+	    	name : 'administratorAccountInfo', 
+	    	components: {
+				pageHeader: PatientHeader,
+				content: AdministratorAccountInfo
+			}
+		},
+		{ 
+	    	path: '/administratorExaminations', 
+	    	name : 'administratorExaminations', 
+	    	components: {
+				pageHeader: PatientHeader,
+				content: AdministratorExaminations
+			}
+		},
+		{ 
+	    	path: '/administratorEmployed', 
+	    	name : 'administratorEmployed', 
+	    	components: {
+				pageHeader: PatientHeader,
+				content: AdministratorEmployed
+			}
+		},
+		{ 
+	    	path: '/administratorMedicine', 
+	    	name : 'administratorMedicine', 
+	    	components: {
+				pageHeader: PatientHeader,
+				content: AdministratorMedicine
+			}
+		},
+		{ 
+	    	path: '/pharmacyHomePage', 
+	    	name : 'pharmacyHomePage', 
+	    	components: {
+				content: PharmacyHomePage
+			}
+		},
+		{ 
+	    	path: '/pharmacyMedicine', 
+	    	name : 'pharmacyMedicine', 
+	    	components: {
+				content: PharmacyMedicine
+			}
+		},
+		{ 
+	    	path: '/pharmacyEmployees', 
+	    	name : 'pharmacyEmployees', 
+	    	components: {
+				content: PharmacyEmployees
 			}
 		},
 		{ 

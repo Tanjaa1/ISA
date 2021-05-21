@@ -4,7 +4,6 @@ import java.util.Date;
 
 import rs.ac.uns.ftn.informatika.jpa.enums.EPrescriptionStatus;
 import rs.ac.uns.ftn.informatika.jpa.model.EPrescription;
-import rs.ac.uns.ftn.informatika.jpa.model.Pharmacy;
 
 public class EPrescriptionDTO {
     private MedicinePriceAndQuantityDTO Medicine;

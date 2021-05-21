@@ -58,7 +58,8 @@ public class CouncelingDTO {
         StartTime = counceling.getStartTime();
         EndTime = counceling.getEndTime();
         isDone = counceling.getIsDone();
-        Patient = new PatientDTO(counceling.getPatient());
+		if(counceling.getPatient() != null)
+        	Patient = new PatientDTO(counceling.getPatient());
         Pharmacist = new PharmacistDTO(counceling.getPharmacist());
         Pharmacy = new PharmacyDTO(counceling.getPharmacy());
 		Price=counceling.getPrice();

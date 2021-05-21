@@ -5,12 +5,8 @@ import java.util.Set;
 import rs.ac.uns.ftn.informatika.jpa.enums.LoyaltyCategories;
 import rs.ac.uns.ftn.informatika.jpa.model.ActionOrPromotion;
 import rs.ac.uns.ftn.informatika.jpa.model.Complaint;
-import rs.ac.uns.ftn.informatika.jpa.model.Counseling;
 import rs.ac.uns.ftn.informatika.jpa.model.EPrescription;
-import rs.ac.uns.ftn.informatika.jpa.model.Examination;
 import rs.ac.uns.ftn.informatika.jpa.model.Patient;
-import rs.ac.uns.ftn.informatika.jpa.model.Pharmacy;
-import rs.ac.uns.ftn.informatika.jpa.model.Reservation;
 import rs.ac.uns.ftn.informatika.jpa.model.Penaltys;
 
 public class PatientDTO {

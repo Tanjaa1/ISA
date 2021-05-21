@@ -20,7 +20,7 @@ Vue.component("createCounselingPharmacist", {
 	},
 	beforeMount() {
             axios
-            .get('/patient/getPatientByPharmacistCouseling/' + '5') 
+            .get('/patient/getPatientByPharmacistCouseling/' + '41') 
             .then(response => {
                 this.patients = response.data
             })
@@ -28,7 +28,7 @@ Vue.component("createCounselingPharmacist", {
             })
 
             axios
-              .get('/pharmacist/getPharmacistById/' + '5') 
+              .get('/pharmacist/getPharmacistById/' + '41') 
               .then(response => {
                   this.physician = response.data
               })

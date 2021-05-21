@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import rs.ac.uns.ftn.informatika.jpa.dto.VacationIntervalDTO;
+
 @Entity
 @Table(name="VacationInterval")
 public class VacationInterval {
@@ -44,6 +46,13 @@ public class VacationInterval {
 		Approved = false;
 	}
 
+	public VacationInterval(VacationIntervalDTO v) {
+		super();
+		Id = v.getId();
+		DateStart = v.getDateStart();
+		DateEnd = v.getDateEnd();
+		Approved = v.getApproved();
+	}
 
 	public Long getId() {
 		return Id;

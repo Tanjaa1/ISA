@@ -185,6 +185,8 @@ public class ExaminationService implements IExaminationService {
 		Examination e=new Examination();
         e.setDermatologist(dermatologistRepository.getOne(examination.getDermatologist().getId()));
         e.setPatient(null);
+        e.setIsCanceled(false);
+        e.setIsDone(false);
         e.setPrice(examination.getPrice());
         e.setPharmacy(pharmacyRepository.getOne(examination.getPharmacy().getId()));
         e.setStartTime(examination.getStartTime());
@@ -256,6 +258,7 @@ public class ExaminationService implements IExaminationService {
     }
 
 
+
     private void emailSender(Examination examination)
 	{
 		try {
@@ -291,4 +294,16 @@ public class ExaminationService implements IExaminationService {
         e.setIsDone(false);
         return examinationRepository.save(e);
 	}
+
+    public List<ExaminationDTO> getUpcomingExaminationsByDermatologistAndPharmacy(Long pharmacyId,Long dermatologistId){
+        List<ExaminationDTO> examinationDTOs = new ArrayList<ExaminationDTO>();
+        List<Examination> examinations = examinationRepository.getUpcomingExaminationsByDermatologistAndPharmacy(pharmacyId,dermatologistId);
+
+
+        for(Examination ex : examinations){
+            examinationDTOs.add(new ExaminationDTO(ex));
+        }
+
+        return examinationDTOs;
+    }
 }

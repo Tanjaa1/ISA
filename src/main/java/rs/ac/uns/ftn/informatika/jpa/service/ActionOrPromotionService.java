@@ -40,7 +40,7 @@ public class ActionOrPromotionService implements IActionOrPromotionService {
                resultList.add(new ActionOrPromotionsDTO(actionOrPromotion));
         }
         if(resultList.isEmpty())
-        return null;
+            return null;
     else
         return resultList;
     }
@@ -70,6 +70,17 @@ public class ActionOrPromotionService implements IActionOrPromotionService {
 		}catch( Exception e ){
 			System.out.println("Error sending email: " + e.getMessage());
 		}
+	}
+
+    @Override
+    public List<ActionOrPromotionsDTO> getCurrentActionsAndPromotions(Long pId)
+	{
+        List<ActionOrPromotionsDTO> retVal = new ArrayList<ActionOrPromotionsDTO>();
+        for (ActionOrPromotion aop : actionOrPromotionRepository.getActiveActionsAndPromotionsByPharmacyId(pId)) {
+            retVal.add(new ActionOrPromotionsDTO(aop));
+        }
+
+        return retVal;
 	}
 
     @Override
@@ -113,7 +124,7 @@ public class ActionOrPromotionService implements IActionOrPromotionService {
         }
        
         if(all.isEmpty())
-        return null;
+            return null;
     else
         return all;
 

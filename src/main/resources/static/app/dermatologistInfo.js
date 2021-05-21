@@ -8,7 +8,7 @@ Vue.component("dermatologistInfo", {
 	},
 	beforeMount() {
 			axios
-			.get('/dermatologist/getDermatologistById/' + '6') 
+			.get('/dermatologist/getDermatologistById/' + '61') 
 			.then(response => {
 				this.dermatologist = response.data
 				for(f in this.dermatologist.pharmacies)
@@ -163,7 +163,7 @@ Vue.component("changeDermatologistInfo", {
 	},
 	beforeMount() {
 			axios
-			.get('/dermatologist/getDermatologistById/' + '6') 
+			.get('/dermatologist/getDermatologistById/' + '61') 
 			.then(response => {
 				this.dermatologist = response.data
 				this.id = this.dermatologist.id

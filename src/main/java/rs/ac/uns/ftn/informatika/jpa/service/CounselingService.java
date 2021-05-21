@@ -215,4 +215,16 @@ public class CounselingService implements ICounselingService {
         councelingDTO.add(new CouncelingDTO(counseling));
         return councelingDTO;
 	}
+
+    public List<CouncelingDTO> getUpcomingFreeCounselingByPharmacist(Long id) {
+		List<CouncelingDTO> councelingDTO=new ArrayList<CouncelingDTO>();
+
+		for (Counseling counseling : counselingRepository.getUpcomingFreeCounselingByPharmacist(id))
+            councelingDTO.add(new CouncelingDTO(counseling));
+        return councelingDTO;
+	}
+
+    public CouncelingDTO update(Counseling counseling) {
+        return new CouncelingDTO(counselingRepository.save(counseling));
+	}
 }

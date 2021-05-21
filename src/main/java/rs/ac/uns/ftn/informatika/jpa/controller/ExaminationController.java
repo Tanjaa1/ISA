@@ -159,4 +159,14 @@ public class ExaminationController {
 		Examination e =examinationService.notCome(examination);
 		return e == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : new ResponseEntity<>(HttpStatus.OK);
 	}
+
+	@GetMapping(value = "/getUpcomingFreeExaminations/{idP}/{idD}")
+	public ResponseEntity<List<ExaminationDTO>> getWorkingTimes(@PathVariable Long  idP,@PathVariable Long idD) 
+	{
+		List<ExaminationDTO> examinationDTOs = examinationService.getUpcomingExaminationsByDermatologistAndPharmacy(idP,  idD);
+		return examinationDTOs == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(examinationDTOs);
+	}
+
+
+
 }
