@@ -105,6 +105,7 @@ public class PharmaciestController {
 	public ResponseEntity<PharmacistDTO> getPharmacistByCredentials(@PathVariable String username) {
 		PharmacistDTO patient = new PharmacistDTO(pharmacistService.getPharmacistByCredentials(username));
 		return patient == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(patient);
+	}
 
 
 	@GetMapping(value = "/getByPharmacyId/{id}")

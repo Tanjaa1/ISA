@@ -65,11 +65,6 @@ INSERT INTO public.pharmacist(
 INSERT INTO public.users(
 	id, address, city, country, description, email, email_comfirmed, first_time_login, name, password, phone_number, surname, enabled, last_password_reset_date, username)
 	VALUES (555, 'Jovana Ducica 9', 'Novi Sad', 'Srbija', '', 'sava@gmail.com', false, false, 'Sava', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', '06541111123', 'Savic',true,'2008-11-11 13:23:44','sava');
-	id, address, city, country, description, email, email_comfirmed, first_time_login, name, password, phone_number, surname, username, pharmacy_id)
-	VALUES (41, 'Ticanova 1', 'Ruma', 'Srbija', '', 'ta.drcelic@gmail.com', false, false, 'Maja', 'Majic', '0654431123', 'Majic','majaa', 222);    
-INSERT INTO public.pharmacist(
-	id, address, city, country, description, email, email_comfirmed, first_time_login, name, password, phone_number, surname, username, pharmacy_id)
-	VALUES (51, 'Jovana Ducica 9', 'Novi Sad', 'Srbija', '', 'sava@gmail.com', false, false, 'Sava', 'Savic', '06541111123', 'Savic','sava',111);
 INSERT INTO public.pharmacist(
 	id, address, city, country, description, email, email_comfirmed, first_time_login, name, password, phone_number, surname, username, pharmacy_id)
 	VALUES (111, 'Jovana Ducica 9', 'Novi Sad', 'Srbija', '', 'pera@gmail.com', false, false, 'Pera', 'Peric', '06541111123', 'Peric','pera',111);
@@ -99,12 +94,6 @@ INSERT INTO public.users(
 	id, address, city, country, description, email, email_comfirmed, first_time_login, name, password, phone_number, surname, enabled, last_password_reset_date, username)
 	VALUES (77, 'Kneza Milosa 1', 'Novi Sad', 'Srbija', '', 'lola@gmail.com', false, false, 'Lola', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', '0632413455', 'Lola',true,'2008-11-11 13:23:44','neceViseLlola');
 
-	id, address, city, country, description, email, email_comfirmed, first_time_login, name, password, phone_number, surname, username)
-	VALUES (61, 'Kneza Milosa 3', 'Novi Sad', 'Srbija', '', 'jovan.jovic838@gmail.com', false, false, 'Jovan', 'Jovic', '0632213455', 'Jovic','jokas');
-INSERT INTO public.dermatologist(
-	id, address, city, country, description, email, email_comfirmed, first_time_login, name, password, phone_number, surname, username)
-	VALUES (71, 'Kneza Milosa 1', 'Novi Sad', 'Srbija', '', 'lola@gmail.com', false, false, 'Lola', 'Lolic', '0632413455', 'Lola','neceViseLola');
-    
     
 	/*
 INSERT INTO public.pharmacy_admin(
@@ -128,16 +117,18 @@ id, address, city, country, description, email, email_comfirmed, first_time_logi
 INSERT INTO public.users(
 	id, address, city, country, description, email, email_comfirmed, first_time_login, name, password, phone_number, surname, enabled, last_password_reset_date, username)
 	VALUES (999, 'Jovana Ducica 65', 'Novi Sad', 'Srbija', '', 'marijavucetic@uns.ac.rs', false, false, 'Toma', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', '06581222123', 'Tomic',true,'2008-11-11 13:23:44','toma');
+
+
 INSERT INTO public.pharmacy_dermatologists(dermatologist_id, pharmacy_id)VALUES (66, 111);
 INSERT INTO public.pharmacy_dermatologists(dermatologist_id, pharmacy_id)VALUES (77, 222);
-INSERT INTO public.pharmacy_dermatologists(dermatologist_id, pharmacy_id)VALUES (66, 222);
-	id, address, city, country, description, email, email_comfirmed, first_time_login, name, password, phone_number, surname, username, pharmacy)
-	VALUES (9, 'Jovana Ducica 65', 'Novi Sad', 'Srbija', '', 'marijavucetic@uns.ac.rs', false, false, 'Toma', 'Tomic', '06581222123', 'Tomic','toma', 'Benu');
-   
-INSERT INTO public.pharmacy_dermatologists(dermatologist_id, pharmacy_id)VALUES (61, 111);
-INSERT INTO public.pharmacy_dermatologists(dermatologist_id, pharmacy_id)VALUES (71, 222);
-INSERT INTO public.pharmacy_dermatologists(dermatologist_id, pharmacy_id)VALUES (61, 222);
 
+
+INSERT INTO public.pharmacy_dermatologists(dermatologist_id, pharmacy_id)VALUES (66, 222);
+ 
+/*
+INSERT INTO public.pharmacy_dermatologists(dermatologist_id, pharmacy_id)VALUES (61, 111);
+INSERT INTO public.pharmacy_dermatologists(dermatologist_id, pharmacy_id)VALUES (61, 222);
+*/
 /*
 INSERT INTO public.supplier(
 	id, address, city, country, description, email, email_comfirmed, first_time_login, name, password, phone_number, surname)
@@ -209,23 +200,7 @@ INSERT INTO public.counseling(
 INSERT INTO public.counseling(
 	id, price, report, start_time, end_time, is_done, patient_id, pharmacist_id, pharmacy_id, is_canceled)
 	VALUES (116, 2000.0, 'Headache', '2021-02-13 17:00:00-07', '2021-02-13 17:25:25-07', true, 89, 555, 222, false);
-	VALUES (111, 1000.0, 'Headache', '2021-02-09 16:00:00-07', '2021-02-09 16:25:25-07', false, 88, 51, 222, false);
-INSERT INTO public.counseling(
-	id, price, report, start_time, end_time, is_done, patient_id, pharmacist_id, pharmacy_id, is_canceled)
-	VALUES (112, 2000.0, '', '2021-02-15 17:00:00-07', '2021-02-15 17:25:25-07', false, 89, 51, 222, false);
-INSERT INTO public.counseling(
-	id, price, report, start_time, end_time, is_done, patient_id, pharmacist_id, pharmacy_id, is_canceled)
-	VALUES (113, 1000.0, '', '2021-02-15 15:00:00-07', '2021-02-15 15:25:25-07', false, 88, 51, 222, false);
-INSERT INTO public.counseling(
-	id, price, report, start_time, end_time, is_done, patient_id, pharmacist_id, pharmacy_id, is_canceled)
-	VALUES (114, 2000.0, '', '2021-10-13 17:00:00-07', '2021-10-13 17:25:25-07', false, 89, 51, 222, false);
-INSERT INTO public.counseling(
-	id, price, report, start_time, end_time, is_done, patient_id, pharmacist_id, pharmacy_id, is_canceled)
-	VALUES (115, 1000.0, '', '2021-02-13 16:00:00-07', '2021-02-13 16:25:25-07', false, 88, 51, 222, false);
-INSERT INTO public.counseling(
-	id, price, report, start_time, end_time, is_done, patient_id, pharmacist_id, pharmacy_id, is_canceled)
-	VALUES (116, 2000.0, 'Headache', '2021-06-13 17:00:00-07', '2021-06-13 17:25:25-07', false, 89, 51, 222, false);
-    
+	
 -- INSERT INTO public.eprescription(
 -- 	code, issuing_date)
 -- 	VALUES (111,'2016-06-22');
@@ -426,16 +401,16 @@ INSERT INTO public.medicine_price_and_quantity(
 
 INSERT INTO public.medicine_quantity(
 	id, quantity, medicine_id, supplier_id)
-	VALUES (1, 5, 222, 100);
+	VALUES (111, 5, 222, 100);
 INSERT INTO public.medicine_quantity(
 	id, quantity, medicine_id, supplier_id)
-	VALUES (2, 10, 223, 111);
+	VALUES (211, 10, 223, 111);
 	INSERT INTO public.medicine_quantity(
 	id, quantity, medicine_id, supplier_id)
-	VALUES (4, 5, 5, 100);
+	VALUES (411, 5, 5, 100);
 	INSERT INTO public.medicine_price_and_quantity(
 	id, price, quantity, medicine_id)
-	VALUES (6, 350.00, 7, 5);
+	VALUES (611, 350.00, 7, 5);
 INSERT INTO public.medicine_price_and_quantity(
 	id, price, quantity, medicine_id)
 	VALUES (7, 370.00, 5, 6);
@@ -454,9 +429,10 @@ INSERT INTO public.medicine_price_and_quantity(
 INSERT INTO public.medicine_price_and_quantity(
 	id, price, quantity, medicine_id)
 	VALUES (10, 385.00, 5, 7);
-INSERT INTO public.medicine_price_and_quantity(
+/*INSERT INTO public.medicine_price_and_quantity(
 	id, price, quantity, medicine_id)
-	VALUES (11, 385.00,3 , 8);
+	VALUES (11, 385.00,3 , 8);*/
+
 INSERT INTO public.medicine_price_and_quantity(
 	id, price, quantity, medicine_id)
 	VALUES (12, 460.00,3, 9);
@@ -490,9 +466,12 @@ INSERT INTO public.medicine_price_and_quantity(
 INSERT INTO public.medicine_price_and_quantity(
 	id, price, quantity, medicine_id)
 	VALUES (20, 485.00,2, 13);
-INSERT INTO public.medicine_price_and_quantity(
+/*INSERT INTO public.medicine_price_and_quantity(
 	id, price, quantity, medicine_id)
 	VALUES (21, 440.00,4, 13);
+	*/
+
+
 INSERT INTO public.medicine_price_and_quantity(
 	id, price, quantity, medicine_id)
 	VALUES (26, 215.00,3, 16);
@@ -860,10 +839,11 @@ INSERT INTO public.patient_eprescriptions(
 -- 	VALUES (2, 12);
 
 
-
+/*
 INSERT INTO public.pharmacy_pricelist(
 	pharmacy_id, pricelist_id)
 	VALUES (111, 11);
+	*/
 INSERT INTO public.pharmacy_pricelist(
 	pharmacy_id, pricelist_id)
 	VALUES (111, 31);
@@ -873,9 +853,7 @@ INSERT INTO public.pharmacy_pricelist(
 INSERT INTO public.pharmacy_pricelist(
 	pharmacy_id, pricelist_id)
 	VALUES (222, 41);
-INSERT INTO public.pharmacy_pricelist(
-	pharmacy_id, pricelist_id)
-	VALUES (222, 5);
+
 INSERT INTO public.pharmacy_pricelist(
 	pharmacy_id, pricelist_id)
 	VALUES (111, 18);
@@ -896,10 +874,10 @@ INSERT INTO public.pharmacy_pricelist(
 	VALUES (333, 28);
 INSERT INTO public.pharmacy_pricelist(
 	pharmacy_id, pricelist_id)
-	VALUES (333, 26);
+	VALUES (333, 26);/*
 INSERT INTO public.pharmacy_pricelist(
 	pharmacy_id, pricelist_id)
-	VALUES (444, 6);
+	VALUES (444, 6);*/
 INSERT INTO public.pharmacy_pricelist(
 	pharmacy_id, pricelist_id)
 	VALUES (444, 12);
@@ -908,10 +886,10 @@ INSERT INTO public.pharmacy_pricelist(
 	VALUES (333, 13);
 INSERT INTO public.pharmacy_pricelist(
 	pharmacy_id, pricelist_id)
-	VALUES (444, 14);
+	VALUES (444, 14);/*
 INSERT INTO public.pharmacy_pricelist(
 	pharmacy_id, pricelist_id)
-	VALUES (555, 21);
+	VALUES (555, 21);*/
 INSERT INTO public.pharmacy_pricelist(
 	pharmacy_id, pricelist_id)
 	VALUES (444, 23);
@@ -993,15 +971,15 @@ INSERT INTO public.pharmacist_marks(
 INSERT INTO public.order_medicine(
 
 	id, due_date, pharmacy_admin_id,is_processed)
-	VALUES (111,'2008-11-11 13:23:44', 8,false);
+	VALUES (111,'2008-11-11 13:23:44', 888,false);
 	
 INSERT INTO public.order_medicine(
 	id, due_date, pharmacy_admin_id,is_processed)
-	VALUES (211,'2008-11-11 13:23:44', 9,true);
+	VALUES (211,'2008-11-11 13:23:44', 999,true);
 
 INSERT INTO public.order_medicine(
 	id, due_date, pharmacy_admin_id,is_processed)
-	VALUES (311,'2008-11-11 13:23:44', 8,true);
+	VALUES (311,'2008-11-11 13:23:44', 888,true);
 
 INSERT INTO public.order_medicine_orders(
 	order_id, orders_id)
@@ -1011,7 +989,7 @@ INSERT INTO public.order_medicine_orders(
 	VALUES (211, 211);
 INSERT INTO public.medicine_quantity(
 	id, quantity, medicine_id, supplier_id)
-	VALUES (311, 3, 223, 10);
+	VALUES (311, 3, 223, 100);
 INSERT INTO public.order_medicine_orders(
 	order_id, orders_id)
 	VALUES (311, 311);
@@ -1019,15 +997,15 @@ INSERT INTO public.order_medicine_orders(
 
 	INSERT INTO public.supplier_offer(
 	id, due_date, offer_price, status, order_medicine_id, supplier_id)
-	VALUES (557, 'neki datum', 14000.00, 2, 3, 100);
+	VALUES (557, 'neki datum', 14000.00, 2, 311, 100);
 	
 	INSERT INTO public.supplier_offer(
 	id, due_date, offer_price, status, order_medicine_id, supplier_id)
-	VALUES (556, 'neki datum', 15000.00, 1, 2, 100);
+	VALUES (556, 'neki datum', 15000.00, 1, 211, 100);
 	
 	INSERT INTO public.supplier_offer(
 	id, due_date, offer_price, status, order_medicine_id, supplier_id)
-	VALUES (555, 'neki datum', 16000.00, 0, 1, 100);
+	VALUES (555, 'neki datum', 16000.00, 0, 111, 100);
 
 	INSERT INTO public.medicine_price_and_quantity(
 	id, price, quantity, medicine_id)
