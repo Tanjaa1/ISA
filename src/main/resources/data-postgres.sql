@@ -59,10 +59,10 @@ INSERT INTO public.dermatologist(
 
 INSERT INTO public.dermatologist(
 	id, address, city, country, description, email, email_comfirmed, first_time_login, name, password, phone_number, surname, username)
-	VALUES (6, 'Kneza Milosa 3', 'Novi Sad', 'Srbija', '', 'jovan.jovic838@gmail.com', false, false, 'Jovan', 'Jovic', '0632213455', 'Jovic','jokas');
+	VALUES (61, 'Kneza Milosa 3', 'Novi Sad', 'Srbija', '', 'jovan.jovic838@gmail.com', false, false, 'Jovan', 'Jovic', '0632213455', 'Jovic','jokas');
 INSERT INTO public.dermatologist(
 	id, address, city, country, description, email, email_comfirmed, first_time_login, name, password, phone_number, surname, username)
-	VALUES (7, 'Kneza Milosa 1', 'Novi Sad', 'Srbija', '', 'lola@gmail.com', false, false, 'Lola', 'Lolic', '0632413455', 'Lola','neceViseLola');
+	VALUES (71, 'Kneza Milosa 1', 'Novi Sad', 'Srbija', '', 'lola@gmail.com', false, false, 'Lola', 'Lolic', '0632413455', 'Lola','neceViseLola');
     
     
 	/*
@@ -82,9 +82,9 @@ INSERT INTO public.pharmacy_admin(
 	id, address, city, country, description, email, email_comfirmed, first_time_login, name, password, phone_number, surname, username, pharmacy)
 	VALUES (9, 'Jovana Ducica 65', 'Novi Sad', 'Srbija', '', 'marijavucetic@uns.ac.rs', false, false, 'Toma', 'Tomic', '06581222123', 'Tomic','toma', 'Benu');
    
-INSERT INTO public.pharmacy_dermatologists(dermatologist_id, pharmacy_id)VALUES (6, 111);
-INSERT INTO public.pharmacy_dermatologists(dermatologist_id, pharmacy_id)VALUES (7, 222);
-INSERT INTO public.pharmacy_dermatologists(dermatologist_id, pharmacy_id)VALUES (6, 222);
+INSERT INTO public.pharmacy_dermatologists(dermatologist_id, pharmacy_id)VALUES (61, 111);
+INSERT INTO public.pharmacy_dermatologists(dermatologist_id, pharmacy_id)VALUES (71, 222);
+INSERT INTO public.pharmacy_dermatologists(dermatologist_id, pharmacy_id)VALUES (61, 222);
 
 /*
 INSERT INTO public.supplier(
@@ -130,22 +130,22 @@ INSERT INTO public.complaint(
 
 INSERT INTO public.counseling(
 	id, price, report, start_time, end_time, is_done, patient_id, pharmacist_id, pharmacy_id, is_canceled)
-	VALUES (111, 1000.0, 'Headache', '2021-02-09 16:00:00-07', '2021-02-09 16:25:25-07', true, 88, 51, 222, false);
+	VALUES (111, 1000.0, 'Headache', '2021-02-09 16:00:00-07', '2021-02-09 16:25:25-07', false, 88, 51, 222, false);
 INSERT INTO public.counseling(
 	id, price, report, start_time, end_time, is_done, patient_id, pharmacist_id, pharmacy_id, is_canceled)
-	VALUES (112, 2000.0, '', '2021-02-15 17:00:00-07', '2021-02-15 17:25:25-07', true, 89, 51, 222, false);
+	VALUES (112, 2000.0, '', '2021-02-15 17:00:00-07', '2021-02-15 17:25:25-07', false, 89, 51, 222, false);
 INSERT INTO public.counseling(
 	id, price, report, start_time, end_time, is_done, patient_id, pharmacist_id, pharmacy_id, is_canceled)
-	VALUES (113, 1000.0, '', '2021-02-15 15:00:00-07', '2021-02-15 15:25:25-07', true, 88, 51, 222, false);
+	VALUES (113, 1000.0, '', '2021-02-15 15:00:00-07', '2021-02-15 15:25:25-07', false, 88, 51, 222, false);
 INSERT INTO public.counseling(
 	id, price, report, start_time, end_time, is_done, patient_id, pharmacist_id, pharmacy_id, is_canceled)
-	VALUES (114, 2000.0, '', '2021-02-16 17:00:00-07', '2021-02-16 17:25:25-07', true, 89, 51, 222, false);
+	VALUES (114, 2000.0, '', '2021-10-13 17:00:00-07', '2021-10-13 17:25:25-07', false, 89, 51, 222, false);
 INSERT INTO public.counseling(
 	id, price, report, start_time, end_time, is_done, patient_id, pharmacist_id, pharmacy_id, is_canceled)
 	VALUES (115, 1000.0, '', '2021-02-13 16:00:00-07', '2021-02-13 16:25:25-07', false, 88, 51, 222, false);
 INSERT INTO public.counseling(
 	id, price, report, start_time, end_time, is_done, patient_id, pharmacist_id, pharmacy_id, is_canceled)
-	VALUES (116, 2000.0, 'Headache', '2021-02-13 17:00:00-07', '2021-02-13 17:25:25-07', true, 89, 51, 222, false);
+	VALUES (116, 2000.0, 'Headache', '2021-06-13 17:00:00-07', '2021-06-13 17:25:25-07', false, 89, 51, 222, false);
     
 -- INSERT INTO public.eprescription(
 -- 	code, issuing_date)
@@ -156,52 +156,52 @@ INSERT INTO public.counseling(
     
 INSERT INTO public.examination(
 	id, price, report, start_time, end_time, is_done, dermatologist_id, patient_id, pharmacy_id, is_canceled)
-	VALUES (111, 500.0, '', '2021-02-09 19:10:25-07', '2021-02-09 19:20:25-07', false, 6, 88, 111, false);
+	VALUES (111, 500.0, '', '2021-02-09 19:10:25-07', '2021-02-09 19:20:25-07', false, 61, 88, 111, false);
 INSERT INTO public.examination(
 	id, price, report, start_time, end_time, is_done, dermatologist_id, patient_id, pharmacy_id, is_canceled)
-	VALUES (112, 1000.0, 'Headache and nausea', '2021-02-10 16:30:25-07', '2021-02-09 16:40:25-07', true, 6, 88, 111, false);
+	VALUES (112, 1000.0, 'Headache and nausea', '2021-02-10 16:30:25-07', '2021-02-09 16:40:25-07', true, 61, 88, 111, false);
 INSERT INTO public.examination(
 	id, price, report, start_time, end_time, is_done, dermatologist_id, patient_id, pharmacy_id, is_canceled)
-	VALUES (113, 800.0, 'Headache and nausea', '2021-02-11 15:10:25-07', '2021-02-11 15:20:25-07', true, 6, 89, 111, false);
+	VALUES (113, 800.0, 'Headache and nausea', '2021-02-11 15:10:25-07', '2021-02-11 15:20:25-07', true, 61, 89, 111, false);
 INSERT INTO public.examination(
 	id, price, report, start_time, end_time, is_done, dermatologist_id, patient_id, pharmacy_id, is_canceled)
-	VALUES (114, 900.0, 'Headache and nausea', '2021-02-11 14:10:25-07', '2021-02-11 14:20:25-07', true, 6, 88, 111, false);
+	VALUES (114, 900.0, 'Headache and nausea', '2021-02-11 14:10:25-07', '2021-02-11 14:20:25-07', true, 61, 88, 111, false);
 INSERT INTO public.examination(
 	id, price, report, start_time, end_time, is_done, dermatologist_id, patient_id, pharmacy_id, is_canceled)
-	VALUES (115, 2000.0, '', '2021-02-13 15:10:25-07', '2021-02-13 15:20:25-07', true, 6, 89, 111, false);
+	VALUES (115, 2000.0, '', '2021-02-13 15:10:25-07', '2021-02-13 15:20:25-07', true, 61, 89, 111, false);
 INSERT INTO public.examination(
 	id, price, report, start_time, end_time, is_done, dermatologist_id, patient_id, pharmacy_id,is_canceled)
-	VALUES (116, 3000.0, 'izvjestaj 2', '2021-08-13 18:00:25-07', '2021-08-13 18:10:25-07', false, 6, 88, 111,false);
+	VALUES (116, 3000.0, 'izvjestaj 2', '2021-08-13 18:00:25-07', '2021-08-13 18:10:25-07', false, 61, 88, 111,false);
     
 INSERT INTO public.examination(
 	id, price, report, start_time, end_time, is_done, dermatologist_id, patient_id, pharmacy_id, is_canceled)
-	VALUES (117, 900.0, 'Headache and nausea', '2016-05-22 14:45:25-07', '2016-05-22 14:25:25-07', true, 6, 89, 111, false);
+	VALUES (117, 900.0, 'Headache and nausea', '2016-05-22 14:45:25-07', '2016-05-22 14:25:25-07', true, 61, 89, 111, false);
 
 	
 INSERT INTO public.examination(
 	id, price, report, start_time, end_time, is_done, dermatologist_id, patient_id, pharmacy_id, is_canceled)
-	VALUES (118, 500.0, '', '2021-02-15 19:10:25-07', '2021-02-15 19:20:25-07', false, 6, 89, 111, false);
+	VALUES (118, 500.0, '', '2021-02-15 19:10:25-07', '2021-02-15 19:20:25-07', false, 61, 89, 111, false);
 INSERT INTO public.examination(
 	id, price, report, start_time, end_time, is_done, dermatologist_id, patient_id, pharmacy_id, is_canceled)
-	VALUES (119, 1000.0, 'Headache and nausea', '2021-02-15 16:30:25-07', '2021-02-15 16:40:25-07', true, 6, 88, 111, false);
+	VALUES (119, 1000.0, 'Headache and nausea', '2021-02-15 16:30:25-07', '2021-02-15 16:40:25-07', true, 61, 88, 111, false);
 INSERT INTO public.examination(
 	id, price, report, start_time, end_time, is_done, dermatologist_id, patient_id, pharmacy_id, is_canceled)
-	VALUES (120, 800.0, '', '2021-02-23 09:10:25-07', '2021-02-23 09:20:25-07', false, 6, 89, 111, false);
+	VALUES (120, 800.0, '', '2021-02-23 09:10:25-07', '2021-02-23 09:20:25-07', false, 61, 89, 111, false);
 INSERT INTO public.examination(
 	id, price, report, start_time, end_time, is_done, dermatologist_id, patient_id, pharmacy_id, is_canceled)
-	VALUES (121, 900.0, '', '2021-02-23 10:10:25-07', '2021-02-23 10:20:25-07', false, 6, 88, 111, false);
+	VALUES (121, 900.0, '', '2021-02-23 10:10:25-07', '2021-02-23 10:20:25-07', false, 61, 88, 111, false);
 INSERT INTO public.examination(
 	id, price, report, start_time, end_time, is_done, dermatologist_id, patient_id, pharmacy_id, is_canceled)
-	VALUES (122, 2000.0, '', '2021-02-12 15:10:25-07', '2021-02-12 15:20:25-07', true, 6, null, 111, false);
+	VALUES (122, 2000.0, '', '2021-02-12 15:10:25-07', '2021-02-12 15:20:25-07', true, 61, null, 111, false);
 INSERT INTO public.examination(
 	id, price, report, start_time, end_time, is_done, dermatologist_id, patient_id, pharmacy_id)
-	VALUES (123, 3000.0, '', '2021-02-17 08:00:25-07', '2021-02-17 10:10:25-07', false, 6, 88, 222);
+	VALUES (123, 3000.0, '', '2021-02-17 08:00:25-07', '2021-02-17 10:10:25-07', false, 61, 88, 222);
 INSERT INTO public.examination(
 	id, price, report, start_time, end_time, is_done, dermatologist_id, patient_id, pharmacy_id)
-	VALUES (124, 3000.0, '', '2021-02-17 11:00:25-07', '2021-02-17 11:10:25-07', false, 6, null, 222);
+	VALUES (124, 3000.0, '', '2021-02-17 11:00:25-07', '2021-02-17 11:10:25-07', false, 61, null, 222);
 INSERT INTO public.examination(
 	id, price, report, start_time, end_time, is_done, dermatologist_id, patient_id, pharmacy_id)
-	VALUES (125, 3000.0, '', '2021-02-17 12:00:25-07', '2021-02-17 12:10:25-07', false, 6, null, 222);
+	VALUES (125, 3000.0, '', '2021-02-17 12:00:25-07', '2021-02-17 12:10:25-07', false, 61, null, 222);
 /*
 INSERT INTO public.medicine(
 	code, composition, form, manufacturer, name, note, on_prescription, type)
@@ -351,16 +351,16 @@ INSERT INTO public.vacation_interval(
 
 INSERT INTO public.dermatologist_vacation_schedule(
 	dermatologist_id, vacation_interval_id)
-	VALUES (6, 111);
+	VALUES (61, 111);
 INSERT INTO public.dermatologist_vacation_schedule(
 	dermatologist_id, vacation_interval_id)
-	VALUES (6, 112);
+	VALUES (61, 112);
 INSERT INTO public.dermatologist_vacation_schedule(
 	dermatologist_id, vacation_interval_id)
-	VALUES (7, 113);
+	VALUES (71, 113);
 INSERT INTO public.dermatologist_vacation_schedule(
 	dermatologist_id, vacation_interval_id)
-	VALUES (6, 114);
+	VALUES (61, 114);
 
 INSERT INTO public.pharmacist_vacation_schedule(
 	pharmacist_id, vacation_interval_id)
@@ -377,94 +377,94 @@ INSERT INTO public.pharmacist_vacation_schedule(
 
 INSERT INTO public.working_time(
 	id, time_end, time_start,pharmacy_id)
-	VALUES (111, '2021-02-09 20:00:00-07','2021-02-09 11:00:00-07','111');
+	VALUES (111, '2021-05-09 20:00:00-07','2021-05-09 11:00:00-07','111');
 INSERT INTO public.working_time(
 	id, time_end, time_start,pharmacy_id)
-	VALUES (112, '2021-02-10 20:00:00-07','2021-02-10 11:00:00-07','111');
+	VALUES (112, '2021-06-10 20:00:00-07','2021-06-10 11:00:00-07','111');
 INSERT INTO public.working_time(
 	id, time_end, time_start,pharmacy_id)
-	VALUES (113, '2021-02-11 20:00:00-07','2021-02-11 11:00:00-07','111');
+	VALUES (113, '2021-06-11 20:00:00-07','2021-06-11 11:00:00-07','111');
 INSERT INTO public.working_time(
 	id, time_end, time_start,pharmacy_id)
-	VALUES (114, '2021-02-12 20:00:00-07','2021-02-12 11:00:00-07','111');
+	VALUES (114, '2021-06-12 20:00:00-07','2021-06-12 11:00:00-07','111');
 INSERT INTO public.working_time(
 	id, time_end, time_start,pharmacy_id)
-	VALUES (115, '2021-02-13 20:00:00-07','2021-02-13 14:00:00-07','111');
+	VALUES (115, '2021-06-13 20:00:00-07','2021-06-13 14:00:00-07','111');
 INSERT INTO public.working_time(
 	id, time_end, time_start,pharmacy_id)
-	VALUES (116, '2021-02-14 20:00:00-07','2021-02-14 11:00:00-07','111');
+	VALUES (116, '2021-06-14 20:00:00-07','2021-06-14 11:00:00-07','111');
 INSERT INTO public.working_time(
 	id, time_end, time_start,pharmacy_id)
-	VALUES (117, '2021-02-15 20:00:00-07','2021-02-15 14:00:00-07','111');
+	VALUES (117, '2021-06-15 20:00:00-07','2021-06-15 14:00:00-07','111');
 INSERT INTO public.working_time(
 	id, time_end, time_start,pharmacy_id)
-	VALUES (118, '2021-02-16 20:00:00-07','2021-02-16 11:00:00-07','111');
+	VALUES (118, '2021-06-16 20:00:00-07','2021-06-16 11:00:00-07','111');
 INSERT INTO public.working_time(
 	id, time_end, time_start,pharmacy_id)
-	VALUES (119, '2021-02-17 20:00:00-07','2021-02-17 11:00:00-07','111');
+	VALUES (119, '2021-06-17 20:00:00-07','2021-06-17 11:00:00-07','111');
 INSERT INTO public.working_time(
 	id, time_end, time_start,pharmacy_id)
-	VALUES (120, '2021-02-23 20:00:00-07','2021-02-23 14:00:00-07','111');
+	VALUES (120, '2021-06-23 20:00:00-07','2021-06-23 14:00:00-07','111');
 
 INSERT INTO public.working_time(
 	id, time_end, time_start,pharmacy_id)
-	VALUES (211, '2021-02-09 15:00:00-07','2021-02-09 07:00:00-07','222');
+	VALUES (211, '2021-05-09 15:00:00-07','2021-05-09 07:00:00-07','222');
 INSERT INTO public.working_time(
 	id, time_end, time_start,pharmacy_id)
-	VALUES (212, '2021-02-10 14:00:00-07','2021-02-10 08:00:00-07','222');
+	VALUES (212, '2021-06-10 14:00:00-07','2021-06-10 08:00:00-07','222');
 INSERT INTO public.working_time(
 	id, time_end, time_start,pharmacy_id)
-	VALUES (213, '2021-02-11 15:00:00-07','2021-02-11 08:00:00-07','222');
+	VALUES (213, '2021-06-11 15:00:00-07','2021-06-11 08:00:00-07','222');
 INSERT INTO public.working_time(
 	id, time_end, time_start,pharmacy_id)
-	VALUES (214, '2021-02-12 14:00:00-07','2021-02-12 08:00:00-07','222');
+	VALUES (214, '2021-06-12 14:00:00-07','2021-06-12 08:00:00-07','222');
 INSERT INTO public.working_time(
 	id, time_end, time_start,pharmacy_id)
-	VALUES (215, '2021-02-13 15:00:00-07','2021-02-13 08:00:00-07','222');
+	VALUES (215, '2021-06-13 15:00:00-07','2021-06-13 08:00:00-07','222');
 INSERT INTO public.working_time(
 	id, time_end, time_start,pharmacy_id)
-	VALUES (216, '2021-02-14 14:00:00-07','2021-02-14 08:00:00-07','222');
+	VALUES (216, '2021-06-14 14:00:00-07','2021-06-14 08:00:00-07','222');
 INSERT INTO public.working_time(
 	id, time_end, time_start,pharmacy_id)
-	VALUES (217, '2021-02-15 14:00:00-07','2021-02-15 08:00:00-07','222');
+	VALUES (217, '2021-06-15 14:00:00-07','2021-06-15 08:00:00-07','222');
 INSERT INTO public.working_time(
 	id, time_end, time_start,pharmacy_id)
-	VALUES (218, '2021-02-16 15:00:00-07','2021-02-16 08:00:00-07','222');
+	VALUES (218, '2021-06-16 15:00:00-07','2021-06-16 08:00:00-07','222');
 INSERT INTO public.working_time(
 	id, time_end, time_start,pharmacy_id)
-	VALUES (219, '2021-02-17 14:00:00-07','2021-02-17 08:00:00-07','222');
+	VALUES (219, '2021-06-17 14:00:00-07','2021-06-17 08:00:00-07','222');
 INSERT INTO public.working_time(
 	id, time_end, time_start,pharmacy_id)
-	VALUES (220, '2021-02-23 15:00:00-07','2021-02-23 08:00:00-07','222');
+	VALUES (220, '2021-05-23 15:00:00-07','2021-05-23 08:00:00-07','222');
 
 INSERT INTO public.dermatologist_working_schedule(
 	dermatologist_id, working_time_id)
-	VALUES (6, 111);
+	VALUES (61, 111);
 INSERT INTO public.dermatologist_working_schedule(
 	dermatologist_id, working_time_id)
-	VALUES (6, 112);
+	VALUES (61, 112);
 INSERT INTO public.dermatologist_working_schedule(
 	dermatologist_id, working_time_id)
-	VALUES (6, 213);
+	VALUES (61, 213);
 	INSERT INTO public.dermatologist_working_schedule(
 	dermatologist_id, working_time_id)
-	VALUES (6, 115);
+	VALUES (61, 115);
 INSERT INTO public.dermatologist_working_schedule(
 	dermatologist_id, working_time_id)
-	VALUES (6, 116);
+	VALUES (61, 116);
 INSERT INTO public.dermatologist_working_schedule(
 	dermatologist_id, working_time_id)
-	VALUES (6, 117);
+	VALUES (61, 117);
 INSERT INTO public.dermatologist_working_schedule(
 	dermatologist_id, working_time_id)
-	VALUES (6, 219);
+	VALUES (61, 219);
 INSERT INTO public.dermatologist_working_schedule(
 	dermatologist_id, working_time_id)
-	VALUES (6, 220);
+	VALUES (61, 220);
 
 INSERT INTO public.dermatologist_working_schedule(
 	dermatologist_id, working_time_id)
-	VALUES (7, 112);
+	VALUES (71, 112);
 INSERT INTO public.pharmacist_working_schedule(
 	pharmacist_id, working_time_id)
 	VALUES (41, 112);
@@ -706,13 +706,13 @@ INSERT INTO public.pharmacist_marks(
 	 		
 INSERT INTO public.examination(
 	id, price, start_time, end_time, is_done, dermatologist_id, pharmacy_id, is_canceled)
-	VALUES (312, 500.0,  '2021-06-15 19:10:25-07', '2021-06-15 19:20:25-07', false, 6, 111, false);
+	VALUES (312, 500.0,  '2021-06-15 19:10:25-07', '2021-06-15 19:20:25-07', false, 61, 111, false);
 INSERT INTO public.examination(
 	id, price, start_time, end_time, is_done, dermatologist_id, pharmacy_id, is_canceled)
-	VALUES (313, 1000.0, '2021-06-15 16:30:25-07', '2021-06-15 16:40:25-07', true, 6, 111, false);
+	VALUES (313, 1000.0, '2021-06-15 16:30:25-07', '2021-06-15 16:40:25-07', true, 61, 111, false);
 INSERT INTO public.examination(
 	id, price, start_time, end_time, is_done, dermatologist_id, pharmacy_id, is_canceled)
-	VALUES (314, 800.0, '2021-06-23 09:10:25-07', '2021-06-23 09:20:25-07', false, 6, 111, false);
+	VALUES (314, 800.0, '2021-06-23 09:10:25-07', '2021-06-23 09:20:25-07', false, 61, 111, false);
 	
 INSERT INTO public.working_time(
 	id, time_end, time_start,pharmacy_id)
@@ -720,21 +720,21 @@ INSERT INTO public.working_time(
 
 INSERT INTO public.dermatologist_working_schedule(
 	dermatologist_id, working_time_id)
-	VALUES (6, 69);
+	VALUES (61, 69);
 
 INSERT INTO public.working_time(
 	id, time_end, time_start,pharmacy_id)
-	VALUES (333, '2021-10-09 20:00:00-07','2021-02-09 11:00:00-07','111');
+	VALUES (333, '2021-06-10 20:00:00-07','2021-06-10 11:00:00-07','111');
 INSERT INTO public.pharmacist_working_schedule(
 	pharmacist_id, working_time_id)
-	VALUES (51, 333);
+	VALUES (41, 333);
 INSERT INTO public.counseling(
 	id, price, report, start_time, end_time, is_done, patient_id, pharmacist_id, pharmacy_id, is_canceled)
-	VALUES (333, 1000.0, 'Headache', '2021-06-07 16:00:00-07', '2021-07-08 16:25:25-07', false, 88, 51, 111, false);
+	VALUES (333, 1000.0, 'Headache', '2021-06-10 16:00:00-07', '2021-06-10 16:25:25-07', false, 88, 41, 111, false);
 
 INSERT INTO public.medicine_request(
 	id,medicine_id,date,pharmacy_id,solved)
-	VALUES (333,223, '2021-06-07 16:00:00-07',111,false);
+	VALUES (333,223, '2021-05-10 16:00:00-07',111,false);
 INSERT INTO public.medicine_request(
 	id,medicine_id,date,pharmacy_id,solved)
 	VALUES (334,223, '2021-06-07 16:00:00-07',111,false);
@@ -755,3 +755,4 @@ INSERT INTO public.action_or_promotion(
 INSERT INTO public.action_or_promotion(
 	id, text, medicine_id, pharmacy_id,start_time,end_time)
 	VALUES (443, 'akcija 530%', 223, 111,'2019-08-13 17:00:00-07', '2024-08-13 17:25:25-07');
+	VALUES (334,223, '2021-05-13 16:00:00-07',111,false);

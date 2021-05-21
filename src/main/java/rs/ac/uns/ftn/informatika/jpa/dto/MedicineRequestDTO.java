@@ -25,7 +25,10 @@ public class MedicineRequestDTO {
 	private PharmacyDTO Pharmacy;
     private Boolean Solved;
 
-	public MedicineRequestDTO(){}
+	public MedicineRequestDTO(){
+		Date=LocalDateTime.now();
+		Solved=false;
+	}
 
 	public MedicineRequestDTO(long id,MedicineDTO medicine, LocalDateTime date, PharmacyDTO pharmacy,Boolean solved) {
 		super();

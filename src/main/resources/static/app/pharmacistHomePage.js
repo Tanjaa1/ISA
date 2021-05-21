@@ -7,7 +7,7 @@ Vue.component("pharmacistHomePage", {
 	},
 	beforeMount() {
 		axios
-			.get('/pharmacist/getPharmacistById/' + '5') 
+			.get('/pharmacist/getPharmacistById/' + '41') 
 			.then(response => {
 				this.phycian = response.data
 				if(!this.phycian.firstTimeLogin)
@@ -122,6 +122,7 @@ Vue.component("pharmacistHomePage", {
 		if(document.getElementById("np").value==document.getElementById("cp").value && document.getElementById("np").value.trim()!="" && document.getElementById("cp").value.trim()!=""){
 			$('#Show').modal('hide');
 			this.phycian.firstTimeLogin=true
+			this.phycian.password=document.getElementById("np").value
 				axios.put('/pharmacist/update', this.phycian)
 					.then(function (response) {
 					})
