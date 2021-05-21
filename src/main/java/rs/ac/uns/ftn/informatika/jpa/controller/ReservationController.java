@@ -75,4 +75,10 @@ public class ReservationController {
 		return ResponseEntity.ok(reservationService.makeReservation(reservation));
 	}
 
+	@PostMapping(value = "/makeNewReservation")
+	public ResponseEntity<ReservationDTO> createReservation(@RequestBody Reservation reservation) throws Exception 
+	{
+		return ResponseEntity.ok(reservationService.makeNewReservation(reservation));
+	}
+
 }

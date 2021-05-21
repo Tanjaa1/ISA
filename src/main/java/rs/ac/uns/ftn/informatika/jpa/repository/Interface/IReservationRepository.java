@@ -27,5 +27,4 @@ public interface IReservationRepository extends JpaRepository<Reservation, Long>
 	@Query("SELECT r FROM Reservation r WHERE r.Pharmacy =?1 and r.Medicine =?2 and r.IsReceived = false")
 	public List<Reservation> getReservationByPharmacyAndMedicine(Pharmacy pharmacy,MedicinePriceAndQuantity medicine);
     
-    
 }

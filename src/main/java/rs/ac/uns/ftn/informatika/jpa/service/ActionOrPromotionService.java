@@ -73,6 +73,17 @@ public class ActionOrPromotionService implements IActionOrPromotionService {
 	}
 
     @Override
+    public List<ActionOrPromotionsDTO> getCurrentActionsAndPromotions(Long pId)
+	{
+        List<ActionOrPromotionsDTO> retVal = new ArrayList<ActionOrPromotionsDTO>();
+        for (ActionOrPromotion aop : actionOrPromotionRepository.getActiveActionsAndPromotionsByPharmacyId(pId)) {
+            retVal.add(new ActionOrPromotionsDTO(aop));
+        }
+
+        return retVal;
+	}
+
+    @Override
     public List<ActionOrPromotionsDTO> getByPharmacyId(String id) {
         Long idActionOrPromotion=Integer.toUnsignedLong(Integer.valueOf(id));
         List<ActionOrPromotion> actionOrPromotions = actionOrPromotionRepository.findAll();

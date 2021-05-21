@@ -169,6 +169,21 @@ public class ResrvationService implements IReservationService{
         return councelingDTO;
 	}
 
+	public ReservationDTO makeNewReservation(Reservation reservation) {
+		Reservation r = new Reservation();
+		r.setExpirationDate(reservation.getExpirationDate());
+		r.setIsCanceled(false);
+		r.setIsReceived(false);
+		r.setPharmacy(pharmacyRepository.getOne(reservation.getPharmacy().getId()));
+        r.setMedicine(priceAndQuantityRepository.getOne(reservation.getMedicine().getId()));
+        //c.setPatient(patientRepository.getOne(counseling.getPatient().getId()));
+        Long id = (long) 88;
+        r.setPatient(patientRepository.getOne(id));
+        ReservationDTO councelingDTO= new ReservationDTO(reservationRepository.save(r));
+        emailSender3(r);
+        return councelingDTO;
+	}
+
 	private void emailSender3(Reservation reservation)
 	{
 		LocalDate date = LocalDate.ofInstant(reservation.getExpirationDate().toInstant(), ZoneId.systemDefault());

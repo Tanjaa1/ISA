@@ -117,4 +117,20 @@ public class CounselingController {
 		return councelingDTO == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(councelingDTO);
 	}
 
+	@GetMapping(value = "/getUpcomingFreeCounselingByPharmacist/{id}")
+	public ResponseEntity<List<CouncelingDTO>> getUpcomingCounselingsByPharmacist(@PathVariable Long id) 
+	{
+		List<CouncelingDTO> councelingDTO = counselingService.getUpcomingFreeCounselingByPharmacist(id);
+		return councelingDTO == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(councelingDTO);
+	}
+
+	@PutMapping(value = "/update")
+	public ResponseEntity<HttpStatus> updateCounseling(@Valid @RequestBody Counseling counseling, BindingResult result) throws Exception
+	{
+		if (result.hasErrors()) 
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		CouncelingDTO e =counselingService.update(counseling);
+		return e == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : new ResponseEntity<>(HttpStatus.OK);
+	}
+
 }
