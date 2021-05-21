@@ -217,5 +217,7 @@ public class UserService implements IUserService{
 		u.setAuthorities(auth);	
 		u = this.userRepository.save(u);
     }
+
+    
 	
 }
