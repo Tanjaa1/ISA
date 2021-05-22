@@ -125,7 +125,7 @@ Vue.component("Login", {
 				localStorage.setItem('isPharmacyAdmin', true)
 				localStorage.setItem('isDermatologist', false)
 				localStorage.setItem('isPharmacist', false)
-				this.$router.push('pharmacistHomePage');
+				this.$router.push('administratorHomePage');
 			}else if (UserType == "ROLE_PHARMACIST") {
 				localStorage.setItem('isAdmin', false)
 				localStorage.setItem('isPatient', false)
@@ -167,8 +167,10 @@ Vue.component("Login", {
 						alert("Username or password are wrong, please try again!")
 						return
 					}
+					alert(this.token)
 					localStorage.setItem('token', this.token);
 					localStorage.setItem('isLogged', true);
+					this.Redirect(response.data.role)
 
 					if (response.data.role == "ROLE_PATIENT") {
 						axios
@@ -182,6 +184,11 @@ Vue.component("Login", {
 							this.idPatient = response.data
 							localStorage.setItem('userId', this.idPatient.id)
 							alert('pacijent')
+							if(this.idPatient.emailComfirmed==false){
+								alert("please confirme registration by email")
+							}else{
+								this.Redirect(response.data.role)
+							}
 							
 						})
 						.catch(error => {
@@ -200,16 +207,11 @@ Vue.component("Login", {
 							this.idSystemAdmin = response.data
 							localStorage.setItem('userId', this.idSystemAdmin.id)
 							alert('systemAdmin')
-							alert(this.idSystemAdmin.emailComfirmed)
-
 							if(this.idSystemAdmin.emailComfirmed==false){
-								alert("Please comfirme your registration by email")
-								return
+								alert("please confirme registration by email")
 							}else{
 								this.Redirect(response.data.role)
-
 							}
-
 						})
 						.catch(error => {
 
@@ -226,13 +228,11 @@ Vue.component("Login", {
 							this.idPharmacyAdmin = response.data
 							localStorage.setItem('userId', this.idPharmacyAdmin.id)
 							alert('pharmacyAdmin')
-							
+							alert(this.idPharmacyAdmin.emailComfirmed)
 							if(this.idPharmacyAdmin.emailComfirmed==false){
-								alert("Please comfirme your registration by email")
-								return
+								alert("please confirme registration by email")
 							}else{
 								this.Redirect(response.data.role)
-
 							}
 						})
 						.catch(error => {
@@ -252,13 +252,10 @@ Vue.component("Login", {
 							localStorage.setItem('userId', this.idPharmacist.id)
 							alert('pharmacist')
 							if(this.idPharmacist.emailComfirmed==false){
-								alert("Please comfirme your registration by email")
-								return
+								alert("please confirme registration by email")
 							}else{
 								this.Redirect(response.data.role)
-
 							}
-							
 						})
 						.catch(error => {
 							alert("Username or password are wrong, please try again!")
@@ -277,13 +274,10 @@ Vue.component("Login", {
 							localStorage.setItem('userId', this.idDermatologist.id)
 							alert('dermatologist')
 							if(this.idDermatologist.emailComfirmed==false){
-								alert("Please comfirme your registration by email")
-								return
+								alert("please confirme registration by email")
 							}else{
 								this.Redirect(response.data.role)
-
 							}
-
 						})
 						.catch(error => {
 							alert("Username or password are wrong, please try again!")
@@ -302,20 +296,17 @@ Vue.component("Login", {
 							localStorage.setItem('supplierId', this.idSupplier.id)
 							('supplier')
 							if(this.idSupplier.emailComfirmed==false){
-								alert("Please comfirme your registration by email")
-								return
+								alert("please confirme registration by email")
 							}else{
 								this.Redirect(response.data.role)
-
 							}
 						})
+					
 						.catch(error => {
 							alert("Username or password are wrong, please try again!")
 
 						})
 					}
-
-
 				})
 				.catch(error => {
 				})
