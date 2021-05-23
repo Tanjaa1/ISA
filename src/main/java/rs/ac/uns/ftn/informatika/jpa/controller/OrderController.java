@@ -52,6 +52,12 @@ public class OrderController {
 	return new ResponseEntity<>(order, HttpStatus.CREATED);
 	}
 
+	@PutMapping(value = "/update")
+	public ResponseEntity<OrderDTO> update(@RequestBody OrderDTO order) throws Exception{
+		orderService.update(order);
+	return new ResponseEntity<>(order, HttpStatus.CREATED);
+	}
+
 	@PostMapping(value = "/addRequest")
 	public ResponseEntity<MedicineRequestDTO> addRequest(@RequestBody MedicineRequestDTO request) throws Exception{
 		orderService.addRequest(request);

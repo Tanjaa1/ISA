@@ -2,6 +2,12 @@
 Vue.component("orderMedicinePharmacyAdmin", {
     data: function () {
 		return {
+            selectedOrder : {},
+            mpq : {
+                medicine : null,
+                quantity : null
+            },
+            allOffers : [],
             medicines : {},
             dueDate : {},
             medicine : {},
@@ -63,6 +69,11 @@ Vue.component("orderMedicinePharmacyAdmin", {
 	template: ` 
     <div id="OMPA">       
     <br><br>
+
+
+  <!-- Modal -->
+ 
+
             <h1>Order new medicine</h1>
             <div style = "margin-top : 3%;">
             <div class = "sameLineOMPA"  style ="margin-left : 5%; margin-top : 0.5%;" v-for = "(row,index) in orders">
@@ -118,6 +129,7 @@ Vue.component("orderMedicinePharmacyAdmin", {
 					<th scope="col">Medicine</th>
 					<th scope="col">Quantity</th>
 					<th scope="col">Status</th>
+                    <th scope="col"></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -127,6 +139,13 @@ Vue.component("orderMedicinePharmacyAdmin", {
                     <td><div  v-for = "o in order.orders">{{o.quantity}}</div></td>	
                     <td scope="row" v-if = "!order.isProcessed" >Pending offers</td>
                     <td scope="row" v-else >Processed</td>
+                    <td v-if = "IsDue(order)"><button  style="color:white" type="button" class="btn btn-default" data-dismiss="modal" v-on:click="GetOffers(order)" data-toggle="modal" data-target="#OrdersReview"><i class="fa fa-list"></i></button>
+                    <button  v-if = "!order.isProcessed " style="color:white" type="button" class="btn btn-default" data-dismiss="modal" v-on:click="GetOffers(order)" data-toggle="modal" data-target="#UpdateOrder"><i class="fa fa-cog"></i></button>
+                    <button  v-else style="color:white" type="button" class="btn btn-default" data-dismiss="modal" v-on:click="GetOffers(order)" data-toggle="modal" data-target="#UpdateOrder" disabled><i class="fa fa-cog"></i></button>
+                    <td v-else><button style="color:white" type="button" class="btn btn-default" data-dismiss="modal" v-on:click="GetOffers(order)" data-toggle="modal" data-target="#OrdersReview" disabled><i class="fa fa-list"></i></button>
+                    <button  v-if = "!order.isProcessed " style="color:white" type="button" class="btn btn-default" data-dismiss="modal" v-on:click="GetOffers(order)" data-toggle="modal" data-target="#UpdateOrder"><i class="fa fa-cog"></i></button>
+                    <button  v-else style="color:white" type="button" class="btn btn-default" data-dismiss="modal" v-on:click="GetOffers(order)" data-toggle="modal" data-target="#UpdateOrder" disabled><i class="fa fa-cog"></i></button>
+                    </td>
 				</tr>
 			</tbody>
 		</table>
@@ -139,6 +158,7 @@ Vue.component("orderMedicinePharmacyAdmin", {
                     <th scope="col">Medicine</th>
                     <th scope="col">Quantity</th>
                     <th scope="col">Status</th>
+                    <th scope="col"></th>
                 </tr>
             </thead>
             <tbody>
@@ -148,9 +168,18 @@ Vue.component("orderMedicinePharmacyAdmin", {
                     <td><div  v-for = "o in order.orders">{{o.quantity}}</div></td>	
                     <td scope="row" v-if = "!order.isProcessed" >Pending offers</td>
                     <td scope="row" v-else >Processed</td>
+                    <td v-if = "IsDue(order)"><button  style="color:white" type="button" class="btn btn-default" data-dismiss="modal" v-on:click="GetOffers(order)" data-toggle="modal" data-target="#OrdersReview"><i class="fa fa-list"></i></button>
+                    <button  v-if = "!order.isProcessed " style="color:white" type="button" class="btn btn-default" data-dismiss="modal" v-on:click="GetOffers(order)" data-toggle="modal" data-target="#UpdateOrder"><i class="fa fa-cog"></i></button>
+                    <button  v-else style="color:white" type="button" class="btn btn-default" data-dismiss="modal" v-on:click="GetOffers(order)" data-toggle="modal" data-target="#UpdateOrder" disabled><i class="fa fa-cog"></i></button>
+                    <td v-else><button style="color:white" type="button" class="btn btn-default" data-dismiss="modal" v-on:click="GetOffers(order)" data-toggle="modal" data-target="#OrdersReview" disabled><i class="fa fa-list"></i></button>
+                    <button  v-if = "!order.isProcessed " style="color:white" type="button" class="btn btn-default" data-dismiss="modal" v-on:click="GetOffers(order)" data-toggle="modal" data-target="#UpdateOrder"><i class="fa fa-cog"></i></button>
+                    <button  v-else style="color:white" type="button" class="btn btn-default" data-dismiss="modal" v-on:click="GetOffers(order)" data-toggle="modal" data-target="#UpdateOrder" disabled><i class="fa fa-cog"></i></button>
+                    </td>
                 </tr>
             </tbody>
         </table>
+
+ 
 
         <!-- Orders processed -->
         <table class="table" style = "width : 50%; margin-left:25%; color :  #515a5a   " v-else-if ="filter == 2">
@@ -160,6 +189,7 @@ Vue.component("orderMedicinePharmacyAdmin", {
                     <th scope="col">Medicine</th>
                     <th scope="col">Quantity</th>
                     <th scope="col">Status</th>
+                    <th scope="col"></th>
                 </tr>
             </thead>
             <tbody>
@@ -169,6 +199,13 @@ Vue.component("orderMedicinePharmacyAdmin", {
                     <td><div  v-for = "o in order.orders">{{o.quantity}}</div></td>	
                     <td scope="row" v-if = "!order.isProcessed" >Pending offers</td>
                     <td scope="row" v-else >Processed</td>
+                    <td v-if = "IsDue(order)"><button  style="color:white" type="button" class="btn btn-default" data-dismiss="modal" v-on:click="GetOffers(order)" data-toggle="modal" data-target="#OrdersReview"><i class="fa fa-list"></i></button>
+                    <button  v-if = "!order.isProcessed " style="color:white" type="button" class="btn btn-default" data-dismiss="modal" v-on:click="GetOffers(order)" data-toggle="modal" data-target="#UpdateOrder"><i class="fa fa-cog"></i></button>
+                    <button  v-else style="color:white" type="button" class="btn btn-default" data-dismiss="modal" v-on:click="GetOffers(order)" data-toggle="modal" data-target="#UpdateOrder" disabled><i class="fa fa-cog"></i></button>
+                    <td v-else><button style="color:white" type="button" class="btn btn-default" data-dismiss="modal" v-on:click="GetOffers(order)" data-toggle="modal" data-target="#OrdersReview" disabled><i class="fa fa-list"></i></button>
+                    <button  v-if = "!order.isProcessed " style="color:white" type="button" class="btn btn-default" data-dismiss="modal" v-on:click="GetOffers(order)" data-toggle="modal" data-target="#UpdateOrder"><i class="fa fa-cog"></i></button>
+                    <button  v-else style="color:white" type="button" class="btn btn-default" data-dismiss="modal" v-on:click="GetOffers(order)" data-toggle="modal" data-target="#UpdateOrder" disabled><i class="fa fa-cog"></i></button>
+                    </td>
                 </tr>
             </tbody>
         </table>
@@ -181,7 +218,7 @@ Vue.component("orderMedicinePharmacyAdmin", {
     
     <br><br><br><br><br>
     <h1>Requests overview</h1>
-    <table class="table" style = "width : 50%; margin-left:25%; color :  #515a5a " v-if ="filter == 0">
+    <table class="table" style = "width : 50%; margin-left:25%; color :  #515a5a">
         <thead class="thead-light">
             <tr>
                 <th scope="col">Id</th>
@@ -200,6 +237,120 @@ Vue.component("orderMedicinePharmacyAdmin", {
         </tbody>
     </table>
 
+
+    <!-- Orders review -->
+    <div class="modal fade" id="OrdersReview" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Offers</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+                <table class="table" style = "width : 50%; margin-left:25%; color :  #515a5a ">
+                    <thead class="thead-light">
+                        <tr>
+                            <th scope="col">Supplier</th>
+                            <th scope="col">Price</th>
+                            <th scope="col">Date</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for = "(offer) in allOffers">
+                            <td><div >{{offer.supplier.name}}</div></td>				
+                            <td><div >{{offer.offerPrice}}rsd</div></td>				
+                            <td><div>{{offer.dueDate}}</div></td>
+                            <td><button v-if = "!selectedOrder.isProcessed" style="color:white" type="button" class="btn btn-default" data-dismiss="modal" v-on:click="ChoseOffer(offer,selectedOrder)" data-toggle="modal" data-target="#"><i class="fa fa-check"></i></button></td>
+                            <td><button v-if = "offer.status == 'Accepted'" style="color:white" type="button" class="btn btn-default" data-dismiss="modal" v-on:click="ChoseOffer(offer,selectedOrder)" data-toggle="modal" data-target="#" disabled >✔</button></td>		
+                        </tr>
+                    </tbody>
+                </table>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+    <!--UpdateOrder -->
+    <div class="modal fade" id="UpdateOrder" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Update order</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+
+
+
+            <table class="table" style = "width : 50%; margin-left:25%; color :  #515a5a ">
+                <thead class="thead-light">
+                    <tr>                       
+                        <th scope="col">Medicine</th>
+                        <th scope="col">Quantity</th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for = "(order) in selectedOrder.orders">
+                        <td><div >{{order.medicine.name}}</div></td>				
+                        <td><div >{{order.quantity}}</div></td>				
+                        <td><button v-if = "!selectedOrder.isProcessed" style="color:white" type="button" class="btn btn-default" v-on:click="Remove(order)"><i class="fa fa-times"></i></button></td>
+                    </tr>
+                </tbody>
+            </table>
+            &nbsp
+
+            <div style = "margin-top : 3%;">
+            <div class = "sameLineOMPA"  style =" margin-top : 0.5%;" v-for = "(row,index) in orders">
+                <div class="input-group mb-3" style = "">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text " id="basic-addon3">Select medicine to order</span>
+                    </div>
+                    <select class="form-control"  v-model = "mpq.medicine" aria-describedby="basic-addon3" >
+                        <option value=""  selected disabled> </option>
+                        <option v-for = "medicine in medicines"   v-bind:value="medicine" >{{medicine.name}}</option>
+                    </select>
+                </div>
+                &nbsp
+                &nbsp
+                <div class="input-group mb-3" style = "">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text " id="basic-addon3">Set quantitiy</span>
+                    </div>
+                    <div v-if = "mpq.medicine == null">
+                        <input type = "number" min="1" class="form-control"  v-model="mpq.quantity" aria-describedby="basic-addon3" disabled>
+                    </div>
+                    <div v-else>
+                        <input type = "number" min="1" class="form-control"  v-model="mpq.quantity" aria-describedby="basic-addon3" >
+                    </div>
+                </div>   
+            </div>
+
+            
+            <button style="color:white" type="button" class="btn btn-default" v-on:click="Add(mpq)"><i class="fa fa-plus"></i></button>
+
+            <h1></h1>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+        </div>
+    </div>
+    </div>
+
+
+</div>
 	`,
     methods: {
         compareDate: function (date) {
@@ -207,7 +358,7 @@ Vue.component("orderMedicinePharmacyAdmin", {
             var month = parseInt(date.split("-")[1])
             var year = parseInt(date.split("-")[0])
             var today = new Date();
-            if(year < parseInt(today.getFullYear) || year == parseInt(today.getFullYear()) && month < (parseInt(today.getMonth()) + 1) ||  year == parseInt(today.getFullYear()) && month == (parseInt(today.getMonth())+1) && day <= parseInt(today.getDate())){
+            if(year < parseInt(today.getFullYear()) || year == parseInt(today.getFullYear()) && month < (parseInt(today.getMonth()) + 1) ||  year == parseInt(today.getFullYear()) && month == (parseInt(today.getMonth())+1) && day <= parseInt(today.getDate())){
                 alert("Please select valid date")
                 this.orderInfo.dueDate = null;
             }
@@ -307,6 +458,90 @@ Vue.component("orderMedicinePharmacyAdmin", {
                     } 
                 })
                 })
+        },
+        IsDue(order){
+            var date = order.dueDate.split('T')[0]
+            var day = parseInt(date.split("-")[2])
+            var month = parseInt(date.split("-")[1])
+            var year = parseInt(date.split("-")[0])
+            var today = new Date()
+            if(year < parseInt(today.getFullYear()) ||
+            year == parseInt(today.getFullYear()) && month < (parseInt(today.getMonth()) + 1) || 
+            year == parseInt(today.getFullYear()) && month == (parseInt(today.getMonth())+1) && day <= parseInt(today.getDate())){
+                return true
+            }
+            else return false
+        },
+        GetOffers : function(order){
+            axios
+            .get('/supplierOffer/getOffersByOrder/' + order.id) 
+            .then(response => {
+                this.allOffers = response.data
+                this.selectedOrder = order
+            })
+    
+        },
+        ChoseOffer : function(offer,order){
+            axios
+            .put('/supplierOffer/acceptOffer/' + offer.id,order) 
+            .then(response => {
+                axios
+                .get('/supplierOffer/getOffersByOrder/' + this.selectedOrder.id) 
+                .then(response => {
+                    this.allOffers = response.data
+                    this.selectedOrder = order
+                    axios
+                    .get('/order/ordersByPharmacyId/' + this.pharmacy.id) 
+                    .then(response => {
+                        this.allOrders = response.data
+                    })
+                })
+            })
+    
+        },
+        Remove :function(order){
+            if(this.allOffers.length != 0){
+                alert("only orders without offers can be edited")
+                return
+            }
+            var newOrders = []
+            for(var o of this.selectedOrder.orders){
+                if(o.id != order.id)
+                    newOrders.push(o)
+            }
+            this.selectedOrder.orders = newOrders
+            axios
+            .put('/order/update', this.selectedOrder) 
+            .then(response => {
+            })
+        },
+        Add :function(mpq){
+            if(this.allOffers.length != 0){
+                alert("only orders without offers can be edited")
+                return
+            }
+
+            if(mpq.medicine == null || mpq.quantity == null){
+                alert("Enter medicine and quantity first")
+                return
+            }
+           for(var x of this.selectedOrder.orders)
+                if(x.medicine.name.valueOf() == mpq.medicine.name.valueOf()){
+                    alert("Medicine already exists in order")
+                    return
+                }
+
+            var temp = mpq
+            this.selectedOrder.orders.push(temp)
+            axios
+            .put('/order/update' ,this.selectedOrder) 
+            .then(response => {
+                this.mpq = null
+                $('#UpdateOrder').modal('hide');
+                
+            })
+            .catch(error => {a
+            })
         }
     }
 

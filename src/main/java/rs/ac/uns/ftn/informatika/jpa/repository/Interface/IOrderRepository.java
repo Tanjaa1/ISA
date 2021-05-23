@@ -16,4 +16,6 @@ public interface IOrderRepository extends JpaRepository<Order, Long> {
 
     @Query("SELECT distinct o FROM Order o, PharmacyAdmin p , Pharmacy pm WHERE o.PharmacyAdmin = p.Id and p.Pharmacy like pm.Name and pm.Id = ?1")
     public List<Order>  getOrdersByPharmacyId(Long pId);
+
+    
 }

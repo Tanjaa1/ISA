@@ -16,6 +16,7 @@ import rs.ac.uns.ftn.informatika.jpa.enums.OfferStatus;
 import rs.ac.uns.ftn.informatika.jpa.model.Order;
 import rs.ac.uns.ftn.informatika.jpa.model.Supplier;
 import rs.ac.uns.ftn.informatika.jpa.model.SupplierOffer;
+import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IOrderRepository;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.ISupplierOfferRepository;
 
 @Service
@@ -23,10 +24,13 @@ public class SupplierOfferService {
     @Autowired
     private ISupplierOfferRepository supplierOfferRepository;
     @Autowired
+    private IOrderRepository orderRepository;
+    @Autowired
     private OrderService orderService;
     @Autowired
     private SupplierService supplierService;
-
+	@Autowired
+	private EmailService emailService;
    
     public List<SupplierOfferDTO> getOfferBySupplierId(Long id) {
     Supplier s=supplierService.findOne(id);
@@ -65,6 +69,18 @@ public class SupplierOfferService {
         supplierOfferRepository.save(offer);
         return new ResponseEntity<>( HttpStatus.CREATED);
     }
+
+    public List<SupplierOfferDTO> getByOrder(Long orderId) throws Exception {
+        
+        List<SupplierOfferDTO> retVal = new ArrayList<SupplierOfferDTO>();
+
+        for (SupplierOffer offer : supplierOfferRepository.getOffersByOrder(orderId)) {
+            retVal.add(new SupplierOfferDTO(offer));
+        }
+
+        return retVal;
+    }
+
 
     public Boolean giveOfferToOrder(Double price,String dueDate, Long orderId,Long supplierId) throws Exception {
         OrderDTO order=orderService.getById(orderId);
@@ -112,7 +128,44 @@ public class SupplierOfferService {
         return result;
     }
 
+    public Boolean acceptOrder(OrderDTO or,Long id){
+        
+       List<SupplierOffer> so = supplierOfferRepository.getOffersByOrder(or.getId());
+
+        for (SupplierOffer supplierOffer : so) {
+
+            if(supplierOffer.getId() == id.longValue()){
+                supplierOffer.setIsAccepted(OfferStatus.Accepted);
+                try {
+                    String subject="Response to offer \n\n";
+                    String text="We are informing you that your offer to our order no. " + or.getId() + " is accepted";
+                    emailService.sendNotificaitionAsync(supplierOffer.getSupplier().getEmail(),subject,text);
+                }catch( Exception e ){
+                }
+            
+            }
+            else{
+                supplierOffer.setIsAccepted(OfferStatus.Denided);
+                try {
+                    String subject="Response to offer \n\n";
+                    String text="We are informing you that your offer to our order no. " + or.getId() + " is rejected";
+                    emailService.sendNotificaitionAsync(supplierOffer.getSupplier().getEmail(),subject,text);
+                }catch( Exception e ){
+                }
+            
+            }
+            supplierOfferRepository.save(supplierOffer);
+        }
+
+        Order order= orderRepository.getOne(or.getId());
+        order.setIsProcessed(true);
+        orderRepository.save(order);
+        return true;
+    }
   
+
+
+
     
     }
     
