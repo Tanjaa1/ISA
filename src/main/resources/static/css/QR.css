@@ -1,0 +1,103 @@
+#QR {
+  background-image: url("../pictures/qr.jpg");
+  background-repeat: no-repeat;
+  overflow-y: hidden;
+  overflow-x: hidden;
+  background-size: cover;
+  height: auto !important;
+  min-height: 1000px;
+  color: white;
+  font-family: impact;
+}
+
+.qrPath{
+  width: 500px;
+}
+.labels{
+  margin: 5mm;
+  padding-right:inherit;
+}
+.sorting{
+  font-size: medium;
+  font-style: oblique;
+}
+.issue{	
+margin: 35px 35%;
+}
+
+.filtrate{	
+margin: 35px 35%;
+width: 25%;
+}
+
+.sidebar {
+height: 100%;
+width: 0;
+position: fixed;
+z-index: 1;
+top: 0;
+left: 0;
+background-color: #111;
+overflow-x: hidden;
+transition: 0.5s;
+padding-top: 60px;
+}
+
+.sidebar a {
+padding: 8px 8px 8px 32px;
+text-decoration: none;
+font-size: 25px;
+color:black;
+display: block;
+transition: 0.3s;
+}
+
+.sidebar a:hover {
+color: #f1f1f1;
+}
+
+.sidebar .closebtn {
+position: absolute;
+top: 0;
+right: 25px;
+font-size: 36px;
+margin-left: 50px;
+}
+
+.openbtn {
+font-size: 20px;
+cursor: pointer;
+background-color: #111;
+color: white;
+padding: 10px 15px;
+border: none;
+}
+
+.openbtn:hover {
+background-color:black;
+}
+
+#main {
+transition: margin-left .5s;
+padding: 16px;
+}
+
+#dropdown{
+font-family: impact;
+width: 100px;
+}
+
+#caret{
+margin: 35px 35%;
+width: 100%;
+}
+
+.prvi{
+font-size: 20px;
+cursor: pointer;
+color:black;
+border:black;
+
+
+
+}

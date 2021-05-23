@@ -1,5 +1,6 @@
 package rs.ac.uns.ftn.informatika.jpa.model;
 
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -14,6 +15,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import org.springframework.security.core.GrantedAuthority;
 
 import rs.ac.uns.ftn.informatika.jpa.dto.ActionOrPromotionsDTO;
 import rs.ac.uns.ftn.informatika.jpa.dto.PatientDTO;
@@ -188,4 +191,6 @@ public class Patient extends User {
 	public void setPrepaidPharmacies(Set<Pharmacy> pp){
 		PrepaidPharmacies = pp;
 	}
+
+	
 }

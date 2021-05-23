@@ -150,6 +150,8 @@ Vue.component("registrationPharmacy", {
 				</table>
 				
 			<button  type="button" class="btn2 btn-info btn-lg margin1" data-toggle="modal" data-target="#registrationInfo" v-on:click="AddPharmacy(pharmacyDTO,pharmacyAdminDTO)" >Submit</button>
+			<button id="Close" type="button" class="btn1 btn-info btn-lg margin form-control" data-toggle="modal" v-on:click="close()" >Go back</button>
+
 			<br/>
 			<br/>
 
@@ -170,8 +172,8 @@ Vue.component("registrationPharmacy", {
 		},
 		addressValidationPharmacy: function () {
 			if (this.pharmacyDTO.address != undefined && this.pharmacyDTO.address.length > 0) {
-				let surnameMatch = this.pharmacyDTO.address.match('[A-Za-z ]*');
-				if (surnameMatch != this.pharmacyDTO.address) return 'The Address may contain only letters';
+				let surnameMatch = this.pharmacyDTO.address.match('[A-Za-z0-9]*');
+				if (surnameMatch != this.pharmacyDTO.address) return 'The Address may contain only letters and numbers';
 				else if (this.pharmacyDTO.address[0].match('[A-Z]') === null) return 'The Address must begin with a capital letter';
 			}
 			else if (this.pharmacyDTO.address === '') return 'Address is a required field';
@@ -243,17 +245,28 @@ Vue.component("registrationPharmacy", {
 		}
     },
 	methods: {
+		close:function(){
+			this.$router.push('systemAdminHomaPage');
+		  },
 		AddPharmacy: function (pharmacyDTO,pharmacyAdminDTO) {
 			if (pharmacyDTO.name != null && pharmacyDTO.address != null || this.pharmacyAdminDTO.name!=null || this.pharmacyAdminDTO.surname!=null || this.pharmacyAdminDTO.address!=null || 
 				this.pharmacyAdminDTO.city!=null || this.pharmacyAdminDTO.country!=null || this.pharmacyAdminDTO.phoneNumber!=null || 
 				this.pharmacyAdminDTO.email!=null || this.pharmacyAdminDTO.password!=null || this.pharmacyAdminDTO.username!=null) 
 				{
 				axios
-					.get("/pharmacy/isNameValid/" +pharmacyDTO.name)
+					.get("/pharmacy/isNameValid/" +pharmacyDTO.name,{
+						headers: {
+							'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+						}
+					})
 					.then(response => {
 						this.isValidPharmacy=response.data;
 				axios
-					.get('/systemAdmin/isUsernameValid/' + pharmacyAdminDTO.username)
+					.get('/systemAdmin/isUsernameValid/' + pharmacyAdminDTO.username,{
+						headers: {
+							'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+						}
+					})
 					.then(response => {
 						this.isValid=response.data;
 						if(this.isValid==false || this.isValidPharmacy==false){
@@ -261,7 +274,11 @@ Vue.component("registrationPharmacy", {
 							return	
 						}else{
 							axios
-								.post("/pharmacy/savePharmacy", pharmacyDTO)
+								.post("/pharmacy/savePharmacy", pharmacyDTO,{
+									headers: {
+										'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+									}
+								})
 								.then(response => {
 									alert("APOTEKA U BAZI")})
 									.catch(error => {
@@ -270,15 +287,32 @@ Vue.component("registrationPharmacy", {
 									pharmacyAdminDTO.emailComfirmed=false
 									pharmacyAdminDTO.firstTimeLogin=false
 									pharmacyAdminDTO.description=""
+									pharmacyAdminDTO.pharmacy=pharmacyDTO.name
 										
 									axios
-										.post('/pharmacyAdmin/savePharmacyAdmin' , pharmacyAdminDTO)
+									.post('/api/saveUserByPharmacyAdmin' , pharmacyAdminDTO,{
+										headers: {
+											'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+										}
+									})
+									.then(response => {
+										alert("DODAT U BAZU user");
+										axios
+										.post('/pharmacyAdmin/savePharmacyAdmin' , pharmacyAdminDTO,{
+											headers: {
+												'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+											}
+										})
 										.then(response => {
-											alert("DODAT U BAZU");
+											alert("DODAT U BAZU pharmacyAdmin");
+											this.$router.push('systemAdminHomaPage');
 										})
-										.catch(error => {		
-											alert("GRESKA");
+				
+										.catch(error => {
+											
+											alert("GRESKAA");
 										})
+									})
 							}
 						})
 						.catch(error => {	

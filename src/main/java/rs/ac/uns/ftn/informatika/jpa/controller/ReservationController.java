@@ -6,6 +6,7 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,6 +29,7 @@ public class ReservationController {
 	@Autowired
 	private ResrvationService reservationService;
 	
+	@PreAuthorize("hasRole('PHARMACIST')")
 	@GetMapping(value = "/getReservationById/{id}/{pharmacyId}")
 	public ResponseEntity<ReservationDTO> getReservationById(@PathVariable Long id,@PathVariable Long pharmacyId) 
 	{
@@ -35,6 +37,7 @@ public class ReservationController {
 		return reservation == null ? new ResponseEntity<>(HttpStatus.OK) : ResponseEntity.ok(reservation);
 	}
 
+	@PreAuthorize("hasRole('PHARMACIST')")
 	@PutMapping(value = "/update")
 	public ResponseEntity<HttpStatus> update(@RequestBody Reservation reservation) throws Exception 
 	{

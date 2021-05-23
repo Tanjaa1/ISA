@@ -46,9 +46,9 @@ public class CounselingController {
     @GetMapping(value = "/getFutureCounselingByPatientId/{id}")
 	public ResponseEntity<List<CouncelingDTO>> getFutureCounselingByPatientId(@PathVariable Long id) {
 		List<CouncelingDTO> counselingsDTO = new ArrayList<CouncelingDTO>();
-		List<Counseling> counselings = counselingService.findFutureCounselingsByPatientId(id);
-		for (Counseling counseling : counselings) {
-			counselingsDTO.add(new CouncelingDTO(counseling));
+		List<CouncelingDTO> counselings = counselingService.findFutureCounselingsByPatientId(id);
+		for (CouncelingDTO counseling : counselings) {
+			counselingsDTO.add(counseling);
 		}
 		return counselingsDTO == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(counselingsDTO);
 	}

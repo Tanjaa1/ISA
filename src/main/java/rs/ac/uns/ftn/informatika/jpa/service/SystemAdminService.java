@@ -1,6 +1,7 @@
 package rs.ac.uns.ftn.informatika.jpa.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -12,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import rs.ac.uns.ftn.informatika.jpa.dto.SystemAdminDTO;
 import rs.ac.uns.ftn.informatika.jpa.model.SystemAdmin;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.ISystemAdminRepository;
 import rs.ac.uns.ftn.informatika.jpa.service.Interface.ISystemAdminService;
@@ -25,6 +27,7 @@ public class SystemAdminService implements ISystemAdminService {
 	private Logger logger = LoggerFactory.getLogger(ResrvationService.class);
 
     public ResponseEntity<SystemAdmin> save(SystemAdmin systemAdmin) throws Exception {
+		systemAdmin.setLastPasswordResetDate(new Date());
         systemAdminRepository.save(systemAdmin);
 		List<SystemAdmin> patients=systemAdminRepository.findAll();
 		Long patientId=0L;
@@ -33,7 +36,8 @@ public class SystemAdminService implements ISystemAdminService {
 				patientId=patient2.getId();
 		}
 		systemAdmin.setId(patientId);
-		emailSender(systemAdmin);        return new ResponseEntity<>( HttpStatus.CREATED);
+		emailSender(systemAdmin);  
+	  return new ResponseEntity<>( HttpStatus.CREATED);
     }
    
 
@@ -118,5 +122,16 @@ public class SystemAdminService implements ISystemAdminService {
         SystemAdmin systemAdmin2 = systemAdminRepository.save(patient1);
         return systemAdmin2;
     }
-    
+
+
+    public SystemAdmin getSystemAdminByCredentials(String username) {
+		List<SystemAdmin>list=systemAdminRepository.findAll();
+		SystemAdmin patieResult=new SystemAdmin();
+		for (SystemAdmin patient : list) {
+			if(patient.getUsername().equals(username)){
+				patieResult=patient;
+			}
+		}
+		return patieResult;
+		}
 }

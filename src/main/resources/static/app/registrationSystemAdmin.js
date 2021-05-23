@@ -115,6 +115,8 @@ Vue.component("registrationSystemAdmin", {
 			
 			</table>
 			<button  type="button" class="btn2 btn-info btn-lg margin1" data-toggle="modal" v-on:click="AddSystemAdmin(systemAdminDTO)">Submit</button>
+			<button id="Close" type="button" class="btn1 btn-info btn-lg margin form-control" data-toggle="modal" v-on:click="close()" >Go back</button>
+
 			<br/>
 			<br/>
     </div>
@@ -184,6 +186,9 @@ Vue.component("registrationSystemAdmin", {
 		}
     },
 	methods: {
+		close:function(){
+			this.$router.push('systemAdminHomaPage');
+		  },
 		AddSystemAdmin: function (systemAdminDTO) {
 			if(this.password_confirmed!=this.systemAdminDTO.password){
 					alert( 'Passwords did not match!');	
@@ -196,7 +201,12 @@ Vue.component("registrationSystemAdmin", {
 			}
 			else{
 				axios
-					.get('/systemAdmin/isUsernameValid/' + systemAdminDTO.username)
+					.get('/systemAdmin/isUsernameValid/' + systemAdminDTO.username,
+						{
+						headers: {
+							'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+						}
+					})
 					.then(response => {
 						 this.isValid=response.data;
 						 if(this.isValid==false){
@@ -208,15 +218,30 @@ Vue.component("registrationSystemAdmin", {
 							systemAdminDTO.description=""
 							
 							axios
-								.post('/systemAdmin/saveSystemAdmin' , systemAdminDTO)
+							.post('/api/saveUserBySystemAdmin' , systemAdminDTO,{
+								headers: {
+									'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+								}
+							})
+							.then(response => {
+								alert("DODAT U BAZU user");
+								axios
+								.post('/systemAdmin/saveSystemAdmin' , systemAdminDTO,{
+									headers: {
+										'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+									}
+								})
 								.then(response => {
-									alert("DODAT U BAZU");
+									alert("DODAT U BAZU systemAdmin");
+									this.$router.push('systemAdminHomaPage');
+
 								})
 		
 								.catch(error => {
 									
-									alert("GRESKA");
+									alert("GRESKAA");
 								})
+							})
 						}
 					})
 					.catch(error => {

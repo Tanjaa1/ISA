@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,7 +26,7 @@ import rs.ac.uns.ftn.informatika.jpa.service.PharmacyAdminService;
 public class PharmacyAdminController {
     @Autowired
     private PharmacyAdminService pharmacyAdminService;
-    
+	@PreAuthorize("hasRole('ADMIN')")
     @PostMapping(value = "/savePharmacyAdmin")
 	public ResponseEntity<PharmacyAdmin> savePatient(@RequestBody PharmacyAdmin pharmacyAdminDTO) throws Exception{
 		pharmacyAdminService.save(pharmacyAdminDTO);
@@ -43,7 +44,7 @@ public class PharmacyAdminController {
 		List<String> usernames =pharmacyAdminService.getAllSystemAdminUsernames();
 		return usernames == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(usernames);
 	}
-
+	@PreAuthorize("hasRole('ADMIN')")
 	@GetMapping(value = "/getById/{id}")
 	public ResponseEntity<PharmacyAdminDTO> getPatientById(@PathVariable Long id) {
 		PharmacyAdminDTO pharmacyAdmin = new PharmacyAdminDTO(pharmacyAdminService.findOne(id));
@@ -67,5 +68,10 @@ public class PharmacyAdminController {
 		Boolean success = pharmacyAdminService.confirmationEmail(Long.parseLong(Id));
 		return success == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(success);
 	}
-
+	@PreAuthorize("hasRole('PHARMACYADMIN')")
+	@GetMapping(value = "/getPharmacyAdminByCredentials/{username}")
+	public ResponseEntity<PharmacyAdminDTO> getPharmacyAdminByCredentials(@PathVariable String username) {
+		PharmacyAdminDTO patient = new PharmacyAdminDTO(pharmacyAdminService.getPharmacyAdminByCredentials(username));
+		return patient == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(patient);
+	}
 }

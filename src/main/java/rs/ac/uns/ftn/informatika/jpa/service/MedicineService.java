@@ -2,6 +2,7 @@ package rs.ac.uns.ftn.informatika.jpa.service;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -14,11 +15,16 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import rs.ac.uns.ftn.informatika.jpa.dto.LoyaltyProgrammeDTO;
 import rs.ac.uns.ftn.informatika.jpa.dto.MedicineDTO;
+import rs.ac.uns.ftn.informatika.jpa.dto.MedicineForQRDTO;
 import rs.ac.uns.ftn.informatika.jpa.dto.MedicineForSearch;
 import rs.ac.uns.ftn.informatika.jpa.dto.MedicinePriceAndQuantityDTO;
+import rs.ac.uns.ftn.informatika.jpa.dto.PharmacistDTO;
 import rs.ac.uns.ftn.informatika.jpa.dto.PharmacyDTO;
+import rs.ac.uns.ftn.informatika.jpa.dto.PharmacyQRDTO;
 import rs.ac.uns.ftn.informatika.jpa.model.EPrescription;
+import rs.ac.uns.ftn.informatika.jpa.model.LoyaltyProgramme;
 import rs.ac.uns.ftn.informatika.jpa.model.Markk;
 import rs.ac.uns.ftn.informatika.jpa.model.Medicine;
 import rs.ac.uns.ftn.informatika.jpa.model.MedicinePriceAndQuantity;
@@ -35,7 +41,40 @@ import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IPharmacyRepository;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IReservationRepository;
 import rs.ac.uns.ftn.informatika.jpa.service.Interface.IMedicineService;
 import rs.ac.uns.ftn.informatika.jpa.service.Interface.IPharmacyService;
+import java.io.File;
 
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+import com.google.zxing.EncodeHintType;
+import com.google.zxing.MultiFormatWriter;
+import com.google.zxing.NotFoundException;
+import com.google.zxing.WriterException;
+import com.google.zxing.client.j2se.MatrixToImageWriter;
+import com.google.zxing.common.BitMatrix;
+import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+import javax.imageio.ImageIO;
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.BinaryBitmap;
+import com.google.zxing.EncodeHintType;
+import com.google.zxing.MultiFormatReader;
+import com.google.zxing.MultiFormatWriter;
+import com.google.zxing.NotFoundException;
+import com.google.zxing.Result;
+import com.google.zxing.WriterException;
+import com.google.zxing.client.j2se.BufferedImageLuminanceSource;
+import com.google.zxing.client.j2se.MatrixToImageWriter;
+import com.google.zxing.common.BitMatrix;
+import com.google.zxing.common.HybridBinarizer;
+import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 @Service
 public class MedicineService implements IMedicineService {
 
@@ -50,6 +89,9 @@ public class MedicineService implements IMedicineService {
 
 	@Autowired
 	private PharmacyService pharmacyService;
+	
+	@Autowired
+	private LoyaltyProgrammeService loyaltyProgrammeService;
 
 	@Autowired
 	private IPharmacyRepository pharmacyRepository;
@@ -237,6 +279,22 @@ public class MedicineService implements IMedicineService {
 		for(MedicineDTO mdto : ms){
 			List<PharmacyDTO> pharmacys=pharmacyService.findPharmacyByMedicineName(mdto.getName());
 			for(PharmacyDTO p : pharmacys){
+				Integer grade=mdto.getGrade();
+				if(grade==null){
+					grade=1;
+				}
+				result.add(new MedicineForSearch( mdto.getName(), mdto.getType().toString(),mdto.getComposition(), p.getName(), grade.toString(),"250",mdto.getOnPrescription().toString(),mdto.getForm().toString()));
+			}
+		}
+		return result;
+	}
+	public List<MedicineForSearch> getPharmacyForAvaliableMedicineAndQuantity(String medicineName,Integer quantity) {
+		List<MedicineDTO> ms=findAllSearchMedicine(medicineName);
+		List<MedicineForSearch> result=new ArrayList<>();
+
+		for(MedicineDTO mdto : ms){
+			List<PharmacyDTO> pharmacys=pharmacyService.findPharmacyByMedicineNameAndQuantity(mdto.getName(),quantity);
+			for(PharmacyDTO p : pharmacys){
 				result.add(new MedicineForSearch( mdto.getName(), mdto.getType().toString(),mdto.getComposition(), p.getName(), mdto.getGrade().toString(),"250",mdto.getOnPrescription().toString(),mdto.getForm().toString()));
 			}
 		}
@@ -309,7 +367,7 @@ public class MedicineService implements IMedicineService {
 		return resultList;	
 	  }
 
-	public List<MedicineForSearch> combinedSearch(String parameters) {
+	public Set<MedicineForSearch> combinedSearch(String parameters) {
 		String[] pars=parameters.split("x");
 		String medicineName=pars[0];
 		String type=pars[1];
@@ -360,35 +418,30 @@ public class MedicineService implements IMedicineService {
 		}else{
 			filtrateOnPrescription=findAllSearch();
 		}
-		List<MedicineForSearch> res=new ArrayList<>();
-		List<MedicineForSearch> res1=new ArrayList<>();
-		List<MedicineForSearch> res2=new ArrayList<>();
-		List<MedicineForSearch> res3=new ArrayList<>();
-		List<MedicineForSearch> res4=new ArrayList<>();
+		Set<MedicineForSearch> res=new HashSet<>();
+		Set<MedicineForSearch> res1=new HashSet<>();
+		Set<MedicineForSearch> res2=new HashSet<>();
+		Set<MedicineForSearch> res3=new HashSet<>();
+		Set<MedicineForSearch> res4=new HashSet<>();
 
 			for(MedicineForSearch m :allWithNames){
 				for(MedicineForSearch m1: filtrateByForm){
-					if(m.getName().equals(m1.getName()) && m.getComposition().equals(m1.getComposition()) && m.getForm().equals(m1.getForm()) &&
-					m.getMark().equals(m1.getMark()) && m.getOnPrescription().equals(m1.getOnPrescription()) && m.getPharmacy().equals(m1.getPharmacy()) 
-					&& m.getPrice().equals(m1.getPrice()) && m.getType().equals(m1.getType())){
+					if(m.getName().equals(m1.getName())  && m.getForm().equals(m1.getForm())){
 						res.add(m);
 					}
 				}
 			}
 			for(MedicineForSearch m :filtrateByMark){
 				for(MedicineForSearch m1 :filtrateByType){
-					if(m.getName().equals(m1.getName()) && m.getComposition().equals(m1.getComposition()) && m.getForm().equals(m1.getForm()) &&
-					m.getMark().equals(m1.getMark()) && m.getOnPrescription().equals(m1.getOnPrescription()) && m.getPharmacy().equals(m1.getPharmacy()) 
-					&& m.getPrice().equals(m1.getPrice()) && m.getType().equals(m1.getType())){
+					if(m.getName().equals(m1.getName()) &&
+					m.getMark().equals(m1.getMark())&& m.getType().equals(m1.getType())){
 						res1.add(m);
 					}	
 				}
 			}
 			for(MedicineForSearch m :filtrateOnPrescription){
 				for(MedicineForSearch m1:filtrateNotOnPrescription){
-					if(m.getName().equals(m1.getName()) && m.getComposition().equals(m1.getComposition()) && m.getForm().equals(m1.getForm()) &&
-					m.getMark().equals(m1.getMark()) && m.getOnPrescription().equals(m1.getOnPrescription()) && m.getPharmacy().equals(m1.getPharmacy()) 
-					&& m.getPrice().equals(m1.getPrice()) && m.getType().equals(m1.getType())){
+					if(m.getName().equals(m1.getName()) && m.getOnPrescription().equals(m1.getOnPrescription())){
 						res2.add(m);
 					}
 				}
@@ -396,9 +449,7 @@ public class MedicineService implements IMedicineService {
 
 			for(MedicineForSearch m :res){
 				for(MedicineForSearch m1 :res1){
-					if(m.getName().equals(m1.getName()) && m.getComposition().equals(m1.getComposition()) && m.getForm().equals(m1.getForm()) &&
-					m.getMark().equals(m1.getMark()) && m.getOnPrescription().equals(m1.getOnPrescription()) && m.getPharmacy().equals(m1.getPharmacy()) 
-					&& m.getPrice().equals(m1.getPrice()) && m.getType().equals(m1.getType())){
+					if(m.getName().equals(m1.getName())){
 						res3.add(m);
 					}
 				}
@@ -406,14 +457,199 @@ public class MedicineService implements IMedicineService {
 
 			for(MedicineForSearch m :res2){
 				for(MedicineForSearch m1 :res3){
-					if(m.getName().equals(m1.getName()) && m.getComposition().equals(m1.getComposition()) && m.getForm().equals(m1.getForm()) &&
-					m.getMark().equals(m1.getMark()) && m.getOnPrescription().equals(m1.getOnPrescription()) && m.getPharmacy().equals(m1.getPharmacy()) 
-					&& m.getPrice().equals(m1.getPrice()) && m.getType().equals(m1.getType())){
+					if(m.getName().equals(m1.getName()) ){
 						res4.add(m);
 					}
 				}
 			}
 		return res4;
+	}
+	public static String readQR(String path, String charset, Map hashMap)throws FileNotFoundException, IOException,NotFoundException
+	{
+		BinaryBitmap binaryBitmap= new BinaryBitmap(new HybridBinarizer(new BufferedImageLuminanceSource(
+		ImageIO.read(
+			new FileInputStream(path)))));
+		Result result
+		= new MultiFormatReader().decode(binaryBitmap);
+		return result.getText();
+	}
+
+    public String uploadQR(String path)throws FileNotFoundException, IOException,NotFoundException {
+         
+        Map<EncodeHintType, ErrorCorrectionLevel> hashMap
+            = new HashMap<EncodeHintType,
+                          ErrorCorrectionLevel>();
+ 
+        hashMap.put(EncodeHintType.ERROR_CORRECTION,
+                    ErrorCorrectionLevel.L);
+ 
+        String result= readQR(path, "UTF-8", hashMap);  
+	
+	return result;
+}
+
+public Set<PharmacyQRDTO> getPharmaciesByQR(String path,Long patientIdd) throws FileNotFoundException, NotFoundException, IOException {
+	String ePrescriptionContent=uploadQR(path);
+	String [] partsMedicineAndQuantity=ePrescriptionContent.split(",");
+	Map<String,Integer> mapMedicineInPharmacy=new HashMap<>();
+	Map<String,Integer> qrMedicines=new HashMap<>();
+	Map<String,Double> pricePerPharmacies=new HashMap<>();
+
+	List<Pharmacy> allPharmacies=pharmacyRepository.findAll();
+	Set<Pharmacy> resultList=new HashSet();
+	Set<PharmacyDTO> resultListDTOS=new HashSet();
+	Set<PharmacyQRDTO> resultF=new HashSet();
+
+	for (int i=0;i<partsMedicineAndQuantity.length;i++) {
+		String nameMedicine=partsMedicineAndQuantity[i].split("-")[0];
+		String quantityMedicine=partsMedicineAndQuantity[i].split("-")[1];
+		qrMedicines.put(nameMedicine.trim().toLowerCase(), Integer.valueOf(quantityMedicine));
+	}
+	Integer indikator=0;
+		for (Pharmacy pharmacy : allPharmacies) {
+			Set<MedicinePriceAndQuantity> m=pharmacy.getPricelist();
+			mapMedicineInPharmacy.clear();
+			for (MedicinePriceAndQuantity medicineInPharmacy : m) {
+			mapMedicineInPharmacy.put(medicineInPharmacy.getMedicine().getName().trim().toLowerCase(),medicineInPharmacy.getQuantity());
+			}
+			if(mapMedicineInPharmacy.keySet().containsAll(qrMedicines.keySet())) {
+				for (Map.Entry<String, Integer> entry1 : qrMedicines.entrySet()) {
+					if(entry1.getValue()<=mapMedicineInPharmacy.get(entry1.getKey())){
+						indikator+=1;
+					}else{
+						break;
+					}
+					if(indikator==qrMedicines.size()){
+						resultList.add(pharmacy);
+						indikator=0;
+						mapMedicineInPharmacy.clear();
+					}
+				}
+				
+			}
+		}
+	
+	
+	for (Pharmacy p : resultList) {
+		resultListDTOS.add(new PharmacyDTO(p));
+	}
+
+		for (PharmacyDTO pharmacyDTO : resultListDTOS) {
+			Double pricePerPharmacy=0.0;
+			for (Map.Entry<String, Integer> entry1 : qrMedicines.entrySet()) {
+			Set<MedicinePriceAndQuantityDTO> m=pharmacyDTO.getPricelist();
+			for (MedicinePriceAndQuantityDTO medicineInPharmacy : m) {
+				if(entry1.getKey().equals(medicineInPharmacy.getMedicine().getName().trim().toLowerCase())){
+					pricePerPharmacy+=medicineInPharmacy.getPrice()*entry1.getValue();
+				}
+			}
+		}
+		pricePerPharmacies.put(pharmacyDTO.getName(), pricePerPharmacy);
+	}
+
+	for (PharmacyDTO pharmacyDTO : resultListDTOS) {
+		Double price=pricePerPharmacies.get(pharmacyDTO.getName());
+		Double grade;
+		if(pharmacyDTO.getGrade()==null){
+			grade=0.0;
+		}else{
+			grade=pharmacyDTO.getGrade();
+		}
+		Double priceWithDiscount=Discount(price, patientIdd);
+		resultF.add(new PharmacyQRDTO(pharmacyDTO.getId(), pharmacyDTO.getName(),pharmacyDTO.getAddress(), grade, price,priceWithDiscount));
+	}
+
+	return resultF;
+}
+public Double Discount(Double price,Long patientId){
+	List<LoyaltyProgrammeDTO> lp=loyaltyProgrammeService.getAll();
+	Patient patient=patientRepository.findById(patientId).get();
+	LoyaltyProgrammeDTO lpp= lp.get(0);
+	Integer regular=lpp.getRegular();
+	Integer silver=lpp.getSilver();
+	Integer gold=lpp.getGold();
+	Double regularDiscount=lpp.getGoldDiscount();
+	Double silverDiscount=lpp.getSilverDiscount();
+	Double goldDiscount=lpp.getGoldDiscount();
+
+	Double priceWithDiscount=0.0;
+
+	if(patient.getPoints()<=regular){
+		priceWithDiscount=price;
+	}
+	else if(patient.getPoints()>regular && patient.getPoints()<=silver){
+		priceWithDiscount=price-(price*regularDiscount);
+	}else if(patient.getPoints()>silver && patient.getPoints()<=gold){
+		priceWithDiscount=price-(price*silverDiscount);
+	}else{
+		priceWithDiscount=price-(price*goldDiscount);
+	}
+	return priceWithDiscount;
+}
+
+public List<PharmacyQRDTO> sortByPharmacyGradeQR(String path, Long patientId) throws FileNotFoundException, NotFoundException, IOException {
+	Set<PharmacyQRDTO> toSort=getPharmaciesByQR(path,patientId);
+	List<PharmacyQRDTO> phaList = toSort.stream().sorted((e1, e2) -> 
+	e1.getGrade().compareTo(e2.getGrade())).collect(Collectors.toList());
+	return phaList;
+}
+
+public List<PharmacyQRDTO> sortByPharmacyPriceQR(String path, Long patientId) throws FileNotFoundException, NotFoundException, IOException {
+	Set<PharmacyQRDTO> toSort=getPharmaciesByQR(path,patientId);
+	List<PharmacyQRDTO> phaList = toSort.stream().sorted((e1, e2) -> 
+	e1.getPriceofMedicines().compareTo(e2.getPriceofMedicines())).collect(Collectors.toList());
+	
+	return phaList;
+}
+
+public List<PharmacyQRDTO> sortByPharmacyNameQR(String path, Long patientId) throws FileNotFoundException, NotFoundException, IOException {
+	Set<PharmacyQRDTO> toSort=getPharmaciesByQR(path,patientId);
+	List<PharmacyQRDTO> phaList = toSort.stream().sorted((e1, e2) -> 
+	e1.getName().compareTo(e2.getName())).collect(Collectors.toList());
+	
+	return phaList;
+}
+
+public List<PharmacyQRDTO> sortByPharmacyAddressQR(String path, Long patientId) throws FileNotFoundException, NotFoundException, IOException {
+	Set<PharmacyQRDTO> toSort=getPharmaciesByQR(path,patientId);
+	List<PharmacyQRDTO> phaList = toSort.stream().sorted((e1, e2) -> 
+	e1.getAddress().compareTo(e2.getAddress())).collect(Collectors.toList());
+	
+	return phaList;
+}
+
+public List<PharmacyQRDTO> sortByPharmacyGradeQRDESC(String path, Long patientId) throws FileNotFoundException, NotFoundException, IOException {
+	Set<PharmacyQRDTO> toSort=getPharmaciesByQR(path,patientId);
+	List<PharmacyQRDTO> phaList = toSort.stream().sorted((e1, e2) -> 
+	e1.getGrade().compareTo(e2.getGrade())).collect(Collectors.toList());
+	Collections.reverse(phaList);
+
+	return phaList;
+}
+
+public List<PharmacyQRDTO> sortByPharmacyPriceQRDESC(String path, Long patientId) throws FileNotFoundException, NotFoundException, IOException {
+	Set<PharmacyQRDTO> toSort=getPharmaciesByQR(path,patientId);
+	List<PharmacyQRDTO> phaList = toSort.stream().sorted((e1, e2) -> 
+	e1.getPriceofMedicines().compareTo(e2.getPriceofMedicines())).collect(Collectors.toList());
+
+	Collections.reverse(phaList);
+	
+	return phaList;}
+
+public List<PharmacyQRDTO> sortByPharmacyNameDESC(String path, Long patientId) throws FileNotFoundException, NotFoundException, IOException {
+	Set<PharmacyQRDTO> toSort=getPharmaciesByQR(path,patientId);
+	List<PharmacyQRDTO> phaList = toSort.stream().sorted((e1, e2) -> 
+	e1.getAddress().compareTo(e2.getAddress())).collect(Collectors.toList());
+	Collections.reverse(phaList);
+	return phaList;
+}
+
+public List<PharmacyQRDTO> sortByPharmacyAddressQRDESC(String path, Long patientId) throws FileNotFoundException, NotFoundException, IOException {
+		Set<PharmacyQRDTO> toSort=getPharmaciesByQR(path,patientId);
+		List<PharmacyQRDTO> phaList = toSort.stream().sorted((e1, e2) -> 
+		e1.getAddress().compareTo(e2.getAddress())).collect(Collectors.toList());
+		Collections.reverse(phaList);
+		return phaList;
 	}
 
 	public List<MedicineDTO> getAllAR() {
@@ -468,3 +704,4 @@ public class MedicineService implements IMedicineService {
 	}
 
 }
+		

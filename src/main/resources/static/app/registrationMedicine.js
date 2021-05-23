@@ -15,7 +15,8 @@ Vue.component("registrationMedicine", {
 				replacement: null,
                 note: null,
                 contraindications:null,
-                dailyDose:null
+                dailyDose:null,
+				points:null
 			},
 		}
 	},
@@ -143,7 +144,16 @@ Vue.component("registrationMedicine", {
 			<tr><td>&nbsp;</td>
 				 <td align="left" style="color: red;font-size:12px">{{compositionValidation}}</td>
 			</tr>
-		
+
+			<tr>
+			<td><label>Points</label><a class="star">*</a></td>
+				<td><input type="number" class = "form-control input" v-model="medicineDTO.points"/></td><br/>
+			<tr>
+			<tr><td>&nbsp;</td>
+				<td align="left" style="color: red;font-size:12px">{{codeValidation}}</td>
+			</tr>
+
+
 			<tr>
             <td><label>Daily dose </label><a class="star">*</a></td>
              <td><input type="text" class = "form-control input"  v-model="medicineDTO.dailyDose"/></td><br/>
@@ -170,6 +180,8 @@ Vue.component("registrationMedicine", {
 			
             </table>
 			<button  type="button" class="btn2 btn-info btn-lg margin1" data-toggle="modal" v-on:click="AddMedicine(medicineDTO)">Submit</button>
+			<button id="Close" type="button" class="btn1 btn-info btn-lg margin form-control" data-toggle="modal" v-on:click="close()" >Go back</button>
+
 			<br/>
 			<br/>
     </div>
@@ -241,6 +253,9 @@ Vue.component("registrationMedicine", {
 		
     },
 	methods: {
+	 close:function(){
+		this.$router.push('systemAdminHomaPage');
+	  },
 		AddMedicine: function (medicineDTO) {
 			if(this.password_confirmed!=this.medicineDTO.password){
 					alert( 'Passwords did not match!');	
@@ -252,7 +267,11 @@ Vue.component("registrationMedicine", {
 			}else{
 
 				axios
-				.get('/medicine/isCodeValid/' +medicineDTO.code)
+				.get('/medicine/isCodeValid/' +medicineDTO.code,{
+					headers: {
+						'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+					}
+				})
 				.then(response => {
 					this.isValid=response.data;
 					if(this.isValid==false){
@@ -264,16 +283,16 @@ Vue.component("registrationMedicine", {
 				else 
 					medicineDTO.onPrescription=false
 
-				rep=medicineDTO.replacement.split(",")
-				for(r in rep)
-				{
-					medicineDTO.replacement[r]=rep[r]
-				}
-
 				axios
-					.post('/medicine/saveMedicine' , medicineDTO)
+					.post('/medicine/saveMedicine' ,medicineDTO ,{
+						headers: {
+							'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+						}
+					} )
 					.then(response => {
 						alert("DODAT U BAZU");
+						this.$router.push('systemAdminHomaPage');
+
 					})
 
 					.catch(error => {

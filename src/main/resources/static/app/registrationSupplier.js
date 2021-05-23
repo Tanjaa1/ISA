@@ -16,6 +16,7 @@ Vue.component("registrationSupplier", {
 				firstTimeLogin: null,
 				points: null,
 				penalty: null,
+				description:null
 			},
 		}
 	},
@@ -114,6 +115,8 @@ Vue.component("registrationSupplier", {
 			
 			</table>
 			<button  type="button" class="btn2 btn-info btn-lg margin1" data-toggle="modal" v-on:click="AddSupplier(supplierDTO)">Submit</button>
+			<button id="Close" type="button" class="btn1 btn-info btn-lg margin form-control" data-toggle="modal" v-on:click="close()" >Go back</button>
+
 			<br/>
 			<br/>
     </div>
@@ -185,6 +188,9 @@ Vue.component("registrationSupplier", {
 		
     },
 	methods: {
+		close:function(){
+			this.$router.push('systemAdminHomaPage');
+		  },
 		AddSupplier: function (supplierDTO) {
 			if(this.password_confirmed!=this.supplierDTO.password){
 					alert( 'Passwords did not match!');	
@@ -196,7 +202,11 @@ Vue.component("registrationSupplier", {
 				return
 			}else{
 				axios
-				.get('/supplier/isUsernameValid/'+ supplierDTO.username)
+				.get('/supplier/isUsernameValid/'+ supplierDTO.username,{
+					headers: {
+						'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+					}
+				})
 				.then(response => {
 					this.isValid=response.data;
 					if(this.isValid==false){
@@ -207,16 +217,32 @@ Vue.component("registrationSupplier", {
 						supplierDTO.firstTimeLogin=false
 						supplierDTO.points=0
 						supplierDTO.penalty=0
+						supplierDTO.description="/"
 					
 						axios
-							.post('/supplier/saveSupplier' , supplierDTO)
-							.then(response => {
-								alert("DODAT U BAZU");
+							.post('/api/saveUserBySupplier' , supplierDTO,{
+								headers: {
+									'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+								}
 							})
+							.then(response => {
+								alert("DODAT U BAZU user");
+								axios
+								.post('/supplier/saveSupplier' , supplierDTO,{
+									headers: {
+										'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+									}
+								})
+								.then(response => {
+									alert("DODAT U BAZU supplier");
+									this.$router.push('systemAdminHomaPage');
 
-							.catch(error => {
-								
-								alert("GRESKA");
+								})
+		
+								.catch(error => {
+									
+									alert("GRESKAA");
+								})
 							})
 					}
 				})

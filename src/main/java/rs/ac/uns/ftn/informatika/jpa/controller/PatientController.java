@@ -7,6 +7,7 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -36,6 +37,18 @@ public class PatientController {
 	@GetMapping(value = "/getPatientById/{id}")
 	public ResponseEntity<PatientDTO> getPatientById(@PathVariable Long id) {
 		PatientDTO patient = new PatientDTO(patientService.findOne(id));
+		return patient == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(patient);
+	}
+	@PreAuthorize("hasRole('PATIENT')")
+	@GetMapping(value = "/getPatientByIdd/{id}")
+	public ResponseEntity<PatientDTO> getPatientByIdd(@PathVariable Long id) {
+		PatientDTO patient = new PatientDTO(patientService.findById(id));
+		return patient == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(patient);
+	}
+	@PreAuthorize("hasRole('PATIENT')")
+	@GetMapping(value = "/getPatientByCredentials/{username}")
+	public ResponseEntity<PatientDTO> getPatientByCredentials(@PathVariable String username) {
+		PatientDTO patient = new PatientDTO(patientService.getPatientByCredentials(username));
 		return patient == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(patient);
 	}
 
@@ -87,8 +100,6 @@ public class PatientController {
 		return patient;
 	}
 
-
-	
 
 	@PostMapping(value = "/savePatient")
 	public ResponseEntity<Patient> savePatient(@RequestBody Patient patientDTO) throws Exception{

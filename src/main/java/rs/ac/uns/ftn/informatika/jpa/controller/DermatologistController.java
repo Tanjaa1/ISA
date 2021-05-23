@@ -1,5 +1,6 @@
 package rs.ac.uns.ftn.informatika.jpa.controller;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -9,6 +10,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,7 +39,7 @@ public class DermatologistController {
 	
 	@Autowired
 	private PharmacyService pharmacyService;
-
+	@PreAuthorize("hasRole('ADMIN')")
 	@PostMapping(value = "/saveDermatologist")
 	public ResponseEntity<Dermatologist> savePatient(@Valid @RequestBody Dermatologist dermatologistDTO, BindingResult result) throws Exception {
 		if (result.hasErrors()) 
@@ -47,6 +49,7 @@ public class DermatologistController {
 		Set<Pharmacy> setPhyrmacies=new HashSet<Pharmacy>();
 		setPhyrmacies.add(new Pharmacy(pharmacys));
 		dermatologistDTO.setPharmacies(setPhyrmacies);
+		dermatologistDTO.setLastPasswordResetDate(new Date());
 		dermatologistService.save(dermatologistDTO);
 	return new ResponseEntity<>(dermatologistDTO, HttpStatus.CREATED);
 	}
@@ -62,7 +65,7 @@ public class DermatologistController {
 		List<String> usernames =dermatologistService.getAllDermatologistUsernames();
 		return usernames == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(usernames);
 	}
-
+	@PreAuthorize("hasRole('ADMIN')")
 	@GetMapping(value = "/isUsernameValid/{username}")
 	public ResponseEntity<Boolean> isUsernameValid(@PathVariable String username) {
 		Boolean isValid = dermatologistService.isUsernameValid(username);
@@ -103,6 +106,12 @@ public class DermatologistController {
 	@PostMapping(value = "/giveMarkDermatologist/{medicinesMark}/{id}")
 	public ResponseEntity<DermatologistDTO> addMark(@RequestBody Dermatologist pharmacist, @PathVariable Integer medicinesMark, @PathVariable Long id) throws Exception {
 		return ResponseEntity.ok(dermatologistService.addMark(pharmacist,medicinesMark, id));
+	}
+	@PreAuthorize("hasRole('DERMATOLOGIST')")
+	@GetMapping(value = "/getDermatologistByCredentials/{username}")
+	public ResponseEntity<DermatologistDTO> getDermatologistByCredentials(@PathVariable String username) {
+		DermatologistDTO patient = new DermatologistDTO(dermatologistService.getDermatologistByCredentials(username));
+		return patient == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(patient);
 	}
 
 	@GetMapping(value = "/getByPharmacyId/{id}")

@@ -1,10 +1,17 @@
 package rs.ac.uns.ftn.informatika.jpa.controller;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
+import com.google.zxing.NotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,6 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import rs.ac.uns.ftn.informatika.jpa.dto.MedicinePriceAndQuantityDTO;
@@ -48,7 +56,7 @@ public class PharmacyController {
 		}
 		return pharmaciesDTO == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(pharmaciesDTO);
 	}
-
+	@PreAuthorize("hasRole('ADMIN')")
 	@PostMapping(value = "/savePharmacy")
 	public ResponseEntity<Pharmacy> savePharmacy(@RequestBody Pharmacy pharmacyDTO) throws Exception{
 		pharmacyService.save(pharmacyDTO);
@@ -71,7 +79,7 @@ public class PharmacyController {
 		List<String> usernames =pharmacyService.getAllPharmacyNames();
 		return usernames == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(usernames);
 	}
-
+	@PreAuthorize("hasRole('ADMIN')")
 	@GetMapping(value = "/isNameValid/{name}")
 	public ResponseEntity<Boolean> isNameValid(@PathVariable String name) {
 		Boolean isValid = pharmacyService.isNameValid(name);
@@ -117,6 +125,18 @@ public class PharmacyController {
 		PharmacyDTO pharmacie = pharmacyService.getPharmacyByPriceListId(id);
 		return pharmacie == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(pharmacie);
 	}
+	@GetMapping(value = "/findPharmacyBzListMedicines")
+	public ResponseEntity<List<PharmacyDTO>> findPharmacyBzListMedicines(@RequestBody Map<String,Integer> map) {
+		List<PharmacyDTO> pharmacie = pharmacyService.findPharmacyBzListMedicines(map);
+		return pharmacie == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(pharmacie);
+	}
+
+	@GetMapping(value = "/changePharmacySupplies/{id}/{patientId}")
+	public ResponseEntity<PharmacyDTO> changePharmacySupplies(@PathVariable Long id, @RequestParam String path,@PathVariable Long patientId) throws Exception {
+		PharmacyDTO pharmacie = pharmacyService.changePharmacySupplies(id,path,patientId);
+		return pharmacie == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(pharmacie);
+	}
+	
 	
 	@PutMapping(value = "/subscribeUser/{pID}")
 	public ResponseEntity<Boolean> update(@RequestBody PharmacyDTO pharmacy,@PathVariable Long pID) throws Exception{

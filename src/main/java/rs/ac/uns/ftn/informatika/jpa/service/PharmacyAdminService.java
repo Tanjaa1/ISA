@@ -1,6 +1,7 @@
 package rs.ac.uns.ftn.informatika.jpa.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -28,6 +29,7 @@ public class PharmacyAdminService implements IPharmacyAdminService {
 	private Logger logger = LoggerFactory.getLogger(ResrvationService.class);
 	
     public ResponseEntity<PharmacyAdmin> save(PharmacyAdmin systemAdmin) throws Exception {
+		systemAdmin.setLastPasswordResetDate(new Date());
         pharmacyAdminRepository.save(systemAdmin);
 		List<PharmacyAdmin> patients=pharmacyAdminRepository.findAll();
 		Long patientId=0L;
@@ -174,4 +176,15 @@ public class PharmacyAdminService implements IPharmacyAdminService {
 		update(pharmacyAdmnToUpdate);
 		return true;
 	}
+
+    public PharmacyAdmin getPharmacyAdminByCredentials(String username) {
+        List<PharmacyAdmin>list=pharmacyAdminRepository.findAll();
+		PharmacyAdmin patieResult=new PharmacyAdmin();
+		for (PharmacyAdmin patient : list) {
+			if(patient.getUsername().equals(username)){
+				patieResult=patient;
+			}
+		}
+		return patieResult;
+		}
 }

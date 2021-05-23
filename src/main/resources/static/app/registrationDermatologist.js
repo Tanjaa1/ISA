@@ -131,6 +131,8 @@ Vue.component("registrationDermatologist", {
 			
 		</table>
 			<button  type="button" class="btn2 btn-info btn-lg margin1" data-toggle="modal" v-on:click="AddDermatologist(dermatologistDTO,this.pharmaciesList.id)">Submit</button>
+			<button id="Close" type="button" class="btn1 btn-info btn-lg margin form-control" data-toggle="modal" v-on:click="close()" >Go back</button>
+
 			<br/>
 			<br/>
     </div>
@@ -199,6 +201,9 @@ Vue.component("registrationDermatologist", {
 	
 },
 methods: {
+	close:function(){
+		this.$router.push('systemAdminHomaPage');
+	  },
 	AddDermatologist: function (dermatologistDTO,idDe) {
 		if(this.password_confirmed!=this.dermatologistDTO.password){
 				alert( 'Passwords did not match!');	
@@ -211,27 +216,46 @@ methods: {
 		}
 		else{
 			axios
-				.get('/dermatologist/isUsernameValid/' + dermatologistDTO.username)
+				.get('/dermatologist/isUsernameValid/' + dermatologistDTO.username,{
+					headers: {
+						'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+					}
+				})
 				.then(response => {
 					this.isValid=response.data;
 					if(this.isValid==false){
-						alert('surname already exists, please choose another one!')
+						alert('username already exists, please choose another one!')
 						return
 					}else{
 						dermatologistDTO.emailComfirmed=false
 						dermatologistDTO.firstTimeLogin=false
 						dermatologistDTO.id=idDe
+						dermatologistDTO.description="/"
 						axios
-							.post('/dermatologist/saveDermatologist', dermatologistDTO)
-							.then(response => {
-								alert("DODAT U BAZU");
+						.post('/api/saveUserByDermatologist' , dermatologistDTO,{
+							headers: {
+								'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+							}
+						})
+						.then(response => {
+							alert("DODAT U BAZU user");
+							axios
+							.post('/dermatologist/saveDermatologist' , dermatologistDTO,{
+								headers: {
+									'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+								}
 							})
-
+							.then(response => {
+								alert("DODAT U BAZU dermatolog");
+								this.$router.push('systemAdminHomaPage');
+							})
+	
 							.catch(error => {
 								
-								alert("GRESKA");
+								alert("GRESKAA");
 							})
-						}
+						})
+					}
 				})
 
 				.catch(error => {

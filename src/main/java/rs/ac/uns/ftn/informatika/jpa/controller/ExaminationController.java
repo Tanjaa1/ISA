@@ -49,9 +49,9 @@ public class ExaminationController {
 	public ResponseEntity<List<ExaminationDTO>> getFutureExaminationByPatientId(@PathVariable Long id) 
 	{
 		List<ExaminationDTO> examinationDTOs = new ArrayList<ExaminationDTO>();
-		List<Examination> examinations = examinationService.findFutureExaminationsByPatientId(id);
-		for (Examination examination : examinations) {
-			examinationDTOs.add(new ExaminationDTO(examination));
+		List<ExaminationDTO> examinations = examinationService.findFutureExaminationsByPatientId(id);
+		for (ExaminationDTO examination : examinations) {
+			examinationDTOs.add(examination);
 		}
 		return examinationDTOs == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(examinationDTOs);
 	}
@@ -104,7 +104,7 @@ public class ExaminationController {
 	{
 		if (result.hasErrors()) 
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-		Examination e =examinationService.schedule(examination);
+		ExaminationDTO e =examinationService.schedule(examination);
 		return e == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : new ResponseEntity<>(HttpStatus.OK);
 	}
 

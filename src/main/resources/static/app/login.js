@@ -4,11 +4,15 @@ Vue.component("Login", {
 			usernameText: null,
 			passwordText: null,
 			loginResponse: null,
-			token: null
+			token: null,
+			role:null,
+			jwtAuthenticationRequest:{}
 		}
 	},
 	beforeMount() {
 		localStorage.setItem('isLogged', false);
+		localStorage.setItem('userId', "");
+
 
 	},
 	template: `
@@ -22,7 +26,7 @@ Vue.component("Login", {
 						<p id="loginboxText">Password</p>
 						<input type="password" name="" id="passwordId" placeholder="Enter Password" v-model="passwordText">
 						<input type="button" name="" id="submitId" value="Login" v-on:click="Validation()">
-						<a href="/#/registration">You don't have an account?</a>
+						<a href="/#/registrationPatient">You don't have an account?</a>
 					</form>
 		</div>
 
@@ -95,41 +99,82 @@ Vue.component("Login", {
 
 			}
 		},
-		GetUserType: function () {
-			axios.get('/login/GetUserType', {
-				headers: {
-					'Authorization': 'Bearer' + " " + localStorage.getItem('token')
-				}
-			})
-				.then(response => {
-					this.Redirect(response.data)
-				})
-		},
+		
 		Redirect: function (UserType) {
-			if (UserType == "PATIENT") {
+			if (UserType == "ROLE_PATIENT") {
 				localStorage.setItem('isAdmin', false)
 				localStorage.setItem('isPatient', true)
-				this.$router.push('patient');
+				localStorage.setItem('isSupplier', false)
+				localStorage.setItem('isPharmacyAdmin', false)
+				localStorage.setItem('isDermatologist', false)
+				localStorage.setItem('isPharmacist', false)
+				this.$router.push('patientHomePage');
 			}
-			else {
+			else if (UserType == "ROLE_ADMIN") {
 				localStorage.setItem('isAdmin', true)
 				localStorage.setItem('isPatient', false)
-
-				this.$router.push('feedbackAdmin');
+				localStorage.setItem('isSupplier', false)
+				localStorage.setItem('isPharmacyAdmin', false)
+				localStorage.setItem('isDermatologist', false)
+				localStorage.setItem('isPharmacist', false)
+				this.$router.push('systemAdminHomaPage');
+			}else if (UserType == "ROLE_PHARMACYADMIN") {
+				localStorage.setItem('isAdmin', false)
+				localStorage.setItem('isPatient', false)
+				localStorage.setItem('isSupplier', false)
+				localStorage.setItem('isPharmacyAdmin', true)
+				localStorage.setItem('isDermatologist', false)
+				localStorage.setItem('isPharmacist', false)
+				this.$router.push('administratorHomePage');
+			}else if (UserType == "ROLE_PHARMACIST") {
+				localStorage.setItem('isAdmin', false)
+				localStorage.setItem('isPatient', false)
+				localStorage.setItem('isSupplier', false)
+				localStorage.setItem('isPharmacyAdmin', false)
+				localStorage.setItem('isDermatologist', false)
+				localStorage.setItem('isPharmacist', true)
+				this.$router.push('pharmacistHomePage');
+			}else if (UserType == "ROLE_DERMATOLOGIST") {
+				localStorage.setItem('isAdmin', false)
+				localStorage.setItem('isPatient', false)
+				localStorage.setItem('isSupplier', false)
+				localStorage.setItem('isPharmacyAdmin', false)
+				localStorage.setItem('isDermatologist', true)
+				localStorage.setItem('isPharmacist', false)
+				this.$router.push('dermatologistHomePage');
+			}else if (UserType == "ROLE_SUPPLIER") {
+				localStorage.setItem('isAdmin', false)
+				localStorage.setItem('isPatient', false)
+				localStorage.setItem('isSupplier', true)
+				localStorage.setItem('isPharmacyAdmin', false)
+				localStorage.setItem('isDermatologist', false)
+				localStorage.setItem('isPharmacist', false)
+				this.$router.push('supplierProfile');
 			}
 		},
+		
 		Login: function () {
 			username = document.getElementById("userNameId").value
 			password = document.getElementById("passwordId").value
+			this.jwtAuthenticationRequest.username=username
+			this.jwtAuthenticationRequest.password=password
+
 			axios
-				.get('/login/login/', { params: { email: username, password: password } })
+				.post('/auth/login',this.jwtAuthenticationRequest)
 				.then(response => {
-					this.token = response.data.token
+					this.token = response.data.accessToken
+					if(this.token==undefined){
+						alert("Username or password are wrong, please try again  111111 ")
+						return
+					}
+					alert(this.token)
 					localStorage.setItem('token', this.token);
 					localStorage.setItem('isLogged', true);
-					this.GetUserType()
-					axios
-						.get('/login/GetUserId',
+					this.Redirect(response.data.role)
+
+					if (response.data.role == "ROLE_PATIENT") {
+						axios
+						.get('/patient/getPatientByCredentials/'+response.data.username,
 							{
 							headers: {
 								'Authorization': 'Bearer' + " " + localStorage.getItem('token')
@@ -137,11 +182,131 @@ Vue.component("Login", {
 						})
 						.then(response => {
 							this.idPatient = response.data
-							localStorage.setItem('userId', this.idPatient)
+							localStorage.setItem('userId', this.idPatient.id)
+							alert('pacijent')
+							if(this.idPatient.emailComfirmed==false){
+								alert("please confirme registration by email")
+							}
+							
 						})
 						.catch(error => {
+							alert("Username or password are wrong, please try again 2222!")
+							return
 						})
+					}
+					else if (response.data.role == "ROLE_ADMIN") {
+						axios
+						.get('/systemAdmin/getSystemAdminByCredentials/'+response.data.username,
+							{
+							headers: {
+								'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+							}
+						})
+						.then(response => {
+							this.idSystemAdmin = response.data
+							localStorage.setItem('userId', this.idSystemAdmin.id)
+							alert('systemAdmin')
+							if(this.idSystemAdmin.emailComfirmed==false){
+								alert("please confirme registration by email")
+							}else{
+								this.Redirect(response.data.role)
+							}
+						})
+						.catch(error => {
 
+						})
+					}else if (response.data.role == "ROLE_PHARMACYADMIN") {
+						axios
+						.get('/pharmacyAdmin/getPharmacyAdminByCredentials/'+response.data.username,
+							{
+							headers: {
+								'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+							}
+						})
+						.then(response => {
+							this.idPharmacyAdmin = response.data
+							localStorage.setItem('userId', this.idPharmacyAdmin.id)
+							alert('pharmacyAdmin')
+							alert(this.idPharmacyAdmin.emailComfirmed)
+							if(this.idPharmacyAdmin.emailComfirmed==false){
+								alert("please confirme registration by email")
+							}else{
+								this.Redirect(response.data.role)
+							}
+						})
+						.catch(error => {
+							alert("Username or password are wrong, please try again 3333!")
+
+						})
+					}else if (response.data.role == "ROLE_PHARMACIST") {
+						axios
+						.get('/pharmacist/getPharmacistByCredentials/'+response.data.username,
+							{
+							headers: {
+								'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+							}
+						})
+						.then(response => {
+							this.idPharmacist= response.data
+							localStorage.setItem('userId', this.idPharmacist.id)
+							alert('pharmacist')
+							if(this.idPharmacist.emailComfirmed==false){
+								alert("please confirme registration by email")
+							}else{
+								this.Redirect(response.data.role)
+							}
+						})
+						.catch(error => {
+							alert("Username or password are wrong, please try again! 4444")
+
+						})
+					}else if (response.data.role == "ROLE_DERMATOLOGIST") {
+						axios
+						.get('/dermatologist/getDermatologistByCredentials/'+response.data.username,
+							{
+							headers: {
+								'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+							}
+						})
+						.then(response => {
+							this.idDermatologist = response.data
+							localStorage.setItem('userId', this.idDermatologist.id)
+							alert('dermatologist')
+							if(this.idDermatologist.emailComfirmed==false){
+								alert("please confirme registration by email")
+								return
+							}else{
+								this.Redirect(response.data.role)
+							}
+						})
+						.catch(error => {
+							alert("Username or password are wrong, please try again!555555")
+
+						})
+					}else if (response.data.role == "ROLE_SUPPLIER") {
+						axios
+						.get('/supplier/getSupplierByCredentials/'+response.data.username,
+							{
+							headers: {
+								'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+							}
+						})
+						.then(response => {
+							this.idSupplier = response.data
+							localStorage.setItem('userId', this.idSupplier.id)
+							('supplier')
+							if(this.idSupplier.emailComfirmed==false){
+								alert("please confirme registration by email 6666 ")
+							}else{
+								this.Redirect(response.data.role)
+							}
+						})
+					
+						.catch(error => {
+							alert("Username or password are wrong, please try again! 777777")
+
+						})
+					}
 				})
 				.catch(error => {
 				})

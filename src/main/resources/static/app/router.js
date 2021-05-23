@@ -54,6 +54,7 @@ const SupplierInfo= { template: '<supplierInfo></supplierInfo>' }
 const SuppliersOffers= { template: '<suppliersOffers></suppliersOffers>' } 
 const GiveOffers= { template: '<giveOffers></giveOffers>' } 
 
+const LoyaltyProgramme= { template: '<loyaltyProgramme></loyaltyProgramme>' } 
 const AdministratorHomePage= { template: '<administratorHomePage></administratorHomePage>' } 
 
 
@@ -67,6 +68,7 @@ const emailConfirmationDermatologist = { template: '<emailConfirmationDermatolog
 const emailConfirmationPharmacist = { template: '<emailConfirmationPharmacist></emailConfirmationPharmacist>' } 
 const emailConfirmationSystemAdmin = { template: '<emailConfirmationSystemAdmin></emailConfirmationSystemAdmin>' } 
 const emailConfirmationPharmacyAdmin = { template: '<emailConfirmationPharmacyAdmin></emailConfirmationPharmacyAdmin>' } 
+const QR = { template: '<QR></QR>' } 
 
 
 
@@ -100,21 +102,16 @@ const CalendarP = { template: '<calendarP></calendarP>' }
 const router = new VueRouter({
 	  mode: 'hash',
 	  routes: [
-	    { 
-	    	path: '/', 
-	    	name : 'browse', 
-	    	component: Browse
-	    },
+	   
 	     { 
 	    	path: '/registration', 
 	    	name : 'registration', 
 	    	component: Registration
 	    },
 	    { 
-	    	path: '/login', 
+	    	path: '/', 
 	    	name : 'login', 
 			components: {
-				pageHeader: PatientHeader,
 				content: Login
 			}
 	    },
@@ -351,13 +348,15 @@ const router = new VueRouter({
 			path: '/registrationSupplier', 
 			name : 'registrationSupplier', 
 			components: {
+				pageHeader: systemAdminHeader,
 				content: RegistrationSupplier
 			}
 		},
 		{ 
 			path: '/registrationDermatologist', 
 			name : 'registrationDermatologist', 
-			components: {
+			components: {	
+				pageHeader: systemAdminHeader,
 				content: RegistrationDermatologist
 			}
 		},
@@ -365,13 +364,16 @@ const router = new VueRouter({
 			path: '/registrationPharmacy', 
 			name : 'registrationPharmacy', 
 			components: {
+				pageHeader: systemAdminHeader,
 				content: RegistrationPharmacy
+
 			}
 		},
 		{ 
 			path: '/registrationSystemAdmin', 
 			name : 'registrationSystemAdmin', 
-			components: {
+			components: {			
+				pageHeader: systemAdminHeader,
 				content: RegistrationSystemAdmin
 			}
 		},
@@ -379,6 +381,7 @@ const router = new VueRouter({
 			path: '/registrationMedicine', 
 			name : 'registrationMedicine', 
 			components: {
+				pageHeader: systemAdminHeader,
 				content: RegistrationMedicine
 			}
 		},
@@ -489,6 +492,7 @@ const router = new VueRouter({
 			path: '/complaints', 
 			name : 'complaints', 
 			components: {
+				pageHeader: systemAdminHeader,
 				content: Complaints
 			}
 		},
@@ -620,6 +624,21 @@ const router = new VueRouter({
 			name : 'giveOffers', 
 			components: {
 				content: GiveOffers
+			}
+		},
+		{
+			path: '/QR', 
+			name : 'QR', 
+			components: {
+				content: QR
+			}
+		},
+		{
+			path: '/loyaltyProgramme', 
+			name : 'loyaltyProgramme', 
+			components: {
+				pageHeader: systemAdminHeader,
+				content: LoyaltyProgramme
 			}
 		}
 	  ]

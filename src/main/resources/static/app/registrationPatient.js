@@ -126,6 +126,8 @@ Vue.component("registrationPatient", {
 			
 			</table>
 			<button  type="button" class="btn2 btn-info btn-lg margin1" data-toggle="modal" v-on:click="AddPatient(patientDTO)">Submit</button>
+			<button id="Close" type="button" class="btn1 btn-info btn-lg margin form-control" data-toggle="modal" v-on:click="close()" >Go back</button>
+
 			<br/>
 			<br/>
     </div>
@@ -196,6 +198,9 @@ Vue.component("registrationPatient", {
 		
     },
 	methods: {
+		close:function(){
+			this.$router.push('systemAdminHomaPage');
+		  },
 		AddPatient: function (patientDTO) {
 			if(this.password_confirmed!=this.patientDTO.password){
 					alert( 'Passwords did not match!');	
@@ -206,6 +211,7 @@ Vue.component("registrationPatient", {
 				alert('All fields must be filled!')
 				return
 			}else{
+				alert(patientDTO.username)
 				axios
 				.get('/patient/isUsernameValid/'+patientDTO.username)
 				.then(response => {
@@ -218,11 +224,12 @@ Vue.component("registrationPatient", {
 					patientDTO.emailComfirmed=false
 					patientDTO.firstTimeLogin=false
 					patientDTO.points=0
-					patientDTO.penalty=0
-					
+					patientDTO.penalty=null
+					patientDTO.description="/"
+
 				
 					axios
-					.get('/patient/savePatientDrugAllergies/' + patientDTO.drugAllergi)
+					.get('/patient/savePatientDrugAllergies/' + patientDTO.drugAllargies)
 					.then(response => {
 						var pom = response.data					})
 
@@ -238,15 +245,29 @@ Vue.component("registrationPatient", {
 
 						alert(patientDTO.drugAllargies)
 						
+					
+
 						axios
-						.post('/patient/savePatient' , patientDTO)
+						.post('/api/saveUser' , patientDTO)
 						.then(response => {
-							alert("DODAT U BAZU");
+							alert("DODAT U BAZU user");
+							axios
+							.post('/patient/savePatient' , patientDTO)
+							.then(response => {
+								alert("DODAT U BAZU pacijent");
+								this.$router.push('patientHomePage');
+
+							})
+	
+							.catch(error => {
+								
+								alert("GRESKAA");
+							})
 						})
 
 						.catch(error => {
 							
-							alert("GRESKA");
+							alert("GRESKAA");
 						})
 					}
 				})
