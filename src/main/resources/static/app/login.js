@@ -249,7 +249,7 @@ Vue.component("Login", {
 						.then(response => {
 							this.idPharmacist= response.data
 							localStorage.setItem('userId', this.idPharmacist.id)
-							alert('pharmacist')
+							alert(localStorage.getItem('userId'))
 							if(this.idPharmacist.emailComfirmed==false){
 								alert("please confirme registration by email")
 							}else{

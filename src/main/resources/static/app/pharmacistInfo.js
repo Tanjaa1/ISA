@@ -9,7 +9,11 @@ Vue.component("pharmacistInfo", {
 	},
 	beforeMount() {
 			axios
-			.get('/pharmacist/getPharmacistById/' + localStorage.getItem('userId')) 
+			.get('/pharmacist/getPharmacistById/' + localStorage.getItem('userId'),{
+				headers: {
+					'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+				}
+			}) 
 			.then(response => {
 				this.dermatologist = response.data
 			})
@@ -121,7 +125,11 @@ Vue.component("pharmacistInfo", {
 			if(document.getElementById("np").value==document.getElementById("cp").value && document.getElementById("np").value.trim()!="" && document.getElementById("cp").value.trim()!=""){
 				$('#Show').modal('hide');
 				this.dermatologist.password=document.getElementById("np").value
-					axios.put('/pharmacist/update', this.dermatologist)
+					axios.put('/pharmacist/update', this.dermatologist,{
+						headers: {
+							'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+						}
+					})
 						.then(function (response) {
 							$('#Show').modal('hide');
 						})
@@ -161,7 +169,11 @@ Vue.component("changePharmacistInfo", {
 	},
 	beforeMount() {
 			axios
-			.get('/pharmacist/getPharmacistById/' + localStorage.getItem('userId')) 
+			.get('/pharmacist/getPharmacistById/' + localStorage.getItem('userId'),{
+				headers: {
+					'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+				}
+			}) 
 			.then(response => {
 				this.dermatologist = response.data
 				this.id = this.dermatologist.id
@@ -281,7 +293,11 @@ Vue.component("changePharmacistInfo", {
 			this.dermatologistUpdated.firstTimeLogin = this.firstTimeLogin
 			this.dermatologistUpdated.description = this.description
 			this.dermatologistUpdated.username=this.username
-			axios.put('/pharmacist/update', this.dermatologistUpdated)
+			axios.put('/pharmacist/update', this.dermatologistUpdated,{
+				headers: {
+					'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+				}
+			})
 				.then(function (response) {
 					window.location.href = "#/pharmacistInfo";
 				})

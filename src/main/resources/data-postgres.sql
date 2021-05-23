@@ -65,12 +65,6 @@ INSERT INTO public.pharmacist(
 INSERT INTO public.users(
 	id, address, city, country, description, email, email_comfirmed, first_time_login, name, password, phone_number, surname, enabled, last_password_reset_date, username)
 	VALUES (555, 'Jovana Ducica 9', 'Novi Sad', 'Srbija', '', 'sava@gmail.com', false, false, 'Sava', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', '06541111123', 'Savic',true,'2008-11-11 13:23:44','sava');
-INSERT INTO public.pharmacist(
-	id, address, city, country, description, email, email_comfirmed, first_time_login, name, password, phone_number, surname, username, pharmacy_id)
-	VALUES (111, 'Jovana Ducica 9', 'Novi Sad', 'Srbija', '', 'pera@gmail.com', false, false, 'Pera', 'Peric', '06541111123', 'Peric','pera',111);
-INSERT INTO public.pharmacist(
-	id, address, city, country, description, email, email_comfirmed, first_time_login, name, password, phone_number, surname, username, pharmacy_id)
-	VALUES (121, 'Jovana Ducica 9', 'Novi Sad', 'Srbija', '', 'mika@gmail.com', false, false, 'Mika', 'Mikic', '06541111123', 'Mika','mika',111);
 
 /*
 INSERT INTO public.dermatologist(
@@ -184,22 +178,22 @@ INSERT INTO public.complaint(
 
 INSERT INTO public.counseling(
 	id, price, report, start_time, end_time, is_done, patient_id, pharmacist_id, pharmacy_id, is_canceled)
-	VALUES (111, 1000.0, 'Headache', '2022-02-09 16:00:00-07', '2021-02-09 16:25:25-07', true, 88, 555, 222, false);
+	VALUES (111, 1000.0, 'Headache', '2022-02-09 16:00:00-07', '2021-02-09 16:25:25-07', true, 88, 444, 222, false);
 INSERT INTO public.counseling(
 	id, price, report, start_time, end_time, is_done, patient_id, pharmacist_id, pharmacy_id, is_canceled)
-	VALUES (112, 2000.0, '', '2021-02-15 17:00:00-07', '2021-02-15 17:25:25-07', true, 89, 555, 222, false);
+	VALUES (112, 2000.0, '', '2021-02-15 17:00:00-07', '2021-02-15 17:25:25-07', true, 89, 444, 222, false);
 INSERT INTO public.counseling(
 	id, price, report, start_time, end_time, is_done, patient_id, pharmacist_id, pharmacy_id, is_canceled)
-	VALUES (113, 1000.0, '', '2022-02-15 15:00:00-07', '2021-02-15 15:25:25-07', true, 88, 555, 222, false);
+	VALUES (113, 1000.0, '', '2022-02-15 15:00:00-07', '2021-02-15 15:25:25-07', true, 88, 444, 222, false);
 INSERT INTO public.counseling(
 	id, price, report, start_time, end_time, is_done, patient_id, pharmacist_id, pharmacy_id, is_canceled)
-	VALUES (114, 2000.0, '', '2021-02-16 17:00:00-07', '2021-02-16 17:25:25-07', true, 89, 555, 222, false);
+	VALUES (114, 2000.0, '', '2021-02-16 17:00:00-07', '2021-02-16 17:25:25-07', true, 89, 444, 222, false);
 INSERT INTO public.counseling(
 	id, price, report, start_time, end_time, is_done, patient_id, pharmacist_id, pharmacy_id, is_canceled)
-	VALUES (115, 1000.0, '', '2022-02-13 16:00:00-07', '2021-02-13 16:25:25-07', false, 88, 555, 222, false);
+	VALUES (115, 1000.0, '', '2022-02-13 16:00:00-07', '2021-02-13 16:25:25-07', false, 88, 444, 222, false);
 INSERT INTO public.counseling(
 	id, price, report, start_time, end_time, is_done, patient_id, pharmacist_id, pharmacy_id, is_canceled)
-	VALUES (116, 2000.0, 'Headache', '2021-02-13 17:00:00-07', '2021-02-13 17:25:25-07', true, 89, 555, 222, false);
+	VALUES (116, 2000.0, 'Headache', '2021-02-13 17:00:00-07', '2021-02-13 17:25:25-07', true, 89, 444, 222, false);
 	
 -- INSERT INTO public.eprescription(
 -- 	code, issuing_date)

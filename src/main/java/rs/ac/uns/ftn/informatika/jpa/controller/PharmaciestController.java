@@ -33,12 +33,14 @@ public class PharmaciestController {
     @Autowired
 	private PharmacistService pharmacistService;
 	
+	@PreAuthorize("hasRole('PHARMACIST')")
 	@GetMapping(value = "/getPharmacistById/{id}")
 	public ResponseEntity<PharmacistDTO> getDermatologistById(@PathVariable Long id) {
 		PharmacistDTO pharmacist = new PharmacistDTO(pharmacistService.findOne(id));
 		return pharmacist == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(pharmacist);
 	}
 
+	@PreAuthorize("hasRole('PHARMACIST')")
 	@PutMapping(value = "/update")
 	public ResponseEntity<PharmacistDTO> updateGreeting(@Valid @RequestBody Pharmacist pharmacist, BindingResult result) throws Exception {
 		
