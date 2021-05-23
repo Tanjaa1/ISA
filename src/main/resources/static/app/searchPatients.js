@@ -6,7 +6,11 @@ Vue.component("dermatologistSearchPatients", {
 	},
 	beforeMount() {
 		axios
-			.get('/patient/getPatientByDermatologistExamination/' + '61') 
+			.get('/patient/getPatientByDermatologistExamination/' + localStorage.getItem('userId'),{
+				headers: {
+					'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+				}
+			}) 
 			.then(response => {
 				this.users = response.data
 			})
@@ -54,9 +58,12 @@ Vue.component("dermatologistSearchPatients", {
 			var surname=document.getElementById("surname").value
 			if(name=="") name='%20'
 			if(surname=="") surname='%20'
-
 			axios
-			.get('/patient/getPatientByDermatologistExaminationSearch/' + '61/'+name+'/'+surname) 
+			.get('/patient/getPatientByDermatologistExaminationSearch/' + localStorage.getItem('userId')+'/'+name+'/'+surname,{
+				headers: {
+					'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+				}
+			}) 
 			.then(response => {
 				this.users = response.data
 			})
@@ -127,7 +134,11 @@ Vue.component("pharmacistSearchPatients", {
 	},
 	beforeMount() {
 		axios
-			.get('/patient/getPatientByPharmacistCouseling/' + '41') 
+			.get('/patient/getPatientByPharmacistCouseling/' + localStorage.getItem('userId'),{
+				headers: {
+					'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+				}
+			}) 
 			.then(response => {
 				this.users = response.data
 			})
@@ -177,7 +188,11 @@ Vue.component("pharmacistSearchPatients", {
 			if(surname=="") surname='%20'
 
 			axios
-			.get('/patient/getPatientByPharmacistCounselingSearch/' + '41/'+name+'/'+surname) 
+			.get('/patient/getPatientByPharmacistCounselingSearch/' + localStorage.getItem('userId')+'/'+name+'/'+surname,{
+				headers: {
+					'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+				}
+			}) 
 			.then(response => {
 				this.users = response.data
 			})

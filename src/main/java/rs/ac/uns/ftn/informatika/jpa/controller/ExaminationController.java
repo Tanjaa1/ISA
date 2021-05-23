@@ -10,6 +10,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -56,6 +57,7 @@ public class ExaminationController {
 		return examinationDTOs == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(examinationDTOs);
 	}
 
+	@PreAuthorize("hasRole('DERMATOLOGIST')")
 	@PutMapping(value = "/finish")
 	public ResponseEntity<HttpStatus> update(@Valid @RequestBody Examination examination, BindingResult result) throws Exception
 	{
@@ -91,6 +93,7 @@ public class ExaminationController {
 		return pharmacies == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(pharmacies);
 	}
 
+	@PreAuthorize("hasRole('DERMATOLOGIST')")
 	@GetMapping(value = "/getFreeExaminationByDermatologist/{id}")
 	public ResponseEntity<List<ExaminationDTO>> getFreeExaminationByDermatologist(@PathVariable Long id) 
 	{
@@ -98,6 +101,7 @@ public class ExaminationController {
 		return examinationDTOs == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(examinationDTOs);
 	}
 
+	@PreAuthorize("hasRole('DERMATOLOGIST')")
 	@PutMapping(value = "/schedule")
 	public ResponseEntity<List<ExaminationDTO>> getFreeExaminationByDermatologist(@Valid @RequestBody Examination examination, BindingResult result)
 		throws Exception 
@@ -108,6 +112,7 @@ public class ExaminationController {
 		return e == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : new ResponseEntity<>(HttpStatus.OK);
 	}
 
+	@PreAuthorize("hasRole('DERMATOLOGIST')")
 	@PostMapping(value = "/add")
 	public ResponseEntity<ExaminationDTO> newExamination(@Valid @RequestBody Examination examination, BindingResult result)
 		throws Exception 
@@ -137,6 +142,7 @@ public class ExaminationController {
 	}
 
 	
+	@PreAuthorize("hasRole('DERMATOLOGIST')")
 	@GetMapping(value = "/getExaminationsByDermatologist/{id}")
 	public ResponseEntity<List<ExaminationDTO>> getExaminationsByDermatologist(@PathVariable Long id) 
 	{
@@ -151,6 +157,7 @@ public class ExaminationController {
 		return examinationDTOs == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(examinationDTOs);
 	}
 	
+	@PreAuthorize("hasRole('DERMATOLOGIST')")
 	@PutMapping(value = "/notCome")
 	public ResponseEntity<HttpStatus> notCome(@Valid @RequestBody Examination examination, BindingResult result) throws Exception
 	{

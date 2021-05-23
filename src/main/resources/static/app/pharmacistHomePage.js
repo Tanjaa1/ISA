@@ -7,7 +7,7 @@ Vue.component("pharmacistHomePage", {
 	},
 	beforeMount() {
 		axios
-			.get('/pharmacist/getPharmacistById/' + '41') 
+			.get('/pharmacist/getPharmacistById/' + localStorage.getItem('userId')) 
 			.then(response => {
 				this.phycian = response.data
 				if(!this.phycian.firstTimeLogin)

@@ -128,13 +128,13 @@ public class ExaminationService implements IExaminationService {
         LoyaltyProgramme lpDTO=loyaltyProgrammeService.findById(Long.valueOf(1));
         Patient patient =examination.getPatient();
         patient.setPoints(patient.getPoints()+lpDTO.getPointsForCounceling());
-        patientService.update(patient);
         emailSender2(examination);
         examinationRepository.save(e);
         ExaminationDTO eDTO=new ExaminationDTO(examination);
         Double price=medicineService.Discount(examination.getPrice(),examination.getPatient().getId());
         e.setPriceWithDiscount(price);
         examinationRepository.save(e);
+        //patientService.update(patient);
         return eDTO;
 	}
 

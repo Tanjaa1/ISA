@@ -57,6 +57,7 @@ public class PharmacyAdminController {
 		return isValid == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(isValid);
 	}
 	
+	@PreAuthorize("hasRole('DERMATOLOGIST')")
 	@PostMapping(value = "/sendingMail/{pharmacyName}")
 	public ResponseEntity<HttpStatus> sendingMail(@PathVariable String pharmacyName,@RequestBody Medicine medicine) {
 		Boolean sent =pharmacyAdminService.sendingMail(pharmacyName,medicine);

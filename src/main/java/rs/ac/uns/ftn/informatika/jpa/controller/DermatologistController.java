@@ -72,6 +72,7 @@ public class DermatologistController {
 		return isValid == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(isValid);
 	}
 	
+	@PreAuthorize("hasRole('DERMATOLOGIST')")
 	@GetMapping(value = "/getDermatologistById/{id}")
 	public ResponseEntity<DermatologistDTO> getDermatologistById(@PathVariable Long id) {
 		DermatologistDTO dermatologist = new DermatologistDTO(dermatologistService.findOne(id));

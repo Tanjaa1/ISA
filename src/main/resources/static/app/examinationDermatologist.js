@@ -21,21 +21,33 @@ Vue.component("createExaminationDermatologist", {
 	},
 	beforeMount() {
             axios
-            .get('/patient/getPatientByDermatologistExamination/' + '61') 
+            .get('/patient/getPatientByDermatologistExamination/' + localStorage.getItem('userId'),{
+                headers: {
+                  'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+                }
+              }) 
             .then(response => {
                 this.patients = response.data
             })
             .catch(error => {
             })
             axios
-            .get('/examination/getFreeExaminationByDermatologist/' + '61')
+            .get('/examination/getFreeExaminationByDermatologist/' + localStorage.getItem('userId'),{
+                headers: {
+                  'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+                }
+              })
             .then(response => {
                 this.future = response.data
             })
             .catch(error => {
             })
             axios
-              .get('/dermatologist/getDermatologistById/' + '61') 
+              .get('/dermatologist/getDermatologistById/' + localStorage.getItem('userId'),{
+                headers: {
+                  'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+                }
+              }) 
               .then(response => {
                   this.physician = response.data
               })
@@ -119,11 +131,19 @@ Vue.component("createExaminationDermatologist", {
         Schedule: async function(f){
             f.patient=this.patient
             var fut=[]
-            await axios.put('/examination/schedule',f)
+            await axios.put('/examination/schedule',f,{
+                headers: {
+                  'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+                }
+              })
             .then(function (response) {
                 alert("The examination was successfully scheduled!")
                 axios
-                .get('/examination/getFreeExaminationByDermatologist/' + '61')
+                .get('/examination/getFreeExaminationByDermatologist/' + localStorage.getItem('userId'),{
+                    headers: {
+                      'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+                    }
+                  })
                 .then(function (odg){
                     this.future=odg.response
                     location.reload()
@@ -140,7 +160,11 @@ Vue.component("createExaminationDermatologist", {
             this.newExamination.patient=this.patient
             this.newExamination.dermatologist=this.physician 
             this.newExamination.pharmacy=this.physician.pharmacies[0]
-            axios.post('/examination/add',this.newExamination)
+            axios.post('/examination/add',this.newExamination,{
+                headers: {
+                  'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+                }
+              })
             .then(function (response) {
                 alert("The examination was successfully scheduled!")
             })
