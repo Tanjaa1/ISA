@@ -103,7 +103,10 @@ Vue.component("patientHeader", {
         },
         Logout: function () {
             localStorage.setItem('userId', "");
-            this.$router.push("login")
+            localStorage.setItem('token', "");
+
+            this.$router.push("/")
+
         }
     }
 

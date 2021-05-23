@@ -82,7 +82,8 @@ Vue.component("systemAdminHeader", {
         },
         Logout: function () {
             localStorage.setItem('userId', "");
-            this.$router.push("login")
+            localStorage.setItem('token', "");
+            this.$router.push("/")
         }
     }
 

@@ -102,18 +102,14 @@ const CalendarP = { template: '<calendarP></calendarP>' }
 const router = new VueRouter({
 	  mode: 'hash',
 	  routes: [
-	    { 
-	    	path: '/', 
-	    	name : 'browse', 
-	    	component: Browse
-	    },
+	   
 	     { 
 	    	path: '/registration', 
 	    	name : 'registration', 
 	    	component: Registration
 	    },
 	    { 
-	    	path: '/login', 
+	    	path: '/', 
 	    	name : 'login', 
 			components: {
 				content: Login
