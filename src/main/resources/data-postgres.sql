@@ -55,7 +55,7 @@ INSERT INTO public.pharmacist(
 
 INSERT INTO public.pharmacist(
 	id, address, city, country, description, email, email_comfirmed, first_time_login, name, password, phone_number, surname, enabled, last_password_reset_date, username, pharmacy_id)
-	VALUES (444, 'Ticanova 1', 'Ruma', 'Srbija', '', 'ta.drcelic@gmail.com', false, false, 'Maja', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', '0654431123', 'Majic',true,'2008-11-11 13:23:44','majaa', 222);    
+	VALUES (444, 'Ticanova 1', 'Ruma', 'Srbija', '', 'ta.drcelic@gmail.com', true, true, 'Maja', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', '0654431123', 'Majic',true,'2008-11-11 13:23:44','majaa', 222);    
 INSERT INTO public.users(
 	id, address, city, country, description, email, email_comfirmed, first_time_login, name, password, phone_number, surname, enabled, last_password_reset_date, username)
 	VALUES (444, 'Ticanova 1', 'Ruma', 'Srbija', '', 'ta.drcelic@gmail.com', false, false, 'Maja', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', '0654431123', 'Majic',true,'2008-11-11 13:23:44','majaa');    
@@ -83,7 +83,7 @@ INSERT INTO public.dermatologist(
 
 INSERT INTO public.dermatologist(
 	id, address, city, country, description, email, email_comfirmed, first_time_login, name, password, phone_number, surname, enabled, last_password_reset_date, username)
-	VALUES (66, 'Kneza Milosa 3', 'Novi Sad', 'Srbija', '', 'jovan.jovic838@gmail.com', false, false, 'Jovan', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', '0632213455', 'Jovic',true,'2008-11-11 13:23:44','jokas');
+	VALUES (66, 'Kneza Milosa 3', 'Novi Sad', 'Srbija', '', 'jovan.jovic838@gmail.com', true, true, 'Jovan', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', '0632213455', 'Jovic',true,'2008-11-11 13:23:44','jokas');
 INSERT INTO public.users(
 	id, address, city, country, description, email, email_comfirmed, first_time_login, name, password, phone_number, surname, enabled, last_password_reset_date, username)
 	VALUES (66, 'Kneza Milosa 3', 'Novi Sad', 'Srbija', '', 'jovan.jovic838@gmail.com', false, false, 'Jovan', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', '0632213455', 'Jovic',true,'2008-11-11 13:23:44','jokas');

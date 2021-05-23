@@ -26,8 +26,13 @@ Vue.component("pharmacistVacationRequest", {
 		Request: function(){
             this.vacation.dateStart=document.getElementById("dateS").value
             this.vacation.dateEnd=document.getElementById("dateE").value
+			alert('dada')
 			axios
-				.post("/vacation/addPharmacistVacation/"+'41',this.vacation)
+				.post("/vacation/addPharmacistVacation/"+localStorage.getItem('userId'),this.vacation,{
+					headers: {
+						'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+					}
+				})
 				.then(response => {
                     alert("Your request has been sent!")
 				})
@@ -65,10 +70,12 @@ Vue.component("dermatologistVacationRequest", {
 		Request: function(){
             this.vacation.dateStart=document.getElementById("dateS").value
             this.vacation.dateEnd=document.getElementById("dateE").value
+			alert(localStorage.getItem('userId'))
 			axios
-				.post("/vacation/addDermatologistVacation/"+'6',this.vacation)
-				.then(response => {
-                    alert("Your request has been sent!")
+				.post("/vacation/addDermatologistVacation/"+localStorage.getItem('userId'),this.vacation,{
+					headers: {
+						'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+					}
 				})
 				.catch(error => {
 				})

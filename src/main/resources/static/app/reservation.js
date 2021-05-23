@@ -29,9 +29,14 @@ Vue.component("reservation", {
 	`,
 	methods: {
 		Search:function(){
+			alert(localStorage.getItem('token'))
 			var id=Number(document.getElementById("id").value)
 			axios
-			.get('/reservation/getReservationById/' + id+'/111') 
+			.get('/reservation/getReservationById/' + id+'/111',{
+				headers: {
+					'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+				}
+			}) 
 			.then(response => {
 				this.reservation=response.data
 				if(this.reservation=="")
@@ -43,7 +48,11 @@ Vue.component("reservation", {
 			})
 		},
 		Update:function(){
-			axios.put('/reservation/update', this.reservation)
+			axios.put('/reservation/update', this.reservation,{
+				headers: {
+					'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+				}
+			})
 				.then(function (response) {
 					alert("RESERVATION HAS BEEN TAKEN OVER!")
 					location.reload()

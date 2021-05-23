@@ -59,7 +59,13 @@ Vue.component("pharmacistHeader", {
         PharmacistShow: function () {
             this.$router.push('pharmacistHomePage');
         },
-        Logout: function () {           
+        Logout: function () {
+                localStorage.setItem('isLogged', false);
+                localStorage.setItem('userId', "");      
+                localStorage.setItem('token', "");
+
+                this.$router.push("/")
+    
         }
     }
 

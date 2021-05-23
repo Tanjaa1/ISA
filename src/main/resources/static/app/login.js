@@ -164,7 +164,7 @@ Vue.component("Login", {
 				.then(response => {
 					this.token = response.data.accessToken
 					if(this.token==undefined){
-						alert("Username or password are wrong, please try again!")
+						alert("Username or password are wrong, please try again  111111 ")
 						return
 					}
 					alert(this.token)
@@ -186,13 +186,12 @@ Vue.component("Login", {
 							alert('pacijent')
 							if(this.idPatient.emailComfirmed==false){
 								alert("please confirme registration by email")
-							}else{
-								this.Redirect(response.data.role)
 							}
 							
 						})
 						.catch(error => {
-							alert("Username or password are wrong, please try again!")
+							alert("Username or password are wrong, please try again 2222!")
+							return
 						})
 					}
 					else if (response.data.role == "ROLE_ADMIN") {
@@ -236,7 +235,7 @@ Vue.component("Login", {
 							}
 						})
 						.catch(error => {
-							alert("Username or password are wrong, please try again!")
+							alert("Username or password are wrong, please try again 3333!")
 
 						})
 					}else if (response.data.role == "ROLE_PHARMACIST") {
@@ -258,12 +257,12 @@ Vue.component("Login", {
 							}
 						})
 						.catch(error => {
-							alert("Username or password are wrong, please try again!")
+							alert("Username or password are wrong, please try again! 4444")
 
 						})
 					}else if (response.data.role == "ROLE_DERMATOLOGIST") {
 						axios
-						.get('/desmatologist/getDermatologistByCredentials/'+response.data.username,
+						.get('/dermatologist/getDermatologistByCredentials/'+response.data.username,
 							{
 							headers: {
 								'Authorization': 'Bearer' + " " + localStorage.getItem('token')
@@ -275,12 +274,13 @@ Vue.component("Login", {
 							alert('dermatologist')
 							if(this.idDermatologist.emailComfirmed==false){
 								alert("please confirme registration by email")
+								return
 							}else{
 								this.Redirect(response.data.role)
 							}
 						})
 						.catch(error => {
-							alert("Username or password are wrong, please try again!")
+							alert("Username or password are wrong, please try again!555555")
 
 						})
 					}else if (response.data.role == "ROLE_SUPPLIER") {
@@ -293,17 +293,17 @@ Vue.component("Login", {
 						})
 						.then(response => {
 							this.idSupplier = response.data
-							localStorage.setItem('supplierId', this.idSupplier.id)
+							localStorage.setItem('userId', this.idSupplier.id)
 							('supplier')
 							if(this.idSupplier.emailComfirmed==false){
-								alert("please confirme registration by email")
+								alert("please confirme registration by email 6666 ")
 							}else{
 								this.Redirect(response.data.role)
 							}
 						})
 					
 						.catch(error => {
-							alert("Username or password are wrong, please try again!")
+							alert("Username or password are wrong, please try again! 777777")
 
 						})
 					}

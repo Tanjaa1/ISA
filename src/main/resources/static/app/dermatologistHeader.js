@@ -55,7 +55,12 @@ Vue.component("dermatologistHeader", {
         DermatologistShow: function () {
             this.$router.push('dermatologistHomePage');
         },
-        Logout: function () {           
+        Logout: function () {       
+                localStorage.setItem('isLogged', false);
+                localStorage.setItem('userId', "");
+                localStorage.setItem('token', "");
+                this.$router.push("/")
+
         }
     }
 
