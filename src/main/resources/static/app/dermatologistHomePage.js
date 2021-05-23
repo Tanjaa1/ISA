@@ -7,7 +7,11 @@ Vue.component("dermatologistHomePage", {
 	},
 	beforeMount() {
 		axios
-			.get('/dermatologist/getDermatologistById/' + '61') 
+			.get('/dermatologist/getDermatologistById/' + localStorage.getItem('userId'),{
+				headers: {
+					'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+				}
+			}) 
 			.then(response => {
 				this.phycian = response.data
 				if(!this.phycian.firstTimeLogin)

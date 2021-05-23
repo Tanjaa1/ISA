@@ -2,10 +2,18 @@ Vue.component("reservation", {
 	data: function () {
 		return {
 			reservation:null,
-			get:false
+			get:false,
+			pharmacy
 		}
 	},
 	beforeMount() {
+		axios
+			.get('/pharmacist/getPharmacistById/' + localStorage.getItem('userId')) 
+			.then(response => {
+				this.pharmacy = response.data.pharmacy.id
+			})
+			.catch(error => {
+			})
 	},
 	template: `
 	<div id="Reservation"  class="BackendImagePhysician">
@@ -32,7 +40,7 @@ Vue.component("reservation", {
 			alert(localStorage.getItem('token'))
 			var id=Number(document.getElementById("id").value)
 			axios
-			.get('/reservation/getReservationById/' + id+'/111',{
+			.get('/reservation/getReservationById/' + id+'/'+this.pharmacy,{
 				headers: {
 					'Authorization': 'Bearer' + " " + localStorage.getItem('token')
 				}

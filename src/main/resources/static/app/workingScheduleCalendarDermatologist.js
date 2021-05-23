@@ -48,7 +48,11 @@ Vue.component("calendarD",{
     )
 
     axios
-			.get('/dermatologist/getDermatologistById/' + '61') 
+			.get('/dermatologist/getDermatologistById/' + localStorage.getItem('userId'),{
+				headers: {
+					'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+				}
+			}) 
 			.then(response => {
 				this.phycian = response.data
         this.pharmacy=this.phycian.pharmacies[0]
@@ -57,7 +61,11 @@ Vue.component("calendarD",{
 			})
 
     axios
-			.get('/examination/getExaminationsByDermatologist/' + '61') 
+			.get('/examination/getExaminationsByDermatologist/' + localStorage.getItem('userId'),{
+				headers: {
+					'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+				}
+			}) 
 			.then(response => {
 				this.myExamination = response.data
 			})
@@ -162,8 +170,8 @@ Vue.component("calendarD",{
                       Patient did not come.
                       </div></br></a>
                       <div class="modal-footer">
-            <button v-if="PastExam()" id="addF" type="button" class="btn btn-info btn-lg" v-on:click="No()">Did not come</button>
-            <button v-if="PastExam()" id="cancelF" type="button" class="btn btn-info btn-lg" v-on:click="Yes()"">Start</button>
+            <button v-if="!PastExam() && !exam.isDone && !exam.isCanceled" id="addF" type="button" class="btn btn-info btn-lg" v-on:click="No()">Did not come</button>
+            <button v-if="!PastExam() && !exam.isDone" id="cancelF" type="button" class="btn btn-info btn-lg" v-on:click="Yes()"">Start</button>
           </div>
         </div>
         </div>
@@ -298,8 +306,13 @@ Vue.component("calendarD",{
    No:function(){
     $('#ExaminationP').modal('hide');
     this.exam.isDone=false
-    axios.put('/examination/notCome', this.exam)
+    axios.put('/examination/notCome', this.exam,{
+      headers: {
+        'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+      }
+    })
     .then(function (response) {
+      this.$router.push('calendarD');
     })
     .catch(function (error) {
     });
@@ -350,7 +363,11 @@ Vue.component("examinationDermatologist", {
 	},
 	beforeMount() {
                 axios
-                .get('/eprescription/findMedicines/' + this.examination.pharmacy.id)
+                .get('/eprescription/findMedicines/' + this.examination.pharmacy.id,{
+                  headers: {
+                    'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+                  }
+                })
                 .then(response => {       
                     this.med=response.data
                     for(var m in this.med){
@@ -367,7 +384,11 @@ Vue.component("examinationDermatologist", {
                 })
 
             axios
-            .get('/examination/getFreeExaminationByDermatologist/' + '61')
+            .get('/examination/getFreeExaminationByDermatologist/' + localStorage.getItem('userId'),{
+              headers: {
+                'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+              }
+            })
             .then(response => {
                 this.future = response.data
             })
@@ -528,8 +549,14 @@ Vue.component("examinationDermatologist", {
 	`,
 	methods: {
         Finish:function(){    
-            axios.put('/examination/finish', this.examination)
+            axios.put('/examination/finish', this.examination,{
+              headers: {
+                'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+              }
+            })
               .then(function (response) {
+                alert('Done')
+                  this.$router.push('CalendarD');
               })
               .catch(function (error) {
               });    
@@ -545,7 +572,11 @@ Vue.component("examinationDermatologist", {
                       pharmacyMedicines[m].quantity=pharmacyMedicines[m].quantity-1
                         this.prescriptionDTO.medicine=pharmacyMedicines[m]
                         this.prescriptionDTO.pharmacy=this.examination.pharmacy
-                        await axios.post('/eprescription/add/'+this.examination.patient.id, this.prescriptionDTO)
+                        await axios.post('/eprescription/add/'+this.examination.patient.id, this.prescriptionDTO,{
+                          headers: {
+                            'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+                          }
+                        })
                             .then(function (response) {
                                 alert("The prescription was successfully issued!")
                                 //location.reload()
@@ -553,7 +584,11 @@ Vue.component("examinationDermatologist", {
                             .catch(function (error) {
                             });
                           await  axios
-                                .get('/eprescription/findMedicines/' + this.examination.pharmacy.id)
+                                .get('/eprescription/findMedicines/' + this.examination.pharmacy.id,{
+                                  headers: {
+                                    'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+                                  }
+                                })
                                 .then(response => {       
                                     this.med=response.data
                                     this.medicines=[]
@@ -572,7 +607,11 @@ Vue.component("examinationDermatologist", {
                                 await $('#PrescriptionModal').modal('hide');
                         }else{
                             alert("Medicine is put of stock!")
-                            axios.post('/pharmacyAdmin/sendingMail/'+this.examination.pharmacy.name,this.medicineChoose)
+                            axios.post('/pharmacyAdmin/sendingMail/'+this.examination.pharmacy.name,this.medicineChoose,{
+                              headers: {
+                                'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+                              }
+                            })
                             .then(function (response) {
                             })
                             .catch(function (error) {
@@ -584,12 +623,21 @@ Vue.component("examinationDermatologist", {
         Schedule: async function(f){
             f.patient=this.examination.patient
             var fut=[]
-            await axios.put('/examination/schedule',f)
+            await axios.put('/examination/schedule',f,{
+              headers: {
+                'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+              }
+            })
             .then(function (response) {
                 alert("The examination was successfully scheduled!")
                 axios
-                .get('/examination/getFreeExaminationByDermatologist/' + '61')
+                .get('/examination/getFreeExaminationByDermatologist/' + localStorage.getItem('userId'),{
+                  headers: {
+                    'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+                  }
+                })
                 .then(function (odg){
+                    this.future=[]
                     this.future=odg.response
                     //location.reload()
                     $('#Schedule').modal('hide');
@@ -607,7 +655,11 @@ Vue.component("examinationDermatologist", {
             this.newExamination.patient=this.examination.patient
             this.newExamination.dermatologist=this.examination.dermatologist 
             this.newExamination.pharmacy=this.examination.pharmacy
-            axios.post('/examination/add',this.newExamination)
+            axios.post('/examination/add',this.newExamination,{
+              headers: {
+                'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+              }
+            })
             .then(function (response) {
                 alert("The examination was successfully scheduled!")
                 $('#Schedule').modal('hide');

@@ -8,7 +8,11 @@ Vue.component("dermatologistInfo", {
 	},
 	beforeMount() {
 			axios
-			.get('/dermatologist/getDermatologistById/' + '61') 
+			.get('/dermatologist/getDermatologistById/' + localStorage.getItem('userId'),{
+				headers: {
+					'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+				}
+			}) 
 			.then(response => {
 				this.dermatologist = response.data
 				for(f in this.dermatologist.pharmacies)
@@ -122,7 +126,11 @@ Vue.component("dermatologistInfo", {
 			if(document.getElementById("np").value==document.getElementById("cp").value && document.getElementById("np").value.trim()!="" && document.getElementById("cp").value.trim()!=""){
 				$('#Show').modal('hide');
 				this.dermatologist.password=document.getElementById("np").value
-					axios.put('/dermatologist/update', this.dermatologist)
+					axios.put('/dermatologist/update', this.dermatologist,{
+						headers: {
+							'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+						}
+					})
 						.then(function (response) {
 							$('#Show').modal('hide');
 						})
@@ -163,7 +171,11 @@ Vue.component("changeDermatologistInfo", {
 	},
 	beforeMount() {
 			axios
-			.get('/dermatologist/getDermatologistById/' + '61') 
+			.get('/dermatologist/getDermatologistById/' +localStorage.getItem('userId'),{
+				headers: {
+					'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+				}
+			}) 
 			.then(response => {
 				this.dermatologist = response.data
 				this.id = this.dermatologist.id
@@ -283,7 +295,11 @@ Vue.component("changeDermatologistInfo", {
 			this.dermatologistUpdated.firstTimeLogin = this.firstTimeLogin
 			this.dermatologistUpdated.description = this.description
 			this.dermatologistUpdated.username=this.username
-			axios.put('/dermatologist/update', this.dermatologistUpdated)
+			axios.put('/dermatologist/update', this.dermatologistUpdated,{
+				headers: {
+					'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+				}
+			})
 				.then(function (response) {
 					window.location.href = "#/dermatologistInfo";
 				})
