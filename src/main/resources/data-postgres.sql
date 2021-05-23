@@ -146,6 +146,7 @@ INSERT INTO public.users(
 	id, address, city, country, description, email, email_comfirmed, first_time_login, name, password, phone_number, surname, enabled, last_password_reset_date, username)
 	VALUES (100, 'Seljackih Buna 2', 'Novi Sad', 'Srbija', '', 'ta.drcelic@gmail.com', false, false, 'Jelena', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', '0632211124', 'Jokic',true,'2008-11-11 13:23:44','jeca');
 
+
 INSERT INTO public.supplier(
 	id, address, city, country, description, email, email_comfirmed, first_time_login, name, password, phone_number, surname, enabled, last_password_reset_date, username)
 	VALUES (111, 'Seljackih Buna 2', 'Novi Sad', 'Srbija', '', 'ta.drcelic@gmail.com', false, false, 'Goran','$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', '0632211111', 'Goric',true,'2008-11-11 13:23:44','goran');
@@ -975,11 +976,12 @@ INSERT INTO public.order_medicine(
 	
 INSERT INTO public.order_medicine(
 	id, due_date, pharmacy_admin_id,is_processed)
-	VALUES (211,'2008-11-11 13:23:44', 999,true);
+	VALUES (211,'2008-11-11 13:23:44', 9,false);
 
 INSERT INTO public.order_medicine(
 	id, due_date, pharmacy_admin_id,is_processed)
-	VALUES (311,'2008-11-11 13:23:44', 888,true);
+	VALUES (311,'2008-11-11 13:23:44', 8,false);
+
 
 INSERT INTO public.order_medicine_orders(
 	order_id, orders_id)
@@ -1064,6 +1066,27 @@ INSERT INTO public.loyalty_programme(
 	VALUES (1, 200, 0.5, 10, 10, 50, 0.2, 100, 0.3);
 
 
+INSERT INTO public.action_or_promotion(
+	id, text, medicine_id, pharmacy_id,start_time,end_time)
+	VALUES (331, 'akcija 350%', 222,  111,'2019-08-13 17:00:00-07', '2024-08-13 17:25:25-07');
+INSERT INTO public.action_or_promotion(
+	id, text, medicine_id, pharmacy_id,start_time,end_time)
+	VALUES (443, 'akcija 530%', 223, 111,'2019-08-13 17:00:00-07', '2024-08-13 17:25:25-07');
+	VALUES (334,223, '2021-05-13 16:00:00-07',111,false);
+
+
+INSERT INTO public.supplier_offer(
+	id, due_date, offer_price, status, order_medicine_id, supplier_id)
+	VALUES (345, 'neki datum', 14000.00, 2, 311, 10);
+	
+INSERT INTO public.supplier_offer(
+	id, due_date, offer_price, status, order_medicine_id, supplier_id)
+	VALUES (432, 'neki datum', 15000.00, 2, 211, 10);
+	
+INSERT INTO public.supplier_offer(
+	id, due_date, offer_price, status, order_medicine_id, supplier_id)
+	VALUES (855, 'neki datum', 16000.00, 2, 111, 11);
+  
 INSERT INTO AUTHORITY (name) VALUES ('ROLE_PATIENT');
 INSERT INTO AUTHORITY (name) VALUES ('ROLE_ADMIN');
 INSERT INTO AUTHORITY (name) VALUES ('ROLE_PHARMACYADMIN');

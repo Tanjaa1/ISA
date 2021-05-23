@@ -9,10 +9,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import rs.ac.uns.ftn.informatika.jpa.dto.MedicineQuantityDTO;
+import rs.ac.uns.ftn.informatika.jpa.dto.OrderDTO;
 import rs.ac.uns.ftn.informatika.jpa.dto.SupplierOfferDTO;
 import rs.ac.uns.ftn.informatika.jpa.service.SupplierOfferService;
 
@@ -50,6 +53,18 @@ public class SupplierOfferController {
 	public Boolean isOfferGivenToOrder(@PathVariable Long orderId,@PathVariable Long supplierId) throws Exception {
 		Boolean offerS =supplierOfferService.isOfferGivenToOrder(orderId,supplierId);
 		return offerS;
+
+	}
+	@GetMapping(value = "/getOffersByOrder/{orderId}")
+	public List<SupplierOfferDTO> getOffersByOrder(@PathVariable Long orderId) throws Exception {
+
+		return supplierOfferService.getByOrder(orderId);
+
+	}
+	@PutMapping(value = "/acceptOffer/{id}")
+	public Boolean accepOffer(@RequestBody OrderDTO order,@PathVariable Long id) throws Exception {
+
+		return supplierOfferService.acceptOrder(order,id);
 
 	}
 }

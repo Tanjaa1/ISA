@@ -39,6 +39,11 @@ public class OrderService implements IOrderService {
 	    return new ResponseEntity<>( HttpStatus.CREATED);
 	}
 
+	public ResponseEntity<Order> update(OrderDTO order) throws Exception{
+		orderRepository.save(new Order(order));
+	    return new ResponseEntity<>( HttpStatus.CREATED);
+	}
+
     public OrderDTO getById(Long id) {
         Order order=orderRepository.getOne(id);
        return new OrderDTO(order);
