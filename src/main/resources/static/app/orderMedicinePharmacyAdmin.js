@@ -256,6 +256,8 @@ Vue.component("orderMedicinePharmacyAdmin", {
                             <th scope="col">Price</th>
                             <th scope="col">Date</th>
                             <th scope="col"></th>
+                            <th scope="col"></th>
+
                         </tr>
                     </thead>
                     <tbody>
