@@ -178,22 +178,22 @@ INSERT INTO public.complaint(
 
 INSERT INTO public.counseling(
 	id, price, report, start_time, end_time, is_done, patient_id, pharmacist_id, pharmacy_id, is_canceled)
-	VALUES (111, 1000.0, 'Headache', '2022-02-09 16:00:00-07', '2021-02-09 16:25:25-07', true, 88, 444, 222, false);
+	VALUES (111, 1000.0, 'Headache', '2022-07-09 16:00:00-07', '2021-07-09 16:25:25-07', false, 88, 444, 222, false);
 INSERT INTO public.counseling(
 	id, price, report, start_time, end_time, is_done, patient_id, pharmacist_id, pharmacy_id, is_canceled)
-	VALUES (112, 2000.0, '', '2021-02-15 17:00:00-07', '2021-02-15 17:25:25-07', true, 89, 444, 222, false);
+	VALUES (112, 2000.0, '', '2021-07-15 17:00:00-07', '2021-07-15 17:25:25-07', false, 89, 444, 222, false);
 INSERT INTO public.counseling(
 	id, price, report, start_time, end_time, is_done, patient_id, pharmacist_id, pharmacy_id, is_canceled)
-	VALUES (113, 1000.0, '', '2022-02-15 15:00:00-07', '2021-02-15 15:25:25-07', true, 88, 444, 222, false);
+	VALUES (113, 1000.0, '', '2022-07-15 15:00:00-07', '2021-07-15 15:25:25-07', false, 88, 444, 222, false);
 INSERT INTO public.counseling(
 	id, price, report, start_time, end_time, is_done, patient_id, pharmacist_id, pharmacy_id, is_canceled)
-	VALUES (114, 2000.0, '', '2021-02-16 17:00:00-07', '2021-02-16 17:25:25-07', true, 89, 444, 222, false);
+	VALUES (114, 2000.0, '', '2021-07-16 17:00:00-07', '2021-07-16 17:25:25-07', false, 89, 444, 222, false);
 INSERT INTO public.counseling(
 	id, price, report, start_time, end_time, is_done, patient_id, pharmacist_id, pharmacy_id, is_canceled)
-	VALUES (115, 1000.0, '', '2022-02-13 16:00:00-07', '2021-02-13 16:25:25-07', false, 88, 444, 222, false);
+	VALUES (115, 1000.0, '', '2022-07-13 16:00:00-07', '2021-07-13 16:25:25-07', false, 88, 444, 222, false);
 INSERT INTO public.counseling(
 	id, price, report, start_time, end_time, is_done, patient_id, pharmacist_id, pharmacy_id, is_canceled)
-	VALUES (116, 2000.0, 'Headache', '2021-02-13 17:00:00-07', '2021-02-13 17:25:25-07', true, 89, 444, 222, false);
+	VALUES (116, 2000.0, 'Headache', '2021-07-13 17:00:00-07', '2021-07-13 17:25:25-07', false, 89, 444, 222, false);
 	
 -- INSERT INTO public.eprescription(
 -- 	code, issuing_date)

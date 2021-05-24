@@ -36,7 +36,7 @@ public class EPrescritpionController {
 	private EPrescriptionService ePrescriptionService;
 
 
-	@PreAuthorize("hasRole('DERMATOLOGIST')")
+	@PreAuthorize("hasAnyRole('DERMATOLOGIST','PHARMACIST')")
 	@PostMapping(value = "/add/{id}")
 	public ResponseEntity<EPrescriptionDTO> addEPrescritpion(@Valid @RequestBody EPrescription ePrescriptionDTO, BindingResult result,@PathVariable Long id) throws Exception {
 		if (result.hasErrors()) 
@@ -45,7 +45,7 @@ public class EPrescritpionController {
 		return ep == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : new ResponseEntity<>(HttpStatus.OK);  
 	}
 
-	@PreAuthorize("hasRole('DERMATOLOGIST')")
+	@PreAuthorize("hasAnyRole('DERMATOLOGIST','PHARMACIST')")
     @GetMapping(value = "/findMedicines/{id}")
 	public ResponseEntity<List<MedicinePriceAndQuantityDTO>> findMedicineByPharmacy(@PathVariable Long id) {
 		List<MedicinePriceAndQuantityDTO> medicines=ePrescriptionService.findMedicineByPharmacy(id);
