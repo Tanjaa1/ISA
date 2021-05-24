@@ -15,6 +15,7 @@ import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import rs.ac.uns.ftn.informatika.jpa.dto.SupplierDTO;
 import rs.ac.uns.ftn.informatika.jpa.model.Authority;
 import rs.ac.uns.ftn.informatika.jpa.model.Dermatologist;
 import rs.ac.uns.ftn.informatika.jpa.model.Patient;
@@ -217,7 +218,59 @@ public class UserService implements IUserService{
 		u.setAuthorities(auth);	
 		u = this.userRepository.save(u);
     }
+	
 
+    public void updateUserBySupplier(SupplierDTO user) throws Exception {
+		User u = userRepository.getOne(user.getId());
+        if (u == null) {
+            throw new Exception("Trazeni entitet nije pronadjen.");
+		}
+		u.setId(user.getId());
+		u.setName(user.getName());
+		u.setSurname(user.getSurname());
+		u.setEmail(user.getEmail());
+		u.setPassword(passwordEncoder.encode(user.getPassword()));
+		u.setAddress(user.getAddress());
+		u.setCity(user.getCity());
+		u.setCountry(user.getCountry());
+		u.setPhoneNumber(user.getPhoneNumber());
+		u.setEmailComfirmed(user.getEmailComfirmed());
+		u.setFirstTimeLogin(user.getFirstTimeLogin());
+		u.setDescription(user.getDescription()); 
+		u.setEnabled(true);
+		u.setLastPasswordResetDate(new Date());
+		u.setFirstTimeLogin(false);
+		u.setUsername(user.getUsername());
+		List<Authority> auth = authService.findByname("ROLE_SUPPLIER");
+		u.setAuthorities(auth);	
+		u = this.userRepository.save(u);
+    }
+
+    public void updateUserBySystemAdmin(SystemAdmin user) throws Exception {
+		User u = userRepository.getOne(user.getId());
+        if (u == null) {
+            throw new Exception("Trazeni entitet nije pronadjen.");
+		}
+		u.setId(user.getId());
+		u.setName(user.getName());
+		u.setSurname(user.getSurname());
+		u.setEmail(user.getEmail());
+		u.setPassword(passwordEncoder.encode(user.getPassword()));
+		u.setAddress(user.getAddress());
+		u.setCity(user.getCity());
+		u.setCountry(user.getCountry());
+		u.setPhoneNumber(user.getPhoneNumber());
+		u.setEmailComfirmed(user.getEmailComfirmed());
+		u.setFirstTimeLogin(user.getFirstTimeLogin());
+		u.setDescription(user.getDescription()); 
+		u.setEnabled(true);
+		u.setLastPasswordResetDate(new Date());
+		u.setFirstTimeLogin(false);
+		u.setUsername(user.getUsername());
+		List<Authority> auth = authService.findByname("ROLE_ADMIN");
+		u.setAuthorities(auth);	
+		u = this.userRepository.save(u);
+    }
     
 	
 }

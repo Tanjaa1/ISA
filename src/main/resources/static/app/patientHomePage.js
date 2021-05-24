@@ -22,8 +22,7 @@ Vue.component("patientHomePage", {
 			<br></br><br></br>
 				<div>
 				  <div class="row">
-					<div class="col-sm">
-					</div>
+					
 					<div class="col-sm">
 					</div>
 					<div class="col-sm">
@@ -56,6 +55,16 @@ Vue.component("patientHomePage", {
 					<div class="col-sm">
 					  <h3>
 						<button id="actionAndPromotion" type="button" class="btn btn-info btn-lg margin form-control" v-on:click="ActionAndPromotionShow()"></button>
+						</h3><br/> 
+					</div>
+					<div class="col-sm">
+					  <h3>
+						<button id="qrCode" type="button" class="btn btn-info btn-lg margin form-control" v-on:click="QR()"></button>
+						</h3><br/> 
+					</div>
+					<div class="col-sm">
+					  <h3>
+						<button id="sMed" type="button" class="btn btn-info btn-lg margin form-control" v-on:click="SearchMed()"></button>
 						</h3><br/> 
 					</div>
 					<div class="col-sm">
@@ -106,8 +115,14 @@ Vue.component("patientHomePage", {
             this.$router.push('patientReservations');    
         },
 		ActionAndPromotionShow: function () {     
-            this.$router.push('actonAndPromotion');    
+            this.$router.push('actionAndPromotion');    
         },
+		QR:function(){
+			this.$router.push('QR');    
+		},
+		SearchMed:function(){
+			this.$router.push('searchMedicine');    
+		},
 		Yes:function(){
 			if(document.getElementById("np").value==document.getElementById("cp").value && document.getElementById("np").value.trim()!="" && document.getElementById("cp").value.trim()!=""){
 				$('#Show').modal('hide');

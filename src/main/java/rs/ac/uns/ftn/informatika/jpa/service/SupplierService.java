@@ -14,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import ch.qos.logback.core.joran.conditional.ElseAction;
 import rs.ac.uns.ftn.informatika.jpa.dto.MedicineQuantityDTO;
 import rs.ac.uns.ftn.informatika.jpa.dto.SupplierDTO;
 import rs.ac.uns.ftn.informatika.jpa.model.MedicineQuantity;
@@ -27,6 +28,9 @@ public class SupplierService implements ISupplierService {
 
     @Autowired
     private ISupplierRepository supplierRepository;
+	@Autowired
+    private UserService userService;
+    
     
     @Autowired
 	private EmailService emailService;
@@ -37,10 +41,11 @@ public class SupplierService implements ISupplierService {
         supplierRepository.save(supplier);
         List<Supplier> suppliers=supplierRepository.findAll();
 		Long supplierId=0L;
-		for (Supplier supplier2 : suppliers) {
+	/*	for (Supplier supplier2 : suppliers) {
 			if(supplier2.getUsername().equals(supplier.getUsername()))
 			supplierId=supplier2.getId();
 		}
+		*/
 		supplier.setId(supplierId);
 		emailSender(supplier);
         return new ResponseEntity<>( HttpStatus.CREATED);
@@ -74,6 +79,7 @@ public class SupplierService implements ISupplierService {
         if (supplier1 == null) {
             throw new Exception("Trazeni entitet nije pronadjen.");
 		}
+		supplier1.setLastPasswordResetDate(new Date());
 		supplier1.setId(supplier.getId());
 		supplier1.setName(supplier.getName());
 		supplier1.setSurname(supplier.getSurname());
@@ -148,5 +154,10 @@ public class SupplierService implements ISupplierService {
 		}
 		return patieResult;
 		}
+
+    public Boolean firtTimeLogin(String username) {
+		Supplier supplier=getSupplierByCredentials(username);
+		return supplier.getFirstTimeLogin();
+	}
 
 }

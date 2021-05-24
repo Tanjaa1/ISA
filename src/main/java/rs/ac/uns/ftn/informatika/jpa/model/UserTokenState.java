@@ -7,6 +7,7 @@ public class UserTokenState {
     private Long expiresIn;
     private List<String> role;
     private String username;
+    private Long id;
 
 
     public UserTokenState() {
@@ -14,7 +15,15 @@ public class UserTokenState {
         this.expiresIn = null;
         this.role=null;
         this.username=null;
+        this.id=null;
 
+    }
+    public UserTokenState(String accessToken, long expiresIn,List<String> role,String username,Long id) {
+        this.accessToken = accessToken;
+        this.expiresIn = expiresIn;
+        this.role=role;
+        this.username=username;
+        this.id=id;
     }
     public UserTokenState(String accessToken, long expiresIn,List<String> role,String username) {
         this.accessToken = accessToken;
@@ -60,6 +69,12 @@ public class UserTokenState {
     }
     public void setUsername(String username) {
         this.username = username;
+    }
+    public Long getId() {
+        return id;
+    }
+    public void setId(Long id) {
+        this.id = id;
     }
 
     
