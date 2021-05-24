@@ -40,12 +40,12 @@ public class DermatologistController {
 	@Autowired
 	private PharmacyService pharmacyService;
 	@PreAuthorize("hasRole('ADMIN')")
-	@PostMapping(value = "/saveDermatologist")
-	public ResponseEntity<Dermatologist> savePatient(@Valid @RequestBody Dermatologist dermatologistDTO, BindingResult result) throws Exception {
+	@PostMapping(value = "/saveDermatologist/{idDe}")
+	public ResponseEntity<Dermatologist> savePatient(@Valid @RequestBody Dermatologist dermatologistDTO,@PathVariable Long idDe, BindingResult result) throws Exception {
 		if (result.hasErrors()) 
 			new ResponseEntity<>(new DermatologistDTO(), HttpStatus.BAD_REQUEST);
 
-		PharmacyDTO pharmacys = getFarmacyById(dermatologistDTO.getId());
+		PharmacyDTO pharmacys = getFarmacyById(idDe);
 		Set<Pharmacy> setPhyrmacies=new HashSet<Pharmacy>();
 		setPhyrmacies.add(new Pharmacy(pharmacys));
 		dermatologistDTO.setPharmacies(setPhyrmacies);

@@ -3,6 +3,8 @@ package rs.ac.uns.ftn.informatika.jpa.controller;
 import java.util.List;
 import java.util.Set;
 
+import javax.swing.text.StyledEditorKit.BoldAction;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -42,6 +44,13 @@ public class SupplierController {
 		List<String> usernames =supplierService.getAllSupplierUsernames();
 		return usernames == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(usernames);
 	}
+	@PreAuthorize("hasRole('SUPPLIER')")
+    @GetMapping(value = "/firtTimeLogin/{username}")
+	public Boolean firtTimeLogin(@PathVariable String username) {
+		Boolean result =supplierService.firtTimeLogin(username);
+		return result ;
+	}
+	
 	@GetMapping(value = "/getById/{supplierId}")
 	public ResponseEntity<SupplierDTO> getById(@PathVariable Long supplierId) {
 		SupplierDTO usernames =new SupplierDTO(supplierService.findOne(supplierId));
@@ -59,7 +68,7 @@ public class SupplierController {
 		return usernames == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(usernames);
 	}
 
-
+	@PreAuthorize("hasRole('SUPPLIER')")
 	@PutMapping(value = "/update")
 	public ResponseEntity<SupplierDTO> updateGreeting(@RequestBody SupplierDTO supplier) throws Exception {	
 		SupplierDTO p = supplierService.update(supplier);

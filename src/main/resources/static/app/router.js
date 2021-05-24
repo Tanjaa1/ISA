@@ -53,6 +53,7 @@ const SupplierProfile= { template: '<supplierProfile></supplierProfile>' }
 const SupplierInfo= { template: '<supplierInfo></supplierInfo>' } 
 const SuppliersOffers= { template: '<suppliersOffers></suppliersOffers>' } 
 const GiveOffers= { template: '<giveOffers></giveOffers>' } 
+const SupplierHeader= { template: '<supplierHeader></supplierHeader>' } 
 
 const LoyaltyProgramme= { template: '<loyaltyProgramme></loyaltyProgramme>' } 
 const AdministratorHomePage= { template: '<administratorHomePage></administratorHomePage>' } 
@@ -602,7 +603,8 @@ const router = new VueRouter({
 			path: '/supplierProfile', 
 			name : 'supplierProfile', 
 			components: {
-				content: SupplierProfile
+				content: SupplierProfile,
+				pageHeader:SupplierHeader
 			}
 		},
 		{

@@ -28,7 +28,7 @@ private String APP_NAME;
 public String SECRET;
 
 // Period vazenja
-@Value("300000")
+@Value("30000000")
 private int EXPIRES_IN;
 
 // Naziv headera kroz koji ce se prosledjivati JWT u komunikaciji server-klijent
