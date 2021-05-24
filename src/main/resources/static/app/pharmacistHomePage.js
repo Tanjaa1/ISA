@@ -7,7 +7,11 @@ Vue.component("pharmacistHomePage", {
 	},
 	beforeMount() {
 		axios
-			.get('/pharmacist/getPharmacistById/' + localStorage.getItem('userId')) 
+			.get('/pharmacist/getPharmacistById/' + localStorage.getItem('userId'),{
+				headers: {
+					'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+				}
+			}) 
 			.then(response => {
 				this.phycian = response.data
 				if(!this.phycian.firstTimeLogin)
@@ -123,7 +127,11 @@ Vue.component("pharmacistHomePage", {
 			$('#Show').modal('hide');
 			this.phycian.firstTimeLogin=true
 			this.phycian.password=document.getElementById("np").value
-				axios.put('/pharmacist/update', this.phycian)
+				axios.put('/pharmacist/update', this.phycian,{
+					headers: {
+						'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+					}
+				})
 					.then(function (response) {
 					})
 					.catch(function (error) {

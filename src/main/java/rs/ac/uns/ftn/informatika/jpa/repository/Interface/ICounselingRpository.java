@@ -34,5 +34,6 @@ public interface ICounselingRpository extends JpaRepository<Counseling, Long> {
     @Query("SELECT c FROM Counseling c ,Pharmacist p WHERE c.Pharmacist = p.Id and p.Id = ?1  and  c.StartTime >= CURRENT_DATE and c.Patient = NULL")
     public List<Counseling> getUpcomingFreeCounselingByPharmacist(Long pID);
 
-
+    @Query("SELECT u FROM Counseling u,Pharmacist d WHERE u.Pharmacist=d.Id and d.Id = ?1 and u.Patient=null")
+    public List<Counseling> getFreeCounselingByPharmacist(Long d);
 }

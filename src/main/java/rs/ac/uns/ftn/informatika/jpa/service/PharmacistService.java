@@ -76,8 +76,8 @@ public class PharmacistService implements IPharmacistService {
 	
 	@Override
 	public List<PharmacistDTO> findAll() {
-        ArrayList<Pharmacist> pharmacists = pharmacistRepository.findAll();
-        ArrayList<PharmacistDTO> returnValue = new ArrayList<PharmacistDTO>();
+        List<Pharmacist> pharmacists = pharmacistRepository.findAll();
+        List<PharmacistDTO> returnValue = new ArrayList<PharmacistDTO>();
         for (Pharmacist dermatologist : pharmacists) {
             returnValue.add(new PharmacistDTO(dermatologist));
         }

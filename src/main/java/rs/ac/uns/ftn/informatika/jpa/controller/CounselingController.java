@@ -9,6 +9,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -53,6 +54,7 @@ public class CounselingController {
 		return counselingsDTO == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(counselingsDTO);
 	}
 
+	@PreAuthorize("hasRole('PHARMACIST')")
 	@PutMapping(value = "/finish")
 	public ResponseEntity<HttpStatus> update(@Valid @RequestBody Counseling counseling, BindingResult result) throws Exception
 	{
@@ -91,6 +93,8 @@ public class CounselingController {
 		Counseling e =counselingService.updateCounseling(counseling);
 		return e == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : new ResponseEntity<>(HttpStatus.OK);
 	}
+
+	@PreAuthorize("hasRole('PHARMACIST')")
 	@PostMapping(value = "/add")
 	public ResponseEntity<CouncelingDTO> newExamination(@Valid @RequestBody Counseling counseling, BindingResult result)
 		throws Exception 
@@ -124,6 +128,7 @@ public class CounselingController {
 		return councelingDTO == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(councelingDTO);
 	}
 
+	@PreAuthorize("hasRole('PHARMACIST')")
 	@PutMapping(value = "/update")
 	public ResponseEntity<HttpStatus> updateCounseling(@Valid @RequestBody Counseling counseling, BindingResult result) throws Exception
 	{
@@ -133,4 +138,10 @@ public class CounselingController {
 		return e == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : new ResponseEntity<>(HttpStatus.OK);
 	}
 
+	@GetMapping(value = "/getFreeCounselingByPharmacist/{id}")
+	public ResponseEntity<List<CouncelingDTO>> getFreeCounselingByPharmacist(@PathVariable Long id) 
+	{
+		List<CouncelingDTO> councelingDTOs = counselingService.getFreeCounselingByPharmacist(id);
+		return councelingDTOs == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(councelingDTOs);
+	}
 }

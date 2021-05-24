@@ -46,7 +46,11 @@ Vue.component("calendarP",{
       )
   
       axios
-              .get('/pharmacist/getPharmacistById/' + '41') 
+              .get('/pharmacist/getPharmacistById/' + localStorage.getItem('userId'),{
+                headers: {
+                  'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+                }
+              }) 
               .then(response => {
                   this.phycian = response.data
               })
@@ -54,7 +58,11 @@ Vue.component("calendarP",{
               })
   
       axios
-              .get('/counseling/getCounselingByPharmacist/' + '41') 
+              .get('/counseling/getCounselingByPharmacist/' + localStorage.getItem('userId'),{
+                headers: {
+                  'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+                }
+              }) 
               .then(response => {
                   this.myExamination = response.data
               })
@@ -338,7 +346,11 @@ Vue.component("calendarP",{
 	},
 	beforeMount() {
         axios
-                .get('/eprescription/findMedicines/' + this.examination.pharmacy.id)
+                .get('/eprescription/findMedicines/' + this.examination.pharmacy.id,{
+                  headers: {
+                    'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+                  }
+                })
                 .then(response => {       
                     this.med=response.data
                     for(m in this.med){
@@ -466,7 +478,11 @@ Vue.component("calendarP",{
 	`,
 	methods: {
         Finish:function(){    
-            axios.put('/counseling/finish', this.examination)
+            axios.put('/counseling/finish', this.examination,{
+              headers: {
+                'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+              }
+            })
 				.then(function (response) {
 				})
 				.catch(function (error) {
@@ -483,14 +499,22 @@ Vue.component("calendarP",{
                         pharmacyMedicines[m].quantity=pharmacyMedicines[m].quantity-1
                         this.prescriptionDTO.medicine=pharmacyMedicines[m]
                         this.prescriptionDTO.pharmacy=this.examination.pharmacy
-                        await axios.post('/eprescription/add/'+this.examination.patient.id, this.prescriptionDTO)
+                        await axios.post('/eprescription/add/'+this.examination.patient.id, this.prescriptionDTO,{
+                          headers: {
+                            'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+                          }
+                        })
                             .then(function (response) {
                                 alert("The prescription was successfully issued!")
                             })
                             .catch(function (error) {
                             });
                              await  axios
-                                .get('/eprescription/findMedicines/' + this.examination.pharmacy.id)
+                                .get('/eprescription/findMedicines/' + this.examination.pharmacy.id,{
+                                  headers: {
+                                    'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+                                  }
+                                })
                                 .then(response => {       
                                     this.med=response.data
                                     this.medicines=[]
@@ -512,7 +536,11 @@ Vue.component("calendarP",{
                             alert("Medicine is put of stock!")
                             this.request.medicine=this.medicineChoose
                             this.request.pharmacy=this.examination.pharmacy
-                            axios.post('/order/addRequest',this.request)
+                            axios.post('/order/addRequest',this.request,{
+                              headers: {
+                                'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+                              }
+                            })
                             .then(function (response) {
                             })
                             .catch(function (error) {
@@ -527,7 +555,11 @@ Vue.component("calendarP",{
             this.newExamination.patient=this.examination.patient
             this.newExamination.pharmacist=this.examination.pharmacist 
             this.newExamination.pharmacy=this.examination.pharmacy
-            axios.post('/counseling/add',this.newExamination)
+            axios.post('/counseling/add',this.newExamination,{
+              headers: {
+                'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+              }
+            })
             .then(function (response) {
                 alert("The examination was successfully scheduled!")
                 $('#Schedule').modal('hide');

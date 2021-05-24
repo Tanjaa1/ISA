@@ -20,7 +20,11 @@ Vue.component("createCounselingPharmacist", {
 	},
 	beforeMount() {
             axios
-            .get('/patient/getPatientByPharmacistCouseling/' + '41') 
+            .get('/patient/getPatientByPharmacistCouseling/' + localStorage.getItem('userId'),{
+                headers: {
+                  'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+                }
+              }) 
             .then(response => {
                 this.patients = response.data
             })
@@ -28,7 +32,11 @@ Vue.component("createCounselingPharmacist", {
             })
 
             axios
-              .get('/pharmacist/getPharmacistById/' + '41') 
+              .get('/pharmacist/getPharmacistById/' + localStorage.getItem('userId'),{
+                headers: {
+                  'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+                }
+              }) 
               .then(response => {
                   this.physician = response.data
               })
@@ -68,11 +76,19 @@ Vue.component("createCounselingPharmacist", {
         Schedule: async function(f){
             f.patient=this.examination.patient
             var fut=[]
-            await axios.put('/examination/schedule',f)
+            await axios.put('/counseling/schedule',f,{
+                headers: {
+                  'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+                }
+              })
             .then(function (response) {
-                alert("The examination was successfully scheduled!")
+                alert("The counseling was successfully scheduled!")
                 axios
-                .get('/examination/getFreeExaminationByDermatologist/' + '6')
+                .get('/counseling/getFreeCounselingByPharmacist/' + localStorage.getItem('userId'),{
+                    headers: {
+                      'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+                    }
+                  })
                 .then(function (odg){
                     this.future=odg.response
                     location.reload()
@@ -91,7 +107,11 @@ Vue.component("createCounselingPharmacist", {
             //this.newExamination.pharmacy=this.examination.pharmacy
             this.newExamination.pharmacist=this.physician 
             this.newExamination.pharmacy=this.physician.pharmacy
-            axios.post('/counseling/add',this.newExamination)
+            axios.post('/counseling/add',this.newExamination,{
+                headers: {
+                  'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+                }
+              })
             .then(function (response) {
                 alert("The counseling was successfully scheduled!")
             })
