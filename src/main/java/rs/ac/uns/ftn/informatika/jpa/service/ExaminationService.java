@@ -13,6 +13,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import rs.ac.uns.ftn.informatika.jpa.dto.DermatologistDTO;
 import rs.ac.uns.ftn.informatika.jpa.dto.ExaminationDTO;
@@ -30,6 +32,7 @@ import rs.ac.uns.ftn.informatika.jpa.service.Interface.IExaminationService;
 import rs.ac.uns.ftn.informatika.jpa.util.WorkingTime;
 
 @Service
+@Transactional(readOnly = true)
 public class ExaminationService implements IExaminationService {
 
     @Autowired
@@ -121,6 +124,7 @@ public class ExaminationService implements IExaminationService {
         return examinationsDtos;
 	}
 
+	@Transactional(readOnly=false, propagation = Propagation.REQUIRES_NEW)
 	public ExaminationDTO schedule(Examination examination) throws Exception{
         Examination e=examinationRepository.getOne(examination.getId());
         e.setPatient(patientRepository.getOne(examination.getPatient().getId()));
@@ -152,6 +156,7 @@ public class ExaminationService implements IExaminationService {
 		}
 	}
 
+	@Transactional(readOnly=false, propagation = Propagation.REQUIRES_NEW)
 	public ExaminationDTO newExamination(Examination examination) throws Exception {
        if(!examinationRepository.isExaminationExistByDermatologist(examination.getStartTime(),examination.getEndTime(),examination.getDermatologist().getId()).isEmpty())
             return null;           
