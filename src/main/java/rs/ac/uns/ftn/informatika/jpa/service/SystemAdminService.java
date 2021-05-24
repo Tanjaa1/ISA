@@ -50,6 +50,10 @@ public class SystemAdminService implements ISystemAdminService {
     SystemAdmin systemAdmin = systemAdminRepository.getOne(id);
        return systemAdmin;
     }
+	public SystemAdmin findOneById(Long id) {
+        SystemAdmin systemAdmin = systemAdminRepository.findById(id).get();
+           return systemAdmin;
+   }
 
     public List<String> getAllSystemAdinUsernames() {
         List<SystemAdmin> systemAdmins = systemAdminRepository.findAll();
@@ -110,6 +114,7 @@ public class SystemAdminService implements ISystemAdminService {
 		patient1.setId(systemAdmin.getId());
 		patient1.setName(systemAdmin.getName());
 		patient1.setSurname(systemAdmin.getSurname());
+		patient1.setUsername(systemAdmin.getUsername());
 		patient1.setEmail(systemAdmin.getEmail());
 		patient1.setPassword(systemAdmin.getPassword());
 		patient1.setAddress(systemAdmin.getAddress());
@@ -134,4 +139,9 @@ public class SystemAdminService implements ISystemAdminService {
 		}
 		return patieResult;
 		}
+
+
+	public Boolean firtTimeLogin(String username) {
+		SystemAdmin systemAdmin=getSystemAdminByCredentials(username);
+		return systemAdmin.getFirstTimeLogin();	}
 }

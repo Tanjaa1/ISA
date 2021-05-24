@@ -46,6 +46,23 @@ public class SystemAdminController {
 		Boolean isValid = systemAdminService.isUsernameValid(username);
 		return isValid == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(isValid);
 	}
+	@PreAuthorize("hasRole('ADMIN')")
+	@GetMapping(value = "/getById/{systemAdminId}")
+	public ResponseEntity<SystemAdminDTO> getById(@PathVariable Long systemAdminId) {
+		SystemAdminDTO usernames =new SystemAdminDTO(systemAdminService.findOneById(systemAdminId));
+		return usernames == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(usernames);
+	}
+	@PreAuthorize("hasRole('ADMIN')")
+    @GetMapping(value = "/firtTimeLogin/{username}")
+	public Boolean firtTimeLogin(@PathVariable String username) {
+		Boolean result =systemAdminService.firtTimeLogin(username);
+		return result ;
+	}
+	@PreAuthorize("hasRole('ADMIN')")
+	@PutMapping(value = "/update")
+	public void update(@RequestBody SystemAdmin systemAdminDTO) throws Exception {	
+		systemAdminService.update(systemAdminDTO);
+	}
 
 	@PutMapping(value ="/confirmationEmailSystemAdmin/{patientId}")
 	public ResponseEntity<Boolean> confirmationEmail(@PathVariable String patientId) throws Exception {

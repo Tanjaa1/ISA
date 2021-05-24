@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import rs.ac.uns.ftn.informatika.jpa.dto.SupplierDTO;
 import rs.ac.uns.ftn.informatika.jpa.model.Dermatologist;
 import rs.ac.uns.ftn.informatika.jpa.model.Patient;
 import rs.ac.uns.ftn.informatika.jpa.model.Pharmacist;
@@ -24,6 +25,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 @RestController
 @RequestMapping(value = "/api", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -70,10 +72,20 @@ public class UserController {
 		userService.saveUserBySupplier(user);
 	return new ResponseEntity<>(user, HttpStatus.CREATED);
 	}
+	@PreAuthorize("hasRole('SUPPLIER')")
+	@PutMapping(value = "/updateUserBySupplier")
+	public void updateUserBySupplier(@RequestBody SupplierDTO user) throws Exception{
+		userService.updateUserBySupplier(user);
+	}
 	@PostMapping(value = "/saveUserBySystemAdmin")
 	public ResponseEntity<User> saveUserBySystemAdmin(@RequestBody SystemAdmin user) throws Exception{
 		userService.saveUserBySystemAdmin(user);
 	return new ResponseEntity<>(user, HttpStatus.CREATED);
+	}
+	@PreAuthorize("hasRole('ADMIN')")
+	@PutMapping(value = "/updateUserBySystemAdmin")
+	public void updateUserBySystemAdmin(@RequestBody SystemAdmin user) throws Exception{
+		userService.updateUserBySystemAdmin(user);
 	}
 	@PostMapping(value = "/saveUserByPharmacyAdmin")
 	public ResponseEntity<User> saveUserByPharmacyAdmin(@RequestBody PharmacyAdmin user) throws Exception{
