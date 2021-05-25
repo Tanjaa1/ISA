@@ -970,11 +970,11 @@ INSERT INTO public.order_medicine(
 	
 INSERT INTO public.order_medicine(
 	id, due_date, pharmacy_admin_id,is_processed)
-	VALUES (211,'2008-11-11 13:23:44', 9,false);
+	VALUES (211,'2008-11-11 13:23:44', 999,false);
 
 INSERT INTO public.order_medicine(
 	id, due_date, pharmacy_admin_id,is_processed)
-	VALUES (311,'2008-11-11 13:23:44', 8,false);
+	VALUES (311,'2008-11-11 13:23:44', 888,false);
 
 
 INSERT INTO public.order_medicine_orders(
@@ -1071,15 +1071,15 @@ INSERT INTO public.action_or_promotion(
 
 INSERT INTO public.supplier_offer(
 	id, due_date, offer_price, status, order_medicine_id, supplier_id)
-	VALUES (345, 'neki datum', 14000.00, 2, 311, 10);
+	VALUES (345, 'neki datum', 14000.00, 2, 311, 100);
 	
 INSERT INTO public.supplier_offer(
 	id, due_date, offer_price, status, order_medicine_id, supplier_id)
-	VALUES (432, 'neki datum', 15000.00, 2, 211, 10);
+	VALUES (432, 'neki datum', 15000.00, 2, 211, 100);
 	
 INSERT INTO public.supplier_offer(
 	id, due_date, offer_price, status, order_medicine_id, supplier_id)
-	VALUES (855, 'neki datum', 16000.00, 2, 111, 11);
+	VALUES (855, 'neki datum', 16000.00, 2, 111, 111);
   
 INSERT INTO AUTHORITY (name) VALUES ('ROLE_PATIENT');
 INSERT INTO AUTHORITY (name) VALUES ('ROLE_ADMIN');

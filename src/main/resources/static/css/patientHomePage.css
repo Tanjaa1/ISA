@@ -93,3 +93,14 @@
     background-position: center;
     opacity: 0.8;
 }
+#compaints{
+    background-image: url("../pictures/cPatietn.jpg");
+    height: 150px;
+    width: 150px;
+    background-color: white;
+    border-radius: 20px;
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: 0.8;
+}
+

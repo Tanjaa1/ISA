@@ -7,7 +7,11 @@ Vue.component("giveOffers", {
 	},
 	beforeMount() {
 		axios
-				.get('order/getAll')
+				.get('order/getAll',{
+          headers: {
+            'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+          }
+        })
 				.then(response => {
 					this.orders = response.data
 			  
@@ -37,17 +41,18 @@ Vue.component("giveOffers", {
 									<th>DueDate</th>
 									<th>Pharmacy</th>
 									<th>Pharmacy admin</th>
-                                    <th>Give offer</th>
+                 <th>Give offer</th>
 								</tr>
 							</thead>
 							<tbody>
 								<tr v-for="a in this.orders">
 									<td>{{a.id}}</td>
 									<td><button type="button" class="btn btn-info btn-lg" v-on:click="Orders(a.id)">Orders</button></td>
-									<td>{{a.dueDate}}<</td>
-									<td>{{a.pharmacyAdmin.pharmacy}}</td>
+									<td>{{DateSplit(a.dueDate)}}<</td>
+									<td>{{a.pharmacyAdmin.pharmacy.name}}</td>
                                     <td>{{a.pharmacyAdmin.name + ' '  + a.pharmacyAdmin.surname}}</td>
-									<td><button type="button" class="btn btn-info btn-lg" v-on:click="Offers(a.id)">Give offer</button></td>										<td>{{a.offerPrice}}</td>									
+									<td><button type="button" class="btn btn-info btn-lg" v-on:click="Offers(a.id)">Give offer</button></td>			
+    							<td>{{a.offerPrice}}</td>									
 								</tr>
 							</tbody>
 						</table>
@@ -161,7 +166,11 @@ Vue.component("giveOffers", {
 		Orders:function(id){
            
 			axios
-			.get('supplierOffer/getOrdersByOrderId/'+id)
+			.get('supplierOffer/getOrdersByOrderId/'+id,{
+        headers: {
+          'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+        }
+      })
 			.then(response => {
 				this.offersList = response.data
 			})
@@ -171,17 +180,23 @@ Vue.component("giveOffers", {
 			$('#myModalOrders').modal('show');
 
 		  },Offers:function(id){
-            var orderId=localStorage.getItem('orderId')
-
             axios
-			.get('supplierOffer/isOfferGivenToOrder/'+orderId+'/'+'10')//promijeniti kad se sredi login
+			.get('supplierOffer/isOfferGivenToOrder/'+id+'/'+localStorage.getItem('userId'),{
+        headers: {
+          'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+        }
+      })
 			.then(response => {
 				var result1 = response.data
                 if(result1==false){
                     localStorage.setItem('orderId',id)
                     alert('uslaaa')
                     axios
-                    .get('supplierOffer/getOrdersByOrderId/'+id)
+                    .get('supplierOffer/getOrdersByOrderId/'+id,{
+                      headers: {
+                        'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+                      }
+                    })
                     .then(response => {
                         this.offersList = response.data
                     })
@@ -201,7 +216,11 @@ Vue.component("giveOffers", {
 
            
 
-		  }
+		  },DateSplit: function (date) {
+        var dates = (date.split("T")[0]).split("-")
+        var times = (date.split("T")[1]).split("")
+        return dates[2] + "." + dates[1] + "." + dates[0]
+      }
           ,AddOffer:function(){ 
             var price = document.getElementById("fname").value
             var dueDate = document.getElementById("birthday").value
@@ -211,7 +230,11 @@ Vue.component("giveOffers", {
                 alert('Please fill both filds!')
             }else{
                 axios
-			.get('supplierOffer/giveOfferToOrder/'+orderId+'/'+'10'+'/'+price +'/'+dueDate)
+			.get('supplierOffer/giveOfferToOrder/'+orderId+'/'+localStorage.getItem('userId')+'/'+price +'/'+dueDate,{
+        headers: {
+          'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+        }
+      })
 			.then(response => {
 				var result = response.data
                 if(result==false){
