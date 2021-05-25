@@ -25,6 +25,7 @@ Vue.component("patientHomePage", {
 					
 					<div class="col-sm">
 					</div>
+
 					<div class="col-sm">
 				
 					  <h3>
@@ -123,6 +124,7 @@ Vue.component("patientHomePage", {
 			this.$router.push('searchMedicine');    
 		},Complaints:function(){
 			this.$router.push('complaintPatient');    
+
 		},
 		Yes:function(){
 			if(document.getElementById("np").value==document.getElementById("cp").value && document.getElementById("np").value.trim()!="" && document.getElementById("cp").value.trim()!=""){
