@@ -6,15 +6,20 @@ Vue.component("suppliersOffers", {
 		}
 	},
 	beforeMount() {
+		
 		axios
-				.get('supplierOffer/getOfferBySupplierId/'+'10')
-				.then(response => {
-					this.offers = response.data
-			  
-				})
-				.catch(error => {
-					alert('nesupjesnooo')
-				})
+		.get('supplierOffer/getOfferBySupplierId/'+localStorage.getItem('userId'),{
+			headers: {
+			  'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+			}
+		  })
+		.then(response => {
+			this.offers = response.data
+	  
+		})
+		.catch(error => {
+			alert('nesupjesnooo')
+		})
 	},
 	template: `
 	<div id="SuppliersOffers"  class="BackendImagePhysician">
@@ -56,9 +61,10 @@ Vue.component("suppliersOffers", {
 								<tr v-for="a in this.offers">
 									<td>{{a.id}}</td>
 									<td>{{a.status}}</td>
-									<td><button type="button" class="btn btn-info btn-lg" v-on:click="Offers(a.id)">Orders</button></td>
+									<td><button type="button" class="btn btn-info btn-lg" v-on:click="Offers(a.order.id)">Orders</button></td>
 									<td>{{a.dueDate}}</td>
-									<td>{{a.order.pharmacyAdmin.pharmacy}}</td>										<td>{{a.offerPrice}}</td>									
+									<td>{{a.order.pharmacyAdmin.pharmacy.name}}</td>						
+									<td>{{a.offerPrice}}</td>									
 								</tr>
 							</tbody>
 						</table>
@@ -125,7 +131,11 @@ Vue.component("suppliersOffers", {
 		Search:function(){
 			var statusOffer=document.getElementById("offerStatus").value
 				axios
-				.get('supplierOffer/filtrateOfferByStatus/'+statusOffer+'/10')
+				.get('supplierOffer/filtrateOfferByStatus/'+statusOffer+'/'+localStorage.getItem('userId'),{
+					headers: {
+					  'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+					}
+				  })
 				.then(response => {
 					this.offers = response.data
 
@@ -145,7 +155,11 @@ Vue.component("suppliersOffers", {
 		  },
 		Offers:function(id){
 			axios
-			.get('supplierOffer/getOrdersByOrderId/'+id)
+			.get('supplierOffer/getOrdersByOrderId/'+id,{
+				headers: {
+				  'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+				}
+			  })
 			.then(response => {
 				this.offersList = response.data
 			})

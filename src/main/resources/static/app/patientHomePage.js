@@ -26,8 +26,7 @@ Vue.component("patientHomePage", {
 					<div class="col-sm">
 					</div>
 					<div class="col-sm">
-					</div>
-					<div class="col-sm">
+				
 					  <h3>
 						<button id="Pharmacy" type="button" class="btn btn-info btn-lg margin form-control" data-toggle="modal" v-on:click="PharmaciesShow"></button>
 						</h3><br/> 
@@ -68,11 +67,11 @@ Vue.component("patientHomePage", {
 						</h3><br/> 
 					</div>
 					<div class="col-sm">
+					  <h3>
+						<button id="compaints" type="button" class="btn btn-info btn-lg margin form-control" v-on:click="Complaints()"></button>
+						</h3><br/> 
 					</div>
-					<div class="col-sm">
-					</div>  
-					<div class="col-sm">
-					</div>
+				
 				  </div>				
 		</div>
 		<br></br><br></br>
@@ -122,6 +121,8 @@ Vue.component("patientHomePage", {
 		},
 		SearchMed:function(){
 			this.$router.push('searchMedicine');    
+		},Complaints:function(){
+			this.$router.push('complaintPatient');    
 		},
 		Yes:function(){
 			if(document.getElementById("np").value==document.getElementById("cp").value && document.getElementById("np").value.trim()!="" && document.getElementById("cp").value.trim()!=""){

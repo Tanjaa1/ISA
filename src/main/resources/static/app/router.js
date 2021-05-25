@@ -501,7 +501,9 @@ const router = new VueRouter({
 			path: '/complaintPatient', 
 			name : 'complaintPatient', 
 			components: {
-				content: PatientComplaints
+				content: PatientComplaints,
+				pageHeader: PatientHeader
+
 			}
 		},
 	    { 
@@ -611,21 +613,27 @@ const router = new VueRouter({
 			path: '/supplierInfo', 
 			name : 'supplierInfo', 
 			components: {
-				content: SupplierInfo
+				content: SupplierInfo,
+				pageHeader:SupplierHeader
+
 			}
 		},
 		{
 			path: '/suppliersOffers', 
 			name : 'suppliersOffers', 
 			components: {
-				content: SuppliersOffers
+				content: SuppliersOffers,
+				pageHeader:SupplierHeader
+
 			}
 		},
 		{
 			path: '/giveOffers', 
 			name : 'giveOffers', 
 			components: {
-				content: GiveOffers
+				content: GiveOffers,
+				pageHeader:SupplierHeader
+
 			}
 		},
 		{

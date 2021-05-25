@@ -6,10 +6,10 @@ Vue.component("supplierProfile", {
       supplier1:{}
 		}
 	},
-	beforeMount() {
+	beforeMount() {},
+  mount(){
 
-    setTimeout(() => { axios
-      .get('supplier/getById/'+ localStorage.getItem('userId'),
+      axios.get('supplier/getById/'+ localStorage.getItem('userId'),
             {
             headers: {
               'Authorization': 'Bearer' + " " + localStorage.getItem('token')
@@ -26,7 +26,6 @@ Vue.component("supplierProfile", {
       .catch(error => {
         alert('nesupjesnooo jee')
       })
-}, 20);
          
   },
 	template: `

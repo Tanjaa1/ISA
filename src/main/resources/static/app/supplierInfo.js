@@ -5,9 +5,15 @@ Vue.component("supplierInfo", {
             supplierToUpdate:{}
 		}
 	},
-	beforeMount() {
+	beforeMount() {},
+
+  Mount(){
         axios
-        .get('supplier/getById/'+'10')
+        .get('supplier/getById/'+localStorage.getItem('userId')   ,{
+          headers: {
+            'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+          }
+        })
         .then(response => {
             this.supplierDTO = response.data
       
@@ -146,10 +152,24 @@ Vue.component("supplierInfo", {
       this.supplierToUpdate.emailComfirmed = this.supplierDTO.emailComfirmed,
 		
 
-			axios.put('/supplier/update',this.supplierToUpdate)
+			axios.put('/supplier/update',this.supplierToUpdate,{
+        headers: {
+          'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+        }
+      })
             .then(response => {
-                alert('uspjesno')
-            })
+              axios.put('/api/updateUserBySupplier',this.supplierToUpdate,{
+                headers: {
+                  'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+                }
+              })
+                    .then(response => {
+                        alert('uspjesno izmijenjeni obojica ')
+                    })
+                    .catch(error => {
+                        alert('nesupjesnooo')
+                    })
+                })
             .catch(error => {
                 alert('nesupjesnooo')
             })

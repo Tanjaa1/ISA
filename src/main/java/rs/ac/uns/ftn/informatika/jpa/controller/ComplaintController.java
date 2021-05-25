@@ -30,7 +30,7 @@ public class ComplaintController {
 	private ComplaintService complaintService;
 	
 	
-
+	@PreAuthorize("hasRole('PATIENT')")
 	@PostMapping(value = "/saveComplaint")
 	public ComplaintDTO saveComplaint(@RequestBody Complaint complaintDTO) throws Exception {
 		ComplaintDTO complaint=complaintService.save(complaintDTO);
@@ -67,7 +67,7 @@ public class ComplaintController {
 		ComplaintDTO complaintDTO =complaintService.getById(id);
 		return complaintDTO;
 	}
-
+	@PreAuthorize("hasRole('PATIENT')")
 	@GetMapping(value = "/getAllSubjects/{id}")
 	public Set<String> getAllSubjects(@PathVariable Long id) {
 		Set<String> subjects =complaintService.getAllSubjects(id);
