@@ -62,14 +62,16 @@ public class MedicineController {
     List<MedicineDTO> retVal = medicineService.findAll();
 		return retVal == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(retVal);
   	}
+
 	@PostMapping(value = "/saveMedicinePriceAndQuantity")
 	public ResponseEntity<MedicinePriceAndQuantity> saveMedicinePriceAndQuantity(@RequestBody MedicinePriceAndQuantityDTO medicineDTO) throws Exception{
 		return null;
 	}
 
+	@PreAuthorize("hasRole('PHARMACYADMIN')")
 	@PutMapping(value = "/saveMedicinePriceAndQuantity")
-	public ResponseEntity<MedicinePriceAndQuantity> updatePriceAndQuantity(@RequestBody MedicinePriceAndQuantityDTO medicineDTO) throws Exception{
-		return null;
+	public ResponseEntity<MedicinePriceAndQuantity> updatePriceAndQuantity(@RequestBody MedicinePriceAndQuantity medicineDTO) throws Exception{
+		return  medicineService.savePriceAndQuantity(medicineDTO);
 	}
 
 	@GetMapping(value = "/findMedicine/{name}")

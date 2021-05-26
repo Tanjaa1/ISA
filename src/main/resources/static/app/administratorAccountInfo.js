@@ -325,11 +325,20 @@ Vue.component("administratorAccountInfo", {
                         }
                     })
                     .then(response =>{
+                        axios
+                        .post('api/saveUserByPharmacyAdmin',this.administrator,{
+                            headers: {
+                                'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+                            }
+                        }) 
+                        .then(response => {
+
+                        })
                         var r = response.data
                         if(r.valueOf() == "OK"){
                             $('#changePersonalInfo').modal('hide');
                             axios
-                            .get('/pharmacyAdmin/getById1/' + localStorage.getItem('userId'),{
+                            .get('/pharmacyAdmin/getById/' + localStorage.getItem('userId'),{
 								headers: {
 									'Authorization': 'Bearer' + " " + localStorage.getItem('token')
 								}
@@ -377,11 +386,20 @@ Vue.component("administratorAccountInfo", {
                         }
                     })
                     .then(response =>{
+                        axios
+                        .post('api/saveUserByPharmacyAdmin',this.administrator,{
+                            headers: {
+                                'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+                            }
+                        }) 
+                        .then(response => {
+
+                        })
                         var r = response.data
                         if(r.valueOf() == "OK"){
                             $('#changePersonalInfo').modal('hide');
                             axios
-                            .get('/pharmacyAdmin/getById1/' + localStorage.getItem('userId'),{
+                            .get('/pharmacyAdmin/getById/' + localStorage.getItem('userId'),{
 								headers: {
 									'Authorization': 'Bearer' + " " + localStorage.getItem('token')
 								}

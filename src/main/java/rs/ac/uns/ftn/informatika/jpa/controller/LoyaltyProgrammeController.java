@@ -20,7 +20,6 @@ import rs.ac.uns.ftn.informatika.jpa.service.LoyaltyProgrammeService;
 
 @RestController
 @RequestMapping(value = "/loyaltyProgramme")
-@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class LoyaltyProgrammeController {
     @Autowired
 	private LoyaltyProgrammeService loyaltyProgrammeService;

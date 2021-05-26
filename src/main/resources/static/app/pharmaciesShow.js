@@ -111,6 +111,8 @@ Vue.component("pharmaciesShow", {
 					<template v-for="p1 in p.ListActionsOrPromotions">
 					<div class="card-body" style="font-size:20px">Promotions: {{p1.text}}</div>
 					</template>
+					<button class = "btn form-control" v-on:click = "GoToPharmacy(p)">GO TO PAGE</button>
+					<h1></h1>
 				</div></br>
 			  </div>
 	</template></br>
@@ -184,6 +186,11 @@ Vue.component("pharmaciesShow", {
 				this.pharmacies = this.lista
 				this.lista = []
 			}
+		},
+		GoToPharmacy : function(p){
+			localStorage.setItem('pharmacy',p.name)
+			this.$router.push('pharmacyHomePage');
+
 		},
 		Sort:function(){
 			if(document.getElementById("sort1").value=="Name assceding"){

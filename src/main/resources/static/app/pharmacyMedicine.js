@@ -20,7 +20,7 @@ Vue.component("pharmacyMedicine", {
 	},
 	beforeMount() {
         axios
-        .get('/patient/getPatientById/' + 88,{
+        .get('/patient/getPatientById/' + localStorage.getItem('userId'),{
             headers: {
                 'Authorization': 'Bearer' + " " + localStorage.getItem('token')
             }
@@ -31,7 +31,7 @@ Vue.component("pharmacyMedicine", {
         })
 
         axios
-        .get('/pharmacy/getByName/' + "Feniks",{
+        .get('/pharmacy/getByName/' + localStorage.getItem('pharmacy'),{
             headers: {
                 'Authorization': 'Bearer' + " " + localStorage.getItem('token')
             }
