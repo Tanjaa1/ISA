@@ -170,7 +170,6 @@ Vue.component("Login", {
 					alert(this.token)
 					localStorage.setItem('token', this.token);
 					localStorage.setItem('isLogged', true);
-					this.Redirect(response.data.role)
 
 					if (response.data.role == "ROLE_PATIENT") {
 						axios
@@ -307,6 +306,9 @@ Vue.component("Login", {
 
 						})
 					}
+
+					this.Redirect(response.data.role)
+
 				})
 				.catch(error => {
 				})

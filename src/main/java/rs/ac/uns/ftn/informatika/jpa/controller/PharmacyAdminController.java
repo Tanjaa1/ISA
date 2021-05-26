@@ -33,6 +33,7 @@ public class PharmacyAdminController {
 	return new ResponseEntity<>(pharmacyAdminDTO, HttpStatus.CREATED);
 	}
 
+	@PreAuthorize("hasRole('PHARMACYADMIN')")
 	@PutMapping(value = "/updateAdmin")
 	public ResponseEntity<String> updateAdmin(@RequestBody PharmacyAdminDTO pharmacyAdminDTO) throws Exception{
 	return new ResponseEntity<>(pharmacyAdminService.updateAdmin(pharmacyAdminDTO), HttpStatus.CREATED);
@@ -44,9 +45,16 @@ public class PharmacyAdminController {
 		List<String> usernames =pharmacyAdminService.getAllSystemAdminUsernames();
 		return usernames == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(usernames);
 	}
-	@PreAuthorize("hasRole('ADMIN')")
+
+	@PreAuthorize("hasAnyRole('ADMIN','PHARMACYADMIN')")
 	@GetMapping(value = "/getById/{id}")
 	public ResponseEntity<PharmacyAdminDTO> getPatientById(@PathVariable Long id) {
+		PharmacyAdminDTO pharmacyAdmin = new PharmacyAdminDTO(pharmacyAdminService.findOne(id));
+		return pharmacyAdmin == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(pharmacyAdmin);
+	}
+
+	@GetMapping(value = "/getById1/{id}")
+	public ResponseEntity<PharmacyAdminDTO> getPatientById1(@PathVariable Long id) {
 		PharmacyAdminDTO pharmacyAdmin = new PharmacyAdminDTO(pharmacyAdminService.findOne(id));
 		return pharmacyAdmin == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(pharmacyAdmin);
 	}

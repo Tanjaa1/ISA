@@ -9,19 +9,33 @@ Vue.component("administratorAccountInfo", {
             showLabel : -1,
             passwordRepeat : "",
             oldPassword : "",
+            jwtAuthenticationRequest:{},
 		}
 	},
     beforeMount() {
         axios
-        .get('/pharmacyAdmin/getById/' + '8') 
+        .get('/pharmacyAdmin/getById/' + localStorage.getItem('userId'),{
+            headers: {
+                'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+            }
+        })
         .then(response => {
             this.administrator = response.data
+            if(this.administrator.firstTimeLogin)
+                $("#firstTIme").modal('show') 
+            
             axios
-            .get('/pharmacy/getByName/' + this.administrator.pharmacy.name)
+            .get('/pharmacy/getByName/' + this.administrator.pharmacy.name,{
+                headers: {
+                    'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+                }
+            })
             .then(response =>{
                 this.pharmacy = response.data
              })
         })
+
+
 	}
     
 		,
@@ -231,6 +245,36 @@ Vue.component("administratorAccountInfo", {
             </div>
         </div>
 
+
+        <!-- Edit password modal -->
+        <div class="modal fade" id="firstTIme" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Change password</h5>
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="recipient-name" min="0" class="col-form-label">Password:</label>
+                            <input v-if = "passwordRepeat == ''" type="password" class="form-control" style = "background-color : white; color : black"  v-model="password">
+                            <input v-else type="password" class="form-control" style = "background-color : white; color : black"  @change = "ComparePasswords()" v-model="password">
+                        </div>
+                        <div class="form-group">
+                            <label for="recipient-name" min="0" class="col-form-label">Repeat password:</label>
+                            <input type="password" v-if = "password == ''" class="form-control" style = "background-color : white"  v-model="passwordRepeat" disabled>
+                            <input type="password" v-else  class="form-control" style = "background-color : white; color : black"  v-model="passwordRepeat" @change = "ComparePasswords()">
+                        </div>
+                        <label v-if = "showLabel == 4" style = "color : red">Passwords are not matching</label>
+                    </div>
+                    <div class="modal-footer">
+                        <button  type="button" class="btn btn-primary" v-on:click="ChangePasswordFirstTime(administrator)">Finish</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 	`
 	,
@@ -275,13 +319,21 @@ Vue.component("administratorAccountInfo", {
                 }
                 else{
                     axios
-                    .put('pharmacyAdmin/updateAdmin',administrator)
+                    .put('/pharmacyAdmin/updateAdmin',administrator,{
+                        headers: {
+                            'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+                        }
+                    })
                     .then(response =>{
                         var r = response.data
                         if(r.valueOf() == "OK"){
                             $('#changePersonalInfo').modal('hide');
                             axios
-                            .get('/pharmacyAdmin/getById/' + '8') 
+                            .get('/pharmacyAdmin/getById1/' + localStorage.getItem('userId'),{
+								headers: {
+									'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+								}
+							}) 
                             .then(response => {
                                 this.administrator = response.data
                                 this.showLabel = -1;
@@ -319,13 +371,21 @@ Vue.component("administratorAccountInfo", {
             else {
                     this.administrator.password = this.password
                     axios
-                    .put('pharmacyAdmin/updateAdmin',this.administrator)
+                    .put('/pharmacyAdmin/updateAdmin',this.administrator,{
+                        headers: {
+                            'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+                        }
+                    })
                     .then(response =>{
                         var r = response.data
                         if(r.valueOf() == "OK"){
                             $('#changePersonalInfo').modal('hide');
                             axios
-                            .get('/pharmacyAdmin/getById/' + '8') 
+                            .get('/pharmacyAdmin/getById1/' + localStorage.getItem('userId'),{
+								headers: {
+									'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+								}
+							}) 
                             .then(response => {
                                 this.administrator = response.data
                                 this.showLabel = -1;
@@ -341,6 +401,67 @@ Vue.component("administratorAccountInfo", {
             }
 
         },
+        ChangePasswordFirstTime : function(administrator){
+
+
+            if(this.password.valueOf() != this.passwordRepeat.valueOf()){
+               this.showLabel = 4
+
+           }
+           else {
+            this.administrator.password = this.password
+            this.administrator.firstTimeLogin = false
+                   axios
+                   .put('/pharmacyAdmin/updateAdmin',this.administrator,{
+                       headers: {
+                           'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+                       }
+                   })
+                   .then(response =>{
+
+                        
+                       var r = response.data
+                       if(r.valueOf() == "OK"){
+                           
+                        
+                            axios
+                            .get('/pharmacyAdmin/getById/' + localStorage.getItem('userId'),{
+								headers: {
+									'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+								}
+							}) 
+                            .then(response => {
+                                this.administrator = response.data
+                                this.showLabel = -1;
+                                this.password = "";
+                                this.passwordRepeat = "";
+                                this.oldPassword = "";
+                                $('#firstTIme').modal('hide');
+
+                            })
+
+                            axios
+                            .post('api/saveUserByPharmacyAdmin',this.administrator,{
+                                headers: {
+                                    'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+                                }
+                            }) 
+                            .then(response => {
+                                this.administrator = response.data
+                                this.showLabel = -1;
+                                this.password = "";
+                                this.passwordRepeat = "";
+                                this.oldPassword = "";
+                                $('#firstTIme').modal('hide');
+    
+                            })
+    
+                       }
+                   })
+                                  
+           }
+
+       },
 	}
 });
 

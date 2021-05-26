@@ -20,14 +20,22 @@ Vue.component("pharmacyMedicine", {
 	},
 	beforeMount() {
         axios
-        .get('/patient/getPatientById/' + 88)
+        .get('/patient/getPatientById/' + 88,{
+            headers: {
+                'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+            }
+        })
         .then(response =>{
             this.patient = response.data
             this.newReservation.patient = this.patient
         })
 
         axios
-        .get('/pharmacy/getByName/' + "Feniks")
+        .get('/pharmacy/getByName/' + "Feniks",{
+            headers: {
+                'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+            }
+        })
         .then(response =>{
             this.pharmacy = response.data
             this.newReservation.pharmacy = this.pharmacy
@@ -134,7 +142,11 @@ Vue.component("pharmacyMedicine", {
             if(this.newReservation.expirationDate != null){
                 this.newReservation.expirationDate = this.newReservation.expirationDate + "T00:00:00"
                 axios
-                .post('/reservation/makeNewReservation', this.newReservation) 
+                .post('/reservation/makeNewReservation', this.newReservation,{
+                    headers: {
+                        'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+                    }
+                })
                 .then(response => {
                     this.pharmacies = response.data
                     this.newReservation.expirationDate = null;

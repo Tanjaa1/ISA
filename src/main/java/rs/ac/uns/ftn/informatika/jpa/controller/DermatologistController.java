@@ -115,38 +115,45 @@ public class DermatologistController {
 		return patient == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(patient);
 	}
 
+	@PreAuthorize("hasAnyRole('PHARMACYADMIN','PATIENT')")
 	@GetMapping(value = "/getByPharmacyId/{id}")
 	public ResponseEntity<List<DermatologistDTO>> getByPharmacyId(@PathVariable Long id) {
 		List<DermatologistDTO> pharmacistDTOs = dermatologistService.getByPharmacyId(id);
 		return pharmacistDTOs == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(pharmacistDTOs);
 	}
 
+	@PreAuthorize("hasRole('PHARMACYADMIN')")
 	@GetMapping(value = "/getUnemployedDermatolgoists/{id}")
 	public ResponseEntity<List<DermatologistDTO>> getUnemployedDermatolgoists(@PathVariable Long id) {
 		List<DermatologistDTO> pharmacistDTOs = dermatologistService.getUnemployedDermatolgoists(id);
 		return pharmacistDTOs == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(pharmacistDTOs);
 	}
 
+	@PreAuthorize("hasRole('PHARMACYADMIN')")
 	@PostMapping(value = "/addNewDermatologistToPharmacy")
 	public ResponseEntity<Dermatologist> checkUserAndEmail( @RequestBody Dermatologist dermatologist) throws Exception {
 		return ResponseEntity.ok(dermatologistService.addNewDermatologistToPharmacy(dermatologist));
 	}
 
+	@PreAuthorize("hasRole('PHARMACYADMIN')")
 	@PutMapping(value = "/addExistingDermatologistToPharmacy/{dermatologistUsername}/{pharmacyUsername}")
 	public ResponseEntity<Boolean> addExistingDermatologistToPharmacy( @PathVariable Long dermatologistUsername,@PathVariable Long pharmacyUsername,@Valid @RequestBody Dermatologist dermatologist) throws Exception {
 		return ResponseEntity.ok(dermatologistService.addExistingDermatologistToPharmacy(dermatologistUsername,pharmacyUsername));
 	}
 
+	@PreAuthorize("hasRole('PHARMACYADMIN')")
 	@GetMapping(value = "/checkUserAndEmail/{username}/{email}")
 	public ResponseEntity<String> checkUserAndEmail(@PathVariable String username,@PathVariable String email) throws Exception {
 		return ResponseEntity.ok(dermatologistService.checkUserAndEmail(username,email));
 	}
 
+	@PreAuthorize("hasRole('PHARMACYADMIN')")
 	@PutMapping(value = "/addWorktimeToDermatologist/{id}")
 	public ResponseEntity<Boolean> addWorktimeToDermatologist(@PathVariable Long id, @Valid @RequestBody WorkingTime WT) throws Exception {
 		return ResponseEntity.ok(dermatologistService.addWorktimeToDermatologist(id,WT));
 	}
 	
+	@PreAuthorize("hasRole('PHARMACYADMIN')")
 	@PutMapping(value = "/removeDermatologistFromPharmacy/{did}/{pid}")
 	public ResponseEntity<Boolean> removeDermatologistFromPharmacy(@PathVariable Long did,@PathVariable Long pid) throws Exception {
 		return ResponseEntity.ok(dermatologistService.removeFromPharmacy(did,pid));

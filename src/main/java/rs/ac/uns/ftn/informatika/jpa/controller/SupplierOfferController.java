@@ -6,6 +6,7 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -55,12 +56,15 @@ public class SupplierOfferController {
 		return offerS;
 
 	}
+
+	@PreAuthorize("hasRole('PHARMACYADMIN')")
 	@GetMapping(value = "/getOffersByOrder/{orderId}")
 	public List<SupplierOfferDTO> getOffersByOrder(@PathVariable Long orderId) throws Exception {
 
 		return supplierOfferService.getByOrder(orderId);
 
 	}
+	@PreAuthorize("hasRole('PHARMACYADMIN')")
 	@PutMapping(value = "/acceptOffer/{id}")
 	public Boolean accepOffer(@RequestBody OrderDTO order,@PathVariable Long id) throws Exception {
 

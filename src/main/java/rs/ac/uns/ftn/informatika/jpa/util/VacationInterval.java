@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import rs.ac.uns.ftn.informatika.jpa.model.Pharmacy;
 
 import rs.ac.uns.ftn.informatika.jpa.dto.VacationIntervalDTO;
 
@@ -27,6 +28,10 @@ public class VacationInterval {
 	
 	@Column(name="Approved", unique=false, nullable=true)
 	private Boolean Approved;
+
+	@Column(name="PharmacyId",unique=false, nullable=true)
+	private Long PharmacyId;
+	
 	
 	// @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	// private Dermatologist Dermatologist;
@@ -38,12 +43,13 @@ public class VacationInterval {
 		Approved=false;
 	}
 
-	public VacationInterval(Long id, Date dateStart, Date dateEnd, Boolean approved) {
+	public VacationInterval(Long id, Date dateStart, Date dateEnd, Boolean approved, Long p) {
 		super();
 		Id = id;
 		DateStart = dateStart;
 		DateEnd = dateEnd;
 		Approved = false;
+		PharmacyId = p;
 	}
 
 	public VacationInterval(VacationIntervalDTO v) {
@@ -52,6 +58,7 @@ public class VacationInterval {
 		DateStart = v.getDateStart();
 		DateEnd = v.getDateEnd();
 		Approved = v.getApproved();
+		PharmacyId = v.getPharmacyId();
 	}
 
 	public Long getId() {
@@ -93,7 +100,14 @@ public class VacationInterval {
 		Approved = approved;
 	}
 	
-	
+	public Long getPharmacyId() {
+		return PharmacyId;
+	}
+
+
+	public void setPharmacyId(Long pharmacy) {
+		PharmacyId = pharmacy;
+	}
 	
 	
 }

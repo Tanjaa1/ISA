@@ -12,17 +12,29 @@ Vue.component("pharmacyEmployees", {
 	},
 	beforeMount() {
         axios
-        .get('/patient/getPatientById/' + 88)
+        .get('/patient/getPatientById/' + 88,{
+			headers: {
+				'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+			}
+		})
         .then(response =>{
             this.patient = response.data
         })
 
         axios
-        .get('/pharmacy/getByName/' + "Feniks")
+        .get('/pharmacy/getByName/' + "Feniks",{
+			headers: {
+				'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+			}
+		})
         .then(response =>{
             this.pharmacy = response.data
             axios
-            .get('/pharmacist/getByPharmacyId/' + this.pharmacy.id) 
+            .get('/pharmacist/getByPharmacyId/' + this.pharmacy.id,{
+				headers: {
+					'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+				}
+			}) 
             .then(response => {
                 this.pharmacists = response.data
                 this.allPharmacists = response.data
@@ -30,7 +42,11 @@ Vue.component("pharmacyEmployees", {
             .catch(error => {
             })
             axios
-            .get('/dermatologist/getByPharmacyId/' + this.pharmacy.id) 
+            .get('/dermatologist/getByPharmacyId/' + this.pharmacy.id,{
+				headers: {
+					'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+				}
+			})
             .then(response => {
                 this.dermatologists = response.data
                 this.allDermatologists = response.data
@@ -390,7 +406,11 @@ Vue.component("pharmacyEmployees", {
 		},
 		ResetPharmacistsSearch: function(){
 			axios
-			.get('/pharmacist/getByPharmacyId/' + this.pharmacy.id) 
+			.get('/pharmacist/getByPharmacyId/' + this.pharmacy.id,{
+				headers: {
+					'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+				}
+			})
 			.then(response => {
 				this.pharmacists = response.data
 			})
@@ -404,7 +424,11 @@ Vue.component("pharmacyEmployees", {
 		},
 		ResetDermatologistSearch: function(){
 			axios
-			.get('/dermatologist/getByPharmacyId/' + this.pharmacy.id) 
+			.get('/dermatologist/getByPharmacyId/' + this.pharmacy.id,{
+				headers: {
+					'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+				}
+			})
 			.then(response => {
 				this.dermatologists = response.data
 			})
@@ -419,7 +443,11 @@ Vue.component("pharmacyEmployees", {
         GetExaminations : function(dermatologist){
 			this.dermatologist = dermatologist
 			axios
-			.get('/examination/getUpcomingFreeExaminations/' + this.pharmacy.id +"/" + dermatologist.id)
+			.get('/examination/getUpcomingFreeExaminations/' + this.pharmacy.id +"/" + dermatologist.id,{
+				headers: {
+					'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+				}
+			})
 			.then(response => {
 				this.upcomingExaminations = response.data
                 for (var i = 0; i < this.upcomingExaminations.length; i++) {
@@ -433,7 +461,11 @@ Vue.component("pharmacyEmployees", {
 		GetCounselings : function(pharmacist){
 
 			axios
-			.get('/counseling/getUpcomingFreeCounselingByPharmacist/' + pharmacist.id)
+			.get('/counseling/getUpcomingFreeCounselingByPharmacist/' + pharmacist.id,{
+				headers: {
+					'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+				}
+			})
 			.then(response => {
 				this.upcomingCounselings = response.data
                 for (var i = 0; i < this.upcomingCounselings.length; i++) {
@@ -451,7 +483,11 @@ Vue.component("pharmacyEmployees", {
 			examination.endTime = examination.endTime.replace("/", "T");
 			examination.startTime = examination.startTime.replace("/", "T");
             axios
-			.put('/examination/schedule/' , examination ) 
+			.put('/examination/schedule/' , examination ,{
+				headers: {
+					'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+				}
+			}) 
 			.then(response => {
                 var newExaminations = []
                 for(var ex of this.upcomingExaminations){
@@ -469,7 +505,11 @@ Vue.component("pharmacyEmployees", {
 			counseling.endTime = counseling.endTime.replace("/", "T");
 			counseling.startTime = counseling.startTime.replace("/", "T");
             axios
-			.put('/counseling/update/' , counseling ) 
+			.put('/counseling/update/' , counseling ,{
+				headers: {
+					'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+				}
+			}) 
 			.then(response => {
                 var newCounselings = []
                 for(var cs of this.upcomingCounselings){
