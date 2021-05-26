@@ -172,7 +172,13 @@ public class MedicineService implements IMedicineService {
 			}
 
 			for(PharmacyDTO p : pharmacys){
-				listR.add(new MedicineForSearch( mdto.getName(), mdto.getType().toString(),mdto.getComposition(), p.getName(),String.valueOf(Grade),"250",mdto.getOnPrescription().toString(),mdto.getForm().toString()));
+				Double pricee=0.0;
+				Set<MedicinePriceAndQuantityDTO>priceList=p.getPricelist();
+				for (MedicinePriceAndQuantityDTO medicineForSearch : priceList) {
+					if(mdto.getName().equals(medicineForSearch.getMedicine().getName()))
+						pricee=medicineForSearch.getPrice();
+				}
+				listR.add(new MedicineForSearch( mdto.getName(), mdto.getType().toString(),mdto.getComposition(), p.getName(),String.valueOf(Grade),pricee.toString(),mdto.getOnPrescription().toString(),mdto.getForm().toString()));
 			}
 
 		}
@@ -368,7 +374,7 @@ public class MedicineService implements IMedicineService {
 	  }
 
 	public Set<MedicineForSearch> combinedSearch(String parameters) {
-		String[] pars=parameters.split("x");
+		String[] pars=parameters.split(".x.");
 		String medicineName=pars[0];
 		String type=pars[1];
 		String form=pars[2];
