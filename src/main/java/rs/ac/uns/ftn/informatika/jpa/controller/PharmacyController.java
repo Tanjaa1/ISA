@@ -63,6 +63,7 @@ public class PharmacyController {
 	return new ResponseEntity<>(pharmacyDTO, HttpStatus.CREATED);
 	}
 
+	@PreAuthorize("hasRole('PHARMACYADMIN')")
 	@PutMapping(value = "/update")
 	public ResponseEntity<PharmacyDTO> update(@RequestBody Pharmacy pharmacy) throws Exception{
 		pharmacyService.update(pharmacy);
@@ -86,6 +87,7 @@ public class PharmacyController {
 		return isValid == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(isValid);
 	}
 
+	@PreAuthorize("hasAnyRole('PHARMACYADMIN','PATIENT')")
 	@GetMapping(value = "/getByName/{name}")
 	public ResponseEntity<PharmacyDTO> getByName(@PathVariable String name) {
 		PharmacyDTO pharmacy = new PharmacyDTO(pharmacyService.getByName(name));

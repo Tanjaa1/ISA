@@ -229,8 +229,8 @@ methods: {
 					}else{
 						dermatologistDTO.emailComfirmed=false
 						dermatologistDTO.firstTimeLogin=false
-						dermatologistDTO.id=idDe
 						dermatologistDTO.description="/"
+						dermatologistDTO.id="1"
 						axios
 						.post('/api/saveUserByDermatologist' , dermatologistDTO,{
 							headers: {
@@ -240,7 +240,7 @@ methods: {
 						.then(response => {
 							alert("DODAT U BAZU user");
 							axios
-							.post('/dermatologist/saveDermatologist' , dermatologistDTO,{
+							.post('/dermatologist/saveDermatologist/'+idDe , dermatologistDTO,{
 								headers: {
 									'Authorization': 'Bearer' + " " + localStorage.getItem('token')
 								}

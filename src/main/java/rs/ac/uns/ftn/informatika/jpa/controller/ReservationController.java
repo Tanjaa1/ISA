@@ -78,6 +78,7 @@ public class ReservationController {
 		return ResponseEntity.ok(reservationService.makeReservation(reservation));
 	}
 
+	@PreAuthorize("hasRole('PATIENT')")
 	@PostMapping(value = "/makeNewReservation")
 	public ResponseEntity<ReservationDTO> createReservation(@RequestBody Reservation reservation) throws Exception 
 	{

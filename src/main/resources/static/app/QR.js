@@ -5,15 +5,6 @@ Vue.component("QR", {
 	}
 	},
 	beforeMount() {
-		axios
-				.get('supplierOffer/getOfferBySupplierId/'+'10')
-				.then(response => {
-					this.offers = response.data
-			  
-				})
-				.catch(error => {
-					alert('nesupjesnooo')
-				})
 	},
 	template: `
 	<div id="QR"  class="BackendImagePhysician">
@@ -113,13 +104,17 @@ Vue.component("QR", {
 	methods: {
 		Search:function(){
 			var text=document.getElementById("idText").value
-			var patientId="88"
+			var patientId=localStorage.getItem('userId')
 
 			if(text==null || text==undefined || text=="Enter full path to QR code:" || text==""){
 				alert('Please enter full path to QR code!')
 			}else{
 				axios
-				.get('medicine/getPharmaciesByQR/88',{ params: { par: text } })
+				.get('medicine/getPharmaciesByQR/'+localStorage.getItem('userId'),{ params: { par: text } ,
+				headers: {
+				  'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+				}
+			  } )
 				.then(response => {
 					this.pharmacies = response.data
 					document.getElementById("pharmaciesTable").hidden=false;
@@ -139,7 +134,7 @@ Vue.component("QR", {
 		Sort:function(){
 			var x;
 			var text=document.getElementById("idText").value
-			var patientId="88"
+			var patientId=localStorage.getItem('userId')
 
 			if(text==null || text==undefined || text=="Enter full path to QR code:" || text==""){
 				alert('Please enter full path to QR code!')
@@ -164,7 +159,11 @@ Vue.component("QR", {
 				  
 				if(x=="priceDesc"){
 					axios
-					.get('medicine/sortByPharmacyPriceQRDESC/'+patientId,{ params: { path: text } })
+					.get('medicine/sortByPharmacyPriceQRDESC/'+patientId,{ params: { path: text } ,
+					headers: {
+					  'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+					}
+				  } )
 					.then(response => {
 						this.pharmacies = response.data
 					})
@@ -173,7 +172,11 @@ Vue.component("QR", {
 					})
 				}else if(x=="priceAsc"){
 					axios
-					.get('medicine/sortByPharmacyPriceQRACS/'+patientId,{ params: { path: text } })
+					.get('medicine/sortByPharmacyPriceQRACS/'+patientId,{ params: { path: text }  ,
+					headers: {
+					  'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+					}
+				  } )
 					.then(response => {
 						this.pharmacies = response.data
 	
@@ -183,7 +186,11 @@ Vue.component("QR", {
 					})
 				}else if(x=="markDesc"){
 					axios
-					.get('medicine/sortByPharmacyGradeQRDESC/'+patientId,{ params: { path: text } })
+					.get('medicine/sortByPharmacyGradeQRDESC/'+patientId,{ params: { path: text }  ,
+					headers: {
+					  'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+					}
+				  } )
 					.then(response => {
 						this.pharmacies = response.data
 	
@@ -193,7 +200,11 @@ Vue.component("QR", {
 					})
 				}else if(x=="markAsc"){
 					axios
-					.get('medicine/sortByPharmacyGradeQRASC/'+patientId,{ params: { path: text } })
+					.get('medicine/sortByPharmacyGradeQRASC/'+patientId,{ params: { path: text }  ,
+					headers: {
+					  'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+					}
+				  } )
 					.then(response => {
 						this.pharmacies = response.data
 	
@@ -203,7 +214,11 @@ Vue.component("QR", {
 					})
 				}else if(x=="nameDesc"){
 					axios
-					.get('medicine/sortByPharmacyNameDESC/'+patientId,{ params: { path: text } })
+					.get('medicine/sortByPharmacyNameDESC/'+patientId,{ params: { path: text } ,
+					headers: {
+					  'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+					}
+				  } )
 					.then(response => {
 						this.pharmacies = response.data
 	
@@ -213,7 +228,11 @@ Vue.component("QR", {
 					})
 				}else if(x=="nameAsc"){
 					axios
-					.get('medicine/sortByPharmacyNameQRASC/'+patientId,{ params: { path: text } })
+					.get('medicine/sortByPharmacyNameQRASC/'+patientId,{ params: { path: text }  ,
+					headers: {
+					  'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+					}
+				  } )
 	
 					.then(response => {
 						this.pharmacies = response.data
@@ -224,7 +243,11 @@ Vue.component("QR", {
 					})
 				}else if(x=="addressDesc"){
 					axios
-					.get('medicine/sortByPharmacyAddressQRDESC/'+patientId,{ params: { path: text } })
+					.get('medicine/sortByPharmacyAddressQRDESC/'+patientId,{ params: { path: text }  ,
+					headers: {
+					  'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+					}
+				  } )
 					.then(response => {
 						this.pharmacies = response.data
 	
@@ -234,7 +257,11 @@ Vue.component("QR", {
 					})
 				}else{
 					axios
-					.get('medicine/sortByPharmacyAddressQRASC/'+patientId,{ params: { path: text } })
+					.get('medicine/sortByPharmacyAddressQRASC/'+patientId,{ params: { path: text }  ,
+					headers: {
+					  'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+					}
+				  } )
 					.then(response => {
 						this.pharmacies = response.data
 	
@@ -251,9 +278,13 @@ Vue.component("QR", {
 				var text=document.getElementById("idText").value
 
 				var pharmacyId=id;
-				var patientId="88"
+				var patientId=localStorage.getItem('userId')
 				axios
-				.get('pharmacy/changePharmacySupplies/'+pharmacyId +'/'+patientId,{ params: { path: text } })
+				.get('pharmacy/changePharmacySupplies/'+pharmacyId +'/'+patientId,{ params: { path: text } ,
+				headers: {
+				  'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+				}
+			  } )
 				.then(response => {
 					alert('uspesno promijenjeno stanje')
 					location.reload()

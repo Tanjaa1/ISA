@@ -33,12 +33,13 @@ public class PatientController {
 	@Autowired
 	private PatientService patientService;
 
-	
+	@PreAuthorize("hasRole('PATIENT')")
 	@GetMapping(value = "/getPatientById/{id}")
 	public ResponseEntity<PatientDTO> getPatientById(@PathVariable Long id) {
 		PatientDTO patient = new PatientDTO(patientService.findOne(id));
 		return patient == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(patient);
 	}
+	
 	@PreAuthorize("hasRole('PATIENT')")
 	@GetMapping(value = "/getPatientByIdd/{id}")
 	public ResponseEntity<PatientDTO> getPatientByIdd(@PathVariable Long id) {
@@ -147,13 +148,13 @@ public class PatientController {
 		ActionOrPromotionsDTO saveActionOrPromotion=patientService.saveActionOrPromotion(patientId,actionOrPromotionsDTO);
 	return saveActionOrPromotion;
 	}
-
+	@PreAuthorize("hasRole('PATIENT')")
 	@GetMapping(value = "/cancelActionOrPromotion/{idPatient}/{idAction}")
 	public ActionOrPromotionsDTO calcelActionOrPromotion(@PathVariable String idPatient,@PathVariable String idAction) throws Exception{
 		ActionOrPromotionsDTO canceledActionOrPromotion=patientService.cancelActionOrPromotion(idPatient,idAction);
 	return canceledActionOrPromotion;
 	}
-
+	@PreAuthorize("hasRole('PATIENT')")
 	@GetMapping(value = "/getAllActionsAndPromotionByPatientId/{patientId}")
 	public ResponseEntity<Set<ActionOrPromotionsDTO>> getAllActionsAndPromotionByPatientId(@PathVariable String patientId) {
 		Set<ActionOrPromotionsDTO> actionOrPromotionsDTOs =patientService.getAllActionsAndPromotionByPatientId(patientId);

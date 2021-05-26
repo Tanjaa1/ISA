@@ -10,14 +10,19 @@ public class VacationIntervalDTO {
 	private Date DateStart;
 	private Date DateEnd ;
 	private Boolean Approved;
+	private Long PharmacyId;
+	private Boolean IsSolved;
+
+
 	public VacationIntervalDTO(){}
 
-	public VacationIntervalDTO(long id, Date dateStart, Date dateEnd, Boolean approved) {
+	public VacationIntervalDTO(long id, Date dateStart, Date dateEnd, Boolean approved, Long p,Boolean isSolved) {
 		super();
 		Id = id;
 		DateStart = dateStart;
 		DateEnd = dateEnd;
 		Approved = false;
+		PharmacyId = p;
 	}
    
 	public VacationIntervalDTO(VacationInterval vacationInterval) {
@@ -26,6 +31,7 @@ public class VacationIntervalDTO {
 		DateStart = vacationInterval.getDateStart();
 		DateEnd = vacationInterval.getDateEnd();
 		Approved = vacationInterval.getApproved();
+		PharmacyId = vacationInterval.getPharmacyId();
 	}
 
 	public long getId() {
@@ -65,6 +71,15 @@ public class VacationIntervalDTO {
 
 	public void setApproved(Boolean approved) {
 		Approved = approved;
+	}
+
+	public Long getPharmacyId() {
+		return PharmacyId;
+	}
+
+
+	public void setPharmacyId(Long pharmacy) {
+		PharmacyId = pharmacy;
 	}
 	
 }

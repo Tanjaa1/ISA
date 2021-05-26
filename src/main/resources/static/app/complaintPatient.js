@@ -15,7 +15,11 @@ Vue.component("complaintPatient", {
 	},
 	mounted() {
 		axios
-		.get('/complaint/getAllSubjects/'+ 88)
+		.get('/complaint/getAllSubjects/'+ localStorage.getItem('userId'),{
+			headers: {
+			  'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+			}
+		  } )
 		.then(response => {
 			this.subjects = response.data	  
 		})
@@ -35,7 +39,7 @@ Vue.component("complaintPatient", {
 		<table class="t">
 			<tr>
 				<td><label>Text</label><a class="star"></a></td>
-				<td><textarea type="textarea" class="textarea"  v-model="complaintDTO.text""/></td><br/>
+				<td><textarea type="textarea" id="textComplaint" class="textarea"  v-model="complaintDTO.text""/></td><br/>
 			<tr>
 			<tr><td>&nbsp;</td>
 			</tr>
@@ -44,7 +48,7 @@ Vue.component("complaintPatient", {
 			<tr>
 				<td><label>Subject</label><a class="star"></a></td>
 				<td> 
-                    <select class="select" v-model="complaintDTO.subject">
+                    <select class="select" id="subjectComplaint" v-model="complaintDTO.subject">
                         <option disabled>Please select one</option>
                         <option v-for="s in subjects">{{s}}</option>
                     </select>
@@ -68,27 +72,42 @@ Vue.component("complaintPatient", {
     },
 	methods: {
 		AddComplaint :async function(){
-		await axios
-		.get('/patient/getPatientById/'+ 88)
-		.then(response => {
-			this.patientP = response.data	  
-		})
-		.catch(error => {
-		})
-
-		alert(this.complaintDTO.id)
-		this.complaintDTO.patient=this.patientP.data
-		alert(this.complaintDTO.patient)
+			
+			if(this.complaintDTO.text=="" || this.complaintDTO.subject=="" || this.complaintDTO.text==undefined || this.complaintDTO.subject==undefined){
+				alert('All fields must be filled')
+				return
+			}else{
+				await axios
+				.get('/patient/getPatientById/'+ localStorage.getItem('userId'),{
+					headers: {
+					  'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+					}
+				  } )
+				.then(response => {
+					this.complaintDTO.patient= response.data	  
+				})
+				.catch(error => {
+				})
 		
-		await axios
-		.post('/complaint/saveComplaint/',this.complaintDTO)
-		.then(response => {
-				alert('uspjesno')
-		})
-		.catch(error => {
-			alert('neuspjesno')
-		})
+				
+				
+				await axios
+				.post('/complaint/saveComplaint/',this.complaintDTO,{
+					headers: {
+					  'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+					}
+				  } )
+				.then(response => {
+						alert('uspjesno')
+						this.$router.push('patientHomePage');
 
+				})
+				.catch(error => {
+					alert('neuspjesno')
+				})
+		
+			}
+		
 
 		}
 	}

@@ -3,6 +3,9 @@
 Vue.component("administratorEmployed", {
 	data: function () {
 		return {
+			reason : "",
+			vacationIntervals : [],
+			selectedEmployee : {},
             existingDermatologist : {},
 			existingPharmacist : {},
 			passwordSame : false,
@@ -64,19 +67,42 @@ Vue.component("administratorEmployed", {
 			}
 		}
 	},
-	beforeMount() {
+	mounted() {
 		axios
-			.get('/pharmacyAdmin/getById/' + '8') 
+			.get('/pharmacyAdmin/getById/' + localStorage.getItem('userId'),{
+				headers: {
+					'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+				}
+			}) 
 			.then(response => {
 				this.administrator = response.data
 				axios
-				.get('/pharmacy/getByName/' + this.administrator.pharmacy.name) 
+				.get('/pharmacy/getByName/' + this.administrator.pharmacy.name,{
+					headers: {
+						'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+					}
+				}) 
 				.then(response => {
 					this.pharmacy = response.data
 					this.newDermatologist.pharmacies.push(response.data)
 					this.newPharmacist.pharmacy = response.data
+
 					axios
-					.get('/pharmacist/getByPharmacyId/' + this.pharmacy.id) 
+					.get('/vacation/getByPharmacy/' + this.pharmacy.id,{
+						headers: {
+							'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+						}
+					}) 
+					.then(response => {
+						this.vacationIntervals = response.data
+					})
+
+					axios
+					.get('/pharmacist/getByPharmacyId/' + this.pharmacy.id,{
+						headers: {
+							'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+						}
+					}) 
 					.then(response => {
 						this.pharmacists = response.data
 						this.allPharmacists = response.data
@@ -84,7 +110,11 @@ Vue.component("administratorEmployed", {
 					.catch(error => {
 					})
 					axios
-					.get('/dermatologist/getByPharmacyId/' + this.pharmacy.id) 
+					.get('/dermatologist/getByPharmacyId/' + this.pharmacy.id,{
+						headers: {
+							'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+						}
+					}) 
 					.then(response => {
 						this.dermatologists = response.data
 						this.allDermatologists = response.data
@@ -92,14 +122,22 @@ Vue.component("administratorEmployed", {
 					.catch(error => {
 					})
 					axios
-					.get('/dermatologist/getUnemployedDermatolgoists/' + this.pharmacy.id) 
+					.get('/dermatologist/getUnemployedDermatolgoists/' + this.pharmacy.id,{
+						headers: {
+							'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+						}
+					}) 
 					.then(response => {
 						this.unemployedDermatologists = response.data
 					})
 					.catch(error => {
 					})
 					axios
-					.get('/pharmacist/getUnemployedPharmacists/' + this.pharmacy.id) 
+					.get('/pharmacist/getUnemployedPharmacists/' + this.pharmacy.id,{
+						headers: {
+							'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+						}
+					}) 
 					.then(response => {
 						this.unemployedPharmacists = response.data
 					})
@@ -140,7 +178,9 @@ Vue.component("administratorEmployed", {
 					<td v-if = "pharmacist.grade != null">{{pharmacist.grade}}</td>
 					<td v-else>N/A</td>
 					<td><button style="color:white" type="button" class="btn btn-default" data-dismiss="modal" v-on:click="SelectPharmacistWT(pharmacist)" data-toggle="modal" data-target="#addWorktimePharmacist"><i class="fa fa-calendar"></i></button>
-					<button style="color:white" type="button" class="btn btn-default" data-dismiss="modal" v-on:click="DeletePharmacist(pharmacist)" data-toggle="modal" data-target="#"><i class="fa fa-trash"></i></button></td>
+					<button style="color:white" type="button" class="btn btn-default" data-dismiss="modal" v-on:click="DeletePharmacist(pharmacist)" data-toggle="modal" data-target="#"><i class="fa fa-trash"></i></button>
+					<button style="color:white" type="button" class="btn btn-default" data-dismiss="modal" v-on:click="GetRequests(pharmacist)" data-toggle="modal" data-target="#vacationRequestsPharmacist"><i class="fa fa-bed"></i></button>
+					</td>
 				</tr>
 			</tbody>
 		</table>
@@ -179,7 +219,9 @@ Vue.component("administratorEmployed", {
 							<td v-if = "dermatologist.grade != null">{{dermatologist.grade}}</td>
 							<td v-else>N/A</td>
 							<td><button style="color:white" type="button" class="btn btn-default" data-dismiss="modal" v-on:click="SelectDermatologistWT(dermatologist)" data-toggle="modal" data-target="#addWorktimeDermatolgist"><i class="fa fa-calendar"></i></button>
-							<button style="color:white" type="button" class="btn btn-default" data-dismiss="modal" v-on:click="DeleteDermatologist(dermatologist)" data-toggle="modal" data-target="#"><i class="fa fa-trash"></i></button></td>
+							<button style="color:white" type="button" class="btn btn-default" data-dismiss="modal" v-on:click="DeleteDermatologist(dermatologist)" data-toggle="modal" data-target="#"><i class="fa fa-trash"></i></button>
+							<button style="color:white" type="button" class="btn btn-default" data-dismiss="modal" v-on:click="GetRequests(dermatologist)" data-toggle="modal" data-target="#vacationRequests"><i class="fa fa-bed"></i></button>
+							</td>
 						</tr>
 					</tbody>
 				</table>
@@ -457,6 +499,93 @@ Vue.component("administratorEmployed", {
 				</div>
 			  </div>
 
+
+
+		
+			  <!-- Vacations requests review -->
+			  <div class="modal fade" id="vacationRequests" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			  <div class="modal-dialog" role="document">
+				<div class="modal-content">
+				  <div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Vacation requests</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					  <span aria-hidden="true">&times;</span>
+					</button>
+				  </div>
+				  <div class="modal-body">
+						  <table class="table" style = "width : 50%;  margin-left : 30%;color :  #515a5a ">
+							  <thead class="thead-light">
+								  <tr>
+									  <th scope="col">Start Date</th>
+									  <th scope="col">End Date</th>	
+									  <th scope="col"></th>
+									  <th scope="col"></th>		  	  	  	  
+								  </tr>
+							  </thead>
+							  <tbody>
+								  <tr v-for = "(vacation) in vacationIntervals"  >
+									  <td ><div >{{vacation.dateStart}}</div></td>				
+									  <td ><div >{{vacation.dateEnd}}</div></td>				
+									  <td ><button  style="color:white" type="button" class="btn btn-default" data-dismiss="modal" v-on:click="AcceptRequestDermatologist(vacation)" data-toggle="modal" data-target="#"><i class="fa fa-check"></i></button></td>
+									  <td ><button  style="color:white" type="button" class="btn btn-default" data-dismiss="modal" v-on:click="RejectRequestDermatologist(vacation)" data-toggle="modal" data-target="#"><i class="fa fa-times-circle"></i></button></td>		
+								  </tr>
+							  </tbody>
+						  </table>
+						  <div class="form-group">
+						  	<label for="exampleInputPassword1">Reason for rejecting (enter only when rejecting)</label>
+						  	<input type="text" class="form-control" v-model="reason" id="exampleInputPassword1" placeholder="">
+						</div>
+				  </div>
+				  
+				  <div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				  </div>
+				</div>
+			  </div>
+			</div>
+
+			<!-- Vacations requests review -->
+			<div class="modal fade" id="vacationRequestsPharmacist" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+			  <div class="modal-content">
+				<div class="modal-header">
+				  <h5 class="modal-title" id="exampleModalLabel">Vacation requests</h5>
+				  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				  </button>
+				</div>
+				<div class="modal-body">
+						<table class="table" style = "width : 50%;  margin-left : 30%;color :  #515a5a ">
+							<thead class="thead-light">
+								<tr>
+									<th scope="col">Start Date</th>
+									<th scope="col">End Date</th>	
+									<th scope="col"></th>
+									<th scope="col"></th>		  	  	  	  
+								</tr>
+							</thead>
+							<tbody>
+							  <tr v-for = "(vacation) in vacationIntervals"  >
+									  <td><div >{{vacation.dateStart}}</div></td>				
+									  <td ><div >{{vacation.dateEnd}}</div></td>				
+									  <td ><button  style="color:white" type="button" class="btn btn-default" data-dismiss="modal" v-on:click="AcceptRequestPharmacist(vacation)" data-toggle="modal" data-target="#"><i class="fa fa-check"></i></button></td>
+									  <td ><button  style="color:white" type="button" class="btn btn-default" data-dismiss="modal" v-on:click="RejectRequestPharmacist(vacation)" data-toggle="modal" data-target="#"><i class="fa fa-times-circle"></i></button></td>		
+								  </tr>
+							</tbody>
+						</table>
+						<div class="form-group">
+							<label for="exampleInputPassword1">Reason for rejecting (enter only when rejecting)</label>
+							<input type="text" class="form-control" v-model="reason" id="exampleInputPassword1" placeholder="">
+					  	</div>
+				</div>
+				<div class="modal-footer">
+				  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				</div>
+			  </div>
+			</div>
+		  </div>
+		  
+
     </div>
 	`
 	,
@@ -471,15 +600,27 @@ Vue.component("administratorEmployed", {
 		NewDermatologist: function () {
 			if(this.passwordSame == true){
 				axios
-				.get('/dermatologist/checkUserAndEmail/' + this.newDermatologist.username + '/' + this.newDermatologist.email)
+				.get('/dermatologist/checkUserAndEmail/' + this.newDermatologist.username + '/' + this.newDermatologist.email,{
+					headers: {
+						'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+					}
+				})
 				.then(response => {
 					var responseMessage = response.data
 					if(responseMessage.valueOf() == "OK")
 						axios
-						.post('dermatologist/addNewDermatologistToPharmacy',this.newDermatologist)
+						.post('dermatologist/addNewDermatologistToPharmacy',this.newDermatologist,{
+							headers: {
+								'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+							}
+						})
 						.then(response =>{
 							axios
-							.get('/dermatologist/getByPharmacyId/' + this.pharmacy.id) 
+							.get('/dermatologist/getByPharmacyId/' + this.pharmacy.id,{
+								headers: {
+									'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+								}
+							}) 
 							.then(response => {
 								this.dermatologists = response.data
 								this.allDermatologists = response.data
@@ -686,7 +827,11 @@ Vue.component("administratorEmployed", {
 		},
 		ResetPharmacistsSearch: function(){
 			axios
-			.get('/pharmacist/getByPharmacyId/' + this.pharmacy.id) 
+			.get('/pharmacist/getByPharmacyId/' + this.pharmacy.id,{
+				headers: {
+					'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+				}
+			}) 
 			.then(response => {
 				this.pharmacists = response.data
 			})
@@ -700,7 +845,11 @@ Vue.component("administratorEmployed", {
 		},
 		ResetDermatologistSearch: function(){
 			axios
-			.get('/dermatologist/getByPharmacyId/' + this.pharmacy.id) 
+			.get('/dermatologist/getByPharmacyId/' + this.pharmacy.id,{
+				headers: {
+					'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+				}
+			}) 
 			.then(response => {
 				this.dermatologists = response.data
 			})
@@ -718,17 +867,29 @@ Vue.component("administratorEmployed", {
 		AddExistingDermatologist: function(){
 			if(this.existingDermatolgoist != null){
 				axios
-				.put('/dermatologist/addExistingDermatologistToPharmacy/' + this.existingDermatolgoist.id  + '/' + this.pharmacy.id, this.existingDermatolgoist) 
+				.put('/dermatologist/addExistingDermatologistToPharmacy/' + this.existingDermatolgoist.id  + '/' + this.pharmacy.id, this.existingDermatolgoist,{
+					headers: {
+						'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+					}
+				}) 
 				.then(response => {
 					this.dermatologists = response.data
 					axios
-					.get('/dermatologist/getByPharmacyId/' + this.pharmacy.id) 
+					.get('/dermatologist/getByPharmacyId/' + this.pharmacy.id,{
+						headers: {
+							'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+						}
+					}) 
 					.then(response => {
 						this.dermatologists = response.data
 						this.allDermatologists = response.data
 						$('#addExistingDermatologist').modal('hide');
 						axios
-						.get('/dermatologist/getUnemployedDermatolgoists/' + this.pharmacy.id) 
+						.get('/dermatologist/getUnemployedDermatolgoists/' + this.pharmacy.id,{
+							headers: {
+								'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+							}
+						}) 
 						.then(response => {
 							this.unemployedDermatologists = response.data
 						})
@@ -748,15 +909,27 @@ Vue.component("administratorEmployed", {
 		NewPharmacist: function () {
 			if(this.passwordSame == true){
 				axios
-				.get('/pharmacist/checkUserAndEmail/' + this.newPharmacist.username + '/' + this.newPharmacist.email)
+				.get('/pharmacist/checkUserAndEmail/' + this.newPharmacist.username + '/' + this.newPharmacist.email,{
+					headers: {
+						'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+					}
+				})
 				.then(response => {
 					var responseMessage = response.data
 					if(responseMessage.valueOf() == "OK")
 						axios
-						.post('pharmacist/addNewPharmacistToPharmacy',this.newPharmacist)
+						.post('pharmacist/addNewPharmacistToPharmacy',this.newPharmacist,{
+							headers: {
+								'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+							}
+						})
 						.then(response =>{
 							axios
-							.get('/pharmacist/getByPharmacyId/' + this.pharmacy.id) 
+							.get('/pharmacist/getByPharmacyId/' + this.pharmacy.id,{
+								headers: {
+									'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+								}
+							}) 
 							.then(response => {
 								this.pharmacists = response.data
 								this.allPharmacists = response.data
@@ -802,17 +975,29 @@ Vue.component("administratorEmployed", {
 		AddExistingPharmacist: function(){
 			if(this.existingPharmacist != null){
 				axios
-				.put('/pharmacist/addExistingPharmacistToPharmacy/' + this.existingPharmacist.id  + '/' + this.pharmacy.id, this.existingPharmacist) 
+				.put('/pharmacist/addExistingPharmacistToPharmacy/' + this.existingPharmacist.id  + '/' + this.pharmacy.id, this.existingPharmacist,{
+					headers: {
+						'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+					}
+				}) 
 				.then(response => {
 					this.pharmacist = response.data
 					axios
-					.get('/pharmacist/getByPharmacyId/' + this.pharmacy.id) 
+					.get('/pharmacist/getByPharmacyId/' + this.pharmacy.id,{
+						headers: {
+							'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+						}
+					}) 
 					.then(response => {
 						this.pharmacists = response.data
 						this.allPharmacists = response.data
 						$('#addExistingPharmacist').modal('hide');
 						axios
-						.get('/pharmacist/getUnemployedPharmacists/' + this.pharmacy.id) 
+						.get('/pharmacist/getUnemployedPharmacists/' + this.pharmacy.id,{
+							headers: {
+								'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+							}
+						}) 
 						.then(response => {
 							this.unemployedPharmacists = response.data
 						})
@@ -860,7 +1045,11 @@ Vue.component("administratorEmployed", {
 					this.WT.pharmacy = this.pharmacy
 					this.pharmacistWT.workingSchedule.push(this.WT)
 					axios
-					.put('/pharmacist/addWorktimeToPharmacist/' + this.pharmacistWT.id,this.WT) 
+					.put('/pharmacist/addWorktimeToPharmacist/' + this.pharmacistWT.id,this.WT,{
+						headers: {
+							'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+						}
+					}) 
 					.then(response => {
 						if(response.data != false){
 							$('#addWorktimePharmacist').modal('hide');
@@ -892,7 +1081,11 @@ Vue.component("administratorEmployed", {
 					this.WT.timeEnd = this.WT.date + "T" + this.WT.endTime
 					this.WT.pharmacy = this.pharmacy
 					axios
-					.put('/dermatologist/addWorktimeToDermatologist/' + this.dermatologistWT.id,this.WT) 
+					.put('/dermatologist/addWorktimeToDermatologist/' + this.dermatologistWT.id,this.WT,{
+						headers: {
+							'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+						}
+					}) 
 					.then(response => {
 						if(response.data != false){
 							$('#addWorktimeDermatolgist').modal('hide');
@@ -909,13 +1102,21 @@ Vue.component("administratorEmployed", {
 		},
 	DeletePharmacist: function(pharmacist){
 		axios
-			.put('/pharmacist/removeFromPharmacy' + '/' +  pharmacist.id )
+			.put('/pharmacist/removeFromPharmacy' + '/' +  pharmacist.id ,pharmacist,{
+				headers: {
+					'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+				}
+			})
 			.then(response=>{
 				if(!response.data)
 					alert("Pharmacist has upcoming counseling")
 				else{
 					axios
-					.get('/pharmacist/getByPharmacyId/' + this.pharmacy.id) 
+					.get('/pharmacist/getByPharmacyId/' + this.pharmacy.id,{
+						headers: {
+							'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+						}
+					})
 					.then(response => {
 						this.pharmacists = response.data
 						this.allPharmacists = response.data
@@ -927,13 +1128,21 @@ Vue.component("administratorEmployed", {
 		},
 	DeleteDermatologist: function(dermatologist){
 			axios
-				.put('/dermatologist/removeDermatologistFromPharmacy' + '/' +  dermatologist.id + '/' + this.pharmacy.id)
+				.put('/dermatologist/removeDermatologistFromPharmacy' + '/' +  dermatologist.id + '/' + this.pharmacy.id,dermatologist,{
+					headers: {
+						'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+					}
+				})
 				.then(response=>{
 					if(!response.data)
 						alert("Dermatologist has upcoming examination")
 					else{
 						axios
-						.get('/dermatologist/getByPharmacyId/' + this.pharmacy.id) 
+						.get('/dermatologist/getByPharmacyId/' + this.pharmacy.id,{
+							headers: {
+								'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+							}
+						}) 
 						.then(response => {
 							this.dermatologists = response.data
 							this.allDermatologists = response.data
@@ -941,6 +1150,122 @@ Vue.component("administratorEmployed", {
 						.catch(error => {
 					})
 				}
+			})
+		},
+		GetRequests : function(employee){
+			this.vacationIntervals = []
+			for(var vi of employee.vacationSchedule){
+				if(vi.pharmacyId == this.pharmacy.id && !vi.approved){
+					vi.dateStart = vi.dateStart.split('T')[0]
+					vi.dateEnd = vi.dateEnd.split('T')[0]
+					this.vacationIntervals.push(vi)
+				}
+			}
+			this.selectedEmployee = employee
+		},
+		RejectRequestDermatologist : function(request){
+			if(this.reason == ""){
+				alert("Please state reason and try again")
+				return
+			}
+				request.dateStart = request.dateStart + 'T' + '00:00:00.000+00:00'
+				request.dateEnd = request.dateEnd + 'T' + '00:00:00.000+00:00'
+				axios
+				.delete('/vacation/rejectVacationDermatologist' + '/' + this.selectedEmployee.id + '/' + request.id + '/' + this.reason,{
+					data: {
+					  source: request
+					},
+					headers: {
+							'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+					}
+				  })
+				.then(response => {
+					axios
+					.get('/dermatologist/getByPharmacyId/' + this.pharmacy.id,{
+						headers: {
+							'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+						}
+					}) 
+					.then(response => {
+						this.dermatologists = response.data
+						this.allDermatologists = response.data
+						this.reason = ""
+					})
+				})
+		},
+		RejectRequestPharmacist : function(request){
+			if(this.reason == ""){
+				alert("Please state reason and try again")
+				return
+			}
+			request.dateStart = request.dateStart + 'T' + '00:00:00.000+00:00'
+			request.dateEnd = request.dateEnd + 'T' + '00:00:00.000+00:00'
+			axios
+			.delete('/vacation/rejectVacationPharmacist' + '/' + this.selectedEmployee.id + '/' + request.id + '/' + this.reason,{
+				data: {
+				  source: request
+				},
+				headers: {
+						'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+				}
+			  })
+			.then(response => {
+				axios
+				.get('/pharmacist/getByPharmacyId/' + this.pharmacy.id,{
+					headers: {
+						'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+					}
+				}) 
+				.then(response => {
+					this.pharmacists = response.data
+					this.allPharmacists = response.data
+					this.reason = ""
+				})
+			})
+		},
+		AcceptRequestPharmacist : function(request){
+			request.dateStart = request.dateStart + 'T' + '00:00:00.000+00:00'
+			request.dateEnd = request.dateEnd + 'T' + '00:00:00.000+00:00'
+			axios
+			.put('/vacation/acceptVacationPharmacist' + '/' + this.selectedEmployee.id + '/' + request.id,this.employee,{
+				headers: {
+						'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+				}
+			  })
+			.then(response => {
+				axios
+				.get('/pharmacist/getByPharmacyId/' + this.pharmacy.id,{
+					headers: {
+						'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+					}
+				}) 
+				.then(response => {
+					this.pharmacists = response.data
+					this.allPharmacists = response.data
+				})
+			})
+		},
+		AcceptRequestDermatologist : function(request){
+			
+			request.dateStart = request.dateStart + 'T' + '00:00:00.000+00:00'
+			request.dateEnd = request.dateEnd + 'T' + '00:00:00.000+00:00'
+			axios
+			.put('/vacation/acceptVacationDermatologist' + '/' + this.selectedEmployee.id + '/' + request.id,this.employee,{
+				headers: {
+						'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+				}
+			  })
+			.then(response => {
+				axios
+				.get('/dermatologist/getByPharmacyId/' + this.pharmacy.id,{
+					headers: {
+						'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+					}
+				}) 
+				.then(response => {
+					this.dermatologists = response.data
+					this.allDermatologists = response.data
+				})
 			})
 		},
 	}

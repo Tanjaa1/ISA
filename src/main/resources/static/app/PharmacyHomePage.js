@@ -9,18 +9,30 @@ Vue.component("pharmacyHomePage", {
 	},
 	beforeMount() {
         axios
-        .get('/patient/getPatientById/' + 88)
+        .get('/patient/getPatientById/' + 88,{
+			headers: {
+				'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+			}
+		}) 
         .then(response =>{
             this.patient = response.data
 
         })
 
         axios
-        .get('/pharmacy/getByName/' + "Feniks")
+        .get('/pharmacy/getByName/' + "Feniks",{
+			headers: {
+				'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+			}
+		}) 
         .then(response =>{
             this.pharmacy = response.data
 			axios
-			.get('/actionOrPromotion/getCurrentByPharmacyId/' + this.pharmacy.id)
+			.get('/actionOrPromotion/getCurrentByPharmacyId/' + this.pharmacy.id,{
+				headers: {
+					'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+				}
+			}) 
 			.then(response =>{
 				this.actionsOrPromotions	= response.data	
 				var temp = []
@@ -161,7 +173,11 @@ Vue.component("pharmacyHomePage", {
         },
 		Subscribe : function(){
 			axios
-			.put('/pharmacy/subscribeUser/' + this.patient.id,this.pharmacy)
+			.put('/pharmacy/subscribeUser/' + this.patient.id,this.pharmacy,{
+				headers: {
+					'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+				}
+			}) 
 			.then(response =>{
 				if(response.data)
 					alert("Subscribed sucessfully")

@@ -4,11 +4,23 @@ Vue.component("pharmacistVacationRequest", {
 			user:null,
             vacation:{
                 dateStart:null,
-                dateEnd:null               
+                dateEnd:null,
+				pharmacyId:null           
             }
 		}
 	},
 	beforeMount() {
+		axios
+			.get('/pharmacist/getPharmacistById/' + localStorage.getItem('userId'),{
+				headers: {
+					'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+				}
+			}) 
+			.then(response => {
+				this.vacation.pharmacyId=this.response.data.pharmacy.id
+			})
+			.catch(error => {
+			})
 	},
 	template: `
 	<div class="BackendImagePhysician">				
@@ -46,8 +58,9 @@ Vue.component("dermatologistVacationRequest", {
 		return {
 			user:null,
             vacation:{
-                DateStart:null,
-                DateEnd:null,				               
+                DateStart:null,		               
+                DateEnd:null,
+				pharmacyId:null 
             },
 			phycian:{
 			  vacationSchedule:[],
@@ -90,8 +103,9 @@ Vue.component("dermatologistVacationRequest", {
 	methods: {
 		Request: function(){
             this.vacation.dateStart=document.getElementById("dateS").value
-            this.vacation.dateEnd=document.getElementById("dateE").value
-			alert(this.pharmacy)
+
+            this.vacation.dateEnd=document.getElementById("dateE").value		
+			this.vacation.pharmacyId=this.pharmacy.id
 			axios
 				.post("/vacation/addDermatologistVacation/"+localStorage.getItem('userId'),this.vacation,{
 					headers: {

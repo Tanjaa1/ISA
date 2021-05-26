@@ -22,7 +22,7 @@ public class SupplierOffer {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade ={CascadeType.PERSIST,CascadeType.REMOVE})
     @JoinColumn(name = "OrderMedicine_id", referencedColumnName = "id")
 	private Order Order;
 	

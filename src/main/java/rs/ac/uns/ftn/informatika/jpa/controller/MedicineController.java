@@ -100,7 +100,7 @@ public class MedicineController {
 		List<MedicineForSearch> medicineDTOs = medicineService.getPharmacyForAvaliableMedicineAndQuantity(medicineName,quantity);
 		return medicineDTOs == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(medicineDTOs);
 	}
-
+	@PreAuthorize("hasRole('PATIENT')")
 	@GetMapping(value = "/combinedSearch/{parameters}")
 	public ResponseEntity<Set<MedicineForSearch>> combinedSearch(@PathVariable String parameters) {
 		Set<MedicineForSearch> medicineDTOs = medicineService.combinedSearch(parameters);
@@ -143,59 +143,70 @@ public class MedicineController {
 		return medicineDTOs == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(medicineDTOs);
 	}
 
+
+	@PreAuthorize("hasRole('PATIENT')")
 	@GetMapping(value = "/getPharmaciesByQR/{patientId}")
 	public ResponseEntity<Set<PharmacyQRDTO>> getPharmaciesByQR(@RequestParam String par,@PathVariable Long patientId) throws FileNotFoundException, NotFoundException, IOException  {
 		Set<PharmacyQRDTO> medicineDTOs = medicineService.getPharmaciesByQR(par,patientId);
 		return medicineDTOs == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(medicineDTOs);
 	}
-
+	@PreAuthorize("hasRole('PATIENT')")
 	@GetMapping(value = "/sortByPharmacyGradeQRASC/{patientId}")
 	public ResponseEntity<List<PharmacyQRDTO>> sortByPharmacyGradeQR(@RequestParam String path,@PathVariable Long patientId) throws FileNotFoundException, NotFoundException, IOException  {
 		List<PharmacyQRDTO> medicineDTOs = medicineService.sortByPharmacyGradeQR(path,patientId);
 		return medicineDTOs == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(medicineDTOs);
 	}
+	@PreAuthorize("hasRole('PATIENT')")
 	@GetMapping(value = "/sortByPharmacyGradeQRDESC/{patientId}")
 	public ResponseEntity<List<PharmacyQRDTO>> sortByPharmacyGradeQRDESC(@RequestParam String path,@PathVariable Long patientId) throws FileNotFoundException, NotFoundException, IOException  {
 		List<PharmacyQRDTO> medicineDTOs = medicineService.sortByPharmacyGradeQRDESC(path,patientId);
 		return medicineDTOs == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(medicineDTOs);
-	}
+	}	
+	@PreAuthorize("hasRole('PATIENT')")
 	@GetMapping(value = "/sortByPharmacyPriceQRACS/{patientId}")
 	public ResponseEntity<List<PharmacyQRDTO>> sortByPharmacyPriceQR(@RequestParam String path,@PathVariable Long patientId) throws FileNotFoundException, NotFoundException, IOException  {
 		List<PharmacyQRDTO> medicineDTOs = medicineService.sortByPharmacyPriceQR(path,patientId);
 		return medicineDTOs == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(medicineDTOs);
 	}
+	@PreAuthorize("hasRole('PATIENT')")
 	@GetMapping(value = "/sortByPharmacyPriceQRDESC/{patientId}")
 	public ResponseEntity<List<PharmacyQRDTO>> sortByPharmacyPriceQRDESC(@RequestParam String path,@PathVariable Long patientId) throws FileNotFoundException, NotFoundException, IOException  {
 		List<PharmacyQRDTO> medicineDTOs = medicineService.sortByPharmacyPriceQRDESC(path,patientId);
 		return medicineDTOs == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(medicineDTOs);
 	}
+	@PreAuthorize("hasRole('PATIENT')")
 	@GetMapping(value = "/sortByPharmacyNameQRASC/{patientId}")
 	public ResponseEntity<List<PharmacyQRDTO>> sortByPharmacyNameQR(@RequestParam String path,@PathVariable Long patientId) throws FileNotFoundException, NotFoundException, IOException  {
 		List<PharmacyQRDTO> medicineDTOs = medicineService.sortByPharmacyNameQR(path,patientId);
 		return medicineDTOs == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(medicineDTOs);
 	}
+	@PreAuthorize("hasRole('PATIENT')")
 	@GetMapping(value = "/sortByPharmacyNameDESC/{patientId}")
 	public ResponseEntity<List<PharmacyQRDTO>> sortByPharmacyNameDESC(@RequestParam String path,@PathVariable Long patientId) throws FileNotFoundException, NotFoundException, IOException  {
 		List<PharmacyQRDTO> medicineDTOs = medicineService.sortByPharmacyNameDESC(path,patientId);
 		return medicineDTOs == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(medicineDTOs);
 	}
+	@PreAuthorize("hasRole('PATIENT')")
 	@GetMapping(value = "/sortByPharmacyAddressQRASC/{patientId}")
 	public ResponseEntity<List<PharmacyQRDTO>> sortByPharmacyAddressQR(@RequestParam String path,@PathVariable Long patientId) throws FileNotFoundException, NotFoundException, IOException  {
 		List<PharmacyQRDTO> medicineDTOs = medicineService.sortByPharmacyAddressQR(path,patientId);
 		return medicineDTOs == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(medicineDTOs);
 	}
+	@PreAuthorize("hasRole('PATIENT')")
 	@GetMapping(value = "/sortByPharmacyAddressQRDESC/{patientId}")
 	public ResponseEntity<List<PharmacyQRDTO>> sortByPharmacyAddressQRDESC(@RequestParam String path,@PathVariable Long patientId) throws FileNotFoundException, NotFoundException, IOException  {
 		List<PharmacyQRDTO> medicineDTOs = medicineService.sortByPharmacyAddressQRDESC(path,patientId);
 		return medicineDTOs == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(medicineDTOs);
 	}
 	
+	@PreAuthorize("hasRole('PHARMACYADMIN')")
 	@GetMapping(value = "/getAllAR")
 	public ResponseEntity<List<MedicineDTO>> getAllAR() {
 	List<MedicineDTO> retVal = medicineService.getAllAR();
 		return retVal == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(retVal);
 	}
 
+	@PreAuthorize("hasRole('PHARMACYADMIN')")
 	@DeleteMapping(value = "/deleteFromPricelist/{Id}/{pharmacyID}")
 	  public boolean deleteFromPricelist(@PathVariable Long Id,@PathVariable Long pharmacyID) throws Exception{
 		  return medicineService.deleteMedicineFromPricelist(Id,pharmacyID);
@@ -207,6 +218,7 @@ public class MedicineController {
 
 	}
 
+	@PreAuthorize("hasRole('PHARMACYADMIN')")
 	@PostMapping(value = "/addMedicinePriceAndQuantity")
 	public ResponseEntity<MedicinePriceAndQuantity> addMedicinePriceAndQuantity(@RequestBody MedicinePriceAndQuantity medicineDTO) throws Exception{
 		return  medicineService.savePriceAndQuantity(medicineDTO);
