@@ -160,6 +160,20 @@ public class SupplierOfferService {
         orderRepository.save(order);
         return true;
     }
+
+    public SupplierOfferDTO getOffersById(Long offerId) {
+      return new SupplierOfferDTO(supplierOfferRepository.findById(offerId).get());
+    }
+
+    public SupplierOffer updateOffer(Long offerId, double price, String dueDate) throws Exception {
+        SupplierOffer supplierOffer =supplierOfferRepository.findById(offerId).get();
+		if (supplierOffer == null) {
+			throw new Exception("Trazeni entitet nije pronadjen.");
+		}
+		supplierOffer.setDueDate(dueDate);;
+        supplierOffer.setOfferPrice(price);
+		SupplierOffer supplierOffer2 = supplierOfferRepository.save(supplierOffer);
+		return supplierOffer2;    }
   
 
 

@@ -100,7 +100,7 @@ public class MedicineController {
 		List<MedicineForSearch> medicineDTOs = medicineService.getPharmacyForAvaliableMedicineAndQuantity(medicineName,quantity);
 		return medicineDTOs == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(medicineDTOs);
 	}
-	@PreAuthorize("hasRole('PATIENT')")
+	
 	@GetMapping(value = "/combinedSearch/{parameters}")
 	public ResponseEntity<Set<MedicineForSearch>> combinedSearch(@PathVariable String parameters) {
 		Set<MedicineForSearch> medicineDTOs = medicineService.combinedSearch(parameters);

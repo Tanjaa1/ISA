@@ -5,7 +5,8 @@ Vue.component("systemAdminHomaPage", {
 			systemAdmin1:{}
 		}
 	},
-	beforeMount() {
+	beforeMount() {},
+	Mount(){
 		 axios
 			.get('systemAdmin/getById/'+ localStorage.getItem('userId'),
 				  {
@@ -73,6 +74,11 @@ Vue.component("systemAdminHomaPage", {
 					<button id="LoyaltyProgramme" type="button" class="btn btn-info btn-lg margin form-control"  v-on:click="LoyaltyProgramme()"></button>
 					</h3><br/> 
 				</div>  
+				<div class="col-sm">
+					  <h3>
+						<button id="SearchMed" type="button" class="btn btn-info btn-lg margin form-control" v-on:click="MedSearch()"></button>
+						</h3><br/> 
+					</div>
 
 					<div class="col-sm">
 					</div>
@@ -133,6 +139,9 @@ Vue.component("systemAdminHomaPage", {
 		Complaints: function () {
             this.$router.push('complaints');
         },
+		MedSearch:function(){
+		   this.$router.push('searchMedicine');    
+	   },
 		LoyaltyProgramme: function () {
 			this.$router.push('loyaltyProgramme');
 

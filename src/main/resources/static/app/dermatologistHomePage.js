@@ -56,6 +56,11 @@ Vue.component("dermatologistHomePage", {
 						</h3><br/> 
 					</div>
 					<div class="col-sm">
+					  <h3>
+						<button id="SearchMed" type="button" class="btn btn-info btn-lg margin form-control" v-on:click="MedSearch()"></button>
+						</h3><br/> 
+					</div>
+					<div class="col-sm">
 					</div>
 					<div class="col-sm">
 					</div>  
@@ -95,6 +100,9 @@ Vue.component("dermatologistHomePage", {
         },
         CalendarShow: function () {
             this.$router.push('calendarD');
+        },
+        MedSearch:function(){
+            this.$router.push('searchMedicine');    
         },
         VacationShow: function () {
             this.$router.push('dermatologistVacationRequest');

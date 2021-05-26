@@ -11,6 +11,7 @@ const Reservation = { template: '<reservation></reservation>' }
 const PatientInfo = { template: '<patientInfo></patientInfo>' }
 const PatientHeader = { template: '<patientHeader></patientHeader>' }
 const systemAdminHeader = { template: '<systemAdminHeader></systemAdminHeader>' }
+const HomePage = { template: '<HomePage></HomePage>' }
 
 const PageHeader = { template: '<pageHeader></pageHeader>' }
 const ChangePatientInfo = { template: '<changePatientInfo></changePatientInfo>' }
@@ -111,6 +112,13 @@ const router = new VueRouter({
 	    },
 	    { 
 	    	path: '/', 
+	    	name : 'HomePage', 
+			components: {
+				content: HomePage
+			}
+	    },
+	    { 
+	    	path: '/login', 
 	    	name : 'login', 
 			components: {
 				content: Login

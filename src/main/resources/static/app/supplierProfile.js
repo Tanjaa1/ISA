@@ -7,7 +7,7 @@ Vue.component("supplierProfile", {
 		}
 	},
 	beforeMount() {},
-  mount(){
+  Mount(){
 
       axios.get('supplier/getById/'+ localStorage.getItem('userId'),
             {

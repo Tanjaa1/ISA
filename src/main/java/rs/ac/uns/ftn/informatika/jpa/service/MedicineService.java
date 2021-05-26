@@ -103,7 +103,7 @@ public class MedicineService implements IMedicineService {
 	private IReservationRepository reservationRepository;
 
 	public Medicine findOne(Long id) {
-		Medicine medicine = medicineRepository.getOne(id);
+		Medicine medicine = medicineRepository.findById(id).get();
 		return medicine;
 	}
 
@@ -230,7 +230,7 @@ public class MedicineService implements IMedicineService {
 	}
 
 	public List<MedicineDTO> getMedicinesFromEprescriptions(Long id){
-		Patient patient = patientRepository.getOne(id);
+		Patient patient = patientRepository.findById(id).get();
 		List<MedicineDTO> medicineDTOs = new ArrayList<MedicineDTO>();
 		List<Medicine> medicines = new ArrayList<Medicine>();
 		for (EPrescription ePrescription : patient.getEPrescriptions()) {
@@ -249,8 +249,8 @@ public class MedicineService implements IMedicineService {
 	}
 
 	public MedicineDTO addMark(Medicine medicine, Integer medicinesMark, Long id) {
-		Medicine medicine2 = medicineRepository.getOne(medicine.getId());
-		Patient patient = patientRepository.getOne(id);
+		Medicine medicine2 = medicineRepository.findById(medicine.getId()).get();
+		Patient patient = patientRepository.findById(id).get();
 		boolean i = false;
 		for (Markk mark : medicine2.getMarks()) {
 			if(mark.getPatient().getId() == patient.getId()){
@@ -664,9 +664,9 @@ public List<PharmacyQRDTO> sortByPharmacyAddressQRDESC(String path, Long patient
 
 	public boolean deleteMedicineFromPricelist(Long ID,Long pID){
 
-		Pharmacy pharmacy = pharmacyRepository.getOne(pID);
+		Pharmacy pharmacy = pharmacyRepository.findById(pID).get();
 		List<Reservation> reservations;
-		MedicinePriceAndQuantity med = medPriceAndQuantityRepository.getOne(ID);
+		MedicinePriceAndQuantity med = medPriceAndQuantityRepository.findById(ID).get();
 
 		reservations = reservationRepository.getReservationByPharmacyAndMedicine(pharmacy, med);
 		if(reservations.isEmpty()){
@@ -688,7 +688,7 @@ public List<PharmacyQRDTO> sortByPharmacyAddressQRDESC(String path, Long patient
 
 	public ResponseEntity<MedicinePriceAndQuantity> addToPricelist( MedicinePriceAndQuantity MPQ ,Long PharmacyId) throws Exception {
 
-		Pharmacy pharmacy = pharmacyRepository.getOne(PharmacyId);
+		Pharmacy pharmacy = pharmacyRepository.findById(PharmacyId).get();
 		Set<MedicinePriceAndQuantity> pricelist= pharmacy.getPricelist();
 		pricelist.add(MPQ);
 		pharmacy.setPricelist(pricelist);
