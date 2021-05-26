@@ -35,20 +35,37 @@ Vue.component("orderMedicinePharmacyAdmin", {
 	},
     beforeMount(){
         axios
-        .get('/pharmacyAdmin/getById/' + '8') 
+        .get('/pharmacyAdmin/getById/' +  localStorage.getItem('userId'),{
+            headers: {
+                'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+            }
+        })  
 			.then(response => {
 				this.order.pharmacyAdmin = response.data
                 this.order.pharmacyAdmin.pharmacy = this.order.pharmacyAdmin.pharmacy.name
-                axios.get('/pharmacy/getByName/'+ this.order.pharmacyAdmin.pharmacy)
+                axios
+                .get('/pharmacy/getByName/'+ this.order.pharmacyAdmin.pharmacy,{
+                    headers: {
+                        'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+                    }
+                }) 
                 .then(response => {
                     this.pharmacy = response.data
                     axios
-                    .get('/order/ordersByPharmacyId/' + this.pharmacy.id) 
+                    .get('/order/ordersByPharmacyId/' + this.pharmacy.id,{
+						headers: {
+							'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+						}
+					})  
                     .then(response => {
                         this.allOrders = response.data
                     })
                     axios
-                    .get('/order/getRequestsByPharmacyUnsolved/' + this.pharmacy.id) 
+                    .get('/order/getRequestsByPharmacyUnsolved/' + this.pharmacy.id,{
+						headers: {
+							'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+						}
+					})  
                     .then(response => {
                         this.requests = response.data
                         for(var r of this.requests){
@@ -407,12 +424,20 @@ Vue.component("orderMedicinePharmacyAdmin", {
                 }               
             }
             this.order.orders = this.orders
-            axios.post('/order/add',this.order)
+            axios.post('/order/add',this.order,{
+                headers: {
+                    'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+                }
+            }) 
                 .then(response => {
 
                 })   
              
-            axios.get('/pharmacy/getByName/'+ this.order.pharmacyAdmin.pharmacy)
+            axios.get('/pharmacy/getByName/'+ this.order.pharmacyAdmin.pharmacy,{
+                headers: {
+                    'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+                }
+            }) 
                 .then(response => {
                     this.pharmacy = response.data;
                     var names = [];
@@ -435,11 +460,19 @@ Vue.component("orderMedicinePharmacyAdmin", {
                             })
                         }
                     }
-                    axios.put('/pharmacy/update/',this.pharmacy)
+                    axios.put('/pharmacy/update/',this.pharmacy,{
+						headers: {
+							'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+						}
+					}) 
                     .then(response => {
                         alert("Order successfuly set")
                         axios
-                        .get('/order/ordersByPharmacyId/' + this.pharmacy.id) 
+                        .get('/order/ordersByPharmacyId/' + this.pharmacy.id,{
+                            headers: {
+                                'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+                            }
+                        })  
                         .then(response => {
                             this.allOrders = response.data
                         })
@@ -449,10 +482,18 @@ Vue.component("orderMedicinePharmacyAdmin", {
         },
         SolveRequest : function(request){
             axios
-            .put('/order/setRequestToSolved/' + request.id)
+            .put('/order/setRequestToSolved/' + request.id,{
+                headers: {
+                    'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+                }
+            }) 
             .then(response => {
                 axios
-                .get('/order/getRequestsByPharmacyUnsolved/' + this.pharmacy.id) 
+                .get('/order/getRequestsByPharmacyUnsolved/' + this.pharmacy.id,{
+                    headers: {
+                        'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+                    }
+                }) 
                 .then(response => {
                     this.requests = response.data
                     for(var r of this.requests){
@@ -476,7 +517,11 @@ Vue.component("orderMedicinePharmacyAdmin", {
         },
         GetOffers : function(order){
             axios
-            .get('/supplierOffer/getOffersByOrder/' + order.id) 
+            .get('/supplierOffer/getOffersByOrder/' + order.id,{
+                headers: {
+                    'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+                }
+            })  
             .then(response => {
                 this.allOffers = response.data
                 this.selectedOrder = order
@@ -485,15 +530,27 @@ Vue.component("orderMedicinePharmacyAdmin", {
         },
         ChoseOffer : function(offer,order){
             axios
-            .put('/supplierOffer/acceptOffer/' + offer.id,order) 
+            .put('/supplierOffer/acceptOffer/' + offer.id,order,{
+                headers: {
+                    'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+                }
+            }) 
             .then(response => {
                 axios
-                .get('/supplierOffer/getOffersByOrder/' + this.selectedOrder.id) 
+                .get('/supplierOffer/getOffersByOrder/' + this.selectedOrder.id,{
+                    headers: {
+                        'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+                    }
+                })  
                 .then(response => {
                     this.allOffers = response.data
                     this.selectedOrder = order
                     axios
-                    .get('/order/ordersByPharmacyId/' + this.pharmacy.id) 
+                    .get('/order/ordersByPharmacyId/' + this.pharmacy.id,{
+						headers: {
+							'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+						}
+					})  
                     .then(response => {
                         this.allOrders = response.data
                     })
@@ -513,7 +570,11 @@ Vue.component("orderMedicinePharmacyAdmin", {
             }
             this.selectedOrder.orders = newOrders
             axios
-            .put('/order/update', this.selectedOrder) 
+            .put('/order/update', this.selectedOrder,{
+                headers: {
+                    'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+                }
+            })  
             .then(response => {
             })
         },
@@ -536,7 +597,11 @@ Vue.component("orderMedicinePharmacyAdmin", {
             var temp = mpq
             this.selectedOrder.orders.push(temp)
             axios
-            .put('/order/update' ,this.selectedOrder) 
+            .put('/order/update' ,this.selectedOrder,{
+                headers: {
+                    'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+                }
+            })  
             .then(response => {
                 this.mpq = null
                 $('#UpdateOrder').modal('hide');

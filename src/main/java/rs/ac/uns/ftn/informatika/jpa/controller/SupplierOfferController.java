@@ -60,13 +60,15 @@ public class SupplierOfferController {
 		return offerS;
 
 	}
-	@PreAuthorize("hasRole('SUPPLIER')")
+
+	@PreAuthorize("hasAnyRole('SUPPLIER','PHARMACYADMIN')")
 	@GetMapping(value = "/getOffersByOrder/{orderId}")
 	public List<SupplierOfferDTO> getOffersByOrder(@PathVariable Long orderId) throws Exception {
 
 		return supplierOfferService.getByOrder(orderId);
 
 	}
+	@PreAuthorize("hasRole('PHARMACYADMIN')")
 	@PutMapping(value = "/acceptOffer/{id}")
 	public Boolean accepOffer(@RequestBody OrderDTO order,@PathVariable Long id) throws Exception {
 

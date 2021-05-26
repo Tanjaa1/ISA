@@ -36,24 +36,28 @@ public class OrderController {
 		return retVal == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(retVal);
 	}
 
+	@PreAuthorize("hasRole('PHARMACYADMIN')")
 	@GetMapping(value = "/getRequestsByPharmacyUnsolved/{Id}")
 	public ResponseEntity<List<MedicineRequestDTO>> getRequestsByPharmacyUnsolved(@PathVariable Long Id) {
 		List<MedicineRequestDTO> retVal = orderService.getRequestByPharmacy(Id);
 		return retVal == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(retVal);
 	}
 
+	@PreAuthorize("hasRole('PHARMACYADMIN')")
 	@GetMapping(value = "/ordersByPharmacyId/{Id}")
 	public ResponseEntity<List<OrderDTO>> getOrdersByPharmacyId(@PathVariable Long Id) {
 		List<OrderDTO> retVal = orderService.getByPharmacyId(Id);
 		return retVal == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(retVal);
 	}
 	
+	@PreAuthorize("hasRole('PHARMACYADMIN')")
 	@PostMapping(value = "/add")
 	public ResponseEntity<OrderDTO> addOrder(@RequestBody OrderDTO order) throws Exception{
 		orderService.save(order);
 	return new ResponseEntity<>(order, HttpStatus.CREATED);
 	}
 
+	@PreAuthorize("hasRole('PHARMACYADMIN')")
 	@PutMapping(value = "/update")
 	public ResponseEntity<OrderDTO> update(@RequestBody OrderDTO order) throws Exception{
 		orderService.update(order);
@@ -66,6 +70,7 @@ public class OrderController {
 	return new ResponseEntity<>(request, HttpStatus.CREATED);
 	}
 
+	@PreAuthorize("hasRole('PHARMACYADMIN')")
 	@PutMapping(value = "/setRequestToSolved/{Id}")
 	public ResponseEntity<MedicineRequestDTO> setRequestToSolved(@PathVariable Long Id) throws Exception{	
 	return new ResponseEntity<>(new MedicineRequestDTO(orderService.setRequestToSolved(Id)), HttpStatus.CREATED);

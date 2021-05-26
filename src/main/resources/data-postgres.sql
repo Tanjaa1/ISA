@@ -19,26 +19,26 @@ INSERT INTO public.users(
 
 INSERT INTO public.patient(
 id, address, city, country, description, email, email_comfirmed, first_time_login, name, password, phone_number, surname, enabled, last_password_reset_date, username, category, points)
-	VALUES (89, 'Glavna 100', 'Ruma', 'Srbija', '', 'marijavucetic66@gmail.com', false, false, 'Sara', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', '0648816428', 'Saric',true,'2008-11-11 13:23:44','sara', 0, 0);
+	VALUES (89, 'Glavna 100', 'Ruma', 'Srbija', 'neki opis', 'marijavucetic66@gmail.com', false, false, 'Sara', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', '0648816428', 'Saric',true,'2008-11-11 13:23:44','sara', 0, 0);
 INSERT INTO public.users(
 	id, address, city, country, description, email, email_comfirmed, first_time_login, name, password, phone_number, surname, enabled, last_password_reset_date, username)
 	VALUES (89, 'Glavna 100', 'Ruma', 'Srbija', '', 'marijavucetic66@gmail.com', false, false, 'Sara', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra','0648816428','Saric',true, '2008-11-11 13:23:44', 'sara');
 	
 INSERT INTO public.patient(
 	id, address, city, country, description, email, email_comfirmed, first_time_login, name, password, phone_number, surname, enabled, last_password_reset_date, username, category, points)
-	VALUES (90, 'Lenjinova 20', 'Ruma', 'Srbija', '', 'marijavucetic66@gmail.com', false, false, 'Luka','$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', '0612334555', 'Lukic',true,'2008-11-11 13:23:44','luka',0, 0);
+	VALUES (90, 'Lenjinova 20', 'Ruma', 'Srbija', 'neki opis', 'marijavucetic66@gmail.com', false, false, 'Luka','$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', '0612334555', 'Lukic',true,'2008-11-11 13:23:44','luka',0, 0);
 INSERT INTO public.users(
 	id, address, city, country, description, email, email_comfirmed, first_time_login, name, password, phone_number, surname, enabled, last_password_reset_date, username)
-	VALUES (90, 'Lenjinova 20', 'Ruma', 'Srbija', '', 'marijavucetic66@gmail.com', false, false, 'Luka', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', '0612334555', 'Lukic',true,'2008-11-11 13:23:44','luka');
+	VALUES (90, 'Lenjinova 20', 'Ruma', 'Srbija', 'neki opis', 'marijavucetic66@gmail.com', false, false, 'Luka', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', '0612334555', 'Lukic',true,'2008-11-11 13:23:44','luka');
 
 	
 
 INSERT INTO public.patient(
 	id, address, city, country, description, email, email_comfirmed, first_time_login, name, password, phone_number, surname, enabled, last_password_reset_date, username, category, points)
-	VALUES (69, 'Синђелићева 44', 'Нови Сад', 'Србија', '', 'ta.drcelic@gmail.com', false, false, 'Aлекса', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', '0612334555', 'Реповић',true,'2008-11-11 13:23:44','aleksarep',0, 0);
+	VALUES (69, 'Синђелићева 44', 'Нови Сад', 'Србија', 'neki opis', 'ta.drcelic@gmail.com', false, false, 'Aлекса', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', '0612334555', 'Реповић',true,'2008-11-11 13:23:44','aleksarep',0, 0);
 INSERT INTO public.users(
 	id, address, city, country, description, email, email_comfirmed, first_time_login, name, password, phone_number, surname, enabled, last_password_reset_date, username)
-	VALUES (69, 'Синђелићева 44', 'Нови Сад', 'Србија', '', 'ta.drcelic@gmail.com', false, false, 'Aлекса', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', '0612334555', 'Реповић',true,'2008-11-11 13:23:44','aleksarep');
+	VALUES (69, 'Синђелићева 44', 'Нови Сад', 'Србија', 'neki opis', 'ta.drcelic@gmail.com', false, false, 'Aлекса', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', '0612334555', 'Реповић',true,'2008-11-11 13:23:44','aleksarep');
 INSERT INTO public.pharmacy(id, address, name, counseling_price) VALUES (111, 'Stanoja Stanojevica 4,Novi Sad,Srbija', 'Feniks', 1000.0);
 INSERT INTO public.pharmacy(id, address, name, counseling_price) VALUES (222, 'Maksima Gorkog 44,Novi Sad,Srbija', 'Benu', 2000.0);
 INSERT INTO public.pharmacy(id, address, counseling_price, name)VALUES (333, 'Boracka,Pljevlja,Crna Gora', 500.00, 'Sunce');
@@ -55,16 +55,16 @@ INSERT INTO public.pharmacist(
 
 INSERT INTO public.pharmacist(
 	id, address, city, country, description, email, email_comfirmed, first_time_login, name, password, phone_number, surname, enabled, last_password_reset_date, username, pharmacy_id)
-	VALUES (444, 'Ticanova 1', 'Ruma', 'Srbija', '', 'ta.drcelic@gmail.com', true, true, 'Maja', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', '0654431123', 'Majic',true,'2008-11-11 13:23:44','majaa', 222);    
+	VALUES (444, 'Ticanova 1', 'Ruma', 'Srbija', 'neki opis', 'ta.drcelic@gmail.com', true, true, 'Maja', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', '0654431123', 'Majic',true,'2008-11-11 13:23:44','majaa', 222);    
 INSERT INTO public.users(
 	id, address, city, country, description, email, email_comfirmed, first_time_login, name, password, phone_number, surname, enabled, last_password_reset_date, username)
-	VALUES (444, 'Ticanova 1', 'Ruma', 'Srbija', '', 'ta.drcelic@gmail.com', false, false, 'Maja', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', '0654431123', 'Majic',true,'2008-11-11 13:23:44','majaa');    
+	VALUES (444, 'Ticanova 1', 'Ruma', 'Srbija', 'neki opis', 'ta.drcelic@gmail.com', false, false, 'Maja', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', '0654431123', 'Majic',true,'2008-11-11 13:23:44','majaa');    
 INSERT INTO public.pharmacist(
 	id, address, city, country, description, email, email_comfirmed, first_time_login, name, password, phone_number, surname, enabled, last_password_reset_date, username, pharmacy_id)
-	VALUES (555, 'Jovana Ducica 9', 'Novi Sad', 'Srbija', '', 'sava@gmail.com', false, false, 'Sava', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', '06541111123', 'Savic',true,'2008-11-11 13:23:44','sava',111);
+	VALUES (555, 'Jovana Ducica 9', 'Novi Sad', 'Srbija', 'neki opis', 'aleksarep0408@gmail.com', false, false, 'Sava', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', '06541111123', 'Savic',true,'2008-11-11 13:23:44','sava',111);
 INSERT INTO public.users(
 	id, address, city, country, description, email, email_comfirmed, first_time_login, name, password, phone_number, surname, enabled, last_password_reset_date, username)
-	VALUES (555, 'Jovana Ducica 9', 'Novi Sad', 'Srbija', '', 'sava@gmail.com', false, false, 'Sava', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', '06541111123', 'Savic',true,'2008-11-11 13:23:44','sava');
+	VALUES (555, 'Jovana Ducica 9', 'Novi Sad', 'Srbija', 'neki opis', 'sava@gmail.com', false, false, 'Sava', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', '06541111123', 'Savic',true,'2008-11-11 13:23:44','sava');
 
 /*
 INSERT INTO public.dermatologist(
@@ -77,16 +77,16 @@ INSERT INTO public.dermatologist(
 
 INSERT INTO public.dermatologist(
 	id, address, city, country, description, email, email_comfirmed, first_time_login, name, password, phone_number, surname, enabled, last_password_reset_date, username)
-	VALUES (66, 'Kneza Milosa 3', 'Novi Sad', 'Srbija', '', 'jovan.jovic838@gmail.com', true, true, 'Jovan', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', '0632213455', 'Jovic',true,'2008-11-11 13:23:44','jokas');
+	VALUES (66, 'Kneza Milosa 3', 'Novi Sad', 'Srbija', 'neki opis', 'aleksarep0408@gmail.com', true, true, 'Jovan', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', '0632213455', 'Jovic',true,'2008-11-11 13:23:44','jokas');
 INSERT INTO public.users(
 	id, address, city, country, description, email, email_comfirmed, first_time_login, name, password, phone_number, surname, enabled, last_password_reset_date, username)
-	VALUES (66, 'Kneza Milosa 3', 'Novi Sad', 'Srbija', '', 'jovan.jovic838@gmail.com', true, true, 'Jovan', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', '0632213455', 'Jovic',true,'2008-11-11 13:23:44','jokas');
+	VALUES (66, 'Kneza Milosa 3', 'Novi Sad', 'Srbija', 'neki opis', 'aleksarep0408@gmail.com', false, false, 'Jovan', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', '0632213455', 'Jovic',true,'2008-11-11 13:23:44','jokas');
 INSERT INTO public.dermatologist(
 	id, address, city, country, description, email, email_comfirmed, first_time_login, name, password, phone_number, surname, enabled, last_password_reset_date, username)
-	VALUES (77, 'Kneza Milosa 1', 'Novi Sad', 'Srbija', '', 'lola@gmail.com', false, false, 'Lola', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', '0632413455', 'Lola',true,'2008-11-11 13:23:44','neceViseLola');
+	VALUES (77, 'Kneza Milosa 1', 'Novi Sad', 'Srbija', 'neki opis', 'aleksarep0408@gmail.com', false, false, 'Lola', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', '0632413455', 'Lola',true,'2008-11-11 13:23:44','neceViseLola');
 INSERT INTO public.users(
 	id, address, city, country, description, email, email_comfirmed, first_time_login, name, password, phone_number, surname, enabled, last_password_reset_date, username)
-	VALUES (77, 'Kneza Milosa 1', 'Novi Sad', 'Srbija', '', 'lola@gmail.com', false, false, 'Lola', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', '0632413455', 'Lola',true,'2008-11-11 13:23:44','neceViseLlola');
+	VALUES (77, 'Kneza Milosa 1', 'Novi Sad', 'Srbija', 'neki opis', 'aleksarep0408@gmail.com', false, false, 'Lola', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', '0632413455', 'Lola',true,'2008-11-11 13:23:44','neceViseLlola');
 
     
 	/*
@@ -100,17 +100,17 @@ INSERT INTO public.pharmacy_admin(
 
 INSERT INTO public.pharmacy_admin(
 id, address, city, country, description, email, email_comfirmed, first_time_login, name, password, phone_number, surname, enabled, last_password_reset_date, username, pharmacy)
-	VALUES (888, 'Jovana Ducica 65', 'Novi Sad', 'Srbija', '', 'marijavucetic@uns.ac.rs', false, false, 'Marija', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', '06581111123', 'Vucetic',true,'2008-11-11 13:23:44','maja', 'Feniks');
+	VALUES (888, 'Jovana Ducica 65', 'Novi Sad', 'Srbija', 'neki opis', 'marijavucetic@uns.ac.rs', false, true, 'Marija', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', '06581111123', 'Vucetic',true,'2008-11-11 13:23:44','maja', 'Feniks');
 INSERT INTO public.users(
 	id, address, city, country, description, email, email_comfirmed, first_time_login, name, password, phone_number, surname, enabled, last_password_reset_date, username)
-	VALUES (888, 'Jovana Ducica 65', 'Novi Sad', 'Srbija', '', 'marijavucetic@uns.ac.rs', false, false, 'Marija', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', '06581111123', 'Vucetic',true,'2008-11-11 13:23:44','maja');
+	VALUES (888, 'Jovana Ducica 65', 'Novi Sad', 'Srbija', 'neki opis', 'marijavucetic@uns.ac.rs', false, true, 'Marija', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', '06581111123', 'Vucetic',true,'2008-11-11 13:23:44','maja');
 
 INSERT INTO public.pharmacy_admin(
 id, address, city, country, description, email, email_comfirmed, first_time_login, name, password, phone_number, surname, enabled, last_password_reset_date, username, pharmacy)
-	VALUES (999, 'Jovana Ducica 65', 'Novi Sad', 'Srbija', '', 'marijavucetic@uns.ac.rs', false, false, 'Toma', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', '06581222123', 'Tomic',true,'2008-11-11 13:23:44','toma', 'Benu');
+	VALUES (999, 'Jovana Ducica 65', 'Novi Sad', 'Srbija', 'neki opis', 'marijavucetic@uns.ac.rs', false, true, 'Toma', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', '06581222123', 'Tomic',true,'2008-11-11 13:23:44','toma', 'Benu');
 INSERT INTO public.users(
 	id, address, city, country, description, email, email_comfirmed, first_time_login, name, password, phone_number, surname, enabled, last_password_reset_date, username)
-	VALUES (999, 'Jovana Ducica 65', 'Novi Sad', 'Srbija', '', 'marijavucetic@uns.ac.rs', false, false, 'Toma', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', '06581222123', 'Tomic',true,'2008-11-11 13:23:44','toma');
+	VALUES (999, 'Jovana Ducica 65', 'Novi Sad', 'Srbija', 'neki opis', 'marijavucetic@uns.ac.rs', false, true, 'Toma', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', '06581222123', 'Tomic',true,'2008-11-11 13:23:44','toma');
 
 
 INSERT INTO public.pharmacy_dermatologists(dermatologist_id, pharmacy_id)VALUES (66, 111);
@@ -157,16 +157,16 @@ INSERT INTO public.system_admin(
 */
 INSERT INTO public.system_admin(
 	id, address, city, country, description, email, email_comfirmed, first_time_login, name, password, phone_number, surname, enabled, last_password_reset_date, username)
-	VALUES (122, 'Boracka 29', 'Novi Sad', 'Srbija', '', 'goran@gmail.com', true, false, 'Balsa', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', '068444777', 'Balsic',true,'2008-11-11 13:23:44','balsa');
+	VALUES (122, 'Boracka 29', 'Novi Sad', 'Srbija', 'neki opis', 'goran@gmail.com', true, false, 'Balsa', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', '068444777', 'Balsic',true,'2008-11-11 13:23:44','balsa');
 INSERT INTO public.users(
 	id, address, city, country, description, email, email_comfirmed, first_time_login, name, password, phone_number, surname, enabled, last_password_reset_date, username)
-	VALUES (122, 'Boracka 29', 'Novi Sad', 'Srbija', '', 'goran@gmail.com', true, false, 'Balsa', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', '068444777', 'Balsic',true,'2008-11-11 13:23:44','balsa');
+	VALUES (122, 'Boracka 29', 'Novi Sad', 'Srbija', 'neki opis', 'goran@gmail.com', true, false, 'Balsa', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', '068444777', 'Balsic',true,'2008-11-11 13:23:44','balsa');
 INSERT INTO public.system_admin(
 	id, address, city, country, description, email, email_comfirmed, first_time_login, name, password, phone_number, surname, enabled, last_password_reset_date, username)
-	VALUES (133, 'Cirpanova 9', 'Novi Sad', 'Srbija', '', 'gordana1@gmail.com', true, false, 'Gordana', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', '068789654', 'Grbic',true,'2008-11-11 13:23:44','gordana');
+	VALUES (133, 'Cirpanova 9', 'Novi Sad', 'Srbija', 'neki opis', 'gordana1@gmail.com', true, false, 'Gordana', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', '068789654', 'Grbic',true,'2008-11-11 13:23:44','gordana');
  INSERT INTO public.users(
 	id, address, city, country, description, email, email_comfirmed, first_time_login, name, password, phone_number, surname, enabled, last_password_reset_date, username)
-	VALUES (133, 'Cirpanova 9', 'Novi Sad', 'Srbija', '', 'gordana1@gmail.com', true, false, 'Gordana', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', '068789654', 'Grbic',true,'2008-11-11 13:23:44','gordana');
+	VALUES (133, 'Cirpanova 9', 'Novi Sad', 'Srbija', 'neki opis', 'gordana1@gmail.com', true, false, 'Gordana', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', '068789654', 'Grbic',true,'2008-11-11 13:23:44','gordana');
 
 
 INSERT INTO public.complaint(
@@ -557,17 +557,17 @@ INSERT INTO public.reservation(
 
 
 INSERT INTO public.vacation_interval(
-	id, approved, date_end, date_start)
-	VALUES (111, true, '2021-02-12', '2021-02-12');
+	id, approved, date_end, date_start,pharmacy_id)
+	VALUES (111, true, '2021-09-12', '2021-08-12','111');
 INSERT INTO public.vacation_interval(
-	id, approved, date_end, date_start)
-	VALUES (112, true, '2021-02-22','2021-02-18');
+	id, approved, date_end, date_start,pharmacy_id)
+	VALUES (112, true, '2021-11-22','2021-10-18','111');
 INSERT INTO public.vacation_interval(
-	id, approved, date_end, date_start)
-	VALUES (113, true, '2021-02-22', '2021-02-19');
+	id, approved, date_end, date_start,pharmacy_id)
+	VALUES (113, true, '2021-11-22', '2021-10-19','111');
 INSERT INTO public.vacation_interval(
-	id, approved, date_end, date_start)
-	VALUES (114, true, '2021-01-29', '2021-01-19');
+	id, approved, date_end, date_start,pharmacy_id)
+	VALUES (114, true, '2021-09-29', '2021-08-19','111');
 
 
 INSERT INTO public.dermatologist_vacation_schedule(
@@ -583,9 +583,7 @@ INSERT INTO public.dermatologist_vacation_schedule(
 	dermatologist_id, vacation_interval_id)
 	VALUES (66, 114);
 
-INSERT INTO public.pharmacist_vacation_schedule(
-	pharmacist_id, vacation_interval_id)
-	VALUES (444, 111);
+
 INSERT INTO public.pharmacist_vacation_schedule(
 	pharmacist_id, vacation_interval_id)
 	VALUES (555, 112);
@@ -946,6 +944,19 @@ INSERT INTO public.mark(
 	id, marks, patient_id)
 	VALUES (504, 5, 89);
 
+INSERT INTO public.mark(
+	id, marks, patient_id)
+VALUES (777, 5, 88);
+INSERT INTO public.mark(
+	id, marks, patient_id)
+VALUES (778, 3, 88);
+INSERT INTO public.mark(
+	id, marks, patient_id)
+VALUES (779, 2, 88);
+INSERT INTO public.mark(
+	id, marks, patient_id)
+VALUES (780, 5, 88);
+
 INSERT INTO public.medicine_marks(
 	medicine_id, marks_id)
 	VALUES (222, 500);
@@ -1055,6 +1066,21 @@ INSERT INTO public.pharmacy_marks(
 INSERT INTO public.pharmacy_pricelist(
 	pharmacy_id, pricelist_id)
 	VALUES (222, 77);
+
+INSERT INTO public.pharmacy_marks(
+	pharmacy_id, marks_id)
+	VALUES (111, 777);
+INSERT INTO public.pharmacy_marks(
+	pharmacy_id, marks_id)
+	VALUES (111, 778);
+INSERT INTO public.pharmacy_marks(
+	pharmacy_id, marks_id)
+	VALUES (111, 779);
+INSERT INTO public.pharmacy_marks(
+	pharmacy_id, marks_id)
+	VALUES (111, 780);
+
+
 INSERT INTO public.loyalty_programme(
 	id, gold, gold_discount, points_for_counceling, points_for_examination, regular, regular_discount, silver, silver_discount)
 	VALUES (1, 200, 0.5, 10, 10, 50, 0.2, 100, 0.3);
@@ -1108,3 +1134,56 @@ INSERT INTO USER_AUTHORITY (user_id, authority_id) VALUES (888, 3);
 
 INSERT INTO USER_AUTHORITY (user_id, authority_id) VALUES (100, 6);
 INSERT INTO USER_AUTHORITY (user_id, authority_id) VALUES (111, 6);
+
+
+INSERT INTO public.vacation_interval(
+	id, approved, date_end, date_start,pharmacy_id)
+	VALUES (912, false, '2021-09-12', '2021-08-12','111');
+INSERT INTO public.vacation_interval(
+	id, approved, date_end, date_start,pharmacy_id)
+	VALUES (913, false, '2021-11-22','2021-10-18','111');
+INSERT INTO public.vacation_interval(
+	id, approved, date_end, date_start,pharmacy_id)
+	VALUES (914, false, '2021-11-22', '2021-10-19','111');
+INSERT INTO public.vacation_interval(
+	id, approved, date_end, date_start,pharmacy_id)
+	VALUES (915, false, '2021-09-29', '2021-08-19','111');
+INSERT INTO public.vacation_interval(
+	id, approved, date_end, date_start,pharmacy_id)
+	VALUES (916, false, '2021-09-12', '2021-08-12','111');
+INSERT INTO public.vacation_interval(
+	id, approved, date_end, date_start,pharmacy_id)
+	VALUES (917, false, '2021-11-22','2021-10-18','111');
+INSERT INTO public.vacation_interval(
+	id, approved, date_end, date_start,pharmacy_id)
+	VALUES (918, false, '2021-11-22', '2021-10-19','111');
+INSERT INTO public.vacation_interval(
+	id, approved, date_end, date_start,pharmacy_id)
+	VALUES (919, false, '2021-09-29', '2021-08-19','111');
+
+INSERT INTO public.dermatologist_vacation_schedule(
+	dermatologist_id, vacation_interval_id)
+	VALUES (66, 912);
+INSERT INTO public.dermatologist_vacation_schedule(
+	dermatologist_id, vacation_interval_id)
+	VALUES (66, 913);
+INSERT INTO public.dermatologist_vacation_schedule(
+	dermatologist_id, vacation_interval_id)
+	VALUES (77, 914);
+INSERT INTO public.dermatologist_vacation_schedule(
+	dermatologist_id, vacation_interval_id)
+	VALUES (66, 915);
+
+
+INSERT INTO public.pharmacist_vacation_schedule(
+	pharmacist_id, vacation_interval_id)
+	VALUES (555, 916);
+INSERT INTO public.pharmacist_vacation_schedule(
+	pharmacist_id, vacation_interval_id)
+	VALUES (555, 917);
+INSERT INTO public.pharmacist_vacation_schedule(
+	pharmacist_id, vacation_interval_id)
+	VALUES (444, 918);
+INSERT INTO public.pharmacist_vacation_schedule(
+	pharmacist_id, vacation_interval_id)
+	VALUES (444, 919);

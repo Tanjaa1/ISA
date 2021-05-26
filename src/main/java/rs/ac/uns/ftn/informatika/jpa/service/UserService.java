@@ -15,6 +15,8 @@ import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import rs.ac.uns.ftn.informatika.jpa.dto.PharmacyAdminDTO;
+
 import rs.ac.uns.ftn.informatika.jpa.dto.SupplierDTO;
 import rs.ac.uns.ftn.informatika.jpa.model.Authority;
 import rs.ac.uns.ftn.informatika.jpa.model.Dermatologist;
@@ -25,6 +27,8 @@ import rs.ac.uns.ftn.informatika.jpa.model.Supplier;
 import rs.ac.uns.ftn.informatika.jpa.model.SystemAdmin;
 import rs.ac.uns.ftn.informatika.jpa.model.User;
 import rs.ac.uns.ftn.informatika.jpa.model.UserRequest;
+import rs.ac.uns.ftn.informatika.jpa.repository.PharmacyAdminRepository;
+import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IPharmacyAdminRepository;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IUserRepository;
 import rs.ac.uns.ftn.informatika.jpa.service.Interface.IUserService;
 
@@ -40,6 +44,9 @@ public class UserService implements IUserService{
 
 	@Autowired
 	private AuthorityService authService;
+
+	@Autowired
+	private IPharmacyAdminRepository pharmacyAdminRepository;
 	
 	@Override
 	public Collection<User> allUsers() {
@@ -150,9 +157,9 @@ public class UserService implements IUserService{
 		u = this.userRepository.save(u);
 	}
 
-    public void saveUserByPharmacyAdmin(PharmacyAdmin user) {
-		User u=new User();
-		u.setId(user.getId());
+    public void saveUserByPharmacyAdmin(PharmacyAdminDTO p) {
+		PharmacyAdmin user = pharmacyAdminRepository.getOne(p.getId());
+		User u=userRepository.getOne(p.getId());
 		u.setName(user.getName());
 		u.setSurname(user.getSurname());
 		u.setEmail(user.getEmail());
