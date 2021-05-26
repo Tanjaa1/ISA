@@ -8,10 +8,14 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.validation.Valid;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import rs.ac.uns.ftn.informatika.jpa.dto.CouncelingDTO;
 import rs.ac.uns.ftn.informatika.jpa.dto.PharmacistDTO;
@@ -28,6 +32,7 @@ import rs.ac.uns.ftn.informatika.jpa.service.Interface.ICounselingService;
 import rs.ac.uns.ftn.informatika.jpa.util.WorkingTime;
 
 @Service
+@Transactional(readOnly = true)
 public class CounselingService implements ICounselingService {
 
     @Autowired
@@ -82,6 +87,7 @@ public class CounselingService implements ICounselingService {
        return patientCounselings;
 	}
 
+	@Transactional(readOnly=false, propagation = Propagation.REQUIRES_NEW)
 	public Counseling finish(Counseling counseling)throws Exception 
     {
             Counseling e=counselingRepository.getOne(counseling.getId());
@@ -133,6 +139,7 @@ public class CounselingService implements ICounselingService {
 	}
 
     
+	@Transactional(readOnly=false, propagation = Propagation.REQUIRES_NEW)
 	public CouncelingDTO newCounseling(Counseling counseling) throws Exception {
         if(!counselingRepository.isExaminationExistByPharmacist(counseling.getStartTime(),counseling.getEndTime(),counseling.getPharmacist().getId()).isEmpty())
             return null;           
@@ -234,5 +241,13 @@ public class CounselingService implements ICounselingService {
             if (counceling.getStartTime().compareTo(LocalDateTime.now()) > 0)
                 councelingDtos.add(new CouncelingDTO(counceling));
         return councelingDtos;
+	}
+
+	@Transactional(readOnly=false, propagation = Propagation.REQUIRES_NEW)
+    public Counseling notCome(Counseling examination) {
+		Counseling e=counselingRepository.getOne(examination.getId());
+        e.setReport(examination.getReport());
+        e.setIsDone(false);
+        return counselingRepository.save(e);
 	}
 }

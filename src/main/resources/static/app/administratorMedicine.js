@@ -34,17 +34,29 @@ Vue.component("administratorMedicine", {
 	},
 	beforeMount() {
         axios
-        .get('/pharmacyAdmin/getById/' + '8') 
+        .get('/pharmacyAdmin/getById/' +  localStorage.getItem('userId'),{
+            headers: {
+                'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+            }
+        }) 
         .then(response => {
             this.administrator = response.data
             axios
-            .get('/pharmacy/getByName/' + this.administrator.pharmacy.name)
+            .get('/pharmacy/getByName/' + this.administrator.pharmacy.name,{
+                headers: {
+                    'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+                }
+            })
             .then(response =>{
                 this.pharmacy = response.data
                 this.displayedMedicine = this.pharmacy.pricelist
                 var pricelist = this.pharmacy.pricelist
                 axios
-                .get('/medicine/getAllAR')
+                .get('/medicine/getAllAR',{
+                    headers: {
+                        'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+                    }
+                })
                 .then(response => {
                     this.allMedicine = response.data
                     var tempList = []
@@ -233,13 +245,21 @@ Vue.component("administratorMedicine", {
 		addNewMedicine : function(){
 			if(this.newMPQ.medicine != null || this.newMPQ.quantity != null || this.newMPQ.price != null){
 				axios
-				.post('medicine/addToPricelist' + '/' + this.pharmacy.id,this.newMPQ)
+				.post('medicine/addToPricelist' + '/' + this.pharmacy.id,this.newMPQ,{
+                    headers: {
+                        'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+                    }
+                })
 				.then(response => { 
 					this.newMPQ.medicine = null
 					this.newMPQ.quantity = null
 					this.newMPQ.price = null
 					axios
-						.get('/pharmacy/getByName/' + this.administrator.pharmacy.name) 
+						.get('/pharmacy/getByName/' + this.administrator.pharmacy.name,{
+                            headers: {
+                                'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+                            }
+                        }) 
 						.then(response => {
 							this.pharmacy = response.data
 							this.displayedMedicine = this.pharmacy.pricelist})
@@ -256,20 +276,31 @@ Vue.component("administratorMedicine", {
 			.delete('/medicine/deleteFromPricelist' + '/' + medicine.id + '/' + this.pharmacy.id,{
 				data: {
 				  source: medicine
-				}
+				},
+                headers: {
+                        'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+                }
 			  })
 			.then(response => {
 				if(response.data == false){
 					alert("Medicine is reserved")
 				}
                 axios
-                .get('/pharmacy/getByName/' + this.administrator.pharmacy.name)
+                .get('/pharmacy/getByName/' + this.administrator.pharmacy.name,{
+                    headers: {
+                        'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+                    }
+                })
                 .then(response =>{
                     this.pharmacy = response.data
                     this.displayedMedicine = this.pharmacy.pricelist
                     var pricelist = this.pharmacy.pricelist
                     axios
-                    .get('/medicine/getAllAR')
+                    .get('/medicine/getAllAR',{
+                        headers: {
+                            'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+                        }
+                    })
                     .then(response => {
                         this.allMedicine = response.data
                         var tempList = []
@@ -308,16 +339,28 @@ Vue.component("administratorMedicine", {
 				medicine.quantity = this.updateMedicine.quantity
 
 			if(this.updateMedicine.quantity != null && this.updateMedicine.price != null){
-				axios.put('/medicine/saveMedicinePriceAndQuantity', medicine)
+				axios.put('/medicine/saveMedicinePriceAndQuantity', medicine,{
+                    headers: {
+                        'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+                    }
+                })
 				.then(function (response) {
 					axios
-						.get('/pharmacy/getByName/' + this.administrator.pharmacy.name) 
+						.get('/pharmacy/getByName/' + this.administrator.pharmacy.name,{
+                            headers: {
+                                'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+                            }
+                        }) 
 						.then(response => {
 							this.pharmacy = response.data
 							this.displayedMedicine = this.pharmacy.pricelist
                             var pricelist = this.pharmacy.pricelist
                             axios
-                            .get('/medicine/getAllAR')
+                            .get('/medicine/getAllAR',{
+								headers: {
+									'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+								}
+							})
                             .then(response => {
                                 this.allMedicine = response.data
                                 var tempList = []
@@ -361,7 +404,11 @@ Vue.component("administratorMedicine", {
             if(this.newAOP.startTime != null && this.newAOP.endTime != null && this.newAOP.text != ""){
                 this.newAOP.startTime = this.newAOP.startTime + 'T' + '00:00:00';
                 this.newAOP.endTime = this.newAOP.endTime + 'T' + '00:00:00';
-                axios.post('/actionOrPromotion/add',this.newAOP)
+                axios.post('/actionOrPromotion/add',this.newAOP,{
+                    headers: {
+                        'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+                    }
+                })
                 .then(response => {
                     if(response.data == null)
                         alert("Error")

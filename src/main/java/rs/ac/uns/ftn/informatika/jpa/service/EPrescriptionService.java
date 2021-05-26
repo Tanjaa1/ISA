@@ -7,6 +7,8 @@ import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import rs.ac.uns.ftn.informatika.jpa.dto.MedicinePriceAndQuantityDTO;
 import rs.ac.uns.ftn.informatika.jpa.model.EPrescription;
@@ -19,6 +21,7 @@ import rs.ac.uns.ftn.informatika.jpa.service.Interface.IEPrescriptionService;
 import rs.ac.uns.ftn.informatika.jpa.service.Interface.IPharmacyService;
 
 @Service
+@Transactional(readOnly = true)
 public class EPrescriptionService implements IEPrescriptionService {
 
     @Autowired
@@ -39,6 +42,7 @@ public class EPrescriptionService implements IEPrescriptionService {
     }
 
     @Override
+	@Transactional(readOnly=false, propagation = Propagation.REQUIRES_NEW)
     public EPrescription save(EPrescription ePrescriptionDTO,Long id) throws Exception 
     {
         EPrescription ePrescription=new EPrescription();

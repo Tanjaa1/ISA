@@ -6,7 +6,18 @@ Vue.component("administratorHomePage", {
 	
 		}
 	},
-	beforeMount() {
+	mounted() {
+		axios
+        .get('/pharmacyAdmin/getById/' + localStorage.getItem('userId'),{
+            headers: {
+                'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+            }
+        })
+		.then(response =>{
+			var pAdmin = response.data
+			if(pAdmin.firstTimeLogin)
+            	this.$router.push('administratorAccountInfo');
+		})
 
 	}
 		,

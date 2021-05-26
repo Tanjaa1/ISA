@@ -62,6 +62,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http
+				
 				// komunikacija izmedju klijenta i servera je stateless posto je u pitanju REST aplikacija
 				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
 

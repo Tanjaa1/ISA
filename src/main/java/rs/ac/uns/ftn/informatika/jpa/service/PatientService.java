@@ -139,7 +139,6 @@ public class PatientService implements IPatientService {
 		patient1.setFirstTimeLogin(patient.getFirstTimeLogin());
 		patient1.setDescription(patient.getDescription());
 		patient1.setDrugAllargies(patient.getDrugAllargies());
-		patient1.setActionOrPromotion(patient.getActionOrPromotion());
 		Patient patient2 = patientRepository.save(patient1);
 		return patient2;
 	}

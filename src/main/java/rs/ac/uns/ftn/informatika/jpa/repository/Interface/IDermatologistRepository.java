@@ -19,4 +19,8 @@ public interface IDermatologistRepository extends JpaRepository<Dermatologist, L
 	  
 	  @Query("SELECT distinct d FROM Dermatologist d,Examination e,Patient p WHERE e.Dermatologist=d.Id and e.Patient=p.Id and p.Id=?1")
 	  public List<Dermatologist> getDermatologists(Long id);
+
+	  	  
+	  @Query("SELECT distinct d FROM Dermatologist d WHERE  d.Id=?1")
+	  public Dermatologist getOneById(Long id);
 }

@@ -13,6 +13,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import rs.ac.uns.ftn.informatika.jpa.dto.DermatologistDTO;
 import rs.ac.uns.ftn.informatika.jpa.dto.ExaminationDTO;
@@ -30,6 +32,7 @@ import rs.ac.uns.ftn.informatika.jpa.service.Interface.IExaminationService;
 import rs.ac.uns.ftn.informatika.jpa.util.WorkingTime;
 
 @Service
+@Transactional(readOnly = true)
 public class ExaminationService implements IExaminationService {
 
     @Autowired
@@ -83,6 +86,7 @@ public class ExaminationService implements IExaminationService {
         return patientExaminations;
     }
 
+	@Transactional(readOnly=false, propagation = Propagation.REQUIRES_NEW)
     public Examination finish(Examination examination) throws Exception {
         Examination e=examinationRepository.getOne(examination.getId());
         e.setReport(examination.getReport());
@@ -121,23 +125,25 @@ public class ExaminationService implements IExaminationService {
         return examinationsDtos;
 	}
 
+	@Transactional(readOnly=false, propagation = Propagation.REQUIRES_NEW)
 	public ExaminationDTO schedule(Examination examination) throws Exception{
         Examination e=examinationRepository.getOne(examination.getId());
         e.setPatient(patientRepository.getOne(examination.getPatient().getId()));
         e.setIsCanceled(false);
-        LoyaltyProgramme lpDTO=loyaltyProgrammeService.findById(Long.valueOf(1));
-        Patient patient =examination.getPatient();
-        patient.setPoints(patient.getPoints()+lpDTO.getPointsForCounceling());
         emailSender2(examination);
         examinationRepository.save(e);
         ExaminationDTO eDTO=new ExaminationDTO(examination);
         Double price=medicineService.Discount(examination.getPrice(),examination.getPatient().getId());
         e.setPriceWithDiscount(price);
         examinationRepository.save(e);
-        //patientService.update(patient);
+        Patient patient =examination.getPatient();
+        LoyaltyProgramme lpDTO=loyaltyProgrammeService.findById(Long.valueOf(1));
+        patient.setPoints(patient.getPoints()+lpDTO.getPointsForCounceling());   
+        patientService.update(patient);
         return eDTO;
 	}
 
+    
     private void emailSender2(Examination examination)
 	{
         LocalDate startDate = examination.getStartTime().toLocalDate();
@@ -152,6 +158,7 @@ public class ExaminationService implements IExaminationService {
 		}
 	}
 
+	@Transactional(readOnly=false, propagation = Propagation.REQUIRES_NEW)
 	public ExaminationDTO newExamination(Examination examination) throws Exception {
        if(!examinationRepository.isExaminationExistByDermatologist(examination.getStartTime(),examination.getEndTime(),examination.getDermatologist().getId()).isEmpty())
             return null;           
@@ -288,6 +295,8 @@ public class ExaminationService implements IExaminationService {
         }
         return examinationDTOs;
     }
+    
+	@Transactional(readOnly=false, propagation = Propagation.REQUIRES_NEW)
 	public Examination notCome(Examination examination) {
 		Examination e=examinationRepository.getOne(examination.getId());
         e.setReport(examination.getReport());

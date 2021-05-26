@@ -30,7 +30,7 @@ Vue.component("calendarD",{
     pharmacy:null
   }
 },
-	beforeMount() {    
+	mounted() {    
     var twoNextYear = new Date()
     this.today=twoNextYear
     var mon=new Date()
@@ -165,13 +165,13 @@ Vue.component("calendarD",{
                       <div>
                       {{exam.report}}
                       </div></br></a>
-                      <a v-else>
+                      <a v-if="!exam.isDone && PastExam()">
                       <div>
                       Patient did not come.
                       </div></br></a>
                       <div class="modal-footer">
-            <button v-if="!PastExam() && !exam.isDone && !exam.isCanceled" id="addF" type="button" class="btn btn-info btn-lg" v-on:click="No()">Did not come</button>
-            <button v-if="!PastExam() && !exam.isDone" id="cancelF" type="button" class="btn btn-info btn-lg" v-on:click="Yes()"">Start</button>
+            <button v-if="See()" id="addF" type="button" class="btn btn-info btn-lg" v-on:click="No()">Did not come</button>
+            <button v-if="See() && exam.report==' '" id="cancelF" type="button" class="btn btn-info btn-lg" v-on:click="Yes()"">Start</button>
           </div>
         </div>
         </div>
@@ -180,6 +180,13 @@ Vue.component("calendarD",{
 </div>			
 	`,
 	methods: {
+    See:function(){
+      if(this.exam.patient.name==null || this.exam.isDone || this.exam.isCanceled ){
+        return false
+      }else{
+        return true
+      }
+    },
     Previous:function(){
       this.col=dateFns.eachDay(
         this.col[0].setDate(this.col[0].getDate()-7),
@@ -303,19 +310,20 @@ Vue.component("calendarD",{
     $('#ExaminationP').modal('hide');
     this.$router.push('examinationDermatologist');
    },
-   No:function(){
+   No:async function(){
     $('#ExaminationP').modal('hide');
     this.exam.isDone=false
-    axios.put('/examination/notCome', this.exam,{
+    this.exam.report=" "
+    await axios.put('/examination/notCome', this.exam,{
       headers: {
         'Authorization': 'Bearer' + " " + localStorage.getItem('token')
       }
     })
     .then(function (response) {
-      this.$router.push('calendarD');
     })
     .catch(function (error) {
-    });
+    });  
+    await this.$router.push('calendarD');
    },
   PastExam:function () {
     var d = new Date();
@@ -361,7 +369,7 @@ Vue.component("examinationDermatologist", {
             future:null
 		}
 	},
-	beforeMount() {
+	mounted() {
                 axios
                 .get('/eprescription/findMedicines/' + this.examination.pharmacy.id,{
                   headers: {
@@ -548,18 +556,17 @@ Vue.component("examinationDermatologist", {
     </div>			
 	`,
 	methods: {
-        Finish:function(){    
-            axios.put('/examination/finish', this.examination,{
+        Finish:async function(){    
+          await axios.put('/examination/finish', this.examination,{
               headers: {
                 'Authorization': 'Bearer' + " " + localStorage.getItem('token')
               }
             })
               .then(function (response) {
-                alert('Done')
-                  this.$router.push('CalendarD');
               })
               .catch(function (error) {
-              });    
+              });
+            await this.$router.push('calendarD');
         },
         Prescription:function(){
             
@@ -628,7 +635,7 @@ Vue.component("examinationDermatologist", {
                 'Authorization': 'Bearer' + " " + localStorage.getItem('token')
               }
             })
-            .then(function (response) {
+            .then(response =>{
                 alert("The examination was successfully scheduled!")
                 axios
                 .get('/examination/getFreeExaminationByDermatologist/' + localStorage.getItem('userId'),{
@@ -636,11 +643,10 @@ Vue.component("examinationDermatologist", {
                     'Authorization': 'Bearer' + " " + localStorage.getItem('token')
                   }
                 })
-                .then(function (odg){
-                    this.future=[]
-                    this.future=odg.response
+                .then(response => {
+                  this.future = response.data
                     //location.reload()
-                    $('#Schedule').modal('hide');
+                    //$('#Schedule').modal('hide');
                 })
                 .catch(error => {
                 })

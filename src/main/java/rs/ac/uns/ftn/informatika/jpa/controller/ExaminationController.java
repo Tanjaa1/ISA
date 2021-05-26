@@ -26,6 +26,7 @@ import rs.ac.uns.ftn.informatika.jpa.dto.ExaminationDTO;
 import rs.ac.uns.ftn.informatika.jpa.dto.PharmacyDTO;
 import rs.ac.uns.ftn.informatika.jpa.model.Examination;
 import rs.ac.uns.ftn.informatika.jpa.service.ExaminationService;
+import rs.ac.uns.ftn.informatika.jpa.service.PatientService;
 
 @RestController
 @RequestMapping(value = "/examination")
@@ -34,6 +35,8 @@ public class ExaminationController {
     
     @Autowired
 	private ExaminationService examinationService;
+    @Autowired
+	private PatientService patientService;
 	
 	@GetMapping(value = "/getPastExaminationByPatientId/{id}")
 	public ResponseEntity<List<ExaminationDTO>> getPastExaminationByPatientId(@PathVariable Long id) 
@@ -101,7 +104,7 @@ public class ExaminationController {
 		return examinationDTOs == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(examinationDTOs);
 	}
 
-	@PreAuthorize("hasRole('DERMATOLOGIST')")
+	@PreAuthorize("hasAnyRole('DERMATOLOGIST','PATIENT')")
 	@PutMapping(value = "/schedule")
 	public ResponseEntity<List<ExaminationDTO>> getFreeExaminationByDermatologist(@Valid @RequestBody Examination examination, BindingResult result)
 		throws Exception 
@@ -123,6 +126,7 @@ public class ExaminationController {
 			return e == null ? new ResponseEntity<>(HttpStatus.BAD_REQUEST) : new ResponseEntity<>(e,HttpStatus.OK);
 	}
 
+	@PreAuthorize("hasRole('PHARMACYADMIN')")
 	@PostMapping(value = "/addEmptyExamination")
 	public ResponseEntity<ExaminationDTO> newEmptyExamination(@Valid @RequestBody Examination examination, BindingResult result)
 		throws Exception 
@@ -167,6 +171,7 @@ public class ExaminationController {
 		return e == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : new ResponseEntity<>(HttpStatus.OK);
 	}
 
+	@PreAuthorize("hasAnyRole('PHARMACYADMIN','PATIENT')")
 	@GetMapping(value = "/getUpcomingFreeExaminations/{idP}/{idD}")
 	public ResponseEntity<List<ExaminationDTO>> getWorkingTimes(@PathVariable Long  idP,@PathVariable Long idD) 
 	{

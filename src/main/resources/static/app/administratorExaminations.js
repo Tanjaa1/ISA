@@ -29,16 +29,28 @@ Vue.component("administratorExaminations", {
 	},
 	beforeMount() {
         axios
-        .get('/pharmacyAdmin/getById/' + '8') 
+        .get('/pharmacyAdmin/getById/' +  localStorage.getItem('userId'),{
+            headers: {
+                'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+            }
+        }) 
         .then(response => {
             this.administrator = response.data
             axios
-            .get('/pharmacy/getByName/' + this.administrator.pharmacy.name)
+            .get('/pharmacy/getByName/' + this.administrator.pharmacy.name,{
+                headers: {
+                    'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+                }
+            })
             .then(response =>{
                 this.pharmacy = response.data
                 this.newExamination.pharmacy = response.data
                 axios
-                .get('/dermatologist/getByPharmacyId/' + this.pharmacy.id) 
+                .get('/dermatologist/getByPharmacyId/' + this.pharmacy.id,{
+                    headers: {
+                        'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+                    }
+                }) 
                 .then(response => {
                     this.dermatologists = response.data
                     this.allDermatologists = response.data
@@ -46,7 +58,11 @@ Vue.component("administratorExaminations", {
                 .catch(error => {
                 })
                 axios
-                .get('/dermatologist/getUnemployedDermatolgoists/' + this.pharmacy.id) 
+                .get('/dermatologist/getUnemployedDermatolgoists/' + this.pharmacy.id,{
+                    headers: {
+                        'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+                    }
+                }) 
                 .then(response => {
                     this.unemployedDermatologists = response.data
                 })
@@ -171,10 +187,18 @@ Vue.component("administratorExaminations", {
 				this.newExamination.endTime = this.newExamination.Date + "T" + this.newExamination.endTime
 				if(this.newExamination.startTime != null && this.newExamination.endTime != null && this.newExamination.price != null && this.newExamination.dermatologist != null && this.newExamination.Date != null){
 					axios
-					.post('/examination/addEmptyExamination',this.newExamination)
+					.post('/examination/addEmptyExamination',this.newExamination,{
+                        headers: {
+                            'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+                        }
+                    })
 					.then(response => {
                         axios
-                        .get('/examination/getUpcomingFreeExaminations/' + this.pharmacy.id +"/" +  this.newExamination.dermatologist.id)
+                        .get('/examination/getUpcomingFreeExaminations/' + this.pharmacy.id +"/" +  this.newExamination.dermatologist.id,{
+                            headers: {
+                                'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+                            }
+                        })
                         .then(response => {
                             this.upcomingExaminations = response.data
                             for (var i = 0; i < this.upcomingExaminations.length; i++) {
@@ -198,7 +222,11 @@ Vue.component("administratorExaminations", {
         GetUpcomingFreeExaminations: function (DermatologistID) {
             localStorage.setItem('selectedDermatologist',DermatologistID);
 			axios
-			.get('/examination/getUpcomingFreeExaminations/' + this.pharmacy.id +"/" + DermatologistID)
+			.get('/examination/getUpcomingFreeExaminations/' + this.pharmacy.id +"/" + DermatologistID,{
+                headers: {
+                    'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+                }
+            })
 			.then(response => {
 				this.upcomingExaminations = response.data
                 for (var i = 0; i < this.upcomingExaminations.length; i++) {

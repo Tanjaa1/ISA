@@ -33,12 +33,13 @@ public class PatientController {
 	@Autowired
 	private PatientService patientService;
 
-	
+	@PreAuthorize("hasRole('PATIENT')")
 	@GetMapping(value = "/getPatientById/{id}")
 	public ResponseEntity<PatientDTO> getPatientById(@PathVariable Long id) {
 		PatientDTO patient = new PatientDTO(patientService.findOne(id));
 		return patient == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(patient);
 	}
+	
 	@PreAuthorize("hasRole('PATIENT')")
 	@GetMapping(value = "/getPatientByIdd/{id}")
 	public ResponseEntity<PatientDTO> getPatientByIdd(@PathVariable Long id) {

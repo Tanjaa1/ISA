@@ -199,12 +199,14 @@ public class MedicineController {
 		return medicineDTOs == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(medicineDTOs);
 	}
 	
+	@PreAuthorize("hasRole('PHARMACYADMIN')")
 	@GetMapping(value = "/getAllAR")
 	public ResponseEntity<List<MedicineDTO>> getAllAR() {
 	List<MedicineDTO> retVal = medicineService.getAllAR();
 		return retVal == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(retVal);
 	}
 
+	@PreAuthorize("hasRole('PHARMACYADMIN')")
 	@DeleteMapping(value = "/deleteFromPricelist/{Id}/{pharmacyID}")
 	  public boolean deleteFromPricelist(@PathVariable Long Id,@PathVariable Long pharmacyID) throws Exception{
 		  return medicineService.deleteMedicineFromPricelist(Id,pharmacyID);
@@ -216,6 +218,7 @@ public class MedicineController {
 
 	}
 
+	@PreAuthorize("hasRole('PHARMACYADMIN')")
 	@PostMapping(value = "/addMedicinePriceAndQuantity")
 	public ResponseEntity<MedicinePriceAndQuantity> addMedicinePriceAndQuantity(@RequestBody MedicinePriceAndQuantity medicineDTO) throws Exception{
 		return  medicineService.savePriceAndQuantity(medicineDTO);

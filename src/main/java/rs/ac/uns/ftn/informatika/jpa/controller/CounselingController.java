@@ -54,7 +54,7 @@ public class CounselingController {
 		return counselingsDTO == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(counselingsDTO);
 	}
 
-	@PreAuthorize("hasRole('PHARMACIST')")
+	@PreAuthorize("hasAnyRole('PHARMACIST','PHARMACYADMIN')")
 	@PutMapping(value = "/finish")
 	public ResponseEntity<HttpStatus> update(@Valid @RequestBody Counseling counseling, BindingResult result) throws Exception
 	{
@@ -121,6 +121,7 @@ public class CounselingController {
 		return councelingDTO == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(councelingDTO);
 	}
 
+	@PreAuthorize("hasAnyRole('PHARMACYADMIN','PATIENT')")
 	@GetMapping(value = "/getUpcomingFreeCounselingByPharmacist/{id}")
 	public ResponseEntity<List<CouncelingDTO>> getUpcomingCounselingsByPharmacist(@PathVariable Long id) 
 	{
@@ -138,10 +139,21 @@ public class CounselingController {
 		return e == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : new ResponseEntity<>(HttpStatus.OK);
 	}
 
+	@PreAuthorize("hasAnyRole('PATIENT','PHARMACYADMIN')")
 	@GetMapping(value = "/getFreeCounselingByPharmacist/{id}")
 	public ResponseEntity<List<CouncelingDTO>> getFreeCounselingByPharmacist(@PathVariable Long id) 
 	{
 		List<CouncelingDTO> councelingDTOs = counselingService.getFreeCounselingByPharmacist(id);
 		return councelingDTOs == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(councelingDTOs);
+	}
+
+	@PreAuthorize("hasRole('PHARMACIST')")
+	@PutMapping(value = "/notCome")
+	public ResponseEntity<HttpStatus> notCome(@Valid @RequestBody Counseling counseling, BindingResult result) throws Exception
+	{
+		if (result.hasErrors()) 
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		Counseling e =counselingService.notCome(counseling);
+		return e == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : new ResponseEntity<>(HttpStatus.OK);
 	}
 }

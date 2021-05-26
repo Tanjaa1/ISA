@@ -5,7 +5,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+
+import rs.ac.uns.ftn.informatika.jpa.dto.PharmacyAdminDTO;
+
 import rs.ac.uns.ftn.informatika.jpa.dto.SupplierDTO;
+
 import rs.ac.uns.ftn.informatika.jpa.model.Dermatologist;
 import rs.ac.uns.ftn.informatika.jpa.model.Patient;
 import rs.ac.uns.ftn.informatika.jpa.model.Pharmacist;
@@ -88,9 +92,9 @@ public class UserController {
 		userService.updateUserBySystemAdmin(user);
 	}
 	@PostMapping(value = "/saveUserByPharmacyAdmin")
-	public ResponseEntity<User> saveUserByPharmacyAdmin(@RequestBody PharmacyAdmin user) throws Exception{
+	public ResponseEntity<User> saveUserByPharmacyAdmin(@RequestBody PharmacyAdminDTO user) throws Exception{
 		userService.saveUserByPharmacyAdmin(user);
-	return new ResponseEntity<>(user, HttpStatus.CREATED);
+	return new ResponseEntity<>(new PharmacyAdmin(user), HttpStatus.CREATED);
 	}
 	@PostMapping(value = "/saveUserByPharmacist")
 	public ResponseEntity<User> saveUserByPharmacist(@RequestBody Pharmacist user) throws Exception{
