@@ -37,10 +37,8 @@ public class SupplierOfferService {
     List<SupplierOfferDTO> result=new ArrayList<>();
     List<SupplierOffer> list=supplierOfferRepository.findAll();
     for(SupplierOffer supplierOffer : list){
-        if(supplierOffer.getSupplier().equals(s)){
+        if(supplierOffer.getSupplier().getId()==s.getId()){
             result.add(new SupplierOfferDTO(supplierOffer));
-        }else{
-            result=null;
         }
     } 
         return result;

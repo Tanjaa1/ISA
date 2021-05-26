@@ -53,6 +53,7 @@ const SupplierProfile= { template: '<supplierProfile></supplierProfile>' }
 const SupplierInfo= { template: '<supplierInfo></supplierInfo>' } 
 const SuppliersOffers= { template: '<suppliersOffers></suppliersOffers>' } 
 const GiveOffers= { template: '<giveOffers></giveOffers>' } 
+const SupplierHeader= { template: '<supplierHeader></supplierHeader>' } 
 
 const LoyaltyProgramme= { template: '<loyaltyProgramme></loyaltyProgramme>' } 
 const AdministratorHomePage= { template: '<administratorHomePage></administratorHomePage>' } 
@@ -500,7 +501,9 @@ const router = new VueRouter({
 			path: '/complaintPatient', 
 			name : 'complaintPatient', 
 			components: {
-				content: PatientComplaints
+				content: PatientComplaints,
+				pageHeader: PatientHeader
+
 			}
 		},
 	    { 
@@ -602,28 +605,35 @@ const router = new VueRouter({
 			path: '/supplierProfile', 
 			name : 'supplierProfile', 
 			components: {
-				content: SupplierProfile
+				content: SupplierProfile,
+				pageHeader:SupplierHeader
 			}
 		},
 		{
 			path: '/supplierInfo', 
 			name : 'supplierInfo', 
 			components: {
-				content: SupplierInfo
+				content: SupplierInfo,
+				pageHeader:SupplierHeader
+
 			}
 		},
 		{
 			path: '/suppliersOffers', 
 			name : 'suppliersOffers', 
 			components: {
-				content: SuppliersOffers
+				content: SuppliersOffers,
+				pageHeader:SupplierHeader
+
 			}
 		},
 		{
 			path: '/giveOffers', 
 			name : 'giveOffers', 
 			components: {
-				content: GiveOffers
+				content: GiveOffers,
+				pageHeader:SupplierHeader
+
 			}
 		},
 		{

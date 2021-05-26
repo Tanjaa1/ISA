@@ -426,22 +426,21 @@ public class MedicineService implements IMedicineService {
 
 			for(MedicineForSearch m :allWithNames){
 				for(MedicineForSearch m1: filtrateByForm){
-					if(m.getName().equals(m1.getName())  && m.getForm().equals(m1.getForm())){
+					if(m.getName().equals(m1.getName())  ){
 						res.add(m);
 					}
 				}
 			}
-			for(MedicineForSearch m :filtrateByMark){
-				for(MedicineForSearch m1 :filtrateByType){
-					if(m.getName().equals(m1.getName()) &&
-					m.getMark().equals(m1.getMark())&& m.getType().equals(m1.getType())){
+			for(MedicineForSearch m :filtrateByType ){
+				for(MedicineForSearch m1 :filtrateByMark){
+					if(m.getName().equals(m1.getName()) ){
 						res1.add(m);
 					}	
 				}
 			}
 			for(MedicineForSearch m :filtrateOnPrescription){
 				for(MedicineForSearch m1:filtrateNotOnPrescription){
-					if(m.getName().equals(m1.getName()) && m.getOnPrescription().equals(m1.getOnPrescription())){
+					if(m.getName().equals(m1.getName()) ){
 						res2.add(m);
 					}
 				}

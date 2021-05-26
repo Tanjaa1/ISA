@@ -148,13 +148,13 @@ public class PatientController {
 		ActionOrPromotionsDTO saveActionOrPromotion=patientService.saveActionOrPromotion(patientId,actionOrPromotionsDTO);
 	return saveActionOrPromotion;
 	}
-
+	@PreAuthorize("hasRole('PATIENT')")
 	@GetMapping(value = "/cancelActionOrPromotion/{idPatient}/{idAction}")
 	public ActionOrPromotionsDTO calcelActionOrPromotion(@PathVariable String idPatient,@PathVariable String idAction) throws Exception{
 		ActionOrPromotionsDTO canceledActionOrPromotion=patientService.cancelActionOrPromotion(idPatient,idAction);
 	return canceledActionOrPromotion;
 	}
-
+	@PreAuthorize("hasRole('PATIENT')")
 	@GetMapping(value = "/getAllActionsAndPromotionByPatientId/{patientId}")
 	public ResponseEntity<Set<ActionOrPromotionsDTO>> getAllActionsAndPromotionByPatientId(@PathVariable String patientId) {
 		Set<ActionOrPromotionsDTO> actionOrPromotionsDTOs =patientService.getAllActionsAndPromotionByPatientId(patientId);

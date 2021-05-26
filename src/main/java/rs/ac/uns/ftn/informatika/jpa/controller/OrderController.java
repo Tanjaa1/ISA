@@ -29,6 +29,7 @@ public class OrderController {
     @Autowired
 	private OrderService orderService;
 	
+	@PreAuthorize("hasRole('SUPPLIER')")
 	@GetMapping(value = "/getAll")
 	public ResponseEntity<List<OrderDTO>> getAll() {
 		List<OrderDTO> retVal = orderService.findAll();

@@ -6,7 +6,11 @@ Vue.component("actionAndPromotion", {
 	},
 	beforeMount(){
 		axios
-		.get('/patient/getAllActionsAndPromotionByPatientId/88')
+		.get('/patient/getAllActionsAndPromotionByPatientId/'+localStorage.getItem('userId'),{
+			headers: {
+			  'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+			}
+		  })
 		.then(response => {
 			this.allActionsAndPromotions = response.data
 	  
@@ -46,8 +50,8 @@ Vue.component("actionAndPromotion", {
 										<td>{{a.pharmacy.name}}</td>
 										<td>{{a.medicine.name}}</td>
 										<td>{{a.text}}</td>
-										<td>{{a.startTime}}</td>
-										<td>{{a.endTime}}</td>
+										<td>{{DateSplit(a.startTime)}}</td>
+										<td>{{DateSplit(a.endDateTime)}}</td>
 										<td><button type="button" class="btn btn-info btn-lg" v-on:click="CancelActionOrPromotion(a.id)">Cancel</button></td>									
 									</tr>
 								</tbody>
@@ -58,7 +62,8 @@ Vue.component("actionAndPromotion", {
 			</div>
 		</div>
 	<br></br>
-	
+	<button id="Close" type="button" class="btn1 btn-info btn-lg margin form-control" data-toggle="modal" v-on:click="close()" >Go back</button>
+
 
 
 	</div>
@@ -67,11 +72,22 @@ Vue.component("actionAndPromotion", {
 	computed : {
     },
 	methods: {
+		close:function(){
+			this.$router.push('patientHomePage');
+		  },
+	DateSplit: function (date) {
+		var dates = (date.split("T")[0]).split("-")
+		var times = (date.split("T")[1]).split(":")
+		return dates[2] + "." + dates[1] + "." + dates[0]
+	},
 		CancelActionOrPromotion : function(id){
 			
 			 axios
-			.get('/patient/cancelActionOrPromotion/88/'+id
-			 )
+			.get('/patient/cancelActionOrPromotion/'+localStorage.getItem('userId')+"/"+id,{
+				headers: {
+				  'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+				}
+			  } )
 		
 			.then(response => {
 				alert("uspjesno")

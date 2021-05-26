@@ -124,7 +124,11 @@ Vue.component("searchMedicine", {
 			
 			
 					axios
-					.get('medicine/combinedSearch/'+text+'x'+type+'x'+form+'x'+mark+'x'+onPrescriptionText)
+					.get('medicine/combinedSearch/'+text+'x'+type+'x'+form+'x'+mark+'x'+onPrescriptionText,{
+						headers: {
+						  'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+						}
+					  } )
 					.then(response => {
 						this.pharmacies = response.data
 						if(this.pharmacies === undefined || this.pharmacies.length == 0){

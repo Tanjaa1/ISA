@@ -80,6 +80,10 @@ Vue.component("Login", {
                           </div>
                         </div>
 					</div>
+
+
+
+				
 	</div>
 					
 	`,
@@ -163,9 +167,10 @@ Vue.component("Login", {
 				.post('/auth/login',this.jwtAuthenticationRequest)
 				.then(response => {
 					this.token = response.data.accessToken
+					//localStorage.setItem('userId', response.data.id)
+
 					if(this.token==undefined){
-						alert("Username or password are wrong, please try again  111111 ")
-						return
+						alert("Username or password are wrong, please try again ")
 					}
 					alert(this.token)
 					localStorage.setItem('token', this.token);
@@ -185,12 +190,14 @@ Vue.component("Login", {
 							alert('pacijent')
 							if(this.idPatient.emailComfirmed==false){
 								alert("please confirme registration by email")
+								localStorage.setItem('token', "");
+								this.$router.push('/');
+
 							}
 							
 						})
 						.catch(error => {
-							alert("Username or password are wrong, please try again 2222!")
-							return
+							alert("Username or password are wrong, please try again !")
 						})
 					}
 					else if (response.data.role == "ROLE_ADMIN") {
@@ -207,8 +214,8 @@ Vue.component("Login", {
 							alert('systemAdmin')
 							if(this.idSystemAdmin.emailComfirmed==false){
 								alert("please confirme registration by email")
-							}else{
-								this.Redirect(response.data.role)
+								localStorage.setItem('token', "");
+								this.$router.push('/');
 							}
 						})
 						.catch(error => {
@@ -229,12 +236,13 @@ Vue.component("Login", {
 							alert(this.idPharmacyAdmin.emailComfirmed)
 							if(this.idPharmacyAdmin.emailComfirmed==false){
 								alert("please confirme registration by email")
-							}else{
-								this.Redirect(response.data.role)
+								localStorage.setItem('token', "");
+								this.$router.push('/');
+
 							}
 						})
 						.catch(error => {
-							alert("Username or password are wrong, please try again 3333!")
+							alert("Username or password are wrong, please try again !")
 
 						})
 					}else if (response.data.role == "ROLE_PHARMACIST") {
@@ -251,12 +259,13 @@ Vue.component("Login", {
 							alert(localStorage.getItem('userId'))
 							if(this.idPharmacist.emailComfirmed==false){
 								alert("please confirme registration by email")
-							}else{
-								this.Redirect(response.data.role)
+								localStorage.setItem('token', "");
+								this.$router.push('/');
+
 							}
 						})
 						.catch(error => {
-							alert("Username or password are wrong, please try again! 4444")
+							alert("Username or password are wrong, please try again! ")
 
 						})
 					}else if (response.data.role == "ROLE_DERMATOLOGIST") {
@@ -273,13 +282,14 @@ Vue.component("Login", {
 							alert('dermatologist')
 							if(this.idDermatologist.emailComfirmed==false){
 								alert("please confirme registration by email")
+								localStorage.setItem('token', "");
+								this.$router.push('/');
+
 								return
-							}else{
-								this.Redirect(response.data.role)
 							}
 						})
 						.catch(error => {
-							alert("Username or password are wrong, please try again!555555")
+							alert("Username or password are wrong, please try again!")
 
 						})
 					}else if (response.data.role == "ROLE_SUPPLIER") {
@@ -292,23 +302,20 @@ Vue.component("Login", {
 						})
 						.then(response => {
 							this.idSupplier = response.data
-							localStorage.setItem('userId', this.idSupplier.id)
-							('supplier')
+						localStorage.setItem('userId', this.idSupplier.id)
+							alert('supplier')
 							if(this.idSupplier.emailComfirmed==false){
-								alert("please confirme registration by email 6666 ")
-							}else{
-								this.Redirect(response.data.role)
+								alert("please confirme registration by email ")
+								localStorage.setItem('token', "");
+								this.$router.push('/');
+
 							}
 						})
-					
 						.catch(error => {
-							alert("Username or password are wrong, please try again! 777777")
-
+							alert("Username or password are wrong, please try again!sss")
 						})
 					}
-
-					this.Redirect(response.data.role)
-
+					setTimeout(() => {this.Redirect(response.data.role); }, 20);
 				})
 				.catch(error => {
 				})
