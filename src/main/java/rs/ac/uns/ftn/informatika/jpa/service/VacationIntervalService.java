@@ -41,6 +41,7 @@ public class VacationIntervalService implements IVacationIntervalService{
         VacationInterval v=new VacationInterval();
         v.setDateStart(vacationInterval.getDateStart());
         v.setDateEnd(vacationInterval.getDateEnd());
+        v.setPharmacyId(vacationInterval.getPharmacyId());
         return vacationIntervalRepository.save(v);
     }
 
@@ -63,6 +64,12 @@ public class VacationIntervalService implements IVacationIntervalService{
     {
         VacationInterval v=add(vacationInterval);
         Dermatologist dermatologist=dermatologistRepository.getOne(id);
+        try{
+            dermatologist.getVacationSchedule().add(v);
+            dermatologistRepository.save(dermatologist);
+       }catch(Exception ex){
+           throw new Exception("Error.");
+       }
         return v;
     }
 
