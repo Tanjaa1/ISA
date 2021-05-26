@@ -295,6 +295,8 @@ public class ExaminationService implements IExaminationService {
         }
         return examinationDTOs;
     }
+    
+	@Transactional(readOnly=false, propagation = Propagation.REQUIRES_NEW)
 	public Examination notCome(Examination examination) {
 		Examination e=examinationRepository.getOne(examination.getId());
         e.setReport(examination.getReport());

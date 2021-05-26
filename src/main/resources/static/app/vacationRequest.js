@@ -17,7 +17,8 @@ Vue.component("pharmacistVacationRequest", {
 				}
 			}) 
 			.then(response => {
-				this.vacation.pharmacyId=this.response.data.pharmacy.id
+				this.user=response.data
+				this.vacation.pharmacyId=this.user.pharmacy.id
 			})
 			.catch(error => {
 			})

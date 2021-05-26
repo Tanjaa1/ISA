@@ -157,13 +157,13 @@ Vue.component("calendarP",{
                           <div>
                           {{exam.report}}
                           </div></br></a>
-                          <a v-else>
+                          <a v-if="!exam.isDone && PastExam()">
                           <div>
                           Patient did not come.
                           </div></br></a>
                           <div class="modal-footer">
-                <button v-if="PastExam()" id="addF" type="button" class="btn btn-info btn-lg" v-on:click="No()">Did not come</button>
-                <button v-if="!PastExam()" id="cancelF" type="button" class="btn btn-info btn-lg" v-on:click="Yes()"">Start</button>
+                <button v-if="See()" id="addF" type="button" class="btn btn-info btn-lg" v-on:click="No()">Did not come</button>
+                <button v-if="See() || exam.report==' '" id="cancelF" type="button" class="btn btn-info btn-lg" v-on:click="Yes()"">Start</button>
               </div>
             </div>
             </div>
@@ -172,6 +172,13 @@ Vue.component("calendarP",{
     </div>		
       `,
       methods: {
+        See:function(){
+          if(this.exam.patient.name==null || this.exam.isDone || this.exam.isCanceled ){
+            return false
+          }else{
+            return true
+          }
+        },
       Previous:function(){
         this.col=dateFns.eachDay(
           this.col[0].setDate(this.col[0].getDate()-7),
@@ -294,8 +301,19 @@ Vue.component("calendarP",{
       $('#ExaminationP').modal('hide');
      this.$router.push('counselingPharmacist');
     },
-    No:function(){
+    No:async function(){
      $('#ExaminationP').modal('hide');
+     this.exam.report=" "
+     await axios.put('/counseling/notCome', this.exam,{
+       headers: {
+         'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+       }
+     })
+     .then(function (response) {
+     })
+     .catch(function (error) {
+     });  
+     await this.$router.push('calendarP');
     },
    PastExam:function () {
     var d = new Date();
@@ -477,8 +495,8 @@ Vue.component("calendarP",{
     </div>			
 	`,
 	methods: {
-        Finish:function(){    
-            axios.put('/counseling/finish', this.examination,{
+        Finish:async function(){    
+            await axios.put('/counseling/finish', this.examination,{
               headers: {
                 'Authorization': 'Bearer' + " " + localStorage.getItem('token')
               }
@@ -487,6 +505,7 @@ Vue.component("calendarP",{
 				})
 				.catch(function (error) {
 				});    
+        await this.$router.push('calendarP');
         },
         Prescription:function(){
             

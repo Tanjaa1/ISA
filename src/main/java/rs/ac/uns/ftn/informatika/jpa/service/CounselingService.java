@@ -8,6 +8,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.validation.Valid;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -239,5 +241,13 @@ public class CounselingService implements ICounselingService {
             if (counceling.getStartTime().compareTo(LocalDateTime.now()) > 0)
                 councelingDtos.add(new CouncelingDTO(counceling));
         return councelingDtos;
+	}
+
+	@Transactional(readOnly=false, propagation = Propagation.REQUIRES_NEW)
+    public Counseling notCome(Counseling examination) {
+		Counseling e=counselingRepository.getOne(examination.getId());
+        e.setReport(examination.getReport());
+        e.setIsDone(false);
+        return counselingRepository.save(e);
 	}
 }

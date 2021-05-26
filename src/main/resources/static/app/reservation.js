@@ -3,12 +3,16 @@ Vue.component("reservation", {
 		return {
 			reservation:null,
 			get:false,
-			pharmacy
+			pharmacy:null
 		}
 	},
 	beforeMount() {
 		axios
-			.get('/pharmacist/getPharmacistById/' + localStorage.getItem('userId')) 
+			.get('/pharmacist/getPharmacistById/' + localStorage.getItem('userId'),{
+				headers: {
+				  'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+				}
+			  }) 
 			.then(response => {
 				this.pharmacy = response.data.pharmacy.id
 			})

@@ -171,7 +171,7 @@ Vue.component("calendarD",{
                       </div></br></a>
                       <div class="modal-footer">
             <button v-if="See()" id="addF" type="button" class="btn btn-info btn-lg" v-on:click="No()">Did not come</button>
-            <button v-if="See()" id="cancelF" type="button" class="btn btn-info btn-lg" v-on:click="Yes()"">Start</button>
+            <button v-if="See() && exam.report==' '" id="cancelF" type="button" class="btn btn-info btn-lg" v-on:click="Yes()"">Start</button>
           </div>
         </div>
         </div>
@@ -313,6 +313,7 @@ Vue.component("calendarD",{
    No:async function(){
     $('#ExaminationP').modal('hide');
     this.exam.isDone=false
+    this.exam.report=" "
     await axios.put('/examination/notCome', this.exam,{
       headers: {
         'Authorization': 'Bearer' + " " + localStorage.getItem('token')
