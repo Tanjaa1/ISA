@@ -26,7 +26,6 @@ Vue.component("pharmacistVacationRequest", {
 		Request: function(){
             this.vacation.dateStart=document.getElementById("dateS").value
             this.vacation.dateEnd=document.getElementById("dateE").value
-			alert('dada')
 			axios
 				.post("/vacation/addPharmacistVacation/"+localStorage.getItem('userId'),this.vacation,{
 					headers: {
@@ -48,16 +47,38 @@ Vue.component("dermatologistVacationRequest", {
 			user:null,
             vacation:{
                 DateStart:null,
-                DateEnd:null               
-            }
+                DateEnd:null,				               
+            },
+			phycian:{
+			  vacationSchedule:[],
+			  workingSchedule:[],
+			  pharmacies:[]
+			},
+			pharmacy:[]
 		}
 	},
 	beforeMount() {
+		axios
+			.get('/dermatologist/getDermatologistById/' + localStorage.getItem('userId'),{
+				headers: {
+					'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+				}
+			}) 
+			.then(response => {
+				this.phycian = response.data
+				this.pharmacy=this.phycian.pharmacies[0]
+			})
+			.catch(error => {
+			})
 	},
 	template: `
 	<div class="BackendImagePhysician">				
     <div class="container reservation"></br></br>
     Request for vacation</br></br>
+	Choose pharmacy by&nbsp&nbsp</br>
+	<select class="col" id="sort"style="width:200px;" v-model="pharmacy">
+		<option v-for="p in this.phycian.pharmacies" v-bind:value="p">{{p.name}}</option>
+	</select>	</br>
             Choose start date:</br>
             <input style="height:25px" id="dateS" type="date"></input></br></br>
             Choose end date:</br>
@@ -70,7 +91,7 @@ Vue.component("dermatologistVacationRequest", {
 		Request: function(){
             this.vacation.dateStart=document.getElementById("dateS").value
             this.vacation.dateEnd=document.getElementById("dateE").value
-			alert(localStorage.getItem('userId'))
+			alert(this.pharmacy)
 			axios
 				.post("/vacation/addDermatologistVacation/"+localStorage.getItem('userId'),this.vacation,{
 					headers: {

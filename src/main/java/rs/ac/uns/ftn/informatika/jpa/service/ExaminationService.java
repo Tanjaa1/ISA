@@ -86,6 +86,7 @@ public class ExaminationService implements IExaminationService {
         return patientExaminations;
     }
 
+	@Transactional(readOnly=false, propagation = Propagation.REQUIRES_NEW)
     public Examination finish(Examination examination) throws Exception {
         Examination e=examinationRepository.getOne(examination.getId());
         e.setReport(examination.getReport());
@@ -129,19 +130,20 @@ public class ExaminationService implements IExaminationService {
         Examination e=examinationRepository.getOne(examination.getId());
         e.setPatient(patientRepository.getOne(examination.getPatient().getId()));
         e.setIsCanceled(false);
-        LoyaltyProgramme lpDTO=loyaltyProgrammeService.findById(Long.valueOf(1));
-        Patient patient =examination.getPatient();
-        patient.setPoints(patient.getPoints()+lpDTO.getPointsForCounceling());
         emailSender2(examination);
         examinationRepository.save(e);
         ExaminationDTO eDTO=new ExaminationDTO(examination);
         Double price=medicineService.Discount(examination.getPrice(),examination.getPatient().getId());
         e.setPriceWithDiscount(price);
         examinationRepository.save(e);
-        //patientService.update(patient);
+        Patient patient =examination.getPatient();
+        LoyaltyProgramme lpDTO=loyaltyProgrammeService.findById(Long.valueOf(1));
+        patient.setPoints(patient.getPoints()+lpDTO.getPointsForCounceling());   
+        patientService.update(patient);
         return eDTO;
 	}
 
+    
     private void emailSender2(Examination examination)
 	{
         LocalDate startDate = examination.getStartTime().toLocalDate();
