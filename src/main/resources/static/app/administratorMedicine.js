@@ -19,7 +19,7 @@ Vue.component("administratorMedicine", {
         selectedMedicine : {},
         allMedicine : [],
         newAOP : {
-            id: 222,
+            id: null,
             startTime : null,
             endTime : null, 
             text: "",
@@ -49,6 +49,7 @@ Vue.component("administratorMedicine", {
             })
             .then(response =>{
                 this.pharmacy = response.data
+                this.newAOP.pharmacy = response.data
                 this.displayedMedicine = this.pharmacy.pricelist
                 var pricelist = this.pharmacy.pricelist
                 axios
@@ -344,9 +345,9 @@ Vue.component("administratorMedicine", {
                         'Authorization': 'Bearer' + " " + localStorage.getItem('token')
                     }
                 })
-				.then(function (response) {
+				.then( response=>{
 					axios
-						.get('/pharmacy/getByName/' + this.administrator.pharmacy.name,{
+						.get('/pharmacy/getByName/' + this.pharmacy.name,{
                             headers: {
                                 'Authorization': 'Bearer' + " " + localStorage.getItem('token')
                             }
@@ -377,7 +378,6 @@ Vue.component("administratorMedicine", {
                         })
 				})
 				.catch(function (error) {
-					alert("error");
 				});
 				this.updateMedicine.quantity = null
 				this.updateMedicine.price = null

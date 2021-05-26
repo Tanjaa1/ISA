@@ -67,7 +67,7 @@ public class VacationIntervalController {
 	}
 
 	@PreAuthorize("hasRole('PHARMACYADMIN')")
-	@PutMapping(value = "/acceptVacationPharmacist/{pId/{rId}")
+	@PutMapping(value = "/acceptVacationPharmacist/{pId}/{rId}")
 	  public boolean acceptVacationPharmacist(@PathVariable Long pId,@PathVariable Long rId) throws Exception{
 		  return vacationIntervalService.acceptVacationPharmacist(pId,rId);
 	}

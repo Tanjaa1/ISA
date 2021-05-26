@@ -2,6 +2,7 @@
 Vue.component("orderMedicinePharmacyAdmin", {
     data: function () {
 		return {
+            administrator : {},
             selectedOrder : {},
             mpq : {
                 medicine : null,
@@ -42,6 +43,7 @@ Vue.component("orderMedicinePharmacyAdmin", {
         })  
 			.then(response => {
 				this.order.pharmacyAdmin = response.data
+                this.administrator = response.data
                 this.order.pharmacyAdmin.pharmacy = this.order.pharmacyAdmin.pharmacy.name
                 axios
                 .get('/pharmacy/getByName/'+ this.order.pharmacyAdmin.pharmacy,{
@@ -418,89 +420,116 @@ Vue.component("orderMedicinePharmacyAdmin", {
             for(var order of this.orders){
                 if(order.quantity == null || order.medicine == null){
                     alert("Order is not complete")
+                    return
                 }
                 if(this.order.dueDate == null){
                     alert("Order is not complete")
+                    return
                 }               
             }
             this.order.orders = this.orders
-            axios.post('/order/add',this.order,{
+            axios
+            .post('/order/add',this.order,{
                 headers: {
                     'Authorization': 'Bearer' + " " + localStorage.getItem('token')
                 }
-            }) 
-                .then(response => {
-
-                })   
-             
-            axios.get('/pharmacy/getByName/'+ this.order.pharmacyAdmin.pharmacy,{
-                headers: {
-                    'Authorization': 'Bearer' + " " + localStorage.getItem('token')
-                }
-            }) 
-                .then(response => {
-                    this.pharmacy = response.data;
-                    var names = [];
-                    for(med of this.pharmacy.pricelist)
-                        names.push(med.medicine.name)
-                    for(var med of this.order.orders){
-                        var flag = true
-                        for(var medP of this.pharmacy.pricelist){
-                            if(med.medicine.name.valueOf() == medP.medicine.name.valueOf()){
-                                flag = false
-                                break
-                            }                    
-                        }
-                        if(flag){
-                            this.pharmacy.pricelist.push({
-                                id : null,
-                                price : 0,
-                                medicine : med.medicine,
-                                quantity : 0
-                            })
-                        }
+            })  
+            .then(response => {
+                axios
+                .post('api/saveUserByPharmacyAdmin',this.administrator,{
+                    headers: {
+                        'Authorization': 'Bearer' + " " + localStorage.getItem('token')
                     }
-                    axios.put('/pharmacy/update/',this.pharmacy,{
-						headers: {
-							'Authorization': 'Bearer' + " " + localStorage.getItem('token')
-						}
-					}) 
-                    .then(response => {
-                        alert("Order successfuly set")
-                        axios
-                        .get('/order/ordersByPharmacyId/' + this.pharmacy.id,{
-                            headers: {
-                                'Authorization': 'Bearer' + " " + localStorage.getItem('token')
-                            }
-                        })  
+                }) 
+                .then(response => {
+                    axios.get('/pharmacy/getByName/'+ this.order.pharmacyAdmin.pharmacy,{
+                        headers: {
+                            'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+                        }
+                    }) 
                         .then(response => {
-                            this.allOrders = response.data
-                        })
-                    })
-            })   
+                            this.pharmacy = response.data;
+                            var names = [];
+                            for(med of this.pharmacy.pricelist)
+                                names.push(med.medicine.name)
+                            for(var med of this.order.orders){
+                                var flag = true
+                                for(var medP of this.pharmacy.pricelist){
+                                    if(med.medicine.name.valueOf() == medP.medicine.name.valueOf()){
+                                        flag = false
+                                        break
+                                    }                    
+                                }
+                                if(flag){
+                                    this.pharmacy.pricelist.push({
+                                        id : null,
+                                        price : 0,
+                                        medicine : med.medicine,
+                                        quantity : 0
+                                    })
+                                }
+                            }
+                            axios.put('/pharmacy/update/',this.pharmacy,{
+                                headers: {
+                                    'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+                                }
+                            }) 
+                            .then(response => {
+                                alert("Order successfuly set")
+                                axios
+                                .post('api/saveUserByPharmacyAdmin',this.administrator,{
+                                    headers: {
+                                        'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+                                    }
+                                }) 
+                                .then(response => {
+
+                                    axios
+                                    .get('/order/ordersByPharmacyId/' + this.pharmacy.id,{
+                                        headers: {
+                                            'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+                                        }
+                                    })  
+                                    .then(response => {
+                                        this.allOrders = response.data
+                                    })
+                                })
+                            })
+                    })   
+                })
+            })
+           
             
         },
         SolveRequest : function(request){
             axios
-            .put('/order/setRequestToSolved/' + request.id,{
+            .put('/order/setRequestToSolved/' + request.id,request,{
                 headers: {
                     'Authorization': 'Bearer' + " " + localStorage.getItem('token')
                 }
             }) 
             .then(response => {
                 axios
-                .get('/order/getRequestsByPharmacyUnsolved/' + this.pharmacy.id,{
+                .post('api/saveUserByPharmacyAdmin',this.administrator,{
                     headers: {
                         'Authorization': 'Bearer' + " " + localStorage.getItem('token')
                     }
                 }) 
                 .then(response => {
-                    this.requests = response.data
-                    for(var r of this.requests){
-                        r.date = r.date.split('T')[0]
-                    } 
+                    axios
+                    .get('/order/getRequestsByPharmacyUnsolved/' + this.pharmacy.id,{
+                        headers: {
+                            'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+                        }
+                    }) 
+                    .then(response => {
+                        this.requests = response.data
+                        for(var r of this.requests){
+                            r.date = r.date.split('T')[0]
+                        } 
+                    })
                 })
-                })
+            })
         },
         IsDue(order){
             var date = order.dueDate.split('T')[0]
@@ -536,6 +565,7 @@ Vue.component("orderMedicinePharmacyAdmin", {
                 }
             }) 
             .then(response => {
+                
                 axios
                 .get('/supplierOffer/getOffersByOrder/' + this.selectedOrder.id,{
                     headers: {
@@ -576,6 +606,12 @@ Vue.component("orderMedicinePharmacyAdmin", {
                 }
             })  
             .then(response => {
+                axios
+                .post('api/saveUserByPharmacyAdmin',this.administrator,{
+                    headers: {
+                        'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+                    }
+                }) 
             })
         },
         Add :function(mpq){
@@ -603,8 +639,24 @@ Vue.component("orderMedicinePharmacyAdmin", {
                 }
             })  
             .then(response => {
-                this.mpq = null
-                $('#UpdateOrder').modal('hide');
+                axios
+                .post('api/saveUserByPharmacyAdmin',this.administrator,{
+                    headers: {
+                        'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+                    }
+                }) 
+                    .then(response => {
+                        axios
+                        .get('/order/ordersByPharmacyId/' + this.pharmacy.id,{
+                            headers: {
+                                'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+                            }
+                        })  
+                        .then(response => {
+                            this.allOrders = response.data
+                        })
+                    $('#UpdateOrder').modal('hide');
+                })
                 
             })
             .catch(error => {a

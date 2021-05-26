@@ -19,10 +19,10 @@ INSERT INTO public.users(
 
 INSERT INTO public.patient(
 id, address, city, country, description, email, email_comfirmed, first_time_login, name, password, phone_number, surname, enabled, last_password_reset_date, username, category, points)
-	VALUES (89, 'Glavna 100', 'Ruma', 'Srbija', 'neki opis', 'marijavucetic66@gmail.com', false, false, 'Sara', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', '0648816428', 'Saric',true,'2008-11-11 13:23:44','sara', 0, 0);
+	VALUES (89, 'Glavna 100', 'Ruma', 'Srbija', 'neki opis', 'marijavucetic66@gmail.com', true, false, 'Sara', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', '0648816428', 'Saric',true,'2008-11-11 13:23:44','sara', 0, 0);
 INSERT INTO public.users(
 	id, address, city, country, description, email, email_comfirmed, first_time_login, name, password, phone_number, surname, enabled, last_password_reset_date, username)
-	VALUES (89, 'Glavna 100', 'Ruma', 'Srbija', '', 'marijavucetic66@gmail.com', false, false, 'Sara', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra','0648816428','Saric',true, '2008-11-11 13:23:44', 'sara');
+	VALUES (89, 'Glavna 100', 'Ruma', 'Srbija', '', 'marijavucetic66@gmail.com', true, false, 'Sara', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra','0648816428','Saric',true, '2008-11-11 13:23:44', 'sara');
 	
 INSERT INTO public.patient(
 	id, address, city, country, description, email, email_comfirmed, first_time_login, name, password, phone_number, surname, enabled, last_password_reset_date, username, category, points)
@@ -100,10 +100,10 @@ INSERT INTO public.pharmacy_admin(
 
 INSERT INTO public.pharmacy_admin(
 id, address, city, country, description, email, email_comfirmed, first_time_login, name, password, phone_number, surname, enabled, last_password_reset_date, username, pharmacy)
-	VALUES (888, 'Jovana Ducica 65', 'Novi Sad', 'Srbija', 'neki opis', 'marijavucetic@uns.ac.rs', false, true, 'Marija', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', '06581111123', 'Vucetic',true,'2008-11-11 13:23:44','maja', 'Feniks');
+	VALUES (888, 'Jovana Ducica 65', 'Novi Sad', 'Srbija', 'neki opis', 'marijavucetic@uns.ac.rs', true, true, 'Marija', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', '06581111123', 'Vucetic',true,'2008-11-11 13:23:44','maja', 'Feniks');
 INSERT INTO public.users(
 	id, address, city, country, description, email, email_comfirmed, first_time_login, name, password, phone_number, surname, enabled, last_password_reset_date, username)
-	VALUES (888, 'Jovana Ducica 65', 'Novi Sad', 'Srbija', 'neki opis', 'marijavucetic@uns.ac.rs', false, true, 'Marija', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', '06581111123', 'Vucetic',true,'2008-11-11 13:23:44','maja');
+	VALUES (888, 'Jovana Ducica 65', 'Novi Sad', 'Srbija', 'neki opis', 'marijavucetic@uns.ac.rs', true, true, 'Marija', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', '06581111123', 'Vucetic',true,'2008-11-11 13:23:44','maja');
 
 INSERT INTO public.pharmacy_admin(
 id, address, city, country, description, email, email_comfirmed, first_time_login, name, password, phone_number, surname, enabled, last_password_reset_date, username, pharmacy)
@@ -1187,3 +1187,28 @@ INSERT INTO public.pharmacist_vacation_schedule(
 INSERT INTO public.pharmacist_vacation_schedule(
 	pharmacist_id, vacation_interval_id)
 	VALUES (444, 919);
+
+INSERT INTO public.working_time(
+	id, time_end, time_start,pharmacy_id)
+	VALUES (187, '2021-08-08 20:00:00-07','2021-05-09 11:00:00-07','111');
+
+
+INSERT INTO public.dermatologist_working_schedule(
+	dermatologist_id, working_time_id)
+	VALUES (66, 187);
+
+INSERT INTO public.medicine_request(
+	id, date,solved,medicine_id,pharmacy_id)
+	VALUES (123,'2021-08-08 20:00:00-07', false,222,111);
+INSERT INTO public.medicine_request(
+	id, date,solved,medicine_id,pharmacy_id)
+	VALUES (124,'2021-08-08 20:00:00-07', false,223,111);
+INSERT INTO public.medicine_request(
+	id, date,solved,medicine_id,pharmacy_id)
+	VALUES (125,'2021-08-08 20:00:00-07', false,224,111);
+INSERT INTO public.medicine_request(
+	id, date,solved,medicine_id,pharmacy_id)
+	VALUES (126,'2021-08-08 20:00:00-07', false,222,111);
+INSERT INTO public.medicine_request(
+	id, date,solved,medicine_id,pharmacy_id)
+	VALUES (127,'2021-08-08 20:00:00-07', false,223,111);
