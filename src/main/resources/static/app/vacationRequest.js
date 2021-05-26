@@ -58,7 +58,7 @@ Vue.component("dermatologistVacationRequest", {
 		return {
 			user:null,
             vacation:{
-                DateStart:null,
+                DateStart:null,		               
                 DateEnd:null,
 				pharmacyId:null 
             },
@@ -103,6 +103,7 @@ Vue.component("dermatologistVacationRequest", {
 	methods: {
 		Request: function(){
             this.vacation.dateStart=document.getElementById("dateS").value
+
             this.vacation.dateEnd=document.getElementById("dateE").value		
 			this.vacation.pharmacyId=this.pharmacy.id
 			axios

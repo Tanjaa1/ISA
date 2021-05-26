@@ -26,6 +26,7 @@ import rs.ac.uns.ftn.informatika.jpa.dto.ExaminationDTO;
 import rs.ac.uns.ftn.informatika.jpa.dto.PharmacyDTO;
 import rs.ac.uns.ftn.informatika.jpa.model.Examination;
 import rs.ac.uns.ftn.informatika.jpa.service.ExaminationService;
+import rs.ac.uns.ftn.informatika.jpa.service.PatientService;
 
 @RestController
 @RequestMapping(value = "/examination")
@@ -34,6 +35,8 @@ public class ExaminationController {
     
     @Autowired
 	private ExaminationService examinationService;
+    @Autowired
+	private PatientService patientService;
 	
 	@GetMapping(value = "/getPastExaminationByPatientId/{id}")
 	public ResponseEntity<List<ExaminationDTO>> getPastExaminationByPatientId(@PathVariable Long id) 

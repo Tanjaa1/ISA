@@ -11,6 +11,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import rs.ac.uns.ftn.informatika.jpa.dto.PharmacyDTO;
 import rs.ac.uns.ftn.informatika.jpa.dto.ReservationDTO;
@@ -27,6 +29,7 @@ import rs.ac.uns.ftn.informatika.jpa.service.Interface.IReservationService;
 import rs.ac.uns.ftn.informatika.jpa.util.DateCompare;
 
 @Service
+@Transactional(readOnly = true)
 public class ResrvationService implements IReservationService{
     
 	@Autowired
@@ -72,6 +75,7 @@ public class ResrvationService implements IReservationService{
 		return reservationRepository.save(reservation);
 	}
     
+	@Transactional(readOnly=false, propagation = Propagation.REQUIRES_NEW)
 	public Reservation updateReservation(Long id) throws Exception 
 	{
         Reservation reservation=reservationRepository.getOne(id);
