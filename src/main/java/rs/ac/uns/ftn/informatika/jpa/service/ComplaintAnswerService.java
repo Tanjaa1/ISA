@@ -40,7 +40,7 @@ public class ComplaintAnswerService implements IComplaintAnswerService {
 
     @Override
     public ComplaintAnswer findOne(Long id) {
-        return complaintAnswerRepository.getOne(id);
+        return complaintAnswerRepository.findById(id).get();
    }
 
     @Override

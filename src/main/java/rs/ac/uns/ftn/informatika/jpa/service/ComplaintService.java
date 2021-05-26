@@ -35,7 +35,7 @@ public class ComplaintService implements IComplaintService {
 
     @Override
     public Complaint findOne(Long id) {
-        return complaintRepository.getOne(id);
+        return complaintRepository.findById(id).get();
    }
 
     @Override
@@ -94,7 +94,7 @@ public class ComplaintService implements IComplaintService {
     }
 
 	public ComplaintDTO getById(Long id) {
-        ComplaintDTO complaintDTO=new ComplaintDTO(complaintRepository.getOne(id));
+        ComplaintDTO complaintDTO=new ComplaintDTO(complaintRepository.findById(id).get());
         return complaintDTO;
     }
 

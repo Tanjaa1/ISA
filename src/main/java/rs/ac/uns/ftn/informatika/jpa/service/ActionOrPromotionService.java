@@ -48,7 +48,7 @@ public class ActionOrPromotionService implements IActionOrPromotionService {
     @Override
     public ActionOrPromotionsDTO save(ActionOrPromotion actionOrPromotion) {
         ActionOrPromotion newActionPromotion = new ActionOrPromotion();  
-        newActionPromotion.setPharmacy(pharmacyService.getOne(actionOrPromotion.getPharmacy().getId()));
+        newActionPromotion.setPharmacy(pharmacyService.findById(actionOrPromotion.getPharmacy().getId()).get());
         newActionPromotion.setText(actionOrPromotion.getText());
         newActionPromotion.setMedicine(medicineService.getMedicinebyName(actionOrPromotion.getMedicine().getName()));
         newActionPromotion.setEndTime(actionOrPromotion.getEndTime());
@@ -60,7 +60,7 @@ public class ActionOrPromotionService implements IActionOrPromotionService {
     private void emailSender(ActionOrPromotion actionOrPromotion)
 	{
 		try {
-            Pharmacy p = pharmacyService.getOne(actionOrPromotion.getPharmacy().getId());
+            Pharmacy p = pharmacyService.findById(actionOrPromotion.getPharmacy().getId()).get();
             Set<Patient> patients= p.getSubscribedUsers();
 			String subject="New action in "+ p.getName();
 			String text= actionOrPromotion.getText();

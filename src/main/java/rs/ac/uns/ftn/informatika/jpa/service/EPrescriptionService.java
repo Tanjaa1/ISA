@@ -49,9 +49,9 @@ public class EPrescriptionService implements IEPrescriptionService {
         ePrescription.setMedicine(ePrescriptionDTO.getMedicine());
         ePrescription.setTherapyDuration(ePrescriptionDTO.getTherapyDuration());
         ePrescription.setIssuingDate(new Date());
-        ePrescription.setMedicine(medicinePriceAndQUantityRepository.getOne(ePrescription.getMedicine().getId()));
+        ePrescription.setMedicine(medicinePriceAndQUantityRepository.findById(ePrescription.getMedicine().getId()).get());
         EPrescription ep= ePrescriotionRepository.save(ePrescription);
-        Patient patient= patientRepository.getOne(id);
+        Patient patient= patientRepository.findById(id).get();
         try{
              patient.getEPrescriptions().add(ep);
              patientRepository.save(patient);

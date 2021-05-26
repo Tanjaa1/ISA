@@ -45,7 +45,7 @@ public class OrderService implements IOrderService {
 	}
 
     public OrderDTO getById(Long id) {
-        Order order=orderRepository.getOne(id);
+        Order order=orderRepository.findById(id).get();
        return new OrderDTO(order);
     }
 

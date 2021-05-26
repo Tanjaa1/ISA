@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import rs.ac.uns.ftn.informatika.jpa.dto.MedicineQuantityDTO;
 import rs.ac.uns.ftn.informatika.jpa.dto.OrderDTO;
 import rs.ac.uns.ftn.informatika.jpa.dto.SupplierOfferDTO;
+import rs.ac.uns.ftn.informatika.jpa.model.SupplierOffer;
 import rs.ac.uns.ftn.informatika.jpa.service.SupplierOfferService;
 
 @RestController
@@ -51,6 +52,12 @@ public class SupplierOfferController {
 	public Boolean giveOfferToOrder(@PathVariable  double price,@PathVariable  String dueDate, @PathVariable Long orderId,@PathVariable Long supplierId) throws Exception {
 		Boolean offerS =supplierOfferService.giveOfferToOrder(price,dueDate,orderId,supplierId);
 		return offerS;
+	}
+	@PreAuthorize("hasRole('SUPPLIER')")
+	@GetMapping(value = "/updateOffer/{offerId}/{price}/{dueDate}")
+	public SupplierOffer updateOffer(@PathVariable Long offerId,@PathVariable  double price,@PathVariable  String dueDate) throws Exception {
+		SupplierOffer offerS =supplierOfferService.updateOffer(offerId,price,dueDate);
+		return offerS;
 
 	}
 	@PreAuthorize("hasRole('SUPPLIER')")
@@ -66,6 +73,14 @@ public class SupplierOfferController {
 	public List<SupplierOfferDTO> getOffersByOrder(@PathVariable Long orderId) throws Exception {
 
 		return supplierOfferService.getByOrder(orderId);
+
+	}
+
+	@PreAuthorize("hasRole('SUPPLIER')")
+	@GetMapping(value = "/getOffersById/{offerId}")
+	public SupplierOfferDTO getOffersById(@PathVariable Long offerId) throws Exception {
+
+		return supplierOfferService.getOffersById(offerId);
 
 	}
 	@PreAuthorize("hasRole('PHARMACYADMIN')")
