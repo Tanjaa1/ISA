@@ -13,4 +13,5 @@ public interface IActionOrPromotionService {
     public ActionOrPromotionsDTO findById(Long Id);
     public List<ActionOrPromotionsDTO> getAllUnsubscribed(Long id);
     List<ActionOrPromotionsDTO> getCurrentActionsAndPromotions(Long pId);
+    public List<ActionOrPromotionsDTO> getAllByPatient(Long patientId);
 }

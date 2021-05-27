@@ -8,6 +8,7 @@ import java.util.List;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Component;
@@ -40,6 +41,12 @@ public class ActionOrPromotionController {
 	@GetMapping(value = "/getAll")
 	public List<ActionOrPromotionsDTO> getAllComplaintsAnswered() {
 		List<ActionOrPromotionsDTO> codes =actionOrPromotionService.getAll();
+		return codes;
+	}
+	@PreAuthorize("hasRole('PATIENT')")
+	@GetMapping(value = "/getAllByPatient/{patientId}")
+	public List<ActionOrPromotionsDTO> getAllByPatient(@PathVariable Long patientId) {
+		List<ActionOrPromotionsDTO> codes =actionOrPromotionService.getAllByPatient(patientId);
 		return codes;
 	}
 

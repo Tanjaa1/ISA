@@ -369,7 +369,7 @@ INSERT INTO public.action_or_promotion(
 	VALUES (222,'2008-11-11 13:23:44','2008-11-11 13:23:44' ,'akcija 50%', 222,  111);
 INSERT INTO public.action_or_promotion(
 	id, end_time, start_time, text, medicine_id, pharmacy_id)
-	VALUES (223,'2008-11-11 13:23:44','2008-11-11 13:23:44', 'akcija 30%', 223, 111);
+	VALUES (223,'2008-11-11 13:24:44','2008-11-11 13:23:44', 'akcija 30%', 223, 111);
 
 
 INSERT INTO public.medicine_price_and_quantity(
@@ -1169,11 +1169,10 @@ INSERT INTO public.loyalty_programme(
 
 INSERT INTO public.action_or_promotion(
 	id, text, medicine_id, pharmacy_id,start_time,end_time)
-	VALUES (331, 'akcija 350%', 222,  111,'2019-08-13 17:00:00-07', '2024-08-13 17:25:25-07');
+	VALUES (331, 'akcija 350%', 222,  111,'2019-08-13 17:00:00-07', '2020-08-13 17:25:25-07');
 INSERT INTO public.action_or_promotion(
 	id, text, medicine_id, pharmacy_id,start_time,end_time)
 	VALUES (443, 'akcija 530%', 223, 111,'2019-08-13 17:00:00-07', '2024-08-13 17:25:25-07');
-	VALUES (334,223, '2021-05-13 16:00:00-07',111,false);
 
 
 INSERT INTO public.supplier_offer(

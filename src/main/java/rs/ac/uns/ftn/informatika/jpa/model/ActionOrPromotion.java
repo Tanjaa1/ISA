@@ -31,10 +31,10 @@ public class ActionOrPromotion {
 	@Column(name="EndTime", unique=false, nullable=true)
 	private LocalDateTime EndTime;
 
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.REMOVE}, fetch = FetchType.EAGER)
 	 private Pharmacy Pharmacy;
 	
-	@ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+	@ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.REMOVE}, fetch = FetchType.EAGER)
 	private Medicine Medicine;
 	
 	public ActionOrPromotion(){}

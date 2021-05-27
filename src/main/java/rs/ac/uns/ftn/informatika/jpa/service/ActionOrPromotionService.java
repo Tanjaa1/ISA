@@ -130,9 +130,19 @@ public class ActionOrPromotionService implements IActionOrPromotionService {
 
     }
 
-  
+    public List<ActionOrPromotionsDTO> getAllByPatient(Long patientId) {
+       List<ActionOrPromotion> list=actionOrPromotionRepository.findAll();
+       List<ActionOrPromotionsDTO> resultList=new ArrayList<>();
+       Patient patient=patientService.findById(patientId);
+       Set<ActionOrPromotion> patientActions=patient.getActionOrPromotion();
+           for (ActionOrPromotion actionOrPromotion2 : patientActions) {
+               list.remove(actionOrPromotion2);
+               }
+               for (ActionOrPromotion actionOrPromotion : list) {
+                resultList.add(new ActionOrPromotionsDTO(actionOrPromotion));
+               }
+        return resultList;
+       }
 
-   
-   
+    }
 
-}

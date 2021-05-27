@@ -142,7 +142,7 @@ public class PatientController {
 		return pharmacies == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(pharmacies);
 	}
 
-
+	@PreAuthorize("hasRole('PATIENT')")
 	@PostMapping(value = "/saveActionOrPromotion/{patientId}")
 	public ActionOrPromotionsDTO saveActionOrPromotion(@PathVariable String patientId,@RequestBody ActionOrPromotionsDTO actionOrPromotionsDTO) throws Exception{
 		ActionOrPromotionsDTO saveActionOrPromotion=patientService.saveActionOrPromotion(patientId,actionOrPromotionsDTO);

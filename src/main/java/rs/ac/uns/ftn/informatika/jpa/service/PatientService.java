@@ -79,6 +79,10 @@ public class PatientService implements IPatientService {
 		Patient patient=patientRepository.findById(id).get();
 		return new PatientDTO(patient);
 	}
+	public Patient findByIdP(Long id){
+		Patient patient=patientRepository.findById(id).get();
+		return patient;
+	}
 
 	private Patient CheckPenaltys(List<Reservation> reservations, Patient patient) {
 		if(patient.getPenalty().isEmpty()){
@@ -142,33 +146,33 @@ public class PatientService implements IPatientService {
 		Patient patient2 = patientRepository.save(patient1);
 		return patient2;
 	}
-	public Patient updatePatient(Patient patient) throws Exception {
-		PatientDTO patient11 =findByIdPatient(patient.getId());
+	public PatientDTO updatePatient(Patient patient) throws Exception {
+		Patient patient11 =findByIdP(patient.getId());
 		if (patient11 == null) {
 			throw new Exception("Trazeni entitet nije pronadjen.");
 		}
-		Patient patient1=new Patient(patient11);
 
-		patient1.setId(patient.getId());
-		patient1.setName(patient.getName());
-		patient1.setUsername(patient.getUsername());
-		patient1.setSurname(patient.getSurname());
-		patient1.setEmail(patient.getEmail());
-		patient1.setPassword(patient.getPassword());
-		patient1.setAddress(patient.getAddress());
-		patient1.setCity(patient.getCity());
-		patient1.setCountry(patient.getCountry());
-		patient1.setPhoneNumber(patient.getPhoneNumber());
-		patient1.setCategory(patient.getCategory());
-		patient1.setPoints(patient.getPoints());
-		patient1.setPenalty(patient.getPenalty());
-		patient1.setEmailComfirmed(patient.getEmailComfirmed());
-		patient1.setFirstTimeLogin(patient.getFirstTimeLogin());
-		patient1.setDescription(patient.getDescription());
-		patient1.setDrugAllargies(patient.getDrugAllargies());
-		patient1.setActionOrPromotion(patient.getActionOrPromotion());
-		Patient patient2 = patientRepository.save(patient1);
-		return patient2;
+		patient11.setId(patient.getId());
+		patient11.setName(patient.getName());
+		patient11.setUsername(patient.getUsername());
+		patient11.setSurname(patient.getSurname());
+		patient11.setEmail(patient.getEmail());
+		patient11.setPassword(patient.getPassword());
+		patient11.setAddress(patient.getAddress());
+		patient11.setCity(patient.getCity());
+		patient11.setCountry(patient.getCountry());
+		patient11.setPhoneNumber(patient.getPhoneNumber());
+		patient11.setCategory(patient.getCategory());
+		patient11.setPoints(patient.getPoints());
+		patient11.setPenalty(patient.getPenalty());
+		patient11.setEmailComfirmed(patient.getEmailComfirmed());
+		patient11.setFirstTimeLogin(patient.getFirstTimeLogin());
+		patient11.setDescription(patient.getDescription());
+		patient11.setDrugAllargies(patient.getDrugAllargies());
+		patient11.setActionOrPromotion(patient.getActionOrPromotion());
+		Patient patient1=patientRepository.save(patient11);
+
+		return new PatientDTO(patient1);
 	}
 
 	public List<PatientDTO> findPatientsByDermatologist(Long id) {

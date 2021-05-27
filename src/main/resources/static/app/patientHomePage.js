@@ -22,12 +22,20 @@ Vue.component("patientHomePage", {
 			<br></br><br></br>
 				<div>
 				  <div class="row">
-					
+				  <div class="col-sm">
+				  </div>
+				  <div class="col-sm">
+				  </div>  
+				  <div class="col-sm">
+				  </div>
+				  <div class="col-sm">
+				  </div>
+
 					<div class="col-sm">
 					</div>
 
 					<div class="col-sm">
-				
+					
 					  <h3>
 						<button id="Pharmacy" type="button" class="btn btn-info btn-lg margin form-control" data-toggle="modal" v-on:click="PharmaciesShow"></button>
 						</h3><br/> 
@@ -53,6 +61,29 @@ Vue.component("patientHomePage", {
 						</h3><br/> 
 					</div>
 					<div class="col-sm">
+					</div>
+					<div class="col-sm">
+					</div>  
+					<div class="col-sm">
+					</div>
+					<div class="col-sm">
+					</div>
+					<div class="col-sm">
+					</div>
+					</div>
+					<div class="row">
+					<div class="col-sm">
+					</div>
+					<div class="col-sm">
+					</div>  
+					<div class="col-sm">
+					</div>
+					<div class="col-sm">
+					</div>
+					<div class="col-sm">
+					</div>
+				
+					<div class="col-sm">
 					  <h3>
 						<button id="actionAndPromotion" type="button" class="btn btn-info btn-lg margin form-control" v-on:click="ActionAndPromotionShow()"></button>
 						</h3><br/> 
@@ -62,6 +93,7 @@ Vue.component("patientHomePage", {
 						<button id="qrCode" type="button" class="btn btn-info btn-lg margin form-control" v-on:click="QR()"></button>
 						</h3><br/> 
 					</div>
+					
 					<div class="col-sm">
 					  <h3>
 						<button id="sMed" type="button" class="btn btn-info btn-lg margin form-control" v-on:click="SearchMed()"></button>
@@ -72,7 +104,30 @@ Vue.component("patientHomePage", {
 						<button id="compaints" type="button" class="btn btn-info btn-lg margin form-control" v-on:click="Complaints()"></button>
 						</h3><br/> 
 					</div>
-				
+					<div class="col-sm">
+					  <h3>
+						<button id="allActions" type="button" class="btn btn-info btn-lg margin form-control" v-on:click="AllActions()"></button>
+						</h3><br/> 
+					</div>
+					<div class="row">
+					<div class="col-sm">
+
+					</div>
+					<div class="col-sm">
+					</div>  
+					<div class="col-sm">
+					</div>
+					<div class="col-sm">
+					</div>
+					<div class="col-sm">
+					</div>
+					<div class="col-sm">
+					</div>
+					<div class="col-sm">
+					</div>
+					<div class="col-sm">
+					</div>
+
 				  </div>				
 		</div>
 		<br></br><br></br>
@@ -102,6 +157,9 @@ Vue.component("patientHomePage", {
 		AccountShow: function () {
             this.$router.push('patientInfo');
         },
+		AllActions:function(){
+			this.$router.push('allActionsAndPromotions');
+		},
         PharmaciesShow: function () {
             this.$router.push('pharmaciesShow');
         },
