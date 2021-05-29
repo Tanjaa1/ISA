@@ -19,7 +19,7 @@ INSERT INTO public.users(
 
 INSERT INTO public.patient(
 id, address, city, country, description, email, email_comfirmed, first_time_login, name, password, phone_number, surname, enabled, last_password_reset_date, username, category, points)
-	VALUES (89, 'Glavna 100', 'Ruma', 'Srbija', 'neki opis', 'marijavucetic66@gmail.com', true, false, 'Sara', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', '0648816428', 'Saric',true,'2008-11-11 13:23:44','sara', 0, 0);
+	VALUES (89, 'Glavna 100', 'Ruma', 'Srbija', 'neki opis', 'marijavucetic66@gmail.com', true, false, 'Sara', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', '0648816428', 'Saric',true,'2008-11-11 13:23:44','sara', 0, 7);
 INSERT INTO public.users(
 	id, address, city, country, description, email, email_comfirmed, first_time_login, name, password, phone_number, surname, enabled, last_password_reset_date, username)
 	VALUES (89, 'Glavna 100', 'Ruma', 'Srbija', '', 'marijavucetic66@gmail.com', true, false, 'Sara', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra','0648816428','Saric',true, '2008-11-11 13:23:44', 'sara');
@@ -224,10 +224,10 @@ INSERT INTO public.examination(
 INSERT INTO public.examination(
 	id, price, report, start_time, end_time, is_done, dermatologist_id, patient_id, pharmacy_id,is_canceled)
 	VALUES (1161, 2000.0, '', '2021-06-17 16:00:25-07', '2021-06-17 16:10:25-07', false, 66, null, 111,false);
-    
+
 INSERT INTO public.examination(
 	id, price, report, start_time, end_time, is_done, dermatologist_id, patient_id, pharmacy_id, is_canceled)
-	VALUES (117, 900.0, 'Headache and nausea', '2016-07-22 14:45:25-07', '2016-07-22 14:25:25-07', true, 66, 89, 111, false);
+	VALUES (1179, 900.0, 'Headache and nausea', '2016-07-22 14:45:25-07', '2016-07-22 14:25:25-07', true, 66, 88, 111, false);
 /*
 	VALUES (111, 500.0, '', '2021-02-09 19:10:25-07', '2021-02-09 19:20:25-07', false, 61, 88, 111, false);
 INSERT INTO public.examination(

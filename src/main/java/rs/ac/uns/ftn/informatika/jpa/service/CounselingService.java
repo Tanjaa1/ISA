@@ -118,9 +118,10 @@ public class CounselingService implements ICounselingService {
 		List<CouncelingDTO> councelingDTOs=getAllCounselings();
 
 		for (CouncelingDTO councelingDTO : councelingDTOs) {
-			if(patientId==councelingDTO.getPatient().getId()){
-				pharmacistDTOs.add(councelingDTO.getPharmacist());
-			}
+            if(councelingDTO.getPatient()!=null){
+                if(patientId==councelingDTO.getPatient().getId())
+                    pharmacistDTOs.add(councelingDTO.getPharmacist());
+            }
 		}	
         if(pharmacistDTOs.isEmpty()) return null;
         else return pharmacistDTOs;
@@ -131,8 +132,9 @@ public class CounselingService implements ICounselingService {
 		List<CouncelingDTO> councelingDTOs=getAllCounselings();
 
 		for (CouncelingDTO councelingDTO : councelingDTOs) {
-			if(patientId==councelingDTO.getPatient().getId()){
-				pharmaciesDTOs.add(councelingDTO.getPharmacy());
+            if(councelingDTO.getPatient()!=null){
+                if(patientId==councelingDTO.getPatient().getId())
+                    pharmaciesDTOs.add(councelingDTO.getPharmacy());
 			}
 		}	
         return pharmaciesDTOs;

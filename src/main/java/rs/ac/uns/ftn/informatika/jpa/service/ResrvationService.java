@@ -63,6 +63,7 @@ public class ResrvationService implements IReservationService{
 	public ReservationDTO getReservationById(Long id, Long pharmacyId)
 	{
 	    Reservation reservation = reservationRepository.getReservationById(id,pharmacyId);
+		reservation.getMedicine().setPrice(medicineService.Discount(reservation.getMedicine().getPrice(), reservation.getPatient().getId()));
 		if (reservation!=null && !reservation.getIsReceived() && !dateCompare.compareDates(reservation.getExpirationDate()))
 			return new ReservationDTO(reservation);
 		else
@@ -85,11 +86,8 @@ public class ResrvationService implements IReservationService{
 		
 		Patient patient =reservation.getPatient();
 		Medicine medicine=medicineRepository.findById(reservation.getMedicine().getMedicine().getId()).get();
-		patient.setPoints(patient.getPoints()+medicine.getPoints());								//dodajemo bodove koje nosi lijek  kod pacijenta
+		patient.setPoints(patient.getPoints()+medicine.getPoints());
 		patientService.update(patient);
-		//cijena lijeka koji je rezervisan
-		//ubaciti negdje ovu cijenu
-		//medicineService.Discount(price, patient.getId());
 		changeMedicineQuantity(reservation);
 		emailSender(reservation);
 		return update(reservation);
