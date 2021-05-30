@@ -63,6 +63,7 @@ const AdministratorHomePage= { template: '<administratorHomePage></administrator
 
 
 
+
 const EmailConfirmation = { template: '<emailConfirmation></emailConfirmation>' } 
 const SuccessfulRegistration = { template: '<successfulRegistration></successfulRegistration>' } 
 const emailConfirmationSupplier = { template: '<emailConfirmationSupplier></emailConfirmationSupplier>' } 
@@ -93,6 +94,12 @@ const AdministratorAccountInfo = { template: '<administratorAccountInfo></admini
 const AdministratorExaminations = { template: '<administratorExaminations></administratorExaminations>' }
 const AdministratorEmployed = { template: '<administratorEmployed></administratorEmployed>' }
 const AdministratorMedicine = { template: '<administratorMedicine></administratorMedicine>' }
+
+const ReportAdministrator= { template: '<reportAdministrator></reportAdministrator>' } 
+const ReportMedicine= { template: '<reportMedicine></reportMedicine>' } 
+const ReportExamination= { template: '<reportExamination></reportExamination>' } 
+const ReportRevenue= { template: '<reportRevenue></reportRevenue>' } 
+
 
 const PharmacyHomePage = { template: '<pharmacyHomePage></pharmacyHomePage>' }
 const PharmacyEmployees = { template: '<pharmacyEmployees></pharmacyEmployees>' }
@@ -138,6 +145,38 @@ const router = new VueRouter({
 	    	components: {
 				pageHeader: PatientHeader,
 				content: AdministratorHomePage
+			}
+		},
+		{ 
+	    	path: '/reportAdministrator', 
+	    	name : 'reportAdministrator', 
+	    	components: {
+				pageHeader: PatientHeader,
+				content: ReportAdministrator
+			}
+		},
+		{ 
+	    	path: '/reportMedicine', 
+	    	name : 'reportMedicine', 
+	    	components: {
+				pageHeader: PatientHeader,
+				content: ReportMedicine
+			}
+		},
+		{ 
+	    	path: '/reportExamination', 
+	    	name : 'reportExamination', 
+	    	components: {
+				pageHeader: PatientHeader,
+				content: ReportExamination
+			}
+		},
+		{ 
+	    	path: '/reportRevenue', 
+	    	name : 'reportRevenue', 
+	    	components: {
+				pageHeader: PatientHeader,
+				content: ReportRevenue
 			}
 		},
 		{ 

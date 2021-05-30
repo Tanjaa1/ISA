@@ -62,6 +62,8 @@ Vue.component("administratorHomePage", {
 					  </h3><br/> 
 				  </div>
 					<div class="col-sm">
+					<button id="ReportsAdmin" type="button" class="btn btn-info btn-lg margin form-control" v-on:click="ReportsShow()"></button>
+					</h3><br/> 
 					</div>
 					<div class="col-sm">
 					</div>  
@@ -112,6 +114,9 @@ Vue.component("administratorHomePage", {
         },
 		OrdersShow : function(){
             this.$router.push('orderMedicinePharmacyAdmin');
+        },
+		ReportsShow : function(){
+            this.$router.push('reportAdministrator');
         },
 	}
 });

@@ -26,7 +26,10 @@ import rs.ac.uns.ftn.informatika.jpa.dto.MedicinePriceAndQuantityDTO;
 import rs.ac.uns.ftn.informatika.jpa.dto.PharmacyDTO;
 import rs.ac.uns.ftn.informatika.jpa.model.Medicine;
 import rs.ac.uns.ftn.informatika.jpa.model.Pharmacy;
+import rs.ac.uns.ftn.informatika.jpa.util.MapLocation;
+
 import rs.ac.uns.ftn.informatika.jpa.service.PharmacyService;
+import rs.ac.uns.ftn.informatika.jpa.util.MedicineGraphInfo;
 
 @RestController
 @RequestMapping(value = "/pharmacy")
@@ -36,6 +39,7 @@ public class PharmacyController {
     
     @Autowired
     private PharmacyService pharmacyService;
+	
     
     @GetMapping(value = "/getAll")
 	public ResponseEntity<List<PharmacyDTO>> getAllPharmacies() {
@@ -145,5 +149,6 @@ public class PharmacyController {
 		Boolean response = pharmacyService.subscribeUser(pharmacy,pID);
 	return new ResponseEntity<>(response, HttpStatus.CREATED);
 	}
+
 
 }

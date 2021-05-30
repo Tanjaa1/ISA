@@ -39,8 +39,8 @@ INSERT INTO public.patient(
 INSERT INTO public.users(
 	id, address, city, country, description, email, email_comfirmed, first_time_login, name, password, phone_number, surname, enabled, last_password_reset_date, username)
 	VALUES (69, 'Синђелићева 44', 'Нови Сад', 'Србија', 'neki opis', 'ta.drcelic@gmail.com', false, false, 'Aлекса', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', '0612334555', 'Реповић',true,'2008-11-11 13:23:44','aleksarep');
-INSERT INTO public.pharmacy(id, address, name, counseling_price) VALUES (111, 'Stanoja Stanojevica 4,Novi Sad,Srbija', 'Feniks', 1000.0);
-INSERT INTO public.pharmacy(id, address, name, counseling_price) VALUES (222, 'Maksima Gorkog 44,Novi Sad,Srbija', 'Benu', 2000.0);
+INSERT INTO public.pharmacy(id, address, name, counseling_price) VALUES (111, 'Bulevar Patrijarha Pavla 30,Novi Sad,Srbija', 'Feniks', 1000.0);
+INSERT INTO public.pharmacy(id, address, name, counseling_price) VALUES (222, 'Lasla Gala 26,Novi Sad,Srbija', 'Benu', 2000.0);
 INSERT INTO public.pharmacy(id, address, counseling_price, name)VALUES (333, 'Boracka,Pljevlja,Crna Gora', 500.00, 'Sunce');
 INSERT INTO public.pharmacy(id, address, counseling_price, name)VALUES (444, 'Sekspirova 10,Novi Sad,Srbija', 1200.00, 'Heba');   
 INSERT INTO public.pharmacy(id, address, counseling_price, name)VALUES (555, 'Puskinova 13,Novi Sad,Srbija', 1250.00, 'Jankovic');	
@@ -100,17 +100,17 @@ INSERT INTO public.pharmacy_admin(
 
 INSERT INTO public.pharmacy_admin(
 id, address, city, country, description, email, email_comfirmed, first_time_login, name, password, phone_number, surname, enabled, last_password_reset_date, username, pharmacy)
-	VALUES (888, 'Jovana Ducica 65', 'Novi Sad', 'Srbija', 'neki opis', 'marijavucetic@uns.ac.rs', true, true, 'Marija', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', '06581111123', 'Vucetic',true,'2008-11-11 13:23:44','maja', 'Feniks');
+	VALUES (888, 'Stevana Sindjelica 66', 'Novi Sad', 'Srbija', 'neki opis', 'marijavucetic@uns.ac.rs', true, true, 'Marija', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', '06581111123', 'Vucetic',true,'2008-11-11 13:23:44','maja', 'Feniks');
 INSERT INTO public.users(
 	id, address, city, country, description, email, email_comfirmed, first_time_login, name, password, phone_number, surname, enabled, last_password_reset_date, username)
-	VALUES (888, 'Jovana Ducica 65', 'Novi Sad', 'Srbija', 'neki opis', 'marijavucetic@uns.ac.rs', true, true, 'Marija', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', '06581111123', 'Vucetic',true,'2008-11-11 13:23:44','maja');
+	VALUES (888, 'Stevana Sindjelica 66', 'Novi Sad', 'Srbija', 'neki opis', 'marijavucetic@uns.ac.rs', true, true, 'Marija', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', '06581111123', 'Vucetic',true,'2008-11-11 13:23:44','maja');
 
 INSERT INTO public.pharmacy_admin(
 id, address, city, country, description, email, email_comfirmed, first_time_login, name, password, phone_number, surname, enabled, last_password_reset_date, username, pharmacy)
-	VALUES (999, 'Jovana Ducica 65', 'Novi Sad', 'Srbija', 'neki opis', 'marijavucetic@uns.ac.rs', false, true, 'Toma', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', '06581222123', 'Tomic',true,'2008-11-11 13:23:44','toma', 'Benu');
+	VALUES (999, 'Laze Kostica 43', 'Novi Sad', 'Srbija', 'neki opis', 'marijavucetic@uns.ac.rs', false, true, 'Toma', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', '06581222123', 'Tomic',true,'2008-11-11 13:23:44','toma', 'Benu');
 INSERT INTO public.users(
 	id, address, city, country, description, email, email_comfirmed, first_time_login, name, password, phone_number, surname, enabled, last_password_reset_date, username)
-	VALUES (999, 'Jovana Ducica 65', 'Novi Sad', 'Srbija', 'neki opis', 'marijavucetic@uns.ac.rs', false, true, 'Toma', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', '06581222123', 'Tomic',true,'2008-11-11 13:23:44','toma');
+	VALUES (999, 'Laze Kostica 53', 'Novi Sad', 'Srbija', 'neki opis', 'marijavucetic@uns.ac.rs', false, true, 'Toma', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', '06581222123', 'Tomic',true,'2008-11-11 13:23:44','toma');
 
 
 INSERT INTO public.pharmacy_dermatologists(dermatologist_id, pharmacy_id)VALUES (66, 111);
@@ -1293,3 +1293,197 @@ INSERT INTO public.medicine_request(
 INSERT INTO public.medicine_request(
 	id, date,solved,medicine_id,pharmacy_id)
 	VALUES (127,'2021-08-08 20:00:00-07', false,223,111);
+
+INSERT INTO public.reservation(
+	id, expiration_date, is_received, medicine_id, patient_id,pharmacy_id, is_canceled)
+	VALUES (333, '2021-03-22', true, 21, 88, 111, false);
+INSERT INTO public.reservation(
+	id, expiration_date, is_received, medicine_id, patient_id,pharmacy_id, is_canceled)
+	VALUES (334, '2021-03-22', true, 21, 88, 111, false);
+INSERT INTO public.reservation(
+	id, expiration_date, is_received, medicine_id, patient_id,pharmacy_id, is_canceled)
+	VALUES (335, '2021-06-12', true, 21, 89, 111, false);
+INSERT INTO public.reservation(
+	id, expiration_date, is_received, medicine_id, patient_id,pharmacy_id, is_canceled)
+	VALUES (336, '2021-07-22', true, 21, 88, 111, false);
+INSERT INTO public.reservation(
+	id, expiration_date, is_received, medicine_id, patient_id,pharmacy_id, is_canceled)
+	VALUES (337, '2021-08-22', true, 21, 88, 111, false);
+
+INSERT INTO public.reservation(
+	id, expiration_date, is_received, medicine_id, patient_id,pharmacy_id, is_canceled)
+	VALUES (338, '2021-03-19', true, 21, 88, 111, false);
+INSERT INTO public.reservation(
+	id, expiration_date, is_received, medicine_id, patient_id,pharmacy_id, is_canceled)
+	VALUES (339, '2021-03-30', true, 21, 88, 111, false);
+INSERT INTO public.reservation(
+	id, expiration_date, is_received, medicine_id, patient_id,pharmacy_id, is_canceled)
+	VALUES (340, '2021-03-12', true, 21, 89, 111, false);
+INSERT INTO public.reservation(
+	id, expiration_date, is_received, medicine_id, patient_id,pharmacy_id, is_canceled)
+	VALUES (341, '2021-03-31', true, 21, 88, 111, false);
+INSERT INTO public.reservation(
+	id, expiration_date, is_received, medicine_id, patient_id,pharmacy_id, is_canceled)
+	VALUES (342, '2021-03-04', true, 21, 88, 111, false);
+	INSERT INTO public.reservation(
+	id, expiration_date, is_received, medicine_id, patient_id,pharmacy_id, is_canceled)
+	VALUES (343, '2021-03-11', true, 21, 88, 111, false);
+INSERT INTO public.reservation(
+	id, expiration_date, is_received, medicine_id, patient_id,pharmacy_id, is_canceled)
+	VALUES (344, '2021-03-02', true, 21, 88, 111, false);
+INSERT INTO public.reservation(
+	id, expiration_date, is_received, medicine_id, patient_id,pharmacy_id, is_canceled)
+	VALUES (345, '2021-03-01', true, 21, 89, 111, false);
+INSERT INTO public.reservation(
+	id, expiration_date, is_received, medicine_id, patient_id,pharmacy_id, is_canceled)
+	VALUES (346, '2021-03-06', true, 21, 88, 111, false);
+INSERT INTO public.reservation(
+	id, expiration_date, is_received, medicine_id, patient_id,pharmacy_id, is_canceled)
+	VALUES (347, '2021-03-07', true, 21, 88, 111, false);
+INSERT INTO public.reservation(
+	id, expiration_date, is_received, medicine_id, patient_id,pharmacy_id, is_canceled)
+	VALUES (348, '2021-03-22', true, 21, 88, 111, false);
+INSERT INTO public.reservation(
+	id, expiration_date, is_received, medicine_id, patient_id,pharmacy_id, is_canceled)
+	VALUES (349, '2021-03-22', true, 21, 88, 111, false);
+INSERT INTO public.reservation(
+	id, expiration_date, is_received, medicine_id, patient_id,pharmacy_id, is_canceled)
+	VALUES (350, '2021-03-12', true, 21, 89, 111, false);
+INSERT INTO public.reservation(
+	id, expiration_date, is_received, medicine_id, patient_id,pharmacy_id, is_canceled)
+	VALUES (351, '2021-03-22', true, 21, 88, 111, false);
+INSERT INTO public.reservation(
+	id, expiration_date, is_received, medicine_id, patient_id,pharmacy_id, is_canceled)
+	VALUES (352, '2021-03-22', true, 21, 88, 111, false);
+	INSERT INTO public.reservation(
+	id, expiration_date, is_received, medicine_id, patient_id,pharmacy_id, is_canceled)
+	VALUES (353, '2021-03-11', true, 21, 88, 111, false);
+INSERT INTO public.reservation(
+	id, expiration_date, is_received, medicine_id, patient_id,pharmacy_id, is_canceled)
+	VALUES (354, '2021-03-02', true, 21, 88, 111, false);
+INSERT INTO public.reservation(
+	id, expiration_date, is_received, medicine_id, patient_id,pharmacy_id, is_canceled)
+	VALUES (355, '2021-03-09', true, 21, 89, 111, false);
+INSERT INTO public.reservation(
+	id, expiration_date, is_received, medicine_id, patient_id,pharmacy_id, is_canceled)
+	VALUES (356, '2021-03-17', true, 21, 88, 111, false);
+INSERT INTO public.reservation(
+	id, expiration_date, is_received, medicine_id, patient_id,pharmacy_id, is_canceled)
+	VALUES (357, '2021-03-07', true, 21, 88, 111, false);
+INSERT INTO public.reservation(
+	id, expiration_date, is_received, medicine_id, patient_id,pharmacy_id, is_canceled)
+	VALUES (358, '2021-03-22', true, 21, 88, 111, false);
+INSERT INTO public.reservation(
+	id, expiration_date, is_received, medicine_id, patient_id,pharmacy_id, is_canceled)
+	VALUES (359, '2021-03-31', true, 21, 88, 111, false);
+INSERT INTO public.reservation(
+	id, expiration_date, is_received, medicine_id, patient_id,pharmacy_id, is_canceled)
+	VALUES (360, '2021-03-12', true, 21, 89, 111, false);
+INSERT INTO public.reservation(
+	id, expiration_date, is_received, medicine_id, patient_id,pharmacy_id, is_canceled)
+	VALUES (361, '2020-03-31', true, 21, 88, 111, false);
+INSERT INTO public.reservation(
+	id, expiration_date, is_received, medicine_id, patient_id,pharmacy_id, is_canceled)
+	VALUES (362, '2021-03-22', true, 21, 88, 111, false);
+	INSERT INTO public.reservation(
+	id, expiration_date, is_received, medicine_id, patient_id,pharmacy_id, is_canceled)
+	VALUES (363, '2021-03-11', true, 21, 88, 111, false);
+INSERT INTO public.reservation(
+	id, expiration_date, is_received, medicine_id, patient_id,pharmacy_id, is_canceled)
+	VALUES (364, '2021-03-02', true, 21, 88, 111, false);
+INSERT INTO public.reservation(
+	id, expiration_date, is_received, medicine_id, patient_id,pharmacy_id, is_canceled)
+	VALUES (365, '2021-03-01', true, 21, 89, 111, false);
+INSERT INTO public.reservation(
+	id, expiration_date, is_received, medicine_id, patient_id,pharmacy_id, is_canceled)
+	VALUES (366, '2021-03-23', true, 21, 88, 111, false);
+INSERT INTO public.reservation(
+	id, expiration_date, is_received, medicine_id, patient_id,pharmacy_id, is_canceled)
+	VALUES (367, '2021-03-23', true, 21, 88, 111, false);
+INSERT INTO public.reservation(
+	id, expiration_date, is_received, medicine_id, patient_id,pharmacy_id, is_canceled)
+	VALUES (368, '2021-03-22', true, 21, 88, 111, false);
+INSERT INTO public.reservation(
+	id, expiration_date, is_received, medicine_id, patient_id,pharmacy_id, is_canceled)
+	VALUES (369, '2021-03-22', true, 21, 88, 111, false);
+INSERT INTO public.reservation(
+	id, expiration_date, is_received, medicine_id, patient_id,pharmacy_id, is_canceled)
+	VALUES (370, '2021-03-12', true, 21, 89, 111, false);
+INSERT INTO public.reservation(
+	id, expiration_date, is_received, medicine_id, patient_id,pharmacy_id, is_canceled)
+	VALUES (371, '2021-03-22', true, 21, 88, 111, false);
+INSERT INTO public.reservation(
+	id, expiration_date, is_received, medicine_id, patient_id,pharmacy_id, is_canceled)
+	VALUES (372, '2021-03-23', true, 21, 88, 111, false);
+INSERT INTO public.reservation(
+	id, expiration_date, is_received, medicine_id, patient_id,pharmacy_id, is_canceled)
+	VALUES (373, '2021-03-11', true, 21, 88, 111, false);
+INSERT INTO public.reservation(
+	id, expiration_date, is_received, medicine_id, patient_id,pharmacy_id, is_canceled)
+	VALUES (374, '2021-03-02', true, 21, 88, 111, false);
+INSERT INTO public.reservation(
+	id, expiration_date, is_received, medicine_id, patient_id,pharmacy_id, is_canceled)
+	VALUES (375, '2021-03-09', true, 21, 89, 111, false);
+INSERT INTO public.reservation(
+	id, expiration_date, is_received, medicine_id, patient_id,pharmacy_id, is_canceled)
+	VALUES (376, '2021-03-17', true, 21, 88, 111, false);
+INSERT INTO public.reservation(
+	id, expiration_date, is_received, medicine_id, patient_id,pharmacy_id, is_canceled)
+	VALUES (377, '2021-03-07', true, 21, 88, 111, false);
+
+INSERT INTO public.examination(
+	id, price, report, start_time, end_time, is_done, dermatologist_id, patient_id, pharmacy_id, is_canceled)
+	VALUES (555, 500.0, 'Headache and nausea', '2021-03-06 19:10:25-07', '2021-03-06 19:20:25-07', true, 66, 88, 111, false);
+INSERT INTO public.examination(
+	id, price, report, start_time, end_time, is_done, dermatologist_id, patient_id, pharmacy_id, is_canceled)
+	VALUES (556, 1000.0, '', '2021-03-10 16:30:25-07', '2021-03-09 16:40:25-07', true, 66, 88, 111, false);
+INSERT INTO public.examination(
+	id, price, report, start_time, end_time, is_done, dermatologist_id, patient_id, pharmacy_id, is_canceled)
+	VALUES (557, 800.0, '', '2021-03-11 15:10:25-07', '2021-03-11 15:20:25-07', true, 66, 89, 111, false);
+INSERT INTO public.examination(
+	id, price, report, start_time, end_time, is_done, dermatologist_id, patient_id, pharmacy_id, is_canceled)
+	VALUES (558, 900.0, '', '2021-03-11 14:10:25-07', '2021-03-11 14:20:25-07', true, 66, 88, 111, false);
+INSERT INTO public.examination(
+	id, price, report, start_time, end_time, is_done, dermatologist_id, patient_id, pharmacy_id, is_canceled)
+	VALUES (559, 2000.0, '', '2021-03-11 15:10:25-07', '2021-03-11 15:20:25-07', true, 66, null, 111, false);
+INSERT INTO public.examination(
+	id, price, report, start_time, end_time, is_done, dermatologist_id, patient_id, pharmacy_id,is_canceled)
+	VALUES (560, 3000.0, '', '2021-03-17 18:00:25-07', '2021-03-17 18:10:25-07', true, 66, null, 111,false);
+INSERT INTO public.examination(
+	id, price, report, start_time, end_time, is_done, dermatologist_id, patient_id, pharmacy_id,is_canceled)
+	VALUES (561, 2000.0, '', '2021-03-17 16:00:25-07', '2021-03-17 16:10:25-07', true, 66, null, 111,false);
+
+INSERT INTO public.examination(
+	id, price, report, start_time, end_time, is_done, dermatologist_id, patient_id, pharmacy_id, is_canceled)
+	VALUES (562, 500.0, 'Headache and nausea', '2021-09-06 19:10:25-07', '2021-09-06 19:20:25-07', true, 66, 88, 111, false);
+INSERT INTO public.examination(
+	id, price, report, start_time, end_time, is_done, dermatologist_id, patient_id, pharmacy_id, is_canceled)
+	VALUES (563, 1000.0, '', '2021-08-10 16:30:25-07', '2021-08-09 16:40:25-07', true, 66, 88, 111, false);
+INSERT INTO public.examination(
+	id, price, report, start_time, end_time, is_done, dermatologist_id, patient_id, pharmacy_id, is_canceled)
+	VALUES (564, 800.0, '', '2021-05-11 15:10:25-07', '2021-08-11 15:20:25-07', true, 66, 89, 111, false);
+INSERT INTO public.examination(
+	id, price, report, start_time, end_time, is_done, dermatologist_id, patient_id, pharmacy_id, is_canceled)
+	VALUES (565, 900.0, '', '2021-02-11 14:10:25-07', '2021-02-11 14:20:25-07', true, 66, 88, 111, false);
+INSERT INTO public.examination(
+	id, price, report, start_time, end_time, is_done, dermatologist_id, patient_id, pharmacy_id, is_canceled)
+	VALUES (566, 2000.0, '', '2021-05-11 15:10:25-07', '2021-05-11 15:20:25-07', true, 66, null, 111, false);
+INSERT INTO public.examination(
+	id, price, report, start_time, end_time, is_done, dermatologist_id, patient_id, pharmacy_id,is_canceled)
+	VALUES (567, 3000.0, '', '2021-04-17 18:00:25-07', '2021-04-17 18:10:25-07', true, 66, null, 111,false);
+INSERT INTO public.examination(
+	id, price, report, start_time, end_time, is_done, dermatologist_id, patient_id, pharmacy_id,is_canceled)
+	VALUES (568, 2000.0, '', '2021-05-17 16:00:25-07', '2021-05-17 16:10:25-07', true, 66, null, 111,false);
+INSERT INTO public.examination(
+	id, price, report, start_time, end_time, is_done, dermatologist_id, patient_id, pharmacy_id,is_canceled)
+	VALUES (577, 1000.0, '', '2021-03-22 16:00:25-07', '2021-03-22 16:10:25-07', true, 66, null, 111,false);
+INSERT INTO public.reservation(
+	id, expiration_date, is_received, medicine_id, patient_id,pharmacy_id, is_canceled)
+	VALUES (577, '2021-03-22', true, 21, 88, 111, false);
+
+INSERT INTO public.map_location(
+	id,x,y,pharmacy_id)
+	VALUES (55,19.801890,45.241850,111);
+INSERT INTO public.map_location(
+	id,x,y,pharmacy_id)
+	VALUES (56,19.837560,45.246180,222);
