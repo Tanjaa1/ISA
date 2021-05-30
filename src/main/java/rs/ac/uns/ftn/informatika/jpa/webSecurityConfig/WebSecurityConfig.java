@@ -73,6 +73,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.authorizeRequests().antMatchers("/auth/**").permitAll().antMatchers("/api/**").permitAll().antMatchers("/patient/getPatientByCredentials").permitAll()
 				.antMatchers("/patient/savePatient/**").permitAll().antMatchers("/patient/isUsernameValid/**").permitAll()
 				.antMatchers("/pharmacy/getAll").permitAll().antMatchers("/medicine/combinedSearch/**").permitAll()
+				.antMatchers("/medicine/medicineConsumptionMonthly/**/**/**/**").permitAll()
+
 				// za svaki drugi zahtev korisnik mora biti autentifikovan
 				.anyRequest().authenticated().and()
 				// za development svrhe ukljuci konfiguraciju za CORS iz WebConfig klase

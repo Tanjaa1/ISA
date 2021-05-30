@@ -27,6 +27,7 @@ import rs.ac.uns.ftn.informatika.jpa.dto.PharmacyDTO;
 import rs.ac.uns.ftn.informatika.jpa.model.Examination;
 import rs.ac.uns.ftn.informatika.jpa.service.ExaminationService;
 import rs.ac.uns.ftn.informatika.jpa.service.PatientService;
+import rs.ac.uns.ftn.informatika.jpa.util.MedicineGraphInfo;
 
 @RestController
 @RequestMapping(value = "/examination")
@@ -179,6 +180,33 @@ public class ExaminationController {
 		return examinationDTOs == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(examinationDTOs);
 	}
 
+	@PreAuthorize("hasRole('PHARMACYADMIN')")
+	@GetMapping(value = "/ExaminationsDaily/{pharmacyID}/{month}/{year}")
+	public ResponseEntity<List<MedicineGraphInfo>> examinationDaily(@PathVariable Long pharmacyID,@PathVariable int month,@PathVariable int year) throws Exception {
+	List<MedicineGraphInfo> retVal = examinationService.examiantionsDaily(pharmacyID,month,year);
+		return retVal == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(retVal);
+	}
+
+	@PreAuthorize("hasRole('PHARMACYADMIN')")
+	@GetMapping(value = "/ExaminationsMonthly/{pharmacyID}/{year}")
+	public ResponseEntity<List<MedicineGraphInfo>> examinationMonthly(@PathVariable Long pharmacyID,@PathVariable int year) throws Exception {
+	List<MedicineGraphInfo> retVal = examinationService.examinationMonthly(pharmacyID,year);
+		return retVal == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(retVal);
+	}
+
+	@PreAuthorize("hasRole('PHARMACYADMIN')")
+	@GetMapping(value = "/ExaminationsYearly/{pharmacyID}/{year}")
+	public ResponseEntity<List<MedicineGraphInfo>> examinationYearly(@PathVariable Long pharmacyID,@PathVariable int year) throws Exception {
+	List<MedicineGraphInfo> retVal = examinationService.examinationYearly(pharmacyID,year);
+		return retVal == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(retVal);
+	}
+
+	@PreAuthorize("hasRole('PHARMACYADMIN')")
+	@GetMapping(value = "/ExaminationsQuartaly/{pharmacyID}/{year}")
+	public ResponseEntity<List<MedicineGraphInfo>> examinationsQuartaly(@PathVariable Long pharmacyID,@PathVariable int year) throws Exception {
+	List<MedicineGraphInfo> retVal = examinationService.examinationQuartal(pharmacyID,year);
+		return retVal == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(retVal);
+	}
 
 
 }

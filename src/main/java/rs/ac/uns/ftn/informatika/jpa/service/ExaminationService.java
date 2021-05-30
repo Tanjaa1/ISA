@@ -12,6 +12,7 @@ import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,6 +23,7 @@ import rs.ac.uns.ftn.informatika.jpa.model.Dermatologist;
 import rs.ac.uns.ftn.informatika.jpa.dto.PharmacyDTO;
 import rs.ac.uns.ftn.informatika.jpa.model.Examination;
 import rs.ac.uns.ftn.informatika.jpa.model.LoyaltyProgramme;
+import rs.ac.uns.ftn.informatika.jpa.model.MedicinePriceAndQuantity;
 import rs.ac.uns.ftn.informatika.jpa.model.Patient;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.ICounselingRpository;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IDermatologistRepository;
@@ -29,6 +31,7 @@ import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IExaminationRpository;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IPatientRepository;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IPharmacyRepository;
 import rs.ac.uns.ftn.informatika.jpa.service.Interface.IExaminationService;
+import rs.ac.uns.ftn.informatika.jpa.util.MedicineGraphInfo;
 import rs.ac.uns.ftn.informatika.jpa.util.WorkingTime;
 
 @Service
@@ -315,4 +318,153 @@ public class ExaminationService implements IExaminationService {
 
         return examinationDTOs;
     }
+
+
+	public List<MedicineGraphInfo> examiantionsDaily(Long pharmacyId, int month , int year) throws Exception {
+
+		List<MedicineGraphInfo> retVal = new ArrayList<MedicineGraphInfo>();
+	
+		if(month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12){
+			for(int i = 0 ; i < 31 ; i++){
+				retVal.add(new MedicineGraphInfo(i+1,0));	
+			}
+		}
+		else if(month == 4 || month == 6 || month == 9 || month == 11){
+			for(int i = 0 ; i < 30 ; i++){
+				retVal.add(new MedicineGraphInfo(i,0));	
+			}
+		}
+		else if(month == 2){
+			for(int i = 0 ; i < 29 ; i++){
+				retVal.add(new MedicineGraphInfo(i,0));	
+			}
+		}
+
+		List<Examination> examinations = pharmacyRepository.getFinishedExaminations(pharmacyId);
+		if(month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12){
+			for(int i = 0 ; i < 31 ; i++){
+				for(Examination r : examinations){
+					if(Integer.parseInt(r.getEndTime().toString().split("-")[0]) == year 
+					&& Integer.parseInt(r.getEndTime().toString().split("-")[1]) == month 
+					&& Integer.parseInt(r.getEndTime().toString().split("-")[2].split("T")[0]) == i+1){
+						retVal.get(i).incrementY();
+					}
+				}
+			}
+		}
+		else if(month == 4 || month == 6 || month == 9 || month == 11){
+			for(int i = 0 ; i < 30 ; i++){
+				for(Examination r : examinations){
+					if(Integer.parseInt(r.getEndTime().toString().split("-")[0]) == year 
+					&& Integer.parseInt(r.getEndTime().toString().split("-")[1]) == month 
+					&& Integer.parseInt(r.getEndTime().toString().split("-")[2].split("T")[0]) == i+1){
+						retVal.get(i).incrementY();
+					}
+				}
+			}
+		}
+		else if(month == 2){
+			for(int i = 0 ; i < 29 ; i++){
+				for(Examination r : examinations){
+					if(Integer.parseInt(r.getEndTime().toString().split("-")[0]) == year 
+					&& Integer.parseInt(r.getEndTime().toString().split("-")[1]) == month 
+					&& Integer.parseInt(r.getEndTime().toString().split("-")[2].split("T")[0]) == i+1){
+						retVal.get(i).incrementY();
+					}
+				}
+			}
+		}
+		return retVal;
+	}
+
+	public List<MedicineGraphInfo> examinationQuartal(Long pharmacyId , int year) throws Exception {
+
+		List<MedicineGraphInfo> retVal = new ArrayList<MedicineGraphInfo>();
+	
+		for(int i = 0 ; i < 4 ; i++){
+				retVal.add(new MedicineGraphInfo(i+1,0));	
+		}
+
+
+		List<Examination> examinations = pharmacyRepository.getFinishedExaminations(pharmacyId);
+
+				for(Examination r : examinations){
+					if(Integer.parseInt(r.getEndTime().toString().split("-")[0]) == year 
+					&& ( Integer.parseInt(r.getEndTime().toString().split("-")[1]) == 1 
+					|| Integer.parseInt(r.getEndTime().toString().split("-")[1]) == 2 
+					|| Integer.parseInt(r.getEndTime().toString().split("-")[1]) == 3 )
+					){
+						retVal.get(0).incrementY();
+					}
+					else if(Integer.parseInt(r.getEndTime().toString().split("-")[0]) == year 
+					&& (Integer.parseInt(r.getEndTime().toString().split("-")[1]) == 4 
+					|| Integer.parseInt(r.getEndTime().toString().split("-")[1]) == 5 
+					|| Integer.parseInt(r.getEndTime().toString().split("-")[1]) == 6 )
+					){
+						retVal.get(1).incrementY();
+					}
+					else if(Integer.parseInt(r.getEndTime().toString().split("-")[0]) == year 
+					&& (Integer.parseInt(r.getEndTime().toString().split("-")[1]) == 7 
+					|| Integer.parseInt(r.getEndTime().toString().split("-")[1]) == 8 
+					|| Integer.parseInt(r.getEndTime().toString().split("-")[1]) == 9 )
+					){
+						retVal.get(2).incrementY();
+					}
+					else if(Integer.parseInt(r.getEndTime().toString().split("-")[0]) == year 
+					&& (Integer.parseInt(r.getEndTime().toString().split("-")[1]) == 10 
+					|| Integer.parseInt(r.getEndTime().toString().split("-")[1]) == 11 
+					|| Integer.parseInt(r.getEndTime().toString().split("-")[1]) == 12 )
+					){
+						retVal.get(3).incrementY();
+					}
+				}
+			
+		return retVal;
+	}
+
+	public List<MedicineGraphInfo> examinationMonthly(Long pharmacyId , int year) throws Exception {
+
+		List<MedicineGraphInfo> retVal = new ArrayList<MedicineGraphInfo>();
+	
+		for(int i = 0 ; i < 12 ; i++){
+				retVal.add(new MedicineGraphInfo(i+1,0));	
+		}
+
+
+		List<Examination> examinations = pharmacyRepository.getFinishedExaminations(pharmacyId);
+		for(int i = 0 ; i < 12 ; i++){
+				for(Examination r : examinations){
+					if(Integer.parseInt(r.getEndTime().toString().split("-")[0]) == year 
+					&& Integer.parseInt(r.getEndTime().toString().split("-")[1]) == i+1 
+					){
+						retVal.get(i).incrementY();
+					}
+				}
+			}
+			
+		return retVal;
+	}
+	
+	public List<MedicineGraphInfo> examinationYearly(Long pharmacyId , int year) throws Exception {
+
+		List<MedicineGraphInfo> retVal = new ArrayList<MedicineGraphInfo>();
+        year = year- 4;
+
+		for(int i = 0 ; i < 5 ; i++){
+				retVal.add(new MedicineGraphInfo(year + i,0));	
+		}
+
+
+		List<Examination> examinations = pharmacyRepository.getFinishedExaminations(pharmacyId);
+		for(int i = 0 ; i < 5 ; i++){
+				for(Examination r : examinations){
+					if(Integer.parseInt(r.getEndTime().toString().split("-")[0]) == year + i 
+					){
+						retVal.get(i).incrementY();
+					}
+				}
+			}
+			
+		return retVal;
+	}
 }

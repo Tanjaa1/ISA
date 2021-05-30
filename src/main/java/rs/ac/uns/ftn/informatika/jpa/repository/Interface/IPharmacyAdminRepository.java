@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import rs.ac.uns.ftn.informatika.jpa.model.PharmacyAdmin;
+import rs.ac.uns.ftn.informatika.jpa.util.MapLocation;
 
 public interface IPharmacyAdminRepository extends JpaRepository<PharmacyAdmin, Long> {
 
@@ -23,4 +24,7 @@ public interface IPharmacyAdminRepository extends JpaRepository<PharmacyAdmin, L
 
 	@Query("SELECT p FROM PharmacyAdmin p")
 	public List<PharmacyAdmin> getAll();
+
+	@Query("SELECT ml FROM MapLocation ml WHERE ml.Pharmacy = ?1")
+	public MapLocation getMapLocation(Long id);
 }
