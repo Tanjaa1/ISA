@@ -63,7 +63,7 @@ public class ResrvationService implements IReservationService{
 	public ReservationDTO getReservationById(Long id, Long pharmacyId)
 	{
 	    Reservation reservation = reservationRepository.getReservationById(id,pharmacyId);
-		if (reservation!=null && !reservation.getIsReceived() && !dateCompare.compareDates(reservation.getExpirationDate()))
+		if (reservation!=null && !reservation.getIsReceived() && !dateCompare.compareDates(reservation.getExpirationDate()) && !reservation.getIsCanceled())
 			return new ReservationDTO(reservation);
 		else
 			return null;

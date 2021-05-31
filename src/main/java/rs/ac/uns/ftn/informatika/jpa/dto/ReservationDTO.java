@@ -18,9 +18,12 @@ public class ReservationDTO {
         Id=reservation.getId();
         ExpirationDate=reservation.getExpirationDate();
         IsReceived=reservation.getIsReceived();
-        MedicinePriceAndQuantityId= new MedicinePriceAndQuantityDTO(reservation.getMedicine());
-		Patient= new PatientDTO(reservation.getPatient());
-		Pharmacy= new PharmacyDTO(reservation.getPharmacy());
+		if(reservation.getMedicine()!=null)
+        	MedicinePriceAndQuantityId= new MedicinePriceAndQuantityDTO(reservation.getMedicine());
+		if(reservation.getPatient()!=null)
+			Patient= new PatientDTO(reservation.getPatient());
+		if(reservation.getPharmacy()!=null)
+			Pharmacy= new PharmacyDTO(reservation.getPharmacy());
 		IsCanceled = reservation.getIsCanceled();
     }
     public Long getId() {
