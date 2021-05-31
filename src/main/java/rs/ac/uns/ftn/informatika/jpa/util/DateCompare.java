@@ -11,7 +11,6 @@ public class DateCompare {
     public DateCompare()
     {
         Calendar calendar = Calendar.getInstance();
-        calendar.add(Calendar.DAY_OF_YEAR, 1);
         Tomorrow = calendar.getTime();
     }
 
@@ -27,7 +26,6 @@ public class DateCompare {
 
     public Boolean compareDates(Date date)
     {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
-        return sdf.format(date).equals(sdf.format(Tomorrow));
+        return Tomorrow.after(date);
     }
 }

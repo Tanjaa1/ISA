@@ -54,7 +54,17 @@ public class Patient extends User {
 	
 	
 	public Patient() {}
-	
+
+	public Patient(Long id, String email, String password, String name, String surname,String phoneNumber,String usermane)
+	{
+		id = id;
+		email = email;
+		password = password;
+		name = name;
+		surname = surname;
+		usermane=usermane;
+		phoneNumber = phoneNumber;
+	}
 	public int getPoints() {
 		return Points;
 	}

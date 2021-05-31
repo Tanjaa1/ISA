@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 
 
 import rs.ac.uns.ftn.informatika.jpa.model.Counseling;
+import rs.ac.uns.ftn.informatika.jpa.model.Patient;
 
 public class CouncelingDTO {
  
@@ -60,6 +61,8 @@ public class CouncelingDTO {
         isDone = counceling.getIsDone();
 		if(counceling.getPatient() != null)
         	Patient = new PatientDTO(counceling.getPatient());
+		else
+        	Patient = new PatientDTO();
         Pharmacist = new PharmacistDTO(counceling.getPharmacist());
         Pharmacy = new PharmacyDTO(counceling.getPharmacy());
 		Price=counceling.getPrice();
