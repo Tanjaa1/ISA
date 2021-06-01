@@ -3,6 +3,7 @@ Vue.component("pharmacistsPreview", {
 		return {
             pharmacists:[],
             pharmacies:{},
+            allPharmacists : {},
             filterInfo:{
                 pharmacy : null,
                 minRating : null,
@@ -21,16 +22,8 @@ Vue.component("pharmacistsPreview", {
         })
             .then(response => {
                 this.pharmacists = response.data
-                this.displayedPharmacists = response.data
-                for (var i = 0; i < (Object.keys(this.pharmacists)).length; i++) {
-                    var rating = 0
-                    var d = this.pharmacists[i]
-                    for (var r of d.marks) {   
-                        rating = rating + r;
-                    }
-                    rating = rating / d.marks.length
-                    this.pharmacists[i].rating = rating.toFixed(2);
-                }
+                this.allPharmacists = response.data
+                
             })
      axios.get('/pharmacy/getAll', {
             headers: {
@@ -45,160 +38,172 @@ Vue.component("pharmacistsPreview", {
     mounted(){
     },
 	template: `
-	<div id="DermatologistHomePage">		
-			<br></br><br></br>
-            <br></br><br></br>
+        <div id="pharmacyEmployees">		
+        <h1></h1>
+        <h1>Our pharmacists</h1>
+        <h1></h1>
+        <table class="table" style = "width : 50%; margin-left:25%; color :  #515a5a   ">
+        <thead class="thead-light">
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Surname</th>
+                <th scope="col">Avg. rating</th>
+                <th scope="col">Pharmacy</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr v-for = "(pharmacist) in pharmacists">
+                <td>{{pharmacist.name}}</td>
+                <td>{{pharmacist.surname}}</td>
+                <td v-if = "pharmacist.grade != null">{{pharmacist.grade}}</td>
+                <td v-else>N/A</td>
+                <td >{{pharmacist.pharmacy.name}}</td>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="input-group mb-3" style = "width : 80%; margin-left:12%">
+    <div><input id="pharmacistName" placeholder="Filter by  name" style = "width : 80%" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default"></div>
+    <div><input id="pharmacistSurname" placeholder="Filter by  surname" style = "width : 80%" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default"></div>
+    <div ><input id="pharmacistId" placeholder="Filter by  id" style = "width : 80%" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default"></div>
+    <div><input id="pharmacistPharmacy" placeholder="Filter by  pharmacy" style = "width : 80%" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default"></div>
+    <div ><input @change = "ValidateGradeP()" id="pharmacistMin" placeholder="Min rating" min = "0" max = "5" style = "width : 80%" type="number" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default"></div>
+    <div ><input @change = "ValidateGradeP()" id="pharmacistMax" placeholder="Max rating" min = "0" max = "5" style = "width : 80%" type="number" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default"></div>
 
-            <div class = "sameLinePharmacistsPreview"  style ="margin-left : 35%;">
-                <div class="input-group mb-3" style = "width : 20%;">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text " id="basic-addon3">Filter by pharmacy</span>
-                    </div>
-                    <select class="form-control" v-model = "filterInfo.pharmacy" aria-describedby="basic-addon3" >
-                        <option value="Select pharmacy name" disabled selected></option>
-                        <option v-for = "pharmacy in pharmacies" >{{pharmacy.name}}</option>
-                    </select>
-                </div>
-                &nbsp&nbsp
-                <button  class = "form-control" style = "width:10%; background-color : lightgray;"  v-on:click = "filterpharmacists(pharmacists)" >Apply filters</button>
-            </div>
-
-            <div class = "sameLinePharmacistsPreview"  style ="margin-left : 35%;">
-                <div class="input-group mb-3" style = "width : 20%;">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text " id="basic-addon3">Filter by rating (from-to)</span>
-                    </div>
-                    <input type = "text" class="form-control"  aria-describedby="basic-addon3" v-model = "filterInfo.minRating">
-                    <input type = "text" class="form-control"  aria-describedby="basic-addon3" v-model = "filterInfo.maxRating">
-                </div>
-                &nbsp&nbsp               
-                <button class = "form-control" style = "width:10%; background-color : lightgray;" v-on:click = "resetFilter()">Reset filters</button>
-            </div>
-
-            <div class = "sameLinePharmacistsPreview"  style ="margin-left : 35%;">
-                <div class="input-group mb-3" style = "width : 15%;">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text " id="basic-addon3">Filter by name</span>
-                    </div>
-                    <input type = "text" class="form-control"  aria-describedby="basic-addon3" v-model = "filterInfo.name">
-                </div>
-                &nbsp&nbsp    
-                <div class="input-group mb-3" style = "width : 15%;">
-                <div class="input-group-prepend">
-                    <span class="input-group-text " id="basic-addon3">Filter by surname</span>
-                </div>
-                <input type = "text" class="form-control"  aria-describedby="basic-addon3" v-model = "filterInfo.surname">
-            </div>  
-        </div>
-
-            <table class="table" style = "margin-left : 18%; margin-right : 18%; width : 64%; ">
-                <thead class="thead-dark">
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">First</th>
-                    <th scope="col">Last</th>
-                    <th scope="col">Rating</th>
-                    <th scope="col">Pharmacy</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr v-for = "(value, index) in displayedPharmacists">
-                    <th scope="row">{{index + 1}}</th>
-                    <td>{{value.name}}</td>
-                    <td>{{value.surname}}</td>
-                    <td>{{value.rating}}</td>
-                    <td>{{value.pharmacy.name}}</td>
-                </tr>
-                </tbody>
-          </table>       
-		<br></br><br></br>
+    <div><button style="color:white" type="button" class="btn btn-default" data-dismiss="modal"  v-on:click="SearchPharmacists()"><i class="fa fa-search"></i></button></div> &nbsp
+    <div><button style="color:white" type="button" class="btn btn-default" data-dismiss="modal" v-on:click="ResetPharmacistsSearch()"><i class="fa fa-refresh"></i></button></div> &nbsp
+    </div>
 	</div>					
 				
 	`,
 	methods: {
-        filterpharmacists: function (pharmacistsParam) {
-            if(this.filterInfo.name != null && this.filterInfo.surname != null){
-                this.displayedPharmacists = [];
-                for (var d of pharmacistsParam) {                  
-                        if(d.name == this.filterInfo.name && this.filterInfo.surname == d.surname)     
-                            this.displayedPharmacists.push(d);
+        ValidateGradeD: function(){
+			var minD=document.getElementById("dermatologistMin").value
+			var maxD=document.getElementById("dermatologistMax").value
+
+			if(minD > maxD && minD != "" && maxD != ""){
+				alert("Maximum rating can't be lower than min")
+				document.getElementById("dermatologistMin").value = ""
+				document.getElementById("dermatologistMax").value = ""
+			}
+		},
+		ValidateGradeP: function(){
+			var minP=document.getElementById("pharmacistMin").value
+			var maxP=document.getElementById("pharmacistMax").value
+
+			if(minP > maxP  && minP != "" && maxP != ""){
+				alert("Maximum rating can't be lower than min")
+				document.getElementById("pharmacistMin").value = ""
+				document.getElementById("pharmacistMax").value = ""
+			}
+		},
+		SearchPharmacists: function(){
+			this.pharmacists = this.allPharmacists 
+			var name=document.getElementById("pharmacistName").value.toLowerCase()
+			var surname=document.getElementById("pharmacistSurname").value.toLowerCase()
+			var id=document.getElementById("pharmacistId").value
+
+			var min=document.getElementById("pharmacistMin").value
+			var max=document.getElementById("pharmacistMax").value
+
+			var pharmacy=document.getElementById("pharmacistPharmacy").value.toLowerCase()
+
+			var newPharmacists = []
+
+            if(pharmacy != ''){
+                for (const pharmacist of this.pharmacists) {
+                    if(pharmacist.pharmacy.name.toLowerCase().includes(pharmacy))
+                        newPharmacists.push(pharmacist)
                 }
-                pharmacistsParam = this.displayedPharmacists
-            }
-            else if(this.filterInfo.name == null && this.filterInfo.surname != null){
-                this.displayedPharmacists = [];
-                for (var d of pharmacistsParam) {                  
-                        if( this.filterInfo.surname == d.surname)     
-                            this.displayedPharmacists.push(d);
-                }
-                pharmacistsParam = this.displayedPharmacists
-            }
-            else if(this.filterInfo.name != null && this.filterInfo.surname == null){
-                this.displayedPharmacists = [];
-                for (var d of pharmacistsParam) {                  
-                        if(d.name == this.filterInfo.name)     
-                            this.displayedPharmacists.push(d);
-                }
-                pharmacistsParam = this.displayedPharmacists
+                this.pharmacists = newPharmacists
+
             }
 
-            if(this.filterInfo.minRating == null && this.filterInfo.maxRating == null && this.filterInfo.pharmacy != null){
-                this.displayedPharmacists = [];
-                for (var d of pharmacistsParam) {                  
-                        if(d.pharmacy.name == this.filterInfo.pharmacy)     
-                            this.displayedPharmacists.push(d);
-                }
-            }
-            else if(this.filterInfo.minRating == null && this.filterInfo.maxRating != null && this.filterInfo.pharmacy == null){
-                this.displayedPharmacists = [];
-                for (var d of pharmacistsParam) {                  
-                        if(d.rating <= this.filterInfo.maxRating)     
-                            this.displayedPharmacists.push(d)
-                    }
-            }
-            else if(this.filterInfo.minRating != null && this.filterInfo.maxRating == null && this.filterInfo.pharmacy == null){
-                this.displayedPharmacists = [];
-                for (var d of pharmacistsParam) {                  
-                        if(d.rating >= this.filterInfo.minRating)     
-                            this.displayedPharmacists.push(d);
-                    }
-            }
-            else if(this.filterInfo.minRating != null && this.filterInfo.maxRating != null && this.filterInfo.pharmacy == null){
-                this.displayedPharmacists = [];
-                for (var d of pharmacistsParam) {                  
-                        if(d.rating >= this.filterInfo.minRating && d.rating <= this.filterInfo.maxRating )     
-                            this.displayedPharmacists.push(d);
-                    }
-            }
-            else if(this.filterInfo.minRating != null && this.filterInfo.maxRating != null && this.filterInfo.pharmacy != null){
-                this.displayedPharmacists = [];
-                for (var d of pharmacistsParam) {                 
-                        if(d.rating >= this.filterInfo.minRating && d.rating <= this.filterInfo.maxRating && d.pharmacy.name == this.filterInfo.pharmacy)     
-                            this.displayedPharmacists.push(d);                   
-                }
-            }
-            else if(this.filterInfo.minRating != null && this.filterInfo.maxRating == null && this.filterInfo.pharmacy != null){
-                this.displayedPharmacists = [];
-                for (var d of pharmacistsParam) {               
-                        if(d.rating >= this.filterInfo.minRating  && d.pharmacy.name == this.filterInfo.pharmacy)     
-                            this.displayedPharmacists.push(d);
-                }
-            }
-            else if(this.filterInfo.minRating == null && this.filterInfo.maxRating != null && this.filterInfo.pharmacy != null){
-                this.displayedPharmacists = [];
-                for (var d of pharmacistsParam) {                 
-                        if(d.rating <= this.filterInfo.maxRating  && d.pharmacy.name == this.filterInfo.pharmacy)     
-                            this.displayedPharmacists.push(d);
-                }
-            }
-        },
-        resetFilter: function () {
-            this.displayedPharmacists = this.pharmacists
-            this.filterInfo.pharmacy = null;
-            this.filterInfo.minRating = null;
-            this.filterInfo.maxRating = null;
-            this.filterInfo.name = null;
-            this.filterInfo.surname = null;
-        },
+			var newPharmacists = []
+
+			if(name != "" && surname == "" && id == "")
+				for (const pharmacist of this.pharmacists) {
+						if(pharmacist.name.toLowerCase().includes(name))
+							newPharmacists.push(pharmacist)
+				}
+			else if(name == "" && surname == "" && id == "")
+				for (const pharmacist of this.pharmacists) {
+							newPharmacists.push(pharmacist)
+				}
+			else if(name == "" && surname != "" && id == "")
+				for (const pharmacist of this.pharmacists) {
+					if(pharmacist.surname.toLowerCase().includes(surname))
+						newPharmacists.push(pharmacist)
+				}
+			else if(name == "" && surname == "" && id != "")
+				for (const pharmacist of this.pharmacists) {
+					if(pharmacist.id == id)
+						newPharmacists.push(pharmacist)
+				}
+			else if(name != "" && surname != "" && id == "")
+				for (const pharmacist of this.pharmacists) {
+					if(pharmacist.name.toLowerCase().includes(name) && pharmacist.surname.toLowerCase().includes(surname))
+						newPharmacists.push(pharmacist)
+				}
+			else if(name != "" && surname == "" && id != "")
+				for (const pharmacist of this.pharmacists) {
+					if(pharmacist.name.toLowerCase().includes(name) && pharmacist.id == id)
+						newPharmacists.push(pharmacist)
+				}
+			else if(name == "" && surname != "" && id != "")
+				for (const pharmacist of this.pharmacists) {
+					if(pharmacist.surname.toLowerCase().includes(surname) &&  pharmacist.id == id)
+						newPharmacists.push(pharmacist)
+				}
+			else if(name != "" && surname != "" && id != "")
+				for (const pharmacist of this.pharmacists) {
+					if(pharmacist.surname.toLowerCase().includes(surname) &&  pharmacist.id == id && pharmacist.name.toLowerCase().includes(name))
+						newPharmacists.push(pharmacist)
+				}
+			this.pharmacists = newPharmacists
+
+			
+			if(min != "" || max != ""){
+				newPharmacists = []
+				if(min != "" && max == ""){
+					for (const pharmacist of this.pharmacists) {
+						if(pharmacist.grade >= min)
+							newPharmacists.push(pharmacist)
+					}
+				}
+				else if(min == "" && max != ""){
+					for (const pharmacist of this.pharmacists) {
+						if(pharmacist.grade <= max)
+							newPharmacists.push(pharmacist)
+					}
+				}
+				else if(min != "" && max != ""){
+					for (const pharmacist of this.pharmacists) {
+						if(pharmacist.grade <= max && pharmacist.grade >= min)
+							newPharmacists.push(pharmacist)
+					}
+				}
+				this.pharmacists = newPharmacists
+			}
+		},
+		ResetPharmacistsSearch: function(){
+			axios
+			.get('/pharmacist/getAll',{
+				headers: {
+					'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+				}
+			})
+			.then(response => {
+				this.pharmacists = response.data
+			})
+			.catch(error => {
+			})
+			document.getElementById("pharmacistName").value = ""
+			document.getElementById("pharmacistSurname").value = ""
+			document.getElementById("pharmacistId").value = ""
+			document.getElementById("pharmacistMin").value = ""
+			document.getElementById("pharmacistMax").value = ""
+            document.getElementById("pharmacistPharmacy").value = ""
+		},
 	}
 });

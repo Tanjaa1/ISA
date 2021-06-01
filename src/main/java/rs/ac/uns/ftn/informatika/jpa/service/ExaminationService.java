@@ -188,6 +188,7 @@ public class ExaminationService implements IExaminationService {
         return examinationDTO;
     }
 
+	@Transactional(readOnly=false, propagation = Propagation.REQUIRES_NEW)
     public ExaminationDTO newEmptyExamination(Examination examination) throws Exception {          
         if(!checkIfDermatologistFree(examination)){
            return null;
@@ -249,6 +250,7 @@ public class ExaminationService implements IExaminationService {
         return false;
     }
 
+	
     private Boolean checkIfDermatologistFree(Examination examination) {
         if(workTimeCheck(examination)){
             List<Examination> examinations = examinationRepository.getExaminationsByDermatologistId(examination.getDermatologist().getId());

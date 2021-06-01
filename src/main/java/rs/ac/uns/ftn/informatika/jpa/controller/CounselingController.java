@@ -129,7 +129,7 @@ public class CounselingController {
 		return councelingDTO == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(councelingDTO);
 	}
 
-	@PreAuthorize("hasRole('PHARMACIST')")
+	@PreAuthorize("hasAnyRole('PHARMACIST','PATIENT')")
 	@PutMapping(value = "/update")
 	public ResponseEntity<HttpStatus> updateCounseling(@Valid @RequestBody Counseling counseling, BindingResult result) throws Exception
 	{
