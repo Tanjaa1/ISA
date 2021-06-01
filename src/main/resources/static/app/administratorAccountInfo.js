@@ -193,7 +193,7 @@ Vue.component("administratorAccountInfo", {
 
         <div class="form-group" style = "width: 27%; margin-left : 36.5%">
         <label for="recipient-name" min="0" class="col-form-label">Address:</label>
-        <input type="text" min = "0"class="form-control"  v-model="pharmacy.address">
+        <input type="text" min = "0"class="form-control"  v-model="pharmacy.address" disabled>
         </div>
         <div id="map" class="map" style = "margin-top : 1%; margin-bottom : 1%; margin-left : 34%; width:600px; height : 400px;"></div>
 

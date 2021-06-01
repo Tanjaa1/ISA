@@ -232,8 +232,6 @@ Vue.component("Login", {
 						.then(response => {
 							this.idPharmacyAdmin = response.data
 							localStorage.setItem('userId', this.idPharmacyAdmin.id)
-							alert('pharmacyAdmin')
-							alert(this.idPharmacyAdmin.emailComfirmed)
 							if(this.idPharmacyAdmin.emailComfirmed==false){
 								alert("please confirme registration by email")
 								localStorage.setItem('token', "");

@@ -64,7 +64,7 @@ INSERT INTO public.pharmacist(
 	VALUES (555, 'Jovana Ducica 9', 'Novi Sad', 'Srbija', 'neki opis', 'aleksarep0408@gmail.com', false, false, 'Sava', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', '06541111123', 'Savic',true,'2008-11-11 13:23:44','sava',111);
 INSERT INTO public.users(
 	id, address, city, country, description, email, email_comfirmed, first_time_login, name, password, phone_number, surname, enabled, last_password_reset_date, username)
-	VALUES (555, 'Jovana Ducica 9', 'Novi Sad', 'Srbija', 'neki opis', 'sava@gmail.com', false, false, 'Sava', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', '06541111123', 'Savic',true,'2008-11-11 13:23:44','sava');
+	VALUES (555, 'Jovana Ducica 9', 'Novi Sad', 'Srbija', 'neki opis', 'aleksarep0408@gmail.com', false, false, 'Sava', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', '06541111123', 'Savic',true,'2008-11-11 13:23:44','sava');
 
 /*
 INSERT INTO public.dermatologist(
@@ -1056,11 +1056,6 @@ INSERT INTO public.pharmacist_marks(
 
 	
 INSERT INTO public.order_medicine(
-
-	id, due_date, pharmacy_admin_id,is_processed)
-	VALUES (111,'2028-11-11 13:23:44', 888,false);
-	
-INSERT INTO public.order_medicine(
 	id, due_date, pharmacy_admin_id,is_processed)
 	VALUES (211,'2021-11-11 13:23:44', 999,false);
 
@@ -1091,9 +1086,6 @@ INSERT INTO public.order_medicine_orders(
 	id, due_date, offer_price, status, order_medicine_id, supplier_id)
 	VALUES (556, 'neki datum', 15000.00, 1, 211, 100);
 	
-	INSERT INTO public.supplier_offer(
-	id, due_date, offer_price, status, order_medicine_id, supplier_id)
-	VALUES (555, 'neki datum', 16000.00, 0, 111, 100);
 
 	INSERT INTO public.medicine_price_and_quantity(
 	id, price, quantity, medicine_id)
@@ -1184,10 +1176,7 @@ INSERT INTO public.supplier_offer(
 	id, due_date, offer_price, status, order_medicine_id, supplier_id)
 	VALUES (432, 'neki datum', 15000.00, 2, 211, 100);
 	
-INSERT INTO public.supplier_offer(
-	id, due_date, offer_price, status, order_medicine_id, supplier_id)
-	VALUES (855, 'neki datum', 16000.00, 2, 111, 111);
-  
+
 INSERT INTO AUTHORITY (name) VALUES ('ROLE_PATIENT');
 INSERT INTO AUTHORITY (name) VALUES ('ROLE_ADMIN');
 INSERT INTO AUTHORITY (name) VALUES ('ROLE_PHARMACYADMIN');
@@ -1487,3 +1476,156 @@ INSERT INTO public.map_location(
 INSERT INTO public.map_location(
 	id,x,y,pharmacy_id)
 	VALUES (56,19.837560,45.246180,222);
+
+INSERT INTO public.counseling(
+	id, price, report, start_time, end_time, is_done, patient_id, pharmacist_id, pharmacy_id, is_canceled)
+	VALUES (501, 1000.0, '', '2022-07-11 15:00:00-07', '2021-07-11 15:25:25-07', false, null, 555, 111, false);
+INSERT INTO public.counseling(
+	id, price, report, start_time, end_time, is_done, patient_id, pharmacist_id, pharmacy_id, is_canceled)
+	VALUES (502, 2000.0, '', '2021-07-16 17:00:00-07', '2021-07-16 17:25:25-07', false, null, 555, 111, false);
+INSERT INTO public.counseling(
+	id, price, report, start_time, end_time, is_done, patient_id, pharmacist_id, pharmacy_id, is_canceled)
+	VALUES (503, 1000.0, '', '2022-07-15 16:00:00-07', '2021-07-15 16:25:25-07', false, null, 555, 111, false);
+INSERT INTO public.counseling(
+	id, price, report, start_time, end_time, is_done, patient_id, pharmacist_id, pharmacy_id, is_canceled)
+	VALUES (504, 2000.0, '', '2021-07-18 17:00:00-07', '2021-07-18 17:25:25-07', false, null, 555, 111, false);
+
+INSERT INTO public.eprescription(
+	code, issuing_date,therapy_duration, medicine_id,status,pharmacy_id)
+	VALUES (501,'2020-10-09',2,11,0,111);
+INSERT INTO public.eprescription(
+	code, issuing_date,therapy_duration, medicine_id,status,pharmacy_id)
+	VALUES (502,'2020-06-22',2,21,0,111);
+
+INSERT INTO public.patient_eprescriptions(
+	patient_id, eprescriptions_code)
+	VALUES (89, 501);
+INSERT INTO public.patient_eprescriptions(
+	patient_id, eprescriptions_code)
+	VALUES (89, 502);
+
+
+INSERT INTO public.eprescription(
+	code, issuing_date,therapy_duration, medicine_id,status,pharmacy_id)
+	VALUES (503,'2020-09-01',2,31,0,111);
+INSERT INTO public.eprescription(
+	code, issuing_date,therapy_duration, medicine_id,status,pharmacy_id)
+	VALUES (504,'2020-06-25',2,51,0,111);
+
+INSERT INTO public.patient_eprescriptions(
+	patient_id, eprescriptions_code)
+	VALUES (89, 503);
+INSERT INTO public.patient_eprescriptions(
+	patient_id, eprescriptions_code)
+	VALUES (89, 504);
+
+INSERT INTO public.working_time(
+	id, time_end, time_start,pharmacy_id)
+	VALUES (501, '2021-08-06 20:00:00-07','2021-08-06 11:00:00-07','111');
+INSERT INTO public.working_time(
+	id, time_end, time_start,pharmacy_id)
+	VALUES (502, '2021-08-07 20:00:00-07','2021-08-07 11:00:00-07','111');
+INSERT INTO public.working_time(
+	id, time_end, time_start,pharmacy_id)
+	VALUES (503, '2021-08-08 20:00:00-07','2021-08-08 14:00:00-07','111');
+INSERT INTO public.working_time(
+	id, time_end, time_start,pharmacy_id)
+	VALUES (504, '2021-08-10 20:00:00-07','2021-08-10 11:00:00-07','111');
+INSERT INTO public.working_time(
+	id, time_end, time_start,pharmacy_id)
+	VALUES (505, '2021-08-12 20:00:00-07','2021-08-12 11:00:00-07','111');
+INSERT INTO public.working_time(
+	id, time_end, time_start,pharmacy_id)
+	VALUES (506, '2021-08-13 20:00:00-07','2021-08-13 11:00:00-07','111');
+INSERT INTO public.working_time(
+	id, time_end, time_start,pharmacy_id)
+	VALUES (507, '2021-08-15 20:00:00-07','2021-08-15 12:00:00-07','111');
+
+INSERT INTO public.dermatologist_working_schedule(
+	dermatologist_id, working_time_id)
+	VALUES (66, 501);
+INSERT INTO public.dermatologist_working_schedule(
+	dermatologist_id, working_time_id)
+	VALUES (66, 502);
+INSERT INTO public.dermatologist_working_schedule(
+	dermatologist_id, working_time_id)
+	VALUES (66, 503);
+INSERT INTO public.dermatologist_working_schedule(
+	dermatologist_id, working_time_id)
+	VALUES (66, 504);
+INSERT INTO public.dermatologist_working_schedule(
+	dermatologist_id, working_time_id)
+	VALUES (66, 505);
+INSERT INTO public.dermatologist_working_schedule(
+	dermatologist_id, working_time_id)
+	VALUES (66, 506);
+INSERT INTO public.dermatologist_working_schedule(
+	dermatologist_id, working_time_id)
+	VALUES (66, 507);
+
+INSERT INTO public.order_medicine(
+	id, due_date, pharmacy_admin_id,is_processed)
+	VALUES (501,'2020-11-11 13:23:44', 888,false);
+	
+INSERT INTO public.order_medicine(
+	id, due_date, pharmacy_admin_id,is_processed)
+	VALUES (502,'2020-11-11 13:23:44', 999,false);
+
+INSERT INTO public.order_medicine(
+	id, due_date, pharmacy_admin_id,is_processed)
+	VALUES (503,'2020-11-11 13:23:44', 888,false);
+
+
+INSERT INTO public.medicine_quantity(
+	id, quantity, medicine_id, supplier_id)
+	VALUES (501, 5, 222, 100);
+INSERT INTO public.medicine_quantity(
+	id, quantity, medicine_id, supplier_id)
+	VALUES (502, 10, 223, 111);
+INSERT INTO public.medicine_quantity(
+	id, quantity, medicine_id, supplier_id)
+	VALUES (503, 5, 5, 100);
+INSERT INTO public.medicine_quantity(
+	id, quantity, medicine_id, supplier_id)
+	VALUES (504, 10, 223, 111);
+
+
+INSERT INTO public.order_medicine_orders(
+	order_id, orders_id)
+	VALUES (501, 501);
+INSERT INTO public.order_medicine_orders(
+	order_id, orders_id)
+	VALUES (502, 502);
+INSERT INTO public.order_medicine_orders(
+	order_id, orders_id)
+	VALUES (503, 503);
+INSERT INTO public.order_medicine_orders(
+	order_id, orders_id)
+	VALUES (503, 504);
+
+
+
+INSERT INTO public.supplier_offer(
+	id, due_date, offer_price, status, order_medicine_id, supplier_id)
+VALUES (501, '2022-11-11 13:23:44', 14000.00, 2, 501, 100);
+	
+INSERT INTO public.supplier_offer(
+	id, due_date, offer_price, status, order_medicine_id, supplier_id)
+VALUES (502, '2022-12-11 13:23:44', 15000.00, 2, 502, 100);
+	
+	
+INSERT INTO public.supplier_offer(
+	id, due_date, offer_price, status, order_medicine_id, supplier_id)
+VALUES (503, '2022-11-11 13:23:44', 14000.00, 2, 503, 100);
+	
+INSERT INTO public.supplier_offer(
+	id, due_date, offer_price, status, order_medicine_id, supplier_id)
+VALUES (504, '2022-12-06 13:23:44', 1200.00, 2, 503, 100);
+
+INSERT INTO public.supplier_offer(
+	id, due_date, offer_price, status, order_medicine_id, supplier_id)
+	VALUES (855, 'neki datum', 16000.00, 2, 501, 111);
+  
+INSERT INTO public.supplier_offer(
+	id, due_date, offer_price, status, order_medicine_id, supplier_id)
+VALUES (555, 'neki datum', 16000.00, 2, 503, 100);

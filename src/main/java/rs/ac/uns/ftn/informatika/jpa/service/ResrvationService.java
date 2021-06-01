@@ -69,6 +69,7 @@ public class ResrvationService implements IReservationService{
 			return null;
 	}
 
+	
 	@Override
 	public Reservation update(Reservation reservation) throws Exception
 	{
@@ -182,14 +183,13 @@ public class ResrvationService implements IReservationService{
 		r.setIsReceived(reservation.getIsReceived());
 		r.setPharmacy(pharmacyRepository.getOne(reservation.getPharmacy().getId()));
         r.setMedicine(priceAndQuantityRepository.getOne(reservation.getMedicine().getId()));
-        //c.setPatient(patientRepository.getOne(counseling.getPatient().getId()));
-        Long id = (long) 88;
-        r.setPatient(patientRepository.getOne(id));
+        r.setPatient(patientRepository.getOne(reservation.getPatient().getId()));
         ReservationDTO councelingDTO= new ReservationDTO(reservationRepository.save(r));
         emailSender3(r);
         return councelingDTO;
 	}
 
+	@Transactional(readOnly=false)
 	public ReservationDTO makeNewReservation(Reservation reservation) {
 		Reservation r = new Reservation();
 		r.setExpirationDate(reservation.getExpirationDate());

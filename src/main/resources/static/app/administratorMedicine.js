@@ -41,6 +41,9 @@ Vue.component("administratorMedicine", {
         }) 
         .then(response => {
             this.administrator = response.data
+            var pAdmin = response.data
+			if(pAdmin.firstTimeLogin)
+            	this.$router.push('administratorAccountInfo');
             axios
             .get('/pharmacy/getByName/' + this.administrator.pharmacy.name,{
                 headers: {

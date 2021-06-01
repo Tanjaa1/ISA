@@ -34,35 +34,43 @@ Vue.component("administratorHomePage", {
 					<div class="col-sm">
 					  <h3>
 						<button id="EmployedAdmin" type="button" class="btn btn-info btn-lg margin form-control" data-toggle="modal" v-on:click="AdministratorEmployedShow()"></button>
+						<label>Employees</label>
 						</h3><br/> 
 					</div>
 					<div class="col-sm">
 					  <h3>
 						<button id="CalendarAdmin" type="button" class="btn btn-info btn-lg margin form-control" v-on:click="ExaminationsShow()"></button>
+						<label>Examinations</label>
 						</h3><br/> 
 					</div>
 					<div class="col-sm">
 					  <h3>
 					  	<button id="AdminMedicine" type="button" class="btn btn-info btn-lg margin form-control" v-on:click="MedicineShow()"></button>
+						  <label>Medicine and promotions</label>
 						</h3><br/> 
 					</div>
 					<div class="col-sm">
 					  <h3>
 						<button id="AccountAdmin" type="button" class="btn btn-info btn-lg margin form-control" v-on:click="AccountInfoShow()"></button>
+						<label>My account</label>
 						</h3><br/> 
 					</div>
 					<div class="col-sm">
 					  <h3>
 						<button id="OrderAdmin" type="button" class="btn btn-info btn-lg margin form-control" v-on:click="OrdersShow()"></button>
+						<label>Orders and requests</label>
 						</h3><br/> 
 					</div>
 					<div class="col-sm">
 					<h3>
 					  <button id="SearchMed" type="button" class="btn btn-info btn-lg margin form-control" v-on:click="MedSearch()"></button>
+					  <label>Search medicine</label>
 					  </h3><br/> 
 				  </div>
 					<div class="col-sm">
 					<button id="ReportsAdmin" type="button" class="btn btn-info btn-lg margin form-control" v-on:click="ReportsShow()"></button>
+					<label style= "font-size : 29px">Reports</label>
+
 					</h3><br/> 
 					</div>
 					<div class="col-sm">
@@ -101,21 +109,88 @@ Vue.component("administratorHomePage", {
             this.$router.push('administratorAccountInfo');
         },
         AdministratorEmployedShow : function(){
+			axios
+			.get('/pharmacyAdmin/getById/' + localStorage.getItem('userId'),{
+				headers: {
+					'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+				}
+			})
+			.then(response =>{
+				var pAdmin = response.data
+				if(pAdmin.firstTimeLogin)
+					this.$router.push('administratorAccountInfo');
+			})
+
             this.$router.push('administratorEmployed');
         },
 		MedSearch:function(){
+			axios
+			.get('/pharmacyAdmin/getById/' + localStorage.getItem('userId'),{
+				headers: {
+					'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+				}
+			})
+			.then(response =>{
+				var pAdmin = response.data
+				if(pAdmin.firstTimeLogin)
+					this.$router.push('administratorAccountInfo');
+			})
 		   this.$router.push('searchMedicine');    
 	    },
         ExaminationsShow : function(){
+			axios
+			.get('/pharmacyAdmin/getById/' + localStorage.getItem('userId'),{
+				headers: {
+					'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+				}
+			})
+			.then(response =>{
+				var pAdmin = response.data
+				if(pAdmin.firstTimeLogin)
+					this.$router.push('administratorAccountInfo');
+			})
             this.$router.push('administratorExaminations');
         },
 		MedicineShow : function(){
+			axios
+			.get('/pharmacyAdmin/getById/' + localStorage.getItem('userId'),{
+				headers: {
+					'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+				}
+			})
+			.then(response =>{
+				var pAdmin = response.data
+				if(pAdmin.firstTimeLogin)
+					this.$router.push('administratorAccountInfo');
+			})
             this.$router.push('administratorMedicine');
         },
 		OrdersShow : function(){
+			axios
+			.get('/pharmacyAdmin/getById/' + localStorage.getItem('userId'),{
+				headers: {
+					'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+				}
+			})
+			.then(response =>{
+				var pAdmin = response.data
+				if(pAdmin.firstTimeLogin)
+					this.$router.push('administratorAccountInfo');
+			})
             this.$router.push('orderMedicinePharmacyAdmin');
         },
 		ReportsShow : function(){
+			axios
+			.get('/pharmacyAdmin/getById/' + localStorage.getItem('userId'),{
+				headers: {
+					'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+				}
+			})
+			.then(response =>{
+				var pAdmin = response.data
+				if(pAdmin.firstTimeLogin)
+					this.$router.push('administratorAccountInfo');
+			})
             this.$router.push('reportAdministrator');
         },
 	}

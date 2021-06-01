@@ -73,8 +73,10 @@ Vue.component("patientHomePage", {
 						</h3><br/> 
 					</div>
 				
-				  </div>				
-		</div>
+				  </div>	
+				  <button  style = "width : 30%; heigth : 15%" type="button" class="btn btn-info btn-lg margin form-control" v-on:click="Dermatologists()">All dermatologist preview</button>
+				  <button  style = "width : 30%; heigth : 15%" type="button" class="btn btn-info btn-lg margin form-control" v-on:click="Pharmacists()">All pharmacists preview</button>
+				  </div>
 		<br></br><br></br>
 		<!--MODAL-->
 		<div class="modal fade" tabindex="-1" role="dialog" id="Show" >
@@ -122,9 +124,16 @@ Vue.component("patientHomePage", {
 		},
 		SearchMed:function(){
 			this.$router.push('searchMedicine');    
-		},Complaints:function(){
+		}
+		,Complaints:function(){
 			this.$router.push('complaintPatient');    
 
+		},Dermatologists:function(){
+			this.$router.push('dermatologistsPreview');    
+
+		},
+		Pharmacists :function (){
+			this.$router.push('pharmacistsPreview');    
 		},
 		Yes:function(){
 			if(document.getElementById("np").value==document.getElementById("cp").value && document.getElementById("np").value.trim()!="" && document.getElementById("cp").value.trim()!=""){
