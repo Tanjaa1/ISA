@@ -41,11 +41,11 @@ public class SupplierService implements ISupplierService {
         supplierRepository.save(supplier);
         List<Supplier> suppliers=supplierRepository.findAll();
 		Long supplierId=0L;
-	/*	for (Supplier supplier2 : suppliers) {
+		for (Supplier supplier2 : suppliers) {
 			if(supplier2.getUsername().equals(supplier.getUsername()))
 			supplierId=supplier2.getId();
 		}
-		*/
+	
 		supplier.setId(supplierId);
 		emailSender(supplier);
         return new ResponseEntity<>( HttpStatus.CREATED);
@@ -122,7 +122,7 @@ public class SupplierService implements ISupplierService {
 
 	public Boolean confirmationEmail(Long supplierId) throws Exception {
 		Long decriptId=IdDecryption(supplierId);
-		Supplier supplierToUpdate=findOne(decriptId);
+		Supplier supplierToUpdate=supplierRepository.findById(decriptId).get();
 		SupplierDTO supplierDTO=new SupplierDTO(supplierToUpdate);
 		if(supplierDTO.getEmailComfirmed()) return false;
 		supplierDTO.setEmailComfirmed(true);
