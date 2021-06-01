@@ -103,7 +103,7 @@ public class SupplierService implements ISupplierService {
 		try {
 			String subject="Supplier "+ supplier.getName() + supplier.getSurname();
 			Long encriptId=IdEncryption(supplier.getId());
-			String text="Dear "+ supplier.getName() + supplier.getSurname()+",\n Please click on link below to activate your profile \n <a href=\"http://localhost:8080/#/emailConfirmationSupplier?id=" + encriptId + "\">link</a>!";
+			String text="Dear "+ supplier.getName() + supplier.getSurname()+",\n Please click on link below to activate your profile \n <a href=\"http://localhost:8090/#/emailConfirmationSupplier?id=" + encriptId + "\">link</a>!";
 			emailService.sendNotificaitionAsync(supplier.getEmail(),subject,text);
 		}catch( Exception e ){
 			logger.info("Error sending email: " + e.getMessage());

@@ -250,7 +250,7 @@ public class PatientService implements IPatientService {
 			String subject = "Patient " + patient.getFullName();
 			Long encriptId = IdEncryption(patient.getId());
 			String text = "Dear " + patient.getFullName()
-					+ ",\n Please click on link below to activate your profile \n <a href=\"http://localhost:8080/#/emailConfirmation?id="
+					+ ",\n Please click on link below to activate your profile \n <a href=\"http://localhost:8090/#/emailConfirmation?id="
 					+ encriptId + "\">link</a>!";
 			emailService.sendNotificaitionAsync(patient.getEmail(), subject, text);
 		} catch (Exception e) {

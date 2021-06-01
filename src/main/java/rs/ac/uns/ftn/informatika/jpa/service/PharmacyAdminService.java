@@ -151,7 +151,7 @@ public class PharmacyAdminService implements IPharmacyAdminService {
 		try {
 			String subject="Patient "+ pharmacyAdmin.getName() + pharmacyAdmin.getSurname();
 			Long encriptId=IdEncryption(pharmacyAdmin.getId());
-			String text="Dear "+ pharmacyAdmin.getName() + pharmacyAdmin.getSurname() +",\n Please click on link below to activate your profile \n <a href=\"http://localhost:8080/#/emailConfirmationPharmacyAdmin?id=" + encriptId + "\">link</a>!";
+			String text="Dear "+ pharmacyAdmin.getName() + pharmacyAdmin.getSurname() +",\n Please click on link below to activate your profile \n <a href=\"http://localhost:8090/#/emailConfirmationPharmacyAdmin?id=" + encriptId + "\">link</a>!";
 			emailService.sendNotificaitionAsync(pharmacyAdmin.getEmail(),subject,text);
 		}catch( Exception e ){
 			logger.info("Error sending email: " + e.getMessage());
