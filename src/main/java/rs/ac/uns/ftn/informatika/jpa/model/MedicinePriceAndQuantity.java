@@ -37,7 +37,11 @@ public class MedicinePriceAndQuantity {
 	// @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	// private Pharmacy Pharmacy;
 	
-	public MedicinePriceAndQuantity(){}
+	public MedicinePriceAndQuantity(){
+		Medicine=new Medicine();
+		Price=0.00;
+		Quantity=0;
+	}
 
 	public MedicinePriceAndQuantity(long id,Medicine medicine, double price,int quantity) {
 		super();

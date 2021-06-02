@@ -36,7 +36,7 @@ public class Patient extends User {
 	private Integer Points;
 	
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private Set<Penaltys> Penalty;
+	private Set<Penaltys> Penalty=new HashSet<Penaltys>();
 	
 	@Column(name="Category", unique=false, nullable=true)
 	private LoyaltyCategories Category; 
@@ -53,7 +53,9 @@ public class Patient extends User {
 	 private Set<ActionOrPromotion> ActionOrPromotions = new HashSet<ActionOrPromotion>();
 	
 	
-	public Patient() {}
+	public Patient() {
+		Points=0;
+	}
 
 	public Patient(Long id, String email, String password, String name, String surname,String phoneNumber,String usermane)
 	{
