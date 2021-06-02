@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.logging.Filter;
 
+import javax.transaction.Transactional;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -38,6 +40,7 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.security.web.FilterChainProxy;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
@@ -90,13 +93,10 @@ public class ExaminationControlerTest {
             }
 
             @Test
-            @WithMockUser(roles = "DERMATOLOGIST")
+            @WithMockUser(roles = "DERMATOLOGIST")    
+            @Transactional
+            @Rollback(true)
             public void testGetFreeExaminationByDermatologist() throws Exception {
-                List<ExaminationDTO> examinations=new ArrayList<ExaminationDTO>();
-                ExaminationDTO e=new ExaminationDTO();
-                e.setId(100L);
-                examinations.add(e);
-		        String json = TestUtil.json(examinations);
                 mockMvc.perform(get(URL_PREFIX + "/getFreeExaminationByDermatologist/"+1L))
                 .andExpect(status().isOk());
             }

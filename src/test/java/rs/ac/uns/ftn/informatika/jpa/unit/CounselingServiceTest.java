@@ -1,35 +1,26 @@
 package rs.ac.uns.ftn.informatika.jpa.unit;
 
-import static org.mockito.Mockito.when;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.when;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import rs.ac.uns.ftn.informatika.jpa.dto.CouncelingDTO;
-import rs.ac.uns.ftn.informatika.jpa.dto.ExaminationDTO;
 import rs.ac.uns.ftn.informatika.jpa.model.Counseling;
-import rs.ac.uns.ftn.informatika.jpa.model.Dermatologist;
-import rs.ac.uns.ftn.informatika.jpa.model.Examination;
-import rs.ac.uns.ftn.informatika.jpa.model.Patient;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.ICounselingRpository;
-import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IExaminationRpository;
 import rs.ac.uns.ftn.informatika.jpa.service.CounselingService;
-import rs.ac.uns.ftn.informatika.jpa.service.ExaminationService;
-
-import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
-import org.springframework.boot.test.mock.mockito.MockBean;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
