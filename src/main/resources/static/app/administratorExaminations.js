@@ -178,6 +178,26 @@ Vue.component("administratorExaminations", {
             }
         },
         CreateNewExamination: function () {
+            for(var vi of this.newExamination.dermatologist.vacationSchedule){
+                var dayS = parseInt(vi.dateStart.split('T')[0].split("-")[2])
+                var monthS = parseInt(vi.dateStart.split('T')[0].split("-")[1])
+                var yearS = parseInt(vi.dateStart.split('T')[0].split("-")[0])
+
+                var dayE = parseInt(vi.dateEnd.split('T')[0].split("-")[2])
+                var monthE = parseInt(vi.dateEnd.split('T')[0].split("-")[1])
+                var yearE = parseInt(vi.dateEnd.split('T')[0].split("-")[0])
+
+                var yearEx =  parseInt(this.newExamination.Date.split('-')[0])
+                var monthEx =  parseInt(this.newExamination.Date.split('-')[1])
+                var dayEx =  parseInt(this.newExamination.Date.split('-')[2])
+                if(vi.approved && this.pharmacy.id == vi.pharmacyId){
+                    if(yearS == yearEx && monthEx == monthS && monthE == monthS && dayS <= dayEx && dayE >= dayEx || yearS == yearEx && monthE > monthS && monthS <= monthE && dayE >= dayEx)
+                    {
+                        alert("Dermatologist is on vacation from " + dayS + '.' + monthS +  '.' + yearS + " to " + dayE + '.' + monthE +  '.' + yearE)
+                        return                    
+                    }
+                }         
+             }
 			var startHour = parseInt(this.newExamination.startTime.split(":")[0])
             var startMinute = parseInt(this.newExamination.startTime.split(":")[1])
 			var endHour = parseInt(this.newExamination.endTime.split(":")[0])

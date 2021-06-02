@@ -19,6 +19,7 @@ import rs.ac.uns.ftn.informatika.jpa.dto.ReservationDTO;
 import rs.ac.uns.ftn.informatika.jpa.model.Medicine;
 import rs.ac.uns.ftn.informatika.jpa.model.MedicinePriceAndQuantity;
 import rs.ac.uns.ftn.informatika.jpa.model.Patient;
+import rs.ac.uns.ftn.informatika.jpa.model.Pharmacy;
 import rs.ac.uns.ftn.informatika.jpa.model.Reservation;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IMedicineRepository;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IPatientRepository;
@@ -191,6 +192,27 @@ public class ResrvationService implements IReservationService{
 
 	@Transactional(readOnly=false)
 	public ReservationDTO makeNewReservation(Reservation reservation) {
+
+        Pharmacy pharmacy = pharmacyRepository.getByName(reservation.getPharmacy().getName());
+
+        Set<MedicinePriceAndQuantity> pricelist = pharmacy.getPricelist();
+        for (MedicinePriceAndQuantity medicinePriceAndQuantity : pricelist) {
+                if((long)medicinePriceAndQuantity.getMedicine().getId() == (long) reservation.getMedicine().getMedicine().getId()){
+					if(medicinePriceAndQuantity.getQuantity() == 0){
+						return null;
+					}
+                    medicinePriceAndQuantity.setQuantity(medicinePriceAndQuantity.getQuantity() - 1);
+                }
+        }
+		
+		pharmacy.setPricelist(pricelist);
+
+		try {
+			pharmacyRepository.save(pharmacy);
+		} catch (Exception e) {
+
+		}
+
 		Reservation r = new Reservation();
 		r.setExpirationDate(reservation.getExpirationDate());
 		r.setIsCanceled(false);

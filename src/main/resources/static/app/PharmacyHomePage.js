@@ -28,6 +28,16 @@ Vue.component("pharmacyHomePage", {
         .then(response =>{
             this.pharmacy = response.data
 			axios
+			.get('/pharmacyAdmin/MapLocation/' +  this.pharmacy.id,{
+				headers: {
+					'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+				}
+			})
+			.then(response =>{
+				this.mapLocation = response.data
+				this.InitializeMap()
+			 })
+			axios
 			.get('/actionOrPromotion/getCurrentByPharmacyId/' + this.pharmacy.id,{
 				headers: {
 					'Authorization': 'Bearer' + " " + localStorage.getItem('token')
@@ -60,7 +70,6 @@ Vue.component("pharmacyHomePage", {
 			<h1><i></i></h1>
 			<h1><i></i></h1>
 			<h1><i></i></h1>
-			<h1><i></i></h1>
 
 			<h3><b></b></h3>
 			<h3>Welcome to <i>{{pharmacy.name}} </i> pharmacy</h3>
@@ -74,7 +83,13 @@ Vue.component("pharmacyHomePage", {
 			<button v-else type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" disabled>
 					Check your ePerscriptions
 			</button>
-
+			<h1>
+			</h1>
+			<button v-if = "patient != null" type="button" class="btn btn-primary" data-toggle="modal"  v-on:click = "Subscribe()">
+				Subscribe now!
+			</button>
+			<h1>
+			</h1>
 			<!-- ePerscriptions -->
 			<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 			  <div class="modal-dialog" role="document">
@@ -140,14 +155,13 @@ Vue.component("pharmacyHomePage", {
 
 				<h1></h1>
 				<h1></h1>
-				<h1></h1>
-				<h1></h1>
+
+				<div id="map" class="map" style = "margin-top : 1%; margin-bottom : 1%; margin-left : 34%; width:600px; height : 400px;"></div>
+
 				<h1></h1>
 				<h1></h1>
 
-				<button v-if = "patient != null" type="button" class="btn btn-primary" data-toggle="modal"  v-on:click = "Subscribe()">
-					Subscribe now!
-				</button>
+
 
 		</div>
 
@@ -186,6 +200,41 @@ Vue.component("pharmacyHomePage", {
 			})
 
         },
+		InitializeMap : function(){
+
+
+			var attribution = new ol.control.Attribution({
+				collapsible: false
+			});
+		   
+			var map = new ol.Map({
+				controls: ol.control.defaults({attribution: false}).extend([attribution]),
+				layers: [
+					new ol.layer.Tile({
+						source: new ol.source.OSM()
+					})
+				],
+				target: 'map',
+				view: new ol.View({
+					center: ol.proj.fromLonLat([ this.mapLocation.xaxis, this.mapLocation.yaxis]),
+					maxZoom: 20,
+					zoom: 18
+				})
+			});
+	
+			var layer = new ol.layer.Vector({
+				source: new ol.source.Vector({
+					features: [
+						new ol.Feature({
+							geometry: new ol.geom.Point(ol.proj.fromLonLat([this.mapLocation.xaxis, this.mapLocation.yaxis]))
+						})
+					]
+				})
+			});
+			map.addLayer(layer);
+	
+	
+		   }
     }
 });
 
