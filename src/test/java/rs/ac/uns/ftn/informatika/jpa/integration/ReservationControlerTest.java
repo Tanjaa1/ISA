@@ -7,6 +7,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import java.nio.charset.Charset;
 import java.util.Date;
 
+import javax.transaction.Transactional;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,6 +18,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -45,15 +48,9 @@ public class ReservationControlerTest {
 
             @Test
             @WithMockUser(roles = "PHARMACIST")
+            @Transactional
+            @Rollback(true)
             public void testGetReservationById() throws Exception {
-
-                ReservationDTO r=new ReservationDTO();
-                r.setId(1L);
-                r.setExpirationDate(new Date(2021,8,12));
-                r.setIsReceived(false);
-                r.setIsCanceled(false);
-
-		        String json = TestUtil.json(r);
                 mockMvc.perform(get(URL_PREFIX + "/getReservationById/"+1L+"/"+1L))
                 .andExpect(status().isOk());
             }

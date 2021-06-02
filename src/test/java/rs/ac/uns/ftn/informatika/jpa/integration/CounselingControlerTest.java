@@ -7,6 +7,8 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,6 +18,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -62,14 +65,10 @@ public class CounselingControlerTest {
             }
 
             @Test
-            @WithMockUser(roles = "PHARMACIST")
+            @WithMockUser(roles = "PHARMACIST")   
+            @Transactional
+            @Rollback(true)
             public void testGetFreeCounselingnByPharmacist() throws Exception {
-                List<CouncelingDTO> counselings=new ArrayList<CouncelingDTO>();
-                CouncelingDTO c=new CouncelingDTO();
-                c.setId(100L);
-                counselings.add(c);
-		        String json = TestUtil.json(counselings);
-
                 mockMvc.perform(get(URL_PREFIX + "/getFreeCounselingByPharmacist/"+1L))
                 .andExpect(status().isOk());
             }
