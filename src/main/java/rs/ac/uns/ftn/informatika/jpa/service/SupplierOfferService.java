@@ -9,11 +9,16 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import rs.ac.uns.ftn.informatika.jpa.dto.MedicinePriceAndQuantityDTO;
 import rs.ac.uns.ftn.informatika.jpa.dto.MedicineQuantityDTO;
 import rs.ac.uns.ftn.informatika.jpa.dto.OrderDTO;
+import rs.ac.uns.ftn.informatika.jpa.dto.PharmacyAdminDTO;
 import rs.ac.uns.ftn.informatika.jpa.dto.SupplierOfferDTO;
 import rs.ac.uns.ftn.informatika.jpa.enums.OfferStatus;
+import rs.ac.uns.ftn.informatika.jpa.model.MedicinePriceAndQuantity;
 import rs.ac.uns.ftn.informatika.jpa.model.Order;
+import rs.ac.uns.ftn.informatika.jpa.model.Pharmacy;
+import rs.ac.uns.ftn.informatika.jpa.model.PharmacyAdmin;
 import rs.ac.uns.ftn.informatika.jpa.model.Supplier;
 import rs.ac.uns.ftn.informatika.jpa.model.SupplierOffer;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IOrderRepository;
@@ -31,7 +36,9 @@ public class SupplierOfferService {
     private SupplierService supplierService;
 	@Autowired
 	private EmailService emailService;
-   
+    @Autowired
+	private PharmacyService pharmacyService;
+
     public List<SupplierOfferDTO> getOfferBySupplierId(Long id) {
     Supplier s=supplierService.findOne(id);
     List<SupplierOfferDTO> result=new ArrayList<>();
@@ -130,6 +137,25 @@ public class SupplierOfferService {
         
        List<SupplierOffer> so = supplierOfferRepository.getOffersByOrder(or.getId());
 
+        PharmacyAdminDTO pAdmin = or.getPharmacyAdmin();
+        Pharmacy pharmacy = pharmacyService.getByName(pAdmin.getPharmacy().getName());
+
+        Set<MedicinePriceAndQuantity> pricelist = pharmacy.getPricelist();
+        for (MedicinePriceAndQuantity medicinePriceAndQuantity : pricelist) {
+            for(MedicineQuantityDTO mpqOrder : or.getOrders()){
+                if((long)medicinePriceAndQuantity.getMedicine().getId() == (long) mpqOrder.getMedicine().getId()){
+                    medicinePriceAndQuantity.setQuantity(medicinePriceAndQuantity.getQuantity() + mpqOrder.getQuantity());
+                }
+            }
+        }
+        
+        try{
+            pharmacy.setPricelist(pricelist);
+            pharmacyService.save(pharmacy);
+        }
+        catch(Exception e){
+
+        }
         for (SupplierOffer supplierOffer : so) {
 
             if(supplierOffer.getId() == id.longValue()){

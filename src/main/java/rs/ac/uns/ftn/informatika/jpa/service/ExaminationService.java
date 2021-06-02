@@ -32,6 +32,7 @@ import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IPatientRepository;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IPharmacyRepository;
 import rs.ac.uns.ftn.informatika.jpa.service.Interface.IExaminationService;
 import rs.ac.uns.ftn.informatika.jpa.util.MedicineGraphInfo;
+import rs.ac.uns.ftn.informatika.jpa.util.VacationInterval;
 import rs.ac.uns.ftn.informatika.jpa.util.WorkingTime;
 
 @Service
@@ -249,7 +250,6 @@ public class ExaminationService implements IExaminationService {
                 return true;
         return false;
     }
-
 	
     private Boolean checkIfDermatologistFree(Examination examination) {
         if(workTimeCheck(examination)){

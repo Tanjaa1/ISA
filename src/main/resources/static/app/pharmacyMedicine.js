@@ -71,7 +71,8 @@ Vue.component("pharmacyMedicine", {
                 <tr v-for = "(medicine,index) in displayedMedicine">
                     <td>{{medicine.medicine.name}}</td>
                     <td>{{medicine.price}} rsd</td>
-                    <td><button style="color:white" type="button" class="btn btn-default" data-dismiss="modal" v-on:click="SelectMedicine(medicine)" data-toggle="modal" data-target="#selectQuantity"><i class="fa fa-shopping-cart"></i></button></td>
+                    <td v-if = "medicine.quantity > 0"><button style="color:white" type="button" class="btn btn-default" data-dismiss="modal" v-on:click="SelectMedicine(medicine)" data-toggle="modal" data-target="#selectQuantity"><i class="fa fa-shopping-cart"></i></button></td>
+                    <td v-else>Stock is empty</td>
                 </tr>
             </tbody>
         </table>
@@ -140,6 +141,7 @@ Vue.component("pharmacyMedicine", {
 		},
         MakeReservation: function(){
             if(this.newReservation.expirationDate != null){
+
                 this.newReservation.expirationDate = this.newReservation.expirationDate + "T00:00:00"
                 axios
                 .post('/reservation/makeNewReservation', this.newReservation,{
@@ -148,11 +150,27 @@ Vue.component("pharmacyMedicine", {
                     }
                 })
                 .then(response => {
-                    this.pharmacies = response.data
+                    if(response.data == ""){
+                        alert("Sorry we are out of stock.")
+                    }
                     this.newReservation.expirationDate = null;
 
                     alert("Reservation sucessfuly created")
                     $("#selectQuantity").modal('hide');
+
+                    axios
+                    .get('/pharmacy/getByName/' + localStorage.getItem('pharmacy'),{
+                        headers: {
+                            'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+                        }
+                    })
+                    .then(response =>{
+                        this.pharmacy = response.data
+                        this.newReservation.pharmacy = this.pharmacy
+            
+                        this.displayedMedicine = this.pharmacy.pricelist
+            
+                     })
                 })
                 .catch(error => {
                 })
