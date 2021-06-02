@@ -64,6 +64,13 @@ public class Examination {
 		Report="";
 		Dermatologist=new Dermatologist();
 		Pharmacy=new Pharmacy();
+		Price=0.00;
+		PriceWithDiscount=0.00;
+		//StartTime=LocalDateTime.now();
+		// EndTime=LocalDateTime.now().plusMinutes(15);
+		//Patient=new Patient();
+		 IsCanceled=false;
+
 	}
 	@Column(name="IsCanceled", unique=false, nullable=true)
 	private Boolean IsCanceled;

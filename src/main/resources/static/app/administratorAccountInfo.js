@@ -3,6 +3,10 @@
 Vue.component("administratorAccountInfo", {
 	data: function () {
 		return {
+            mapLocation : {
+                x : 0,
+                y : 0
+            },
             administrator: {},
             pharmacy: {},
             password : "",
@@ -32,12 +36,53 @@ Vue.component("administratorAccountInfo", {
             })
             .then(response =>{
                 this.pharmacy = response.data
+                localStorage.setItem('pharmacy',this.pharmacy.id)
              })
+
         })
 
+	},
+    mounted(){
+        axios
+        .get('/pharmacyAdmin/getById/' + localStorage.getItem('userId'),{
+            headers: {
+                'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+            }
+        })
+        .then(response => {
+            this.administrator = response.data
+            if(this.administrator.firstTimeLogin)
+                $("#firstTIme").modal('show') 
+            
+            axios
+            .get('/pharmacy/getByName/' + this.administrator.pharmacy.name,{
+                headers: {
+                    'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+                }
+            })
+            .then(response =>{
+                this.pharmacy = response.data
+                axios
+                .get('/pharmacyAdmin/MapLocation/' +  this.pharmacy.id,{
+                    headers: {
+                        'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+                    }
+                })
+                .then(response =>{
+                    this.mapLocation = response.data
+                    this.InitializeMap()
+        
+        
+                 })
+             })
 
-	}
-    
+        })
+
+        
+
+
+
+    }
 		,
 	template: `
 	<div id="administratorAccountInfo">		
@@ -114,10 +159,13 @@ Vue.component("administratorAccountInfo", {
         <button style="color:white; width : 200px; height : 70px" type="button"  class="btn btn-default inline-block" data-dismiss="modal" v-on:click="" data-toggle="modal" data-target="#changePersonalInfo">Change personal informations</button>
         <button style="color:white; width : 200px; height : 70px" type="button"  class="btn btn-default inline-block" data-dismiss="modal" v-on:click="" data-toggle="modal" data-target="#changePassword">Change password</button>
 
+
+
         <br>
         <br>
         <h3 class="pi">Pharmacy information</h3>
-
+        </br>
+        
 
         <div class="input-group mb-3"  style = "width : 40%; margin-left:30%">
 
@@ -143,7 +191,13 @@ Vue.component("administratorAccountInfo", {
 
         </div>
 
-		
+        <div class="form-group" style = "width: 27%; margin-left : 36.5%">
+        <label for="recipient-name" min="0" class="col-form-label">Address:</label>
+        <input type="text" min = "0"class="form-control"  v-model="pharmacy.address" disabled>
+        </div>
+        <div id="map" class="map" style = "margin-top : 1%; margin-bottom : 1%; margin-left : 34%; width:600px; height : 400px;"></div>
+
+
         <!-- Edit info modal -->
             <div class="modal fade" id="changePersonalInfo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-scrollable" role="document">
@@ -480,6 +534,41 @@ Vue.component("administratorAccountInfo", {
            }
 
        },
+       InitializeMap : function(){
+
+
+        var attribution = new ol.control.Attribution({
+            collapsible: false
+        });
+       
+        var map = new ol.Map({
+            controls: ol.control.defaults({attribution: false}).extend([attribution]),
+            layers: [
+                new ol.layer.Tile({
+                    source: new ol.source.OSM()
+                })
+            ],
+            target: 'map',
+            view: new ol.View({
+                center: ol.proj.fromLonLat([ this.mapLocation.xaxis, this.mapLocation.yaxis]),
+                maxZoom: 20,
+                zoom: 18
+            })
+        });
+
+        var layer = new ol.layer.Vector({
+            source: new ol.source.Vector({
+                features: [
+                    new ol.Feature({
+                        geometry: new ol.geom.Point(ol.proj.fromLonLat([this.mapLocation.xaxis, this.mapLocation.yaxis]))
+                    })
+                ]
+            })
+        });
+        map.addLayer(layer);
+
+
+       }
 	}
 });
 

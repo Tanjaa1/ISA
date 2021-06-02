@@ -13,17 +13,22 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import rs.ac.uns.ftn.informatika.jpa.dto.PharmacyAdminDTO;
+import rs.ac.uns.ftn.informatika.jpa.model.Examination;
 import rs.ac.uns.ftn.informatika.jpa.model.Medicine;
 import rs.ac.uns.ftn.informatika.jpa.model.PharmacyAdmin;
+import rs.ac.uns.ftn.informatika.jpa.model.Reservation;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IPharmacyAdminRepository;
+import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IPharmacyRepository;
 import rs.ac.uns.ftn.informatika.jpa.service.Interface.IPharmacyAdminService;
+import rs.ac.uns.ftn.informatika.jpa.util.MapLocation;
+import rs.ac.uns.ftn.informatika.jpa.util.MedicineGraphInfo;
 
 @Service
 public class PharmacyAdminService implements IPharmacyAdminService {
     @Autowired
     private IPharmacyAdminRepository pharmacyAdminRepository;
-
-   
+    @Autowired
+   private IPharmacyRepository pharmacyRepository;
 	@Autowired
 	private EmailService emailService;
 	private Logger logger = LoggerFactory.getLogger(ResrvationService.class);
@@ -187,4 +192,106 @@ public class PharmacyAdminService implements IPharmacyAdminService {
 		}
 		return patieResult;
 		}
+    
+    
+        public List<MedicineGraphInfo> revenueDaily(Long pharmacyId, int month , int year) throws Exception {
+
+            List<MedicineGraphInfo> retVal = new ArrayList<MedicineGraphInfo>();
+        
+            if(month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12){
+                for(int i = 0 ; i < 31 ; i++){
+                    retVal.add(new MedicineGraphInfo(i+1,0));	
+                }
+            }
+            else if(month == 4 || month == 6 || month == 9 || month == 11){
+                for(int i = 0 ; i < 30 ; i++){
+                    retVal.add(new MedicineGraphInfo(i,0));	
+                }
+            }
+            else if(month == 2){
+                for(int i = 0 ; i < 29 ; i++){
+                    retVal.add(new MedicineGraphInfo(i,0));	
+                }
+            }
+    
+            List<Reservation> reservations = pharmacyRepository.getConsumedMeds(pharmacyId);
+            if(month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12){
+                for(int i = 0 ; i < 31 ; i++){
+                    for(Reservation r : reservations){
+                        if(Integer.parseInt(r.getExpirationDate().toString().split("-")[0]) == year 
+                        && Integer.parseInt(r.getExpirationDate().toString().split("-")[1]) == month 
+                        && Integer.parseInt(r.getExpirationDate().toString().split("-")[2].split(" ")[0]) == i+1){
+                            retVal.get(i).addToY((int)r.getMedicine().getPrice());
+                        }
+                    }
+                }
+            }
+            else if(month == 4 || month == 6 || month == 9 || month == 11){
+                for(int i = 0 ; i < 30 ; i++){
+                    for(Reservation r : reservations){
+                        if(Integer.parseInt(r.getExpirationDate().toString().split("-")[0]) == year 
+                        && Integer.parseInt(r.getExpirationDate().toString().split("-")[1]) == month 
+                        && Integer.parseInt(r.getExpirationDate().toString().split("-")[2].split(" ")[0]) == i+1){
+                            retVal.get(i).addToY((int)r.getMedicine().getPrice());
+                        }
+                    }
+                }
+            }
+            else if(month == 2){
+                for(int i = 0 ; i < 29 ; i++){
+                    for(Reservation r : reservations){
+                        if(Integer.parseInt(r.getExpirationDate().toString().split("-")[0]) == year 
+                        && Integer.parseInt(r.getExpirationDate().toString().split("-")[1]) == month 
+                        && Integer.parseInt(r.getExpirationDate().toString().split("-")[2].split(" ")[0]) == i+1){
+                            retVal.get(i).addToY((int)r.getMedicine().getPrice());
+                        }
+                    }
+                }
+            }
+
+
+            List<Examination> examinations = pharmacyRepository.getFinishedExaminations(pharmacyId);
+            if(month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12){
+                for(int i = 0 ; i < 31 ; i++){
+                    for(Examination r : examinations){
+                        if(Integer.parseInt(r.getEndTime().toString().split("-")[0]) == year 
+                        && Integer.parseInt(r.getEndTime().toString().split("-")[1]) == month 
+                        && Integer.parseInt(r.getEndTime().toString().split("-")[2].split("T")[0]) == i+1){
+                            retVal.get(i).addToY(r.getPrice().intValue());
+                        }
+                    }
+                }
+            }
+            else if(month == 4 || month == 6 || month == 9 || month == 11){
+                for(int i = 0 ; i < 30 ; i++){
+                    for(Examination r : examinations){
+                        if(Integer.parseInt(r.getEndTime().toString().split("-")[0]) == year 
+                        && Integer.parseInt(r.getEndTime().toString().split("-")[1]) == month 
+                        && Integer.parseInt(r.getEndTime().toString().split("-")[2].split("T")[0]) == i+1){
+                            retVal.get(i).addToY(r.getPrice().intValue());
+                        }
+                    }
+                }
+            }
+            else if(month == 2){
+                for(int i = 0 ; i < 29 ; i++){
+                    for(Examination r : examinations){
+                        if(Integer.parseInt(r.getEndTime().toString().split("-")[0]) == year 
+                        && Integer.parseInt(r.getEndTime().toString().split("-")[1]) == month 
+                        && Integer.parseInt(r.getEndTime().toString().split("-")[2].split("T")[0]) == i+1){
+                            retVal.get(i).addToY(r.getPrice().intValue());
+                        }
+                    }
+                }
+            }
+
+
+            return retVal;
+        }
+
+        public MapLocation getMapLocation(Long id) {
+            return pharmacyAdminRepository.getMapLocation(id);
+        }
+    
+
 }

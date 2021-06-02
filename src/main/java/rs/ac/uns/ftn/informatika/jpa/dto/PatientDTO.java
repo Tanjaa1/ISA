@@ -38,6 +38,17 @@ public class PatientDTO {
 	
 	public PatientDTO() {}
 	
+	public PatientDTO(Long id, String email, String password, String name, String surname,String phoneNumber,String usermane)
+	{
+		Id = id;
+		Email = email;
+		Password = password;
+		Name = name;
+		Surname = surname;
+		Username=usermane;
+		PhoneNumber = phoneNumber;
+	}
+	
 	public PatientDTO(Long id, String email, String password, String name, String surname, String address, String city,
 			String country, String phoneNumber, String description, Boolean emailComfirmed, Boolean firstTimeLogin,
 			Set<String> drugAllargies, Integer points, Set<PenaltysDTO> penalty, LoyaltyCategories category, Set<Complaint> complaints, Set<CouncelingDTO> counselings,
@@ -69,7 +80,10 @@ public class PatientDTO {
 		ActionOrPromotions = actionOrPromotions;
 		//Reservations = reservations;
 	}
-	
+	public PatientDTO(String name, String surname) {
+		Name=name;
+		Surname=surname;
+	}
 	public PatientDTO(Patient patient) {
 		Id = patient.getId();
 		Email = patient.getEmail();

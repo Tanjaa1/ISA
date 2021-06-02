@@ -36,6 +36,9 @@ Vue.component("administratorExaminations", {
         }) 
         .then(response => {
             this.administrator = response.data
+            var pAdmin = response.data
+			if(pAdmin.firstTimeLogin)
+            	this.$router.push('administratorAccountInfo');
             axios
             .get('/pharmacy/getByName/' + this.administrator.pharmacy.name,{
                 headers: {
@@ -186,13 +189,18 @@ Vue.component("administratorExaminations", {
 				this.newExamination.startTime = this.newExamination.Date + "T" +this.newExamination.startTime
 				this.newExamination.endTime = this.newExamination.Date + "T" + this.newExamination.endTime
 				if(this.newExamination.startTime != null && this.newExamination.endTime != null && this.newExamination.price != null && this.newExamination.dermatologist != null && this.newExamination.Date != null){
-					axios
+                    axios
 					.post('/examination/addEmptyExamination',this.newExamination,{
                         headers: {
                             'Authorization': 'Bearer' + " " + localStorage.getItem('token')
                         }
                     })
 					.then(response => {
+                        var flag = response.data 
+                        if(flag == ""){
+                            alert("Dermatologist is not free for given time")
+                            return
+                        }
                         axios
                         .get('/examination/getUpcomingFreeExaminations/' + this.pharmacy.id +"/" +  this.newExamination.dermatologist.id,{
                             headers: {
@@ -212,7 +220,6 @@ Vue.component("administratorExaminations", {
 					.catch(error => {
 					})
 					$('#newAppointment').modal('hide');
-                   
 				}
 				else{
 					alert("Please check parameters.")

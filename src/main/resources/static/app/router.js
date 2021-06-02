@@ -63,6 +63,7 @@ const AdministratorHomePage= { template: '<administratorHomePage></administrator
 
 
 
+
 const EmailConfirmation = { template: '<emailConfirmation></emailConfirmation>' } 
 const SuccessfulRegistration = { template: '<successfulRegistration></successfulRegistration>' } 
 const emailConfirmationSupplier = { template: '<emailConfirmationSupplier></emailConfirmationSupplier>' } 
@@ -93,6 +94,13 @@ const AdministratorAccountInfo = { template: '<administratorAccountInfo></admini
 const AdministratorExaminations = { template: '<administratorExaminations></administratorExaminations>' }
 const AdministratorEmployed = { template: '<administratorEmployed></administratorEmployed>' }
 const AdministratorMedicine = { template: '<administratorMedicine></administratorMedicine>' }
+
+const ReportAdministrator= { template: '<reportAdministrator></reportAdministrator>' } 
+const ReportMedicine= { template: '<reportMedicine></reportMedicine>' } 
+const ReportExamination= { template: '<reportExamination></reportExamination>' } 
+const ReportRevenue= { template: '<reportRevenue></reportRevenue>' } 
+const AdministratorHeader= { template: '<administratorHeader></administratorHeader>' } 
+
 
 const PharmacyHomePage = { template: '<pharmacyHomePage></pharmacyHomePage>' }
 const PharmacyEmployees = { template: '<pharmacyEmployees></pharmacyEmployees>' }
@@ -136,15 +144,47 @@ const router = new VueRouter({
 	    	path: '/administratorHomePage', 
 	    	name : 'administratorHomePage', 
 	    	components: {
-				pageHeader: PatientHeader,
+				pageHeader: AdministratorHeader,
 				content: AdministratorHomePage
+			}
+		},
+		{ 
+	    	path: '/reportAdministrator', 
+	    	name : 'reportAdministrator', 
+	    	components: {
+				pageHeader: AdministratorHeader,
+				content: ReportAdministrator
+			}
+		},
+		{ 
+	    	path: '/reportMedicine', 
+	    	name : 'reportMedicine', 
+	    	components: {
+				pageHeader: AdministratorHeader,
+				content: ReportMedicine
+			}
+		},
+		{ 
+	    	path: '/reportExamination', 
+	    	name : 'reportExamination', 
+	    	components: {
+				pageHeader: AdministratorHeader,
+				content: ReportExamination
+			}
+		},
+		{ 
+	    	path: '/reportRevenue', 
+	    	name : 'reportRevenue', 
+	    	components: {
+				pageHeader: AdministratorHeader,
+				content: ReportRevenue
 			}
 		},
 		{ 
 	    	path: '/administratorAccountInfo', 
 	    	name : 'administratorAccountInfo', 
 	    	components: {
-				pageHeader: PatientHeader,
+				pageHeader: AdministratorHeader,
 				content: AdministratorAccountInfo
 			}
 		},
@@ -152,7 +192,7 @@ const router = new VueRouter({
 	    	path: '/administratorExaminations', 
 	    	name : 'administratorExaminations', 
 	    	components: {
-				pageHeader: PatientHeader,
+				pageHeader: AdministratorHeader,
 				content: AdministratorExaminations
 			}
 		},
@@ -160,7 +200,7 @@ const router = new VueRouter({
 	    	path: '/administratorEmployed', 
 	    	name : 'administratorEmployed', 
 	    	components: {
-				pageHeader: PatientHeader,
+				pageHeader: AdministratorHeader,
 				content: AdministratorEmployed
 			}
 		},
@@ -168,7 +208,7 @@ const router = new VueRouter({
 	    	path: '/administratorMedicine', 
 	    	name : 'administratorMedicine', 
 	    	components: {
-				pageHeader: PatientHeader,
+				pageHeader: AdministratorHeader,
 				content: AdministratorMedicine
 			}
 		},
@@ -222,7 +262,7 @@ const router = new VueRouter({
 	    	path: '/orderMedicinePharmacyAdmin', 
 	    	name : 'orderMedicinePharmacyAdmin', 
 	    	components: {
-				pageHeader: PatientHeader,
+				pageHeader: AdministratorHeader,
 				content: OrderMedicinePharmacyAdmin
 			}
 	    },

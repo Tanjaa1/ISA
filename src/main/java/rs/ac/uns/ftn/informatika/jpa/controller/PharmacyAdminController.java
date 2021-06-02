@@ -19,6 +19,9 @@ import rs.ac.uns.ftn.informatika.jpa.dto.PharmacyAdminDTO;
 import rs.ac.uns.ftn.informatika.jpa.model.Medicine;
 import rs.ac.uns.ftn.informatika.jpa.model.PharmacyAdmin;
 import rs.ac.uns.ftn.informatika.jpa.service.PharmacyAdminService;
+import rs.ac.uns.ftn.informatika.jpa.util.MedicineGraphInfo;
+import rs.ac.uns.ftn.informatika.jpa.util.MapLocation;
+
 
 @RestController
 @RequestMapping(value = "/pharmacyAdmin")
@@ -77,10 +80,25 @@ public class PharmacyAdminController {
 		Boolean success = pharmacyAdminService.confirmationEmail(Long.parseLong(Id));
 		return success == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(success);
 	}
+
 	@PreAuthorize("hasRole('PHARMACYADMIN')")
 	@GetMapping(value = "/getPharmacyAdminByCredentials/{username}")
 	public ResponseEntity<PharmacyAdminDTO> getPharmacyAdminByCredentials(@PathVariable String username) {
 		PharmacyAdminDTO patient = new PharmacyAdminDTO(pharmacyAdminService.getPharmacyAdminByCredentials(username));
 		return patient == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(patient);
+	}
+
+	@PreAuthorize("hasRole('PHARMACYADMIN')")
+	@GetMapping(value = "/RevenueDaily/{pharmacyID}/{month}/{year}")
+	public ResponseEntity<List<MedicineGraphInfo>> medicineConsumptionMonthly(@PathVariable Long pharmacyID,@PathVariable int month,@PathVariable int year) throws Exception {
+	List<MedicineGraphInfo> retVal = pharmacyAdminService.revenueDaily(pharmacyID,month,year);
+		return retVal == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(retVal);
+	}
+
+	@PreAuthorize("hasRole('PHARMACYADMIN')")
+	@GetMapping(value = "/MapLocation/{Id}")
+	public ResponseEntity<MapLocation> MapLocation(@PathVariable Long Id) {
+		MapLocation retVal = pharmacyAdminService.getMapLocation(Id);
+		return retVal == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(retVal);
 	}
 }

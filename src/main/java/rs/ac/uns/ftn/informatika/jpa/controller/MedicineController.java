@@ -30,6 +30,7 @@ import rs.ac.uns.ftn.informatika.jpa.dto.PharmacyQRDTO;
 import rs.ac.uns.ftn.informatika.jpa.model.Medicine;
 import rs.ac.uns.ftn.informatika.jpa.model.MedicinePriceAndQuantity;
 import rs.ac.uns.ftn.informatika.jpa.service.MedicineService;
+import rs.ac.uns.ftn.informatika.jpa.util.MedicineGraphInfo;
 
 @RestController
 @RequestMapping(value = "/medicine")
@@ -227,5 +228,32 @@ public class MedicineController {
 
 	}
 
+	@PreAuthorize("hasRole('PHARMACYADMIN')")
+	@GetMapping(value = "/medicineConsumptionDaily/{medicineId}/{pharmacyID}/{month}/{year}")
+	public ResponseEntity<List<MedicineGraphInfo>> medicineConsumptionMonthly(@PathVariable Long medicineId,@PathVariable Long pharmacyID,@PathVariable int month,@PathVariable int year) throws Exception {
+	List<MedicineGraphInfo> retVal = medicineService.medicineConsumptionDaily(medicineId,pharmacyID,month,year);
+		return retVal == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(retVal);
+	}
+
+	@PreAuthorize("hasRole('PHARMACYADMIN')")
+	@GetMapping(value = "/medicineConsumptionQuartal/{medicineId}/{pharmacyID}/{year}")
+	public ResponseEntity<List<MedicineGraphInfo>> medicineConsumptionQuartal(@PathVariable Long medicineId,@PathVariable Long pharmacyID,@PathVariable int year) throws Exception {
+	List<MedicineGraphInfo> retVal = medicineService.medicineConsumptionQuartal(medicineId,pharmacyID,year);
+		return retVal == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(retVal);
+	}
+
+	@PreAuthorize("hasRole('PHARMACYADMIN')")
+	@GetMapping(value = "/medicineConsumptionMonthly/{medicineId}/{pharmacyID}/{year}")
+	public ResponseEntity<List<MedicineGraphInfo>> medicineConsumptionMonthly(@PathVariable Long medicineId,@PathVariable Long pharmacyID,@PathVariable int year) throws Exception {
+	List<MedicineGraphInfo> retVal = medicineService.medicineConsumptionMonthly(medicineId,pharmacyID,year);
+		return retVal == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(retVal);
+	}
+
+	@PreAuthorize("hasRole('PHARMACYADMIN')")
+	@GetMapping(value = "/medicineConsumptionYearly/{medicineId}/{pharmacyID}/{year}")
+	public ResponseEntity<List<MedicineGraphInfo>> medicineConsumptionYearly(@PathVariable Long medicineId,@PathVariable Long pharmacyID,@PathVariable int year) throws Exception {
+	List<MedicineGraphInfo> retVal = medicineService.medicineConsumptionYearly(medicineId,pharmacyID,year);
+		return retVal == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(retVal);
+	}
 }
 

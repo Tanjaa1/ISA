@@ -3,6 +3,7 @@ package rs.ac.uns.ftn.informatika.jpa.service;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -41,9 +42,12 @@ import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IPharmacyRepository;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IReservationRepository;
 import rs.ac.uns.ftn.informatika.jpa.service.Interface.IMedicineService;
 import rs.ac.uns.ftn.informatika.jpa.service.Interface.IPharmacyService;
+import rs.ac.uns.ftn.informatika.jpa.util.MedicineGraphInfo;
+
 import java.io.File;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 import com.google.zxing.EncodeHintType;
@@ -706,5 +710,153 @@ public List<PharmacyQRDTO> sortByPharmacyAddressQRDESC(String path, Long patient
 		return new ResponseEntity<>(HttpStatus.CREATED);
 	}
 
+	public List<MedicineGraphInfo> medicineConsumptionDaily(Long medicineId ,Long pharmacyId, int month , int year) throws Exception {
+
+		List<MedicineGraphInfo> retVal = new ArrayList<MedicineGraphInfo>();
+	
+		if(month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12){
+			for(int i = 0 ; i < 31 ; i++){
+				retVal.add(new MedicineGraphInfo(i+1,0));	
+			}
+		}
+		else if(month == 4 || month == 6 || month == 9 || month == 11){
+			for(int i = 0 ; i < 30 ; i++){
+				retVal.add(new MedicineGraphInfo(i,0));	
+			}
+		}
+		else if(month == 2){
+			for(int i = 0 ; i < 29 ; i++){
+				retVal.add(new MedicineGraphInfo(i,0));	
+			}
+		}
+
+		List<Reservation> reservations = pharmacyRepository.getMedicineConsumptionReportMonth(pharmacyId, medicineId);
+		if(month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12){
+			for(int i = 0 ; i < 31 ; i++){
+				for(Reservation r : reservations){
+					if(Integer.parseInt(r.getExpirationDate().toString().split("-")[0]) == year 
+					&& Integer.parseInt(r.getExpirationDate().toString().split("-")[1]) == month 
+					&& Integer.parseInt(r.getExpirationDate().toString().split("-")[2].split(" ")[0]) == i+1){
+						retVal.get(i).incrementY();
+					}
+				}
+			}
+		}
+		else if(month == 4 || month == 6 || month == 9 || month == 11){
+			for(int i = 0 ; i < 30 ; i++){
+				for(Reservation r : reservations){
+					if(Integer.parseInt(r.getExpirationDate().toString().split("-")[0]) == year 
+					&& Integer.parseInt(r.getExpirationDate().toString().split("-")[1]) == month 
+					&& Integer.parseInt(r.getExpirationDate().toString().split("-")[2].split(" ")[0]) == i+1){
+						retVal.get(i).incrementY();
+					}
+				}
+			}
+		}
+		else if(month == 2){
+			for(int i = 0 ; i < 29 ; i++){
+				for(Reservation r : reservations){
+					if(Integer.parseInt(r.getExpirationDate().toString().split("-")[0]) == year 
+					&& Integer.parseInt(r.getExpirationDate().toString().split("-")[1]) == month 
+					&& Integer.parseInt(r.getExpirationDate().toString().split("-")[2].split(" ")[0]) == i+1){
+						retVal.get(i).incrementY();
+					}
+				}
+			}
+		}
+		return retVal;
+	}
+
+	public List<MedicineGraphInfo> medicineConsumptionQuartal(Long medicineId ,Long pharmacyId , int year) throws Exception {
+
+		List<MedicineGraphInfo> retVal = new ArrayList<MedicineGraphInfo>();
+	
+		for(int i = 0 ; i < 4 ; i++){
+				retVal.add(new MedicineGraphInfo(i+1,0));	
+		}
+
+
+		List<Reservation> reservations = pharmacyRepository.getMedicineConsumptionReportMonth(pharmacyId, medicineId);
+
+				for(Reservation r : reservations){
+					if(Integer.parseInt(r.getExpirationDate().toString().split("-")[0]) == year 
+					&& ( Integer.parseInt(r.getExpirationDate().toString().split("-")[1]) == 1 
+					|| Integer.parseInt(r.getExpirationDate().toString().split("-")[1]) == 2 
+					|| Integer.parseInt(r.getExpirationDate().toString().split("-")[1]) == 3 )
+					){
+						retVal.get(0).incrementY();
+					}
+					else if(Integer.parseInt(r.getExpirationDate().toString().split("-")[0]) == year 
+					&& (Integer.parseInt(r.getExpirationDate().toString().split("-")[1]) == 4 
+					|| Integer.parseInt(r.getExpirationDate().toString().split("-")[1]) == 5 
+					|| Integer.parseInt(r.getExpirationDate().toString().split("-")[1]) == 6 )
+					){
+						retVal.get(1).incrementY();
+					}
+					else if(Integer.parseInt(r.getExpirationDate().toString().split("-")[0]) == year 
+					&& (Integer.parseInt(r.getExpirationDate().toString().split("-")[1]) == 7 
+					|| Integer.parseInt(r.getExpirationDate().toString().split("-")[1]) == 8 
+					|| Integer.parseInt(r.getExpirationDate().toString().split("-")[1]) == 9 )
+					){
+						retVal.get(2).incrementY();
+					}
+					else if(Integer.parseInt(r.getExpirationDate().toString().split("-")[0]) == year 
+					&&( Integer.parseInt(r.getExpirationDate().toString().split("-")[1]) == 10 
+					|| Integer.parseInt(r.getExpirationDate().toString().split("-")[1]) == 11 
+					|| Integer.parseInt(r.getExpirationDate().toString().split("-")[1]) == 12 )
+					){
+						retVal.get(3).incrementY();
+					}
+				}
+			
+		return retVal;
+	}
+
+	public List<MedicineGraphInfo> medicineConsumptionMonthly(Long medicineId ,Long pharmacyId , int year) throws Exception {
+
+		List<MedicineGraphInfo> retVal = new ArrayList<MedicineGraphInfo>();
+	
+		for(int i = 0 ; i < 12 ; i++){
+				retVal.add(new MedicineGraphInfo(i+1,0));	
+		}
+
+
+		List<Reservation> reservations = pharmacyRepository.getMedicineConsumptionReportMonth(pharmacyId, medicineId);
+		for(int i = 0 ; i < 12 ; i++){
+				for(Reservation r : reservations){
+					if(Integer.parseInt(r.getExpirationDate().toString().split("-")[0]) == year 
+					&& Integer.parseInt(r.getExpirationDate().toString().split("-")[1]) == i+1 
+					){
+						retVal.get(i).incrementY();
+					}
+				}
+			}
+			
+		return retVal;
+	}
+	
+	public List<MedicineGraphInfo> medicineConsumptionYearly(Long medicineId ,Long pharmacyId , int year) throws Exception {
+
+		List<MedicineGraphInfo> retVal = new ArrayList<MedicineGraphInfo>();
+		year = year- 4;
+
+		for(int i = 0 ; i < 5 ; i++){
+				retVal.add(new MedicineGraphInfo(year+i,0));	
+		}
+
+
+		List<Reservation> reservations = pharmacyRepository.getMedicineConsumptionReportMonth(pharmacyId, medicineId);
+		for(int i = 0 ; i < 5 ; i++){
+				for(Reservation r : reservations){
+					if(Integer.parseInt(r.getExpirationDate().toString().split("-")[0]) == year + i 
+					){
+						retVal.get(i).incrementY();
+					}
+				}
+			}
+			
+		return retVal;
+	}
+	
 }
 		

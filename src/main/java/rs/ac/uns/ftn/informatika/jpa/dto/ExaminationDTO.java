@@ -63,8 +63,14 @@ public class ExaminationDTO {
 			Patient=new PatientDTO();
 		else
         	Patient = new PatientDTO(examination.getPatient());
-        Dermatologist = new DermatologistDTO(examination.getDermatologist());
-        Pharmacy = new PharmacyDTO(examination.getPharmacy());
+		if(examination.getDermatologist()!=null)
+       		Dermatologist = new DermatologistDTO(examination.getDermatologist());
+		else
+			Dermatologist = new DermatologistDTO();
+		if(examination.getPharmacy()!=null)
+        	Pharmacy = new PharmacyDTO(examination.getPharmacy());
+		else
+			Pharmacy = new PharmacyDTO();
 		Price=examination.getPrice();
 		IsCanceled = examination.getIsCanceled();
 		PriceWithDiscount=examination.getPriceWithDiscount();

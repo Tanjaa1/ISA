@@ -60,7 +60,8 @@ public class PharmacistDTO {
 	}
 
 	public PharmacistDTO(Pharmacist pharmaciest) {
-		Pharmacy = new PharmacyDTO(pharmaciest.getPharmacy());
+		if(pharmaciest.getPharmacy()!=null)
+			Pharmacy = new PharmacyDTO(pharmaciest.getPharmacy());
 		Id = pharmaciest.getId();
 		Email = pharmaciest.getEmail();
 		Password = pharmaciest.getPassword();

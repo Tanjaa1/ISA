@@ -76,6 +76,9 @@ Vue.component("administratorEmployed", {
 			}) 
 			.then(response => {
 				this.administrator = response.data
+				var pAdmin = response.data
+				if(pAdmin.firstTimeLogin)
+					this.$router.push('administratorAccountInfo');
 				axios
 				.get('/pharmacy/getByName/' + this.administrator.pharmacy.name,{
 					headers: {
@@ -208,7 +211,9 @@ Vue.component("administratorEmployed", {
 							<th scope="col">Name</th>
 							<th scope="col">Surname</th>
 							<th scope="col">Avg. rating</th>
+							<th scope="col">Pharmacies</th>
 							<th scope="col"></th>
+
 						</tr>
 					</thead>
 					<tbody>
@@ -218,6 +223,7 @@ Vue.component("administratorEmployed", {
 							<td>{{dermatologist.surname}}</td>
 							<td v-if = "dermatologist.grade != null">{{dermatologist.grade}}</td>
 							<td v-else>N/A</td>
+							<td><div  v-for = "p in dermatologist.pharmacies">{{p.name}}</div></td>
 							<td><button style="color:white" type="button" class="btn btn-default" data-dismiss="modal" v-on:click="SelectDermatologistWT(dermatologist)" data-toggle="modal" data-target="#addWorktimeDermatolgist"><i class="fa fa-calendar"></i></button>
 							<button style="color:white" type="button" class="btn btn-default" data-dismiss="modal" v-on:click="DeleteDermatologist(dermatologist)" data-toggle="modal" data-target="#"><i class="fa fa-trash"></i></button>
 							<button style="color:white" type="button" class="btn btn-default" data-dismiss="modal" v-on:click="GetRequests(dermatologist)" data-toggle="modal" data-target="#vacationRequests"><i class="fa fa-bed"></i></button>

@@ -44,6 +44,9 @@ Vue.component("orderMedicinePharmacyAdmin", {
 			.then(response => {
 				this.order.pharmacyAdmin = response.data
                 this.administrator = response.data
+                var pAdmin = response.data
+                if(pAdmin.firstTimeLogin)
+                    this.$router.push('administratorAccountInfo');
                 this.order.pharmacyAdmin.pharmacy = this.order.pharmacyAdmin.pharmacy.name
                 axios
                 .get('/pharmacy/getByName/'+ this.order.pharmacyAdmin.pharmacy,{

@@ -63,13 +63,16 @@ public class ResrvationService implements IReservationService{
 	public ReservationDTO getReservationById(Long id, Long pharmacyId)
 	{
 	    Reservation reservation = reservationRepository.getReservationById(id,pharmacyId);
+
 		reservation.getMedicine().setPrice(medicineService.Discount(reservation.getMedicine().getPrice(), reservation.getPatient().getId()));
-		if (reservation!=null && !reservation.getIsReceived() && !dateCompare.compareDates(reservation.getExpirationDate()))
+
+		if (reservation!=null && !reservation.getIsReceived() && !dateCompare.compareDates(reservation.getExpirationDate()) && !reservation.getIsCanceled())
 			return new ReservationDTO(reservation);
 		else
 			return null;
 	}
 
+	
 	@Override
 	public Reservation update(Reservation reservation) throws Exception
 	{
@@ -180,14 +183,13 @@ public class ResrvationService implements IReservationService{
 		r.setIsReceived(reservation.getIsReceived());
 		r.setPharmacy(pharmacyRepository.getOne(reservation.getPharmacy().getId()));
         r.setMedicine(priceAndQuantityRepository.getOne(reservation.getMedicine().getId()));
-        //c.setPatient(patientRepository.getOne(counseling.getPatient().getId()));
-        Long id = (long) 88;
-        r.setPatient(patientRepository.getOne(id));
+        r.setPatient(patientRepository.getOne(reservation.getPatient().getId()));
         ReservationDTO councelingDTO= new ReservationDTO(reservationRepository.save(r));
         emailSender3(r);
         return councelingDTO;
 	}
 
+	@Transactional(readOnly=false)
 	public ReservationDTO makeNewReservation(Reservation reservation) {
 		Reservation r = new Reservation();
 		r.setExpirationDate(reservation.getExpirationDate());

@@ -76,6 +76,7 @@ public class PatientController {
 		return patients == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(patients);
 	}
 
+	@PreAuthorize("hasRole('DERMATOLOGIST')")
 	@GetMapping(value = "/getPatientByDermatologistExaminationSearch/{id}/{name}/{surname}")
 	public ResponseEntity<List<PatientDTO>> getPatientByExaminationSearch(@PathVariable Long id,
 											@PathVariable String name,@PathVariable String surname) 
@@ -84,6 +85,7 @@ public class PatientController {
 		return patients == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(patients);
 	}
 
+	@PreAuthorize("hasRole('PHARMACIST')")
 	@GetMapping(value = "/getPatientByPharmacistCounselingSearch/{id}/{name}/{surname}")
 	public ResponseEntity<List<PatientDTO>> getPatientByCounselingSearch(@PathVariable Long id,
 											@PathVariable String name,@PathVariable String surname) 

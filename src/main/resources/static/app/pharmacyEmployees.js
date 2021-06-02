@@ -113,6 +113,7 @@ Vue.component("pharmacyEmployees", {
                         <th scope="col">Name</th>
                         <th scope="col">Surname</th>
                         <th scope="col">Avg. rating</th>
+						<th scope="col">Pharmacies</th>
                         <th scope="col" v-if="patient != null"></th>
                     </tr>
                 </thead>
@@ -122,6 +123,7 @@ Vue.component("pharmacyEmployees", {
                         <td>{{dermatologist.surname}}</td>
                         <td v-if = "dermatologist.grade != null">{{dermatologist.grade}}</td>
                         <td v-else>N/A</td>
+						<td><div  v-for = "p in dermatologist.pharmacies">{{p.name}}</div></td>
                         <td><button  v-if="patient != null" style="color:white" type="button" class="btn btn-default" data-dismiss="modal" v-on:click="GetExaminations(dermatologist)" data-toggle="modal" data-target="#dermatologistExaminationModal"><i class="fa fa-calendar"></i></button></td>
                     </tr>
                 </tbody>
