@@ -41,11 +41,11 @@ public class SupplierService implements ISupplierService {
         supplierRepository.save(supplier);
         List<Supplier> suppliers=supplierRepository.findAll();
 		Long supplierId=0L;
-	/*	for (Supplier supplier2 : suppliers) {
+		for (Supplier supplier2 : suppliers) {
 			if(supplier2.getUsername().equals(supplier.getUsername()))
 			supplierId=supplier2.getId();
 		}
-		*/
+	
 		supplier.setId(supplierId);
 		emailSender(supplier);
         return new ResponseEntity<>( HttpStatus.CREATED);
@@ -103,7 +103,7 @@ public class SupplierService implements ISupplierService {
 		try {
 			String subject="Supplier "+ supplier.getName() + supplier.getSurname();
 			Long encriptId=IdEncryption(supplier.getId());
-			String text="Dear "+ supplier.getName() + supplier.getSurname()+",\n Please click on link below to activate your profile \n <a href=\"http://localhost:8080/#/emailConfirmationSupplier?id=" + encriptId + "\">link</a>!";
+			String text="Dear "+ supplier.getName() + supplier.getSurname()+",\n Please click on link below to activate your profile \n <a href=\"http://localhost:8090/#/emailConfirmationSupplier?id=" + encriptId + "\">link</a>!";
 			emailService.sendNotificaitionAsync(supplier.getEmail(),subject,text);
 		}catch( Exception e ){
 			logger.info("Error sending email: " + e.getMessage());
@@ -122,7 +122,7 @@ public class SupplierService implements ISupplierService {
 
 	public Boolean confirmationEmail(Long supplierId) throws Exception {
 		Long decriptId=IdDecryption(supplierId);
-		Supplier supplierToUpdate=findOne(decriptId);
+		Supplier supplierToUpdate=supplierRepository.findById(decriptId).get();
 		SupplierDTO supplierDTO=new SupplierDTO(supplierToUpdate);
 		if(supplierDTO.getEmailComfirmed()) return false;
 		supplierDTO.setEmailComfirmed(true);

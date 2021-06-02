@@ -7,16 +7,12 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
-import javax.validation.Valid;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-
 import rs.ac.uns.ftn.informatika.jpa.dto.CouncelingDTO;
 import rs.ac.uns.ftn.informatika.jpa.dto.PharmacistDTO;
 import rs.ac.uns.ftn.informatika.jpa.dto.PharmacyDTO;
@@ -118,9 +114,10 @@ public class CounselingService implements ICounselingService {
 		List<CouncelingDTO> councelingDTOs=getAllCounselings();
 
 		for (CouncelingDTO councelingDTO : councelingDTOs) {
-			if(patientId==councelingDTO.getPatient().getId()){
-				pharmacistDTOs.add(councelingDTO.getPharmacist());
-			}
+            if(councelingDTO.getPatient()!=null){
+                if(patientId==councelingDTO.getPatient().getId())
+                    pharmacistDTOs.add(councelingDTO.getPharmacist());
+            }
 		}	
         if(pharmacistDTOs.isEmpty()) return null;
         else return pharmacistDTOs;
@@ -131,8 +128,9 @@ public class CounselingService implements ICounselingService {
 		List<CouncelingDTO> councelingDTOs=getAllCounselings();
 
 		for (CouncelingDTO councelingDTO : councelingDTOs) {
-			if(patientId==councelingDTO.getPatient().getId()){
-				pharmaciesDTOs.add(councelingDTO.getPharmacy());
+            if(councelingDTO.getPatient()!=null){
+                if(patientId==councelingDTO.getPatient().getId())
+                    pharmaciesDTOs.add(councelingDTO.getPharmacy());
 			}
 		}	
         return pharmaciesDTOs;

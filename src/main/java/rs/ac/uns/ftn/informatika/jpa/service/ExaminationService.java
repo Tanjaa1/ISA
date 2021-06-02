@@ -212,9 +212,9 @@ public class ExaminationService implements IExaminationService {
 		List<ExaminationDTO> examinations=getAllExaminations();
 
 		for (ExaminationDTO examinationDTO : examinations) {
-			if(patientId==examinationDTO.getPatient().getId()){
-				 dermatologists.add(examinationDTO.getDermatologist());
-			}
+            if(examinationDTO.getPatient()!=null)
+                if(patientId==examinationDTO.getPatient().getId())
+                    dermatologists.add(examinationDTO.getDermatologist());
 		}	
         if(dermatologists.isEmpty()) return null;
         else return dermatologists;
@@ -225,8 +225,9 @@ public class ExaminationService implements IExaminationService {
 		List<ExaminationDTO> councelingDTOs=getAllExaminations();
 
 		for (ExaminationDTO councelingDTO : councelingDTOs) {
-			if(patientId==councelingDTO.getPatient().getId()){
-				pharmaciesDTOs.add(councelingDTO.getPharmacy());
+            if(councelingDTO.getPatient()!=null){
+                if(patientId==councelingDTO.getPatient().getId())
+                    pharmaciesDTOs.add(councelingDTO.getPharmacy());
 			}
 		}
         if(pharmaciesDTOs.isEmpty()) return null;	

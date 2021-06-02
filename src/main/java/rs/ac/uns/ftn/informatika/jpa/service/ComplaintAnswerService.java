@@ -11,6 +11,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional; 
+
 import rs.ac.uns.ftn.informatika.jpa.dto.ComplaintAnswerDTO;
 import rs.ac.uns.ftn.informatika.jpa.dto.ComplaintDTO;
 import rs.ac.uns.ftn.informatika.jpa.dto.PatientDTO;
@@ -19,7 +22,7 @@ import rs.ac.uns.ftn.informatika.jpa.model.ComplaintAnswer;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IComplaintAnswerRepository;
 import rs.ac.uns.ftn.informatika.jpa.service.Interface.IComplaintAnswerService;
 import rs.ac.uns.ftn.informatika.jpa.service.Interface.IComplaintService;
-
+@Transactional(readOnly = true)
 @Service
 public class ComplaintAnswerService implements IComplaintAnswerService {
 
@@ -64,7 +67,8 @@ public class ComplaintAnswerService implements IComplaintAnswerService {
             returnValue.add(complaintDTO.toDTO(complaint));
         return returnValue;
     }
-
+    
+	@Transactional(readOnly=false, propagation = Propagation.REQUIRES_NEW)
     @Override
     public ResponseEntity<ComplaintAnswer> save(ComplaintAnswer complaint) throws Exception {
         PatientDTO patient=patientService.findByIdComplaints(complaint.getComplaint().getId());

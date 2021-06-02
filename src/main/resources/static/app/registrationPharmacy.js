@@ -288,7 +288,7 @@ Vue.component("registrationPharmacy", {
 									pharmacyAdminDTO.firstTimeLogin=false
 									pharmacyAdminDTO.description=""
 									pharmacyAdminDTO.pharmacy=pharmacyDTO.name
-										
+									
 									axios
 									.post('/api/saveUserByPharmacyAdmin' , pharmacyAdminDTO,{
 										headers: {

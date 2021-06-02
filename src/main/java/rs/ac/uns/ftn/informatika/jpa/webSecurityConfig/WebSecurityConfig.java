@@ -73,6 +73,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.authorizeRequests().antMatchers("/auth/**").permitAll().antMatchers("/api/**").permitAll().antMatchers("/patient/getPatientByCredentials").permitAll()
 				.antMatchers("/patient/savePatient/**").permitAll().antMatchers("/patient/isUsernameValid/**").permitAll()
 				.antMatchers("/pharmacy/getAll").permitAll().antMatchers("/medicine/combinedSearch/**").permitAll()
+				.antMatchers("/dermatologist/confirmationEmailDermatologist/**").permitAll()
+				.antMatchers("/supplier/confirmationEmailsupplier/**").permitAll()
+				.antMatchers("/systemAdmin/confirmationEmailSystemAdmin/**").permitAll()
+				.antMatchers("/pharmacyAdmin/confirmationEmailPharmacyAdmin/**").permitAll()
+				.antMatchers("/patient/confirmationEmail/**").permitAll()
+				
 				.antMatchers("/medicine/medicineConsumptionMonthly/**/**/**/**").permitAll()
 
 				// za svaki drugi zahtev korisnik mora biti autentifikovan

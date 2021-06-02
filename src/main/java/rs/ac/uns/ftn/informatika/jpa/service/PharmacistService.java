@@ -90,7 +90,7 @@ public class PharmacistService implements IPharmacistService {
 		try {
 			String subject="Pharmacist "+ pharmacist.getName() + pharmacist.getSurname();
 			Long encriptId=IdEncryption(pharmacist.getId());
-			String text="Dear "+ pharmacist.getName() + pharmacist.getSurname()+",\n Please click on link below to activate your profile \n <a href=\"http://localhost:8080/#/emailConfirmationPharmacist?id=" + encriptId + "\">link</a>!";
+			String text="Dear "+ pharmacist.getName() + pharmacist.getSurname()+",\n Please click on link below to activate your profile \n <a href=\"http://localhost:8090/#/emailConfirmationPharmacist?id=" + encriptId + "\">link</a>!";
 			emailService.sendNotificaitionAsync(pharmacist.getEmail(),subject,text);
 		}catch( Exception e ){
 			logger.info("Error sending email: " + e.getMessage());

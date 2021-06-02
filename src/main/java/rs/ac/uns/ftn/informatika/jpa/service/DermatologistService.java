@@ -125,7 +125,7 @@ public class DermatologistService implements IDermatologistService {
 		try {
 			String subject="Patient "+ dermatologist.getName()+dermatologist.getSurname();
 			Long encriptId=IdEncryption(dermatologist.getId());
-			String text="Dear "+ dermatologist.getName()+dermatologist.getSurname()+",\n Please click on link below to activate your profile \n <a href=\"http://localhost:8080/#/emailConfirmationDermatologist?id=" + encriptId + "\">link</a>!";
+			String text="Dear "+ dermatologist.getName()+dermatologist.getSurname()+",\n Please click on link below to activate your profile \n <a href=\"http://localhost:8090/#/emailConfirmationDermatologist?id=" + encriptId + "\">link</a>!";
 			emailService.sendNotificaitionAsync(dermatologist.getEmail(),subject,text);
 		}catch( Exception e ){
 			logger.info("Error sending email: " + e.getMessage());
