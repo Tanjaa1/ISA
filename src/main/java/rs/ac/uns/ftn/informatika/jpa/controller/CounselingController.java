@@ -139,7 +139,7 @@ public class CounselingController {
 		return e == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : new ResponseEntity<>(HttpStatus.OK);
 	}
 
-	@PreAuthorize("hasAnyRole('PATIENT','PHARMACYADMIN')")
+	@PreAuthorize("hasAnyRole('PATIENT','PHARMACYADMIN','PHARMACIST')")
 	@GetMapping(value = "/getFreeCounselingByPharmacist/{id}")
 	public ResponseEntity<List<CouncelingDTO>> getFreeCounselingByPharmacist(@PathVariable Long id) 
 	{

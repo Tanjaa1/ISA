@@ -46,9 +46,11 @@ public class ExaminationServiceTest {
         Examination e1=new Examination();
         e1.setId(1L);
         e1.setStartTime(LocalDateTime.now().plusDays(1));
+        e1.setEndTime(LocalDateTime.now().plusDays(1));
         Examination e2=new Examination();
         e2.setId(2L);
         e2.setStartTime(LocalDateTime.now().minusDays(1));
+        e2.setEndTime(LocalDateTime.now().minusDays(1));
         Collections.addAll(examinations, e1,e2);
         when(examinatonRepository.getFreeExaminationByDermatologist(1L)).thenReturn(examinations); 
         List<ExaminationDTO> examinationsDTO=examinationService.getFreeExaminationByDermatologist(1L);
