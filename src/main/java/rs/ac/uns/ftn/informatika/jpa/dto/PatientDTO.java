@@ -98,21 +98,27 @@ public class PatientDTO {
 		Description = patient.getDescription();
 		EmailComfirmed = patient.getEmailComfirmed();
 		FirstTimeLogin = patient.getFirstTimeLogin();
-		for (String da : patient.getDrugAllargies()) {
+		if(patient.getCategory()!=null){
+		for (String da : patient.getDrugAllargies())
 			DrugAllargies.add(da);
 		}
 		Points = patient.getPoints();
-		for (Penaltys penaltys : patient.getPenalty()) {
+		
+		if(patient.getPenalty()!=null){
+		for (Penaltys penaltys : patient.getPenalty())
 			Penalty.add(new PenaltysDTO(penaltys));
 		}
+		if(patient.getCategory()!=null)
 		Category = patient.getCategory();
 		// PrepaidPharmacies = patient.getPrepaidPharmacies();
-		 for (ActionOrPromotion actionOrPromotion : patient.getActionOrPromotion()) {
+		if(patient.getActionOrPromotion()!=null){
+		 for (ActionOrPromotion actionOrPromotion : patient.getActionOrPromotion())
 		 	ActionOrPromotions.add(new ActionOrPromotionsDTO(actionOrPromotion));
 		 }
 		//Complaints = patient.getComplaints();
 		//Counselings = patient.getCounselings();
-		for (EPrescription ePrescription : patient.getEPrescriptions()) {
+		if(patient.getEPrescriptions()!=null){
+		for (EPrescription ePrescription : patient.getEPrescriptions())
 			EPrescriptions.add(new EPrescriptionDTO(ePrescription));
 		}
 		//Examinations = patient.getExaminations();

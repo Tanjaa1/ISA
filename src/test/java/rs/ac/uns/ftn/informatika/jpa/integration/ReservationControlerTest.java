@@ -51,7 +51,7 @@ public class ReservationControlerTest {
             @Transactional
             @Rollback(true)
             public void testGetReservationById() throws Exception {
-                mockMvc.perform(get(URL_PREFIX + "/getReservationById/"+1L+"/"+1L))
+                mockMvc.perform(get(URL_PREFIX + "/getReservationById/"+104L+"/"+111L))
                 .andExpect(status().isOk());
             }
 

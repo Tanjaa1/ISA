@@ -24,6 +24,7 @@ public class MedicinePriceAndQuantityDTO {
     public MedicinePriceAndQuantityDTO(MedicinePriceAndQuantity medicinePriceAndQuantity){
   		  super();
         Id = medicinePriceAndQuantity.getId();
+		if(medicinePriceAndQuantity!=null)
         Medicine = new MedicineDTO(medicinePriceAndQuantity.getMedicine());
         Price = medicinePriceAndQuantity.getPrice();
         Quantity = medicinePriceAndQuantity.getQuantity();

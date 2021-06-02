@@ -62,8 +62,7 @@ public class ResrvationService implements IReservationService{
 	
 	@Override
 	public ReservationDTO getReservationById(Long id, Long pharmacyId)
-	{
-	    Reservation reservation = reservationRepository.getReservationById(id,pharmacyId);
+	{	    Reservation reservation = reservationRepository.getReservationById(id,pharmacyId);
 
 		reservation.getMedicine().setPrice(medicineService.Discount(reservation.getMedicine().getPrice(), reservation.getPatient().getId()));
 
