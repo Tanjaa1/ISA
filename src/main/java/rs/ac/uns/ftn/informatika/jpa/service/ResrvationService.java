@@ -228,7 +228,7 @@ public class ResrvationService implements IReservationService{
 
 	private void emailSender3(Reservation reservation)
 	{
-		LocalDate date = LocalDate.ofInstant(reservation.getExpirationDate().toInstant(), ZoneId.systemDefault());
+		LocalDate date= new java.sql.Date( reservation.getExpirationDate().getTime() ) .toLocalDate();
 		try {
 			String subject="Pharmacy "+ reservation.getPharmacy().getName()+"\n\n";
 			String text="Dear "+ reservation.getPatient().getFullName()+ ",\n\n"+ "Your made successfull reservation of medicine "+ 

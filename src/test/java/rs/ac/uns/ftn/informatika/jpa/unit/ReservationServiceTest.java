@@ -57,6 +57,7 @@ public class ReservationServiceTest {
         
         when(reservationRpository.getReservationById(123L, 1L)).thenReturn(reservation); 
         when(medicineService.Discount(reservation.getMedicine().getPrice(), reservation.getPatient().getId())).thenReturn(200.00); 
+
         ReservationDTO reservationDTO=reservationService.getReservationById(123L,1L);
         assertNotNull(reservationDTO);
     }
