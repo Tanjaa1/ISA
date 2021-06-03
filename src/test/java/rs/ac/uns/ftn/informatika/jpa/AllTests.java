@@ -17,6 +17,9 @@ import rs.ac.uns.ftn.informatika.jpa.unit.*;
 	CounselingServiceTest.class,
 	ReservationServiceTest.class,
 
+	ComplaintsAndAnswerServiceTest.class,
+	UserServiceTest.class,
+
 	ExaminationControlerTest.class,
 	ReservationControlerTest.class,
 	VacationControlerTest.class,

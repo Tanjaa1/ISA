@@ -17,7 +17,9 @@ import rs.ac.uns.ftn.informatika.jpa.dto.SystemAdminDTO;
 import rs.ac.uns.ftn.informatika.jpa.model.SystemAdmin;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.ISystemAdminRepository;
 import rs.ac.uns.ftn.informatika.jpa.service.Interface.ISystemAdminService;
-
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+@Transactional(readOnly = true)
 @Service
 public class SystemAdminService implements ISystemAdminService {
     @Autowired
@@ -25,7 +27,7 @@ public class SystemAdminService implements ISystemAdminService {
     @Autowired
 	private EmailService emailService;
 	private Logger logger = LoggerFactory.getLogger(ResrvationService.class);
-
+	@Transactional(readOnly=false)
     public ResponseEntity<SystemAdmin> save(SystemAdmin systemAdmin) throws Exception {
 		systemAdmin.setLastPasswordResetDate(new Date());
         systemAdminRepository.save(systemAdmin);
@@ -63,7 +65,7 @@ public class SystemAdminService implements ISystemAdminService {
         }
         return resultList;
     }
-
+	@Transactional(readOnly=false, propagation = Propagation.REQUIRES_NEW)
 	public Boolean isUsernameValid(String username) {
 		List<String> usernames=getAllSystemAdinUsernames();
         for (String s : usernames) {

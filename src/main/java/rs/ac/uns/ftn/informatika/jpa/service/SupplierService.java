@@ -22,7 +22,9 @@ import rs.ac.uns.ftn.informatika.jpa.model.Supplier;
 import rs.ac.uns.ftn.informatika.jpa.model.SupplierOffer;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.ISupplierRepository;
 import rs.ac.uns.ftn.informatika.jpa.service.Interface.ISupplierService;
-
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+@Transactional(readOnly = true)
 @Service
 public class SupplierService implements ISupplierService {
 
@@ -35,7 +37,7 @@ public class SupplierService implements ISupplierService {
     @Autowired
 	private EmailService emailService;
 	private Logger logger = LoggerFactory.getLogger(ResrvationService.class);
-    
+	@Transactional(readOnly=false)
     public ResponseEntity<SupplierDTO> save(Supplier supplier) throws Exception {
 		supplier.setLastPasswordResetDate(new Date());
         supplierRepository.save(supplier);
@@ -59,7 +61,7 @@ public class SupplierService implements ISupplierService {
         }
         return resultList;
 	}
-
+	@Transactional(readOnly=false, propagation = Propagation.REQUIRES_NEW)
 	public Boolean isUsernameValid(String username) {
 		List<String> usernames=getAllSupplierUsernames();
         for (String s : usernames) {

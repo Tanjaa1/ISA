@@ -26,6 +26,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.sym.Name;
 
 @Inheritance(strategy=TABLE_PER_CLASS)
 @Entity
@@ -186,6 +187,11 @@ public class User  implements UserDetails  {
 		EmailComfirmed = emailComfirmed;
 		FirstTimeLogin = firstTimeLogin;
 		username = Username;
+	}
+	public User(Long id,String name,String surname){
+		Id=id;
+		Name=name;
+		Surname=surname;
 	}
 
 

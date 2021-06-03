@@ -36,13 +36,13 @@ public class Complaint {
 	
 	public Complaint(){}
 
-	public Complaint(Long id, String text, String subject,Patient patient,Boolean isAnswered) {
+	public Complaint(Long id, String text, String subject,Patient patient,Boolean IsAnswered) {
 		super();
 		this.id = id;
 		Text = text;
 		Subject = subject;
 		Patient = patient;
-		isAnswered=isAnswered;
+		isAnswered=IsAnswered;
 	}
 	public Long getId() {
 		return id;

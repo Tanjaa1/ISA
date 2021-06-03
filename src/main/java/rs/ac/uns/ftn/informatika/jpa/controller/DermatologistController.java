@@ -27,6 +27,7 @@ import rs.ac.uns.ftn.informatika.jpa.model.Dermatologist;
 import rs.ac.uns.ftn.informatika.jpa.model.Pharmacy;
 import rs.ac.uns.ftn.informatika.jpa.service.DermatologistService;
 import rs.ac.uns.ftn.informatika.jpa.service.PharmacyService;
+import rs.ac.uns.ftn.informatika.jpa.service.UserService;
 import rs.ac.uns.ftn.informatika.jpa.util.WorkingTime;
 
 @RestController
@@ -36,7 +37,8 @@ import rs.ac.uns.ftn.informatika.jpa.util.WorkingTime;
 public class DermatologistController {
     @Autowired
 	private DermatologistService dermatologistService;
-	
+	@Autowired
+	private UserService userService;
 	@Autowired
 	private PharmacyService pharmacyService;
 	@PreAuthorize("hasRole('ADMIN')")
@@ -68,7 +70,7 @@ public class DermatologistController {
 	@PreAuthorize("hasRole('ADMIN')")
 	@GetMapping(value = "/isUsernameValid/{username}")
 	public ResponseEntity<Boolean> isUsernameValid(@PathVariable String username) {
-		Boolean isValid = dermatologistService.isUsernameValid(username);
+		Boolean isValid = userService.isUsernameValid(username);
 		return isValid == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(isValid);
 	}
 	
