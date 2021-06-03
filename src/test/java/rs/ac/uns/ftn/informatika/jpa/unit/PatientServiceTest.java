@@ -5,7 +5,9 @@ import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,8 +18,17 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import rs.ac.uns.ftn.informatika.jpa.dto.ActionOrPromotionsDTO;
 import rs.ac.uns.ftn.informatika.jpa.dto.PatientDTO;
+import rs.ac.uns.ftn.informatika.jpa.enums.LoyaltyCategories;
+import rs.ac.uns.ftn.informatika.jpa.model.ActionOrPromotion;
+import rs.ac.uns.ftn.informatika.jpa.model.Complaint;
+import rs.ac.uns.ftn.informatika.jpa.model.Counseling;
+import rs.ac.uns.ftn.informatika.jpa.model.EPrescription;
+import rs.ac.uns.ftn.informatika.jpa.model.Examination;
 import rs.ac.uns.ftn.informatika.jpa.model.Patient;
+import rs.ac.uns.ftn.informatika.jpa.model.Penaltys;
+import rs.ac.uns.ftn.informatika.jpa.model.Reservation;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IPatientRepository;
 import rs.ac.uns.ftn.informatika.jpa.service.PatientService;
 
@@ -68,7 +79,6 @@ public class PatientServiceTest{
         List<PatientDTO> patientsd=patientService.findPatientsByNameAndSurnameDermatologist(1L, "anja", "g");
         assertThat(patientsd).hasSize(0);
     }
-
     
 }
 

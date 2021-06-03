@@ -48,6 +48,13 @@ public class PatientDTO {
 		Username=usermane;
 		PhoneNumber = phoneNumber;
 	}
+	public PatientDTO(Long id, String name, String surname)
+	{
+		Id = id;
+		Name = name;
+		Surname = surname;
+		
+	}
 	
 	public PatientDTO(Long id, String email, String password, String name, String surname, String address, String city,
 			String country, String phoneNumber, String description, Boolean emailComfirmed, Boolean firstTimeLogin,

@@ -40,7 +40,7 @@ Vue.component("registrationPharmacy", {
 		<br><br><br>
 		<table class="t">
 			<tr>
-				<td><label>Namez</label><a class="star">*</a></td>
+				<td><label>Name</label><a class="star">*</a></td>
 				<td><input type="text" class = "form-control input" v-model="pharmacyDTO.name"/></td><br/>
 			<tr>
 			<tr><td>&nbsp;</td>
@@ -172,7 +172,7 @@ Vue.component("registrationPharmacy", {
 		},
 		addressValidationPharmacy: function () {
 			if (this.pharmacyDTO.address != undefined && this.pharmacyDTO.address.length > 0) {
-				let surnameMatch = this.pharmacyDTO.address.match('[A-Za-z0-9]*');
+				let surnameMatch = this.pharmacyDTO.address.match('[A-Za-z0-9 ]*');
 				if (surnameMatch != this.pharmacyDTO.address) return 'The Address may contain only letters and numbers';
 				else if (this.pharmacyDTO.address[0].match('[A-Z]') === null) return 'The Address must begin with a capital letter';
 			}

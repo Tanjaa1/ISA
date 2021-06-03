@@ -28,7 +28,9 @@ import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IPharmacyRepository;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IWorkTimeRepository;
 import rs.ac.uns.ftn.informatika.jpa.service.Interface.IDermatologistService;
 import rs.ac.uns.ftn.informatika.jpa.util.WorkingTime;
-
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+@Transactional(readOnly = true)
 @Service
 public class DermatologistService implements IDermatologistService {
 
@@ -86,7 +88,7 @@ public class DermatologistService implements IDermatologistService {
             returnValue.add(dermatologistDTO.toDTO(dermatologist));
         return returnValue;
     }
-
+	@Transactional(readOnly=false)
 	@Override
     public ResponseEntity<Dermatologist> save(Dermatologist dermatologist) throws Exception {
         dermatologistRepository.save(dermatologist);
@@ -109,7 +111,7 @@ public class DermatologistService implements IDermatologistService {
         }
         return resultList;
 	}
-
+	@Transactional(readOnly=false, propagation = Propagation.REQUIRES_NEW)
 	public Boolean isUsernameValid(String username) {
         List<String> usernames=getAllDermatologistUsernames();
         for (String s : usernames) {
