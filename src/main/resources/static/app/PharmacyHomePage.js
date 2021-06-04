@@ -7,7 +7,7 @@ Vue.component("pharmacyHomePage", {
 			actionsOrPromotions : [],
 		}
 	},
-	beforeMount() {
+	mounted() {
         axios
         .get('/patient/getPatientById/' + localStorage.getItem('userId'),{
 			headers: {

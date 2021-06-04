@@ -5,7 +5,7 @@ Vue.component("dermatologistHomePage", {
 			phycian:{}
 		}
 	},
-	beforeMount() {
+	mounted() {
 		axios
 			.get('/dermatologist/getDermatologistById/' + localStorage.getItem('userId'),{
 				headers: {
