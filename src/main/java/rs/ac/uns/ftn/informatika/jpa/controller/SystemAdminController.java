@@ -18,11 +18,14 @@ import org.springframework.web.bind.annotation.RestController;
 import rs.ac.uns.ftn.informatika.jpa.dto.SystemAdminDTO;
 import rs.ac.uns.ftn.informatika.jpa.model.SystemAdmin;
 import rs.ac.uns.ftn.informatika.jpa.service.SystemAdminService;
+import rs.ac.uns.ftn.informatika.jpa.service.UserService;
 
 @RestController
 @RequestMapping(value = "/systemAdmin")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class SystemAdminController {
+	@Autowired
+	private UserService userService;
 
     @Autowired
     private SystemAdminService systemAdminService;
@@ -43,7 +46,7 @@ public class SystemAdminController {
 	@PreAuthorize("hasRole('ADMIN')")
 	@GetMapping(value = "/isUsernameValid/{username}")
 	public ResponseEntity<Boolean> isUsernameValid(@PathVariable String username) {
-		Boolean isValid = systemAdminService.isUsernameValid(username);
+		Boolean isValid = userService.isUsernameValid(username);
 		return isValid == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(isValid);
 	}
 	@PreAuthorize("hasRole('ADMIN')")

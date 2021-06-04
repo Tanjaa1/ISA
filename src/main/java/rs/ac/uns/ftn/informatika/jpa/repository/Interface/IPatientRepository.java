@@ -16,7 +16,7 @@ public interface IPatientRepository extends JpaRepository<Patient, Long>{
 	@Override
 	public <S extends Patient> S save(S entity);
 	
-	Optional<Patient> findById(Long id);
+	//Optional<Patient> findById(Long id);
 
     @Query("SELECT distinct p FROM Examination u,Dermatologist d,Patient p WHERE u.Dermatologist=d.Id and u.Patient=p.Id and d.Id = ?1")
 	List<Patient> findPatientsByDermatologist(Long id);

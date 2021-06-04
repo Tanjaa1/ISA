@@ -19,6 +19,7 @@ import rs.ac.uns.ftn.informatika.jpa.dto.PharmacyAdminDTO;
 import rs.ac.uns.ftn.informatika.jpa.model.Medicine;
 import rs.ac.uns.ftn.informatika.jpa.model.PharmacyAdmin;
 import rs.ac.uns.ftn.informatika.jpa.service.PharmacyAdminService;
+import rs.ac.uns.ftn.informatika.jpa.service.UserService;
 import rs.ac.uns.ftn.informatika.jpa.util.MedicineGraphInfo;
 import rs.ac.uns.ftn.informatika.jpa.util.MapLocation;
 
@@ -29,6 +30,9 @@ import rs.ac.uns.ftn.informatika.jpa.util.MapLocation;
 public class PharmacyAdminController {
     @Autowired
     private PharmacyAdminService pharmacyAdminService;
+	@Autowired
+	private UserService userService;
+
 	@PreAuthorize("hasRole('ADMIN')")
     @PostMapping(value = "/savePharmacyAdmin")
 	public ResponseEntity<PharmacyAdmin> savePatient(@RequestBody PharmacyAdmin pharmacyAdminDTO) throws Exception{
@@ -64,7 +68,7 @@ public class PharmacyAdminController {
 
 	@GetMapping(value = "/isUsernameValid/{username}")
 	public ResponseEntity<Boolean> isUsernameValid(@PathVariable String username) {
-		Boolean isValid = pharmacyAdminService.isUsernameValid(username);
+		Boolean isValid = userService.isUsernameValid(username);
 		return isValid == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(isValid);
 	}
 	

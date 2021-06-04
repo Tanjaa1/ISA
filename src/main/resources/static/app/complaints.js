@@ -58,7 +58,7 @@ Vue.component("complaints", {
     	                                <div id="approvedF" class="container tab-pane active"><br>
     		                                <div class="container">
 	                                                <div class="row">
-                                                   
+                                                    <p style="color:blue">Unanswered complaints</p>
                                                         <table id="tableComplaints" class="table table-bordered">
                                                             <thead>
                                                               <tr>
@@ -80,7 +80,8 @@ Vue.component("complaints", {
                                                               </tr>
                                                             </tbody>
                                                          </table>
-
+                                                                        <br><br>
+                                                         <p style="color:blue">Answered complaints</p>
 
                                                          <table id="tableComplaints2" class="table table-bordered">
                                                          <thead>
@@ -206,7 +207,6 @@ Vue.component("complaints", {
           this.complaintAnswerDTO.id=this.idCom,
           this.complaintAnswerDTO.text=this.textComplaint
           this.complaintAnswerDTO.complaint=this.complaint1
-          alert(this.complaintAnswerDTO.complaint.text)
 
 /*
           axios

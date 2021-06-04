@@ -48,7 +48,7 @@ Vue.component("giveOffers", {
 								<tr v-for="a in this.orders">
 									<td>{{a.id}}</td>
 									<td><button type="button" class="btn btn-info btn-lg" v-on:click="Orders(a.id)">Orders</button></td>
-									<td>{{DateSplit(a.dueDate)}}<</td>
+									<td>{{DateSplit(a.dueDate)}}</td>
 									<td>{{a.pharmacyAdmin.pharmacy.name}}</td>
                                     <td>{{a.pharmacyAdmin.name + ' '  + a.pharmacyAdmin.surname}}</td>
 									<td><button type="button" class="btn btn-info btn-lg" v-on:click="Offers(a.id)">Give offer</button></td>			

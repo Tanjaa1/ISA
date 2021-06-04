@@ -24,12 +24,15 @@ import rs.ac.uns.ftn.informatika.jpa.model.MedicineQuantity;
 import rs.ac.uns.ftn.informatika.jpa.model.Supplier;
 import rs.ac.uns.ftn.informatika.jpa.model.SupplierOffer;
 import rs.ac.uns.ftn.informatika.jpa.service.SupplierService;
+import rs.ac.uns.ftn.informatika.jpa.service.UserService;
 
 @RestController
 @RequestMapping(value = "/supplier")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class SupplierController {
-    
+    @Autowired
+	private UserService userService;
+
     @Autowired
     private SupplierService supplierService;
 	@PreAuthorize("hasRole('ADMIN')")
@@ -78,7 +81,7 @@ public class SupplierController {
 	@PreAuthorize("hasRole('ADMIN')")
 	@GetMapping(value = "/isUsernameValid/{username}")
 	public ResponseEntity<Boolean> isUsernameValid(@PathVariable String username) {
-		Boolean isValid = supplierService.isUsernameValid(username);
+		Boolean isValid = userService.isUsernameValid(username);
 		return isValid == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(isValid);
 	}
 

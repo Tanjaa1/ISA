@@ -65,7 +65,13 @@ public class UserController {
         fooObj.put("foo", "bar");
         return fooObj;
     }
-	
+
+	@PreAuthorize("hasAnyRole('PHARMACYADMIN','PATIENT','SUPPLIER','DERMATOLOGIST','ADMIN')")
+	@GetMapping(value = "/isUsernameValid/{username}")
+	public ResponseEntity<Boolean> isUsernameValid(@PathVariable String username) {
+		Boolean isValid = userService.isUsernameValid(username);
+		return isValid == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(isValid);
+	}
 	@PostMapping(value = "/saveUser")
 	public ResponseEntity<User> saveUserByPatient(@RequestBody Patient user) throws Exception{
 		userService.saveUserByPatient(user);

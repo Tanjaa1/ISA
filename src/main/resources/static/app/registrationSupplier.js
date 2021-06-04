@@ -81,7 +81,8 @@ Vue.component("registrationSupplier", {
 			</tr>
 			<tr>
 				<td>&nbsp;</td>
-		
+				<td align="left" style="color: red;font-size:12px">{{numberValidation}}</td>
+
 			</tr>
 			<tr>
 				<td><label>Email</label><a class="star">*</a></td>
@@ -166,6 +167,12 @@ Vue.component("registrationSupplier", {
 			}
 			else if (this.supplierDTO.country === '') return 'Country is a required field';
 			else return null;
+		},numberValidation: function () {
+			if (this.supplierDTO.phoneNumber != undefined && this.supplierDTO.phoneNumber.length > 0) {
+				if ( this.supplierDTO.phoneNumber.length==0 || this.supplierDTO.phoneNumber.length<9 || this.supplierDTO.phoneNumber.length>11) return 'The number may contain at least 9 digits and max 11 digits';
+			}
+			else if (this.supplierDTO.name === '') return 'Number is a required field';
+			else return null;
 		},
 		usernameValidation: function () {
 			if (this.supplierDTO.username != undefined && this.supplierDTO.username.length > 0) {
@@ -226,7 +233,6 @@ Vue.component("registrationSupplier", {
 								}
 							})
 							.then(response => {
-								alert("DODAT U BAZU user");
 								axios
 								.post('/supplier/saveSupplier' , supplierDTO,{
 									headers: {
@@ -234,14 +240,15 @@ Vue.component("registrationSupplier", {
 									}
 								})
 								.then(response => {
-									alert("DODAT U BAZU supplier");
+									alert("Successfully registered user");
 									this.$router.push('systemAdminHomaPage');
 
 								})
 		
 								.catch(error => {
 									
-									alert("GRESKAA");
+									alert("Something went wrong,please try later");
+								this.$router.push('systemAdminHomaPage');
 								})
 							})
 					}
@@ -249,7 +256,8 @@ Vue.component("registrationSupplier", {
 
 				.catch(error => {
 					
-					alert("GRESKA");
+					alert("Something went wrong,please try later");
+								this.$router.push('systemAdminHomaPage');
 				})
 					
 			}
