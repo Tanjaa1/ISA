@@ -89,7 +89,8 @@ Vue.component("registrationDermatologist", {
 			</tr>
 			<tr>
 				<td>&nbsp;</td>
-		
+				<td align="left" style="color: red;font-size:12px">{{numberValidation}}</td>
+
 			</tr>
 			<tr>
 				<td><label>Email</label><a class="star">*</a></td>
@@ -173,6 +174,13 @@ Vue.component("registrationDermatologist", {
 		else if (this.dermatologistDTO.city === '') return 'City is a required field';
 		else return null;
 	},	
+	numberValidation: function () {
+		if (this.dermatologistDTO.phoneNumber != undefined && this.dermatologistDTO.phoneNumber.length > 0) {
+			if ( this.dermatologistDTO.phoneNumber.length==0 || this.dermatologistDTO.phoneNumber.length<9 || this.dermatologistDTO.phoneNumber.length>11) return 'The number may contain at least 9 digits and max 11 digits';
+		}
+		else if (this.dermatologistDTO.name === '') return 'Number is a required field';
+		else return null;
+	},
 	stateValidation: function () {
 		if (this.dermatologistDTO.country != undefined && this.dermatologistDTO.country.length > 0) {
 			let countryMatch = this.dermatologistDTO.country.match('[A-Za-z ]*');
@@ -238,7 +246,6 @@ methods: {
 							}
 						})
 						.then(response => {
-							alert("DODAT U BAZU user");
 							axios
 							.post('/dermatologist/saveDermatologist/'+idDe , dermatologistDTO,{
 								headers: {
@@ -246,21 +253,21 @@ methods: {
 								}
 							})
 							.then(response => {
-								alert("DODAT U BAZU dermatolog");
+								alert("Successfully registered user");
 								this.$router.push('systemAdminHomaPage');
 							})
 	
 							.catch(error => {
-								
-								alert("GRESKAA");
+								alert("Something went wrong,please try later");
+								this.$router.push('systemAdminHomaPage');
 							})
 						})
 					}
 				})
 
 				.catch(error => {
-					
-					alert("GRESKA");
+					alert("Something went wrong,please try later");
+					this.$router.push('systemAdminHomaPage');
 				})			
 			}
 		}

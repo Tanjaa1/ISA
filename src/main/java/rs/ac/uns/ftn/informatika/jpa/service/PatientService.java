@@ -359,6 +359,7 @@ public class PatientService implements IPatientService {
 		//emailSender(patientToUpdate);
 		return actionOrPromotionsDTO;
 	}
+	@Transactional(readOnly=false)
 
 	public ActionOrPromotionsDTO cancelActionOrPromotion(String id, String idAction) throws Exception {
 		

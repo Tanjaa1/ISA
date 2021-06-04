@@ -81,7 +81,8 @@ Vue.component("registrationSystemAdmin", {
 			</tr>
 			<tr>
 				<td>&nbsp;</td>
-		
+				<td>&nbsp;</td>
+				<td align="left" style="color: red;font-size:12px">{{numberValidation}}</td>
 			</tr>
 			<tr>
 				<td><label>Email</label><a class="star">*</a></td>
@@ -130,6 +131,12 @@ Vue.component("registrationSystemAdmin", {
 				else if (this.systemAdminDTO.name[0].match('[A-Z]') === null) return 'The name must begin with a capital letter';
 			}
 			else if (this.systemAdminDTO.name === '') return 'Name is a required field';
+			else return null;
+		},numberValidation: function () {
+			if (this.systemAdminDTO.phoneNumber != undefined && this.systemAdminDTO.phoneNumber.length > 0) {
+				if ( this.systemAdminDTO.phoneNumber.length==0 || this.systemAdminDTO.phoneNumber.length<9 || this.systemAdminDTO.phoneNumber.length>11) return 'The number may contain at least 9 digits and max 11 digits';
+			}
+			else if (this.systemAdminDTO.name === '') return 'Number is a required field';
 			else return null;
 		},
 		surnameValidation: function () {
@@ -224,7 +231,6 @@ Vue.component("registrationSystemAdmin", {
 								}
 							})
 							.then(response => {
-								alert("DODAT U BAZU user");
 								axios
 								.post('/systemAdmin/saveSystemAdmin' , systemAdminDTO,{
 									headers: {
@@ -232,20 +238,24 @@ Vue.component("registrationSystemAdmin", {
 									}
 								})
 								.then(response => {
-									alert("DODAT U BAZU systemAdmin");
+									alert("Successfully registered user");
 									this.$router.push('systemAdminHomaPage');
 
 								})
 		
 								.catch(error => {
 									
-									alert("GRESKAA");
+									alert("Something went wrong,please try again later!");
+									this.$router.push('systemAdminHomaPage');
+
 								})
 							})
 						}
 					})
 					.catch(error => {
-						alert("GRESKA");
+						alert("Something went wrong,please try again later!");
+						this.$router.push('systemAdminHomaPage');
+
 					})
 				
 			}

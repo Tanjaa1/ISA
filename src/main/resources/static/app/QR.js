@@ -127,7 +127,8 @@ Vue.component("QR", {
 			  
 				})
 				.catch(error => {
-					alert('nesupjesnooo')
+					alert('Sorry,something went wrong, please try again later!')	
+					this.$router.push('patientHomePage');
 				})
 			}
 		},
@@ -168,8 +169,8 @@ Vue.component("QR", {
 						this.pharmacies = response.data
 					})
 					.catch(error => {
-						alert('nesupjesnooo')
-					})
+						alert('Sorry,something went wrong, please try again later!')	
+						this.$router.push('patientHomePage');					})
 				}else if(x=="priceAsc"){
 					axios
 					.get('medicine/sortByPharmacyPriceQRACS/'+patientId,{ params: { path: text }  ,
@@ -182,8 +183,8 @@ Vue.component("QR", {
 	
 					})
 					.catch(error => {
-						alert('nesupjesnooo')
-					})
+						alert('Sorry,something went wrong, please try again later!')	
+						this.$router.push('patientHomePage');					})
 				}else if(x=="markDesc"){
 					axios
 					.get('medicine/sortByPharmacyGradeQRDESC/'+patientId,{ params: { path: text }  ,
@@ -196,8 +197,8 @@ Vue.component("QR", {
 	
 					})
 					.catch(error => {
-						alert('nesupjesnooo')
-					})
+						alert('Sorry,something went wrong, please try again later!')	
+						this.$router.push('patientHomePage');					})
 				}else if(x=="markAsc"){
 					axios
 					.get('medicine/sortByPharmacyGradeQRASC/'+patientId,{ params: { path: text }  ,
@@ -210,8 +211,8 @@ Vue.component("QR", {
 	
 					})
 					.catch(error => {
-						alert('nesupjesnooo')
-					})
+						alert('Sorry,something went wrong, please try again later!')	
+						this.$router.push('patientHomePage');					})
 				}else if(x=="nameDesc"){
 					axios
 					.get('medicine/sortByPharmacyNameDESC/'+patientId,{ params: { path: text } ,
@@ -224,8 +225,8 @@ Vue.component("QR", {
 	
 					})
 					.catch(error => {
-						alert('nesupjesnooo')
-					})
+						alert('Sorry,something went wrong, please try again later!')	
+						this.$router.push('patientHomePage');					})
 				}else if(x=="nameAsc"){
 					axios
 					.get('medicine/sortByPharmacyNameQRASC/'+patientId,{ params: { path: text }  ,
@@ -239,8 +240,8 @@ Vue.component("QR", {
 	
 					})
 					.catch(error => {
-						alert('nesupjesnooo')
-					})
+						alert('Sorry,something went wrong, please try again later!')	
+						this.$router.push('patientHomePage');					})
 				}else if(x=="addressDesc"){
 					axios
 					.get('medicine/sortByPharmacyAddressQRDESC/'+patientId,{ params: { path: text }  ,
@@ -253,8 +254,8 @@ Vue.component("QR", {
 	
 					})
 					.catch(error => {
-						alert('nesupjesnooo')
-					})
+						alert('Sorry,something went wrong, please try again later!')	
+						this.$router.push('patientHomePage');					})
 				}else{
 					axios
 					.get('medicine/sortByPharmacyAddressQRASC/'+patientId,{ params: { path: text }  ,
@@ -267,14 +268,13 @@ Vue.component("QR", {
 	
 					})
 					.catch(error => {
-						alert('nesupjesnooo')
-					})
+						alert('Sorry,something went wrong, please try again later!')	
+						this.$router.push('patientHomePage');					})
 				}
 			}
 			
 		},
 			Buy:function(id){
-				alert(id)
 				var text=document.getElementById("idText").value
 
 				var pharmacyId=id;
@@ -286,13 +286,13 @@ Vue.component("QR", {
 				}
 			  } )
 				.then(response => {
-					alert('uspesno promijenjeno stanje')
+					alert('Successful')
 					location.reload()
 
 				})
 				.catch(error => {
-					alert('nesupjesnooo jee')
-				})
+					alert('Sorry,something went wrong, please try again later!')	
+					this.$router.push('patientHomePage');				})
 			}
 		
 	}

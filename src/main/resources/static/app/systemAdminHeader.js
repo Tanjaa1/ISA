@@ -28,6 +28,8 @@ Vue.component("systemAdminHeader", {
 
                             <a class="dropdown-item" v-on:click="LoyaltyProgramme()">Loyalty Programme</a>
                             <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" v-on:click="SearchMedicine()">Search Medicine</a>
+                            <div class="dropdown-divider"></div>
  
                             <a class="dropdown-item" v-on:click="Logout()">Log out</a>
                         </div>     
@@ -78,6 +80,10 @@ Vue.component("systemAdminHeader", {
         },
 		LoyaltyProgramme: function () {
             this.$router.push('loyaltyProgramme');
+
+        },
+        SearchMedicine: function () {
+            this.$router.push('searchMedicine');
 
         },
         Logout: function () {

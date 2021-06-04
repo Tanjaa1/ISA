@@ -114,7 +114,7 @@ public class MedicineService implements IMedicineService {
 		Medicine medicine = medicineRepository.findById(id).get();
 		return medicine;
 	}
-
+	@Transactional(readOnly=false)
 	public ResponseEntity<Medicine> save(Medicine medicine) throws Exception {
 		Medicine resultMedicine = new Medicine();
 		resultMedicine.setReplacement(medicine.getReplacement());
