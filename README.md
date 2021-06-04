@@ -1,5 +1,8 @@
 # ISA
 
+
+[![Build Status](https://travis-ci.com/Tanjaa1/ISA.svg?branch=develop)](https://travis-ci.com/Tanjaa1/ISA)
+
 PostrgeSQL - pgAdmin 4 - database: isa-db (password and surname in ISA/src/main/resources/application.properties)
 
 server-port:8080

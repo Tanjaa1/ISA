@@ -177,7 +177,7 @@ public class PatientService implements IPatientService {
 	public List<PatientDTO> findPatientsByDermatologist(Long id) {
 		List<PatientDTO> patientsDto = new ArrayList<PatientDTO>();
 		for (Patient patient : patientRepository.findPatientsByDermatologist(id))
-			patientsDto.add(new PatientDTO(patient.getName(),patient.getSurname()));
+			patientsDto.add(new PatientDTO(patient));
 		return patientsDto;
 	}
 

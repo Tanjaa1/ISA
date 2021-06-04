@@ -19,6 +19,7 @@ import rs.ac.uns.ftn.informatika.jpa.dto.ReservationDTO;
 import rs.ac.uns.ftn.informatika.jpa.model.Medicine;
 import rs.ac.uns.ftn.informatika.jpa.model.MedicinePriceAndQuantity;
 import rs.ac.uns.ftn.informatika.jpa.model.Patient;
+import rs.ac.uns.ftn.informatika.jpa.model.Pharmacy;
 import rs.ac.uns.ftn.informatika.jpa.model.Reservation;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IMedicineRepository;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IPatientRepository;
@@ -61,9 +62,10 @@ public class ResrvationService implements IReservationService{
 	
 	@Override
 	public ReservationDTO getReservationById(Long id, Long pharmacyId)
-	{
-	    Reservation reservation = reservationRepository.getReservationById(id,pharmacyId);
+	{	
+		Reservation reservation = reservationRepository.getReservationById(id,pharmacyId);
 
+		if(reservation!=null)
 		reservation.getMedicine().setPrice(medicineService.Discount(reservation.getMedicine().getPrice(), reservation.getPatient().getId()));
 
 		if (reservation!=null && !reservation.getIsReceived() && !dateCompare.compareDates(reservation.getExpirationDate()) && !reservation.getIsCanceled())
@@ -191,6 +193,27 @@ public class ResrvationService implements IReservationService{
 
 	@Transactional(readOnly=false)
 	public ReservationDTO makeNewReservation(Reservation reservation) {
+
+        Pharmacy pharmacy = pharmacyRepository.getByName(reservation.getPharmacy().getName());
+
+        Set<MedicinePriceAndQuantity> pricelist = pharmacy.getPricelist();
+        for (MedicinePriceAndQuantity medicinePriceAndQuantity : pricelist) {
+                if((long)medicinePriceAndQuantity.getMedicine().getId() == (long) reservation.getMedicine().getMedicine().getId()){
+					if(medicinePriceAndQuantity.getQuantity() == 0){
+						return null;
+					}
+                    medicinePriceAndQuantity.setQuantity(medicinePriceAndQuantity.getQuantity() - 1);
+                }
+        }
+		
+		pharmacy.setPricelist(pricelist);
+
+		try {
+			pharmacyRepository.save(pharmacy);
+		} catch (Exception e) {
+
+		}
+
 		Reservation r = new Reservation();
 		r.setExpirationDate(reservation.getExpirationDate());
 		r.setIsCanceled(false);
@@ -207,7 +230,7 @@ public class ResrvationService implements IReservationService{
 
 	private void emailSender3(Reservation reservation)
 	{
-		LocalDate date = LocalDate.ofInstant(reservation.getExpirationDate().toInstant(), ZoneId.systemDefault());
+		LocalDate date= new java.sql.Date( reservation.getExpirationDate().getTime() ) .toLocalDate();
 		try {
 			String subject="Pharmacy "+ reservation.getPharmacy().getName()+"\n\n";
 			String text="Dear "+ reservation.getPatient().getFullName()+ ",\n\n"+ "Your made successfull reservation of medicine "+ 

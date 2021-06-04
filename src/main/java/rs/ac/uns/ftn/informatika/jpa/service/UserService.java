@@ -167,9 +167,9 @@ public class UserService implements IUserService{
 		u = this.userRepository.save(u);
 	}
 
-    public void saveUserByPharmacyAdmin(PharmacyAdminDTO user) {
-		User u=new User();
-		u.setId(user.getId());
+    public void saveUserByPharmacyAdmin(PharmacyAdminDTO p) {
+		PharmacyAdmin user = pharmacyAdminRepository.getOne(p.getId());
+		User u=userRepository.getOne(p.getId());
 		u.setName(user.getName());
 		u.setSurname(user.getSurname());
 		u.setEmail(user.getEmail());

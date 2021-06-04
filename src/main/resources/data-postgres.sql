@@ -208,7 +208,7 @@ INSERT INTO public.examination(
 	VALUES (111, 500.0, 'Headache and nausea', '2021-06-06 19:10:25-07', '2021-06-06 19:20:25-07', true, 66, 88, 111, false);
 INSERT INTO public.examination(
 	id, price, report, start_time, end_time, is_done, dermatologist_id, patient_id, pharmacy_id, is_canceled)
-	VALUES (112, 1000.0, '', '2021-07-10 16:30:25-07', '2021-07-09 16:40:25-07', true, 66, 88, 111, false);
+	VALUES (112, 1000.0, '', '2021-07-10 16:30:25-07', '2021-07-10 16:40:25-07', true, 66, 88, 111, false);
 INSERT INTO public.examination(
 	id, price, report, start_time, end_time, is_done, dermatologist_id, patient_id, pharmacy_id, is_canceled)
 	VALUES (113, 800.0, '', '2021-07-11 15:10:25-07', '2021-07-11 15:20:25-07', false, 66, 89, 111, false);
@@ -560,7 +560,6 @@ INSERT INTO public.reservation(
 
 
 INSERT INTO public.vacation_interval(
-
 	id, approved, date_end, date_start,pharmacy_id)
 	VALUES (111, true, '2021-06-05', '2021-06-04','111');
 INSERT INTO public.vacation_interval(
@@ -1260,7 +1259,7 @@ INSERT INTO public.pharmacist_vacation_schedule(
 
 INSERT INTO public.working_time(
 	id, time_end, time_start,pharmacy_id)
-	VALUES (187, '2021-08-08 20:00:00-07','2021-05-09 11:00:00-07','111');
+	VALUES (187, '2021-08-08 20:00:00-07','2021-8-08 11:00:00-07','111');
 
 
 INSERT INTO public.dermatologist_working_schedule(
@@ -1425,7 +1424,7 @@ INSERT INTO public.examination(
 	VALUES (555, 500.0, 'Headache and nausea', '2021-03-06 19:10:25-07', '2021-03-06 19:20:25-07', true, 66, 88, 111, false);
 INSERT INTO public.examination(
 	id, price, report, start_time, end_time, is_done, dermatologist_id, patient_id, pharmacy_id, is_canceled)
-	VALUES (556, 1000.0, '', '2021-03-10 16:30:25-07', '2021-03-09 16:40:25-07', true, 66, 88, 111, false);
+	VALUES (556, 1000.0, '', '2021-03-09 16:30:25-07', '2021-03-09 16:40:25-07', true, 66, 88, 111, false);
 INSERT INTO public.examination(
 	id, price, report, start_time, end_time, is_done, dermatologist_id, patient_id, pharmacy_id, is_canceled)
 	VALUES (557, 800.0, '', '2021-03-11 15:10:25-07', '2021-03-11 15:20:25-07', true, 66, 89, 111, false);
@@ -1447,10 +1446,10 @@ INSERT INTO public.examination(
 	VALUES (562, 500.0, 'Headache and nausea', '2021-09-06 19:10:25-07', '2021-09-06 19:20:25-07', true, 66, 88, 111, false);
 INSERT INTO public.examination(
 	id, price, report, start_time, end_time, is_done, dermatologist_id, patient_id, pharmacy_id, is_canceled)
-	VALUES (563, 1000.0, '', '2021-08-10 16:30:25-07', '2021-08-09 16:40:25-07', true, 66, 88, 111, false);
+	VALUES (563, 1000.0, '', '2021-08-09 16:30:25-07', '2021-08-09 16:40:25-07', true, 66, 88, 111, false);
 INSERT INTO public.examination(
 	id, price, report, start_time, end_time, is_done, dermatologist_id, patient_id, pharmacy_id, is_canceled)
-	VALUES (564, 800.0, '', '2021-05-11 15:10:25-07', '2021-08-11 15:20:25-07', true, 66, 89, 111, false);
+	VALUES (564, 800.0, '', '2021-08-11 15:10:25-07', '2021-08-11 15:20:25-07', true, 66, 89, 111, false);
 INSERT INTO public.examination(
 	id, price, report, start_time, end_time, is_done, dermatologist_id, patient_id, pharmacy_id, is_canceled)
 	VALUES (565, 900.0, '', '2021-02-11 14:10:25-07', '2021-02-11 14:20:25-07', true, 66, 88, 111, false);
@@ -1521,25 +1520,40 @@ INSERT INTO public.patient_eprescriptions(
 
 INSERT INTO public.working_time(
 	id, time_end, time_start,pharmacy_id)
-	VALUES (501, '2021-08-06 20:00:00-07','2021-08-06 11:00:00-07','111');
+	VALUES (501, '2021-07-06 20:00:00-07','2021-07-06 11:00:00-07','111');
 INSERT INTO public.working_time(
 	id, time_end, time_start,pharmacy_id)
-	VALUES (502, '2021-08-07 20:00:00-07','2021-08-07 11:00:00-07','111');
+	VALUES (502, '2021-07-07 20:00:00-07','2021-07-07 11:00:00-07','111');
 INSERT INTO public.working_time(
 	id, time_end, time_start,pharmacy_id)
-	VALUES (503, '2021-08-08 20:00:00-07','2021-08-08 14:00:00-07','111');
+	VALUES (503, '2021-07-08 20:00:00-07','2021-07-08 14:00:00-07','111');
 INSERT INTO public.working_time(
 	id, time_end, time_start,pharmacy_id)
-	VALUES (504, '2021-08-10 20:00:00-07','2021-08-10 11:00:00-07','111');
+	VALUES (504, '2021-07-10 20:00:00-07','2021-07-10 11:00:00-07','111');
 INSERT INTO public.working_time(
 	id, time_end, time_start,pharmacy_id)
-	VALUES (505, '2021-08-12 20:00:00-07','2021-08-12 11:00:00-07','111');
+	VALUES (505, '2021-07-12 20:00:00-07','2021-07-12 11:00:00-07','111');
 INSERT INTO public.working_time(
 	id, time_end, time_start,pharmacy_id)
-	VALUES (506, '2021-08-13 20:00:00-07','2021-08-13 11:00:00-07','111');
+	VALUES (506, '2021-07-13 20:00:00-07','2021-07-13 11:00:00-07','111');
 INSERT INTO public.working_time(
 	id, time_end, time_start,pharmacy_id)
-	VALUES (507, '2021-08-15 20:00:00-07','2021-08-15 12:00:00-07','111');
+	VALUES (507, '2021-07-15 20:00:00-07','2021-07-15 12:00:00-07','111');
+INSERT INTO public.working_time(
+	id, time_end, time_start,pharmacy_id)
+VALUES (508, '2021-07-16 20:00:00-07','2021-07-16 12:00:00-07','111');
+INSERT INTO public.working_time(
+	id, time_end, time_start,pharmacy_id)
+VALUES (509, '2021-07-17 20:00:00-07','2021-07-17 12:00:00-07','111');
+INSERT INTO public.working_time(
+	id, time_end, time_start,pharmacy_id)
+VALUES (510, '2021-07-18 20:00:00-07','2021-07-18 12:00:00-07','111');
+INSERT INTO public.working_time(
+	id, time_end, time_start,pharmacy_id)
+VALUES (511, '2021-07-19 20:00:00-07','2021-07-19 12:00:00-07','111');
+INSERT INTO public.working_time(
+	id, time_end, time_start,pharmacy_id)
+VALUES (512, '2021-07-20 20:00:00-07','2021-07-20 12:00:00-07','111');
 
 INSERT INTO public.dermatologist_working_schedule(
 	dermatologist_id, working_time_id)
@@ -1562,6 +1576,36 @@ INSERT INTO public.dermatologist_working_schedule(
 INSERT INTO public.dermatologist_working_schedule(
 	dermatologist_id, working_time_id)
 	VALUES (66, 507);
+INSERT INTO public.dermatologist_working_schedule(
+	dermatologist_id, working_time_id)
+	VALUES (66, 508);
+INSERT INTO public.dermatologist_working_schedule(
+	dermatologist_id, working_time_id)
+	VALUES (66, 509);
+INSERT INTO public.dermatologist_working_schedule(
+	dermatologist_id, working_time_id)
+	VALUES (66, 510);
+INSERT INTO public.dermatologist_working_schedule(
+	dermatologist_id, working_time_id)
+	VALUES (66, 511);
+INSERT INTO public.dermatologist_working_schedule(
+	dermatologist_id, working_time_id)
+	VALUES (66, 512);
+
+
+INSERT INTO public.vacation_interval(
+	id, approved, date_end, date_start,pharmacy_id)
+	VALUES (501, false, '2021-06-15', '2021-06-15','111');
+INSERT INTO public.vacation_interval(
+	id, approved, date_end, date_start,pharmacy_id)
+	VALUES (502, true, '2021-06-16','2021-06-16','111');
+
+INSERT INTO public.dermatologist_vacation_schedule(
+	dermatologist_id, vacation_interval_id)
+	VALUES (66, 501);
+INSERT INTO public.dermatologist_vacation_schedule(
+	dermatologist_id, vacation_interval_id)
+	VALUES (66, 502);
 
 INSERT INTO public.order_medicine(
 	id, due_date, pharmacy_admin_id,is_processed)

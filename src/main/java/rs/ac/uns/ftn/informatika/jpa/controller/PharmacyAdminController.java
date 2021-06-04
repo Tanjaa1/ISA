@@ -99,7 +99,7 @@ public class PharmacyAdminController {
 		return retVal == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(retVal);
 	}
 
-	@PreAuthorize("hasRole('PHARMACYADMIN')")
+	@PreAuthorize("hasAnyRole('PHARMACYADMIN','PATIENT')")
 	@GetMapping(value = "/MapLocation/{Id}")
 	public ResponseEntity<MapLocation> MapLocation(@PathVariable Long Id) {
 		MapLocation retVal = pharmacyAdminService.getMapLocation(Id);
