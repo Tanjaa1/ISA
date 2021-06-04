@@ -113,7 +113,6 @@ Vue.component("searchMedicine", {
 	methods: {
 		Search:function(){
 			var text=document.getElementById("idText").value
-			alert(text)
 			if(text==undefined || text==null || text==" " || text==""){
 				alert('Please enter medecine name!')
 			}else{
@@ -138,7 +137,6 @@ Vue.component("searchMedicine", {
 				
 					})
 					.catch(error => {
-						alert('nesupjesnooo')
 					})
 			
 			}

@@ -172,7 +172,6 @@ Vue.component("Login", {
 					if(this.token==undefined){
 						alert("Username or password are wrong, please try again ")
 					}
-					alert(this.token)
 					localStorage.setItem('token', this.token);
 					localStorage.setItem('isLogged', true);
 
@@ -187,7 +186,6 @@ Vue.component("Login", {
 						.then(response => {
 							this.idPatient = response.data
 							localStorage.setItem('userId', this.idPatient.id)
-							alert('pacijent')
 							if(this.idPatient.emailComfirmed==false){
 								alert("please confirme registration by email")
 								localStorage.setItem('token', "");
@@ -211,7 +209,6 @@ Vue.component("Login", {
 						.then(response => {
 							this.idSystemAdmin = response.data
 							localStorage.setItem('userId', this.idSystemAdmin.id)
-							alert('systemAdmin')
 							if(this.idSystemAdmin.emailComfirmed==false){
 								alert("please confirme registration by email")
 								localStorage.setItem('token', "");
@@ -277,7 +274,6 @@ Vue.component("Login", {
 						.then(response => {
 							this.idDermatologist = response.data
 							localStorage.setItem('userId', this.idDermatologist.id)
-							alert('dermatologist')
 							if(this.idDermatologist.emailComfirmed==false){
 								alert("please confirme registration by email")
 								localStorage.setItem('token', "");
@@ -301,7 +297,6 @@ Vue.component("Login", {
 						.then(response => {
 							this.idSupplier = response.data
 						localStorage.setItem('userId', this.idSupplier.id)
-							alert('supplier')
 							if(this.idSupplier.emailComfirmed==false){
 								alert("please confirme registration by email ")
 								localStorage.setItem('token', "");
