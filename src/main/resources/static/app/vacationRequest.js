@@ -113,6 +113,9 @@ Vue.component("dermatologistVacationRequest", {
 						'Authorization': 'Bearer' + " " + localStorage.getItem('token')
 					}
 				})
+				.then(response => {
+                    alert("Your request has been sent!")
+				})
 				.catch(error => {
 				})
 		}

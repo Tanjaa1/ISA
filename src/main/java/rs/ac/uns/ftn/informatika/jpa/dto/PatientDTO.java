@@ -80,9 +80,10 @@ public class PatientDTO {
 		ActionOrPromotions = actionOrPromotions;
 		//Reservations = reservations;
 	}
-	public PatientDTO(String name, String surname) {
+	public PatientDTO(String name, String surname,Long id) {
 		Name=name;
 		Surname=surname;
+		Id=id;
 	}
 	public PatientDTO(Patient patient) {
 		Id = patient.getId();

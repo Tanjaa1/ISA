@@ -68,7 +68,7 @@ public class Examination {
 		PriceWithDiscount=0.00;
 		//StartTime=LocalDateTime.now();
 		// EndTime=LocalDateTime.now().plusMinutes(15);
-		//Patient=new Patient();
+		Patient=new Patient();
 		 IsCanceled=false;
 
 	}
