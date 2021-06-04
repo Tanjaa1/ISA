@@ -6,6 +6,7 @@ import org.junit.runners.Suite;
 import rs.ac.uns.ftn.informatika.jpa.integration.CounselingControlerTest;
 import rs.ac.uns.ftn.informatika.jpa.integration.EPrescriptionControlerTest;
 import rs.ac.uns.ftn.informatika.jpa.integration.ExaminationControlerTest;
+import rs.ac.uns.ftn.informatika.jpa.integration.MedicineServiseTest;
 import rs.ac.uns.ftn.informatika.jpa.integration.ReservationControlerTest;
 import rs.ac.uns.ftn.informatika.jpa.integration.VacationControlerTest;
 import rs.ac.uns.ftn.informatika.jpa.unit.*;
@@ -18,6 +19,9 @@ import rs.ac.uns.ftn.informatika.jpa.unit.*;
 	ReservationServiceTest.class,
 
 	ComplaintsAndAnswerServiceTest.class,
+	UserServiceTest.class,
+	SupplierOfferServiceTest.class,
+	MedicineServiseTest.class,
 	UserServiceTest.class,
 
 	ExaminationControlerTest.class,
