@@ -139,6 +139,16 @@ public class CounselingController {
 		return e == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : new ResponseEntity<>(HttpStatus.OK);
 	}
 
+	@PreAuthorize("hasAnyRole('PHARMACIST','PATIENT')")
+	@PutMapping(value = "/scheduleCounseling")
+	public ResponseEntity<HttpStatus> scheduleCounseling(@Valid @RequestBody Counseling counseling, BindingResult result) throws Exception
+	{
+		if (result.hasErrors()) 
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		CouncelingDTO e =counselingService.scheduleCounseling(counseling);
+		return e == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : new ResponseEntity<>(HttpStatus.OK);
+	}
+
 	@PreAuthorize("hasAnyRole('PATIENT','PHARMACYADMIN','PHARMACIST')")
 	@GetMapping(value = "/getFreeCounselingByPharmacist/{id}")
 	public ResponseEntity<List<CouncelingDTO>> getFreeCounselingByPharmacist(@PathVariable Long id) 

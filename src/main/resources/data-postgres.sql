@@ -104,6 +104,12 @@ id, address, city, country, description, email, email_comfirmed, first_time_logi
 INSERT INTO public.users(
 	id, address, city, country, description, email, email_comfirmed, first_time_login, name, password, phone_number, surname, enabled, last_password_reset_date, username)
 	VALUES (888, 'Stevana Sindjelica 66', 'Novi Sad', 'Srbija', 'neki opis', 'marijavucetic@uns.ac.rs', true, true, 'Marija', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', '06581111123', 'Vucetic',true,'2008-11-11 13:23:44','maja');
+INSERT INTO public.pharmacy_admin(
+id, address, city, country, description, email, email_comfirmed, first_time_login, name, password, phone_number, surname, enabled, last_password_reset_date, username, pharmacy)
+	VALUES (333, 'Stevana Sindjelica 66', 'Novi Sad', 'Srbija', 'neki opis', 'marijavucetic@uns.ac.rs', true, true, 'Pera', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', '06581111123', 'Peric',true,'2008-11-11 13:23:44','pera', 'Feniks');
+INSERT INTO public.users(
+	id, address, city, country, description, email, email_comfirmed, first_time_login, name, password, phone_number, surname, enabled, last_password_reset_date, username)
+	VALUES (333, 'Stevana Sindjelica 66', 'Novi Sad', 'Srbija', 'neki opis', 'marijavucetic@uns.ac.rs', true, true, 'Pera', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', '06581111123', 'Peric',true,'2008-11-11 13:23:44','pera');
 
 INSERT INTO public.pharmacy_admin(
 id, address, city, country, description, email, email_comfirmed, first_time_login, name, password, phone_number, surname, enabled, last_password_reset_date, username, pharmacy)
@@ -1046,7 +1052,6 @@ INSERT INTO public.medicine_marks(
 INSERT INTO public.medicine_marks(
 	medicine_id, marks_id)
 	VALUES (224, 503);
-
 INSERT INTO public.pharmacist_marks(
 	pharmacist_id, marks_id)
 	VALUES (555, 501);
@@ -1617,7 +1622,7 @@ INSERT INTO public.order_medicine(
 
 INSERT INTO public.order_medicine(
 	id, due_date, pharmacy_admin_id,is_processed)
-	VALUES (503,'2020-11-11 13:23:44', 888,false);
+	VALUES (503,'2020-11-11 13:23:44', 333,false);
 
 
 INSERT INTO public.medicine_quantity(
@@ -1631,7 +1636,7 @@ INSERT INTO public.medicine_quantity(
 	VALUES (503, 5, 5, 100);
 INSERT INTO public.medicine_quantity(
 	id, quantity, medicine_id, supplier_id)
-	VALUES (504, 10, 223, 111);
+	VALUES (504, 5, 223, 111);
 
 
 INSERT INTO public.order_medicine_orders(
@@ -1673,3 +1678,422 @@ INSERT INTO public.supplier_offer(
 INSERT INTO public.supplier_offer(
 	id, due_date, offer_price, status, order_medicine_id, supplier_id)
 VALUES (555, 'neki datum', 16000.00, 2, 503, 100);
+
+
+INSERT INTO public.reservation(
+	id, expiration_date, is_received, medicine_id, patient_id,pharmacy_id, is_canceled)
+	VALUES (501, '2020-07-22', false, 31, 88, 111, false);
+INSERT INTO public.reservation(
+	id, expiration_date, is_received, medicine_id, patient_id,pharmacy_id, is_canceled)
+	VALUES (502, '2021-08-22', false, 31, 88, 111, false);
+
+INSERT INTO public.reservation(
+	id, expiration_date, is_received, medicine_id, patient_id,pharmacy_id, is_canceled)
+VALUES (601, '2021-06-12', true, 21, 88, 111, false);
+INSERT INTO public.reservation(
+	id, expiration_date, is_received, medicine_id, patient_id,pharmacy_id, is_canceled)
+	VALUES (602, '2021-06-12', true, 21, 88, 111, false);
+INSERT INTO public.reservation(
+	id, expiration_date, is_received, medicine_id, patient_id,pharmacy_id, is_canceled)
+	VALUES (503, '2021-06-10', true, 18, 88, 111, false);
+INSERT INTO public.reservation(
+	id, expiration_date, is_received, medicine_id, patient_id,pharmacy_id, is_canceled)
+	VALUES (504, '2021-06-18', true, 21, 89, 111, false);
+INSERT INTO public.reservation(
+	id, expiration_date, is_received, medicine_id, patient_id,pharmacy_id, is_canceled)
+	VALUES (505, '2021-06-11', true, 21, 88, 111, false);
+INSERT INTO public.reservation(
+	id, expiration_date, is_received, medicine_id, patient_id,pharmacy_id, is_canceled)
+	VALUES (506, '2021-06-22', true, 18, 88, 111, false);
+INSERT INTO public.reservation(
+	id, expiration_date, is_received, medicine_id, patient_id,pharmacy_id, is_canceled)
+	VALUES (507, '2021-06-23', true, 21, 88, 111, false);
+INSERT INTO public.reservation(
+	id, expiration_date, is_received, medicine_id, patient_id,pharmacy_id, is_canceled)
+	VALUES (508, '2021-06-21', true, 21, 88, 111, false);
+INSERT INTO public.reservation(
+	id, expiration_date, is_received, medicine_id, patient_id,pharmacy_id, is_canceled)
+	VALUES (509, '2021-05-12', true, 21, 89, 111, false);
+INSERT INTO public.reservation(
+	id, expiration_date, is_received, medicine_id, patient_id,pharmacy_id, is_canceled)
+	VALUES (510, '2021-05-22', true, 21, 88, 111, false);
+INSERT INTO public.reservation(
+	id, expiration_date, is_received, medicine_id, patient_id,pharmacy_id, is_canceled)
+	VALUES (511, '2021-06-23', true, 21, 88, 111, false);
+INSERT INTO public.reservation(
+	id, expiration_date, is_received, medicine_id, patient_id,pharmacy_id, is_canceled)
+	VALUES (512, '2021-05-11', true, 18, 88, 111, false);
+INSERT INTO public.reservation(
+	id, expiration_date, is_received, medicine_id, patient_id,pharmacy_id, is_canceled)
+	VALUES (513, '2021-04-02', true, 21, 88, 111, false);
+INSERT INTO public.reservation(
+	id, expiration_date, is_received, medicine_id, patient_id,pharmacy_id, is_canceled)
+	VALUES (514, '2021-04-09', true, 18, 89, 111, false);
+INSERT INTO public.reservation(
+	id, expiration_date, is_received, medicine_id, patient_id,pharmacy_id, is_canceled)
+	VALUES (515, '2021-06-17', true, 21, 88, 111, false);
+INSERT INTO public.reservation(
+	id, expiration_date, is_received, medicine_id, patient_id,pharmacy_id, is_canceled)
+	VALUES (516, '2021-04-01', true, 18, 88, 111, false);
+
+INSERT INTO public.counseling(
+	id, price, report, start_time, end_time, is_done, patient_id, pharmacist_id, pharmacy_id, is_canceled)
+	VALUES (666, 1000.0, '', '2021-04-11 15:00:00-07', '2021-04-11 15:25:25-07', true, null, 555, 111, false);
+INSERT INTO public.counseling(
+	id, price, report, start_time, end_time, is_done, patient_id, pharmacist_id, pharmacy_id, is_canceled)
+	VALUES (667, 2000.0, '', '2021-03-16 17:00:00-07', '2021-03-16 17:25:25-07', true, null, 555, 111, false);
+INSERT INTO public.counseling(
+	id, price, report, start_time, end_time, is_done, patient_id, pharmacist_id, pharmacy_id, is_canceled)
+	VALUES (668, 1000.0, '', '2021-03-15 16:00:00-07', '2021-03-15 16:25:25-07', true, null, 555, 111, false);
+INSERT INTO public.counseling(
+	id, price, report, start_time, end_time, is_done, patient_id, pharmacist_id, pharmacy_id, is_canceled)
+	VALUES (669, 2000.0, '', '2021-04-18 17:00:00-07', '2021-04-18 17:25:25-07', true, null, 555, 111, false);
+
+INSERT INTO public.dermatologist(
+	id, address, city, country, description, email, email_comfirmed, first_time_login, name, password, phone_number, surname, enabled, last_password_reset_date, username)
+	VALUES (51, 'Kneza Milosa 3', 'Novi Sad', 'Srbija', 'neki opis', 'aleksarep0408@gmail.com', true, true, 'Stevan', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', '0632213455', 'Katic',true,'2008-11-11 13:23:44','stevan.katic');
+INSERT INTO public.users(
+	id, address, city, country, description, email, email_comfirmed, first_time_login, name, password, phone_number, surname, enabled, last_password_reset_date, username)
+	VALUES (51, 'Kneza Milosa 3', 'Novi Sad', 'Srbija', 'neki opis', 'aleksarep0408@gmail.com', false, false, 'Stevan', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', '0632213455', 'Katic',true,'2008-11-11 13:23:44','stevan.katic');
+INSERT INTO public.dermatologist(
+	id, address, city, country, description, email, email_comfirmed, first_time_login, name, password, phone_number, surname, enabled, last_password_reset_date, username)
+	VALUES (52, 'Kneza Milosa 1', 'Novi Sad', 'Srbija', 'neki opis', 'aleksarep0408@gmail.com', false, false, 'Milan', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', '0632413455', 'Radic',true,'2008-11-11 13:23:44','radeM');
+INSERT INTO public.users(
+	id, address, city, country, description, email, email_comfirmed, first_time_login, name, password, phone_number, surname, enabled, last_password_reset_date, username)
+	VALUES (52, 'Kneza Milosa 1', 'Novi Sad', 'Srbija', 'neki opis', 'aleksarep0408@gmail.com', false, false, 'Milan', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', '0632413455', 'Radic',true,'2008-11-11 13:23:44','radeM');
+
+
+INSERT INTO public.dermatologist(
+	id, address, city, country, description, email, email_comfirmed, first_time_login, name, password, phone_number, surname, enabled, last_password_reset_date, username)
+	VALUES (61, 'Kneza Milosa 3', 'Novi Sad', 'Srbija', 'neki opis', 'aleksarep0408@gmail.com', true, true, 'Dusan', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', '0632213455', 'Peric',true,'2008-11-11 13:23:44','dusanper');
+INSERT INTO public.users(
+	id, address, city, country, description, email, email_comfirmed, first_time_login, name, password, phone_number, surname, enabled, last_password_reset_date, username)
+	VALUES (61, 'Kneza Milosa 3', 'Novi Sad', 'Srbija', 'neki opis', 'aleksarep0408@gmail.com', false, false, 'Dusan', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', '0632213455', 'Peric',true,'2008-11-11 13:23:44','dusanper');
+INSERT INTO public.dermatologist(
+	id, address, city, country, description, email, email_comfirmed, first_time_login, name, password, phone_number, surname, enabled, last_password_reset_date, username)
+	VALUES (62, 'Kneza Milosa 1', 'Novi Sad', 'Srbija', 'neki opis', 'aleksarep0408@gmail.com', false, false, 'Janko', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', '0632413455', 'Milosevic',true,'2008-11-11 13:23:44','milos');
+INSERT INTO public.users(
+	id, address, city, country, description, email, email_comfirmed, first_time_login, name, password, phone_number, surname, enabled, last_password_reset_date, username)
+	VALUES (62, 'Kneza Milosa 1', 'Novi Sad', 'Srbija', 'neki opis', 'aleksarep0408@gmail.com', false, false, 'Janko', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', '0632413455', 'Milosevic',true,'2008-11-11 13:23:44','milos');
+
+INSERT INTO public.pharmacy_dermatologists(dermatologist_id, pharmacy_id)VALUES (61, 111);
+INSERT INTO public.pharmacy_dermatologists(dermatologist_id, pharmacy_id)VALUES (61, 444);
+INSERT INTO public.pharmacy_dermatologists(dermatologist_id, pharmacy_id)VALUES (62, 111);
+INSERT INTO public.pharmacy_dermatologists(dermatologist_id, pharmacy_id)VALUES (51, 111);
+INSERT INTO public.pharmacy_dermatologists(dermatologist_id, pharmacy_id)VALUES (52, 111);
+INSERT INTO public.pharmacy_dermatologists(dermatologist_id, pharmacy_id)VALUES (62, 222);
+INSERT INTO public.pharmacy_dermatologists(dermatologist_id, pharmacy_id)VALUES (51, 222);
+INSERT INTO public.pharmacy_dermatologists(dermatologist_id, pharmacy_id)VALUES (62, 333);
+
+INSERT INTO public.pharmacist(
+	id, address, city, country, description, email, email_comfirmed, first_time_login, name, password, phone_number, surname, enabled, last_password_reset_date, username, pharmacy_id)
+	VALUES (891, 'Ticanova 1', 'Ruma', 'Srbija', 'neki opis', 'ta.drcelic@gmail.com', true, true, 'Vesna', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', '0654431123', 'Starcevic',true,'2008-11-11 13:23:44','vstarcevic', 111);    
+INSERT INTO public.users(
+	id, address, city, country, description, email, email_comfirmed, first_time_login, name, password, phone_number, surname, enabled, last_password_reset_date, username)
+	VALUES (891, 'Ticanova 1', 'Ruma', 'Srbija', 'neki opis', 'ta.drcelic@gmail.com', false, false, 'Vesna', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', '0654431123', 'Starcevic',true,'2008-11-11 13:23:44','vstarcevic');    
+INSERT INTO public.pharmacist(
+	id, address, city, country, description, email, email_comfirmed, first_time_login, name, password, phone_number, surname, enabled, last_password_reset_date, username, pharmacy_id)
+	VALUES (65, 'Jovana Ducica 9', 'Novi Sad', 'Srbija', 'neki opis', 'aleksarep0408@gmail.com', false, false, 'Milena', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', '06541111123', 'Milic',true,'2008-11-11 13:23:44','mimi',111);
+INSERT INTO public.users(
+	id, address, city, country, description, email, email_comfirmed, first_time_login, name, password, phone_number, surname, enabled, last_password_reset_date, username)
+	VALUES (65, 'Jovana Ducica 9', 'Novi Sad', 'Srbija', 'neki opis', 'aleksarep0408@gmail.com', false, false, 'Milena', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', '06541111123', 'Milic',true,'2008-11-11 13:23:44','mimi');
+
+INSERT INTO public.working_time(
+	id, time_end, time_start,pharmacy_id)
+	VALUES (1000, '2021-06-6 20:00:00-07','2021-06-06 11:00:00-07','111');
+INSERT INTO public.dermatologist_working_schedule(
+	dermatologist_id, working_time_id)
+VALUES (61, 1000);
+INSERT INTO public.working_time(
+	id, time_end, time_start,pharmacy_id)
+	VALUES (1001, '2021-06-07 20:00:00-07','2021-06-07 11:00:00-07','111');
+INSERT INTO public.working_time(
+	id, time_end, time_start,pharmacy_id)
+	VALUES (1002, '2021-06-08 20:00:00-07','2021-06-08 14:00:00-07','111');
+INSERT INTO public.working_time(
+	id, time_end, time_start,pharmacy_id)
+	VALUES (1003, '2021-06-10 20:00:00-07','2021-06-10 11:00:00-07','111');
+INSERT INTO public.working_time(
+	id, time_end, time_start,pharmacy_id)
+	VALUES (1004, '2021-06-11 20:00:00-07','2021-06-11 11:00:00-07','111');
+INSERT INTO public.working_time(
+	id, time_end, time_start,pharmacy_id)
+	VALUES (1005, '2021-06-15 20:00:00-07','2021-06-15 12:00:00-07','111');
+INSERT INTO public.working_time(
+	id, time_end, time_start,pharmacy_id)
+	VALUES (1006, '2021-06-16 20:00:00-07','2021-06-16 12:00:00-07','111');
+INSERT INTO public.working_time(
+	id, time_end, time_start,pharmacy_id)
+	VALUES (1007, '2021-06-17 20:00:00-07','2021-06-17 11:00:00-07','111');
+INSERT INTO public.working_time(
+	id, time_end, time_start,pharmacy_id)
+	VALUES (1008, '2021-06-19 20:00:00-07','2021-06-19 11:00:00-07','111');
+INSERT INTO public.working_time(
+	id, time_end, time_start,pharmacy_id)
+	VALUES (1009, '2021-06-20 20:00:00-07','2021-06-20 11:00:00-07','111');
+INSERT INTO public.working_time(
+	id, time_end, time_start,pharmacy_id)
+	VALUES (1010, '2021-06-21 20:00:00-07','2021-06-21 11:00:00-07','111');
+INSERT INTO public.working_time(
+	id, time_end, time_start,pharmacy_id)
+	VALUES (1011, '2021-07-12 20:00:00-07','2021-07-12 11:00:00-07','111');
+INSERT INTO public.working_time(
+	id, time_end, time_start,pharmacy_id)
+	VALUES (1012, '2021-07-13 20:00:00-07','2021-07-13 14:00:00-07','111');
+INSERT INTO public.working_time(
+	id, time_end, time_start,pharmacy_id)
+	VALUES (1013, '2021-07-14 20:00:00-07','2021-07-14 11:00:00-07','111');
+
+
+
+INSERT INTO public.dermatologist_working_schedule(
+	dermatologist_id, working_time_id)
+	VALUES (61, 1001);
+INSERT INTO public.dermatologist_working_schedule(
+	dermatologist_id, working_time_id)
+	VALUES (61, 1002);
+INSERT INTO public.dermatologist_working_schedule(
+	dermatologist_id, working_time_id)
+	VALUES (61, 1003);
+INSERT INTO public.dermatologist_working_schedule(
+	dermatologist_id, working_time_id)
+	VALUES (61, 1004);
+INSERT INTO public.dermatologist_working_schedule(
+	dermatologist_id, working_time_id)
+	VALUES (61, 1005);
+INSERT INTO public.dermatologist_working_schedule(
+	dermatologist_id, working_time_id)
+	VALUES (61, 1006);
+INSERT INTO public.dermatologist_working_schedule(
+	dermatologist_id, working_time_id)
+	VALUES (61, 1007);
+INSERT INTO public.dermatologist_working_schedule(
+	dermatologist_id, working_time_id)
+	VALUES (61, 1008);
+INSERT INTO public.dermatologist_working_schedule(
+	dermatologist_id, working_time_id)
+	VALUES (61, 1009);
+INSERT INTO public.dermatologist_working_schedule(
+	dermatologist_id, working_time_id)
+	VALUES (61, 1010);
+INSERT INTO public.dermatologist_working_schedule(
+	dermatologist_id, working_time_id)
+	VALUES (61, 1011);
+INSERT INTO public.dermatologist_working_schedule(
+	dermatologist_id, working_time_id)
+	VALUES (61, 1012);
+INSERT INTO public.dermatologist_working_schedule(
+	dermatologist_id, working_time_id)
+	VALUES (61, 1013);
+
+INSERT INTO public.examination(
+	id, price, report, start_time, end_time, is_done, dermatologist_id, patient_id, pharmacy_id, is_canceled)
+	VALUES (6969, 500.0, 'Headache and nausea', '2021-06-06 19:10:25-07', '2021-06-06 19:20:25-07',false, 61, 88, 111, false);
+INSERT INTO public.examination(
+	id, price, report, start_time, end_time, is_done, dermatologist_id, patient_id, pharmacy_id, is_canceled)
+	VALUES (6970, 1000.0, '', '2021-07-10 16:30:25-07', '2021-07-10 16:40:25-07', false, 61, 88, 111, false);
+INSERT INTO public.examination(
+	id, price, report, start_time, end_time, is_done, dermatologist_id, patient_id, pharmacy_id, is_canceled)
+	VALUES (6980, 800.0, '', '2021-07-11 15:10:25-07', '2021-07-11 15:20:25-07',false, 61, 89, 111, false);
+
+INSERT INTO public.mark(
+	id, marks, patient_id)
+	VALUES (600, 4, 88);
+INSERT INTO public.mark(
+	id, marks, patient_id)
+	VALUES (601, 1, 88);
+INSERT INTO public.mark(
+	id, marks, patient_id)
+	VALUES (602, 4, 88);
+INSERT INTO public.mark(
+	id, marks, patient_id)
+	VALUES (603, 3, 88);
+INSERT INTO public.mark(
+	id, marks, patient_id)
+	VALUES (604, 5, 89);
+INSERT INTO public.mark(
+	id, marks, patient_id)
+VALUES (605, 5, 88);
+INSERT INTO public.mark(
+	id, marks, patient_id)
+VALUES (606, 3, 88);
+INSERT INTO public.mark(
+	id, marks, patient_id)
+VALUES (607, 2, 88);
+INSERT INTO public.mark(
+	id, marks, patient_id)
+VALUES (608, 5, 88);
+INSERT INTO public.mark(
+	id, marks, patient_id)
+	VALUES (609, 4, 88);
+INSERT INTO public.mark(
+	id, marks, patient_id)
+	VALUES (610, 5, 88);
+INSERT INTO public.mark(
+	id, marks, patient_id)
+	VALUES (611, 1, 88);
+INSERT INTO public.mark(
+	id, marks, patient_id)
+	VALUES (612, 2, 88);
+INSERT INTO public.mark(
+	id, marks, patient_id)
+	VALUES (613, 3, 88);
+INSERT INTO public.mark(
+	id, marks, patient_id)
+	VALUES (614, 5, 89);
+INSERT INTO public.mark(
+	id, marks, patient_id)
+VALUES (615, 5, 88);
+INSERT INTO public.mark(
+	id, marks, patient_id)
+VALUES (616, 3, 88);
+INSERT INTO public.mark(
+	id, marks, patient_id)
+VALUES (617, 2, 88);
+INSERT INTO public.mark(
+	id, marks, patient_id)
+VALUES (618, 5, 88);
+INSERT INTO public.mark(
+	id, marks, patient_id)
+	VALUES (619, 4, 88);
+INSERT INTO public.mark(
+	id, marks, patient_id)
+	VALUES (620, 4, 88);
+INSERT INTO public.mark(
+	id, marks, patient_id)
+	VALUES (621, 2, 88);
+	INSERT INTO public.mark(
+	id, marks, patient_id)
+	VALUES (622, 5, 88);
+INSERT INTO public.mark(
+	id, marks, patient_id)
+	VALUES (623, 3, 88);
+INSERT INTO public.mark(
+	id, marks, patient_id)
+	VALUES (624, 5, 89);
+INSERT INTO public.mark(
+	id, marks, patient_id)
+VALUES (625, 5, 88);
+INSERT INTO public.mark(
+	id, marks, patient_id)
+VALUES (626, 3, 88);
+INSERT INTO public.mark(
+	id, marks, patient_id)
+VALUES (627, 2, 88);
+INSERT INTO public.mark(
+	id, marks, patient_id)
+VALUES (628, 5, 88);
+INSERT INTO public.mark(
+	id, marks, patient_id)
+	VALUES (629, 4, 88);
+INSERT INTO public.mark(
+	id, marks, patient_id)
+	VALUES (630, 3, 88);
+INSERT INTO public.mark(
+	id, marks, patient_id)
+	VALUES (631, 2, 88);
+INSERT INTO public.mark(
+	id, marks, patient_id)
+	VALUES (632, 3, 88);
+
+
+
+INSERT INTO public.pharmacist_marks(
+	pharmacist_id, marks_id)
+	VALUES (891, 601);
+INSERT INTO public.pharmacist_marks(
+	pharmacist_id, marks_id)
+	VALUES (891, 602);
+INSERT INTO public.pharmacist_marks(
+	pharmacist_id, marks_id)
+	VALUES (891, 603);	
+INSERT INTO public.pharmacist_marks(
+	pharmacist_id, marks_id)
+	VALUES (891, 604);
+INSERT INTO public.pharmacist_marks(
+	pharmacist_id, marks_id)
+	VALUES (891, 605);
+INSERT INTO public.pharmacist_marks(
+	pharmacist_id, marks_id)
+	VALUES (891, 606);
+INSERT INTO public.pharmacist_marks(
+	pharmacist_id, marks_id)
+	VALUES (891, 607);	
+INSERT INTO public.pharmacist_marks(
+	pharmacist_id, marks_id)
+	VALUES (891, 608);
+INSERT INTO public.pharmacist_marks(
+	pharmacist_id, marks_id)
+	VALUES (555, 609);
+INSERT INTO public.pharmacist_marks(
+	pharmacist_id, marks_id)
+	VALUES (555, 610);
+INSERT INTO public.pharmacist_marks(
+	pharmacist_id, marks_id)
+	VALUES (555, 611);	
+INSERT INTO public.pharmacist_marks(
+	pharmacist_id, marks_id)
+	VALUES (555, 612);
+INSERT INTO public.pharmacist_marks(
+	pharmacist_id, marks_id)
+	VALUES (555, 613);
+INSERT INTO public.pharmacist_marks(
+	pharmacist_id, marks_id)
+	VALUES (555, 614);
+INSERT INTO public.pharmacist_marks(
+	pharmacist_id, marks_id)
+	VALUES (555, 615);
+INSERT INTO public.pharmacist_marks(
+	pharmacist_id, marks_id)
+	VALUES (65, 616);
+INSERT INTO public.pharmacist_marks(
+	pharmacist_id, marks_id)
+	VALUES (65, 617);
+INSERT INTO public.pharmacist_marks(
+	pharmacist_id, marks_id)
+	VALUES (65, 618);
+INSERT INTO public.pharmacist_marks(
+	pharmacist_id, marks_id)
+	VALUES (65, 619);
+INSERT INTO public.pharmacist_marks(
+	pharmacist_id, marks_id)
+	VALUES (65, 620);
+ INSERT INTO public.dermatologist_marks(dermatologist_id, marks_id) VALUES (66, 621);
+ INSERT INTO public.dermatologist_marks(dermatologist_id, marks_id) VALUES (66, 622);
+ INSERT INTO public.dermatologist_marks(dermatologist_id, marks_id) VALUES (66, 623);
+ INSERT INTO public.dermatologist_marks(dermatologist_id, marks_id) VALUES (51, 624);
+ INSERT INTO public.dermatologist_marks(dermatologist_id, marks_id) VALUES (51, 625);
+ INSERT INTO public.dermatologist_marks(dermatologist_id, marks_id) VALUES (51, 626);
+INSERT INTO public.dermatologist_marks(dermatologist_id, marks_id) VALUES (52, 627);
+ INSERT INTO public.dermatologist_marks(dermatologist_id, marks_id) VALUES (52, 628);
+ INSERT INTO public.dermatologist_marks(dermatologist_id, marks_id) VALUES (52, 629);
+ INSERT INTO public.dermatologist_marks(dermatologist_id, marks_id) VALUES (61, 630);
+ INSERT INTO public.dermatologist_marks(dermatologist_id, marks_id) VALUES (61, 631);
+ INSERT INTO public.dermatologist_marks(dermatologist_id, marks_id) VALUES (61, 632);
+
+INSERT INTO public.medicine_price_and_quantity(
+	id, price, quantity, medicine_id)
+	VALUES (667, 295.0, 16, 5);
+
+INSERT INTO public.pharmacy_pricelist(
+	pharmacy_id, pricelist_id)
+	VALUES (111, 667);
+
+INSERT INTO public.counseling(
+	id, price, report, start_time, end_time, is_done, patient_id, pharmacist_id, pharmacy_id, is_canceled)
+	VALUES (777, 1000.0, '', '2022-06-17 16:00:00-07', '2021-06-17 16:25:25-07', false, null, 65, 111, false);
+INSERT INTO public.counseling(
+	id, price, report, start_time, end_time, is_done, patient_id, pharmacist_id, pharmacy_id, is_canceled)
+	VALUES (778, 2000.0, '', '2021-10-11 17:00:00-07', '2021-10-11 17:25:25-07', false, null, 65, 111, false);
+INSERT INTO public.counseling(
+	id, price, report, start_time, end_time, is_done, patient_id, pharmacist_id, pharmacy_id, is_canceled)
+	VALUES (789, 1000.0, '', '2022-06-11 15:00:00-07', '2021-06-11 15:25:25-07', false, null, 65, 111, false);
+INSERT INTO public.counseling(
+	id, price, report, start_time, end_time, is_done, patient_id, pharmacist_id, pharmacy_id, is_canceled)
+	VALUES (790, 1000.0, '', '2022-09-17 16:00:00-07', '2021-09-17 16:25:25-07', false, null, 65, 111, false);
+INSERT INTO public.counseling(
+	id, price, report, start_time, end_time, is_done, patient_id, pharmacist_id, pharmacy_id, is_canceled)
+	VALUES (791, 2000.0, '', '2021-08-11 17:00:00-07', '2021-08-11 17:25:25-07', false, null, 555, 111, false);
+INSERT INTO public.counseling(
+	id, price, report, start_time, end_time, is_done, patient_id, pharmacist_id, pharmacy_id, is_canceled)
+	VALUES (792, 1000.0, '', '2022-07-11 15:00:00-07', '2021-07-11 15:25:25-07', false, null, 555, 111, false);

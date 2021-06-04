@@ -380,7 +380,7 @@ Vue.component("administratorAccountInfo", {
                     })
                     .then(response =>{
                         axios
-                        .post('api/saveUserByPharmacyAdmin',this.administrator,{
+                        .put('api/updateUserByPharmacyAdmin',this.administrator,{
                             headers: {
                                 'Authorization': 'Bearer' + " " + localStorage.getItem('token')
                             }
@@ -441,7 +441,7 @@ Vue.component("administratorAccountInfo", {
                     })
                     .then(response =>{
                         axios
-                        .post('api/saveUserByPharmacyAdmin',this.administrator,{
+                        .put('api/updateUserByPharmacyAdmin',this.administrator,{
                             headers: {
                                 'Authorization': 'Bearer' + " " + localStorage.getItem('token')
                             }
@@ -513,7 +513,7 @@ Vue.component("administratorAccountInfo", {
                             })
 
                             axios
-                            .post('api/saveUserByPharmacyAdmin',this.administrator,{
+                            .put('api/updateUserByPharmacyAdmin',this.administrator,{
                                 headers: {
                                     'Authorization': 'Bearer' + " " + localStorage.getItem('token')
                                 }

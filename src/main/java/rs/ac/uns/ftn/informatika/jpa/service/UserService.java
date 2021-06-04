@@ -157,7 +157,30 @@ public class UserService implements IUserService{
 		u = this.userRepository.save(u);
 	}
 
-    public void saveUserByPharmacyAdmin(PharmacyAdminDTO p) {
+    public void saveUserByPharmacyAdmin(PharmacyAdminDTO user) {
+		User u=new User();
+		u.setId(user.getId());
+		u.setName(user.getName());
+		u.setSurname(user.getSurname());
+		u.setEmail(user.getEmail());
+		u.setPassword(passwordEncoder.encode(user.getPassword()));
+		u.setAddress(user.getAddress());
+		u.setCity(user.getCity());
+		u.setCountry(user.getCountry());
+		u.setPhoneNumber(user.getPhoneNumber());
+		u.setEmailComfirmed(user.getEmailComfirmed());
+		u.setFirstTimeLogin(user.getFirstTimeLogin());
+		u.setDescription(user.getDescription()); 
+		u.setEnabled(true);
+		u.setLastPasswordResetDate(new Date());
+		u.setFirstTimeLogin(false);
+		u.setUsername(user.getUsername());
+		List<Authority> auth = authService.findByname("ROLE_PHARMACYADMIN");
+		u.setAuthorities(auth);	
+		u = this.userRepository.save(u);
+    }
+
+	public void updateUserByPharmacyAdmin(PharmacyAdminDTO p) {
 		PharmacyAdmin user = pharmacyAdminRepository.getOne(p.getId());
 		User u=userRepository.getOne(p.getId());
 		u.setName(user.getName());
