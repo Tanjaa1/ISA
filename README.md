@@ -7,18 +7,18 @@ PostrgeSQL - pgAdmin 4 - database: isa-db (password and surname in ISA/src/main/
 server-port:8090
 #START PAGE:http://localhost:8090/#/
 
-TESTS: src/test/java/rs/ac/uns/ftn/informatika/jpa/AllTests.java
+#TESTS: https://github.com/Tanjaa1/ISA/blob/37ba8576435cbaf2392570148e930d5d0ffb6e68/src/test/java/rs/ac/uns/ftn/informatika/jpa/AllTests.java
 
 #TRANSACTIONS:
 
 Student | Path 
------------- | -------------
+------------ | -----------------------------------------------------------------------------------------------------------------------
 Student1 | X
 Student2 | 
-Student3 | Transactions/Transakcija_Student3_Tanja_Drcelic.pdf
+Student3 | https://github.com/Tanjaa1/ISA/blob/37ba8576435cbaf2392570148e930d5d0ffb6e68/Transactions/Transakcija_Student3_Tanja_Drcelic.pdf
 Student4 | 
 
-#SCALABILITY: Skalabilnost.pdf
+#SCALABILITY: https://github.com/Tanjaa1/ISA/blob/37ba8576435cbaf2392570148e930d5d0ffb6e68/Skalabilnost.pdf
 
 #ROLES:
 dermtologist: username-majaa password-123
