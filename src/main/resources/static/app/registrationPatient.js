@@ -84,7 +84,8 @@ Vue.component("registrationPatient", {
 			</tr>
 			<tr>
 				<td>&nbsp;</td>
-		
+				<td align="left" style="color: red;font-size:12px">{{numberValidation}}</td>
+
 			</tr>
 			<tr>
 				<td><label>Drug allergies</label><a class="star"></a></td>
@@ -158,6 +159,12 @@ Vue.component("registrationPatient", {
 				if (mailMatch != this.patientDTO.email) return 'Please insert correct email form';
 			}
 			else if (this.patientDTO.email === '') return 'Mail name is a required field';
+			else return null;
+		},numberValidation: function () {
+			if (this.patientDTO.phoneNumber != undefined && this.patientDTO.phoneNumber.length > 0) {
+				if ( this.patientDTO.phoneNumber.length==0 || this.patientDTO.phoneNumber.length<9 || this.patientDTO.phoneNumber.length>11) return 'The number may contain at least 9 digits and max 11 digits';
+			}
+			else if (this.patientDTO.name === '') return 'Number is a required field';
 			else return null;
 		},
 		cityValidation: function () {

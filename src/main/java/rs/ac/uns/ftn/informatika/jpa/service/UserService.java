@@ -86,7 +86,17 @@ public class UserService implements IUserService{
 		u = this.userRepository.save(u);
 		return u;
 	}
+	public Boolean isUsernameValid(String username) {
+        List<User> usernames=findAll();
+		for (User user : usernames) {
+			if(user.getUsername().equals(username)){
+                return false;
 
+			}
+		}
+        
+        return true;
+	}
     public void saveUserByPatient(Patient user) {
 		User u=new User();
 		u.setId(user.getId());

@@ -15,6 +15,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.core.sym.Name;
 
 import org.springframework.security.core.GrantedAuthority;
 
@@ -130,7 +131,13 @@ public class Patient extends User {
 		Category = patientDTO.getCategory();
 
 	}
+	
 
+
+	public Patient(Long id, String name, String surname,List<String>drugAllergies) {
+		super(id, name, surname);
+		DrugAllargies=drugAllergies;
+	}
 
 	public Patient(Long id, String email, String password, String name, String surname, String address, String city,
 			String country, String phoneNumber, String description, Boolean emailComfirmed, Boolean firstTimeLogin,

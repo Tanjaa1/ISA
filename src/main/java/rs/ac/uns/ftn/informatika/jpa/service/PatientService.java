@@ -38,7 +38,10 @@ import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IPatientRepository;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IPenaltyRepository;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IReservationRepository;
 import rs.ac.uns.ftn.informatika.jpa.service.Interface.IPatientService;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 @Configuration
+@Transactional(readOnly = true)
 @Service
 public class PatientService implements IPatientService {
 
@@ -202,7 +205,7 @@ public class PatientService implements IPatientService {
 		}
 		return patients;
 	}
-
+	@Transactional(readOnly=false)
 	public ResponseEntity<Patient> save(Patient patient) throws Exception {
 		patient.setCategory(LoyaltyCategories.Regular);
 		patient.setLastPasswordResetDate(new Date());
@@ -235,7 +238,7 @@ public class PatientService implements IPatientService {
 		}
 		return resultList;
 	}
-
+	@Transactional(readOnly=false, propagation = Propagation.REQUIRES_NEW)
 	public Boolean isUsernameValid(String username) {
 		List<String> usernames = getAllPatientUsernames();
 		for (String s : usernames) {
@@ -356,6 +359,7 @@ public class PatientService implements IPatientService {
 		//emailSender(patientToUpdate);
 		return actionOrPromotionsDTO;
 	}
+	@Transactional(readOnly=false)
 
 	public ActionOrPromotionsDTO cancelActionOrPromotion(String id, String idAction) throws Exception {
 		

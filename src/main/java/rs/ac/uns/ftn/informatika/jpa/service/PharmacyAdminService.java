@@ -22,7 +22,9 @@ import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IPharmacyRepository;
 import rs.ac.uns.ftn.informatika.jpa.service.Interface.IPharmacyAdminService;
 import rs.ac.uns.ftn.informatika.jpa.util.MapLocation;
 import rs.ac.uns.ftn.informatika.jpa.util.MedicineGraphInfo;
-
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+@Transactional(readOnly = true)
 @Service
 public class PharmacyAdminService implements IPharmacyAdminService {
     @Autowired
@@ -32,7 +34,7 @@ public class PharmacyAdminService implements IPharmacyAdminService {
 	@Autowired
 	private EmailService emailService;
 	private Logger logger = LoggerFactory.getLogger(ResrvationService.class);
-	
+    @Transactional(readOnly=false)
     public ResponseEntity<PharmacyAdmin> save(PharmacyAdmin systemAdmin) throws Exception {
 		systemAdmin.setLastPasswordResetDate(new Date());
         pharmacyAdminRepository.save(systemAdmin);
@@ -102,7 +104,7 @@ public class PharmacyAdminService implements IPharmacyAdminService {
         }
         return resultList;
     }
-
+	@Transactional(readOnly=false, propagation = Propagation.REQUIRES_NEW)
     public Boolean isUsernameValid(String username) {
         List<String> usernames = getAllSystemAdminUsernames();
         for (String s : usernames) {

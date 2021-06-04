@@ -13,6 +13,11 @@ Vue.component("actionAndPromotion", {
 		  })
 		.then(response => {
 			this.allActionsAndPromotions = response.data
+			alert(this.allActionsAndPromotions)
+			if(this.allActionsAndPromotions==null || this.allActionsAndPromotions==''){
+				alert("There are currently no actions or promotions to which you are subscribed")
+				this.$router.push('patientHomePage');
+			}
 	  
 		})
 		.catch(error => {
@@ -90,11 +95,13 @@ Vue.component("actionAndPromotion", {
 			  } )
 		
 			.then(response => {
-				alert("uspjesno")
+				alert("successfully canceled")
 				location.reload()
 			})
 			.catch(error => {
-				alert("neuspjesno")
+				alert("Something went wrong , please try again later!")
+				this.$router.push('patientHomePage');
+
 			})
 		}
 	}

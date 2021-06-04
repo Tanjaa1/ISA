@@ -151,10 +151,10 @@ Vue.component("loyaltyProgramme", {
         }
       } )
             .then(response => {
-                alert('uspjesno')
+                alert('successfully changed!')
             })
             .catch(error => {
-                alert('nesupjesnooo')
+                alert('something went wrong...')
             })
         },
         close:function(){

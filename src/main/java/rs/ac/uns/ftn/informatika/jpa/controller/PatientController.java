@@ -23,6 +23,7 @@ import rs.ac.uns.ftn.informatika.jpa.dto.PharmacyDTO;
 import rs.ac.uns.ftn.informatika.jpa.model.Patient;
 import rs.ac.uns.ftn.informatika.jpa.model.Pharmacy;
 import rs.ac.uns.ftn.informatika.jpa.service.PatientService;
+import rs.ac.uns.ftn.informatika.jpa.service.UserService;
 
 @RestController
 @RequestMapping(value = "/patient")
@@ -32,6 +33,8 @@ public class PatientController {
 	
 	@Autowired
 	private PatientService patientService;
+	@Autowired
+	private UserService userService;
 
 	@PreAuthorize("hasRole('PATIENT')")
 	@GetMapping(value = "/getPatientById/{id}")
@@ -133,7 +136,7 @@ public class PatientController {
 
 	@GetMapping(value = "/isUsernameValid/{username}")
 	public ResponseEntity<Boolean> isUsernameValid(@PathVariable String username) {
-		Boolean isValid = patientService.isUsernameValid(username);
+		Boolean isValid = userService.isUsernameValid(username);
 		return isValid == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(isValid);
 	}
 

@@ -40,7 +40,7 @@ Vue.component("registrationPharmacy", {
 		<br><br><br>
 		<table class="t">
 			<tr>
-				<td><label>Namez</label><a class="star">*</a></td>
+				<td><label>Name</label><a class="star">*</a></td>
 				<td><input type="text" class = "form-control input" v-model="pharmacyDTO.name"/></td><br/>
 			<tr>
 			<tr><td>&nbsp;</td>
@@ -118,7 +118,8 @@ Vue.component("registrationPharmacy", {
 				</tr>
 				<tr>
 					<td>&nbsp;</td>
-			
+					<td align="left" style="color: red;font-size:12px">{{numberValidation}}</td>
+
 				</tr>
 				<tr>
 					<td><label>Email</label><a class="star">*</a></td>
@@ -172,7 +173,7 @@ Vue.component("registrationPharmacy", {
 		},
 		addressValidationPharmacy: function () {
 			if (this.pharmacyDTO.address != undefined && this.pharmacyDTO.address.length > 0) {
-				let surnameMatch = this.pharmacyDTO.address.match('[A-Za-z0-9]*');
+				let surnameMatch = this.pharmacyDTO.address.match('[A-Za-z0-9 ]*');
 				if (surnameMatch != this.pharmacyDTO.address) return 'The Address may contain only letters and numbers';
 				else if (this.pharmacyDTO.address[0].match('[A-Z]') === null) return 'The Address must begin with a capital letter';
 			}
@@ -224,6 +225,12 @@ Vue.component("registrationPharmacy", {
 				else if (this.pharmacyAdminDTO.country[0].match('[A-Z]') === null) return 'The country must begin with a capital letter';
 			}
 			else if (this.pharmacyAdminDTO.country === '') return 'Country is a required field';
+			else return null;
+		},numberValidation: function () {
+			if (this.pharmacyAdminDTO.phoneNumber != undefined && this.pharmacyAdminDTO.phoneNumber.length > 0) {
+				if ( this.pharmacyAdminDTO.phoneNumber.length==0 || this.pharmacyAdminDTO.phoneNumber.length<9 || this.pharmacyAdminDTO.phoneNumber.length>11) return 'The number may contain at least 9 digits and max 11 digits';
+			}
+			else if (this.pharmacyAdminDTO.phoneNumber === '') return 'Number is a required field';
 			else return null;
 		},
 		usernameValidation: function () {
@@ -280,9 +287,12 @@ Vue.component("registrationPharmacy", {
 									}
 								})
 								.then(response => {
-									alert("APOTEKA U BAZI")})
+									alert("Successfully registered pharmacy!");
+								})
 									.catch(error => {
-										alert("greska");
+										alert("Something went wrong,please try again later!");
+										this.$router.push('systemAdminHomaPage');
+
 									})
 									pharmacyAdminDTO.emailComfirmed=false
 									pharmacyAdminDTO.firstTimeLogin=false
@@ -296,7 +306,6 @@ Vue.component("registrationPharmacy", {
 										}
 									})
 									.then(response => {
-										alert("DODAT U BAZU user");
 										axios
 										.post('/pharmacyAdmin/savePharmacyAdmin' , pharmacyAdminDTO,{
 											headers: {
@@ -304,20 +313,24 @@ Vue.component("registrationPharmacy", {
 											}
 										})
 										.then(response => {
-											alert("DODAT U BAZU pharmacyAdmin");
+											alert("Successfully registered user");
 											this.$router.push('systemAdminHomaPage');
 										})
 				
 										.catch(error => {
 											
-											alert("GRESKAA");
+											alert("Something went wrong,please try again later!");
+											this.$router.push('systemAdminHomaPage');
+
 										})
 									})
 							}
 						})
 						.catch(error => {	
-							alert("greska");
-							})
+							alert("Something went wrong,please try again later!");
+							this.$router.push('systemAdminHomaPage');
+
+						})
 					})
 				}
 			else 

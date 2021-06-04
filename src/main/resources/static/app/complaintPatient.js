@@ -21,7 +21,11 @@ Vue.component("complaintPatient", {
 			}
 		  } )
 		.then(response => {
-			this.subjects = response.data	  
+			this.subjects = response.data	
+			if(this.subjects==null || this.subjects==''){
+				alert("There is currently no entity for which you could file a complaint")
+				this.$router.push('patientHomePage');
+			}
 		})
 		.catch(error => {
 		})
@@ -98,13 +102,13 @@ Vue.component("complaintPatient", {
 					}
 				  } )
 				.then(response => {
-						alert('uspjesno')
+						alert('complaint successfully sent')
 						this.$router.push('patientHomePage');
 
 				})
 				.catch(error => {
-					alert('neuspjesno')
-				})
+					alert('Something went wrong, please try again later!')
+					this.$router.push('patientHomePage');				})
 		
 			}
 		
