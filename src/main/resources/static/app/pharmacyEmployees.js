@@ -507,7 +507,7 @@ Vue.component("pharmacyEmployees", {
 			counseling.endTime = counseling.endTime.replace("/", "T");
 			counseling.startTime = counseling.startTime.replace("/", "T");
             axios
-			.put('/counseling/update/' , counseling ,{
+			.put('/counseling/scheduleCounseling/' , counseling ,{
 				headers: {
 					'Authorization': 'Bearer' + " " + localStorage.getItem('token')
 				}

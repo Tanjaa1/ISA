@@ -132,6 +132,9 @@ public class ExaminationService implements IExaminationService {
 	@Transactional(readOnly=false, propagation = Propagation.REQUIRES_NEW)
 	public ExaminationDTO schedule(Examination examination) throws Exception{
         Examination e=examinationRepository.getOne(examination.getId());
+        if(e.getPatient() != null){
+            return null;
+        }
         e.setPatient(patientRepository.getOne(examination.getPatient().getId()));
         e.setIsCanceled(false);
         emailSender2(examination);

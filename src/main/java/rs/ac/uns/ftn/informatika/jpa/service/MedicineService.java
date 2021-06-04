@@ -114,7 +114,8 @@ public class MedicineService implements IMedicineService {
 		Medicine medicine = medicineRepository.findById(id).get();
 		return medicine;
 	}
-	@Transactional(readOnly=false)
+
+	@Transactional(readOnly=false, propagation = Propagation.REQUIRES_NEW)
 	public ResponseEntity<Medicine> save(Medicine medicine) throws Exception {
 		Medicine resultMedicine = new Medicine();
 		resultMedicine.setReplacement(medicine.getReplacement());
@@ -670,18 +671,19 @@ public List<PharmacyQRDTO> sortByPharmacyAddressQRDESC(String path, Long patient
 		return retVal;
 	}
 
+	@Transactional(readOnly=false, propagation = Propagation.REQUIRES_NEW)
 	public boolean deleteMedicineFromPricelist(Long ID,Long pID){
 
 		Pharmacy pharmacy = pharmacyRepository.findById(pID).get();
 		List<Reservation> reservations;
 		MedicinePriceAndQuantity med = medPriceAndQuantityRepository.findById(ID).get();
 
-		reservations = reservationRepository.getReservationByPharmacyAndMedicine(pharmacy, med);
+		reservations = reservationRepository.getFutureReservationsByPharmacyAndMedicine(pharmacy.getId(), med.getId());
 		if(reservations.isEmpty()){
 			Set<MedicinePriceAndQuantity> newPricelist = new HashSet<MedicinePriceAndQuantity>();
 
 			for (MedicinePriceAndQuantity mpq : pharmacy.getPricelist()) {
-				if(mpq.getId() != ID){
+				if((long)mpq.getId() != (long)ID){
 					newPricelist.add(mpq);
 				}
 			}
@@ -694,6 +696,7 @@ public List<PharmacyQRDTO> sortByPharmacyAddressQRDESC(String path, Long patient
 		return false;
 	}
 
+	@Transactional(readOnly=false, propagation = Propagation.REQUIRES_NEW)
 	public ResponseEntity<MedicinePriceAndQuantity> addToPricelist( MedicinePriceAndQuantity MPQ ,Long PharmacyId) throws Exception {
 
 		Pharmacy pharmacy = pharmacyRepository.findById(PharmacyId).get();
@@ -704,6 +707,7 @@ public List<PharmacyQRDTO> sortByPharmacyAddressQRDESC(String path, Long patient
 		return new ResponseEntity<>(HttpStatus.CREATED);
 	}
 
+	@Transactional(readOnly=false, propagation = Propagation.REQUIRES_NEW)
 	public ResponseEntity<MedicinePriceAndQuantity> savePriceAndQuantity(MedicinePriceAndQuantity medicine) throws Exception {
 
 		medPriceAndQuantityRepository.save(medicine);

@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import rs.ac.uns.ftn.informatika.jpa.model.Counseling;
 import rs.ac.uns.ftn.informatika.jpa.model.Examination;
 import rs.ac.uns.ftn.informatika.jpa.model.Pharmacy;
 import rs.ac.uns.ftn.informatika.jpa.model.Reservation;
@@ -44,4 +45,7 @@ public interface IPharmacyRepository extends JpaRepository<Pharmacy, Long> {
 
     @Query("SELECT r FROM Pharmacy ph , Reservation r  WHERE r.Pharmacy=ph.Id AND ph.Id=?1 AND  r.IsReceived = true")
     public List<Reservation> getConsumedMeds(Long pharmacyId);
+
+    @Query("SELECT c FROM Pharmacy ph , Counseling c  WHERE c.Pharmacy=ph.Id AND ph.Id=?1 AND  c.isDone = true")
+    public List<Counseling> getCounselngsFinished(Long pharmacyId);
 }

@@ -13,10 +13,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import rs.ac.uns.ftn.informatika.jpa.dto.PharmacyAdminDTO;
+import rs.ac.uns.ftn.informatika.jpa.model.Counseling;
 import rs.ac.uns.ftn.informatika.jpa.model.Examination;
 import rs.ac.uns.ftn.informatika.jpa.model.Medicine;
 import rs.ac.uns.ftn.informatika.jpa.model.PharmacyAdmin;
 import rs.ac.uns.ftn.informatika.jpa.model.Reservation;
+import rs.ac.uns.ftn.informatika.jpa.repository.Interface.ICounselingRpository;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IPharmacyAdminRepository;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IPharmacyRepository;
 import rs.ac.uns.ftn.informatika.jpa.service.Interface.IPharmacyAdminService;
@@ -33,6 +35,9 @@ public class PharmacyAdminService implements IPharmacyAdminService {
    private IPharmacyRepository pharmacyRepository;
 	@Autowired
 	private EmailService emailService;
+    @Autowired
+	private ICounselingRpository counselingRpository;
+
 	private Logger logger = LoggerFactory.getLogger(ResrvationService.class);
     @Transactional(readOnly=false)
     public ResponseEntity<PharmacyAdmin> save(PharmacyAdmin systemAdmin) throws Exception {
@@ -287,6 +292,41 @@ public class PharmacyAdminService implements IPharmacyAdminService {
                 }
             }
 
+            
+            List<Counseling> counselings = pharmacyRepository.getCounselngsFinished(pharmacyId);
+            if(month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12){
+                for(int i = 0 ; i < 31 ; i++){
+                    for(Counseling r : counselings){
+                        if(Integer.parseInt(r.getEndTime().toString().split("-")[0]) == year 
+                        && Integer.parseInt(r.getEndTime().toString().split("-")[1]) == month 
+                        && Integer.parseInt(r.getEndTime().toString().split("-")[2].split("T")[0]) == i+1){
+                            retVal.get(i).addToY(r.getPrice().intValue());
+                        }
+                    }
+                }
+            }
+            else if(month == 4 || month == 6 || month == 9 || month == 11){
+                for(int i = 0 ; i < 30 ; i++){
+                    for(Counseling r : counselings){
+                        if(Integer.parseInt(r.getEndTime().toString().split("-")[0]) == year 
+                        && Integer.parseInt(r.getEndTime().toString().split("-")[1]) == month 
+                        && Integer.parseInt(r.getEndTime().toString().split("-")[2].split("T")[0]) == i+1){
+                            retVal.get(i).addToY(r.getPrice().intValue());
+                        }
+                    }
+                }
+            }
+            else if(month == 2){
+                for(int i = 0 ; i < 29 ; i++){
+                    for(Counseling r : counselings){
+                        if(Integer.parseInt(r.getEndTime().toString().split("-")[0]) == year 
+                        && Integer.parseInt(r.getEndTime().toString().split("-")[1]) == month 
+                        && Integer.parseInt(r.getEndTime().toString().split("-")[2].split("T")[0]) == i+1){
+                            retVal.get(i).addToY(r.getPrice().intValue());
+                        }
+                    }
+                }
+            }
 
             return retVal;
         }

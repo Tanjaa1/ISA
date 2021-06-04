@@ -101,6 +101,7 @@ public class CounselingService implements ICounselingService {
            return councelingDTOs;
 	}
 
+    @Transactional(readOnly=false, propagation = Propagation.REQUIRES_NEW)
 	public Counseling updateCounseling(Counseling counseling) {
         int i = counseling.getStartTime().compareTo(LocalDateTime.now().plusDays(1));
 		Counseling e=counselingRepository.getOne(counseling.getId());
@@ -190,6 +191,7 @@ public class CounselingService implements ICounselingService {
 		}
 	}
 
+    @Transactional(readOnly=false, propagation = Propagation.REQUIRES_NEW)
 	public CouncelingDTO createNewCounseling(Counseling counseling) throws Exception {
         Counseling c = new Counseling();
         c.setPharmacist(pharmacistRepository.getOne(counseling.getPharmacist().getId()));
@@ -229,7 +231,17 @@ public class CounselingService implements ICounselingService {
         return councelingDTO;
 	}
 
+    @Transactional(readOnly=false, propagation = Propagation.REQUIRES_NEW)
     public CouncelingDTO update(Counseling counseling) {
+        return new CouncelingDTO(counselingRepository.save(counseling));
+	}
+
+    @Transactional(readOnly=false, propagation = Propagation.REQUIRES_NEW)
+    public CouncelingDTO scheduleCounseling(Counseling counseling) {
+        Counseling c = counselingRepository.getOne(counseling.getId());
+        if(c.getPatient() != null){
+            return null;
+        }
         return new CouncelingDTO(counselingRepository.save(counseling));
 	}
 

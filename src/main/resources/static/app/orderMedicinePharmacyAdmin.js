@@ -287,7 +287,7 @@ Vue.component("orderMedicinePharmacyAdmin", {
                             <td><div >{{offer.supplier.name}}</div></td>				
                             <td><div >{{offer.offerPrice}}rsd</div></td>				
                             <td><div>{{offer.dueDate}}</div></td>
-                            <td><button v-if = "!selectedOrder.isProcessed" style="color:white" type="button" class="btn btn-default" data-dismiss="modal" v-on:click="ChoseOffer(offer,selectedOrder)" data-toggle="modal" data-target="#"><i class="fa fa-check"></i></button></td>
+                            <td><button v-if = "!selectedOrder.isProcessed && administrator.id == selectedOrder.pharmacyAdmin.id" style="color:white" type="button" class="btn btn-default" data-dismiss="modal" v-on:click="ChoseOffer(offer,selectedOrder)" data-toggle="modal" data-target="#"><i class="fa fa-check"></i></button></td>
                             <td><button v-if = "offer.status == 'Accepted'" style="color:white" type="button" class="btn btn-default" data-dismiss="modal" v-on:click="ChoseOffer(offer,selectedOrder)" data-toggle="modal" data-target="#" disabled >✔</button></td>		
                         </tr>
                     </tbody>
@@ -439,7 +439,7 @@ Vue.component("orderMedicinePharmacyAdmin", {
             })  
             .then(response => {
                 axios
-                .post('api/saveUserByPharmacyAdmin',this.administrator,{
+                .put('api/updateUserByPharmacyAdmin',this.administrator,{
                     headers: {
                         'Authorization': 'Bearer' + " " + localStorage.getItem('token')
                     }
@@ -480,7 +480,7 @@ Vue.component("orderMedicinePharmacyAdmin", {
                             .then(response => {
                                 alert("Order successfuly set")
                                 axios
-                                .post('api/saveUserByPharmacyAdmin',this.administrator,{
+                                .put('api/updateUserByPharmacyAdmin',this.administrator,{
                                     headers: {
                                         'Authorization': 'Bearer' + " " + localStorage.getItem('token')
                                     }
@@ -513,7 +513,7 @@ Vue.component("orderMedicinePharmacyAdmin", {
             }) 
             .then(response => {
                 axios
-                .post('api/saveUserByPharmacyAdmin',this.administrator,{
+                .put('api/updateUserByPharmacyAdmin',this.administrator,{
                     headers: {
                         'Authorization': 'Bearer' + " " + localStorage.getItem('token')
                     }
@@ -610,7 +610,7 @@ Vue.component("orderMedicinePharmacyAdmin", {
             })  
             .then(response => {
                 axios
-                .post('api/saveUserByPharmacyAdmin',this.administrator,{
+                .put('api/updateUserByPharmacyAdmin',this.administrator,{
                     headers: {
                         'Authorization': 'Bearer' + " " + localStorage.getItem('token')
                     }
@@ -643,7 +643,7 @@ Vue.component("orderMedicinePharmacyAdmin", {
             })  
             .then(response => {
                 axios
-                .post('api/saveUserByPharmacyAdmin',this.administrator,{
+                .put('api/updateUserByPharmacyAdmin',this.administrator,{
                     headers: {
                         'Authorization': 'Bearer' + " " + localStorage.getItem('token')
                     }
