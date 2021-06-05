@@ -290,22 +290,22 @@ Vue.component("registrationMedicine", {
 						}
 					} )
 					.then(response => {
-						alert("DODAT U BAZU");
+						alert("Successfully added medication");
 						this.$router.push('systemAdminHomaPage');
 
 					})
 
 					.catch(error => {
 						
-						alert("GRESKA");
-					})
+						alert("Something went wrong,please try again later");
+						this.$router.push('/');					})
 					}
 				})
 
 				.catch(error => {
 					
-					alert("GRESKA");
-				})		
+					alert("Something went wrong,please try again later");
+					this.$router.push('/');				})		
 			}
 		},
 	},

@@ -280,7 +280,7 @@ Vue.component("QR", {
 				var pharmacyId=id;
 				var patientId=localStorage.getItem('userId')
 				axios
-				.get('pharmacy/changePharmacySupplies/'+pharmacyId +'/'+patientId,{ params: { path: text } ,
+				.get('patient/changePharmacySupplies/'+pharmacyId +'/'+patientId,{ params: { path: text } ,
 				headers: {
 				  'Authorization': 'Bearer' + " " + localStorage.getItem('token')
 				}

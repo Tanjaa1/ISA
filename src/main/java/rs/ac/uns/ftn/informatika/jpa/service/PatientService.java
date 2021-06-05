@@ -7,8 +7,10 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
@@ -28,14 +30,17 @@ import rs.ac.uns.ftn.informatika.jpa.dto.PharmacyDTO;
 import rs.ac.uns.ftn.informatika.jpa.enums.LoyaltyCategories;
 import rs.ac.uns.ftn.informatika.jpa.model.ActionOrPromotion;
 import rs.ac.uns.ftn.informatika.jpa.model.Complaint;
+import rs.ac.uns.ftn.informatika.jpa.model.MedicinePriceAndQuantity;
 import rs.ac.uns.ftn.informatika.jpa.model.Patient;
 import rs.ac.uns.ftn.informatika.jpa.model.Penaltys;
+import rs.ac.uns.ftn.informatika.jpa.model.Pharmacy;
 import rs.ac.uns.ftn.informatika.jpa.model.Reservation;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IActionOrPromotionRepository;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IComplaintRepository;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IExaminationRpository;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IPatientRepository;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IPenaltyRepository;
+import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IPriceAndQuantityRepository;
 import rs.ac.uns.ftn.informatika.jpa.repository.Interface.IReservationRepository;
 import rs.ac.uns.ftn.informatika.jpa.service.Interface.IPatientService;
 import org.springframework.transaction.annotation.Propagation;
@@ -53,11 +58,17 @@ public class PatientService implements IPatientService {
 
 	@Autowired
 	private IReservationRepository reservationRepository;
-	
+	@Autowired
+    private IPriceAndQuantityRepository priceAndQuantityRepository;
 	@Autowired
 	private IPenaltyRepository penaltyRepository;
 	@Autowired
 	private IActionOrPromotionRepository actionOrPromotionRepository;
+	@Autowired
+	private MedicineService medicineService;
+	@Autowired
+	private PharmacyService pharmacyService;
+	
 	
 	
 	@Autowired
@@ -119,7 +130,39 @@ public class PatientService implements IPatientService {
 		Patient pp = patientRepository.save(patient);
 		return pp;
 	}
+	@Transactional(readOnly=false, propagation = Propagation.REQUIRES_NEW)
 
+	public PharmacyDTO changePharmacySupplies(Long id,String path,Long patientId) throws Exception {
+		String ePrescriptionContent=medicineService.uploadQR(path);    
+		String [] partsMedicineAndQuantity=ePrescriptionContent.split(",");
+		Map<String,Integer> qrMedicines=new HashMap<>();
+		Pharmacy pharmacy=pharmacyService.findOneById(id);
+ 
+		for (int i=0;i<partsMedicineAndQuantity.length;i++) {
+			String nameMedicine=partsMedicineAndQuantity[i].split("-")[0];
+			String quantityMedicine=partsMedicineAndQuantity[i].split("-")[1];
+			qrMedicines.put(nameMedicine.trim().toLowerCase(), Integer.valueOf(quantityMedicine));
+		}
+		Integer bonusPoints=0;
+		for (MedicinePriceAndQuantity m : pharmacy.getPricelist()) {
+			Integer quantity=m.getQuantity();
+			for (Map.Entry<String, Integer> entry1 : qrMedicines.entrySet()) {
+				if(m.getMedicine().getName().trim().toLowerCase().equals(entry1.getKey())){
+					m.setQuantity(quantity-entry1.getValue());
+					bonusPoints+=m.getMedicine().getPoints();
+					priceAndQuantityRepository.save(m);
+					break;
+				}
+		}
+	}
+	
+		Patient patient =patientRepository.findById(patientId).get();
+		patient.setPoints(patient.getPoints()+bonusPoints);
+		update(patient);
+		Pharmacy p=pharmacyService.update(pharmacy);
+		emailSender(patient);
+		return new PharmacyDTO(p);
+}
 	@Override
 	public Patient update(Patient patient) throws Exception {
 		Patient patient1 = findOne(patient.getId());
@@ -224,9 +267,14 @@ public class PatientService implements IPatientService {
 	public List<String> saveDrugAll(String drugAllergies) throws Exception {
 		String drugAllergiesParts[] = drugAllergies.split(",");
 		List<String> listdrugAllergies = new ArrayList<String>();
-		for (String i : drugAllergiesParts) {
-			listdrugAllergies.add(i);
+		if(drugAllergiesParts.length==1){
+			listdrugAllergies.add(drugAllergies);
+		}else{
+			for (String i : drugAllergiesParts) {
+				listdrugAllergies.add(i);
+			}
 		}
+		
 		return listdrugAllergies;
 	}
 
@@ -304,7 +352,7 @@ public class PatientService implements IPatientService {
 	}
 
 	public Set<PharmacyDTO> getEPharmaciesByPatientIdAndPrescriptions(Long patientId) {
-		PatientDTO resultPatient = new PatientDTO((findOne(patientId)));
+		PatientDTO resultPatient = findByIdPatient(patientId);
 		Set<EPrescriptionDTO> prescriptions = resultPatient.getEPrescriptions();
 		Set<PharmacyDTO> pharmacies = new HashSet<>();
 		for (EPrescriptionDTO s : prescriptions) {

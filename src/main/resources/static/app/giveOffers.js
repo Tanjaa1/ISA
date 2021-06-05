@@ -191,7 +191,6 @@ Vue.component("giveOffers", {
 				var result1 = response.data
                 if(result1==false){
                     localStorage.setItem('orderId',id)
-                    alert('uslaaa')
                     axios
                     .get('supplierOffer/getOrdersByOrderId/'+id,{
                       headers: {

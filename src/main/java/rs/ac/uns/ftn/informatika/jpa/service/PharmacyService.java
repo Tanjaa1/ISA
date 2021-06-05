@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.transaction.Transactional;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -383,38 +385,7 @@ public class PharmacyService implements IPharmacyService {
                 logger.info("Error sending email: " + e.getMessage());
             }
         }
-        
-            public PharmacyDTO changePharmacySupplies(Long id,String path,Long patientId) throws Exception {
-                String ePrescriptionContent=madicineService.uploadQR(path);    
-                String [] partsMedicineAndQuantity=ePrescriptionContent.split(",");
-                Map<String,Integer> qrMedicines=new HashMap<>();
-                Pharmacy pharmacy=findOneById(id);
-         
-                for (int i=0;i<partsMedicineAndQuantity.length;i++) {
-                    String nameMedicine=partsMedicineAndQuantity[i].split("-")[0];
-                    String quantityMedicine=partsMedicineAndQuantity[i].split("-")[1];
-                    qrMedicines.put(nameMedicine.trim().toLowerCase(), Integer.valueOf(quantityMedicine));
-                }
-                Integer bonusPoints=0;
-                for (MedicinePriceAndQuantity m : pharmacy.getPricelist()) {
-                    Integer quantity=m.getQuantity();
-                    for (Map.Entry<String, Integer> entry1 : qrMedicines.entrySet()) {
-                        if(m.getMedicine().getName().trim().toLowerCase().equals(entry1.getKey())){
-                            m.setQuantity(quantity-entry1.getValue());
-                            bonusPoints+=m.getMedicine().getPoints();
-                            priceAndQuantityRepository.save(m);
-                            break;
-                        }
-                }
-            }
-            
-                Patient patient =patientRepository.findById(patientId).get();
-                patient.setPoints(patient.getPoints()+bonusPoints);
-                patientService.update(patient);
-                Pharmacy p=update(pharmacy);
-                emailSender(patient);
-                return new PharmacyDTO(p);
-        }
+           
         
             
 }

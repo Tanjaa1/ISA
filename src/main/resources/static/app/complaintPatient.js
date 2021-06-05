@@ -13,7 +13,7 @@ Vue.component("complaintPatient", {
 				subjects:null
 		}
 	},
-	mounted() {
+	beforeMount() {
 		axios
 		.get('/complaint/getAllSubjects/'+ localStorage.getItem('userId'),{
 			headers: {
@@ -22,12 +22,13 @@ Vue.component("complaintPatient", {
 		  } )
 		.then(response => {
 			this.subjects = response.data	
-			if(this.subjects==null || this.subjects==''){
+			if(this.subjects.size==0){
 				alert("There is currently no entity for which you could file a complaint")
 				this.$router.push('patientHomePage');
 			}
 		})
 		.catch(error => {
+			alert('Please refresh page!')
 		})
         
 	},
