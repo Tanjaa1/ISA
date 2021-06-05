@@ -5,9 +5,9 @@ Vue.component("dermatologistHomePage", {
 			phycian:{}
 		}
 	},
-	mounted() {
-		
+	beforeMount() {
 		if(localStorage.getItem('role')=='ROLE_DERMATOLOGIST'){ 
+
 		axios
 			.get('/dermatologist/getDermatologistById/' + localStorage.getItem('userId'),{
 				headers: {
@@ -16,14 +16,17 @@ Vue.component("dermatologistHomePage", {
 			}) 
 			.then(response => {
 				this.phycian = response.data
-				if(!this.phycian.firstTimeLogin)
-					$('#Show').modal('show');
 			})
 			.catch(error => {
 			})
 		}else{
 			this.$router.push('forbidden');
 			}
+	},
+	mounted(){
+
+		if(localStorage.getItem('firstlog')=="false")
+		$('#Show').modal('show');
 	},
 	template: `
 	<div id="DermatologistHomePage"  class="BackendImagePhysician">		
@@ -126,6 +129,7 @@ Vue.component("dermatologistHomePage", {
 						}
 					})
 						.then(function (response) {
+							localStorage.setItem('firstlog',"true")
 						})
 						.catch(function (error) {
 						});

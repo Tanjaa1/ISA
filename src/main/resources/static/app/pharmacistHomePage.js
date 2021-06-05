@@ -16,14 +16,17 @@ Vue.component("pharmacistHomePage", {
 			}) 
 			.then(response => {
 				this.phycian = response.data
-				if(!this.phycian.firstTimeLogin)
-					$('#Show').modal('show');
 			})
 			.catch(error => {
 			})
 		}else{
 			this.$router.push('forbidden');
 			}
+	},
+	mounted(){
+
+		if(localStorage.getItem('firstlog')=="false")
+		$('#Show').modal('show');
 	},
 	template: `
 	<div id="PharmacistHomePage"  class="BackendImagePhysician">		
@@ -138,6 +141,7 @@ Vue.component("pharmacistHomePage", {
 	Yes:function(){
 		if(document.getElementById("np").value==document.getElementById("cp").value && document.getElementById("np").value.trim()!="" && document.getElementById("cp").value.trim()!=""){
 			$('#Show').modal('hide');
+			alert(this.phycian.id)
 			this.phycian.firstTimeLogin=true
 			this.phycian.password=document.getElementById("np").value
 				axios.put('/pharmacist/update', this.phycian,{
@@ -146,6 +150,7 @@ Vue.component("pharmacistHomePage", {
 					}
 				})
 					.then(function (response) {
+						localStorage.setItem('firstlog',"true")
 					})
 					.catch(function (error) {
 					});

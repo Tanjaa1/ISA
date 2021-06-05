@@ -54,6 +54,8 @@ Vue.component("calendarP",{
                   }) 
                   .then(response => {
                       this.phycian = response.data
+                      this.Next()
+                      this.Previous()
                   })
                   .catch(error => {
                   })
@@ -161,7 +163,7 @@ Vue.component("calendarP",{
                           <div>
                           {{exam.report}}
                           </div></br></a>
-                          <a v-if="!exam.isDone && PastExam()">
+                          <a v-if="!exam.isDone && PastExam() && exam.patient.name!=null">
                           <div>
                           Patient did not come.
                           </div></br></a>
