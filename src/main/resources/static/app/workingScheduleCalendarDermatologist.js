@@ -47,7 +47,6 @@ Vue.component("calendarD",{
         mon.setDate(mon.getDate()+1-mon.getDay()),
         sun.setDate(mon.getDate()+7-mon.getDay())
       )
-
       axios
         .get('/dermatologist/getDermatologistById/' + localStorage.getItem('userId'),{
           headers: {
@@ -57,6 +56,8 @@ Vue.component("calendarD",{
         .then(response => {
           this.phycian = response.data
           this.pharmacy=this.phycian.pharmacies[0]
+          this.Next()
+          this.Previous()
         })
         .catch(error => {
         })
@@ -76,6 +77,7 @@ Vue.component("calendarD",{
         this.$router.push('forbidden');
       }
 	},
+
 	template: `
   <div>
   <br>
@@ -169,13 +171,13 @@ Vue.component("calendarD",{
                       <div>
                       {{exam.report}}
                       </div></br></a>
-                      <a v-if="!exam.isDone && PastExam()">
+                      <a v-if="!exam.isDone && PastExam()>
                       <div>
                       Patient did not come.
                       </div></br></a>
                       <div class="modal-footer">
             <button v-if="See()" id="addF" type="button" class="btn btn-info btn-lg" v-on:click="No()">Did not come</button>
-            <button v-if="See() && exam.report==' '" id="cancelF" type="button" class="btn btn-info btn-lg" v-on:click="Yes()"">Start</button>
+            <button v-if="See() || exam.report==' '" id="cancelF" type="button" class="btn btn-info btn-lg" v-on:click="Yes()"">Start</button>
           </div>
         </div>
         </div>

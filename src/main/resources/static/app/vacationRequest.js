@@ -41,6 +41,7 @@ Vue.component("pharmacistVacationRequest", {
 	`,
 	methods: {
 		Request: function(){
+			if(document.getElementById("dateS").value<document.getElementById("dateE").value){
             this.vacation.dateStart=document.getElementById("dateS").value
             this.vacation.dateEnd=document.getElementById("dateE").value
 			axios
@@ -55,7 +56,10 @@ Vue.component("pharmacistVacationRequest", {
 				})
 				.catch(error => {
 				})
+		}else{
+			alert("Start day must be before!")
 		}
+	}
 	}
 });
 
@@ -112,6 +116,7 @@ Vue.component("dermatologistVacationRequest", {
 	`,
 	methods: {
 		Request: function(){
+			if(document.getElementById("dateS").value<document.getElementById("dateE").value){
             this.vacation.dateStart=document.getElementById("dateS").value
 
             this.vacation.dateEnd=document.getElementById("dateE").value		
@@ -128,6 +133,9 @@ Vue.component("dermatologistVacationRequest", {
 				})
 				.catch(error => {
 				})
+			}else{
+					alert("Start day must be before!")
+				}
 		}
 	}
 });

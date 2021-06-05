@@ -16,14 +16,17 @@ Vue.component("pharmacistHomePage", {
 			}) 
 			.then(response => {
 				this.phycian = response.data
-				if(!this.phycian.firstTimeLogin)
-					$('#Show').modal('show');
 			})
 			.catch(error => {
 			})
 		}else{
 			this.$router.push('forbidden');
 			}
+	},
+	mounted(){
+
+		if(localStorage.getItem('firstlog')==false)
+		$('#Show').modal('show');
 	},
 	template: `
 	<div id="PharmacistHomePage"  class="BackendImagePhysician">		

@@ -58,6 +58,7 @@ public class DermatologistService implements IDermatologistService {
 	}
 
 	@Override
+	@Transactional(readOnly=false)
     public Dermatologist update(Dermatologist dermatologist) throws Exception 
 	{
         Dermatologist dermatolgist1 = findOne(dermatologist.getId());
