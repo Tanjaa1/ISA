@@ -139,11 +139,7 @@ public class PharmacyController {
 		return pharmacie == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(pharmacie);
 	}
 
-	@GetMapping(value = "/changePharmacySupplies/{id}/{patientId}")
-	public ResponseEntity<PharmacyDTO> changePharmacySupplies(@PathVariable Long id, @RequestParam String path,@PathVariable Long patientId) throws Exception {
-		PharmacyDTO pharmacie = patientService.changePharmacySupplies(id,path,patientId);
-		return pharmacie == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(pharmacie);
-	}
+	
 	
 	
 	@PutMapping(value = "/subscribeUser/{pID}")
