@@ -5,6 +5,8 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -191,23 +193,23 @@ public class UserService implements IUserService{
     }
 
 	public void updateUserByPharmacyAdmin(PharmacyAdminDTO p) {
-		PharmacyAdmin user = pharmacyAdminRepository.getOne(p.getId());
-		User u=userRepository.getOne(p.getId());
-		u.setName(user.getName());
-		u.setSurname(user.getSurname());
-		u.setEmail(user.getEmail());
-		u.setPassword(passwordEncoder.encode(user.getPassword()));
-		u.setAddress(user.getAddress());
-		u.setCity(user.getCity());
-		u.setCountry(user.getCountry());
-		u.setPhoneNumber(user.getPhoneNumber());
+		PharmacyAdmin user = pharmacyAdminRepository.findById(p.getId()).get();
+		User u=userRepository.findById(p.getId()).get();
+		u.setName(p.getName());
+		u.setSurname(p.getSurname());
+		u.setEmail(p.getEmail());
+		u.setPassword(passwordEncoder.encode(p.getPassword()));
+		u.setAddress(p.getAddress());
+		u.setCity(p.getCity());
+		u.setCountry(p.getCountry());
+		u.setPhoneNumber(p.getPhoneNumber());
 		u.setEmailComfirmed(user.getEmailComfirmed());
-		u.setFirstTimeLogin(user.getFirstTimeLogin());
-		u.setDescription(user.getDescription()); 
+		u.setFirstTimeLogin(p.getFirstTimeLogin());
+		u.setDescription(p.getDescription()); 
 		u.setEnabled(true);
 		u.setLastPasswordResetDate(new Date());
 		u.setFirstTimeLogin(false);
-		u.setUsername(user.getUsername());
+		u.setUsername(p.getUsername());
 		List<Authority> auth = authService.findByname("ROLE_PHARMACYADMIN");
 		u.setAuthorities(auth);	
 		u = this.userRepository.save(u);

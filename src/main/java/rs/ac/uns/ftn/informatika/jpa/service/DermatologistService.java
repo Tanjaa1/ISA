@@ -227,6 +227,7 @@ public class DermatologistService implements IDermatologistService {
 		return DermatologistDTO;
 	}
 
+	@Transactional(readOnly=false, propagation = Propagation.REQUIRES_NEW)
 	public Boolean addExistingDermatologistToPharmacy(Long dId, Long pId){
 		try{
 			Pharmacy pharmacy = pharmacyRepository.getOne(pId);
@@ -285,7 +286,7 @@ public class DermatologistService implements IDermatologistService {
 				return true;
 		}
 		
-	
+		@Transactional(readOnly=false, propagation = Propagation.REQUIRES_NEW)
 		public Boolean addWorktimeToDermatologist(Long pId,WorkingTime wt){
 			Dermatologist dermatologist = dermatologistRepository.getOne(pId);
 			if(checkIfWorktimeValid(wt.getTimeStart(), wt.getTimeEnd(),pId)){
@@ -299,7 +300,7 @@ public class DermatologistService implements IDermatologistService {
 			return false;
 		}
 
-
+		@Transactional(readOnly=false, propagation = Propagation.REQUIRES_NEW)
 		public Boolean removeFromPharmacy(Long dId, Long pId){
 			try{
 				if(examinationRpository.checkForDelete(pId, dId).isEmpty()){

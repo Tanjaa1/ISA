@@ -26,6 +26,11 @@ Student4 |
 #ROLES:
 dermtologist: username-jokas password-123
 						
+
+pharmacy-admin: username-maja password-123
+
+patient: username-maja password-123
+
 pharmacist: username-majaa password:123
 						-> RESERVATION CODE - 102
 						
