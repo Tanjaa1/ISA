@@ -6,8 +6,7 @@ Vue.component("supplierProfile", {
       supplier1:{}
 		}
 	},
-	beforeMount() {},
-  Mount(){
+	beforeMount() {
 
       axios.get('supplier/getById/'+ localStorage.getItem('userId'),
             {
@@ -17,6 +16,7 @@ Vue.component("supplierProfile", {
           })
       .then(response => {
       supplier=response.data
+      alert(supplier.firstTimeLogin)
       if(supplier.firstTimeLogin==true){
         $('#Show').modal('show');    
       }else{

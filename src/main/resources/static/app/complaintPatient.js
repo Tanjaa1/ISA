@@ -22,7 +22,7 @@ Vue.component("complaintPatient", {
 		  } )
 		.then(response => {
 			this.subjects = response.data	
-			if(this.subjects==null || this.subjects==''){
+			if(this.subjects.data==null || this.subjects.data=='' || this.subject.data==undefined){
 				alert("There is currently no entity for which you could file a complaint")
 				this.$router.push('patientHomePage');
 			}

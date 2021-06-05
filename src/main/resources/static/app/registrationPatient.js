@@ -2,7 +2,7 @@ Vue.component("registrationPatient", {
 	data: function () {
 		return {
 			password_confirmed:null,
-			pom:null,
+			pomocna:null,
 			isValid:null,
 			patientDTO: {
 				id:null,
@@ -89,10 +89,13 @@ Vue.component("registrationPatient", {
 			</tr>
 			<tr>
 				<td><label>Drug allergies</label><a class="star"></a></td>
-				<td><input type="text" class = "form-control input" v-model="pom"/></td><br/>
+				<td><input type="text" class = "form-control input" v-model="pomocna"/></td><br/>
 			</tr>
 			<tr>
 				<td>&nbsp;</td>
+				
+				<td align="left" style="color: red;font-size:12px">{{pomocnaValidation}}</td>
+
 				<td></td>
 			</tr>
 			<tr>
@@ -152,6 +155,9 @@ Vue.component("registrationPatient", {
 			}
 			else if (this.patientDTO.surname === '') return 'Surname is a required field';
 			else return null;
+		},pomocnaValidation: function () {
+			return 'if you have more than one allergy, enter with a comma between: e.g .: panicillin, panclav'
+		;
 		},
 		mailValidation: function () {
 			if (this.patientDTO.email != undefined && this.patientDTO.email.length > 0) {
@@ -218,9 +224,13 @@ Vue.component("registrationPatient", {
 				alert('All fields must be filled!')
 				return
 			}else{
-				alert(patientDTO.username)
+
 				axios
-				.get('/patient/isUsernameValid/'+patientDTO.username)
+				.get('/patient/isUsernameValid/'+patientDTO.username,{
+					headers: {
+						'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+					}
+				})
 				.then(response => {
 					this.isValid=response.data;
 					if(this.isValid==false){
@@ -234,55 +244,79 @@ Vue.component("registrationPatient", {
 					patientDTO.penalty=null
 					patientDTO.description="/"
 
-				
-					axios
-					.get('/patient/savePatientDrugAllergies/' + patientDTO.drugAllargies)
-					.then(response => {
-						var pom = response.data					})
 
-					.catch(error => {
-					})
 
-					let pomm2=this.pom.split(",")
-					var i;
-					for (p in pomm2) 
-					{
-						patientDTO.drugAllargies.push(pomm2[p]);
+					if(this.pomocna==""){
+						patientDTO.drugAllargies="non"
+					}else{
+						patientDTO.drugAllargies=this.pomocna
 					}
 
-						alert(patientDTO.drugAllargies)
-						
 					
+				
+					axios
+					.get('/patient/savePatientDrugAllergies/' + patientDTO.drugAllargies,{
+						headers: {
+							'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+						}
+					})
+					.then(response => {
+						var pom = response.data			
+				
+				
+						patientDTO.drugAllargies=pom
+						
+				
 
 						axios
-						.post('/api/saveUser' , patientDTO)
+						.post('/api/saveUser' , patientDTO,{
+							headers: {
+								'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+							}
+						})
 						.then(response => {
-							alert("DODAT U BAZU user");
+						
 							axios
-							.post('/patient/savePatient' , patientDTO)
+							.post('/patient/savePatient' , patientDTO,{
+								headers: {
+									'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+								}
+							})
 							.then(response => {
-								alert("DODAT U BAZU pacijent");
-								this.$router.push('patientHomePage');
+								alert("Successfully registered user, please log in to continue");
+								localStorage.setItem('userId', "");
+								localStorage.setItem('token', "");
+								localStorage.setItem('role', "");
+								this.$router.push('/');
 
 							})
 	
 							.catch(error => {
 								
-								alert("GRESKAA");
+								alert("Something went wrong. Please try again later");
+								this.$router.push('/');
+
 							})
 						})
 
 						.catch(error => {
 							
-							alert("GRESKAA");
-						})
+							alert("	Something went wrong. Please try again later");
+							this.$router.push('/');
+
+						})})
+
+					.catch(error => {
+					})
+					
+					
 					}
 				})
 
 				.catch(error => {
 					
-					alert("GRESKA");
-				})
+					alert("	Something went wrong. Please try again later");
+					this.$router.push('/');				})
 
 			}				
 		}

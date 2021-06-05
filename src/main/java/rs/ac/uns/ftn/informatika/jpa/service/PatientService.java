@@ -224,9 +224,14 @@ public class PatientService implements IPatientService {
 	public List<String> saveDrugAll(String drugAllergies) throws Exception {
 		String drugAllergiesParts[] = drugAllergies.split(",");
 		List<String> listdrugAllergies = new ArrayList<String>();
-		for (String i : drugAllergiesParts) {
-			listdrugAllergies.add(i);
+		if(drugAllergiesParts.length==1){
+			listdrugAllergies.add(drugAllergies);
+		}else{
+			for (String i : drugAllergiesParts) {
+				listdrugAllergies.add(i);
+			}
 		}
+		
 		return listdrugAllergies;
 	}
 
