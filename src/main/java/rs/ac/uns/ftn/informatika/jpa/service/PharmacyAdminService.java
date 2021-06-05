@@ -54,6 +54,7 @@ public class PharmacyAdminService implements IPharmacyAdminService {
          return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
+    @Transactional(readOnly=false, propagation = Propagation.REQUIRES_NEW)
     public String updateAdmin(PharmacyAdminDTO Admin) throws Exception {
       PharmacyAdmin pAdmin = new PharmacyAdmin(Admin);
       PharmacyAdmin pa = pharmacyAdminRepository.getOne(pAdmin.getId());
@@ -133,6 +134,7 @@ public class PharmacyAdminService implements IPharmacyAdminService {
         return true;
     }
 
+    @Transactional(readOnly=false, propagation = Propagation.REQUIRES_NEW)
     @Override
     public PharmacyAdmin update(PharmacyAdmin pharmacyAdmin) throws Exception {
         PharmacyAdmin pharmacyAdmin1 = findOne(pharmacyAdmin.getId());

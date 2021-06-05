@@ -98,6 +98,7 @@ public class ExaminationService implements IExaminationService {
         return examinationRepository.save(e);
     }
 
+	@Transactional(readOnly=false, propagation = Propagation.REQUIRES_NEW)
     public Examination updateExamination(Examination examination) throws Exception {
         int i = examination.getStartTime().compareTo(LocalDateTime.now().plusDays(1));
         Examination e=examinationRepository.getOne(examination.getId());

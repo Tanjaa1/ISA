@@ -440,33 +440,47 @@ Vue.component("administratorAccountInfo", {
                         }
                     })
                     .then(response =>{
-                        axios
-                        .put('api/updateUserByPharmacyAdmin',this.administrator,{
-                            headers: {
-                                'Authorization': 'Bearer' + " " + localStorage.getItem('token')
-                            }
-                        }) 
-                        .then(response => {
-
-                        })
+          
                         var r = response.data
                         if(r.valueOf() == "OK"){
-                            $('#changePersonalInfo').modal('hide');
-                            axios
-                            .get('/pharmacyAdmin/getById/' + localStorage.getItem('userId'),{
-								headers: {
-									'Authorization': 'Bearer' + " " + localStorage.getItem('token')
-								}
-							}) 
-                            .then(response => {
+                            
+                         
+                             axios
+                             .get('/pharmacyAdmin/getById/' + localStorage.getItem('userId'),{
+                                 headers: {
+                                     'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+                                 }
+                             }) 
+                             .then(response => {
+                                 this.administrator = response.data
+                                 this.showLabel = -1;
+                                 this.password = "";
+                                 this.passwordRepeat = "";
+                                 this.oldPassword = "";
+                                 $('#firstTIme').modal('hide');
+ 
+                             })
+ 
+                             axios
+                             .put('api/updateUserByPharmacyAdmin',this.administrator,{
+                                 headers: {
+                                     'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+                                 }
+                             }) 
+                             .then(response => {
                                 this.administrator = response.data
                                 this.showLabel = -1;
                                 this.password = "";
                                 this.passwordRepeat = "";
                                 this.oldPassword = "";
                                 $('#changePassword').modal('hide');
+     
+                             })
+     
+                        
 
-                            })
+
+
                         }
                     })
                                    
@@ -496,21 +510,7 @@ Vue.component("administratorAccountInfo", {
                        if(r.valueOf() == "OK"){
                            
                         
-                            axios
-                            .get('/pharmacyAdmin/getById/' + localStorage.getItem('userId'),{
-								headers: {
-									'Authorization': 'Bearer' + " " + localStorage.getItem('token')
-								}
-							}) 
-                            .then(response => {
-                                this.administrator = response.data
-                                this.showLabel = -1;
-                                this.password = "";
-                                this.passwordRepeat = "";
-                                this.oldPassword = "";
-                                $('#firstTIme').modal('hide');
 
-                            })
 
                             axios
                             .put('api/updateUserByPharmacyAdmin',this.administrator,{
@@ -519,13 +519,22 @@ Vue.component("administratorAccountInfo", {
                                 }
                             }) 
                             .then(response => {
-                                this.administrator = response.data
+
+                                axios
+                                .get('/pharmacyAdmin/getById/' + localStorage.getItem('userId'),{
+                                    headers: {
+                                        'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+                                    }
+                                }) 
+                                .then(response => {
+
                                 this.showLabel = -1;
                                 this.password = "";
                                 this.passwordRepeat = "";
                                 this.oldPassword = "";
                                 $('#firstTIme').modal('hide');
-    
+                            })
+
                             })
     
                        }

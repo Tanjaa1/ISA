@@ -217,6 +217,7 @@ public class PharmacistService implements IPharmacistService {
 	
 		}
 
+		
 	public Boolean addExistingPharmacistToPharmacy(Long dId, Long pId){
 			try{
 				Pharmacy pharmacy = pharmacyRepository.getById(pId);

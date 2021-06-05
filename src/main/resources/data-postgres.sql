@@ -41,9 +41,19 @@ INSERT INTO public.users(
 	VALUES (69, 'Синђелићева 44', 'Нови Сад', 'Србија', 'neki opis', 'ta.drcelic@gmail.com', false, false, 'Aлекса', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', '0612334555', 'Реповић',true,'2008-11-11 13:23:44','aleksarep');
 INSERT INTO public.pharmacy(id, address, name, counseling_price) VALUES (111, 'Bulevar Patrijarha Pavla 30,Novi Sad,Srbija', 'Feniks', 1000.0);
 INSERT INTO public.pharmacy(id, address, name, counseling_price) VALUES (222, 'Lasla Gala 26,Novi Sad,Srbija', 'Benu', 2000.0);
-INSERT INTO public.pharmacy(id, address, counseling_price, name)VALUES (333, 'Boracka,Pljevlja,Crna Gora', 500.00, 'Sunce');
+INSERT INTO public.pharmacy(id, address, counseling_price, name)VALUES (333, 'Bulevar Oslobodjenja 15,Novi Sad,Srbija', 500.00, 'Sunce');
 INSERT INTO public.pharmacy(id, address, counseling_price, name)VALUES (444, 'Sekspirova 10,Novi Sad,Srbija', 1200.00, 'Heba');   
 INSERT INTO public.pharmacy(id, address, counseling_price, name)VALUES (555, 'Puskinova 13,Novi Sad,Srbija', 1250.00, 'Jankovic');	
+INSERT INTO public.map_location(
+	id,x,y,pharmacy_id)
+	VALUES (57,19.832260,45.262570,333);
+INSERT INTO public.map_location(
+	id,x,y,pharmacy_id)
+	VALUES (58,19.836180,45.240950,444);
+INSERT INTO public.map_location(
+	id,x,y,pharmacy_id)
+	VALUES (59,19.833070,45.245210,555);
+	
 	/*
 INSERT INTO public.pharmacist(
 	id, address, city, country, description, email, email_comfirmed, first_time_login, name, password, phone_number, surname, pharmacy_id)

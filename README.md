@@ -28,6 +28,9 @@ dermtologist: username-majaa password-123
 						
 pharmacist: username-jokas password:123\
 	-> RESERVATION CODE - 101
+
+pharmacy-admin: username-maja password-123
+patient: username-maja password-123
 						
 **#USED TECHNOLOGIES:**
 Backend: **Java + Spring Boot**\
