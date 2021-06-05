@@ -21,10 +21,10 @@ Student4 |
 #SCALABILITY: https://github.com/Tanjaa1/ISA/blob/37ba8576435cbaf2392570148e930d5d0ffb6e68/Skalabilnost.pdf
 
 #ROLES:
-dermtologist: username-majaa password-123
+dermtologist: username-jokas password-123
 						
-pharmacist: username-jokas password:123
-						-> RESERVATION CODE - 101
+pharmacist: username-majaa password:123
+						-> RESERVATION CODE - 102
 						
 #USED TECHNOLOGIES:
 Backend: Java + Spring Boot

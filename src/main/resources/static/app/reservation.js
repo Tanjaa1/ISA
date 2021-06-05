@@ -47,7 +47,6 @@ Vue.component("reservation", {
 	`,
 	methods: {
 		Search:function(){
-			alert(localStorage.getItem('token'))
 			var id=Number(document.getElementById("id").value)
 			axios
 			.get('/reservation/getReservationById/' + id+'/'+this.pharmacy,{
