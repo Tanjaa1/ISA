@@ -19,6 +19,9 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
 		<maven-jar-plugin.version>3.1.1</maven-jar-plugin.version>
+  <sonar.projectKey>Tanjaa1_ISA</sonar.projectKey>
+  <sonar.organization>tanjaa1</sonar.organization>
+  <sonar.host.url>https://sonarcloud.io</sonar.host.url>
 	</properties>
 	<dependencies>
 		<dependency>
