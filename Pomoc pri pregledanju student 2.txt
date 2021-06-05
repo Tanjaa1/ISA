@@ -1,0 +1,16 @@
+Pomoc pri pregledanju student 2
+3.4 : /administratorHomePage
+3.8 : /pharmacyHomePage (ulogovati se kao pacijent user:sara pass:123)
+3.12 : /administratorEmployed (klikom na dugme sa slikom kalendara pored odgovarajuceg zaposlenog u tabeli)
+3.22 : /administratorMedicine (donja polovina)
+3.24 : /orderMedicinePharmacyAdmin
+3.26 : /orderMedicinePharmacyAdmin (u tabeli sa svim narudzbenicama klikom na dugme koje na sebi ima listu , ukoliko se pored ponude ne prikaze dugme za izbor znaci da je narudzbenica poslata od strane drugog administratora)
+3.29 : /administratorMedicine (zupcanik pored odgovarajuce stavke u tabeli)
+3.32 : /administratorEmployed,/dermatologistsPreview (filtriranje po apoteci postoji samo u drugoj stranici jer u slucaju administratora svi rade u istoj (ipak je navedena lista svih u kojima su zaposleni))
+3.33 : /administratorEmployed,/pharmacistsPreview 
+3.38 : /administratorEmployed (dugme sa krevetom pored odgovarajuceg zaposlenog u tabelama)
+
+izvestaji se nalaze na stranici /reportAdministrator 
+napomena : prilikom ponovnog biranja parametara za graficki prikaz potrebno je osveziti stranicu , najvise podataka je za mart 2021 i lek andol
+
+Repovic Aleksa RA52-2017

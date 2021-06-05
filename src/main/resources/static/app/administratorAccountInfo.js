@@ -508,10 +508,7 @@ Vue.component("administratorAccountInfo", {
                         
                        var r = response.data
                        if(r.valueOf() == "OK"){
-                           
-                        
-
-
+                                                  
                             axios
                             .put('api/updateUserByPharmacyAdmin',this.administrator,{
                                 headers: {
