@@ -121,7 +121,7 @@ Vue.component("createCounselingPharmacist", {
                 alert("The counseling was successfully scheduled!")
             })
             .catch(function (error) {
-                alert(error)
+                alert("Go to warking schedule and see working time!")
             });
         }
 	}

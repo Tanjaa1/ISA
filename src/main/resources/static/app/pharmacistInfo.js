@@ -9,7 +9,7 @@ Vue.component("pharmacistInfo", {
 	},
 	beforeMount() {
 		
-		if(localStorage.getItem('role')=='ROLE_DERMATOLOGIST'){
+		if(localStorage.getItem('role')=='ROLE_PHARMACIST'){
 			axios
 			.get('/pharmacist/getPharmacistById/' + localStorage.getItem('userId'),{
 				headers: {

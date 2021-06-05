@@ -20,7 +20,7 @@ Vue.component("createExaminationDermatologist", {
 		}
 	},
 	beforeMount() {
-		if(localStorage.getItem('role')=='ROLE_PHARMACIST'){
+		if(localStorage.getItem('role')=='ROLE_DERMATOLOGIST'){
             axios
             .get('/patient/getPatientByDermatologistExamination/' + localStorage.getItem('userId'),{
                 headers: {
@@ -173,6 +173,7 @@ Vue.component("createExaminationDermatologist", {
                 alert("The examination was successfully scheduled!")
             })
             .catch(function (error) {
+                alert("Go to warking schedule and see working time!")
             });
         }
 	}
