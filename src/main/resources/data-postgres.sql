@@ -141,7 +141,7 @@ INSERT INTO public.supplier(
 
 INSERT INTO public.supplier(
 	id, address, city, country, description, email, email_comfirmed, first_time_login, name, password, phone_number, surname, enabled, last_password_reset_date, username)
-	VALUES (100, 'Seljackih Buna 2', 'Novi Sad', 'Srbija', '', 'ta.drcelic@gmail.com', true, true, 'Jelena', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', '0632211124', 'Jokic',true,'2008-11-11 13:23:44','jeca');
+	VALUES (100, 'Seljackih Buna 2', 'Novi Sad', 'Srbija', '', 'ta.drcelic@gmail.com', true, true, 'Jelena', '123', '0632211124', 'Jokic',true,'2008-11-11 13:23:44','jeca');
 INSERT INTO public.users(
 	id, address, city, country, description, email, email_comfirmed, first_time_login, name, password, phone_number, surname, enabled, last_password_reset_date, username)
 	VALUES (100, 'Seljackih Buna 2', 'Novi Sad', 'Srbija', '', 'ta.drcelic@gmail.com', true, true, 'Jelena', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', '0632211124', 'Jokic',true,'2008-11-11 13:23:44','jeca');
@@ -149,7 +149,7 @@ INSERT INTO public.users(
 
 INSERT INTO public.supplier(
 	id, address, city, country, description, email, email_comfirmed, first_time_login, name, password, phone_number, surname, enabled, last_password_reset_date, username)
-	VALUES (111, 'Seljackih Buna 2', 'Novi Sad', 'Srbija', '', 'ta.drcelic@gmail.com', true, true, 'Goran','$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', '0632211111', 'Goric',true,'2008-11-11 13:23:44','goran');
+	VALUES (111, 'Seljackih Buna 2', 'Novi Sad', 'Srbija', '', 'ta.drcelic@gmail.com', true, true, 'Goran','123', '0632211111', 'Goric',true,'2008-11-11 13:23:44','goran');
 INSERT INTO public.users(
 	id, address, city, country, description, email, email_comfirmed, first_time_login, name, password, phone_number, surname, enabled, last_password_reset_date, username)
 	VALUES (111, 'Seljackih Buna 2', 'Novi Sad', 'Srbija', '', 'ta.drcelic@gmail.com', true, true, 'Goran', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', '0632211111', 'Goric',true,'2008-11-11 13:23:44','goran');
@@ -163,7 +163,7 @@ INSERT INTO public.system_admin(
 */
 INSERT INTO public.system_admin(
 	id, address, city, country, description, email, email_comfirmed, first_time_login, name, password, phone_number, surname, enabled, last_password_reset_date, username)
-	VALUES (122, 'Boracka 29', 'Novi Sad', 'Srbija', 'neki opis', 'goran@gmail.com', true, false, 'Balsa', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', '068444777', 'Balsic',true,'2008-11-11 13:23:44','balsa');
+	VALUES (122, 'Boracka 29', 'Novi Sad', 'Srbija', 'neki opis', 'goran@gmail.com', true, false, 'Balsa', '123', '068444777', 'Balsic',true,'2008-11-11 13:23:44','balsa');
 INSERT INTO public.users(
 	id, address, city, country, description, email, email_comfirmed, first_time_login, name, password, phone_number, surname, enabled, last_password_reset_date, username)
 	VALUES (122, 'Boracka 29', 'Novi Sad', 'Srbija', 'neki opis', 'goran@gmail.com', true, false, 'Balsa', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', '068444777', 'Balsic',true,'2008-11-11 13:23:44','balsa');
@@ -1483,16 +1483,16 @@ INSERT INTO public.map_location(
 
 INSERT INTO public.counseling(
 	id, price, report, start_time, end_time, is_done, patient_id, pharmacist_id, pharmacy_id, is_canceled)
-	VALUES (501, 1000.0, '', '2022-07-11 15:00:00-07', '2021-07-11 15:25:25-07', false, null, 555, 111, false);
+	VALUES (501, 1000.0, '', '2022-07-11 15:00:00-07', '2022-07-11 15:25:25-07', false, null, 555, 111, false);
 INSERT INTO public.counseling(
 	id, price, report, start_time, end_time, is_done, patient_id, pharmacist_id, pharmacy_id, is_canceled)
-	VALUES (502, 2000.0, '', '2021-07-16 17:00:00-07', '2021-07-16 17:25:25-07', false, null, 555, 111, false);
+	VALUES (502, 2000.0, '', '2021-07-16 17:00:00-07', '2022-07-16 17:25:25-07', false, null, 555, 111, false);
 INSERT INTO public.counseling(
 	id, price, report, start_time, end_time, is_done, patient_id, pharmacist_id, pharmacy_id, is_canceled)
-	VALUES (503, 1000.0, '', '2022-07-15 16:00:00-07', '2021-07-15 16:25:25-07', false, null, 555, 111, false);
+	VALUES (503, 1000.0, '', '2022-07-15 16:00:00-07', '2022-07-15 16:25:25-07', false, null, 555, 111, false);
 INSERT INTO public.counseling(
 	id, price, report, start_time, end_time, is_done, patient_id, pharmacist_id, pharmacy_id, is_canceled)
-	VALUES (504, 2000.0, '', '2021-07-18 17:00:00-07', '2021-07-18 17:25:25-07', false, null, 555, 111, false);
+	VALUES (504, 2000.0, '', '2021-07-18 17:00:00-07', '2022-07-18 17:25:25-07', false, null, 555, 111, false);
 
 INSERT INTO public.eprescription(
 	code, issuing_date,therapy_duration, medicine_id,status,pharmacy_id)

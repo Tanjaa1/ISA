@@ -118,4 +118,10 @@ public class UserController {
 	return new ResponseEntity<>(user, HttpStatus.CREATED);
 	}
 	
+	@PreAuthorize("hasAnyRole('PHARMACYADMIN','PATIENT','SUPPLIER','DERMATOLOGIST','ADMIN')")
+	@GetMapping(value = "/getByUsername/{username}")
+	public ResponseEntity<User> getByUsername(@PathVariable String username) {
+		User isValid = userService.getByUsername(username);
+		return isValid == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(isValid);
+	}
 }

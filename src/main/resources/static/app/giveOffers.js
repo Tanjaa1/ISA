@@ -17,8 +17,8 @@ Vue.component("giveOffers", {
 			  
 				})
 				.catch(error => {
-					alert('nesupjesnooo')
-				})
+          alert("Something went wront, please try again later!")
+          this.$router.push('supplierProfile')				})
 	},
 	template: `
 	<div id="GiveOffers"  class="BackendImagePhysician">
@@ -175,7 +175,8 @@ Vue.component("giveOffers", {
 				this.offersList = response.data
 			})
 			.catch(error => {
-				alert('nesupjesnooo')
+        alert("Something went wront, please try again later!")
+        this.$router.push('supplierProfile')	
 			})
 			$('#myModalOrders').modal('show');
 
@@ -201,8 +202,9 @@ Vue.component("giveOffers", {
                         this.offersList = response.data
                     })
                     .catch(error => {
-                        alert('nesupjesnooo je')
-                    })
+                      alert("Something went wront, please try again later!")
+                      this.$router.push('supplierProfile')	
+                                        })
                     $('#myModalOffers').modal('show');
                 }else{
                     alert('you have already made an offer on this order')
@@ -210,8 +212,8 @@ Vue.component("giveOffers", {
                 }
             			})
 			.catch(error => {
-				alert('nesupjesnooo bilo')
-			})
+        alert("Something went wront, please try again later!")
+        this.$router.push('supplierProfile')				})
 
 
            
@@ -241,11 +243,13 @@ Vue.component("giveOffers", {
                     alert('you do not have a sufficient supply of this medicine')
                 }else{
                     alert('offer successfully sent')
-                }
+                    location.reload()
+                                  }
             			})
 			.catch(error => {
-				alert('nesupjesnooo')
-			})
+        alert("Something went wront, please try again later!")
+        this.$router.push('supplierProfile')	
+      			})
             }
 
             
