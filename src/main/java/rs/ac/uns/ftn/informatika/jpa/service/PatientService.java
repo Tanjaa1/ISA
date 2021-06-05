@@ -309,7 +309,7 @@ public class PatientService implements IPatientService {
 	}
 
 	public Set<PharmacyDTO> getEPharmaciesByPatientIdAndPrescriptions(Long patientId) {
-		PatientDTO resultPatient = new PatientDTO((findOne(patientId)));
+		PatientDTO resultPatient = findByIdPatient(patientId);
 		Set<EPrescriptionDTO> prescriptions = resultPatient.getEPrescriptions();
 		Set<PharmacyDTO> pharmacies = new HashSet<>();
 		for (EPrescriptionDTO s : prescriptions) {

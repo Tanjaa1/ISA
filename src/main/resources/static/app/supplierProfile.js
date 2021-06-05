@@ -6,7 +6,8 @@ Vue.component("supplierProfile", {
       supplier1:{}
 		}
 	},
-	beforeMount() {
+	beforeMount() {},
+  Mount(){
 
       axios.get('supplier/getById/'+ localStorage.getItem('userId'),
             {
@@ -19,12 +20,11 @@ Vue.component("supplierProfile", {
       alert(supplier.firstTimeLogin)
       if(supplier.firstTimeLogin==true){
         $('#Show').modal('show');    
-      }else{
-        alert("uspjesno")
       }
       })
       .catch(error => {
-        alert('nesupjesnooo jee')
+        alert('Something went wrong,please refresh page!')
+        this.$router.push('/')
       })
          
   },
@@ -111,7 +111,7 @@ Vue.component("supplierProfile", {
 			  
 				})
 				.catch(error => {
-					alert('nesupjesnooo')
+					alert('Domething went wrong,please try again later')
 				})
 			
 
@@ -160,7 +160,8 @@ Vue.component("supplierProfile", {
           });
         })
         .catch(error => {
-          alert('nesupjesnooo')
+          alert('Something went wrong,please try again later!')
+          this.$router.push('/')
         })
 
 

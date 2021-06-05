@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.transaction.Transactional;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -383,7 +385,7 @@ public class PharmacyService implements IPharmacyService {
                 logger.info("Error sending email: " + e.getMessage());
             }
         }
-        
+
             public PharmacyDTO changePharmacySupplies(Long id,String path,Long patientId) throws Exception {
                 String ePrescriptionContent=madicineService.uploadQR(path);    
                 String [] partsMedicineAndQuantity=ePrescriptionContent.split(",");

@@ -173,16 +173,10 @@ INSERT INTO public.system_admin(
 */
 INSERT INTO public.system_admin(
 	id, address, city, country, description, email, email_comfirmed, first_time_login, name, password, phone_number, surname, enabled, last_password_reset_date, username)
-	VALUES (122, 'Boracka 29', 'Novi Sad', 'Srbija', 'neki opis', 'goran@gmail.com', true, false, 'Balsa', '123', '068444777', 'Balsic',true,'2008-11-11 13:23:44','balsa');
+	VALUES (122, 'Boracka 29', 'Novi Sad', 'Srbija', 'neki opis', 'goran@gmail.com', true, true, 'Balsa', '123', '068444777', 'Balsic',true,'2008-11-11 13:23:44','balsa');
 INSERT INTO public.users(
 	id, address, city, country, description, email, email_comfirmed, first_time_login, name, password, phone_number, surname, enabled, last_password_reset_date, username)
-	VALUES (122, 'Boracka 29', 'Novi Sad', 'Srbija', 'neki opis', 'goran@gmail.com', true, false, 'Balsa', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', '068444777', 'Balsic',true,'2008-11-11 13:23:44','balsa');
-INSERT INTO public.system_admin(
-	id, address, city, country, description, email, email_comfirmed, first_time_login, name, password, phone_number, surname, enabled, last_password_reset_date, username)
-	VALUES (133, 'Cirpanova 9', 'Novi Sad', 'Srbija', 'neki opis', 'gordana1@gmail.com', true, false, 'Gordana', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', '068789654', 'Grbic',true,'2008-11-11 13:23:44','gordana');
- INSERT INTO public.users(
-	id, address, city, country, description, email, email_comfirmed, first_time_login, name, password, phone_number, surname, enabled, last_password_reset_date, username)
-	VALUES (133, 'Cirpanova 9', 'Novi Sad', 'Srbija', 'neki opis', 'gordana1@gmail.com', true, false, 'Gordana', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', '068789654', 'Grbic',true,'2008-11-11 13:23:44','gordana');
+	VALUES (122, 'Boracka 29', 'Novi Sad', 'Srbija', 'neki opis', 'goran@gmail.com', true, true, 'Balsa', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', '068444777', 'Balsic',true,'2008-11-11 13:23:44','balsa');
 
 
 INSERT INTO public.complaint(

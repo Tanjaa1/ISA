@@ -5,8 +5,7 @@ Vue.component("systemAdminHomaPage", {
 			systemAdmin1:{}
 		}
 	},
-	beforeMount() {},
-	Mount(){
+	beforeMount() {
 		 axios
 			.get('systemAdmin/getById/'+ localStorage.getItem('userId'),
 				  {
@@ -18,13 +17,10 @@ Vue.component("systemAdminHomaPage", {
 				systemAdmin=response.data
 			if(systemAdmin.firstTimeLogin==true){
 			  $('#Show').modal('show');    
-			  alert('modalni iskacsw')
-			}else{
-			  alert("uspjesno")
 			}
 			})
 			.catch(error => {
-			  alert('nesupjesnooo jee2')
+			  alert('Something went wrong,please refresh page')
 			})
 	},
 	template: `
