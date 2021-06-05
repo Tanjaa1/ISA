@@ -8,6 +8,8 @@ public class UserTokenState {
     private List<String> role;
     private String username;
     private Long id;
+    private String firstTimeLogin;
+
 
 
     public UserTokenState() {
@@ -24,6 +26,14 @@ public class UserTokenState {
         this.role=role;
         this.username=username;
         this.id=id;
+    }
+    public UserTokenState(String accessToken, long expiresIn,List<String> role,String username,Long id,String firstTimeLogin) {
+        this.accessToken = accessToken;
+        this.expiresIn = expiresIn;
+        this.role=role;
+        this.username=username;
+        this.id=id;
+        this.firstTimeLogin=firstTimeLogin;
     }
     public UserTokenState(String accessToken, long expiresIn,List<String> role,String username) {
         this.accessToken = accessToken;
@@ -76,6 +86,13 @@ public class UserTokenState {
     public void setId(Long id) {
         this.id = id;
     }
+    public String getFirstTimeLogin() {
+        return firstTimeLogin;
+    }
+    public void setFirstTimeLogin(String firstTimeLogin) {
+        this.firstTimeLogin = firstTimeLogin;
+    }
+    
 
     
 }

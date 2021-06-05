@@ -306,7 +306,7 @@ Vue.component("Login", {
 							}
 						})
 						.catch(error => {
-							alert("Username or password are wrong, please try again!sss")
+							alert("Username or password are wrong, please try again!")
 						})
 					}
 					setTimeout(() => {this.Redirect(response.data.role); }, 20);

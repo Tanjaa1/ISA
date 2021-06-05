@@ -23,6 +23,7 @@ import rs.ac.uns.ftn.informatika.jpa.unit.*;
 	SupplierOfferServiceTest.class,
 	MedicineServiseTest.class,
 	UserServiceTest.class,
+	PatientServiceTest.class,
 
 	ExaminationControlerTest.class,
 	ReservationControlerTest.class,

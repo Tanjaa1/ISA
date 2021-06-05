@@ -87,7 +87,7 @@ public class AuthenticationController {
 	ArrayList<String> role=new ArrayList<>();
 	role=(ArrayList<String>) tokenUtils.getRoleFromToken(jwt);
 // Vrati token kao odgovor na uspesnu autentifikaciju
-return ResponseEntity.ok(new UserTokenState(jwt, expiresIn,role,user.getUsername(),user.getId()));
+return ResponseEntity.ok(new UserTokenState(jwt, expiresIn,role,user.getUsername(),user.getId(),user.getFirstTimeLogin().toString()));
 		} catch (Exception e) {
 			return null;	
 		}
