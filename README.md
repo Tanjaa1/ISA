@@ -1,5 +1,6 @@
 # ISA
 
+[![Build](https://github.com/Tanjaa1/ISA/actions/workflows/build.yml/badge.svg?branch=IntegrationTests)](https://github.com/Tanjaa1/ISA/actions/workflows/build.yml)
 
 [![Build Status](https://travis-ci.com/Tanjaa1/ISA.svg?branch=develop)](https://travis-ci.com/Tanjaa1/ISA)
 
