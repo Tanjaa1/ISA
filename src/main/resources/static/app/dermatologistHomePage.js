@@ -25,7 +25,7 @@ Vue.component("dermatologistHomePage", {
 	},
 	mounted(){
 
-		if(localStorage.getItem('firstlog')==false)
+		if(localStorage.getItem('firstlog')=="false")
 		$('#Show').modal('show');
 	},
 	template: `
@@ -129,6 +129,7 @@ Vue.component("dermatologistHomePage", {
 						}
 					})
 						.then(function (response) {
+							localStorage.setItem('firstlog',"true")
 						})
 						.catch(function (error) {
 						});

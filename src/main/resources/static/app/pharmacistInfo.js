@@ -311,7 +311,7 @@ Vue.component("changePharmacistInfo", {
 					window.location.href = "#/pharmacistInfo";
 				})
 				.catch(function (error) {
-					alert("error");
+					alert("Not valid value!");
 				});
 		},
 		AccountInfoShow: function () {

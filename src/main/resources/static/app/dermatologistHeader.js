@@ -59,7 +59,8 @@ Vue.component("dermatologistHeader", {
                 localStorage.setItem('isLogged', false);
                 localStorage.setItem('userId', "");
                 localStorage.setItem('token', "");    
-                localStorage.setItem('role',"")
+                localStorage.setItem('role',"")  
+                localStorage.setItem('firstlog',"")
                 this.$router.push("/")
 
         }
