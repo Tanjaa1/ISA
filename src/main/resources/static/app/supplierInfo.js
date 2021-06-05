@@ -5,9 +5,7 @@ Vue.component("supplierInfo", {
             supplierToUpdate:{}
 		}
 	},
-	beforeMount() {},
-
-  Mount(){
+	beforeMount() {
         axios
         .get('supplier/getById/'+localStorage.getItem('userId')   ,{
           headers: {
@@ -164,15 +162,22 @@ Vue.component("supplierInfo", {
                 }
               })
                     .then(response => {
-                        alert('uspjesno izmijenjeni obojica ')
-                    })
+                        alert('Successfully changed data, please log in again to continue using the services of our site!')
+                        localStorage.setItem('userId', "");
+                        localStorage.setItem('token', "");
+                        localStorage.setItem('role', "");
+                
+                        this.$router.push("/")
+                      })
                     .catch(error => {
-                        alert('nesupjesnooo')
-                    })
+                      alert("Something went wront, please try again later!")
+                      this.$router.push('supplierProfile')	
+                                        })
                 })
             .catch(error => {
-                alert('nesupjesnooo')
-            })
+              alert("Something went wront, please try again later!")
+              this.$router.push('supplierProfile')	
+                        })
         },
         close:function(){
           this.$router.push('supplierProfile');

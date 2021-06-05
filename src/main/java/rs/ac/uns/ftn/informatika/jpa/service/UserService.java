@@ -311,6 +311,16 @@ public class UserService implements IUserService{
 		u.setAuthorities(auth);	
 		u = this.userRepository.save(u);
     }
+
+    public User getByUsername(String username) {
+		User result=new User();
+		List<User> usernames=findAll();
+		for (User user : usernames) {
+			if(user.getUsername().equals(username))
+               result=user;
+		}
+		return result;
+    }
     
 	
 }

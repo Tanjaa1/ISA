@@ -124,10 +124,8 @@ public class SupplierOfferService {
         List<SupplierOffer> offersList=supplierOfferRepository.findAll();
         Boolean result=false;
         for (SupplierOffer s : offersList) {
-            if(s.getOrder().getId()==orderId &&  s.getSupplier().getId()==supplierId){
+            if(s.getOrder().getId().equals(orderId) &&  s.getSupplier().getId().equals(supplierId)){
                 result= true;
-            }else{
-                result= false;
             }
         }
         return result;
