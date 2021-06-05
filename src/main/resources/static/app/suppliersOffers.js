@@ -19,7 +19,7 @@ Vue.component("suppliersOffers", {
 	  
 		})
 		.catch(error => {
-			alert('nesupjesnooo')
+			alert('Something went wront, please refresh page!')
 		})
 	},
 	template: `
@@ -191,11 +191,10 @@ Vue.component("suppliersOffers", {
 
 				})
 				.catch(error => {
-					alert('nesupjesnooo')
+					alert('Something went wront, please refresh page!')
 				})
 		},
 		Update:function(dueDate,offerId,price,datee){
-			alert(offerId)
 			document.getElementById('fname').value=price
 			document.getElementById('birthday').value=datee
 			localStorage.setItem('offerId',offerId)
@@ -204,9 +203,7 @@ Vue.component("suppliersOffers", {
 			  day = ("0" + date.getDate()).slice(-2);
 		var today=[date.getFullYear(), mnth, day].join("-");
 		var dueDateDTO=dueDate.split('T')[0]
-			alert(today)
-			alert(dueDateDTO)
-			//alert(dueDate)
+		
 			if(dueDate<today){
 				alert('DueDate for updating your offer  has expired !')
 			}else{
@@ -222,7 +219,7 @@ Vue.component("suppliersOffers", {
 
 				})
 				.catch(error => {
-					alert('nesupjesnooo')
+					alert('Something went wrong, please refresh page!')
 				})
 				$('#myModalOffersUpdate').modal('show');
 
@@ -247,7 +244,7 @@ Vue.component("suppliersOffers", {
 
 				})
 			.catch(error => {
-				alert('nesupjesnooo')
+				alert('Something went wrong, please refresh page!')
 			})
             }
 		},
@@ -270,7 +267,7 @@ Vue.component("suppliersOffers", {
 				this.offersList = response.data
 			})
 			.catch(error => {
-				alert('nesupjesnooo')
+				alert('Something went wrong, please refresh page!')
 			})
 			$('#myModal').modal('show');
 
