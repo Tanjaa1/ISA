@@ -69,7 +69,7 @@ Vue.component("administratorHeader", {
         Logout: function () {
             localStorage.setItem('userId', "");
             localStorage.setItem('token', "");
-
+            localStorage.setItem('role',"")
             this.$router.push("/")
 
         }

@@ -58,7 +58,8 @@ Vue.component("dermatologistHeader", {
         Logout: function () {       
                 localStorage.setItem('isLogged', false);
                 localStorage.setItem('userId', "");
-                localStorage.setItem('token', "");
+                localStorage.setItem('token', "");    
+                localStorage.setItem('role',"")
                 this.$router.push("/")
 
         }

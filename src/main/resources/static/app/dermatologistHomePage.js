@@ -6,6 +6,8 @@ Vue.component("dermatologistHomePage", {
 		}
 	},
 	mounted() {
+		
+		if(localStorage.getItem('role')=='ROLE_DERMATOLOGIST'){ 
 		axios
 			.get('/dermatologist/getDermatologistById/' + localStorage.getItem('userId'),{
 				headers: {
@@ -19,6 +21,9 @@ Vue.component("dermatologistHomePage", {
 			})
 			.catch(error => {
 			})
+		}else{
+			this.$router.push('forbidden');
+			}
 	},
 	template: `
 	<div id="DermatologistHomePage"  class="BackendImagePhysician">		

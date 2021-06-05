@@ -7,6 +7,8 @@ Vue.component("dermatologistInfo", {
 		}
 	},
 	beforeMount() {
+		
+		if(localStorage.getItem('role')=='ROLE_DERMATOLOGIST'){ 
 			axios
 			.get('/dermatologist/getDermatologistById/' + localStorage.getItem('userId'),{
 				headers: {
@@ -20,6 +22,9 @@ Vue.component("dermatologistInfo", {
 			})
 			.catch(error => {
 			})
+		}else{
+			this.$router.push('forbidden');
+			}
 	}
 		,
 	template: `
@@ -170,6 +175,8 @@ Vue.component("changeDermatologistInfo", {
 		}
 	},
 	beforeMount() {
+		
+		if(localStorage.getItem('role')=='ROLE_DERMATOLOGIST'){ 
 			axios
 			.get('/dermatologist/getDermatologistById/' +localStorage.getItem('userId'),{
 				headers: {
@@ -198,6 +205,9 @@ Vue.component("changeDermatologistInfo", {
 			})
 			.catch(error => {
 			})
+		}else{
+			this.$router.push('forbidden');
+			}
 	}
 		,
 	template: `

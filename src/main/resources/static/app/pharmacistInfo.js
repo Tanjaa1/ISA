@@ -8,6 +8,8 @@ Vue.component("pharmacistInfo", {
 		}
 	},
 	beforeMount() {
+		
+		if(localStorage.getItem('role')=='ROLE_DERMATOLOGIST'){
 			axios
 			.get('/pharmacist/getPharmacistById/' + localStorage.getItem('userId'),{
 				headers: {
@@ -19,6 +21,9 @@ Vue.component("pharmacistInfo", {
 			})
 			.catch(error => {
 			})
+		}else{
+			this.$router.push('forbidden');
+			}
 	}
 		,
 	template: `
@@ -168,6 +173,7 @@ Vue.component("changePharmacistInfo", {
 		}
 	},
 	beforeMount() {
+		if(localStorage.getItem('role')=='ROLE_PHARMACIST'){
 			axios
 			.get('/pharmacist/getPharmacistById/' + localStorage.getItem('userId'),{
 				headers: {
@@ -193,6 +199,9 @@ Vue.component("changePharmacistInfo", {
 			})
 			.catch(error => {
 			})
+		}else{
+			this.$router.push('forbidden');
+			}
 	}
 		,
 	template: `

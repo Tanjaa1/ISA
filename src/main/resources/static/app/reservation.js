@@ -7,6 +7,8 @@ Vue.component("reservation", {
 		}
 	},
 	beforeMount() {
+		
+		if(localStorage.getItem('role')=='ROLE_PHARMACIST'){ 
 		axios
 			.get('/pharmacist/getPharmacistById/' + localStorage.getItem('userId'),{
 				headers: {
@@ -18,6 +20,10 @@ Vue.component("reservation", {
 			})
 			.catch(error => {
 			})
+		}else{
+			this.$router.push('forbidden');
+		  }
+			
 	},
 	template: `
 	<div id="Reservation"  class="BackendImagePhysician">

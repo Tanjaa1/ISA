@@ -10,18 +10,22 @@ Vue.component("pharmacistVacationRequest", {
 		}
 	},
 	beforeMount() {
-		axios
-			.get('/pharmacist/getPharmacistById/' + localStorage.getItem('userId'),{
-				headers: {
-					'Authorization': 'Bearer' + " " + localStorage.getItem('token')
-				}
-			}) 
-			.then(response => {
-				this.user=response.data
-				this.vacation.pharmacyId=this.user.pharmacy.id
-			})
-			.catch(error => {
-			})
+        if(localStorage.getItem('role')=='ROLE_PHARMACIST'){
+			axios
+				.get('/pharmacist/getPharmacistById/' + localStorage.getItem('userId'),{
+					headers: {
+						'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+					}
+				}) 
+				.then(response => {
+					this.user=response.data
+					this.vacation.pharmacyId=this.user.pharmacy.id
+				})
+				.catch(error => {
+				})
+		}else{
+			this.$router.push('forbidden');
+		  }
 	},
 	template: `
 	<div class="BackendImagePhysician">				
@@ -47,6 +51,7 @@ Vue.component("pharmacistVacationRequest", {
 				})
 				.then(response => {
                     alert("Your request has been sent!")
+					this.$router.push('pharmacistVacationRequest');
 				})
 				.catch(error => {
 				})
@@ -72,18 +77,22 @@ Vue.component("dermatologistVacationRequest", {
 		}
 	},
 	beforeMount() {
-		axios
-			.get('/dermatologist/getDermatologistById/' + localStorage.getItem('userId'),{
-				headers: {
-					'Authorization': 'Bearer' + " " + localStorage.getItem('token')
-				}
-			}) 
-			.then(response => {
-				this.phycian = response.data
-				this.pharmacy=this.phycian.pharmacies[0]
-			})
-			.catch(error => {
-			})
+		if(localStorage.getItem('role')=='ROLE_DERMATOLOGIST'){ 
+			axios
+				.get('/dermatologist/getDermatologistById/' + localStorage.getItem('userId'),{
+					headers: {
+						'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+					}
+				}) 
+				.then(response => {
+					this.phycian = response.data
+					this.pharmacy=this.phycian.pharmacies[0]
+				})
+				.catch(error => {
+				})
+		}else{
+				this.$router.push('forbidden');
+			  }
 	},
 	template: `
 	<div class="BackendImagePhysician">				
@@ -115,6 +124,7 @@ Vue.component("dermatologistVacationRequest", {
 				})
 				.then(response => {
                     alert("Your request has been sent!")
+					this.$router.push('dermatologistVacationRequest');
 				})
 				.catch(error => {
 				})

@@ -30,47 +30,51 @@ Vue.component("calendarD",{
     pharmacy:null
   }
 },
-	mounted() {    
-    var twoNextYear = new Date()
-    this.today=twoNextYear
-    var mon=new Date()
-    var sun=new Date()
-    twoNextYear.setFullYear(twoNextYear.getFullYear() + 2)
-    var twoPrevoiusYear = new Date()
-    twoPrevoiusYear.setFullYear(twoPrevoiusYear.getFullYear() - 2)
-    this.dates=dateFns.eachDay(
-      twoPrevoiusYear,
-      twoNextYear
-    )
-    this.col=dateFns.eachDay(
-      mon.setDate(mon.getDate()+1-mon.getDay()),
-      sun.setDate(mon.getDate()+7-mon.getDay())
-    )
+	beforeMount() {  
+    if(localStorage.getItem('role')=='ROLE_DERMATOLOGIST'){  
+      var twoNextYear = new Date()
+      this.today=twoNextYear
+      var mon=new Date()
+      var sun=new Date()
+      twoNextYear.setFullYear(twoNextYear.getFullYear() + 2)
+      var twoPrevoiusYear = new Date()
+      twoPrevoiusYear.setFullYear(twoPrevoiusYear.getFullYear() - 2)
+      this.dates=dateFns.eachDay(
+        twoPrevoiusYear,
+        twoNextYear
+      )
+      this.col=dateFns.eachDay(
+        mon.setDate(mon.getDate()+1-mon.getDay()),
+        sun.setDate(mon.getDate()+7-mon.getDay())
+      )
 
-    axios
-			.get('/dermatologist/getDermatologistById/' + localStorage.getItem('userId'),{
-				headers: {
-					'Authorization': 'Bearer' + " " + localStorage.getItem('token')
-				}
-			}) 
-			.then(response => {
-				this.phycian = response.data
-        this.pharmacy=this.phycian.pharmacies[0]
-			})
-			.catch(error => {
-			})
+      axios
+        .get('/dermatologist/getDermatologistById/' + localStorage.getItem('userId'),{
+          headers: {
+            'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+          }
+        }) 
+        .then(response => {
+          this.phycian = response.data
+          this.pharmacy=this.phycian.pharmacies[0]
+        })
+        .catch(error => {
+        })
 
-    axios
-			.get('/examination/getExaminationsByDermatologist/' + localStorage.getItem('userId'),{
-				headers: {
-					'Authorization': 'Bearer' + " " + localStorage.getItem('token')
-				}
-			}) 
-			.then(response => {
-				this.myExamination = response.data
-			})
-			.catch(error => {
-			})
+      axios
+        .get('/examination/getExaminationsByDermatologist/' + localStorage.getItem('userId'),{
+          headers: {
+            'Authorization': 'Bearer' + " " + localStorage.getItem('token')
+          }
+        }) 
+        .then(response => {
+          this.myExamination = response.data
+        })
+        .catch(error => {
+        })
+      }else{
+        this.$router.push('forbidden');
+      }
 	},
 	template: `
   <div>

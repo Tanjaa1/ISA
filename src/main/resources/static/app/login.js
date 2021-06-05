@@ -175,7 +175,7 @@ Vue.component("Login", {
 					localStorage.setItem('token', this.token);
 					localStorage.setItem('isLogged', true);
 					localStorage.setItem('username',username)
-
+					localStorage.setItem('role',response.data.role)
 					if (response.data.role == "ROLE_PATIENT") {
 						axios
 						.get('/patient/getPatientByCredentials/'+response.data.username,
