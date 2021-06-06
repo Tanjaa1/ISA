@@ -28,13 +28,16 @@ Student | Path
 Student1 | X
 Student2 | 
 Student3 | https://github.com/Tanjaa1/ISA/blob/37ba8576435cbaf2392570148e930d5d0ffb6e68/Transactions/Transakcija_Student3_Tanja_Drcelic.pdf
-Student4 | 
+Student4 | https://github.com/Tanjaa1/ISA/blob/37ba8576435cbaf2392570148e930d5d0ffb6e68/Transactions/Transakcija_Student4_Marija_Vucetic.pdf
 
 **#SCALABILITY:** https://github.com/Tanjaa1/ISA/blob/37ba8576435cbaf2392570148e930d5d0ffb6e68/Skalabilnost.pdf
 
 #ROLES:
 dermtologist: username-jokas password-123
 						
+system-admin: username-balsa password-123
+
+supplier : username-jeca password-123
 
 pharmacy-admin: username-maja password-123
 
