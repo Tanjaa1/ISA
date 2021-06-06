@@ -1,11 +1,19 @@
 # ISA
 
+[![Build](https://github.com/Tanjaa1/ISA/actions/workflows/build.yml/badge.svg?branch=IntegrationTests)](https://github.com/Tanjaa1/ISA/actions/workflows/build.yml)
 
 [![Build Status](https://travis-ci.com/Tanjaa1/ISA.svg?branch=develop)](https://travis-ci.com/Tanjaa1/ISA)
 
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Tanjaa1_ISA&metric=alert_status)](https://sonarcloud.io/dashboard?id=Tanjaa1_ISA)
+
+[![SonarCloud](https://sonarcloud.io/images/project_badges/sonarcloud-orange.svg)](https://sonarcloud.io/dashboard?id=Tanjaa1_ISA)
+
+***
 PostrgeSQL - pgAdmin 4 - database: isa-db (password and surname in ISA/src/main/resources/application.properties)
 server-port:8090
 Code editor- Viusal Studio Code
+
+***
 
 Project 
 **#START PAGE:** http://localhost:8090/#/
@@ -19,7 +27,9 @@ Student | Path
 Student1 | X
 Student2 | https://github.com/Tanjaa1/ISA/blob/develop/Transactions/Transakcija_Student2_Repovic_Aleksa_RA_52_2017.pdf
 Student3 | https://github.com/Tanjaa1/ISA/blob/37ba8576435cbaf2392570148e930d5d0ffb6e68/Transactions/Transakcija_Student3_Tanja_Drcelic.pdf
-Student4 | 
+Student4 | https://github.com/Tanjaa1/ISA/blob/develop/Transactions/Transakcija_Student4-Marija_Vucetic.pdf
+
+
 
 **#SCALABILITY:** https://github.com/Tanjaa1/ISA/blob/37ba8576435cbaf2392570148e930d5d0ffb6e68/Skalabilnost.pdf
 
@@ -49,3 +59,6 @@ Student | Name | INDEX
 2 | Aleksa Repović | RA52/2017
 3 | Tanja Drčelić | RA124/2017
 4 | Marija Vučetić | RA157/2017
+
+***
+U slucaju da testovi ne prolaze zbog Context-a pokrenuti program opet.
