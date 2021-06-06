@@ -497,7 +497,8 @@ public class MedicineService implements IMedicineService {
 }
 @Transactional(readOnly=false, propagation = Propagation.REQUIRES_NEW)
 public Set<PharmacyQRDTO> getPharmaciesByQR(String path,Long patientIdd) throws FileNotFoundException, NotFoundException, IOException {
-	String ePrescriptionContent=uploadQR(path);
+	try {
+		String ePrescriptionContent=uploadQR(path);
 	String [] partsMedicineAndQuantity=ePrescriptionContent.split(",");
 	Map<String,Integer> mapMedicineInPharmacy=new HashMap<>();
 	Map<String,Integer> qrMedicines=new HashMap<>();
@@ -568,6 +569,10 @@ public Set<PharmacyQRDTO> getPharmaciesByQR(String path,Long patientIdd) throws 
 	}
 
 	return resultF;
+	} catch (Exception e) {
+		return new HashSet<PharmacyQRDTO>();
+		}
+	
 }
 public Double Discount(Double price,Long patientId){
 	List<LoyaltyProgrammeDTO> lp=loyaltyProgrammeService.getAll();
