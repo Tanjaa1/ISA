@@ -646,6 +646,7 @@ const router = new VueRouter({
 			path: '/searchMedicine', 
 			name : 'searchMedicine', 
 			components: {
+				content: DermatologistHeader,
 				content: SearchMedicine
 			}
 		},
