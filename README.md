@@ -28,7 +28,7 @@ Student | Path
 Student1 | X
 Student2 | 
 Student3 | https://github.com/Tanjaa1/ISA/blob/37ba8576435cbaf2392570148e930d5d0ffb6e68/Transactions/Transakcija_Student3_Tanja_Drcelic.pdf
-Student4 | https://github.com/Tanjaa1/ISA/blob/37ba8576435cbaf2392570148e930d5d0ffb6e68/Transactions/Transakcija_Student4_Marija_Vucetic.pdf
+Student4 | https://github.com/Tanjaa1/ISA/blob/develop/Transactions/Transakcija_Student4-Marija_Vucetic.pdf
 
 **#SCALABILITY:** https://github.com/Tanjaa1/ISA/blob/37ba8576435cbaf2392570148e930d5d0ffb6e68/Skalabilnost.pdf
 
