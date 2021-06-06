@@ -205,6 +205,12 @@ INSERT INTO public.counseling(
 INSERT INTO public.counseling(
 	id, price, report, start_time, end_time, is_done, patient_id, pharmacist_id, pharmacy_id, is_canceled)
 	VALUES (116, 2000.0, '', '2021-06-16 17:00:00-07', '2021-06-16 17:25:25-07', false, null, 444, 222, false);
+INSERT INTO public.counseling(
+	id, price, report, start_time, end_time, is_done, patient_id, pharmacist_id, pharmacy_id, is_canceled)
+	VALUES (216, 2000.0, '', '2021-06-11 11:30:00-07', '2021-06-11 12:00:25-07', false, 89, 444, 222, false);
+INSERT INTO public.counseling(
+	id, price, report, start_time, end_time, is_done, patient_id, pharmacist_id, pharmacy_id, is_canceled)
+	VALUES (316, 2000.0, '', '2021-06-07 11:30:00-07', '2021-06-07 12:00:25-07', false, 89, 444, 222, false);
 	
 -- INSERT INTO public.eprescription(
 -- 	code, issuing_date)
