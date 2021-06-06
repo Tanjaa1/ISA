@@ -30,7 +30,6 @@ public class Reservation {
 	@Column(name="IsReceived", unique=false, nullable=true)
 	private Boolean IsReceived;
 
-	//@JsonManagedReference(value = "reservation_pat")
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Patient Patient;
 	
