@@ -4,8 +4,6 @@
 
 [![Build Status](https://travis-ci.com/Tanjaa1/ISA.svg?branch=develop)](https://travis-ci.com/Tanjaa1/ISA)
 
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Tanjaa1_ISA&metric=alert_status)](https://sonarcloud.io/dashboard?id=Tanjaa1_ISA)
-
 [![SonarCloud](https://sonarcloud.io/images/project_badges/sonarcloud-orange.svg)](https://sonarcloud.io/dashboard?id=Tanjaa1_ISA)
 
 ***
@@ -33,7 +31,7 @@ Student4 | https://github.com/Tanjaa1/ISA/blob/develop/Transactions/Transakcija_
 
 **#SCALABILITY:** https://github.com/Tanjaa1/ISA/blob/37ba8576435cbaf2392570148e930d5d0ffb6e68/Skalabilnost.pdf
 
-#ROLES:
+**#ROLES:**
 dermtologist: username-jokas password-123
 						
 
