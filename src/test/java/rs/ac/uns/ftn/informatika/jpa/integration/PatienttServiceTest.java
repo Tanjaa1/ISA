@@ -25,7 +25,7 @@ import org.springframework.web.context.WebApplicationContext;
 @AutoConfigureMockMvc(addFilters = false)
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
-public class PatientServiceTest {
+public class PatienttServiceTest {
     private static final String URL_PREFIX = "/patient";
 
 	private MediaType contentType = new MediaType(MediaType.APPLICATION_JSON.getType(),
