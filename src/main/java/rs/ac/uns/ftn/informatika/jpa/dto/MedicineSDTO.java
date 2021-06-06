@@ -1,11 +1,7 @@
 package rs.ac.uns.ftn.informatika.jpa.dto;
 
-import org.springframework.data.geo.Point;
-
 import rs.ac.uns.ftn.informatika.jpa.enums.MedicineForm;
 import rs.ac.uns.ftn.informatika.jpa.enums.MedicineType;
-import rs.ac.uns.ftn.informatika.jpa.model.Markk;
-import rs.ac.uns.ftn.informatika.jpa.model.Medicine;
 
 public class MedicineSDTO {
     private Long Id;

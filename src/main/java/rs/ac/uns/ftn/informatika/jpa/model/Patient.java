@@ -1,6 +1,5 @@
 package rs.ac.uns.ftn.informatika.jpa.model;
 
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -15,11 +14,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.core.sym.Name;
-
-import org.springframework.security.core.GrantedAuthority;
-
-import rs.ac.uns.ftn.informatika.jpa.dto.ActionOrPromotionsDTO;
 import rs.ac.uns.ftn.informatika.jpa.dto.PatientDTO;
 import rs.ac.uns.ftn.informatika.jpa.enums.LoyaltyCategories;
 
@@ -28,9 +22,7 @@ import rs.ac.uns.ftn.informatika.jpa.enums.LoyaltyCategories;
 public class Patient extends User {
 	
 	@Column(name="DrugAllargies", unique=false, nullable=true)
-	//@OneToMany(mappedBy = "Patient", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@ElementCollection
-	//private Set<String> DrugAllargies = new HashSet<String>();
 	private List<String> DrugAllargies ;
 	
 	@Column(name="Points", unique=false, nullable=true)
@@ -50,7 +42,6 @@ public class Patient extends User {
 	 private Set<EPrescription> EPrescriptions = new HashSet<EPrescription>();
 
 	 @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	 //@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	 private Set<ActionOrPromotion> ActionOrPromotions = new HashSet<ActionOrPromotion>();
 	
 	
@@ -93,23 +84,6 @@ public class Patient extends User {
 		Category = category;
 	}
 	
-	// public Set<Pharmacy> getPrepaidPharmacies() {
-	// 	return PrepaidPharmacies;
-	// }
-
-	// public void setPrepaidPharmacies(Set<Pharmacy> prepaidPharmacies) {
-	// 	PrepaidPharmacies = prepaidPharmacies;
-	// }
-
-/*	
-	public Set<Pharmacy> getPrepaidPharmacies() {
-		return PrepaidPharmacies;
-	}
-
-	public void setPrepaidPharmacies(Set<Pharmacy> prepaidPharmacies) {
-		PrepaidPharmacies = prepaidPharmacies;
-	}
-*/
 	public String getFullName() {
 		return getName()+" "+ getSurname();
 	}
@@ -125,9 +99,7 @@ public class Patient extends User {
 
 	public Patient(PatientDTO patientDTO){
 		super();
-		//DrugAllargies = patientDTO.getDrugAllargies();
 		Points = patientDTO.getPoints();
-		//Penalty = patientDTO.getPenalty();
 		Category = patientDTO.getCategory();
 
 	}
@@ -149,12 +121,9 @@ public class Patient extends User {
 		Points = points;
 		Penalty = penalty;
 		Category = category;
-		//PrepaidPharmacies = prepaidPharmacies;
-	//	PrepaidPharmacies = prepaidPharmacies;
 		EPrescriptions = ePrescriptions;
 	
 	}
-	//novo dodato
 	public Patient(Long id, String email, String password, String name, String surname, String address, String city,
 			String country, String phoneNumber, String description, Boolean emailComfirmed, Boolean firstTimeLogin,
 			String username, List<String> drugAllargies, Integer points, Set<Penaltys> penalty, LoyaltyCategories category, Set<Complaint> complaints, Set<Counseling> counselings,

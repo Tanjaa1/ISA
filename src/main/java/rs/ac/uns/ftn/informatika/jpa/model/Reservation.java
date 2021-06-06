@@ -14,8 +14,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 import rs.ac.uns.ftn.informatika.jpa.validator.CustomAnnotation;
 
 @Entity

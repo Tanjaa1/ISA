@@ -12,7 +12,6 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 import javax.persistence.Table;
-import javax.validation.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -30,22 +29,10 @@ public class EPrescription {
 	@Column(name="IssuingDate", unique=false, nullable=true)
 	private Date IssuingDate;
 	
-	// @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	// private Patient Patient;
-	
-	// @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	// private Set<Therapy> Therapies = new HashSet<Therapy>();
-	
-	// @OneToOne(cascade = CascadeType.MERGE)
-    // @JoinColumn(name = "Medicine_id", referencedColumnName = "id")
-	
     @CustomAnnotation(message = "Medicine is mandatory")
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	private MedicinePriceAndQuantity Medicine;
-	
-	// @Column(name="Amount", unique=false, nullable=true)
-	// private Integer Amount;
 	
 	@Column(name="TherapyDuration", unique=false, nullable=true)
 	private Integer TherapyDuration;
@@ -87,33 +74,13 @@ public class EPrescription {
 		IssuingDate = issuingDate;
 	}
 
-	// public Patient getPatient() {
-	// 	return Patient;
-	// }
-
-	// public void setPatient(Patient patient) {
-	// 	Patient = patient;
-	// }
-
-	// public Set<Therapy> getTherapies() {
-	// 	return Therapies;
-	// }
-
-	// public void setTherapies(Set<Therapy> therapies) {
-	// 	Therapies = therapies;
-	// }
 	public MedicinePriceAndQuantity getMedicine() {
 		return Medicine;
 	}
 	public void setMedicine(MedicinePriceAndQuantity medicine) {
 		Medicine = medicine;
 	}
-	// public int getAmount() {
-	// 	return Amount;
-	// }
-	// public void setAmount(int amount) {
-	// 	Amount = amount;
-	// }
+
 	public int getTherapyDuration() {
 		return TherapyDuration;
 	}
@@ -145,7 +112,6 @@ public class EPrescription {
 		Pharmacy pharmacy) {
 		Code = code;
 		IssuingDate = issuingDate;
-		//Medicine = medicine;
 		TherapyDuration = therapyDuration;
 		Status = status;
 		Pharmacy = pharmacy;

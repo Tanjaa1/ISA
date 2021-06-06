@@ -5,18 +5,17 @@ import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import rs.ac.uns.ftn.informatika.jpa.dto.PharmacyDTO;
@@ -36,10 +35,6 @@ public class Pharmacy {
 	@Column(name="Address", unique=false, nullable=true)
 	private String Address;
 
-
-	// @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	// public Set<ActionOrPromotion> ListActionsOrPromotions = new HashSet<ActionOrPromotion>();
-
 	 @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	 private Set<MedicinePriceAndQuantity> Pricelist = new HashSet<MedicinePriceAndQuantity>();
@@ -50,15 +45,6 @@ public class Pharmacy {
 	 @ManyToMany
 	 @JoinTable(name = "PharmacySubscribedUsers", joinColumns = @JoinColumn(name = "Pharmacy_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "Patient_id", referencedColumnName = "id"))
 	 private Set<Patient> SubscribedUsers = new HashSet<Patient>();
-	
-	// @ManyToMany(mappedBy = "Pharmacies")
-	// private Set<Dermatologist> Dermatologists = new HashSet<Dermatologist>();
-	
-	// @OneToMany(mappedBy = "Pharmacy", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	// private Set<Pharmacist> Pharmacists = new HashSet<Pharmacist>();
-	
-	// @OneToMany(mappedBy = "Pharmacy", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	// private Set<PharmacyAdmin> PharmacyAdmins = new HashSet<PharmacyAdmin>();
 	
 	 @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 		private Set<Markk> Marks = new HashSet<Markk>();
@@ -74,7 +60,6 @@ public class Pharmacy {
 		Marks = marks;
 		Pricelist=pricelist;
 		CounselingPrice = counselingPrice;
-		//SubscribedUsers=subscribedUsers;
 	}
 
 	public Long getId() {
@@ -124,38 +109,7 @@ public class Pharmacy {
 	public void setCounselingPrice(Double counselingPrice) {
 		CounselingPrice = counselingPrice;
 	}
-
-	// public Set<Patient> getSubscribedUsers() {
-	// 	return SubscribedUsers;
-	// }
-
-	// public void setSubscribedUsers(Set<Patient> subscribedUsers) {
-	// 	SubscribedUsers = subscribedUsers;
-	// }
-
-	// public Set<Dermatologist> getDermatologists() {
-	// 	return Dermatologists;
-	// }
-
-	// public void setDermatologists(Set<Dermatologist> dermatologists) {
-	// 	Dermatologists = dermatologists;
-	// }
-
-	// public Set<Pharmacist> getPharmacists() {
-	// 	return Pharmacists;
-	// }
-
-	// public void setPharmacists(Set<Pharmacist> pharmacists) {
-	// 	Pharmacists = pharmacists;
-	// }
-
-	// public Set<PharmacyAdmin> getPharmacyAdmins() {
-	// 	return PharmacyAdmins;
-	// }
-
-	// public void setPharmacyAdmins(Set<PharmacyAdmin> pharmacyAdmins) {
-	// 	PharmacyAdmins = pharmacyAdmins;
-	// }
+	
 	public Set<Patient> getSubscribedUsers(){
 		return SubscribedUsers;
 	}

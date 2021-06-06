@@ -13,7 +13,6 @@ import rs.ac.uns.ftn.informatika.jpa.dto.PharmacyAdminDTO;
 @Table(name="PharmacyAdmin")
 public class PharmacyAdmin extends User{
 	
-//	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@Column(name="Pharmacy", unique=false, nullable=true)
 	private String Pharmacy;
 

@@ -3,8 +3,6 @@ package rs.ac.uns.ftn.informatika.jpa.controller;
 import java.util.List;
 import java.util.Set;
 
-import javax.swing.text.StyledEditorKit.BoldAction;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,9 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import rs.ac.uns.ftn.informatika.jpa.dto.MedicineQuantityDTO;
 import rs.ac.uns.ftn.informatika.jpa.dto.SupplierDTO;
-import rs.ac.uns.ftn.informatika.jpa.model.MedicineQuantity;
 import rs.ac.uns.ftn.informatika.jpa.model.Supplier;
-import rs.ac.uns.ftn.informatika.jpa.model.SupplierOffer;
 import rs.ac.uns.ftn.informatika.jpa.service.SupplierService;
 import rs.ac.uns.ftn.informatika.jpa.service.UserService;
 

@@ -8,8 +8,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
@@ -39,9 +37,6 @@ public class Pharmacist extends User {
 	
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<Markk> Marks = new HashSet<Markk>();
-	
-	// @OneToMany(mappedBy = "Pharmacist", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	// private Set<Counseling> Counselings = new HashSet<Counseling>();
 	
 	public Pharmacist(){}
 	public Pharmacist(long id, String email, String password, String name, String surname, String address, String city,
@@ -116,7 +111,6 @@ public class Pharmacist extends User {
 	}
 	public boolean checkVacationTime(LocalDateTime startTime) {
 		for (VacationInterval vacationTime : VacationSchedule) {
-			//LocalDateTime startDateTime = LocalDateTime.ofInstant(vacationTime.getDateStart().toInstant(), ZoneId.systemDefault());
 			Date startDate = Date.from(startTime.atZone(ZoneId.systemDefault()).toInstant());
 			int start = vacationTime.getDateStart().compareTo(startDate);
 			int end = vacationTime.getDateEnd().compareTo(startDate);

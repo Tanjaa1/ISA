@@ -12,7 +12,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import rs.ac.uns.ftn.informatika.jpa.dto.MedicineDTO;
 import rs.ac.uns.ftn.informatika.jpa.dto.MedicineQuantityDTO;
 
 @Entity
@@ -29,9 +28,6 @@ public class MedicineQuantity {
 	
 	@Column(name="Quantity", unique=false, nullable=true)
 	private Integer Quantity;
-	
-	// @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	// private Order OrderMedicine;
 	
 	@ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
 	private Supplier Supplier;
