@@ -2,31 +2,27 @@ package rs.ac.uns.ftn.informatika.jpa.model;
 
 import static javax.persistence.InheritanceType.TABLE_PER_CLASS;
 
-import java.security.Timestamp;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.FetchType;
-
-import rs.ac.uns.ftn.informatika.jpa.validator.CustomAnnotation;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.core.sym.Name;
+import rs.ac.uns.ftn.informatika.jpa.validator.CustomAnnotation;
 
 @Inheritance(strategy=TABLE_PER_CLASS)
 @Entity
