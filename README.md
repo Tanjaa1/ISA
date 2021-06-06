@@ -9,7 +9,7 @@
 [<img src='https://sonarsource.github.io/sonarcloud-github-static-resources/v2/common/security_hotspot.png' alt='Security Hotspot' width='16' height='16' />](https://sonarcloud.io/project/security_hotspots?id=Tanjaa1_ISA&pullRequest=104&resolved=false&types=SECURITY_HOTSPOT) [<img src='https://sonarsource.github.io/sonarcloud-github-static-resources/v2/checks/RatingBadge/A.png' alt='A' width='16' height='16' />](https://sonarcloud.io/project/security_hotspots?id=Tanjaa1_ISA&pullRequest=104&resolved=false&types=SECURITY_HOTSPOT) [0 Security Hotspots](https://sonarcloud.io/project/security_hotspots?id=Tanjaa1_ISA&pullRequest=104&resolved=false&types=SECURITY_HOTSPOT)  
 [<img src='https://sonarsource.github.io/sonarcloud-github-static-resources/v2/common/code_smell.png' alt='Code Smell' width='16' height='16' />](https://sonarcloud.io/project/issues?id=Tanjaa1_ISA&pullRequest=104&resolved=false&types=CODE_SMELL) [<img src='https://sonarsource.github.io/sonarcloud-github-static-resources/v2/checks/RatingBadge/A.png' alt='A' width='16' height='16' />](https://sonarcloud.io/project/issues?id=Tanjaa1_ISA&pullRequest=104&resolved=false&types=CODE_SMELL) [0 Code Smells](https://sonarcloud.io/project/issues?id=Tanjaa1_ISA&pullRequest=104&resolved=false&types=CODE_SMELL)
 
-https://sonarcloud.io/images/project_badges/sonarcloud-orange.svg
+[![SonarCloud](https://sonarcloud.io/images/project_badges/sonarcloud-orange.svg)](https://sonarcloud.io/dashboard?id=Tanjaa1_ISA)
 
 PostrgeSQL - pgAdmin 4 - database: isa-db (password and surname in ISA/src/main/resources/application.properties)
 server-port:8090
