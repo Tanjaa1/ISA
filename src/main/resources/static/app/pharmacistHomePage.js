@@ -141,7 +141,7 @@ Vue.component("pharmacistHomePage", {
 	Yes:function(){
 		if(document.getElementById("np").value==document.getElementById("cp").value && document.getElementById("np").value.trim()!="" && document.getElementById("cp").value.trim()!=""){
 			$('#Show').modal('hide');
-			alert(this.phycian.id)
+			localStorage.setItem('firstlog',"true")
 			this.phycian.firstTimeLogin=true
 			this.phycian.password=document.getElementById("np").value
 				axios.put('/pharmacist/update', this.phycian,{

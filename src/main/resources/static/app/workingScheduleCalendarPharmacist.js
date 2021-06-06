@@ -144,7 +144,7 @@ Vue.component("calendarP",{
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header nocolor">
-                <h5 class="modal-title">Counseling</h5>
+                <h5 class="modal-title">Counseling- {{exam.price}}.00 din</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
@@ -159,16 +159,16 @@ Vue.component("calendarP",{
                           {{exam.startTime.split('T')[1]}}-{{exam.endTime.split('T')[1]}}
                           </div></br>
                           <a v-if="exam.isDone">
-                          Report:</br>{{exam.isDone}}
+                          Report:</br>
                           <div>
                           {{exam.report}}
                           </div></br></a>
-                          <a v-if="!exam.isDone && PastExam() && exam.patient.name!=null">
+                          <a v-if="exam.report==' ' && PastExam() && exam.patient.name!=null">
                           <div>
                           Patient did not come.
                           </div></br></a>
                           <div class="modal-footer">
-                <button v-if="See()" id="addF" type="button" class="btn btn-info btn-lg" v-on:click="No()">Did not come</button>
+                <button v-if="See() && exam.report!=' '" id="addF" type="button" class="btn btn-info btn-lg" v-on:click="No()">Did not come</button>
                 <button v-if="See() || exam.report==' '" id="cancelF" type="button" class="btn btn-info btn-lg" v-on:click="Yes()"">Start</button>
               </div>
             </div>
@@ -518,6 +518,8 @@ Vue.component("calendarP",{
         },
         AddPrescritpion: async function(){
             var pharmacyMedicines=this.examination.pharmacy.pricelist
+            
+            if(prescriptionDTO.therapyDuration>0){
             for(m in pharmacyMedicines){
                 if(pharmacyMedicines[m].medicine.name==this.medicineChoose.name){
                     if(pharmacyMedicines[m].quantity>0){
@@ -573,6 +575,9 @@ Vue.component("calendarP",{
                         }
                     }
                 }
+              }else{
+                alert("Duration can not be 0!")
+              }
         },
         NewEx:function(){
             this.newExamination.startTime=document.getElementById("date").value+'T'+document.getElementById("start").value
@@ -580,6 +585,8 @@ Vue.component("calendarP",{
             this.newExamination.patient=this.examination.patient
             this.newExamination.pharmacist=this.examination.pharmacist 
             this.newExamination.pharmacy=this.examination.pharmacy
+            if(this.examination.patient=!null){
+            if(document.getElementById("start").value<document.getElementById("end").value){
             axios.post('/counseling/add',this.newExamination,{
               headers: {
                 'Authorization': 'Bearer' + " " + localStorage.getItem('token')
@@ -591,6 +598,13 @@ Vue.component("calendarP",{
             })
             .catch(function (error) {
             });
+          
+          }else{
+            alert("Start time must be befour end time!")
+          }
+        }else{
+          alert("Please,choose patient!")
         }
+      }
 	}
 });

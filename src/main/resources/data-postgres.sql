@@ -205,6 +205,12 @@ INSERT INTO public.counseling(
 INSERT INTO public.counseling(
 	id, price, report, start_time, end_time, is_done, patient_id, pharmacist_id, pharmacy_id, is_canceled)
 	VALUES (116, 2000.0, '', '2021-06-16 17:00:00-07', '2021-06-16 17:25:25-07', false, null, 444, 222, false);
+INSERT INTO public.counseling(
+	id, price, report, start_time, end_time, is_done, patient_id, pharmacist_id, pharmacy_id, is_canceled)
+	VALUES (216, 2000.0, '', '2021-06-11 11:30:00-07', '2021-06-11 12:00:25-07', false, 89, 444, 222, false);
+INSERT INTO public.counseling(
+	id, price, report, start_time, end_time, is_done, patient_id, pharmacist_id, pharmacy_id, is_canceled)
+	VALUES (316, 2000.0, '', '2021-06-07 11:30:00-07', '2021-06-07 12:00:25-07', false, 89, 444, 222, false);
 	
 -- INSERT INTO public.eprescription(
 -- 	code, issuing_date)
@@ -233,11 +239,15 @@ INSERT INTO public.examination(
 	VALUES (116, 3000.0, '', '2021-06-17 18:00:25-07', '2021-06-17 18:10:25-07', false, 66, null, 111,false);
 INSERT INTO public.examination(
 	id, price, report, start_time, end_time, is_done, dermatologist_id, patient_id, pharmacy_id,is_canceled)
-	VALUES (1161, 2000.0, '', '2021-06-17 16:00:25-07', '2021-06-17 16:10:25-07', false, 66, null, 111,false);
+	VALUES (1161, 2000.0, '', '2021-06-17 16:00:25-07', '2021-06-17 16:10:25-07', false, 66, 88, 111,false);
 
 INSERT INTO public.examination(
 	id, price, report, start_time, end_time, is_done, dermatologist_id, patient_id, pharmacy_id, is_canceled)
 	VALUES (1179, 900.0, 'Headache and nausea', '2016-07-22 14:45:25-07', '2016-07-22 14:25:25-07', true, 66, 88, 111, false);
+	
+INSERT INTO public.examination(
+	id, price, report, start_time, end_time, is_done, dermatologist_id, patient_id, pharmacy_id, is_canceled)
+	VALUES (2179, 900.0, 'Headache and nausea', '2016-06-07 14:45:25-07', '2016-06-07 14:25:25-07', true, 66, 88, 111, false);
 /*
 	VALUES (111, 500.0, '', '2021-02-09 19:10:25-07', '2021-02-09 19:20:25-07', false, 61, 88, 111, false);
 INSERT INTO public.examination(

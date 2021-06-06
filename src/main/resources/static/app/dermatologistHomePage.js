@@ -123,13 +123,13 @@ Vue.component("dermatologistHomePage", {
 				$('#Show').modal('hide');
 				this.phycian.firstTimeLogin=true
 				this.phycian.password=document.getElementById("np").value
+				localStorage.setItem('firstlog',"true")
 					axios.put('/dermatologist/update', this.phycian,{
 						headers: {
 							'Authorization': 'Bearer' + " " + localStorage.getItem('token')
 						}
 					})
 						.then(function (response) {
-							localStorage.setItem('firstlog',"true")
 						})
 						.catch(function (error) {
 						});
