@@ -43,10 +43,30 @@ public class PatientServiceTest {
             @Test
             public void saveDrugAll() throws Exception {
                 String drugAllergies="penicilin,cefaleksin";
-                
-              
-              
                 mockMvc.perform(get(URL_PREFIX + "/savePatientDrugAllergies/" +drugAllergies ).contentType(contentType))
                 .andExpect(status().isOk());
             }
+
+            /*public ActionOrPromotionsDTO cancelActionOrPromotion(String id, String idAction) throws Exception {
+		
+            	Long PatientId=Integer.toUnsignedLong(Integer.valueOf(id));	
+		Long actionOrPromotionId=Integer.toUnsignedLong(Integer.valueOf(idAction));
+
+		Patient patientToUpdate=patientRepository.findById(PatientId).get();
+		ActionOrPromotion toCancel=actionOrPromotionRepository.getOne(actionOrPromotionId);
+		Set<ActionOrPromotion> newSetA=patientToUpdate.getActionOrPromotion();
+		newSetA.remove(toCancel);
+		patientToUpdate.setActionOrPromotion(newSetA);
+		update(patientToUpdate);
+		emailSenderActionsOrPromotionsCancel(patientToUpdate,toCancel);
+
+		return new ActionOrPromotionsDTO(toCancel); */
+        @Test
+        @WithMockUser(roles = "PATIENT")
+        public void cancelActionOrPromotion() throws Exception {
+           String actionId="222";
+           String patirenId="88";
+            mockMvc.perform(get(URL_PREFIX + "/cancelActionOrPromotion/" + patirenId + "/" + actionId  ).contentType(contentType))
+            .andExpect(status().isOk());
+        }
 }

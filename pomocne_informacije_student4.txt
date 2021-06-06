@@ -1,0 +1,16 @@
+Pomocne informacije:
+	3.35-Pretraga i izdavanje lijekova preko eRecepta(QR kod):
+		na stranici u input polje je potrebno unijeti cijelu putanju do QR koda npr.:
+		C:\Users\Lenovo\Desktop\ISA\src\main\resources\static\QRcodes\9.png
+	3.40-Postupak definisanja loyalty programa:
+		System admin ima mogucnost definisanja popusta koji ce se obacunavati korisnicima
+		sa dovoljnim brojem poena, kao i definisanje potrebnog broja podataka za 
+		odredjene kategorije korisnika, kao i broj bodova koji se dobija nakon svakog pregleda
+		ili savjetovanja.Bodove za kupovinu lijeka definise prilikom registrovanja novog lijeka
+		Popust se prikazuje korisnicima kao Price With Discount na stranici za izdavanje lijekova 
+		preko QR-coda, zakazivanje pregleda i savjetovanja(zadaci kolega iz tima)
+	3.34-Pretraga i filtriranje lijekova:
+		Potrebno je malo vise vremena da se funkcionalnost izvrsi,prilikom izbora nekog od parametara za filtriranje neophodno je opet kliknuti na dugme za pretragu
+	3.2-Registracija korisnika i prijava na sistem
+		Registraciji pacijenata pristupa se preko stranice za logovanjem klikom na link(You don't have an account?)
+ 		Registracija ostalih korisnika vrsi se sa profila sistem admina

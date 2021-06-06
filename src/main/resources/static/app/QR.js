@@ -127,8 +127,7 @@ Vue.component("QR", {
 			  
 				})
 				.catch(error => {
-					alert('Sorry,something went wrong, please try again later!')	
-					this.$router.push('patientHomePage');
+					alert('QR code not found!Please enter full path to QR code!')	
 				})
 			}
 		},

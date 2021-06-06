@@ -36,16 +36,16 @@ public class SupplierOfferServiceTest {
 
     @Test
 	public void isOfferGiven() 
-    {
-        Order order=new Order();
-        order.setId(25L);
-       Supplier supplier=new Supplier(1L,"email", "password", "name", "surname", "address", "city", "country", "05253259", "description");
-       SupplierOffer so1=new SupplierOffer(1L,new Order(), supplier, OfferStatus.Waiting_for_answer, 2545.00, "date");
+    {   
+       Order o=new Order();
+       o.setId(501L);
+       Supplier supplier=new Supplier(100L,"email", "password", "name", "surname", "address", "city", "country", "05253259", "description");
+       SupplierOffer so1=new SupplierOffer(211L,o, supplier, OfferStatus.Waiting_for_answer, 2545.00, "date");
        
        List<SupplierOffer> result=new ArrayList<SupplierOffer>();
         result.add(so1);
         when(supplierOfferRepository.findAll()).thenReturn(result);
-        Boolean rt=supplierOfferService.isOfferGivenToOrder(supplier.getId(),order.getId());
+        Boolean rt=supplierOfferService.isOfferGivenToOrder(supplier.getId(),501L);
         assertFalse(rt);
     }
 
