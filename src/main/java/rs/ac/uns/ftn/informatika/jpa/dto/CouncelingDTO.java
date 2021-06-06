@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 
 
 import rs.ac.uns.ftn.informatika.jpa.model.Counseling;
-import rs.ac.uns.ftn.informatika.jpa.model.Patient;
 
 public class CouncelingDTO {
  
@@ -21,23 +20,8 @@ public class CouncelingDTO {
 	private Boolean IsCanceled;
 	
 	public CouncelingDTO(){}
-/*
+	
 	public CouncelingDTO(long id, String report, LocalDateTime startTime, LocalDateTime endTime, Boolean isDone, PatientDTO patient,
-		PharmacistDTO pharmacist, PharmacyDTO pharmacy,Double price, Boolean isCanceled) {
-		super();
-		this.Id = id;
-		Report = report;
-		StartTime = startTime;
-		EndTime = endTime;
-		this.isDone = isDone;
-		Patient = patient;
-		Pharmacist = pharmacist;
-        Pharmacy = pharmacy;
-		Price=price;
-		IsCanceled = isCanceled;
-	}
-
-*/	public CouncelingDTO(long id, String report, LocalDateTime startTime, LocalDateTime endTime, Boolean isDone, PatientDTO patient,
 		PharmacistDTO pharmacist, PharmacyDTO pharmacy,Double price, Boolean isCanceled,Double priceWitDiscount) {
 		super();
 		this.Id = id;

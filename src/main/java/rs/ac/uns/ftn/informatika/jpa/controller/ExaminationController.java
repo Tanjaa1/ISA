@@ -1,7 +1,6 @@
 package rs.ac.uns.ftn.informatika.jpa.controller;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -26,7 +25,6 @@ import rs.ac.uns.ftn.informatika.jpa.dto.ExaminationDTO;
 import rs.ac.uns.ftn.informatika.jpa.dto.PharmacyDTO;
 import rs.ac.uns.ftn.informatika.jpa.model.Examination;
 import rs.ac.uns.ftn.informatika.jpa.service.ExaminationService;
-import rs.ac.uns.ftn.informatika.jpa.service.PatientService;
 import rs.ac.uns.ftn.informatika.jpa.util.MedicineGraphInfo;
 
 @RestController
@@ -36,8 +34,6 @@ public class ExaminationController {
     
     @Autowired
 	private ExaminationService examinationService;
-    @Autowired
-	private PatientService patientService;
 	
 	@GetMapping(value = "/getPastExaminationByPatientId/{id}")
 	public ResponseEntity<List<ExaminationDTO>> getPastExaminationByPatientId(@PathVariable Long id) 

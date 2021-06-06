@@ -1,6 +1,5 @@
 package rs.ac.uns.ftn.informatika.jpa.dto;
 
-import com.fasterxml.jackson.core.sym.Name;
 
 import rs.ac.uns.ftn.informatika.jpa.model.Medicine;
 

@@ -3,8 +3,6 @@ package rs.ac.uns.ftn.informatika.jpa.dto;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.apache.catalina.User;
-
 import rs.ac.uns.ftn.informatika.jpa.model.ComplaintAnswer;
 import rs.ac.uns.ftn.informatika.jpa.model.SystemAdmin;
 

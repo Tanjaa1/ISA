@@ -1,8 +1,4 @@
 package rs.ac.uns.ftn.informatika.jpa.dto;
-
-import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
-
-import rs.ac.uns.ftn.informatika.jpa.model.Pharmacy;
 import rs.ac.uns.ftn.informatika.jpa.model.PharmacyAdmin;
 
 public class PharmacyAdminDTO {

@@ -4,8 +4,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
@@ -15,7 +13,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import rs.ac.uns.ftn.informatika.jpa.dto.DermatologistDTO;
-import rs.ac.uns.ftn.informatika.jpa.dto.MarkDTO;
 import rs.ac.uns.ftn.informatika.jpa.dto.PharmacyDTO;
 import rs.ac.uns.ftn.informatika.jpa.dto.VacationIntervalDTO;
 import rs.ac.uns.ftn.informatika.jpa.dto.WorkingTimeDTO;
@@ -40,9 +37,6 @@ public class Dermatologist extends User{
 	
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<Markk> Marks = new HashSet<Markk>();
-	
-	// @OneToMany(mappedBy = "Dermatologist", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	// private Set<Examination> Examinations = new HashSet<Examination>();
 	
 	public Dermatologist(){}
 

@@ -2,7 +2,6 @@ package rs.ac.uns.ftn.informatika.jpa.dto;
 
 import java.time.LocalDateTime;
 
-import rs.ac.uns.ftn.informatika.jpa.model.Pharmacy;
 import rs.ac.uns.ftn.informatika.jpa.util.WorkingTime;
 
 public class WorkingTimeDTO {

@@ -1,12 +1,8 @@
 package rs.ac.uns.ftn.informatika.jpa.controller;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
-import com.google.zxing.NotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,17 +15,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import rs.ac.uns.ftn.informatika.jpa.dto.MedicinePriceAndQuantityDTO;
 import rs.ac.uns.ftn.informatika.jpa.dto.PharmacyDTO;
 import rs.ac.uns.ftn.informatika.jpa.model.Medicine;
 import rs.ac.uns.ftn.informatika.jpa.model.Pharmacy;
-import rs.ac.uns.ftn.informatika.jpa.util.MapLocation;
-import rs.ac.uns.ftn.informatika.jpa.service.PatientService;
 import rs.ac.uns.ftn.informatika.jpa.service.PharmacyService;
-import rs.ac.uns.ftn.informatika.jpa.util.MedicineGraphInfo;
 
 @RestController
 @RequestMapping(value = "/pharmacy")
@@ -39,8 +31,6 @@ public class PharmacyController {
     
     @Autowired
     private PharmacyService pharmacyService;
-	@Autowired
-    private PatientService patientService;
 	
     
     @GetMapping(value = "/getAll")
